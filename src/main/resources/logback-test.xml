@@ -1,0 +1,37 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <root level="ERROR">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+    <root level="WARNING">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+    <!--
+    <category name="net.sourceforge.stripes">
+            <priority value="error"/>
+    </category>
+         org.hibernate
+
+          org.hibernate.cfg.Configuration
+    o.h.i.f.DefaultIdentifierGeneratorFactory
+    o.h.i.f.DefaultIdentifierGeneratorFactory
+    o.h.tool.hbm2ddl.SchemaExport
+    o.hibernate.impl.SessionFactoryImpl
+    -->
+
+    <category name="bbmri">
+            <priority value="debug"/>
+    </category>
+
+
+</configuration>
