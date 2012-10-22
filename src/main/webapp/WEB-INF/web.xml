@@ -46,12 +46,6 @@
     </filter-mapping>
 
 
-
-
-    <listener>
-        <listener-class>bbmri.model.StartListener</listener-class>
-    </listener>
-
     <filter-mapping>
         <filter-name>DynamicMappingFilter</filter-name>
         <url-pattern>/*</url-pattern>

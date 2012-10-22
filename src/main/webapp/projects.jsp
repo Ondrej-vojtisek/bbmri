@@ -7,16 +7,15 @@
 
     <s:layout-component name="body">
 
-        <s:useActionBean var="actionBean" beanclass="bbmri.model.ProjectActionBean"/>
+        <s:useActionBean var="ab_projects" beanclass="bbmri.model.ProjectActionBean"/>
 
         <table border="1">
 
-        <c:forEach items="${actionBean.projects}" var="z">
+        <c:forEach items="${ab_projects.projects}" var="z">
             <tr>
                 <td><c:out value="${z.id}" /></td>
                 <td><c:out value="${z.name}" /></td>
-                <td><c:out value="${z.description}" /></td>
-                <td><c:out value="${z.state}" /></td>
+
             </tr>
             </c:forEach>
         </table>

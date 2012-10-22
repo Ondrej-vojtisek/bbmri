@@ -32,8 +32,8 @@
    <h1><c:out value="${title}" /></h1>
    <div id="navigace">
      <ul>
-       <li><s:link href="/index.jsp">Login</s:link></li>
-       <li><s:link href="/projects.jsp">Projects</s:link></li>
+       <li><s:link href="/login.jsp" >Login</s:link></li>
+       <li><s:link href="/projects.jsp" name="goToProjects">Projects</s:link></li>
        <li><s:link href="/researchers.jsp">Researchers</s:link></li>
 
      </ul>

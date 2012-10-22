@@ -23,9 +23,17 @@ public class ProjectActionBean implements ActionBean {
     public void setContext(ActionBeanContext ctx) { this.ctx = (MujActionBeanContext) ctx; }
     public MujActionBeanContext getContext() { return ctx; }
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
 
     public List<Project> getProjects() {
+     /*   List<?> projects = ctx.getProjects();
+        if(projects.isEmpty()){
+            return (List<Project>) projects;
+        }
+        if(projects.get(0).getClass() != Project.class){
+            return null;
+        }   */
+
         return ctx.getProjects();
     }
 
@@ -43,43 +51,43 @@ public class ProjectActionBean implements ActionBean {
         this.project = project;
     }
 
+    private int owner;
+    public int getOwner(){return owner;}
+    public void setOwner(int owner) {this.owner = owner;}
+
     @DefaultHandler
     public Resolution zobraz() {
+          if(getProjects().isEmpty()){
+                getProjects().addAll(getAllProjects());
+          }
+
         return new ForwardResolution("/projects.jsp");
     }
 
     public Resolution add() {
 
-        // ctx.getOwner();
-         /*
           if(getProjects().isEmpty()){
                 getProjects().addAll(getAllProjects());
           }
+
+     /*   Researcher res = ctx.getResearchers().get(owner);
+          System.out.println("Project owner: " + res.toString() + "\n");
+     */
           EntityManager em = emf.createEntityManager();
           em.getTransaction().begin();
-
-
           em.persist(project);
-          project.getResearchers().add(ctx.getResearchers().);
           em.getTransaction().commit();
           em.close();
-          getProjects().add(project);       */
+          getProjects().add(project);
+
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
-         public List<Researcher> getAllProjects(){
+         public List<Project> getAllProjects(){
            EntityManager em = emf.createEntityManager();
             Query query = em.createQuery("SELECT p FROM Project p");
             return query.getResultList();
        }
-        /*
-           public List<Researcher> getResearcher(){
-           EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("SELECT p FROM Researcher where id=Project.researchers");
-            return query.getResultList();
-       }   */
-
-
 }
 
 

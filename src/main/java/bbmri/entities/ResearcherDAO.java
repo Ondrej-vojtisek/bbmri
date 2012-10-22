@@ -15,7 +15,14 @@ public interface ResearcherDAO {
 
         public void removeResearcher(Researcher researcher);
 
+        public void removeResearcher(long id);
+
         public void updateResearcher(Researcher researcher);
 
         public List<Researcher> getAllResearchers();
+
+        public Researcher getResearcher(long id);
+
+        // temporal prosthesis
+        public boolean verifyPassword(String password, long id);
 }

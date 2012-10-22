@@ -31,12 +31,40 @@ public class Researcher implements Serializable {
     private Long id;
     private String name;
     private String surname;
+    private boolean online;
+    //naive temporal prosthesis
+    private String password;
 
-    @ManyToMany(mappedBy = "researchers", cascade=CascadeType.ALL)
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL)
     private List<Project> projects = new ArrayList<Project>();
 
-    @ManyToMany(mappedBy = "admins", cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "admins", cascade = CascadeType.ALL)
     private List<Biobank> biobanks = new ArrayList<Biobank>();
+
+     public Researcher(){}
+
+     public Researcher(String name, String surname){
+        this.name = name;
+        this.surname = surname;
+        this.online = false;
+    }
+
 
     public List<Biobank> getBiobanks() {
         return biobanks;

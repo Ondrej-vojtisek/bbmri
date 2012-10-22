@@ -34,6 +34,14 @@ public class ResearcherDAOImpl implements ResearcherDAO{
             em.close();
         }
 
+        public void removeResearcher(long id){
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.remove(em.find(Researcher.class, id));
+            em.getTransaction().commit();
+            em.close();
+        }
+
         public void updateResearcher(Researcher researcher){
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
@@ -64,4 +72,28 @@ public class ResearcherDAOImpl implements ResearcherDAO{
             return results;
         }
 
+         public Researcher getResearcher(long id){
+            Researcher researcher;
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            researcher = em.find(Researcher.class, id);
+            em.close();
+            return researcher;
+        }
+
+         // temporal
+         public boolean verifyPassword(String password, long id){
+            if(password == null || id < 0)
+                return false;
+
+            boolean result = false;
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Researcher researcher = em.find(Researcher.class, id);
+            if(researcher != null && researcher.getPassword() != null){
+                result = (researcher.getPassword()).equals(password);
+            }
+            em.close();
+            return result;
+         }
 }
