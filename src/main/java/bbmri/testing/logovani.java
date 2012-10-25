@@ -18,14 +18,14 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.core.util.StatusPrinter;
 
- public class logovani {
+public class logovani {
 
-   public static void main(String[] args) {
-    Logger logger = LoggerFactory.getLogger("bbmri.testing.logovani");
-    logger.debug("Hello world2.");
+    public static void main(String[] args) {
+        Logger logger = LoggerFactory.getLogger("bbmri.testing.logovani");
+        logger.debug("Hello world2.");
 
-    // print internal state
-    //LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
-    //StatusPrinter.print(lc);
-  }
+        // print internal state
+        //LoggerContext lc = (LoggerContext) LoggerFactory.getILoggerFactory();
+        //StatusPrinter.print(lc);
+    }
 }

@@ -21,12 +21,12 @@ public class PostgreSQLJDBCDriverTest {
             //Cannot register postgresql MySQL driver
             System.out.println("This is something you have not add in postgresql library to classpath!");
             e.printStackTrace();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
-        }finally{
+        } finally {
             //After using connection, release the postgresql resource.
             try {
                 conn.close();

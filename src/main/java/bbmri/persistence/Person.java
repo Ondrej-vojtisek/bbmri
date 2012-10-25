@@ -7,15 +7,15 @@ package bbmri.persistence;
  * Time: 20:55
  * To change this template use File | Settings | File Templates.
  */
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 
 /**
- *
  * @author Ori
  */
-@Table(name="SimplePerson")
+@Table(name = "SimplePerson")
 @Entity
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -23,11 +23,11 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name="givenName")
+    @Column(name = "givenName")
     private String firstName;
 
 
-    @Column(length=50)
+    @Column(length = 50)
     private String lastName;
     private String address;
 

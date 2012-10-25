@@ -11,18 +11,20 @@ import java.util.List;
  */
 public interface ResearcherDAO {
 
-        public void addResearcher(Researcher researcher);
+    public void addResearcher(Researcher researcher);
 
-        public void removeResearcher(Researcher researcher);
+    public void removeResearcher(Researcher researcher);
 
-        public void removeResearcher(long id);
+    public void removeResearcher(long id);
 
-        public void updateResearcher(Researcher researcher);
+    public void updateResearcher(Researcher researcher);
 
-        public List<Researcher> getAllResearchers();
+    public List<Researcher> getAllResearchers();
 
-        public Researcher getResearcher(long id);
+    public Researcher getResearcher(long id);
 
-        // temporal prosthesis
-        public boolean verifyPassword(String password, long id);
+    // temporal prosthesis
+    public boolean verifyPassword(String password, long id);
+
+    public void loginResearcher(long id, boolean logged);
 }

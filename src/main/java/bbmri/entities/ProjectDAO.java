@@ -11,12 +11,12 @@ import java.util.List;
  */
 public interface ProjectDAO {
 
-        public void addProject(Project project);
+    public void addProject(Project project);
 
-        public void removeProject(Project project);
+    public void removeProject(Project project);
 
-        public void updateProject(Project project);
+    public void updateProject(Project project);
 
-        public List<Project> getAllProjects();
+    public List<Project> getAllProjects();
 
 }

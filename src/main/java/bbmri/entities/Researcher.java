@@ -31,9 +31,21 @@ public class Researcher implements Serializable {
     private Long id;
     private String name;
     private String surname;
+    @Column(columnDefinition = "boolean default false")
+    private boolean admin;
+    @Column(columnDefinition = "boolean default false")
     private boolean online;
     //naive temporal prosthesis
     private String password;
+
+
+    public boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 
     public boolean isOnline() {
         return online;
@@ -57,12 +69,13 @@ public class Researcher implements Serializable {
     @ManyToMany(mappedBy = "admins", cascade = CascadeType.ALL)
     private List<Biobank> biobanks = new ArrayList<Biobank>();
 
-     public Researcher(){}
+    public Researcher() {
+    }
 
-     public Researcher(String name, String surname){
+    public Researcher(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.online = false;
+        //this.online = false;
     }
 
 
@@ -128,8 +141,10 @@ public class Researcher implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id;// + " name: " + name + " surname: " + surname + " online: " + online;
+        return "id=" + id + " name: " + name + " surname: " + surname + " online: " + online + " heslo: " + password;
     }
+
+
 }
 
 

@@ -19,7 +19,7 @@ public class Main {
 
     static void testBooksManager(BooksManager bm) {
 
-        System.out.println("------"+bm.getClass().getSimpleName()+"------");
+        System.out.println("------" + bm.getClass().getSimpleName() + "------");
         Book b1 = new Book("Kucharka", "Magdalena Rettigova");
         bm.addBook(b1);
         System.out.println("allBooks = " + bm.getAllBooks());
@@ -29,7 +29,7 @@ public class Main {
         b2.setName("Cervena Karkulka");
         bm.updateBook(b2);
 
-        System.out.println("knihy autoru zacinajich na Ma:"+ bm.findBooksWithAuthor("Ma"));
+        System.out.println("knihy autoru zacinajich na Ma:" + bm.findBooksWithAuthor("Ma"));
         System.out.println();
 
         System.out.println("allBooks = " + bm.getAllBooks());

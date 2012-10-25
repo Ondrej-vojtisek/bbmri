@@ -8,7 +8,7 @@ package bbmri.testing;
  */
 public class Book {
 
-    private int id=0;
+    private int id = 0;
     private String name;
     private String author;
 

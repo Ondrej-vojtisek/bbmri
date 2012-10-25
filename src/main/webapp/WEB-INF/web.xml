@@ -4,14 +4,13 @@
          version="2.5">
 
 
-
     <context-param>
         <description>JSTL tags uses the same localized texts as Stripes</description>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>StripesResources</param-value>
     </context-param>
 
-     <filter>
+    <filter>
         <description>Dynamic mapping action beans to URL</description>
         <display-name>Stripes Dynamic Mapping Filter</display-name>
         <filter-name>DynamicMappingFilter</filter-name>
@@ -26,6 +25,12 @@
             <param-name>ActionResolver.Packages</param-name>
             <param-value>bbmri.model</param-value>
         </init-param>
+
+        <init-param>
+            <param-name>ActionBeanContext.Class</param-name>
+            <param-value>bbmri.model.MyActionBeanContext</param-value>
+        </init-param>
+
         <init-param>
             <description>Where stripes looks for an extensions</description>
             <param-name>Extension.Packages</param-name>

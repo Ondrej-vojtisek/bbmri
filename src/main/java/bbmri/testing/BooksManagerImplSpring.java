@@ -99,7 +99,7 @@ public class BooksManagerImplSpring implements BooksManager {
         if (supportsGetGeneratedKeys) {
             System.out.println("Umi getGeneratedKeys()");
             book.setId(insertBook.executeAndReturnKey(new BeanPropertySqlParameterSource(book)).intValue());
-        // Derby umi vracet klice, ale metadata to nehlasi
+            // Derby umi vracet klice, ale metadata to nehlasi
         } else if (databaseProductName.equals("Apache Derby")) {
             KeyHolder keyHolder = new GeneratedKeyHolder();
             jdbc.update(
@@ -115,14 +115,14 @@ public class BooksManagerImplSpring implements BooksManager {
                     keyHolder);
             book.setId(keyHolder.getKey().intValue());
 
-        // PostgreSQL od verze 8.3 ma nestandardni klicove slovo RETURNING
-        // PostgreSQL od verze 8.4 umi getGeneratedKeys
+            // PostgreSQL od verze 8.3 ma nestandardni klicove slovo RETURNING
+            // PostgreSQL od verze 8.4 umi getGeneratedKeys
         } else if (databaseProductName.equals("PostgreSQL")) {
 
             System.err.println("Je to PostgreSQL");
             int id = jdbc.queryForInt("INSERT INTO BOOKS (name,author) VALUES (?,?) RETURNING id", book.getName(), book.getAuthor());
             book.setId(id);
-        // v ostatnich pripadech tezko rict
+            // v ostatnich pripadech tezko rict
         } else {
             throw new RuntimeException("nepodporuje getGeneratedKeys() a neni to Postgres ani Derby");
         }

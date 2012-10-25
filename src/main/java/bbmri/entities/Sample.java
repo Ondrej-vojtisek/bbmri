@@ -19,7 +19,6 @@ public class Sample implements Serializable {
     private Long id;
 
 
-
     @Override
     public int hashCode() {
         int hash = 0;

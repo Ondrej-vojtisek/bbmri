@@ -11,12 +11,12 @@ import java.util.List;
  */
 public interface BiobankDAO {
 
-        public void addBiobank(Biobank biobank);
+    public void addBiobank(Biobank biobank);
 
-        public void removeBiobank(Biobank biobank);
+    public void removeBiobank(Biobank biobank);
 
-        public void updateBiobank(Biobank biobank);
+    public void updateBiobank(Biobank biobank);
 
-        public List<Biobank> getAllBiobanks();
+    public List<Biobank> getAllBiobanks();
 
 }

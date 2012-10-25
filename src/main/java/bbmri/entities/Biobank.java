@@ -37,14 +37,18 @@ public class Biobank implements Serializable {
         this.address = address;
     }
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "biobank_admins", joinColumns = @JoinColumn(name = "biobank_id"),
-               inverseJoinColumns = @JoinColumn(name = "admin_id"))
+            inverseJoinColumns = @JoinColumn(name = "admin_id"))
     private List<Researcher> admins = new ArrayList<Researcher>();
 
-    public List<Researcher> getAdmins() { return admins; }
-    public void setAdmins(List<Researcher> admins) { this.admins = admins; }
+    public List<Researcher> getAdmins() {
+        return admins;
+    }
 
+    public void setAdmins(List<Researcher> admins) {
+        this.admins = admins;
+    }
 
 
     @Override

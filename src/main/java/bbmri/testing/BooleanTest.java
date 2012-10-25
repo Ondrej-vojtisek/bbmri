@@ -9,7 +9,7 @@ package bbmri.testing;
  */
 public class BooleanTest {
 
-        /**
+    /**
      * Boolean to String conversion
      */
     public void convertBooleanToString() {
