@@ -5,7 +5,7 @@
 
 
 <f:message key="myAccount.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.model.AccountActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.AccountActionBean"/>
 <s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
     <s:layout-component name="body">
 
@@ -24,7 +24,7 @@
             </tr>
         </table>
 
-        <s:form beanclass="bbmri.model.AccountActionBean">
+        <s:form beanclass="bbmri.action.AccountActionBean">
             <fieldset>
                 <legend>Update credentials</legend>
                 <s:errors/>

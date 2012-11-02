@@ -8,7 +8,7 @@
 <s:layout-render name="/model/design2.jsp" title="${title}">
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.model.LoginActionBean">
+        <s:form beanclass="bbmri.action.LoginActionBean">
             <fieldset>
                 <legend>Login</legend>
                 <s:errors/>

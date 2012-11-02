@@ -88,8 +88,9 @@
     <div id="navigace">
         <ul>
 
-            <li><s:link event="logout" beanclass="bbmri.model.LoginActionBean" name="logout">Logout</s:link></li>
+            <li><s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">Logout</s:link></li>
             <li><s:link href="/projects.jsp" name="goToProjects">Projects</s:link></li>
+            <li><s:link href="/myProjects.jsp">My projects</s:link></li>
             <li><s:link href="/researchers.jsp">Researchers</s:link></li>
             <li><s:link href="/myAccount.jsp">Manage your account</s:link></li>
         </ul>

@@ -5,10 +5,12 @@
 
 
 <f:message key="index.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.model.ResearcherActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
 <s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
-    <s:layout-component name="body">
+    <c:choose>
+    <c:when test="${ab.loggedResearcher.online==true}">
 
+    <s:layout-component name="body">
         <p>If you are administrator you can add/remove researchers to system and you can establish ethical committee</p>
         <c:choose>
             <c:when test="${ab.loggedResearcher.admin==true}">
@@ -22,7 +24,7 @@
                           </c:forEach>
                       </table>
 
-                      <s:form beanclass="bbmri.model.ResearcherActionBean">
+                      <s:form beanclass="bbmri.action.ResearcherActionBean">
                           <fieldset>
                               <legend><f:message key="index.newAccount"/></legend>
                               <s:errors/>
@@ -41,13 +43,11 @@
                                   </tr>
 
                               </table>
-                              <s:submit name="pridej"><f:message key="add"/></s:submit>
+                              <s:submit name="create"><f:message key="add"/></s:submit>
                           </fieldset>
                       </s:form>
-
-
-                      <s:useActionBean var="ab" beanclass="bbmri.model.ResearcherActionBean"/>
-                      <s:form beanclass="bbmri.model.ResearcherActionBean">
+                      <s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
+                      <s:form beanclass="bbmri.action.ResearcherActionBean">
                           <fieldset>
                               <legend>Delete account</legend>
                               <s:errors/>
@@ -59,17 +59,19 @@
                               <s:submit name="delete"><f:message key="delete"/></s:submit>
                           </fieldset>
                       </s:form>
-
-
-
-
             </c:when>
-
             <c:otherwise>
-                You don't have administrator's privilegues.
+                <p>You don't have administrator's privilegues.</p>
                 <br/>
             </c:otherwise>
         </c:choose>
 
     </s:layout-component>
+
+    </c:when>
+            <c:otherwise>
+                <p>You don't have any privilegues. Return back login page.</p>
+                <br/>
+            </c:otherwise>
+    </c:choose>
 </s:layout-render>

@@ -63,7 +63,7 @@ public class Researcher implements Serializable {
         this.password = password;
     }
 
-    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
     @ManyToMany(mappedBy = "admins", cascade = CascadeType.ALL)
@@ -109,7 +109,8 @@ public class Researcher implements Serializable {
     }
 
     public void setProjects(List<Project> projects) {
-        this.projects = projects;
+        this.projects = new ArrayList<Project>(projects);
+       // this.projects = projects;
     }
 
     public Long getId() {

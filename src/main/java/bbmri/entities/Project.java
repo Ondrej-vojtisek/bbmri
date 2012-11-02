@@ -47,7 +47,7 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     @JoinTable(name = "project_researchers", joinColumns = @JoinColumn(name = "projects_id"),
             inverseJoinColumns = @JoinColumn(name = "researchers_id"))
     private List<Researcher> researchers = new ArrayList<Researcher>();
