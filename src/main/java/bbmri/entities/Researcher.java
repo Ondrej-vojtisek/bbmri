@@ -32,42 +32,28 @@ public class Researcher implements Serializable {
     private String name;
     private String surname;
     @Column(columnDefinition = "boolean default false")
-    private boolean admin;
-    @Column(columnDefinition = "boolean default false")
     private boolean online;
     //naive temporal prosthesis
     private String password;
 
 
-    public boolean getAdmin() {
-        return admin;
-    }
+    public boolean isOnline() {return online;}
+    public void setOnline(boolean online) {this.online = online;}
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
+    public String getPassword() {return password;}
 
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) {this.password = password;}
 
     @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
+    /*
     @ManyToMany(mappedBy = "admins", cascade = CascadeType.ALL)
     private List<Biobank> biobanks = new ArrayList<Biobank>();
+    */
+
+    @OneToOne(mappedBy="admin", cascade = CascadeType.ALL)
+    Biobank biobank;
 
     public Researcher() {
     }
@@ -75,51 +61,22 @@ public class Researcher implements Serializable {
     public Researcher(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        //this.online = false;
     }
 
+    public Biobank getBiobank() {return biobank;}
+    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
 
-    public List<Biobank> getBiobanks() {
-        return biobanks;
-    }
+    public String getSurname() {return surname;}
+    public void setSurname(String surname) {this.surname = surname;}
 
-    public void setBiobanks(List<Biobank> biobanks) {
-        this.biobanks = biobanks;
-    }
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
 
+    public List<Project> getProjects() {return projects;}
+    public void setProjects(List<Project> projects) {this.projects = new ArrayList<Project>(projects);}
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = new ArrayList<Project>(projects);
-       // this.projects = projects;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
     @Override
     public int hashCode() {
@@ -142,7 +99,7 @@ public class Researcher implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id + " name: " + name + " surname: " + surname + " online: " + online + " heslo: " + password;
+        return "" + id + " " + name + " " + surname;
     }
 
 

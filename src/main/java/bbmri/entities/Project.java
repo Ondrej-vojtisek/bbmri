@@ -21,7 +21,9 @@ public class Project implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private String state;
+
+    @Enumerated(EnumType.STRING)
+    private ProjectState projectState;
 
     public String getDescription() {
         return description;
@@ -31,12 +33,12 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public String getState() {
-        return state;
+    public ProjectState getProjectState() {
+        return projectState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setProjectState(ProjectState projectState) {
+        this.projectState = projectState;
     }
 
     public String getName() {
@@ -89,6 +91,6 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id;
+        return "id=" + id + " ,name: " + name + ", description: " + description + ", state: " + projectState;
     }
 }

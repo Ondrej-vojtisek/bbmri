@@ -37,19 +37,33 @@ public class Biobank implements Serializable {
         this.address = address;
     }
 
+    /*
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "biobank_admins", joinColumns = @JoinColumn(name = "biobank_id"),
             inverseJoinColumns = @JoinColumn(name = "admin_id"))
-    private List<Researcher> admins = new ArrayList<Researcher>();
+    private List<Researcher> admins = new ArrayList<Researcher>();   \
+
+     public void setAdmins(List<Researcher> admins) {
+        this.admins = admins;
+    }
 
     public List<Researcher> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(List<Researcher> admins) {
-        this.admins = admins;
+    */
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ADMIN_ID")
+    Researcher admin;
+
+    public Researcher getAdmin() {
+        return admin;
     }
 
+    public void setAdmin(Researcher admin) {
+        this.admin = admin;
+    }
 
     @Override
     public int hashCode() {
@@ -72,6 +86,6 @@ public class Biobank implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id;
+        return "id=" + id + " ,address: " + address;
     }
 }

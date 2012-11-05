@@ -89,10 +89,12 @@
         <ul>
 
             <li><s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">Logout</s:link></li>
-            <li><s:link href="/projects.jsp" name="goToProjects">Projects</s:link></li>
+            <li><s:link href="/projects.jsp">Projects</s:link></li>
             <li><s:link href="/myProjects.jsp">My projects</s:link></li>
             <li><s:link href="/researchers.jsp">Researchers</s:link></li>
             <li><s:link href="/myAccount.jsp">Manage your account</s:link></li>
+            <li><s:link href="/addSample.jsp">Add sample</s:link></li>
+            <li><s:link href="/sampleRequests.jsp">Sample requests</s:link></li>
         </ul>
 
         <div>

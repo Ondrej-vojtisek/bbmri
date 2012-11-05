@@ -22,6 +22,7 @@
                         <td><s:password id="z2" name="password"/></td>
                     </tr>
 
+
                 </table>
                 <s:submit name="login">Log in</s:submit>
             </fieldset>

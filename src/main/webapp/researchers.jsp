@@ -13,7 +13,7 @@
     <s:layout-component name="body">
         <p>If you are administrator you can add/remove researchers to system and you can establish ethical committee</p>
         <c:choose>
-            <c:when test="${ab.loggedResearcher.admin==true}">
+            <c:when test="${ab.loggedResearcher.biobank!=null}">
                 <table border="1">
                           <c:forEach var="z" items="${ab.researchers}">
                               <tr>
