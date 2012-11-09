@@ -18,18 +18,18 @@ import javax.persistence.Persistence;
  */
 public class LoginServiceImpl implements LoginService {
 
-     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-     ResearcherDAO researcherDAO;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
+    ResearcherDAO researcherDAO;
 
-     private ResearcherDAO getResearcherDAO(){
-        if(researcherDAO == null){
+    private ResearcherDAO getResearcherDAO() {
+        if (researcherDAO == null) {
             researcherDAO = new ResearcherDAOImpl();
         }
         return researcherDAO;
-     }
+    }
 
     // temporal prosthesis
-    public Researcher login(Long id, String password){
+    public Researcher login(Long id, String password) {
         if (password == null || id < 0) {
             return null;
         }
@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
         em.getTransaction().begin();
         Researcher researcher = getResearcherDAO().get(id, em);
         if (researcher != null && researcher.getPassword() != null) {
-            if((researcher.getPassword()).equals(password)){
+            if ((researcher.getPassword()).equals(password)) {
                 result = true;
                 researcher.setOnline(true);
                 getResearcherDAO().update(researcher, em);
@@ -47,14 +47,14 @@ public class LoginServiceImpl implements LoginService {
 
         }
         em.close();
-        if(result){
+        if (result) {
             return researcher;
         }
         return null;
     }
 
-    public void logout(Researcher researcher){
-        if(researcher == null){
+    public void logout(Researcher researcher) {
+        if (researcher == null) {
             return;
         }
         EntityManager em = emf.createEntityManager();

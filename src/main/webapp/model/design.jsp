@@ -88,19 +88,17 @@
     <div id="navigace">
         <ul>
 
-            <li><s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">Logout</s:link></li>
-            <li><s:link href="/projects.jsp">Projects</s:link></li>
-            <li><s:link href="/myProjects.jsp">My projects</s:link></li>
-            <li><s:link href="/researchers.jsp">Researchers</s:link></li>
-            <li><s:link href="/myAccount.jsp">Manage your account</s:link></li>
-            <li><s:link href="/addSample.jsp">Add sample</s:link></li>
-            <li><s:link href="/sampleRequests.jsp">Sample requests</s:link></li>
+            <li><s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout"><f:message key="logout"/></s:link></li>
+            <li><s:link href="/projects.jsp"><f:message key="projects"/></s:link></li>
+            <li><s:link href="/myProjects.jsp"><f:message key="myProjects.title"/></s:link></li>
+            <li><s:link href="/researchers.jsp"><f:message key="researchers.title"/></s:link></li>
+            <li><s:link href="/myAccount.jsp"><f:message key="credentials"/></s:link></li>
+            <li><s:link href="/addSample.jsp"><f:message key="add.sample"/></s:link></li>
+            <li><s:link href="/sampleRequests.jsp"><f:message key="sample.request"/></s:link></li>
         </ul>
 
         <div>
-            <p>Logged user:</p>
-            <c:out value="${logged}"/>
-
+            <p><f:message key="logged_user"/>:  <c:out value="${logged}"/></p>
 
         </div>
 

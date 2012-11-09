@@ -35,4 +35,6 @@ public interface ProjectService {
 
     public List<Project> getAllByProjectState(ProjectState projectState);
 
+    public List<Project> getAllApprovedByResearcher(Researcher researcher);
+
 }

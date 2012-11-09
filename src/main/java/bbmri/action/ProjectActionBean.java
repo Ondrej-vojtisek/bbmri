@@ -24,29 +24,44 @@ public class ProjectActionBean implements ActionBean {
     private long projectId = 0;
     private List<Project> newProjects;
 
-    public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-    public MyActionBeanContext getContext() {return ctx;}
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
 
-    public ProjectService getProjectService(){
-        if(projectService == null){
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public ProjectService getProjectService() {
+        if (projectService == null) {
             projectService = new ProjectServiceImpl();
         }
         return projectService;
     }
 
-    public long getProjectId() {return projectId;}
-    public void setProjectId(long projectId) {this.projectId = projectId;}
+    public long getProjectId() {
+        return projectId;
+    }
 
-    public List<Project> getProjects(){
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
+    }
+
+    public List<Project> getProjects() {
         return getProjectService().getAll();
     }
 
-    public List<Project> getNewProjects(){
+    public List<Project> getNewProjects() {
         return getProjectService().getAllByProjectState(ProjectState.NEW);
     }
 
-    public Researcher getLoggedResearcher() {return ctx.getLoggedResearcher();}
-    public void setLoggedResearcher(Researcher loggedResearcher) {this.loggedResearcher = loggedResearcher;}
+    public Researcher getLoggedResearcher() {
+        return ctx.getLoggedResearcher();
+    }
+
+    public void setLoggedResearcher(Researcher loggedResearcher) {
+        this.loggedResearcher = loggedResearcher;
+    }
 
     @DefaultHandler
     public Resolution zobraz() {
@@ -55,8 +70,8 @@ public class ProjectActionBean implements ActionBean {
     }
 
 
-    public Resolution approve(){
-        getProjectService().approve((Long)projectId);
+    public Resolution approve() {
+        getProjectService().approve((Long) projectId);
         return new ForwardResolution("/projects.jsp");
     }
 

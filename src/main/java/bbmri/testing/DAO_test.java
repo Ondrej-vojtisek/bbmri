@@ -37,19 +37,19 @@ public class DAO_test {
         em.getTransaction().commit();
          */
 
-       /*
-        ProjectDAOImpl projectDao = new ProjectDAOImpl();
-        ResearcherDAOImpl researcherDao = new ResearcherDAOImpl();
+        /*
+ProjectDAOImpl projectDao = new ProjectDAOImpl();
+ResearcherDAOImpl researcherDao = new ResearcherDAOImpl();
 
-        Project pr1 = new Project();
-        pr1.setName("Fantomasuv projekt hura1");
-        projectDao.createProject(pr1);
-                        */
+Project pr1 = new Project();
+pr1.setName("Fantomasuv projekt hura1");
+projectDao.createProject(pr1);
+        */
         long id = 161;
-       // researcherDao.addProject(res, pr1);
+        // researcherDao.addProject(res, pr1);
 
-      //  em.close();
-      //  emf.close();
+        //  em.close();
+        //  emf.close();
     }
 }
 

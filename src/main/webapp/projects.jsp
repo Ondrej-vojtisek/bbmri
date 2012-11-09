@@ -4,13 +4,21 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 
+<f:message key="project.all_projects" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.ProjectActionBean"/>
-<s:layout-render name="/model/design.jsp" title="Projekty" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
     <s:layout-component name="body">
 
         <fieldset>
-            <legend>All projects</legend>
+            <legend><f:message key="project.all_projects"/></legend>
             <table border="1">
+                <tr>
+                    <td><f:message key="id"/></td>
+                    <td><f:message key="project.name"/></td>
+                    <td><f:message key="description"/></td>
+                    <td><f:message key="state"/></td>
+                </tr>
+
                 <c:forEach items="${ab.projects}" var="z">
                     <tr>
                         <td><c:out value="${z.id}"/></td>
@@ -27,19 +35,18 @@
                 <s:form beanclass="bbmri.action.ProjectActionBean">
 
                     <fieldset>
-                        <legend>Approve project</legend>
-                        <p>This will be done by ethical committee</p>
+                        <legend><f:message key="project.approve_project"/></legend>
                         <s:select name="projectId">
-                            <s:option value="">Select One</s:option>
+                            <s:option value=""><f:message key="select_one"/></s:option>
                             <s:options-collection collection="${ab.newProjects}" label="name" value="id"/>
                         </s:select>
-                        <s:submit name="approve">Approve project</s:submit>
+                        <s:submit name="approve"><f:message key="project.approve_project"/></s:submit>
                     </fieldset>
                 </s:form>
 
             </c:when>
             <c:otherwise>
-                <p>You don't have administrator's privilegues.</p>
+               <f:message key="you_dont_have_sufficient_rights"/>
                 <br/>
             </c:otherwise>
         </c:choose>

@@ -23,31 +23,43 @@ public class AccountActionBean implements ActionBean {
 
     private ResearcherService researcherService;
 
-    public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-    public MyActionBeanContext getContext() {return ctx;}
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
+
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
 
     private Researcher researcher;
     private Researcher loggedResearcher;
 
-    public Researcher getLoggedResearcher() {return ctx.getLoggedResearcher();}
+    public Researcher getLoggedResearcher() {
+        return ctx.getLoggedResearcher();
+    }
 
-     public ResearcherService getResearcherService(){
-        if(researcherService == null){
+    public ResearcherService getResearcherService() {
+        if (researcherService == null) {
             researcherService = new ResearcherServiceImpl();
         }
         return researcherService;
     }
 
-    public Researcher getResearcher() {return researcher;}
-    public void setResearcher(Researcher researcher) {this.researcher = researcher;}
+    public Researcher getResearcher() {
+        return researcher;
+    }
 
-       @DefaultHandler
+    public void setResearcher(Researcher researcher) {
+        this.researcher = researcher;
+    }
+
+    @DefaultHandler
     public Resolution zobraz() {
 
-         return new ForwardResolution("/myAccount.jsp");
-     }
+        return new ForwardResolution("/myAccount.jsp");
+    }
 
-     public Resolution update() {
+    public Resolution update() {
         researcher.setId(getLoggedResearcher().getId());
         ctx.setLoggedResearcher(getResearcherService().update(researcher));
         return new RedirectResolution(this.getClass(), "zobraz");

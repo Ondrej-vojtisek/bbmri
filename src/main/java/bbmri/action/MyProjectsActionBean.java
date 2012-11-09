@@ -26,39 +26,77 @@ public class MyProjectsActionBean implements ActionBean {
     private long id;
     private List<Researcher> researchers;
 
-    public List<Researcher> getResearchers(){return researchers;}
-    public void setResearchers(List<Researcher> researchers) {this.researchers = researchers;}
+    public List<Researcher> getResearchers() {
+        return researchers;
+    }
 
-    public long getId() {return id;}
-    public void setId(long id) {this.id = id;}
+    public void setResearchers(List<Researcher> researchers) {
+        this.researchers = researchers;
+    }
 
-    public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-    public MyActionBeanContext getContext() {return ctx;}
+    public long getId() {
+        return id;
+    }
 
-    public ProjectService getProjectService(){
-        if(projectService == null){
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
+
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public ProjectService getProjectService() {
+        if (projectService == null) {
             projectService = new ProjectServiceImpl();
         }
         return projectService;
     }
 
-    public List<Project> getProjects(){
+    public List<Project> getProjects() {
         projects = getProjectService().getAllByResearcher(ctx.getLoggedResearcher());
         return projects;
     }
-    public void setProjects(List<Project> projects) {this.projects = projects;}
 
-    public Researcher getLoggedResearcher() {return ctx.getLoggedResearcher();}
-    public void setLoggedResearcher(Researcher loggedResearcher) {this.loggedResearcher = loggedResearcher;}
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
-    public Project getProject() {return project;}
-    public void setProject(Project project) {this.project = project;}
+    public Researcher getLoggedResearcher() {
+        return ctx.getLoggedResearcher();
+    }
 
-    public Long getProjectId() {return projectId;}
-    public void setProjectId(Long projectId) {this.projectId = projectId;}
+    public void setLoggedResearcher(Researcher loggedResearcher) {
+        this.loggedResearcher = loggedResearcher;
+    }
 
-    public Long getResearcherId() {return researcherId;}
-    public void setResearcherId(Long researcherId) {this.researcherId = researcherId;}
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public Long getResearcherId() {
+        return researcherId;
+    }
+
+    public void setResearcherId(Long researcherId) {
+        this.researcherId = researcherId;
+    }
 
     @DefaultHandler
     public Resolution zobraz() {
@@ -71,9 +109,9 @@ public class MyProjectsActionBean implements ActionBean {
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
-     public Resolution assignResearcher() {
+    public Resolution assignResearcher() {
         getProjectService().assignResearcher(researcherId, projectId);
-         if(researcherId == getLoggedResearcher().getId()){
+        if (researcherId == getLoggedResearcher().getId()) {
             /*you can't remove yourself*/
             researchers = getProjectService().getAllAssignedResearchers((Long) projectId);
             return new ForwardResolution("/myProjects.jsp");
@@ -82,26 +120,26 @@ public class MyProjectsActionBean implements ActionBean {
         return new ForwardResolution("/myProjects.jsp");
     }
 
-     public Resolution selectForEdit() {
-         researchers = getProjectService().getAllAssignedResearchers(projectId);
-         return new ForwardResolution("/myProjects.jsp");
+    public Resolution selectForEdit() {
+        researchers = getProjectService().getAllAssignedResearchers(projectId);
+        return new ForwardResolution("/myProjects.jsp");
     }
 
-    public Resolution removeResearcherFromProject(){
-        if(researcherId == getLoggedResearcher().getId()){
+    public Resolution removeResearcherFromProject() {
+        if (researcherId == getLoggedResearcher().getId()) {
             /*you can't remove yourself*/
             researchers = getProjectService().getAllAssignedResearchers((Long) projectId);
             return new ForwardResolution("/myProjects.jsp");
         }
-        getProjectService().removeResearcherFromProject((Long)researcherId, (Long) projectId);
+        getProjectService().removeResearcherFromProject((Long) researcherId, (Long) projectId);
         researchers = getProjectService().getAllAssignedResearchers((Long) projectId);
         return new ForwardResolution("/myProjects.jsp");
     }
 
-     public Resolution update() {
-         project.setId((Long) projectId);
-         getProjectService().update(project);
-         return new ForwardResolution("/myProjects.jsp");
+    public Resolution update() {
+        project.setId((Long) projectId);
+        getProjectService().update(project);
+        return new ForwardResolution("/myProjects.jsp");
     }
 
 }

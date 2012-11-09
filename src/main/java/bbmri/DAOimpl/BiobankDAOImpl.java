@@ -17,19 +17,19 @@ import java.util.List;
  */
 public class BiobankDAOImpl implements BiobankDAO {
 
-    public void create(Biobank biobank, EntityManager em){
+    public void create(Biobank biobank, EntityManager em) {
         em.persist(biobank);
     }
 
-    public void remove(Biobank biobank, EntityManager em){
+    public void remove(Biobank biobank, EntityManager em) {
         em.remove(biobank);
     }
 
-    public void update(Biobank biobank, EntityManager em){
+    public void update(Biobank biobank, EntityManager em) {
         em.merge(biobank);
     }
 
-    public List<Biobank> getAll(EntityManager em){
+    public List<Biobank> getAll(EntityManager em) {
         Query query = em.createQuery("SELECT p FROM Biobank p");
         return query.getResultList();
     }

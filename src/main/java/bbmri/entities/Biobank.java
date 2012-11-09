@@ -54,7 +54,7 @@ public class Biobank implements Serializable {
     */
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="ADMIN_ID")
+    @JoinColumn(name = "ADMIN_ID")
     Researcher admin;
 
     public Researcher getAdmin() {

@@ -4,27 +4,27 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 
-<f:message key="index.title" var="title"/>
+<f:message key="signin" var="title"/>
 <s:layout-render name="/model/design2.jsp" title="${title}">
     <s:layout-component name="body">
 
         <s:form beanclass="bbmri.action.LoginActionBean">
             <fieldset>
-                <legend>Login</legend>
+                <legend><f:message key="signin"/></legend>
                 <s:errors/>
                 <table>
                     <tr>
-                        <td><label for="z1">Researcher identifier</label></td>
+                        <td><label for="z1"><f:message key="researcher_identifier"/></label></td>
                         <td><s:text id="z1" name="id"/></td>
                     </tr>
                     <tr>
-                        <td><label for="z2">Password</label></td>
+                        <td><label for="z2"><f:message key="password"/></label></td>
                         <td><s:password id="z2" name="password"/></td>
                     </tr>
 
 
                 </table>
-                <s:submit name="login">Log in</s:submit>
+                <s:submit name="login"><f:message key="signin"/></s:submit>
             </fieldset>
         </s:form>
 

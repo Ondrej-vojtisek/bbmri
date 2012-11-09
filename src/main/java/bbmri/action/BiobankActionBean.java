@@ -19,37 +19,50 @@ import java.util.List;
  */
 @UrlBinding("/biobank/{$event}/{biobank.id}")
 public class BiobankActionBean implements ActionBean {
-     private MyActionBeanContext ctx;
-     private BiobankService biobankService;
-     private Biobank biobank;
-     private List<Biobank> biobanks;
+    private MyActionBeanContext ctx;
+    private BiobankService biobankService;
+    private Biobank biobank;
+    private List<Biobank> biobanks;
 
     public List<Biobank> getBiobanks() {
-          return getBiobankService().getAll();
-      }
+        return getBiobankService().getAll();
+    }
 
-     public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-     public MyActionBeanContext getContext() {return ctx;}
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
 
-      public BiobankService getBiobankService(){
-        if(biobankService == null){
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public BiobankService getBiobankService() {
+        if (biobankService == null) {
             biobankService = new BiobankServiceImpl();
         }
         return biobankService;
     }
 
-    public Biobank getBiobank() {return biobank;}
-    public void setBiobank(Biobank biobank){this.biobank = biobank;}
-    public Researcher getLoggedResearcher() {return ctx.getLoggedResearcher();}
+    public Biobank getBiobank() {
+        return biobank;
+    }
 
-     @DefaultHandler
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
+
+    public Researcher getLoggedResearcher() {
+        return ctx.getLoggedResearcher();
+    }
+
+    @DefaultHandler
     public Resolution zobraz() {
-         biobanks = getBiobankService().getAll();
-         return new ForwardResolution("/biobanks.jsp");
-     }
+        biobanks = getBiobankService().getAll();
+        return new ForwardResolution("/biobanks.jsp");
+    }
 
-     public Resolution create() {
-        if(getLoggedResearcher().getBiobank() != null){
+    public Resolution create() {
+        if (getLoggedResearcher().getBiobank() != null) {
             // we cannot be an admin of a new biobank
             return new RedirectResolution(this.getClass(), "zobraz");
         }

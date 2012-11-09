@@ -39,9 +39,13 @@
         <init-param>
             <description>Which locales are supported</description>
             <param-name>LocalePicker.Locales</param-name>
-            <param-value>cs:utf-8,en:utf-8</param-value>
+            <param-value>en:utf-8</param-value>
         </init-param>
 
+        <init-param>
+            <param-name>PopulationStrategy.Class</param-name>
+            <param-value>net.sourceforge.stripes.tag.BeanFirstPopulationStrategy</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>

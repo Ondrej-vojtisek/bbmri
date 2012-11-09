@@ -21,11 +21,11 @@ public class MyActionBeanContext extends ActionBeanContext {
         return (Researcher) getRequest().getSession().getAttribute("loggedResearcher");
     }
 
-    public ResearcherDAOImpl getResearcherDAOImpl(){
+    public ResearcherDAOImpl getResearcherDAOImpl() {
         return (ResearcherDAOImpl) getRequest().getSession().getAttribute("researcherDAOImpl");
     }
 
-    public void setResearcherDAOImpl(ResearcherDAOImpl researcherDAOImpl){
+    public void setResearcherDAOImpl(ResearcherDAOImpl researcherDAOImpl) {
         getRequest().getSession().setAttribute("researcherDAOImpl", researcherDAOImpl);
     }
 

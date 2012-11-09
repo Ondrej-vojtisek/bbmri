@@ -19,24 +19,24 @@ import java.util.List;
  */
 public class ProjectDAOImpl implements ProjectDAO {
 
-     public void create(Project project, EntityManager em) {
+    public void create(Project project, EntityManager em) {
         em.persist(project);
     }
 
-      public void remove(Project project, EntityManager em) {
+    public void remove(Project project, EntityManager em) {
         em.remove(project);
     }
 
     public void update(Project project, EntityManager em) {
-           em.merge(project);
-       }
+        em.merge(project);
+    }
 
-     public List<Project> getAll(EntityManager em) {
+    public List<Project> getAll(EntityManager em) {
         Query query = em.createQuery("SELECT p FROM Project p");
         return query.getResultList();
     }
 
-     public List<Project> getAllByProjectState(ProjectState projectState, EntityManager em) {
+    public List<Project> getAllByProjectState(ProjectState projectState, EntityManager em) {
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
         return query.getResultList();
     }
@@ -45,23 +45,23 @@ public class ProjectDAOImpl implements ProjectDAO {
         return em.find(Project.class, id);
     }
 
-     public List<Project> getAllByResearcher(Researcher researcher){
-         return researcher.getProjects();
-     }
-
-     public List<Researcher> getAllResearchersByProject(Project project){
-         return project.getResearchers();
-     }
-
-     public void assignResearcherToProject(Researcher researcher, Project project){
-            project.getResearchers().add(researcher);
+    public List<Project> getAllByResearcher(Researcher researcher) {
+        return researcher.getProjects();
     }
 
-    public void removeResearcherFromProject(Researcher researcher, Project project){
-            project.getResearchers().remove(researcher);
+    public List<Researcher> getAllResearchersByProject(Project project) {
+        return project.getResearchers();
     }
 
-     public boolean projectContainsResearcher(Researcher researcher, Project project){
-         return project.getResearchers().contains(researcher);
-     }
+    public void assignResearcherToProject(Researcher researcher, Project project) {
+        project.getResearchers().add(researcher);
+    }
+
+    public void removeResearcherFromProject(Researcher researcher, Project project) {
+        project.getResearchers().remove(researcher);
+    }
+
+    public boolean projectContainsResearcher(Researcher researcher, Project project) {
+        return project.getResearchers().contains(researcher);
+    }
 }

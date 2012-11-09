@@ -16,19 +16,19 @@ import java.util.List;
  */
 public class ResearcherDAOImpl implements ResearcherDAO {
 
-     public void create(Researcher researcher, EntityManager em) {
+    public void create(Researcher researcher, EntityManager em) {
         em.persist(researcher);
     }
 
-      public void remove(Researcher researcher, EntityManager em) {
+    public void remove(Researcher researcher, EntityManager em) {
         em.remove(researcher);
     }
 
     public void update(Researcher researcher, EntityManager em) {
-           em.merge(researcher);
-       }
+        em.merge(researcher);
+    }
 
-     public List<Researcher> getAll(EntityManager em) {
+    public List<Researcher> getAll(EntityManager em) {
         Query query = em.createQuery("SELECT p FROM Researcher p");
         return query.getResultList();
     }

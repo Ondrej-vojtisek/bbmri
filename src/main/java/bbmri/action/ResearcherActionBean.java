@@ -23,33 +23,49 @@ public class ResearcherActionBean implements ActionBean {
     private ResearcherService researcherService;
     private List<Researcher> researchers;
 
-    public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-    public MyActionBeanContext getContext() {return ctx;}
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
 
-    public ResearcherService getResearcherService(){
-        if(researcherService == null){
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public ResearcherService getResearcherService() {
+        if (researcherService == null) {
             researcherService = new ResearcherServiceImpl();
         }
         return researcherService;
     }
 
-    public Researcher getLoggedResearcher() {return ctx.getLoggedResearcher();}
+    public Researcher getLoggedResearcher() {
+        return ctx.getLoggedResearcher();
+    }
 
     public List<Researcher> getResearchers() {
         return getResearcherService().getAll();
     }
 
-    public Researcher getResearcher() {return researcher;}
-    public void setResearcher(Researcher researcher) {this.researcher = researcher;}
+    public Researcher getResearcher() {
+        return researcher;
+    }
 
-    public long getId() {return id;}
+    public void setResearcher(Researcher researcher) {
+        this.researcher = researcher;
+    }
 
-    public void setId(long id) {this.id = id;}
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"pridej", "uloz"}, field = "name", required = true),
             @Validate(on = {"pridej", "uloz"}, field = "surname", required = true)
-        }
+    }
     )
 
     @DefaultHandler
@@ -65,7 +81,7 @@ public class ResearcherActionBean implements ActionBean {
     }
 
     public Resolution delete() {
-        getResearcherService().remove((Long)id);
+        getResearcherService().remove((Long) id);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 

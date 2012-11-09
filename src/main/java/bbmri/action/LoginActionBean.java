@@ -25,8 +25,8 @@ public class LoginActionBean implements ActionBean {
     private String password;
     private LoginService loginService;
 
-    public LoginService getLoginService(){
-        if(loginService == null){
+    public LoginService getLoginService() {
+        if (loginService == null) {
             loginService = new LoginServiceImpl();
         }
         return loginService;
@@ -35,21 +35,34 @@ public class LoginActionBean implements ActionBean {
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
     }
-    public MyActionBeanContext getContext() {return ctx;}
 
-    public String getPassword() {return password;}
-    public void setPassword(String password) {this.password = password;}
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
 
-    public long getId() {return id;}
-    public void setId(long id) {this.id = id;}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @DefaultHandler
     public Resolution login() {
         ctx.setLoggedResearcher(null);
         Researcher researcher = getLoginService().login(id, password);
-        if(researcher != null){
-             ctx.setLoggedResearcher(researcher);
-             return new RedirectResolution("/researchers.jsp");
+        if (researcher != null) {
+            ctx.setLoggedResearcher(researcher);
+            return new RedirectResolution("/researchers.jsp");
         }
         return new ForwardResolution("/login.jsp");
     }

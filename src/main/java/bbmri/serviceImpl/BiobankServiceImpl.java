@@ -20,50 +20,52 @@ import java.util.List;
  * Time: 20:03
  * To change this template use File | Settings | File Templates.
  */
-public class BiobankServiceImpl implements BiobankService{
+public class BiobankServiceImpl implements BiobankService {
 
-     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-     BiobankDAO biobankDAO;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
+    BiobankDAO biobankDAO;
 
-     private BiobankDAO getBiobankDAO(){
-          if(biobankDAO == null){
+    private BiobankDAO getBiobankDAO() {
+        if (biobankDAO == null) {
             biobankDAO = new BiobankDAOImpl();
-         }
+        }
         return biobankDAO;
-     }
-     ResearcherDAO researcherDAO;
-     private ResearcherDAO getResearcherDAO(){
-          if(researcherDAO == null){
-            researcherDAO = new ResearcherDAOImpl();
-         }
-        return researcherDAO;
-     }
-
-    public Biobank create(Biobank biobank, Researcher researcher){
-         EntityManager em = emf.createEntityManager();
-         em.getTransaction().begin();
-         Researcher resDB = getResearcherDAO().get(researcher.getId(), em);
-         if(resDB != null){
-            getBiobankDAO().create(biobank, em);
-            biobank.setAdmin(resDB);
-         }
-         em.getTransaction().commit();
-         em.close();
-         return biobank;
     }
 
-    public void remove(Long id){
+    ResearcherDAO researcherDAO;
+
+    private ResearcherDAO getResearcherDAO() {
+        if (researcherDAO == null) {
+            researcherDAO = new ResearcherDAOImpl();
+        }
+        return researcherDAO;
+    }
+
+    public Biobank create(Biobank biobank, Researcher researcher) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Researcher resDB = getResearcherDAO().get(researcher.getId(), em);
+        if (resDB != null) {
+            getBiobankDAO().create(biobank, em);
+            biobank.setAdmin(resDB);
+        }
+        em.getTransaction().commit();
+        em.close();
+        return biobank;
+    }
+
+    public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Biobank biobank = getBiobankDAO().get(id, em);
-        if(biobank != null){
+        if (biobank != null) {
             getBiobankDAO().remove(biobank, em);
         }
         em.getTransaction().commit();
         em.close();
     }
 
-    public Biobank update(Biobank biobank){
+    public Biobank update(Biobank biobank) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         getBiobankDAO().update(biobank, em);
@@ -72,7 +74,7 @@ public class BiobankServiceImpl implements BiobankService{
         return biobank;
     }
 
-    public List<Biobank> getAll(){
+    public List<Biobank> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         List<Biobank> researchers = getBiobankDAO().getAll(em);

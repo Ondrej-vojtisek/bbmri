@@ -37,14 +37,23 @@ public class Researcher implements Serializable {
     private String password;
 
 
-    public boolean isOnline() {return online;}
-    public void setOnline(boolean online) {this.online = online;}
+    public boolean isOnline() {
+        return online;
+    }
 
-    public String getPassword() {return password;}
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
 
-    public void setPassword(String password) {this.password = password;}
+    public String getPassword() {
+        return password;
+    }
 
-    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
     /*
@@ -52,7 +61,7 @@ public class Researcher implements Serializable {
     private List<Biobank> biobanks = new ArrayList<Biobank>();
     */
 
-    @OneToOne(mappedBy="admin", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
     Biobank biobank;
 
     public Researcher() {
@@ -63,20 +72,45 @@ public class Researcher implements Serializable {
         this.surname = surname;
     }
 
-    public Biobank getBiobank() {return biobank;}
-    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
+    public Biobank getBiobank() {
+        return biobank;
+    }
 
-    public String getSurname() {return surname;}
-    public void setSurname(String surname) {this.surname = surname;}
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public String getSurname() {
+        return surname;
+    }
 
-    public List<Project> getProjects() {return projects;}
-    public void setProjects(List<Project> projects) {this.projects = new ArrayList<Project>(projects);}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = new ArrayList<Project>(projects);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public int hashCode() {

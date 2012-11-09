@@ -2,6 +2,7 @@ package bbmri.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,7 +18,104 @@ public class Sample implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String sampleID;
+    private int numOfSamples;
+    private int numOfAvailable;
+    private String tissueType;
+    private String TNM;
+    private String pTNM;
+    private int grading;
+  //  private Date removalTime; /*cutTime or blood take*/
+ //   private Date freezingTime;
+    private String diagnosis;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSampleID() {
+        return sampleID;
+    }
+
+    public void setSampleID(String sampleID) {
+        this.sampleID = sampleID;
+    }
+
+    public int getNumOfSamples() {
+        return numOfSamples;
+    }
+
+    public void setNumOfSamples(int numOfSamples) {
+        this.numOfSamples = numOfSamples;
+    }
+
+    public int getNumOfAvailable() {
+        return numOfAvailable;
+    }
+
+    public void setNumOfAvailable(int numOfAvailable) {
+        this.numOfAvailable = numOfAvailable;
+    }
+
+    public String getTissueType() {
+        return tissueType;
+    }
+
+    public void setTissueType(String tissueType) {
+        this.tissueType = tissueType;
+    }
+
+    public String getTNM() {
+        return TNM;
+    }
+
+    public void setTNM(String TNM) {
+        this.TNM = TNM;
+    }
+
+    public String getpTNM() {
+        return pTNM;
+    }
+
+    public void setpTNM(String pTNM) {
+        this.pTNM = pTNM;
+    }
+
+    public int getGrading() {
+        return grading;
+    }
+
+    public void setGrading(int grading) {
+        this.grading = grading;
+    }
+/*
+    public Date getRemovalTime() {
+        return removalTime;
+    }
+
+    public void setRemovalTime(Date removalTime) {
+        this.removalTime = removalTime;
+    }
+
+    public Date getFreezingTime() {
+        return freezingTime;
+    }
+
+    public void setFreezingTime(Date freezingTime) {
+        this.freezingTime = freezingTime;
+    }
+ */
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
     @Override
     public int hashCode() {
@@ -40,7 +138,21 @@ public class Sample implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id;
+        return "Sample{" +
+                "id=" + id +
+                ", sampleID='" + sampleID + '\'' +
+                ", numOfSamples=" + numOfSamples +
+                ", numOfAvailable=" + numOfAvailable +
+                ", tissueType='" + tissueType + '\'' +
+                ", TNM='" + TNM + '\'' +
+                ", pTNM='" + pTNM + '\'' +
+                ", grading=" + grading +
+    /*            ", removalTime=" + removalTime +
+                ", freezingTime=" + freezingTime +     */
+                ", diagnosis='" + diagnosis + '\'' +
+                '}';
     }
+
+
 }
 

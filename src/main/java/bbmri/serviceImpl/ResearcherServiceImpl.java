@@ -19,45 +19,45 @@ import java.util.List;
  */
 public class ResearcherServiceImpl implements ResearcherService {
 
-     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-     ResearcherDAO researcherDAO;
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
+    ResearcherDAO researcherDAO;
 
-     private ResearcherDAO getResearcherDAO(){
-          if(researcherDAO == null){
+    private ResearcherDAO getResearcherDAO() {
+        if (researcherDAO == null) {
             researcherDAO = new ResearcherDAOImpl();
-         }
+        }
         return researcherDAO;
-     }
+    }
 
-     public Researcher create(Researcher researcher){
-         EntityManager em = emf.createEntityManager();
-         em.getTransaction().begin();
-         getResearcherDAO().create(researcher, em);
-         em.getTransaction().commit();
-         em.close();
-         return researcher;
-     }
+    public Researcher create(Researcher researcher) {
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        getResearcherDAO().create(researcher, em);
+        em.getTransaction().commit();
+        em.close();
+        return researcher;
+    }
 
-     public void remove(Researcher researcher){
+    public void remove(Researcher researcher) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         getResearcherDAO().remove(researcher, em);
         em.getTransaction().commit();
         em.close();
-     }
+    }
 
-    public void remove(Long id){
+    public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Researcher researcher = getResearcherDAO().get(id, em);
-        if(researcher != null){
+        if (researcher != null) {
             getResearcherDAO().remove(researcher, em);
         }
         em.getTransaction().commit();
         em.close();
-     }
+    }
 
-    public Researcher update(Researcher researcher){
+    public Researcher update(Researcher researcher) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         getResearcherDAO().update(researcher, em);
@@ -66,7 +66,7 @@ public class ResearcherServiceImpl implements ResearcherService {
         return researcher;
     }
 
-    public List<Researcher> getAll(){
+    public List<Researcher> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         List<Researcher> researchers = getResearcherDAO().getAll(em);

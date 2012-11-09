@@ -11,27 +11,32 @@
 
 
         <fieldset>
-        <legend>All Biobanks</legend>
-        <table border="1">
-            <c:forEach items="${ab.biobanks}" var="z">
+            <legend><f:message key="biobanks.listOfBanks"/></legend>
+            <table border="1">
                 <tr>
-                    <td><c:out value="${z.id}"/></td>
-                    <td><c:out value="${z.address}"/></td>
-                    <td><c:out value="${z.admin}"/></td>
-
+                    <td><f:message key="id"/></td>
+                    <td><f:message key="address"/></td>
+                    <td><f:message key="biobank.operator"/></td>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach items="${ab.biobanks}" var="z">
+                    <tr>
+                        <td><c:out value="${z.id}"/></td>
+                        <td><c:out value="${z.address}"/></td>
+                        <td><c:out value="${z.admin}"/></td>
+
+                    </tr>
+                </c:forEach>
+            </table>
         </fieldset>
 
         <s:useActionBean var="ab" beanclass="bbmri.action.BiobankActionBean"/>
         <s:form beanclass="bbmri.action.BiobankActionBean">
             <fieldset>
-                <legend>New biobank</legend>
+                <legend><f:message key="biobank.add.new"/></legend>
                 <s:errors/>
                 <table>
                     <tr>
-                        <td><label for="z1">Address</label></td>
+                        <td><label for="z1"><f:message key="address"/></label></td>
                         <td><s:text id="z1" name="biobank.address"/></td>
                     </tr>
                 </table>
