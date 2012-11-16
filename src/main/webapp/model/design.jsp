@@ -8,6 +8,11 @@
     <head>
         <title><c:out value="${title}"/></title>
         <style type="text/css">
+            table th{
+                text-align: left;
+            }
+
+
             input.error {
                 background-color: yellow;
             }
@@ -19,9 +24,7 @@
 
             h1 {
                 text-align: center;
-                text-decoration: underline;
                 text-shadow: aquamarine;
-                text-transform: capitalize;
             }
 
                 /*  http://www.alistapart.com/articles/taminglists/ */
@@ -88,18 +91,34 @@
     <div id="navigace">
         <ul>
 
-            <li><s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout"><f:message key="logout"/></s:link></li>
-            <li><s:link href="/projects.jsp"><f:message key="projects"/></s:link></li>
-            <li><s:link href="/myProjects.jsp"><f:message key="myProjects.title"/></s:link></li>
-            <li><s:link href="/researchers.jsp"><f:message key="researchers.title"/></s:link></li>
+
+            <li><f:message key="user"/></li>
             <li><s:link href="/myAccount.jsp"><f:message key="credentials"/></s:link></li>
+            <li><s:link href="/projects.jsp"><f:message key="project.all_projects"/></s:link></li>
+            <li><s:link href="/createProject.jsp"><f:message key="projects.createProject"/></s:link></li>
+
+            <li><f:message key="projects.iam_working_on"/></li>
+             <li><s:link href="/projectWorker.jsp"><f:message key="projects"/></s:link></li>
+
+            <li><f:message key="projects.iam_managing"/></li>
+            <li><s:link href="/myProjects.jsp"><f:message key="myProjects.title"/></s:link></li>
+
+            <li><f:message key="biobank.ethical_committee"/></li>
+            <li><s:link href="/approveProject.jsp"><f:message key="approve_project"/></s:link></li>
+
+            <li><f:message key="biobank.administrator"/></li>
             <li><s:link href="/addSample.jsp"><f:message key="add.sample"/></s:link></li>
-            <li><s:link href="/sampleRequests.jsp"><f:message key="sample.request"/></s:link></li>
+
+            <li><f:message key="system.operator"/></li>
+            <li><s:link href="/biobanks.jsp"><f:message key="biobanks.title"/></s:link></li>
+            <li><s:link href="/researchers.jsp"><f:message key="researchers.title"/></s:link></li>
+
         </ul>
 
         <div>
-            <p><f:message key="logged_user"/>:  <c:out value="${logged}"/></p>
-
+            <p><f:message key="logged_user"/>:<c:out value="${logged}"/></p>
+            <s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">
+                <f:message key="logout"/></s:link>
         </div>
 
     </div>

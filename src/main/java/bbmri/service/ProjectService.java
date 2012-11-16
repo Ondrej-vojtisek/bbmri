@@ -23,11 +23,11 @@ public interface ProjectService {
 
     public List<Project> getAll();
 
-    public List<Project> getAllByResearcher(Researcher researcher);
+    public List<Project> getAllByResearcher(Long id);
 
-    public void assignResearcher(Long researcherId, Long projectId);
+    public Researcher assignResearcher(Long researcherId, Long projectId);
 
-    public void removeResearcherFromProject(Long researcherId, Long projectId);
+    public Researcher removeResearcherFromProject(Long researcherId, Long projectId);
 
     public List<Researcher> getAllAssignedResearchers(Long projectId);
 
@@ -36,5 +36,13 @@ public interface ProjectService {
     public List<Project> getAllByProjectState(ProjectState projectState);
 
     public List<Project> getAllApprovedByResearcher(Researcher researcher);
+
+    public List<Project> getAllWhichResearcherAdministrate(Long id);
+
+    public Project getById(Long id);
+
+    public List<Researcher> getAllNotAssignedResearchers(Long id);
+
+    public Project changeOwnership(Long projectId, Long newOwnerId);
 
 }

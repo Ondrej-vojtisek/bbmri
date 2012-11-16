@@ -6,12 +6,12 @@
   <component name="ArtifactManager">
     <artifact type="war" name="cancer-strike:war">
       <output-path>$PROJECT_DIR$/target</output-path>
-      <root id="archive" name="cancer-strike-2.0-SNAPSHOT.war">
+      <root id="archive" name="bbmri.war">
         <element id="artifact" artifact-name="cancer-strike:war exploded" />
       </root>
     </artifact>
     <artifact type="exploded-war" name="cancer-strike:war exploded">
-      <output-path>$PROJECT_DIR$/target/cancer-strike-2.0-SNAPSHOT</output-path>
+      <output-path>$PROJECT_DIR$/target/bbmri</output-path>
       <root id="root">
         <element id="javaee-facet-resources" facet="cancer-strike/web/Web" />
         <element id="directory" name="WEB-INF">

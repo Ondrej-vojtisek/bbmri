@@ -104,6 +104,7 @@
 
     <build>
         <defaultGoal>package</defaultGoal>
+        <finalName>bbmri</finalName>
         <plugins>
             <!-- nastaveni verze zdrojaku -->
             <plugin>
@@ -115,11 +116,11 @@
                 </configuration>
             </plugin>
 
-            <!-- zabalit vsechno do jednoho JARu -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>1.4</version>
+
                 <executions>
                     <execution>
                         <phase>package</phase>

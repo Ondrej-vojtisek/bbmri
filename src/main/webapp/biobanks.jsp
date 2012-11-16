@@ -14,9 +14,9 @@
             <legend><f:message key="biobanks.listOfBanks"/></legend>
             <table border="1">
                 <tr>
-                    <td><f:message key="id"/></td>
-                    <td><f:message key="address"/></td>
-                    <td><f:message key="biobank.operator"/></td>
+                    <th><f:message key="id"/></th>
+                    <th><f:message key="address"/></th>
+                    <th><f:message key="biobank.operator"/></th>
                 </tr>
                 <c:forEach items="${ab.biobanks}" var="z">
                     <tr>
@@ -36,7 +36,7 @@
                 <s:errors/>
                 <table>
                     <tr>
-                        <td><label for="z1"><f:message key="address"/></label></td>
+                        <th><label for="z1"><f:message key="address"/></label></th>
                         <td><s:text id="z1" name="biobank.address"/></td>
                     </tr>
                 </table>

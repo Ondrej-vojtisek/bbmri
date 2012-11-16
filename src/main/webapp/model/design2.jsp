@@ -12,6 +12,10 @@
                 background-color: yellow;
             }
 
+            table th{
+                text-align: left;
+            }
+
             body {
                 font-family: Helvetica, sans-serif;
                 background-color: azure;

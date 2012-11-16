@@ -5,6 +5,7 @@ import bbmri.entities.Researcher;
 import bbmri.service.ResearcherService;
 import bbmri.serviceImpl.ResearcherServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -20,8 +21,27 @@ import javax.persistence.Persistence;
 public class AccountActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
-
     private ResearcherService researcherService;
+    private String password;
+    private String password2;
+    private Researcher researcher;
+    private Researcher loggedResearcher;
+
+      public String getPassword() {
+          return password;
+      }
+
+      public void setPassword(String password) {
+          this.password = password;
+      }
+
+      public String getPassword2() {
+          return password2;
+      }
+
+     public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
 
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
@@ -31,11 +51,9 @@ public class AccountActionBean implements ActionBean {
         return ctx;
     }
 
-    private Researcher researcher;
-    private Researcher loggedResearcher;
-
     public Researcher getLoggedResearcher() {
-        return ctx.getLoggedResearcher();
+        loggedResearcher = ctx.getLoggedResearcher();
+        return loggedResearcher;
     }
 
     public ResearcherService getResearcherService() {
@@ -59,9 +77,31 @@ public class AccountActionBean implements ActionBean {
         return new ForwardResolution("/myAccount.jsp");
     }
 
+    @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "changePassword"})
+    public void fillInputs() {
+        researcher = getLoggedResearcher();
+    }
+
     public Resolution update() {
-        researcher.setId(getLoggedResearcher().getId());
-        ctx.setLoggedResearcher(getResearcherService().update(researcher));
+        if(researcher.getName() != null)
+            loggedResearcher.setName(researcher.getName());
+
+        if(researcher.getSurname() != null)
+            loggedResearcher.setSurname(researcher.getSurname());
+
+        getResearcherService().update(loggedResearcher);
+        ctx.setLoggedResearcher(loggedResearcher);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
+
+    public Resolution changePassword(){
+        if(password != null && password2 != null){
+            if(password.equals(password2))
+                getLoggedResearcher().setPassword(password);
+                getResearcherService().update(getLoggedResearcher());
+        }
+        researcher = getLoggedResearcher();
+        return new RedirectResolution(this.getClass(), "zobraz");
+    }
+
 }

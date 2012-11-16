@@ -11,10 +11,10 @@
 
         <table border="1">
             <tr>
-                <td><f:message key="id"/></td>
-                <td><f:message key="name"/></td>
-                <td><f:message key="surname"/></td>
-                <td><f:message key="online"/></td>
+                <th><f:message key="id"/></th>
+                <th><f:message key="name"/></th>
+                <th><f:message key="surname"/></th>
+                <th><f:message key="online"/></th>
             </tr>
             <tr>
                 <td><c:out value="${ab.loggedResearcher.id}"/></td>
@@ -25,20 +25,20 @@
         </table>
 
         <s:form beanclass="bbmri.action.AccountActionBean">
+            <s:hidden name="researcher.id"/>
+            <s:hidden name="researcher.password"/>
             <fieldset>
                 <legend><f:message key="credentials.change_credentials"/></legend>
-                <s:errors/>
-                <table>
-                    <tr>
-                        <td><label for="z1"><f:message key="name"/></label></td>
-                        <td><s:text id="z1" name="researcher.name"/></td>
-                    </tr>
-                    <tr>
-                        <td><label for="z2"><f:message key="surname"/></label></td>
-                        <td><s:text id="z2" name="researcher.surname"/></td>
-                    </tr>
-                </table>
+                <%@include file="/form/createResearcherForm.jsp" %>
                 <s:submit name="update"><f:message key="save"/></s:submit>
+            </fieldset>
+        </s:form>
+
+        <s:form beanclass="bbmri.action.AccountActionBean">
+            <fieldset>
+                <legend><f:message key="credentials.change_password"/></legend>
+                <%@include file="/form/changePasswordForm.jsp" %>
+                <s:submit name="changePassword"><f:message key="save"/></s:submit>
             </fieldset>
         </s:form>
 

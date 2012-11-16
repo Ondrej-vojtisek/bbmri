@@ -36,6 +36,7 @@ public class ResearcherDAOImpl implements ResearcherDAO {
     public Researcher get(Long id, EntityManager em) {
         return em.find(Researcher.class, id);
     }
+
 }
 
 

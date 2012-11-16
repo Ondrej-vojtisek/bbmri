@@ -1,9 +1,12 @@
 package bbmri.action;
 
 import bbmri.DAOimpl.ResearcherDAOImpl;
+import bbmri.entities.Project;
 import bbmri.entities.Researcher;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.HandlesEvent;
+
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,6 +30,14 @@ public class MyActionBeanContext extends ActionBeanContext {
 
     public void setResearcherDAOImpl(ResearcherDAOImpl researcherDAOImpl) {
         getRequest().getSession().setAttribute("researcherDAOImpl", researcherDAOImpl);
+    }
+
+     public Project getProject() {
+        return (Project) getRequest().getSession().getAttribute("project");
+    }
+
+    public void setProject(Project project) {
+        getRequest().getSession().setAttribute("project", project);
     }
 
 }

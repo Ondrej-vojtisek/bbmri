@@ -60,6 +60,15 @@ public class ResearcherServiceImpl implements ResearcherService {
     public Researcher update(Researcher researcher) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
+        Researcher res = getResearcherDAO().get(researcher.getId(),em);
+        if(res == null){
+            em.close();
+            return null;
+        }
+        if(researcher.getName() != null) res.setName(researcher.getName());
+        if(researcher.getSurname() != null) res.setSurname(researcher.getSurname());
+        if(researcher.getPassword() != null) res.setPassword(researcher.getPassword());
+
         getResearcherDAO().update(researcher, em);
         em.getTransaction().commit();
         em.close();

@@ -11,45 +11,31 @@
 
         <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
-            <table border="1">
-                <tr>
-                    <td><f:message key="id"/></td>
-                    <td><f:message key="project.name"/></td>
-                    <td><f:message key="description"/></td>
-                    <td><f:message key="state"/></td>
-                </tr>
-
-                <c:forEach items="${ab.projects}" var="z">
+            <s:form beanclass="bbmri.action.ProjectActionBean">
+                <table border="1">
                     <tr>
-                        <td><c:out value="${z.id}"/></td>
-                        <td><c:out value="${z.name}"/></td>
-                        <td><c:out value="${z.description}"/></td>
-                        <td><c:out value="${z.projectState}"/></td>
+                        <th><s:label name="project.id"/></th>
+                        <th><s:label name="project.name"/></th>
+                        <th><s:label name="project.description"/></th>
+                        <th><s:label name="project.projectState"/></th>
+                        <th><s:label name="ask_to_join"/></th>
                     </tr>
-                </c:forEach>
-            </table>
+
+                    <c:forEach items="${ab.projects}" var="project">
+                        <tr>
+                            <td><c:out value="${project.id}"/></td>
+                            <td><c:out value="${project.name}"/></td>
+                            <td><c:out value="${project.description}"/></td>
+                            <td><f:message key="ProjectState.${project.projectState}"/></td>
+                            <td><s:link beanclass="bbmri.action.ProjectActionBean" event="join">
+                            <s:param name="project.id" value="${project.id}"/><f:message key="join"/></s:link>
+                            </td>
+
+                        </tr>
+                    </c:forEach>
+                </table>
+            </s:form>
         </fieldset>
-        <c:choose>
-            <c:when test="${ab.loggedResearcher.biobank!=null}">
-                <s:useActionBean var="ab" beanclass="bbmri.action.ProjectActionBean"/>
-                <s:form beanclass="bbmri.action.ProjectActionBean">
-
-                    <fieldset>
-                        <legend><f:message key="project.approve_project"/></legend>
-                        <s:select name="projectId">
-                            <s:option value=""><f:message key="select_one"/></s:option>
-                            <s:options-collection collection="${ab.newProjects}" label="name" value="id"/>
-                        </s:select>
-                        <s:submit name="approve"><f:message key="project.approve_project"/></s:submit>
-                    </fieldset>
-                </s:form>
-
-            </c:when>
-            <c:otherwise>
-               <f:message key="you_dont_have_sufficient_rights"/>
-                <br/>
-            </c:otherwise>
-        </c:choose>
 
     </s:layout-component>
 </s:layout-render>

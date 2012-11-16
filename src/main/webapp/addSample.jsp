@@ -16,40 +16,40 @@
                 <s:errors/>
                 <table>
                     <tr>
-                        <td><label for="z1"><f:message key="samples.id"/></label></td>
+                        <th><label for="z1"><f:message key="samples.id"/></label></th>
                         <td><s:text id="z1" name="sample.sampleID"/></td>
 
                     </tr>
                     <tr>
-                        <td><label for="z2"><f:message key="samples.number_of_samples"/></label></td>
+                        <th><label for="z2"><f:message key="samples.number_of_samples"/></label></th>
                         <td><s:text id="z2" name="sample.numOfSamples"/></td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.number_of_available_samples"/></label></td>
+                        <th><label for="z3"><f:message key="samples.number_of_available_samples"/></label></th>
                         <td><s:text id="z3" name="sample.numOfAvailable"/></td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.tissue_type"/></label></td>
+                        <th><label for="z3"><f:message key="samples.tissue_type"/></label></th>
                         <td><s:text id="z3" name="sample.tissueType"/></td>
                         <td>string, length 2</td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.TNM"/></label></td>
+                        <th><label for="z3"><f:message key="samples.TNM"/></label></th>
                         <td><s:text id="z3" name="sample.TNM"/></td>
                         <td>max len 7</td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.pTNM"/></label></td>
+                        <th><label for="z3"><f:message key="samples.pTNM"/></label></th>
                         <td><s:text id="z3" name="sample.pTNM"/></td>
                         <td>max len 7</td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.grading"/></label></td>
+                        <th><label for="z3"><f:message key="samples.grading"/></label></th>
                         <td><s:text id="z3" name="sample.grading"/></td>
                         <td>minInclusive = "1" minExclusive = "9"</td>
                     </tr>
                     <tr>
-                        <td><label for="z3"><f:message key="samples.diagnosis"/></label></td>
+                        <th><label for="z3"><f:message key="samples.diagnosis"/></label></th>
                         <td><s:text id="z3" name="sample.diagnosis"/></td>
                     </tr>
                 </table>

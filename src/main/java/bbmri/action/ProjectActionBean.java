@@ -23,6 +23,15 @@ public class ProjectActionBean implements ActionBean {
     private ProjectService projectService;
     private long projectId = 0;
     private List<Project> newProjects;
+    private Project project;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
@@ -71,9 +80,19 @@ public class ProjectActionBean implements ActionBean {
 
 
     public Resolution approve() {
-        getProjectService().approve((Long) projectId);
-        return new ForwardResolution("/projects.jsp");
+        getProjectService().approve(project.getId());
+        return new ForwardResolution("/approveProject.jsp");
     }
+
+    public Resolution join() {
+        Researcher res = getProjectService().assignResearcher(project.getId(), getLoggedResearcher().getId());
+        if(res != null){
+            ctx.setLoggedResearcher(res);
+        }
+        return new RedirectResolution(this.getClass(), "zobraz");
+    }
+
+
 
 }
 

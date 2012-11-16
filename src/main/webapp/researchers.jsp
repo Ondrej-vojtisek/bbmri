@@ -6,18 +6,21 @@
 
 <f:message key="researchers.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
-    <c:choose>
-        <c:when test="${ab.loggedResearcher.online==true}">
 
-            <s:layout-component name="body">
+
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+    <s:layout-component name="body">
+        <c:choose>
+            <c:when test="${ab.loggedResearcher.online==true}">
+
+
                 <c:choose>
                     <c:when test="${ab.loggedResearcher.biobank!=null}">
                         <table border="1">
                             <tr>
-                                <td><f:message key="id"/></td>
-                                <td><f:message key="name"/></td>
-                                <td><f:message key="surname"/></td>
+                                <th><f:message key="id"/></th>
+                                <th><f:message key="name"/></th>
+                                <th><f:message key="surname"/></th>
                             </tr>
 
                             <c:forEach var="z" items="${ab.researchers}">
@@ -32,25 +35,12 @@
                         <s:form beanclass="bbmri.action.ResearcherActionBean">
                             <fieldset>
                                 <legend><f:message key="index.newAccount"/></legend>
-                                <s:errors/>
-                                <table>
-                                    <tr>
-                                        <td><label for="z1"><f:message key="name"/></label></td>
-                                        <td><s:text id="z1" name="researcher.name"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="z2"><f:message key="surname"/></label></td>
-                                        <td><s:text id="z2" name="researcher.surname"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="z3"><f:message key="password"/></label></td>
-                                        <td><s:text id="z3" name="researcher.password"/></td>
-                                    </tr>
-
-                                </table>
+                                <%@include file="/form/createResearcherForm.jsp" %>
                                 <s:submit name="create"><f:message key="add"/></s:submit>
                             </fieldset>
                         </s:form>
+
+
                         <s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
                         <s:form beanclass="bbmri.action.ResearcherActionBean">
                             <fieldset>
@@ -71,12 +61,12 @@
                     </c:otherwise>
                 </c:choose>
 
-            </s:layout-component>
 
-        </c:when>
-        <c:otherwise>
-            <p><f:message key="you_dont_have_sufficient_rights"/></p>
-            <br/>
-        </c:otherwise>
-    </c:choose>
+            </c:when>
+            <c:otherwise>
+                <p><f:message key="you_dont_have_sufficient_rights"/></p>
+                <br/>
+            </c:otherwise>
+        </c:choose>
+    </s:layout-component>
 </s:layout-render>
