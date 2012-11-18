@@ -9,7 +9,7 @@
 <s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.MyProjectsActionBean">
+        <s:form beanclass="bbmri.action.Project.AllProjectsActionBean">
             <s:hidden name="project.projectState"/>
             <s:hidden name="project.researchers"/>
 

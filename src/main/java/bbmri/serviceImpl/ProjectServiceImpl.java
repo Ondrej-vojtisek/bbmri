@@ -70,8 +70,13 @@ public class ProjectServiceImpl implements ProjectService {
         em.getTransaction().begin();
         Project projectDB = getProjectDAO().get(project.getId(),em);
 
-        projectDB.setProjectState(project.getProjectState());
+        if(projectDB.getProjectState() != ProjectState.NEW &&
+                project.getProjectState() != ProjectState.NEW &&
+                project.getProjectState() != ProjectState.APPROVED){
+             projectDB.setProjectState(project.getProjectState());
+        }
         projectDB.setDescription(project.getDescription());
+        projectDB.setFundingOrganization(project.getFundingOrganization());
         projectDB.setName(project.getName());
 
         getProjectDAO().update(projectDB, em);
@@ -154,6 +159,7 @@ public class ProjectServiceImpl implements ProjectService {
         researcherDB = getResearcherDAO().get(researcherId, em);
         Project projectDB = getProjectDAO().get(projectId, em);
         if (getProjectDAO().projectContainsResearcher(researcherDB, projectDB) == true) {
+            em.close();
             return null;
         }
         getProjectDAO().assignResearcherToProject(researcherDB, projectDB);
@@ -169,6 +175,7 @@ public class ProjectServiceImpl implements ProjectService {
         researcherDB = getResearcherDAO().get(researcherId, em);
         Project projectDB = getProjectDAO().get(projectId, em);
         if (getProjectDAO().projectContainsResearcher(researcherDB, projectDB) == false) {
+            em.close();
             return null;
         }
         getProjectDAO().removeResearcherFromProject(researcherDB, projectDB);
@@ -229,22 +236,25 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project changeOwnership(Long projectId, Long newOwnerId){
+
         Project project;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         project = getProjectDAO().get(projectId, em);
         Researcher researcher = getResearcherDAO().get(newOwnerId, em);
-        Researcher oldOwner = getResearcherDAO().get(project.getResearchers().get(0).getId(), em);
 
-        System.out.println("Before: " + project.getResearchers().toString());
+        Researcher old = getResearcherDAO().get(project.getOwner().getId(), em);
 
         if(project.getResearchers().contains(researcher)){
-              project.getResearchers().remove(researcher);
-              project.getResearchers().add(0, researcher);
+            project.getResearchers().remove(old);
+            getProjectDAO().update(project,em);
+            project.getResearchers().remove(researcher);
+            project.getResearchers().add(0, researcher);
+            project.getResearchers().add(old);
+            getProjectDAO().update(project,em);
         }
         em.getTransaction().commit();
         em.close();
         return project;
     }
-
 }

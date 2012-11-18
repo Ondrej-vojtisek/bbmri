@@ -24,4 +24,6 @@ public interface ResearcherService {
 
     public List<Researcher> getAll();
 
+    public Researcher getById(Long id);
+
 }

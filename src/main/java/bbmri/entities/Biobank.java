@@ -19,51 +19,29 @@ public class Biobank implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
     private String address;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    /*
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "biobank_admins", joinColumns = @JoinColumn(name = "biobank_id"),
-            inverseJoinColumns = @JoinColumn(name = "admin_id"))
-    private List<Researcher> admins = new ArrayList<Researcher>();   \
-
-     public void setAdmins(List<Researcher> admins) {
-        this.admins = admins;
-    }
-
-    public List<Researcher> getAdmins() {
-        return admins;
-    }
-
-    */
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADMIN_ID")
-    Researcher admin;
+    Researcher administrator;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "COMMITTEE_ID")
+    Researcher ethicalCommittee;
 
-    public Researcher getAdmin() {
-        return admin;
-    }
+    public Researcher getEthicalCommittee() {return ethicalCommittee;}
+    public void setEthicalCommittee(Researcher ethicalCommittee) {this.ethicalCommittee = ethicalCommittee;}
 
-    public void setAdmin(Researcher admin) {
-        this.admin = admin;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
+
+    public String getAddress() {return address;}
+    public void setAddress(String address) {this.address = address;}
+
+    public Researcher getAdministrator() {return administrator;}
+    public void setAdministrator(Researcher administrator) {this.administrator = administrator;}
+
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
 
     @Override
     public int hashCode() {

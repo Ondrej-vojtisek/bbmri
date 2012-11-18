@@ -41,13 +41,17 @@ public class BiobankServiceImpl implements BiobankService {
         return researcherDAO;
     }
 
-    public Biobank create(Biobank biobank, Researcher researcher) {
+    public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Researcher resDB = getResearcherDAO().get(researcher.getId(), em);
-        if (resDB != null) {
+        Researcher adminDB = getResearcherDAO().get(administratorId, em);
+        if (adminDB != null) {
             getBiobankDAO().create(biobank, em);
-            biobank.setAdmin(resDB);
+            biobank.setAdministrator(adminDB);
+        }
+         Researcher committeeDB = getResearcherDAO().get(ethicalCommitteeId, em);
+        if (committeeDB != null) {
+            biobank.setEthicalCommittee(committeeDB);
         }
         em.getTransaction().commit();
         em.close();
@@ -68,10 +72,15 @@ public class BiobankServiceImpl implements BiobankService {
     public Biobank update(Biobank biobank) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getBiobankDAO().update(biobank, em);
+
+        Biobank biobankDB = getBiobankDAO().get(biobank.getId(), em);
+        biobankDB.setAddress(biobank.getAddress());
+        biobankDB.setName(biobank.getName());
+
+        getBiobankDAO().update(biobankDB, em);
         em.getTransaction().commit();
         em.close();
-        return biobank;
+        return biobankDB;
     }
 
     public List<Biobank> getAll() {
@@ -81,6 +90,34 @@ public class BiobankServiceImpl implements BiobankService {
         em.getTransaction().commit();
         em.close();
         return researchers;
+    }
+
+    public Biobank updateAdministrator (Long biobankId, Long adminId){
+         EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
+        Researcher researcher = getResearcherDAO().get(adminId, em);
+        biobankDB.setAdministrator(researcher);
+
+        getBiobankDAO().update(biobankDB, em);
+        em.getTransaction().commit();
+        em.close();
+        return biobankDB;
+    }
+
+       public Biobank updateEthicalCommittee (Long biobankId, Long committeeId){
+         EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
+        Researcher researcher = getResearcherDAO().get(committeeId, em);
+        biobankDB.setEthicalCommittee(researcher);
+
+        getBiobankDAO().update(biobankDB, em);
+        em.getTransaction().commit();
+        em.close();
+        return biobankDB;
     }
 
 }

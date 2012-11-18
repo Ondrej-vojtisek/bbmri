@@ -14,13 +14,11 @@
                 <th><f:message key="id"/></th>
                 <th><f:message key="name"/></th>
                 <th><f:message key="surname"/></th>
-                <th><f:message key="online"/></th>
             </tr>
             <tr>
                 <td><c:out value="${ab.loggedResearcher.id}"/></td>
                 <td><c:out value="${ab.loggedResearcher.name}"/></td>
                 <td><c:out value="${ab.loggedResearcher.surname}"/></td>
-                <td><c:out value="${ab.loggedResearcher.online}"/></td>
             </tr>
         </table>
 

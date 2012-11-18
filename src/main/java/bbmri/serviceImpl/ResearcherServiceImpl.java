@@ -83,4 +83,13 @@ public class ResearcherServiceImpl implements ResearcherService {
         em.close();
         return researchers;
     }
+
+    public Researcher getById(Long id){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Researcher researcher = getResearcherDAO().get(id, em);
+        em.getTransaction().commit();
+        em.close();
+        return researcher;
+    }
 }

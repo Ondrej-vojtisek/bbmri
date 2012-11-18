@@ -14,12 +14,16 @@ import java.util.List;
  */
 public interface BiobankService {
 
-    public Biobank create(Biobank biobank, Researcher researcher);
+    public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId);
 
     public void remove(Long id);
 
     public Biobank update(Biobank biobank);
 
     public List<Biobank> getAll();
+
+    public Biobank updateAdministrator (Long biobankId, Long adminId);
+
+    public Biobank updateEthicalCommittee (Long biobankId, Long committeeId);
 
 }

@@ -74,7 +74,7 @@ public class ResearcherActionBean implements ActionBean {
     public Resolution zobraz() {
 
         researchers = getResearcherService().getAll();
-        return new ForwardResolution("/researchers.jsp");
+        return new ForwardResolution("/allResearchers.jsp");
     }
 
     public Resolution create() {

@@ -62,7 +62,7 @@ public class LoginActionBean implements ActionBean {
         Researcher researcher = getLoginService().login(id, password);
         if (researcher != null) {
             ctx.setLoggedResearcher(researcher);
-            return new RedirectResolution("/projects.jsp");
+            return new RedirectResolution("/allProjects.jsp");
         }
         return new ForwardResolution("/index.jsp");
     }

@@ -1,6 +1,7 @@
 package bbmri.action;
 
 import bbmri.DAOimpl.ResearcherDAOImpl;
+import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.Researcher;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -38,6 +39,14 @@ public class MyActionBeanContext extends ActionBeanContext {
 
     public void setProject(Project project) {
         getRequest().getSession().setAttribute("project", project);
+    }
+
+    public Biobank getBiobank(){
+          return (Biobank) getRequest().getSession().getAttribute("biobank");
+    }
+
+     public void setBiobank(Biobank biobank) {
+        getRequest().getSession().setAttribute("biobank", biobank);
     }
 
 }

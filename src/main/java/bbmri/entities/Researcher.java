@@ -35,82 +35,51 @@ public class Researcher implements Serializable {
     private boolean online;
     //naive temporal prosthesis
     private String password;
-
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
-
-    /*
-    @ManyToMany(mappedBy = "admins", cascade = CascadeType.ALL)
-    private List<Biobank> biobanks = new ArrayList<Biobank>();
-    */
-
-    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "administrator", cascade = CascadeType.ALL)
     Biobank biobank;
+    @Column(columnDefinition = "boolean default false")
+    private boolean administrator;
+    @OneToOne(mappedBy = "ethicalCommittee", cascade = CascadeType.ALL)
+    Biobank ethicalCommitteeOfBiobank;
 
-    public Researcher() {
-    }
 
-    public Researcher(String name, String surname) {
+    public Researcher() {}
+
+     public Researcher(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
 
-    public Biobank getBiobank() {
-        return biobank;
-    }
+    public Biobank getEthicalCommitteeOfBiobank() {return ethicalCommitteeOfBiobank;}
+    public void setEthicalCommitteeOfBiobank(Biobank ethicalCommitteeOfBiobank) {this.ethicalCommitteeOfBiobank = ethicalCommitteeOfBiobank;}
 
-    public void setBiobank(Biobank biobank) {
-        this.biobank = biobank;
-    }
+    public boolean isOnline() {return online;}
+    public void setOnline(boolean online) {this.online = online;}
 
-    public String getSurname() {
-        return surname;
-    }
+    public String getPassword() {return password;}
+    public void setPassword(String password) {this.password = password;}
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+    public Biobank getBiobank() {return biobank;}
+    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
 
-    public String getName() {
-        return name;
-    }
+    public String getSurname() {return surname;}
+    public void setSurname(String surname) {this.surname = surname;}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
 
-    public List<Project> getProjects() {
-        return projects;
-    }
+    public List<Project> getProjects() {return projects;}
+    public void setProjects(List<Project> projects) {this.projects = projects;}
 
-    public void setProjects(List<Project> projects) {
-        this.projects = new ArrayList<Project>(projects);
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
-    public Long getId() {
-        return id;
-    }
+    public boolean isOperator(){ return biobank != null;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public boolean isAdministrator() {return administrator;}
+    public void setAdministrator(boolean administrator) {this.administrator = administrator;}
 
     @Override
     public int hashCode() {

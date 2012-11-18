@@ -21,53 +21,39 @@ public class Project implements Serializable {
     private Long id;
     private String name;
     private String description;
-
-    @Enumerated(EnumType.STRING)
-    private ProjectState projectState;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ProjectState getProjectState() {
-        return projectState;
-    }
-
-    public void setProjectState(ProjectState projectState) {
-        this.projectState = projectState;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String fundingOrganization;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "project_researchers", joinColumns = @JoinColumn(name = "projects_id"),
             inverseJoinColumns = @JoinColumn(name = "researchers_id"))
     private List<Researcher> researchers = new ArrayList<Researcher>();
 
-    public List<Researcher> getResearchers() {
-        return researchers;
-    }
+    @Enumerated(EnumType.STRING)
+    private ProjectState projectState;
 
-    public void setResearchers(List<Researcher> researchers) {
-        this.researchers = researchers;
-    }
+    public String getFundingOrganization() {return fundingOrganization;}
+    public void setFundingOrganization(String fundingOrganization) {this.fundingOrganization = fundingOrganization;}
 
-    public Long getId() {
-        return id;
-    }
+    public String getDescription() {return description;}
+    public void setDescription(String description) {this.description = description;}
 
-    public void setId(Long id) {
-        this.id = id;
+    public ProjectState getProjectState() {return projectState;}
+    public void setProjectState(ProjectState projectState) {this.projectState = projectState;}
+
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+
+    public List<Researcher> getResearchers() {return researchers;}
+    public void setResearchers(List<Researcher> researchers) {this.researchers = researchers;}
+
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
+
+    public Researcher getOwner(){
+        if(!researchers.isEmpty()){
+            return researchers.get(0);
+        }
+        return null;
     }
 
     @Override
