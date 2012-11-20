@@ -92,4 +92,17 @@ public class ResearcherServiceImpl implements ResearcherService {
         em.close();
         return researcher;
     }
+
+    public Researcher changeAdministrator (Long oldAdminId, Long newAdminId){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Researcher researcherOld = getResearcherDAO().get(oldAdminId, em);
+        Researcher researcherNew = getResearcherDAO().get(newAdminId, em);
+        researcherOld.setAdministrator(false);
+        researcherNew.setAdministrator(true);
+        em.getTransaction().commit();
+        em.close();
+        return researcherOld;
+
+    }
 }
