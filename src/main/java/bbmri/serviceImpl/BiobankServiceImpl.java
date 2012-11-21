@@ -5,12 +5,15 @@ import bbmri.DAO.ResearcherDAO;
 import bbmri.DAOimpl.BiobankDAOImpl;
 import bbmri.DAOimpl.ResearcherDAOImpl;
 import bbmri.entities.Biobank;
+import bbmri.entities.Request;
 import bbmri.entities.Researcher;
+import bbmri.entities.Sample;
 import bbmri.service.BiobankService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,10 +89,10 @@ public class BiobankServiceImpl implements BiobankService {
     public List<Biobank> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<Biobank> researchers = getBiobankDAO().getAll(em);
+        List<Biobank> biobanks = getBiobankDAO().getAll(em);
         em.getTransaction().commit();
         em.close();
-        return researchers;
+        return biobanks;
     }
 
     public Biobank updateAdministrator (Long biobankId, Long adminId){
@@ -107,7 +110,7 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
        public Biobank updateEthicalCommittee (Long biobankId, Long committeeId){
-         EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
         Biobank biobankDB = getBiobankDAO().get( biobankId, em);
@@ -118,6 +121,20 @@ public class BiobankServiceImpl implements BiobankService {
         em.getTransaction().commit();
         em.close();
         return biobankDB;
+    }
+
+    public List<Sample> getAllSamples(Long biobankId){
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
+        if(biobankDB != null){
+          em.close();
+          return null;
+        }
+        em.close();
+
+        return biobankDB.getSamples();
+
     }
 
 }

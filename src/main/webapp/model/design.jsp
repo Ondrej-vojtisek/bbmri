@@ -22,6 +22,10 @@
                 background-color: azure;
             }
 
+            fieldset{
+                background-color: white;
+            }
+
             h1 {
                 text-align: center;
                 text-shadow: aquamarine;
@@ -114,6 +118,8 @@
               <c:if test="${loggedResearcher.biobank != null}">
                  <li><f:message key="biobank.operator"/></li>
                  <li><s:link href="/addSample.jsp"><f:message key="samples.add"/></s:link></li>
+                 <li><s:link href="/approveSampleRequest.jsp"><f:message key="sample_requests"/></s:link></li>
+                 <li><s:link href="/releaseSample.jsp"><f:message key="sample.release"/></s:link></li>
               </c:if>
 
               <c:if test="${loggedResearcher.administrator}">

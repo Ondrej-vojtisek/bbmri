@@ -2,7 +2,9 @@ package bbmri.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,93 +31,50 @@ public class Sample implements Serializable {
  //   private Date freezingTime;
     private String diagnosis;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne (cascade=CascadeType.ALL)
+    private Biobank biobank;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy="sample",cascade=CascadeType.ALL)
+    List<Request> requests = new ArrayList<Request>();
 
-    public String getSampleID() {
-        return sampleID;
-    }
+    public Biobank getBiobank() {return biobank;}
+    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
 
-    public void setSampleID(String sampleID) {
-        this.sampleID = sampleID;
-    }
+    public List<Request> getRequests() {return requests;}
+    public void setRequests(List<Request> requests) {this.requests = requests;}
 
-    public int getNumOfSamples() {
-        return numOfSamples;
-    }
+    public Long getId() {return id;}
+    public void setId(Long id) {this.id = id;}
 
-    public void setNumOfSamples(int numOfSamples) {
-        this.numOfSamples = numOfSamples;
-    }
+    public String getSampleID() {return sampleID;}
+    public void setSampleID(String sampleID) {this.sampleID = sampleID;}
 
-    public int getNumOfAvailable() {
-        return numOfAvailable;
-    }
+    public int getNumOfSamples() {return numOfSamples;}
+    public void setNumOfSamples(int numOfSamples) {this.numOfSamples = numOfSamples;}
 
-    public void setNumOfAvailable(int numOfAvailable) {
-        this.numOfAvailable = numOfAvailable;
-    }
+    public int getNumOfAvailable() {return numOfAvailable;}
+    public void setNumOfAvailable(int numOfAvailable) {this.numOfAvailable = numOfAvailable;}
 
-    public String getTissueType() {
-        return tissueType;
-    }
+    public String getTissueType() {return tissueType;}
+    public void setTissueType(String tissueType) {this.tissueType = tissueType;}
 
-    public void setTissueType(String tissueType) {
-        this.tissueType = tissueType;
-    }
+    public String getTNM() {return TNM;}
+    public void setTNM(String TNM) {this.TNM = TNM;}
 
-    public String getTNM() {
-        return TNM;
-    }
+    public String getpTNM() {return pTNM;}
+    public void setpTNM(String pTNM) {this.pTNM = pTNM;}
 
-    public void setTNM(String TNM) {
-        this.TNM = TNM;
-    }
-
-    public String getpTNM() {
-        return pTNM;
-    }
-
-    public void setpTNM(String pTNM) {
-        this.pTNM = pTNM;
-    }
-
-    public int getGrading() {
-        return grading;
-    }
-
-    public void setGrading(int grading) {
-        this.grading = grading;
-    }
+    public int getGrading() {return grading;}
+    public void setGrading(int grading) {this.grading = grading;}
 /*
-    public Date getRemovalTime() {
-        return removalTime;
-    }
+    public Date getRemovalTime() {return removalTime;}
+    public void setRemovalTime(Date removalTime) {this.removalTime = removalTime;}
 
-    public void setRemovalTime(Date removalTime) {
-        this.removalTime = removalTime;
-    }
-
-    public Date getFreezingTime() {
-        return freezingTime;
-    }
-
-    public void setFreezingTime(Date freezingTime) {
-        this.freezingTime = freezingTime;
-    }
+    public Date getFreezingTime() {return freezingTime;}
+    public void setFreezingTime(Date freezingTime) {this.freezingTime = freezingTime;}
  */
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
+    public String getDiagnosis() {return diagnosis;}
+    public void setDiagnosis(String diagnosis) {this.diagnosis = diagnosis;}
 
     @Override
     public int hashCode() {

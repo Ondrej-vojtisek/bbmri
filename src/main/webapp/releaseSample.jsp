@@ -5,27 +5,10 @@
 
 
 <f:message key="sample.request" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleRequest.SampleRequestActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.ReleaseSampleActionBean"/>
 <s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleRequest.SampleRequestActionBean">
-            <fieldset>
-                <table>
-                    <tr>
-                        <th><s:label for="z1" name="project.name"/></th>
-                        <td><s:text id="z1" name="project.name"/></td>
-                    </tr>
-                    <tr>
-                        <th><s:label for="z2" name="project.fundingOrganization"/></th>
-                        <td><s:text id="z2" name="project.fundingOrganization"/></td>
-                    </tr>
-                    <tr>
-                        <th><s:label for="z3" name="project.projectState"/></th>
-                        <td><s:text id="z3" name="project.projectState"/></td>
-                    </tr>
-                </table>
-            </fieldset>
-
+        <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
                 <table border="1">
                     <tr>
@@ -39,9 +22,9 @@
                             <td><c:out value="${sample.TNM}"/></td>
                             <td><c:out value="${sample.pTNM}"/></td>
                             <td><c:out value="${sample.grading}"/></td>
-                            <td><s:link beanclass="bbmri.action.SampleRequest.SampleRequestActionBean" event="request">
+                            <td><s:link beanclass="bbmri.action.ReleaseSampleActionBean" event="release">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
-                                    key="sample.request"/></s:link>
+                                    key="sample.release"/></s:link>
                             </td>
                         </tr>
                     </c:forEach>

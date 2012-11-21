@@ -60,11 +60,12 @@ public class AllProjectsActionBean extends BasicActionBean {
     public Resolution requestSample() {
         project = getProjectService().getById(project.getId());
         // you can't request sample for not approved project
+
         if(project.getProjectState()  != ProjectState.NEW){
             getContext().setProject(project);
             return new ForwardResolution("/sampleRequests.jsp");
         }
-         return new ForwardResolution("/allProjects.jsp");
+       return new ForwardResolution("/allProjects.jsp");
     }
 
     public Resolution leave() {

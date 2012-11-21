@@ -13,12 +13,14 @@ import java.util.List;
  */
 public interface SampleService {
 
-    public Sample create(Sample sample);
+    public Sample create(Sample sample, Long biobankId);
 
     public void remove(Long id);
 
     public Sample update(Sample sample);
 
     public List<Sample> getAll();
+
+    public Sample decreaseCount(Long sampleId, Integer requested);
 
 }

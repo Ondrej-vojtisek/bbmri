@@ -2,6 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Researcher;
+import bbmri.entities.Sample;
 
 import java.util.List;
 
@@ -25,5 +26,7 @@ public interface BiobankService {
     public Biobank updateAdministrator (Long biobankId, Long adminId);
 
     public Biobank updateEthicalCommittee (Long biobankId, Long committeeId);
+
+    public List<Sample> getAllSamples(Long biobankId);
 
 }

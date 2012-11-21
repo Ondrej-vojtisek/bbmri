@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.Researcher;
 import bbmri.entities.Sample;
@@ -43,7 +44,11 @@ public class AddSampleActionBean implements ActionBean{
         }
 
         public Resolution create() {
-            getSampleService().create(sample);
+
+            Biobank biobank = getLoggedResearcher().getBiobank();
+            if(biobank != null){
+                getSampleService().create(sample, biobank.getId());
+            }
             return new RedirectResolution("/addSample.jsp");
         }
 

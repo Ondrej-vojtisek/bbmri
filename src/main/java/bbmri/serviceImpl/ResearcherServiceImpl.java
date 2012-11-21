@@ -69,10 +69,10 @@ public class ResearcherServiceImpl implements ResearcherService {
         if(researcher.getSurname() != null) res.setSurname(researcher.getSurname());
         if(researcher.getPassword() != null) res.setPassword(researcher.getPassword());
 
-        getResearcherDAO().update(researcher, em);
+        getResearcherDAO().update(res, em);
         em.getTransaction().commit();
         em.close();
-        return researcher;
+        return res;
     }
 
     public List<Researcher> getAll() {

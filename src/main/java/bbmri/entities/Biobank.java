@@ -28,6 +28,9 @@ public class Biobank implements Serializable {
     @JoinColumn(name = "COMMITTEE_ID")
     Researcher ethicalCommittee;
 
+    @OneToMany(mappedBy="biobank",cascade=CascadeType.ALL)
+    private List<Sample> samples = new ArrayList<Sample>();
+
     public Researcher getEthicalCommittee() {return ethicalCommittee;}
     public void setEthicalCommittee(Researcher ethicalCommittee) {this.ethicalCommittee = ethicalCommittee;}
 
@@ -42,6 +45,9 @@ public class Biobank implements Serializable {
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
+
+    public List<Sample> getSamples() {return samples;}
+    public void setSamples(List<Sample> samples) {this.samples = samples;}
 
     @Override
     public int hashCode() {

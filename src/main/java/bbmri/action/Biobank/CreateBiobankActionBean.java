@@ -38,6 +38,14 @@ public class CreateBiobankActionBean extends BasicActionBean {
     public void setBiobank(Biobank biobank) { this.biobank = biobank;}
 
     public Resolution create() {
+        Researcher resDB = getResearcherService().getById(administrator.getId());
+        if(resDB.getBiobank() != null){
+            return new ForwardResolution("/allBiobanks.jsp");
+        }
+        resDB = getResearcherService().getById(ethicalCommittee.getId());
+        if(resDB.getEthicalCommitteeOfBiobank() != null){
+               return new ForwardResolution("/allBiobanks.jsp");
+        }
         getBiobankService().create(biobank, administrator.getId(), ethicalCommittee.getId());
         return new ForwardResolution("/allBiobanks.jsp");
     }

@@ -31,6 +31,9 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
+    @OneToMany(mappedBy="project",cascade=CascadeType.ALL)
+    private List<Request> requests = new ArrayList<Request>();
+
     public String getFundingOrganization() {return fundingOrganization;}
     public void setFundingOrganization(String fundingOrganization) {this.fundingOrganization = fundingOrganization;}
 
@@ -48,6 +51,9 @@ public class Project implements Serializable {
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
+
+    public List<Request> getRequests() {return requests;}
+    public void setRequests(List<Request> requests) {this.requests = requests;}
 
     public Researcher getOwner(){
         if(!researchers.isEmpty()){
