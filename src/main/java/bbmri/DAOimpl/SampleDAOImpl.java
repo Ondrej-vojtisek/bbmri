@@ -16,25 +16,33 @@ import java.util.List;
  */
 public class SampleDAOImpl implements SampleDAO {
 
-    public void create(Sample sample, EntityManager em){
-         em.persist(sample);
+    public void create(Sample sample, EntityManager em) {
+        em.persist(sample);
     }
 
-    public void remove(Sample sample, EntityManager em){
+    public void remove(Sample sample, EntityManager em) {
         em.remove(sample);
     }
 
-    public void update(Sample sample, EntityManager em){
-         em.merge(sample);
+    public void update(Sample sample, EntityManager em) {
+        em.merge(sample);
     }
 
-    public Sample get(Long id, EntityManager em){
-           return em.find(Sample.class, id);
+    public Sample get(Long id, EntityManager em) {
+        return em.find(Sample.class, id);
     }
 
-    public List<Sample> getAll(EntityManager em){
+    public List<Sample> getAll(EntityManager em) {
         Query query = em.createQuery("SELECT p FROM Sample p");
         return query.getResultList();
+    }
+
+    public List<Sample> getSelected(EntityManager em, String query) {
+
+        String preparedQuery = "SELECT p FROM Sample p " + query;
+        System.out.println(preparedQuery);
+        Query queryDB = em.createQuery(preparedQuery);
+        return queryDB.getResultList();
     }
 
 }

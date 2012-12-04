@@ -28,26 +28,56 @@ public class Biobank implements Serializable {
     @JoinColumn(name = "COMMITTEE_ID")
     Researcher ethicalCommittee;
 
-    @OneToMany(mappedBy="biobank",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<Sample> samples = new ArrayList<Sample>();
 
-    public Researcher getEthicalCommittee() {return ethicalCommittee;}
-    public void setEthicalCommittee(Researcher ethicalCommittee) {this.ethicalCommittee = ethicalCommittee;}
+    public Researcher getEthicalCommittee() {
+        return ethicalCommittee;
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public void setEthicalCommittee(Researcher ethicalCommittee) {
+        this.ethicalCommittee = ethicalCommittee;
+    }
 
-    public String getAddress() {return address;}
-    public void setAddress(String address) {this.address = address;}
+    public Long getId() {
+        return id;
+    }
 
-    public Researcher getAdministrator() {return administrator;}
-    public void setAdministrator(Researcher administrator) {this.administrator = administrator;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public String getAddress() {
+        return address;
+    }
 
-    public List<Sample> getSamples() {return samples;}
-    public void setSamples(List<Sample> samples) {this.samples = samples;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Researcher getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Researcher administrator) {
+        this.administrator = administrator;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Sample> getSamples() {
+        return samples;
+    }
+
+    public void setSamples(List<Sample> samples) {
+        this.samples = samples;
+    }
 
     @Override
     public int hashCode() {

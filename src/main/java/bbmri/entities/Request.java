@@ -20,10 +20,10 @@ public class Request {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne (cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Sample sample;
 
-    @ManyToOne (cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Project project;
 
     /*
@@ -35,22 +35,48 @@ public class Request {
     @Enumerated(EnumType.STRING)
     private RequestState requestState;
 
-    public Request(){}
+    public Request() {
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public Long getId() {
+        return id;
+    }
 
-    public Sample getSample() {return sample;}
-    public void setSample(Sample sample) {this.sample = sample;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Project getProject() {return project;}
-    public void setProject(Project project) {this.project = project;}
+    public Sample getSample() {
+        return sample;
+    }
 
-    public Date getDate() {return date;}
-    public void setDate(Date date) {this.date = date;}
+    public void setSample(Sample sample) {
+        this.sample = sample;
+    }
 
-    public RequestState getRequestState() {return requestState;}
-    public void setRequestState(RequestState requestState) {this.requestState = requestState;}
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public RequestState getRequestState() {
+        return requestState;
+    }
+
+    public void setRequestState(RequestState requestState) {
+        this.requestState = requestState;
+    }
 
     @Override
     public boolean equals(Object o) {

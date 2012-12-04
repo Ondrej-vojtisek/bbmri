@@ -52,7 +52,7 @@ public class BiobankServiceImpl implements BiobankService {
             getBiobankDAO().create(biobank, em);
             biobank.setAdministrator(adminDB);
         }
-         Researcher committeeDB = getResearcherDAO().get(ethicalCommitteeId, em);
+        Researcher committeeDB = getResearcherDAO().get(ethicalCommitteeId, em);
         if (committeeDB != null) {
             biobank.setEthicalCommittee(committeeDB);
         }
@@ -95,11 +95,11 @@ public class BiobankServiceImpl implements BiobankService {
         return biobanks;
     }
 
-    public Biobank updateAdministrator (Long biobankId, Long adminId){
-         EntityManager em = emf.createEntityManager();
+    public Biobank updateAdministrator(Long biobankId, Long adminId) {
+        EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
+        Biobank biobankDB = getBiobankDAO().get(biobankId, em);
         Researcher researcher = getResearcherDAO().get(adminId, em);
         biobankDB.setAdministrator(researcher);
 
@@ -109,11 +109,11 @@ public class BiobankServiceImpl implements BiobankService {
         return biobankDB;
     }
 
-       public Biobank updateEthicalCommittee (Long biobankId, Long committeeId){
+    public Biobank updateEthicalCommittee(Long biobankId, Long committeeId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
+        Biobank biobankDB = getBiobankDAO().get(biobankId, em);
         Researcher researcher = getResearcherDAO().get(committeeId, em);
         biobankDB.setEthicalCommittee(researcher);
 
@@ -123,13 +123,13 @@ public class BiobankServiceImpl implements BiobankService {
         return biobankDB;
     }
 
-    public List<Sample> getAllSamples(Long biobankId){
+    public List<Sample> getAllSamples(Long biobankId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Biobank biobankDB = getBiobankDAO().get( biobankId, em);
-        if(biobankDB != null){
-          em.close();
-          return null;
+        Biobank biobankDB = getBiobankDAO().get(biobankId, em);
+        if (biobankDB != null) {
+            em.close();
+            return null;
         }
         em.close();
 

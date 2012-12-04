@@ -27,18 +27,34 @@
             </fieldset>
 
             <fieldset>
+                 <legend><f:message key="selection_criteria"/></legend>
+             <s:hidden name="sample.sampleID"/>
+                <%@include file="/form/selectionCriteriaForm.jsp" %>
+                <s:submit name="find"><f:message key="find"/></s:submit>
+            </fieldset>
+
+            <fieldset>
+
                 <table border="1">
                     <tr>
-                        <th><f:message key="samples.TNM"/></th>
-                        <th><f:message key="samples.pTNM"/></th>
-                        <th><f:message key="samples.grading"/></th>
+                        <th><f:message key="sample.TNM"/></th>
+                        <th><f:message key="sample.pTNM"/></th>
+                        <th><f:message key="sample.grading"/></th>
+                        <th><f:message key="sample.diagnosis"/></th>
+                        <th><f:message key="sample.tissueType"/></th>
+                        <th><f:message key="sample.numOfAvailable"/></th>
+                        <th><f:message key="sample.biobank"/></th>
                     </tr>
 
-                    <c:forEach items="${ab.samples}" var="sample">
+                    <c:forEach items="${ab.results}" var="sample">
                         <tr>
                             <td><c:out value="${sample.TNM}"/></td>
                             <td><c:out value="${sample.pTNM}"/></td>
                             <td><c:out value="${sample.grading}"/></td>
+                            <td><c:out value="${sample.diagnosis}"/></td>
+                            <td><c:out value="${sample.tissueType}"/></td>
+                            <td><c:out value="${sample.numOfAvailable}"/></td>
+                            <td><c:out value="${sample.biobank.name}"/></td>
                             <td><s:link beanclass="bbmri.action.SampleRequest.SampleRequestActionBean" event="request">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
                                     key="sample.request"/></s:link>

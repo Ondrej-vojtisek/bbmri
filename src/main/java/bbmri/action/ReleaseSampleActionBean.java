@@ -17,30 +17,41 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/releaseSample/{$event}/{loggedResearcher.id}")
-public class ReleaseSampleActionBean extends BasicActionBean  {
+public class ReleaseSampleActionBean extends BasicActionBean {
 
     private Sample sample;
     private List<Sample> samples;
     private Biobank biobank;
 
     public Biobank getBiobank() {
-        if(biobank == null){
+        if (biobank == null) {
             biobank = getLoggedResearcher().getBiobank();
         }
         return biobank;
     }
-    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
 
-    public Sample getSample() {return sample;}
-    public void setSample(Sample sample) {this.sample = sample;}
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
+
+    public Sample getSample() {
+        return sample;
+    }
+
+    public void setSample(Sample sample) {
+        this.sample = sample;
+    }
 
     public List<Sample> getSamples() {
         samples = getRequestService().getAllReleasableSamplesByBiobank(getBiobank().getId());
         return samples;
     }
-    public void setSamples(List<Sample> samples) {this.samples = samples;}
 
-    public Resolution release(){
+    public void setSamples(List<Sample> samples) {
+        this.samples = samples;
+    }
+
+    public Resolution release() {
         getSampleService().decreaseCount(sample.getId(), 1);
 
         return new ForwardResolution("/releaseSample.jsp");

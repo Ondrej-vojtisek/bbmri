@@ -60,14 +60,14 @@ public class ResearcherServiceImpl implements ResearcherService {
     public Researcher update(Researcher researcher) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Researcher res = getResearcherDAO().get(researcher.getId(),em);
-        if(res == null){
+        Researcher res = getResearcherDAO().get(researcher.getId(), em);
+        if (res == null) {
             em.close();
             return null;
         }
-        if(researcher.getName() != null) res.setName(researcher.getName());
-        if(researcher.getSurname() != null) res.setSurname(researcher.getSurname());
-        if(researcher.getPassword() != null) res.setPassword(researcher.getPassword());
+        if (researcher.getName() != null) res.setName(researcher.getName());
+        if (researcher.getSurname() != null) res.setSurname(researcher.getSurname());
+        if (researcher.getPassword() != null) res.setPassword(researcher.getPassword());
 
         getResearcherDAO().update(res, em);
         em.getTransaction().commit();
@@ -84,7 +84,7 @@ public class ResearcherServiceImpl implements ResearcherService {
         return researchers;
     }
 
-    public Researcher getById(Long id){
+    public Researcher getById(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Researcher researcher = getResearcherDAO().get(id, em);
@@ -93,7 +93,7 @@ public class ResearcherServiceImpl implements ResearcherService {
         return researcher;
     }
 
-    public Researcher changeAdministrator (Long oldAdminId, Long newAdminId){
+    public Researcher changeAdministrator(Long oldAdminId, Long newAdminId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Researcher researcherOld = getResearcherDAO().get(oldAdminId, em);

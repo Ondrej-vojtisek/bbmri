@@ -68,12 +68,12 @@ public class ProjectServiceImpl implements ProjectService {
     public Project update(Project project) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Project projectDB = getProjectDAO().get(project.getId(),em);
+        Project projectDB = getProjectDAO().get(project.getId(), em);
 
-        if(projectDB.getProjectState() != ProjectState.NEW &&
+        if (projectDB.getProjectState() != ProjectState.NEW &&
                 project.getProjectState() != ProjectState.NEW &&
-                project.getProjectState() != ProjectState.APPROVED){
-             projectDB.setProjectState(project.getProjectState());
+                project.getProjectState() != ProjectState.APPROVED) {
+            projectDB.setProjectState(project.getProjectState());
         }
         projectDB.setDescription(project.getDescription());
         projectDB.setFundingOrganization(project.getFundingOrganization());
@@ -104,7 +104,7 @@ public class ProjectServiceImpl implements ProjectService {
         return projects;
     }
 
-      public List<Project> getAllWhichResearcherAdministrate(Long id) {
+    public List<Project> getAllWhichResearcherAdministrate(Long id) {
         Researcher researcher;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -215,19 +215,19 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
-    public List<Researcher> getAllNotAssignedResearchers(Long id){
+    public List<Researcher> getAllNotAssignedResearchers(Long id) {
         List<Researcher> result = new ArrayList<Researcher>();
 
         Project project;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         project = getProjectDAO().get(id, em);
-         List<Researcher> allResearchers = getResearcherDAO().getAll(em);
-         em.getTransaction().commit();
-         em.close();
-         if (allResearchers != null) {
+        List<Researcher> allResearchers = getResearcherDAO().getAll(em);
+        em.getTransaction().commit();
+        em.close();
+        if (allResearchers != null) {
             for (Researcher res : allResearchers) {
-                if(!res.getProjects().contains(project)){
+                if (!res.getProjects().contains(project)) {
                     result.add(res);
                 }
             }
@@ -235,7 +235,7 @@ public class ProjectServiceImpl implements ProjectService {
         return result;
     }
 
-    public Project changeOwnership(Long projectId, Long newOwnerId){
+    public Project changeOwnership(Long projectId, Long newOwnerId) {
 
         Project project;
         EntityManager em = emf.createEntityManager();
@@ -245,13 +245,13 @@ public class ProjectServiceImpl implements ProjectService {
 
         Researcher old = getResearcherDAO().get(project.getOwner().getId(), em);
 
-        if(project.getResearchers().contains(researcher)){
+        if (project.getResearchers().contains(researcher)) {
             project.getResearchers().remove(old);
-            getProjectDAO().update(project,em);
+            getProjectDAO().update(project, em);
             project.getResearchers().remove(researcher);
             project.getResearchers().add(0, researcher);
             project.getResearchers().add(old);
-            getProjectDAO().update(project,em);
+            getProjectDAO().update(project, em);
         }
         em.getTransaction().commit();
         em.close();

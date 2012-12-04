@@ -26,6 +26,6 @@ public interface ResearcherService {
 
     public Researcher getById(Long id);
 
-    public Researcher changeAdministrator (Long oldAdminId, Long newAdminId);
+    public Researcher changeAdministrator(Long oldAdminId, Long newAdminId);
 
 }

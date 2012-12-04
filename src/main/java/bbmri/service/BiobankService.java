@@ -23,9 +23,9 @@ public interface BiobankService {
 
     public List<Biobank> getAll();
 
-    public Biobank updateAdministrator (Long biobankId, Long adminId);
+    public Biobank updateAdministrator(Long biobankId, Long adminId);
 
-    public Biobank updateEthicalCommittee (Long biobankId, Long committeeId);
+    public Biobank updateEthicalCommittee(Long biobankId, Long committeeId);
 
     public List<Sample> getAllSamples(Long biobankId);
 

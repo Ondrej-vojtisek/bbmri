@@ -99,7 +99,7 @@
     <h1><c:out value="${title}"/></h1>
 
     <div id="navigace">
-        <ul>
+            <ul> <ul>
 
             <s:form beanclass="bbmri.action.BasicActionBean">
             <li><f:message key="user"/></li>

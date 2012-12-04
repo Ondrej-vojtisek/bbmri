@@ -31,32 +31,67 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
-    @OneToMany(mappedBy="project",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<Request>();
 
-    public String getFundingOrganization() {return fundingOrganization;}
-    public void setFundingOrganization(String fundingOrganization) {this.fundingOrganization = fundingOrganization;}
+    public String getFundingOrganization() {
+        return fundingOrganization;
+    }
 
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
+    public void setFundingOrganization(String fundingOrganization) {
+        this.fundingOrganization = fundingOrganization;
+    }
 
-    public ProjectState getProjectState() {return projectState;}
-    public void setProjectState(ProjectState projectState) {this.projectState = projectState;}
+    public String getDescription() {
+        return description;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public List<Researcher> getResearchers() {return researchers;}
-    public void setResearchers(List<Researcher> researchers) {this.researchers = researchers;}
+    public ProjectState getProjectState() {
+        return projectState;
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public void setProjectState(ProjectState projectState) {
+        this.projectState = projectState;
+    }
 
-    public List<Request> getRequests() {return requests;}
-    public void setRequests(List<Request> requests) {this.requests = requests;}
+    public String getName() {
+        return name;
+    }
 
-    public Researcher getOwner(){
-        if(!researchers.isEmpty()){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Researcher> getResearchers() {
+        return researchers;
+    }
+
+    public void setResearchers(List<Researcher> researchers) {
+        this.researchers = researchers;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
+
+    public Researcher getOwner() {
+        if (!researchers.isEmpty()) {
             return researchers.get(0);
         }
         return null;

@@ -5,6 +5,9 @@ import bbmri.entities.Researcher;
 import bbmri.service.LoginService;
 import bbmri.serviceImpl.LoginServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.validation.IntegerTypeConverter;
+import net.sourceforge.stripes.validation.LongTypeConverter;
+import net.sourceforge.stripes.validation.Validate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -21,7 +24,12 @@ import javax.persistence.Persistence;
 public class LoginActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
-    private long id;
+
+
+    @Validate(converter = LongTypeConverter.class, on = {"login"},
+            required = true, minvalue = 1)
+    private Long id;
+    @Validate(on = {"login"}, required = true)
     private String password;
     private LoginService loginService;
 

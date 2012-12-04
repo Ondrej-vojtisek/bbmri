@@ -21,60 +21,125 @@ public class Sample implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String sampleID;
-    private int numOfSamples;
-    private int numOfAvailable;
+    private Integer numOfSamples;
+    private Integer numOfAvailable;
     private String tissueType;
     private String TNM;
     private String pTNM;
-    private int grading;
-  //  private Date removalTime; /*cutTime or blood take*/
- //   private Date freezingTime;
+    private Integer grading;
+    private Date removalTime; /*cutTime or blood take*/
+    private Date freezingTime;
     private String diagnosis;
 
-    @ManyToOne (cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Biobank biobank;
 
-    @OneToMany(mappedBy="sample",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL)
     List<Request> requests = new ArrayList<Request>();
 
-    public Biobank getBiobank() {return biobank;}
-    public void setBiobank(Biobank biobank) {this.biobank = biobank;}
+    public Biobank getBiobank() {
+        return biobank;
+    }
 
-    public List<Request> getRequests() {return requests;}
-    public void setRequests(List<Request> requests) {this.requests = requests;}
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
 
-    public Long getId() {return id;}
-    public void setId(Long id) {this.id = id;}
+    public List<Request> getRequests() {
+        return requests;
+    }
 
-    public String getSampleID() {return sampleID;}
-    public void setSampleID(String sampleID) {this.sampleID = sampleID;}
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
 
-    public int getNumOfSamples() {return numOfSamples;}
-    public void setNumOfSamples(int numOfSamples) {this.numOfSamples = numOfSamples;}
+    public Long getId() {
+        return id;
+    }
 
-    public int getNumOfAvailable() {return numOfAvailable;}
-    public void setNumOfAvailable(int numOfAvailable) {this.numOfAvailable = numOfAvailable;}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getTissueType() {return tissueType;}
-    public void setTissueType(String tissueType) {this.tissueType = tissueType;}
+    public String getSampleID() {
+        return sampleID;
+    }
 
-    public String getTNM() {return TNM;}
-    public void setTNM(String TNM) {this.TNM = TNM;}
+    public void setSampleID(String sampleID) {
+        this.sampleID = sampleID;
+    }
 
-    public String getpTNM() {return pTNM;}
-    public void setpTNM(String pTNM) {this.pTNM = pTNM;}
+    public Integer getNumOfSamples() {
+        return numOfSamples;
+    }
 
-    public int getGrading() {return grading;}
-    public void setGrading(int grading) {this.grading = grading;}
-/*
-    public Date getRemovalTime() {return removalTime;}
-    public void setRemovalTime(Date removalTime) {this.removalTime = removalTime;}
+    public void setNumOfSamples(Integer numOfSamples) {
+        this.numOfSamples = numOfSamples;
+    }
 
-    public Date getFreezingTime() {return freezingTime;}
-    public void setFreezingTime(Date freezingTime) {this.freezingTime = freezingTime;}
- */
-    public String getDiagnosis() {return diagnosis;}
-    public void setDiagnosis(String diagnosis) {this.diagnosis = diagnosis;}
+    public Integer getNumOfAvailable() {
+        return numOfAvailable;
+    }
+
+    public void setNumOfAvailable(Integer numOfAvailable) {
+        this.numOfAvailable = numOfAvailable;
+    }
+
+    public String getTissueType() {
+        return tissueType;
+    }
+
+    public void setTissueType(String tissueType) {
+        this.tissueType = tissueType;
+    }
+
+    public String getTNM() {
+        return TNM;
+    }
+
+    public void setTNM(String TNM) {
+        this.TNM = TNM;
+    }
+
+    public String getpTNM() {
+        return pTNM;
+    }
+
+    public void setpTNM(String pTNM) {
+        this.pTNM = pTNM;
+    }
+
+    public Integer getGrading() {
+        return grading;
+    }
+
+    public void setGrading(Integer grading) {
+        this.grading = grading;
+    }
+
+    public Date getRemovalTime() {
+        return removalTime;
+    }
+
+    public void setRemovalTime(Date removalTime) {
+        this.removalTime = removalTime;
+    }
+
+    public Date getFreezingTime() {
+        return freezingTime;
+    }
+
+    public void setFreezingTime(Date freezingTime) {
+        this.freezingTime = freezingTime;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
     @Override
     public int hashCode() {
@@ -106,8 +171,8 @@ public class Sample implements Serializable {
                 ", TNM='" + TNM + '\'' +
                 ", pTNM='" + pTNM + '\'' +
                 ", grading=" + grading +
-    /*            ", removalTime=" + removalTime +
-                ", freezingTime=" + freezingTime +     */
+                /*            ", removalTime=" + removalTime +
+       ", freezingTime=" + freezingTime +     */
                 ", diagnosis='" + diagnosis + '\'' +
                 '}';
     }

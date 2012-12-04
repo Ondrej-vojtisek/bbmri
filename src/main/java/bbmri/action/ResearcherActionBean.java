@@ -24,7 +24,6 @@ public class ResearcherActionBean implements ActionBean {
     private List<Researcher> researchers;
 
 
-
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
     }

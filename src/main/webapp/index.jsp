@@ -21,8 +21,6 @@
                         <th><label for="z2"><f:message key="password"/></label></th>
                         <td><s:password id="z2" name="password"/></td>
                     </tr>
-
-
                 </table>
                 <s:submit name="login"><f:message key="signin"/></s:submit>
             </fieldset>

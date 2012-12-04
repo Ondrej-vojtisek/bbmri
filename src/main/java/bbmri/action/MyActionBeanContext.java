@@ -33,7 +33,7 @@ public class MyActionBeanContext extends ActionBeanContext {
         getRequest().getSession().setAttribute("researcherDAOImpl", researcherDAOImpl);
     }
 
-     public Project getProject() {
+    public Project getProject() {
         return (Project) getRequest().getSession().getAttribute("project");
     }
 
@@ -41,11 +41,11 @@ public class MyActionBeanContext extends ActionBeanContext {
         getRequest().getSession().setAttribute("project", project);
     }
 
-    public Biobank getBiobank(){
-          return (Biobank) getRequest().getSession().getAttribute("biobank");
+    public Biobank getBiobank() {
+        return (Biobank) getRequest().getSession().getAttribute("biobank");
     }
 
-     public void setBiobank(Biobank biobank) {
+    public void setBiobank(Biobank biobank) {
         getRequest().getSession().setAttribute("biobank", biobank);
     }
 

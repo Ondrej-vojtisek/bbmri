@@ -6,6 +6,7 @@ import bbmri.service.ResearcherService;
 import bbmri.serviceImpl.ResearcherServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.validation.Validate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,24 +23,26 @@ public class AccountActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
     private ResearcherService researcherService;
+    @Validate(on = {"changePassword"}, required = true)
     private String password;
+    @Validate(on = {"changePassword"}, required = true)
     private String password2;
     private Researcher researcher;
     private Researcher loggedResearcher;
 
-      public String getPassword() {
-          return password;
-      }
+    public String getPassword() {
+        return password;
+    }
 
-      public void setPassword(String password) {
-          this.password = password;
-      }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-      public String getPassword2() {
-          return password2;
-      }
+    public String getPassword2() {
+        return password2;
+    }
 
-     public void setPassword2(String password2) {
+    public void setPassword2(String password2) {
         this.password2 = password2;
     }
 
@@ -83,10 +86,10 @@ public class AccountActionBean implements ActionBean {
     }
 
     public Resolution update() {
-        if(researcher.getName() != null)
+        if (researcher.getName() != null)
             loggedResearcher.setName(researcher.getName());
 
-        if(researcher.getSurname() != null)
+        if (researcher.getSurname() != null)
             loggedResearcher.setSurname(researcher.getSurname());
 
         getResearcherService().update(loggedResearcher);
@@ -94,11 +97,11 @@ public class AccountActionBean implements ActionBean {
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
-    public Resolution changePassword(){
-        if(password != null && password2 != null){
-            if(password.equals(password2))
+    public Resolution changePassword() {
+        if (password != null && password2 != null) {
+            if (password.equals(password2))
                 getLoggedResearcher().setPassword(password);
-                getResearcherService().update(getLoggedResearcher());
+            getResearcherService().update(getLoggedResearcher());
         }
         researcher = getLoggedResearcher();
         return new RedirectResolution(this.getClass(), "zobraz");

@@ -14,6 +14,7 @@ import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class SampleServiceImpl implements SampleService {
         return sampleDAO;
     }
 
-     private BiobankDAO getBiobankDAO() {
+    private BiobankDAO getBiobankDAO() {
         if (biobankDAO == null) {
             biobankDAO = new BiobankDAOImpl();
         }
@@ -44,13 +45,12 @@ public class SampleServiceImpl implements SampleService {
     }
 
 
-
-    public Sample create(Sample sample, Long biobankId){
+    public Sample create(Sample sample, Long biobankId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         getSampleDAO().create(sample, em);
         Biobank biobank = getBiobankDAO().get(biobankId, em);
-        if(biobank != null){
+        if (biobank != null) {
             sample.setBiobank(biobank);
 
         }
@@ -59,10 +59,10 @@ public class SampleServiceImpl implements SampleService {
         return sample;
     }
 
-    public void remove(Long id){
+    public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-           Sample sample = getSampleDAO().get(id, em);
+        Sample sample = getSampleDAO().get(id, em);
         if (sample != null) {
             getSampleDAO().remove(sample, em);
         }
@@ -70,7 +70,7 @@ public class SampleServiceImpl implements SampleService {
         em.close();
     }
 
-    public Sample update(Sample sample){
+    public Sample update(Sample sample) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         getSampleDAO().update(sample, em);
@@ -79,7 +79,7 @@ public class SampleServiceImpl implements SampleService {
         return sample;
     }
 
-    public List<Sample> getAll(){
+    public List<Sample> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         List<Sample> samples = getSampleDAO().getAll(em);
@@ -88,21 +88,21 @@ public class SampleServiceImpl implements SampleService {
         return samples;
     }
 
-    public Sample decreaseCount(Long sampleId, Integer requested){
+    public Sample decreaseCount(Long sampleId, Integer requested) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         Sample sample = getSampleDAO().get(sampleId, em);
         Integer count = sample.getNumOfAvailable();
-        if((count - requested) > 0){
-            count -=requested;
-        }else{
+        if ((count - requested) > 0) {
+            count -= requested;
+        } else {
             em.close();
             return sample;
         }
         sample.setNumOfAvailable(count);
         Request request = null;
-        for(int i = 0; i < sample.getRequests().size(); i++){
-            if(sample.getRequests().get(i).getRequestState() == RequestState.APPROVED){
+        for (int i = 0; i < sample.getRequests().size(); i++) {
+            if (sample.getRequests().get(i).getRequestState() == RequestState.APPROVED) {
                 request = sample.getRequests().get(i);
                 request.setRequestState(RequestState.EQUIPPED);
                 break;
@@ -111,6 +111,49 @@ public class SampleServiceImpl implements SampleService {
         em.getTransaction().commit();
         em.close();
         return sample;
+    }
+
+    public List<Sample> getSamplesByQuery(Sample sample) {
+        String query = "WHERE";
+        if (sample.getDiagnosis() != null) {
+            query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
+            query = query + " AND";
+        }
+        if (sample.getGrading() != null) {
+            query = query + " p.grading ='" + sample.getGrading() + "'";
+            query = query + " AND";
+        }
+        if (sample.getpTNM() != null) {
+            query = query + " p.pTNM like'" + sample.getpTNM() + "'";
+            query = query + " AND";
+        }
+
+        if (sample.getTNM() != null) {
+            query = query + " p.TNM like'" + sample.getTNM() + "'";
+            query = query + " AND";
+        }
+
+        if (sample.getTissueType() != null) {
+            query = query + " p.tissueType like'" + sample.getTissueType() + "'";
+            query = query + " AND";
+        }
+
+        if (sample.getNumOfAvailable() != null) {
+            query = query + " p.numOfAvailable ='" + sample.getNumOfAvailable() + "'";
+        }
+
+        if (query.endsWith("AND")) {
+            query = query.substring(0, query.length() - 3);
+        }
+
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        List<Sample> samples = getSampleDAO().getSelected(em, query);
+        em.getTransaction().commit();
+        em.close();
+        return samples;
+
     }
 
 }

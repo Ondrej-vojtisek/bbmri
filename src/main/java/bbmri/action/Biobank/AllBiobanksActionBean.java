@@ -29,24 +29,38 @@ public class AllBiobanksActionBean extends BasicActionBean {
     private Researcher ethicalCommittee;
 
 
-    public List<Researcher> getResearchers(){
-       researchers =  getResearcherService().getAll();
+    public List<Researcher> getResearchers() {
+        researchers = getResearcherService().getAll();
         return researchers;
     }
 
-    public Researcher getAdministrator() {return administrator;}
-    public void setAdministrator(Researcher administrator) {this.administrator = administrator;}
+    public Researcher getAdministrator() {
+        return administrator;
+    }
 
-    public Researcher getEthicalCommittee() {return ethicalCommittee;}
+    public void setAdministrator(Researcher administrator) {
+        this.administrator = administrator;
+    }
 
-    public void setEthicalCommittee(Researcher ethicalCommittee) {this.ethicalCommittee = ethicalCommittee;}
+    public Researcher getEthicalCommittee() {
+        return ethicalCommittee;
+    }
+
+    public void setEthicalCommittee(Researcher ethicalCommittee) {
+        this.ethicalCommittee = ethicalCommittee;
+    }
 
     public List<Biobank> getBiobanks() {
         return getBiobankService().getAll();
     }
 
-    public Biobank getBiobank() {return biobank;}
-    public void setBiobank(Biobank biobank) { this.biobank = biobank;}
+    public Biobank getBiobank() {
+        return biobank;
+    }
+
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
 
     @DefaultHandler
     public Resolution display() {

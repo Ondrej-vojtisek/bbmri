@@ -20,28 +20,35 @@ import java.util.List;
  */
 @UrlBinding("/ChangeAdministrator/{$event}/{researcher.id}")
 public class ChangeAdministrator extends BasicActionBean {
-      private ProjectService projectService;
-      private List<Researcher> researchers;
-      private Researcher researcher;
+    private ProjectService projectService;
+    private List<Researcher> researchers;
+    private Researcher researcher;
 
-      public Researcher getResearcher() {return researcher;}
-      public void setResearcher(Researcher researcher) {this.researcher = researcher;}
+    public Researcher getResearcher() {
+        return researcher;
+    }
 
-      public List<Researcher> getResearchers() {
-          this.researchers = getResearcherService().getAll();
-          return researchers;
-      }
+    public void setResearcher(Researcher researcher) {
+        this.researcher = researcher;
+    }
 
-      public void setResearchers(List<Researcher> researchers) {this.researchers = researchers;}
+    public List<Researcher> getResearchers() {
+        this.researchers = getResearcherService().getAll();
+        return researchers;
+    }
 
-      @DefaultHandler
-      public Resolution zobraz() {
-          return new ForwardResolution("/allProjects.jsp");
-      }
+    public void setResearchers(List<Researcher> researchers) {
+        this.researchers = researchers;
+    }
 
-       public Resolution changeAdministrator() {
-          Researcher logged =   getResearcherService().changeAdministrator(getContext().getLoggedResearcher().getId(), researcher.getId());
-          getContext().setLoggedResearcher(logged);
-          return new ForwardResolution("/allProjects.jsp");
-      }
+    @DefaultHandler
+    public Resolution zobraz() {
+        return new ForwardResolution("/allProjects.jsp");
+    }
+
+    public Resolution changeAdministrator() {
+        Researcher logged = getResearcherService().changeAdministrator(getContext().getLoggedResearcher().getId(), researcher.getId());
+        getContext().setLoggedResearcher(logged);
+        return new ForwardResolution("/allProjects.jsp");
+    }
 }

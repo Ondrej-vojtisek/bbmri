@@ -22,24 +22,29 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private List<Request> requests;
     private Request request;
 
-    public List<Request> getRequests(){
+    public List<Request> getRequests() {
         Biobank biobank = getLoggedResearcher().getBiobank();
-        if(biobank == null){
+        if (biobank == null) {
             return null;
         }
         requests = getRequestService().getAllNewByBiobank(biobank.getId());
         return requests;
     }
 
-    public Request getRequest() {return request;}
-    public void setRequest(Request request) {this.request = request;}
+    public Request getRequest() {
+        return request;
+    }
 
-    public Resolution approve(){
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    public Resolution approve() {
         getRequestService().changeRequestState(request.getId(), RequestState.APPROVED);
         return new ForwardResolution("/approveSampleRequest.jsp");
     }
 
-    public Resolution deny(){
+    public Resolution deny() {
         getRequestService().changeRequestState(request.getId(), RequestState.DENIED);
         return new ForwardResolution("/approveSampleRequest.jsp");
     }

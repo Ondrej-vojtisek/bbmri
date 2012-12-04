@@ -22,8 +22,13 @@ public class ApproveProjectActionBean extends BasicActionBean {
     private ProjectService projectService;
     private Project project;
 
-    public Project getProject() {return project;}
-    public void setProject(Project project) {this.project = project;}
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     public ProjectService getProjectService() {
         if (projectService == null) {
@@ -32,7 +37,9 @@ public class ApproveProjectActionBean extends BasicActionBean {
         return projectService;
     }
 
-    public List<Project> getProjects() {return getProjectService().getAllByProjectState(ProjectState.NEW);}
+    public List<Project> getProjects() {
+        return getProjectService().getAllByProjectState(ProjectState.NEW);
+    }
 
     public Resolution approve() {
         getProjectService().approve(project.getId());

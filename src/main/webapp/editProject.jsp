@@ -40,7 +40,7 @@
                         <td><c:out value="${res.surname}"/></td>
                         <td><s:checkbox name="selected" value="${res.id}"/></td>
                         <td> <s:link beanclass="bbmri.action.Project.EditProjectActionBean" event="changeOwnership">
-                             <s:param name="researcher.id" value="${res.id}"/>pokus                            </s:link>
+                             <s:param name="researcher.id" value="${res.id}"/><f:message key="give_ownership"/></s:link>
                         </td>
                     </tr>
                 </c:forEach>

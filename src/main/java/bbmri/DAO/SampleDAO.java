@@ -24,4 +24,5 @@ public interface SampleDAO {
 
     public List<Sample> getAll(EntityManager em);
 
+    public List<Sample> getSelected(EntityManager em, String query);
 }

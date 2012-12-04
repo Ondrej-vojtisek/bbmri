@@ -22,21 +22,21 @@ public class BasicActionBean implements ActionBean {
     private RequestService requestService;
 
 
-     public BiobankService getBiobankService() {
+    public BiobankService getBiobankService() {
         if (biobankService == null) {
             biobankService = new BiobankServiceImpl();
         }
         return biobankService;
     }
 
-       public ProjectService getProjectService() {
+    public ProjectService getProjectService() {
         if (projectService == null) {
             projectService = new ProjectServiceImpl();
         }
         return projectService;
     }
 
-     public ResearcherService getResearcherService() {
+    public ResearcherService getResearcherService() {
         if (researcherService == null) {
             researcherService = new ResearcherServiceImpl();
         }
@@ -44,22 +44,27 @@ public class BasicActionBean implements ActionBean {
     }
 
     public SampleService getSampleService() {
-          if (sampleService == null) {
-              sampleService = new SampleServiceImpl();
-          }
-          return sampleService;
-      }
+        if (sampleService == null) {
+            sampleService = new SampleServiceImpl();
+        }
+        return sampleService;
+    }
 
     public RequestService getRequestService() {
-             if (requestService == null) {
-                 requestService = new RequestServiceImpl();
-             }
-             return requestService;
-         }
+        if (requestService == null) {
+            requestService = new RequestServiceImpl();
+        }
+        return requestService;
+    }
 
 
-    public void setContext(ActionBeanContext ctx) {this.ctx = (MyActionBeanContext) ctx;}
-    public MyActionBeanContext getContext() {return ctx;}
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
+
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
 
     public Researcher getLoggedResearcher() {
         return ctx.getLoggedResearcher();

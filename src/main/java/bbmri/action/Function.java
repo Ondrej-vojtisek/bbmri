@@ -19,29 +19,29 @@ public class Function {
         return researchers.contains(researcher);
     }
 
-     public static boolean ownProject(Object project, Object researcher) {
-        if(project == null || researcher == null){
+    public static boolean ownProject(Object project, Object researcher) {
+        if (project == null || researcher == null) {
             return false;
         }
         Researcher res = (Researcher) researcher;
         Project proj = (Project) project;
 
-         if(proj.getOwner() == null){
-             return false;
-         }
+        if (proj.getOwner() == null) {
+            return false;
+        }
 
         return res.equals(proj.getOwner());
     }
 
     public static boolean isAdmin(Object administrator, Object loggedResearcher) {
-           if(administrator == null || loggedResearcher == null){
-               return false;
-           }
-           Researcher admin = (Researcher) administrator;
-           Researcher logged = (Researcher) loggedResearcher;
+        if (administrator == null || loggedResearcher == null) {
+            return false;
+        }
+        Researcher admin = (Researcher) administrator;
+        Researcher logged = (Researcher) loggedResearcher;
 
-           return admin.equals(logged);
-       }
+        return admin.equals(logged);
+    }
 
 }
 
