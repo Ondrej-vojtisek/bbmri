@@ -14,15 +14,15 @@ import java.util.List;
  */
 public interface SampleDAO {
 
-    public void create(Sample sample, EntityManager em);
+    void create(Sample sample, EntityManager em);
 
-    public void remove(Sample sample, EntityManager em);
+    void remove(Sample sample, EntityManager em);
 
-    public void update(Sample sample, EntityManager em);
+    void update(Sample sample, EntityManager em);
 
-    public Sample get(Long id, EntityManager em);
+    Sample get(Long id, EntityManager em);
 
-    public List<Sample> getAll(EntityManager em);
+    List<Sample> getAll(EntityManager em);
 
-    public List<Sample> getSelected(EntityManager em, String query);
+    List<Sample> getSelected(EntityManager em, String query);
 }

@@ -14,14 +14,14 @@ import java.util.List;
  */
 public interface ResearcherDAO {
 
-    public void create(Researcher researcher, EntityManager em);
+    void create(Researcher researcher, EntityManager em);
 
-    public void remove(Researcher researcher, EntityManager em);
+    void remove(Researcher researcher, EntityManager em);
 
-    public void update(Researcher researcher, EntityManager em);
+    void update(Researcher researcher, EntityManager em);
 
-    public List<Researcher> getAll(EntityManager em);
+    List<Researcher> getAll(EntityManager em);
 
-    public Researcher get(Long id, EntityManager em);
+    Researcher get(Long id, EntityManager em);
 
 }

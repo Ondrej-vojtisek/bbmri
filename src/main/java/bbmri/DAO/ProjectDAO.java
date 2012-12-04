@@ -16,26 +16,26 @@ import java.util.List;
  */
 public interface ProjectDAO {
 
-    public void create(Project project, EntityManager em);
+    void create(Project project, EntityManager em);
 
-    public void remove(Project project, EntityManager em);
+    void remove(Project project, EntityManager em);
 
-    public void update(Project project, EntityManager em);
+    void update(Project project, EntityManager em);
 
-    public Project get(Long id, EntityManager em);
+    Project get(Long id, EntityManager em);
 
-    public List<Project> getAll(EntityManager em);
+    List<Project> getAll(EntityManager em);
 
-    public List<Project> getAllByResearcher(Researcher researcher);
+    List<Project> getAllByResearcher(Researcher researcher);
 
-    public List<Researcher> getAllResearchersByProject(Project project);
+    List<Researcher> getAllResearchersByProject(Project project);
 
-    public void assignResearcherToProject(Researcher researcher, Project project);
+    void assignResearcherToProject(Researcher researcher, Project project);
 
-    public void removeResearcherFromProject(Researcher researcher, Project project);
+    void removeResearcherFromProject(Researcher researcher, Project project);
 
-    public boolean projectContainsResearcher(Researcher researcher, Project project);
+    boolean projectContainsResearcher(Researcher researcher, Project project);
 
-    public List<Project> getAllByProjectState(ProjectState projectState, EntityManager em);
+    List<Project> getAllByProjectState(ProjectState projectState, EntityManager em);
 
 }
