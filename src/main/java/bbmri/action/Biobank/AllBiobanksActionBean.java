@@ -2,12 +2,7 @@ package bbmri.action.Biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
-import bbmri.entities.Project;
-import bbmri.entities.Researcher;
-import bbmri.service.BiobankService;
-import bbmri.service.ResearcherService;
-import bbmri.serviceImpl.BiobankServiceImpl;
-import bbmri.serviceImpl.ResearcherServiceImpl;
+import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
 
 import java.util.List;
@@ -24,29 +19,29 @@ public class AllBiobanksActionBean extends BasicActionBean {
 
     private Biobank biobank;
     private List<Biobank> biobanks;
-    private List<Researcher> researchers;
-    private Researcher administrator;
-    private Researcher ethicalCommittee;
+    private List<User> users;
+    private User administrator;
+    private User ethicalCommittee;
 
 
-    public List<Researcher> getResearchers() {
-        researchers = getResearcherService().getAll();
-        return researchers;
+    public List<User> getUsers() {
+        users = getUserService().getAll();
+        return users;
     }
 
-    public Researcher getAdministrator() {
+    public User getAdministrator() {
         return administrator;
     }
 
-    public void setAdministrator(Researcher administrator) {
+    public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
 
-    public Researcher getEthicalCommittee() {
+    public User getEthicalCommittee() {
         return ethicalCommittee;
     }
 
-    public void setEthicalCommittee(Researcher ethicalCommittee) {
+    public void setEthicalCommittee(User ethicalCommittee) {
         this.ethicalCommittee = ethicalCommittee;
     }
 
@@ -64,13 +59,13 @@ public class AllBiobanksActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        getResearchers();
+        getUsers();
         biobanks = getBiobankService().getAll();
         return new ForwardResolution("/allBiobanks.jsp");
     }
 
     public Resolution edit() {
-        biobank = getContext().getLoggedResearcher().getBiobank();
+        biobank = getContext().getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);
 
         return new ForwardResolution("/editBiobank.jsp");

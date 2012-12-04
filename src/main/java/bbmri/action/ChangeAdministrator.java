@@ -1,13 +1,8 @@
 package bbmri.action;
 
-import bbmri.action.BasicActionBean;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.service.ProjectService;
-import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
 
 import java.util.List;
 
@@ -18,27 +13,27 @@ import java.util.List;
  * Time: 20:25
  * To change this template use File | Settings | File Templates.
  */
-@UrlBinding("/ChangeAdministrator/{$event}/{researcher.id}")
+@UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
 public class ChangeAdministrator extends BasicActionBean {
     private ProjectService projectService;
-    private List<Researcher> researchers;
-    private Researcher researcher;
+    private List<User> users;
+    private User user;
 
-    public Researcher getResearcher() {
-        return researcher;
+    public User getUser() {
+        return user;
     }
 
-    public void setResearcher(Researcher researcher) {
-        this.researcher = researcher;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public List<Researcher> getResearchers() {
-        this.researchers = getResearcherService().getAll();
-        return researchers;
+    public List<User> getUsers() {
+        this.users = getUserService().getAll();
+        return users;
     }
 
-    public void setResearchers(List<Researcher> researchers) {
-        this.researchers = researchers;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     @DefaultHandler
@@ -47,8 +42,8 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     public Resolution changeAdministrator() {
-        Researcher logged = getResearcherService().changeAdministrator(getContext().getLoggedResearcher().getId(), researcher.getId());
-        getContext().setLoggedResearcher(logged);
+        User logged = getUserService().changeAdministrator(getContext().getLoggedUser().getId(), user.getId());
+        getContext().setLoggedUser(logged);
         return new ForwardResolution("/allProjects.jsp");
     }
 }

@@ -6,7 +6,7 @@
 
 <f:message key="samples.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.AddSampleActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
 

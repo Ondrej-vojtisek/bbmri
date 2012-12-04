@@ -7,7 +7,7 @@
 
 <f:message key="biobanks.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.AllBiobanksActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
 
@@ -29,7 +29,7 @@
                         <td><c:out value="${biobank.administrator}"/></td>
                         <td><c:out value="${biobank.ethicalCommittee}"/></td>
                         <td>
-                                <c:if test="${fn:isAdmin(biobank.administrator, ab.loggedResearcher)}">
+                                <c:if test="${fn:isAdmin(biobank.administrator, ab.loggedUser)}">
                                      <s:link beanclass="bbmri.action.Biobank.AllBiobanksActionBean" event="edit">
                                      <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
 

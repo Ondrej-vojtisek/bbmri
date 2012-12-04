@@ -1,8 +1,8 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.ResearcherDAO;
-import bbmri.DAOimpl.ResearcherDAOImpl;
-import bbmri.entities.Researcher;
+import bbmri.DAO.UserDAO;
+import bbmri.DAOimpl.UserDAOImpl;
+import bbmri.entities.User;
 import bbmri.service.LoginService;
 
 import javax.persistence.EntityManager;
@@ -19,48 +19,48 @@ import javax.persistence.Persistence;
 public class LoginServiceImpl implements LoginService {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-    ResearcherDAO researcherDAO;
+    UserDAO userDAO;
 
-    private ResearcherDAO getResearcherDAO() {
-        if (researcherDAO == null) {
-            researcherDAO = new ResearcherDAOImpl();
+    private UserDAO getUserDAO() {
+        if (userDAO == null) {
+            userDAO = new UserDAOImpl();
         }
-        return researcherDAO;
+        return userDAO;
     }
 
     // temporal prosthesis
-    public Researcher login(Long id, String password) {
+    public User login(Long id, String password) {
         if (password == null || id < 0) {
             return null;
         }
         boolean result = false;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Researcher researcher = getResearcherDAO().get(id, em);
-        if (researcher != null && researcher.getPassword() != null) {
-            if ((researcher.getPassword()).equals(password)) {
+        User userDB = getUserDAO().get(id, em);
+        if (userDB != null && userDB.getPassword() != null) {
+            if ((userDB.getPassword()).equals(password)) {
                 result = true;
-                researcher.setOnline(true);
-                getResearcherDAO().update(researcher, em);
+                userDB.setOnline(true);
+                getUserDAO().update(userDB, em);
                 em.getTransaction().commit();
             }
 
         }
         em.close();
         if (result) {
-            return researcher;
+            return userDB;
         }
         return null;
     }
 
-    public void logout(Researcher researcher) {
-        if (researcher == null) {
+    public void logout(User user) {
+        if (user == null) {
             return;
         }
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        researcher.setOnline(false);
-        getResearcherDAO().update(researcher, em);
+        user.setOnline(false);
+        getUserDAO().update(user, em);
         em.getTransaction().commit();
         em.close();
     }

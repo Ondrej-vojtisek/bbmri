@@ -10,14 +10,11 @@ package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
-import bbmri.entities.Researcher;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-
-import java.util.List;
 
 @UrlBinding("/createproject/{$event}/{project.id}")
 public class CreateProjectActionBean extends BasicActionBean {
@@ -49,7 +46,7 @@ public class CreateProjectActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        getProjectService().create(project, getLoggedResearcher());
+        getProjectService().create(project, getLoggedUser());
         return new ForwardResolution("/allProjects.jsp");
     }
 

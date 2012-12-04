@@ -1,17 +1,12 @@
 package bbmri.action.Project;
 
-import bbmri.DAOimpl.ProjectDAOImpl;
-import bbmri.DAOimpl.ResearcherDAOImpl;
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 

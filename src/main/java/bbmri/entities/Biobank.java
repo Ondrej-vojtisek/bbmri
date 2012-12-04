@@ -30,20 +30,20 @@ public class Biobank implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADMIN_ID")
-    Researcher administrator;
+    User administrator;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "COMMITTEE_ID")
-    Researcher ethicalCommittee;
+    User ethicalCommittee;
 
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<Sample> samples = new ArrayList<Sample>();
 
-    public Researcher getEthicalCommittee() {
+    public User getEthicalCommittee() {
         return ethicalCommittee;
     }
 
-    public void setEthicalCommittee(Researcher ethicalCommittee) {
+    public void setEthicalCommittee(User ethicalCommittee) {
         this.ethicalCommittee = ethicalCommittee;
     }
 
@@ -63,11 +63,11 @@ public class Biobank implements Serializable {
         this.address = address;
     }
 
-    public Researcher getAdministrator() {
+    public User getAdministrator() {
         return administrator;
     }
 
-    public void setAdministrator(Researcher administrator) {
+    public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
 

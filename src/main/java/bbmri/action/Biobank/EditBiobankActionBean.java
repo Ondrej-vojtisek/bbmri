@@ -2,7 +2,7 @@ package bbmri.action.Biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -27,39 +27,39 @@ public class EditBiobankActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 100),
     })
     private Biobank biobank;
-    private List<Researcher> researchers;
-    private Researcher administrator;
-    private Researcher ethicalCommittee;
+    private List<User> users;
+    private User administrator;
+    private User ethicalCommittee;
 
 
-    public List<Researcher> getResearchers() {
-        researchers = getResearcherService().getAll();
-        return researchers;
+    public List<User> getUsers() {
+        users = getUserService().getAll();
+        return users;
     }
 
-    public Researcher getAdministrator() {
+    public User getAdministrator() {
         administrator = getBiobank().getAdministrator();
         return administrator;
 
     }
 
-    public void setAdministrator(Researcher administrator) {
+    public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
 
-    public Researcher getEthicalCommittee() {
+    public User getEthicalCommittee() {
         ethicalCommittee = getBiobank().getEthicalCommittee();
         return ethicalCommittee;
     }
 
-    public void setEthicalCommittee(Researcher ethicalCommittee) {
+    public void setEthicalCommittee(User ethicalCommittee) {
         this.ethicalCommittee = ethicalCommittee;
     }
 
 
     public Biobank getBiobank() {
         if (biobank == null) {
-            biobank = getContext().getLoggedResearcher().getBiobank();
+            biobank = getContext().getLoggedUser().getBiobank();
         }
         return biobank;
     }
@@ -80,7 +80,7 @@ public class EditBiobankActionBean extends BasicActionBean {
 
     public Resolution changeAdministrator() {
 
-        System.out.println("LoggedResearcher: " + getLoggedResearcher());
+        System.out.println("LoggedUser: " + getLoggedUser());
         System.out.println("Administrator: " + administrator);
 
         getBiobankService().updateAdministrator(biobank.getId(), administrator.getId());
@@ -89,7 +89,7 @@ public class EditBiobankActionBean extends BasicActionBean {
 
     public Resolution changeEthicalCommittee() {
 
-        System.out.println("LoggedResearcher: " + getLoggedResearcher());
+        System.out.println("LoggedUser: " + getLoggedUser());
         System.out.println("Committee: " + ethicalCommittee);
 
         getBiobankService().updateEthicalCommittee(biobank.getId(), ethicalCommittee.getId());

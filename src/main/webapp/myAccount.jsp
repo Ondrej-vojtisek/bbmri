@@ -6,7 +6,7 @@
 
 <f:message key="credentials.change_title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.AccountActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <table border="1">
@@ -16,18 +16,18 @@
                 <th><f:message key="surname"/></th>
             </tr>
             <tr>
-                <td><c:out value="${ab.loggedResearcher.id}"/></td>
-                <td><c:out value="${ab.loggedResearcher.name}"/></td>
-                <td><c:out value="${ab.loggedResearcher.surname}"/></td>
+                <td><c:out value="${ab.loggedUser.id}"/></td>
+                <td><c:out value="${ab.loggedUser.name}"/></td>
+                <td><c:out value="${ab.loggedUser.surname}"/></td>
             </tr>
         </table>
 
         <s:form beanclass="bbmri.action.AccountActionBean">
-            <s:hidden name="researcher.id"/>
-            <s:hidden name="researcher.password"/>
+            <s:hidden name="user.id"/>
+            <s:hidden name="user.password"/>
             <fieldset>
                 <legend><f:message key="credentials.change_credentials"/></legend>
-                <%@include file="/form/createResearcherForm.jsp" %>
+                <%@include file="/form/createUserForm.jsp" %>
                 <s:submit name="update"><f:message key="save"/></s:submit>
             </fieldset>
         </s:form>

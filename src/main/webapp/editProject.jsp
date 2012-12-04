@@ -7,12 +7,12 @@
 <f:message key="project.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
 
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
             <s:hidden name="project.id"/>
-            <s:hidden name="project.researchers"/>
+            <s:hidden name="project.users"/>
             <fieldset>
                 <legend><f:message key="project.edit"/></legend>
                 <%@include file="/form/createProjectForm.jsp" %>
@@ -25,7 +25,7 @@
 
 
             <fieldset>
-            <legend><f:message key="project.assigned_researchers"/></legend>
+            <legend><f:message key="project.assigned_users"/></legend>
             <table border="1">
                 <tr>
                     <th><f:message key="id"/></th>
@@ -33,14 +33,14 @@
                     <th><f:message key="surname"/></th>
                 </tr>
 
-                <c:forEach items="${ab.researchers}" var="res">
+                <c:forEach items="${ab.users}" var="user">
                     <tr>
-                        <td><c:out value="${res.id}"/></td>
-                        <td><c:out value="${res.name}"/></td>
-                        <td><c:out value="${res.surname}"/></td>
-                        <td><s:checkbox name="selected" value="${res.id}"/></td>
+                        <td><c:out value="${user.id}"/></td>
+                        <td><c:out value="${user.name}"/></td>
+                        <td><c:out value="${user.surname}"/></td>
+                        <td><s:checkbox name="selected" value="${user.id}"/></td>
                         <td> <s:link beanclass="bbmri.action.Project.EditProjectActionBean" event="changeOwnership">
-                             <s:param name="researcher.id" value="${res.id}"/><f:message key="give_ownership"/></s:link>
+                             <s:param name="user.id" value="${user.id}"/><f:message key="give_ownership"/></s:link>
                         </td>
                     </tr>
                 </c:forEach>
@@ -49,7 +49,7 @@
 
               </fieldset>
             <fieldset>
-                 <legend><f:message key="all_researchers"/></legend>
+                 <legend><f:message key="all_users"/></legend>
 
             <table border="1">
                    <tr>
@@ -58,13 +58,13 @@
                     <th><f:message key="surname"/></th>
                 </tr>
 
-            <c:forEach items="${ab.freeResearchers}" var="res" varStatus="loop">
+            <c:forEach items="${ab.freeUsers}" var="user" varStatus="loop">
 
                     <tr>
-                        <td><c:out value="${res.id}"/></td>
-                        <td><c:out value="${res.name}"/></td>
-                        <td><c:out value="${res.surname}"/></td>
-                        <td><s:checkbox name="selectedApprove" value="${res.id}"/></td>
+                        <td><c:out value="${user.id}"/></td>
+                        <td><c:out value="${user.name}"/></td>
+                        <td><c:out value="${user.surname}"/></td>
+                        <td><s:checkbox name="selectedApprove" value="${user.id}"/></td>
                     </tr>
                 </c:forEach>
             </table>

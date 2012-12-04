@@ -3,10 +3,9 @@ package bbmri.DAOimpl;
 import bbmri.DAO.ProjectDAO;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.*;
 import java.util.List;
 
@@ -45,23 +44,23 @@ public class ProjectDAOImpl implements ProjectDAO {
         return em.find(Project.class, id);
     }
 
-    public List<Project> getAllByResearcher(Researcher researcher) {
-        return researcher.getProjects();
+    public List<Project> getAllByResearcher(User user) {
+        return user.getProjects();
     }
 
-    public List<Researcher> getAllResearchersByProject(Project project) {
-        return project.getResearchers();
+    public List<User> getAllResearchersByProject(Project project) {
+        return project.getUsers();
     }
 
-    public void assignResearcherToProject(Researcher researcher, Project project) {
-        project.getResearchers().add(researcher);
+    public void assignResearcherToProject(User user, Project project) {
+        project.getUsers().add(user);
     }
 
-    public void removeResearcherFromProject(Researcher researcher, Project project) {
-        project.getResearchers().remove(researcher);
+    public void removeResearcherFromProject(User user, Project project) {
+        project.getUsers().remove(user);
     }
 
-    public boolean projectContainsResearcher(Researcher researcher, Project project) {
-        return project.getResearchers().contains(researcher);
+    public boolean projectContainsResearcher(User user, Project project) {
+        return project.getUsers().contains(user);
     }
 }

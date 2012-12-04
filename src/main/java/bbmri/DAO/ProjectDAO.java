@@ -2,7 +2,7 @@ package bbmri.DAO;
 
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -26,15 +26,15 @@ public interface ProjectDAO {
 
     List<Project> getAll(EntityManager em);
 
-    List<Project> getAllByResearcher(Researcher researcher);
+    List<Project> getAllByResearcher(User user);
 
-    List<Researcher> getAllResearchersByProject(Project project);
+    List<User> getAllResearchersByProject(Project project);
 
-    void assignResearcherToProject(Researcher researcher, Project project);
+    void assignResearcherToProject(User user, Project project);
 
-    void removeResearcherFromProject(Researcher researcher, Project project);
+    void removeResearcherFromProject(User user, Project project);
 
-    boolean projectContainsResearcher(Researcher researcher, Project project);
+    boolean projectContainsResearcher(User user, Project project);
 
     List<Project> getAllByProjectState(ProjectState projectState, EntityManager em);
 

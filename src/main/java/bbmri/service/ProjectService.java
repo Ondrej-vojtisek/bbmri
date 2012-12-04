@@ -2,7 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    public Project create(Project project, Researcher researcher);
+    public Project create(Project project, User user);
 
     public void remove(Long id);
 
@@ -25,23 +25,23 @@ public interface ProjectService {
 
     public List<Project> getAllByResearcher(Long id);
 
-    public Researcher assignResearcher(Long researcherId, Long projectId);
+    public User assignResearcher(Long userId, Long projectId);
 
-    public Researcher removeResearcherFromProject(Long researcherId, Long projectId);
+    public User removeResearcherFromProject(Long userId, Long projectId);
 
-    public List<Researcher> getAllAssignedResearchers(Long projectId);
+    public List<User> getAllAssignedResearchers(Long projectId);
 
     public void approve(Long id);
 
     public List<Project> getAllByProjectState(ProjectState projectState);
 
-    public List<Project> getAllApprovedByResearcher(Researcher researcher);
+    public List<Project> getAllApprovedByResearcher(User user);
 
     public List<Project> getAllWhichResearcherAdministrate(Long id);
 
     public Project getById(Long id);
 
-    public List<Researcher> getAllNotAssignedResearchers(Long id);
+    public List<User> getAllNotAssignedResearchers(Long id);
 
     public Project changeOwnership(Long projectId, Long newOwnerId);
 

@@ -11,14 +11,6 @@
         </webroots>
       </configuration>
     </facet>
-    <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="fileset1" name="My Fileset" removed="false">
-          <file>file://$MODULE_DIR$/src/main/java/spring-context.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/3.1.1.RELEASE/spring-jdbc-3.1.1.RELEASE.jar!/org/springframework/jdbc/support/sql-error-codes.xml</file>
-        </fileset>
-      </configuration>
-    </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />

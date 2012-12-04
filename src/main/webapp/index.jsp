@@ -14,7 +14,7 @@
                 <s:errors/>
                 <table>
                     <tr>
-                        <th><label for="z1"><f:message key="researcher_identifier"/></label></th>
+                        <th><label for="z1"><f:message key="identifier"/></label></th>
                         <td><s:text id="z1" name="id"/></td>
                     </tr>
                     <tr>

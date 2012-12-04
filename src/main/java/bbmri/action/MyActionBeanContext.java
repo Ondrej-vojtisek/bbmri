@@ -1,13 +1,10 @@
 package bbmri.action;
 
-import bbmri.DAOimpl.ResearcherDAOImpl;
+import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.action.HandlesEvent;
-
-import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,20 +14,20 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 public class MyActionBeanContext extends ActionBeanContext {
-    public void setLoggedResearcher(Researcher loggedResearcher) {
-        getRequest().getSession().setAttribute("loggedResearcher", loggedResearcher);
+    public void setLoggedUser(User loggedUser) {
+        getRequest().getSession().setAttribute("loggedUser", loggedUser);
     }
 
-    public Researcher getLoggedResearcher() {
-        return (Researcher) getRequest().getSession().getAttribute("loggedResearcher");
+    public User getLoggedUser() {
+        return (User) getRequest().getSession().getAttribute("loggedUser");
     }
 
-    public ResearcherDAOImpl getResearcherDAOImpl() {
-        return (ResearcherDAOImpl) getRequest().getSession().getAttribute("researcherDAOImpl");
+    public UserDAOImpl getResearcherDAOImpl() {
+        return (UserDAOImpl) getRequest().getSession().getAttribute("userDAOImpl");
     }
 
-    public void setResearcherDAOImpl(ResearcherDAOImpl researcherDAOImpl) {
-        getRequest().getSession().setAttribute("researcherDAOImpl", researcherDAOImpl);
+    public void setResearcherDAOImpl(UserDAOImpl userDAOImpl) {
+        getRequest().getSession().setAttribute("userDAOImpl", userDAOImpl);
     }
 
     public Project getProject() {

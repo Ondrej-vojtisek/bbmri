@@ -1,7 +1,6 @@
 package bbmri.service;
 
 import bbmri.entities.Biobank;
-import bbmri.entities.Researcher;
 import bbmri.entities.Sample;
 
 import java.util.List;

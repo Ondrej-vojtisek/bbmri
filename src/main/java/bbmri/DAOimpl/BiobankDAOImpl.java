@@ -2,7 +2,6 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.BiobankDAO;
 import bbmri.entities.Biobank;
-import bbmri.entities.Researcher;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

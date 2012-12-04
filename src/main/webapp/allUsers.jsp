@@ -4,11 +4,11 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 
-<f:message key="researchers.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
+<f:message key="users.title" var="title"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.UserActionBean"/>
 
 
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <table border="1">
@@ -17,11 +17,11 @@
                 <th><f:message key="name"/></th>
                 <th><f:message key="surname"/></th>
             </tr>
-            <c:forEach var="researcher" items="${ab.researchers}">
+            <c:forEach var="user" items="${ab.users}">
                 <tr>
-                    <td><c:out value="${researcher.id}"/></td>
-                    <td><c:out value="${researcher.name}"/></td>
-                    <td><c:out value="${researcher.surname}"/></td>
+                    <td><c:out value="${user.id}"/></td>
+                    <td><c:out value="${user.name}"/></td>
+                    <td><c:out value="${user.surname}"/></td>
                 </tr>
             </c:forEach>
         </table>

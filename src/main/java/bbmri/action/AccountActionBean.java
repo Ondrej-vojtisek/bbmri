@@ -1,15 +1,11 @@
 package bbmri.action;
 
-import bbmri.DAOimpl.ResearcherDAOImpl;
-import bbmri.entities.Researcher;
-import bbmri.service.ResearcherService;
-import bbmri.serviceImpl.ResearcherServiceImpl;
+import bbmri.entities.User;
+import bbmri.service.UserService;
+import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,17 +14,17 @@ import javax.persistence.Persistence;
  * Time: 14:12
  * To change this template use File | Settings | File Templates.
  */
-@UrlBinding("/account/{$event}/{researcher.id}")
+@UrlBinding("/account/{$event}/{user.id}")
 public class AccountActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
-    private ResearcherService researcherService;
+    private UserService userService;
     @Validate(on = {"changePassword"}, required = true)
     private String password;
     @Validate(on = {"changePassword"}, required = true)
     private String password2;
-    private Researcher researcher;
-    private Researcher loggedResearcher;
+    private User user;
+    private User loggedUser;
 
     public String getPassword() {
         return password;
@@ -54,24 +50,24 @@ public class AccountActionBean implements ActionBean {
         return ctx;
     }
 
-    public Researcher getLoggedResearcher() {
-        loggedResearcher = ctx.getLoggedResearcher();
-        return loggedResearcher;
+    public User getLoggedUser() {
+        loggedUser = ctx.getLoggedUser();
+        return loggedUser;
     }
 
-    public ResearcherService getResearcherService() {
-        if (researcherService == null) {
-            researcherService = new ResearcherServiceImpl();
+    public UserService getUserService() {
+        if (userService == null) {
+            userService = new UserServiceImpl();
         }
-        return researcherService;
+        return userService;
     }
 
-    public Researcher getResearcher() {
-        return researcher;
+    public User getUser() {
+        return user;
     }
 
-    public void setResearcher(Researcher researcher) {
-        this.researcher = researcher;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @DefaultHandler
@@ -82,28 +78,28 @@ public class AccountActionBean implements ActionBean {
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "changePassword"})
     public void fillInputs() {
-        researcher = getLoggedResearcher();
+        user = getLoggedUser();
     }
 
     public Resolution update() {
-        if (researcher.getName() != null)
-            loggedResearcher.setName(researcher.getName());
+        if (user.getName() != null)
+            loggedUser.setName(user.getName());
 
-        if (researcher.getSurname() != null)
-            loggedResearcher.setSurname(researcher.getSurname());
+        if (user.getSurname() != null)
+            loggedUser.setSurname(user.getSurname());
 
-        getResearcherService().update(loggedResearcher);
-        ctx.setLoggedResearcher(loggedResearcher);
+        getUserService().update(loggedUser);
+        ctx.setLoggedUser(loggedUser);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
     public Resolution changePassword() {
         if (password != null && password2 != null) {
             if (password.equals(password2))
-                getLoggedResearcher().setPassword(password);
-            getResearcherService().update(getLoggedResearcher());
+                getLoggedUser().setPassword(password);
+            getUserService().update(getLoggedUser());
         }
-        researcher = getLoggedResearcher();
+        user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 

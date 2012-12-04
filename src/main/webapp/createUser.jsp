@@ -4,15 +4,15 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 
-<f:message key="researcher.create" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.ResearcherActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<f:message key="user.create" var="title"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.UserActionBean"/>
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.ResearcherActionBean">
+        <s:form beanclass="bbmri.action.UserActionBean">
             <fieldset>
-                <legend><f:message key="researcher.create"/></legend>
-                <%@include file="/form/createResearcherAndPasswordForm.jsp" %>
+                <legend><f:message key="user.create"/></legend>
+                <%@include file="/form/createUserAndPasswordForm.jsp" %>
                 <s:submit name="create"><f:message key="add"/></s:submit>
             </fieldset>
         </s:form>

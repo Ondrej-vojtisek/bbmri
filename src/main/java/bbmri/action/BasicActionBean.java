@@ -1,6 +1,6 @@
 package bbmri.action;
 
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.service.*;
 import bbmri.serviceImpl.*;
 import net.sourceforge.stripes.action.ActionBean;
@@ -15,7 +15,7 @@ import net.sourceforge.stripes.action.ActionBeanContext;
  */
 public class BasicActionBean implements ActionBean {
     private MyActionBeanContext ctx;
-    private ResearcherService researcherService;
+    private UserService userService;
     private BiobankService biobankService;
     private ProjectService projectService;
     private SampleService sampleService;
@@ -36,11 +36,11 @@ public class BasicActionBean implements ActionBean {
         return projectService;
     }
 
-    public ResearcherService getResearcherService() {
-        if (researcherService == null) {
-            researcherService = new ResearcherServiceImpl();
+    public UserService getUserService() {
+        if (userService == null) {
+            userService = new UserServiceImpl();
         }
-        return researcherService;
+        return userService;
     }
 
     public SampleService getSampleService() {
@@ -66,8 +66,8 @@ public class BasicActionBean implements ActionBean {
         return ctx;
     }
 
-    public Researcher getLoggedResearcher() {
-        return ctx.getLoggedResearcher();
+    public User getLoggedUser() {
+        return ctx.getLoggedUser();
     }
 
 }

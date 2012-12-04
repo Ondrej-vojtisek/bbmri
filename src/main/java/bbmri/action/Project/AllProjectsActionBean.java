@@ -1,20 +1,12 @@
 package bbmri.action.Project;
 
-import bbmri.DAOimpl.ProjectDAOImpl;
-import bbmri.DAOimpl.ResearcherDAOImpl;
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
-import bbmri.service.ProjectService;
-import bbmri.serviceImpl.ProjectServiceImpl;
+import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
-import java.util.Map;
 
 
 @UrlBinding("/allprojects/{$event}/{project.id}")
@@ -49,7 +41,7 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        getProjectService().create(project, getLoggedResearcher());
+        getProjectService().create(project, getLoggedUser());
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -72,17 +64,17 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution leave() {
-        Researcher res = getProjectService().removeResearcherFromProject(project.getId(), getLoggedResearcher().getId());
-        if (res != null) {
-            getContext().setLoggedResearcher(res);
+        User user = getProjectService().removeResearcherFromProject(project.getId(), getLoggedUser().getId());
+        if (user != null) {
+            getContext().setLoggedUser(user);
         }
         return new ForwardResolution("/allProjects.jsp");
     }
 
     public Resolution join() {
-        Researcher res = getProjectService().assignResearcher(project.getId(), getLoggedResearcher().getId());
-        if (res != null) {
-            getContext().setLoggedResearcher(res);
+        User user = getProjectService().assignResearcher(project.getId(), getLoggedUser().getId());
+        if (user != null) {
+            getContext().setLoggedUser(user);
         }
         return new RedirectResolution(this.getClass(), "display");
     }

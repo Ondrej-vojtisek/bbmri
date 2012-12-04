@@ -1,6 +1,6 @@
 package bbmri.service;
 
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,8 +11,8 @@ import bbmri.entities.Researcher;
  */
 public interface LoginService {
 
-    public Researcher login(Long id, String password);
+    public User login(Long id, String password);
 
-    public void logout(Researcher researcher);
+    public void logout(User user);
 
 }

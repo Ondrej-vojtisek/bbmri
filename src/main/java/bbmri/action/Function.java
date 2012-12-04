@@ -1,7 +1,7 @@
 package bbmri.action;
 
 import bbmri.entities.Project;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 
 import java.util.List;
 
@@ -14,31 +14,31 @@ import java.util.List;
  */
 public class Function {
     public static boolean contains(List list, Object o) {
-        List<Researcher> researchers = (List<Researcher>) list;
-        Researcher researcher = (Researcher) o;
-        return researchers.contains(researcher);
+        List<User> users = (List<User>) list;
+        User user = (User) o;
+        return users.contains(user);
     }
 
-    public static boolean ownProject(Object project, Object researcher) {
-        if (project == null || researcher == null) {
+    public static boolean ownProject(Object project, Object user) {
+        if (project == null || user == null) {
             return false;
         }
-        Researcher res = (Researcher) researcher;
+        User usr = (User) user;
         Project proj = (Project) project;
 
         if (proj.getOwner() == null) {
             return false;
         }
 
-        return res.equals(proj.getOwner());
+        return usr.equals(proj.getOwner());
     }
 
-    public static boolean isAdmin(Object administrator, Object loggedResearcher) {
-        if (administrator == null || loggedResearcher == null) {
+    public static boolean isAdmin(Object administrator, Object loggedUser) {
+        if (administrator == null || loggedUser == null) {
             return false;
         }
-        Researcher admin = (Researcher) administrator;
-        Researcher logged = (Researcher) loggedResearcher;
+        User admin = (User) administrator;
+        User logged = (User) loggedUser;
 
         return admin.equals(logged);
     }

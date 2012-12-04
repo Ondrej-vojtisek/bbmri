@@ -1,14 +1,9 @@
 package bbmri.entities;
 
-import org.hibernate.annotations.Columns;
-
 import javax.persistence.*;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OrderColumn;
 import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,9 +17,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Researcher")
+@Table(name = "Users")
 @Entity
-public class Researcher implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -45,7 +40,7 @@ public class Researcher implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
     @OneToOne(mappedBy = "administrator", cascade = CascadeType.ALL)
@@ -58,10 +53,10 @@ public class Researcher implements Serializable {
     Biobank ethicalCommitteeOfBiobank;
 
 
-    public Researcher() {
+    public User() {
     }
 
-    public Researcher(String name, String surname) {
+    public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
     }
@@ -151,10 +146,10 @@ public class Researcher implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Researcher)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Researcher other = (Researcher) object;
+        User other = (User) object;
         if (this.id == null || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

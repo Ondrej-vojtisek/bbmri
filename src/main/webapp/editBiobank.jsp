@@ -7,7 +7,7 @@
 <f:message key="biobank.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.EditBiobankActionBean"/>
 
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <s:form beanclass="bbmri.action.Biobank.EditBiobankActionBean">
@@ -24,7 +24,7 @@
                         <td>
                                <s:select name="ethicalCommittee.id">
                                <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.researchers}" label="name" value="id"/>
+                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
                             </s:select>
                         </td>
                         <td>
@@ -39,7 +39,7 @@
                         <td>
                               <s:select name="administrator.id">
                                <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.researchers}" label="name" value="id"/>
+                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
                             </s:select>
                         </td>
                          <td>

@@ -2,7 +2,7 @@ package bbmri.action.Biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -25,28 +25,28 @@ public class CreateBiobankActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 100),
     })
     private Biobank biobank;
-    private List<Researcher> researchers;
-    private Researcher administrator;
-    private Researcher ethicalCommittee;
+    private List<User> users;
+    private User administrator;
+    private User ethicalCommittee;
 
-    public List<Researcher> getResearchers() {
-        researchers = getResearcherService().getAll();
-        return researchers;
+    public List<User> getUsers() {
+        users = getUserService().getAll();
+        return users;
     }
 
-    public Researcher getAdministrator() {
+    public User getAdministrator() {
         return administrator;
     }
 
-    public void setAdministrator(Researcher administrator) {
+    public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
 
-    public Researcher getEthicalCommittee() {
+    public User getEthicalCommittee() {
         return ethicalCommittee;
     }
 
-    public void setEthicalCommittee(Researcher ethicalCommittee) {
+    public void setEthicalCommittee(User ethicalCommittee) {
         this.ethicalCommittee = ethicalCommittee;
     }
 
@@ -60,11 +60,11 @@ public class CreateBiobankActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        Researcher resDB = getResearcherService().getById(administrator.getId());
+        User resDB = getUserService().getById(administrator.getId());
         if (resDB.getBiobank() != null) {
             return new ForwardResolution("/allBiobanks.jsp");
         }
-        resDB = getResearcherService().getById(ethicalCommittee.getId());
+        resDB = getUserService().getById(ethicalCommittee.getId());
         if (resDB.getEthicalCommitteeOfBiobank() != null) {
             return new ForwardResolution("/allBiobanks.jsp");
         }

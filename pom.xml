@@ -3,8 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>bbmri</groupId>
     <artifactId>cancer-strike</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
     <version>2.0-SNAPSHOT</version>
+    <modules>
+        <module>Parent</module>
+        <module>BackEnd</module>
+        <module>BackEndImpl</module>
+        <module>FrontEnd</module>
+    </modules>
     <name>CancerStrike</name>
 
     <properties>

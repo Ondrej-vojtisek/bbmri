@@ -1,13 +1,9 @@
 package bbmri.action;
 
 import bbmri.entities.Biobank;
-import bbmri.entities.Project;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.entities.Sample;
-import bbmri.service.ProjectService;
-import bbmri.service.ResearcherService;
 import bbmri.service.SampleService;
-import bbmri.serviceImpl.ProjectServiceImpl;
 import bbmri.serviceImpl.SampleServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
@@ -15,7 +11,6 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -83,8 +78,8 @@ public class AddSampleActionBean implements ActionBean {
         return ctx;
     }
 
-    public Researcher getLoggedResearcher() {
-        return ctx.getLoggedResearcher();
+    public User getLoggedUser() {
+        return ctx.getLoggedUser();
     }
 
     public SampleService getSampleService() {
@@ -101,7 +96,7 @@ public class AddSampleActionBean implements ActionBean {
 
     public Resolution create() {
 
-        Biobank biobank = getLoggedResearcher().getBiobank();
+        Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
             getSampleService().create(sample, biobank.getId());
         }
@@ -109,7 +104,7 @@ public class AddSampleActionBean implements ActionBean {
     }
 
     public Resolution generateRandomSample() {
-        Biobank biobank = getLoggedResearcher().getBiobank();
+        Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
             for (int i = 0; i < count; i++) {
                 generateSample();

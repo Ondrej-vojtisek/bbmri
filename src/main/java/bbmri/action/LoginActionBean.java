@@ -1,16 +1,11 @@
 package bbmri.action;
 
-import bbmri.DAOimpl.ResearcherDAOImpl;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.service.LoginService;
 import bbmri.serviceImpl.LoginServiceImpl;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.LongTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +15,7 @@ import javax.persistence.Persistence;
  * To change this template use File | Settings | File Templates.
  */
 
-@UrlBinding("/login/{$event}/{researcher.id}")
+@UrlBinding("/login/{$event}/{user.id}")
 public class LoginActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
@@ -66,10 +61,10 @@ public class LoginActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution login() {
-        ctx.setLoggedResearcher(null);
-        Researcher researcher = getLoginService().login(id, password);
-        if (researcher != null) {
-            ctx.setLoggedResearcher(researcher);
+        ctx.setLoggedUser(null);
+        User user = getLoginService().login(id, password);
+        if (user != null) {
+            ctx.setLoggedUser(user);
             return new RedirectResolution("/allProjects.jsp");
         }
         return new ForwardResolution("/index.jsp");
@@ -77,8 +72,8 @@ public class LoginActionBean implements ActionBean {
 
     @HandlesEvent("logout")
     public Resolution logoutResearcher() {
-        getLoginService().logout(ctx.getLoggedResearcher());
-        ctx.setLoggedResearcher(null);
+        getLoginService().logout(ctx.getLoggedUser());
+        ctx.setLoggedUser(null);
         return new ForwardResolution("/index.jsp");
     }
 

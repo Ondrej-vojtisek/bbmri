@@ -23,7 +23,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private Request request;
 
     public List<Request> getRequests() {
-        Biobank biobank = getLoggedResearcher().getBiobank();
+        Biobank biobank = getLoggedUser().getBiobank();
         if (biobank == null) {
             return null;
         }

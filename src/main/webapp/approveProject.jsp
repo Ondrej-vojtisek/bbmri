@@ -7,7 +7,7 @@
 
 <f:message key="projects_to_approve" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.ApproveProjectActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <fieldset>

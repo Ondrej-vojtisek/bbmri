@@ -110,22 +110,22 @@
             <li><s:link href="/allBiobanks.jsp"><f:message key="biobanks.title"/></s:link></li>
 
 
-              <c:if test="${loggedResearcher.ethicalCommitteeOfBiobank != null}">
+              <c:if test="${loggedUser.ethicalCommitteeOfBiobank != null}">
                 <li><f:message key="biobank.ethical_committee"/></li>
                 <li><s:link href="/approveProject.jsp"><f:message key="approve_project"/></s:link></li>
               </c:if>
 
-              <c:if test="${loggedResearcher.biobank != null}">
+              <c:if test="${loggedUser.biobank != null}">
                  <li><f:message key="biobank.operator"/></li>
                  <li><s:link href="/addSample.jsp"><f:message key="samples.add"/></s:link></li>
                  <li><s:link href="/approveSampleRequest.jsp"><f:message key="sample_requests"/></s:link></li>
                  <li><s:link href="/releaseSample.jsp"><f:message key="sample.release"/></s:link></li>
               </c:if>
 
-              <c:if test="${loggedResearcher.administrator}">
+              <c:if test="${loggedUser.administrator}">
                  <li><f:message key="system.administrator"/></li>
                  <li><s:link href="/createBiobank.jsp"><f:message key="biobank.create"/></s:link></li>
-                 <li><s:link href="/createResearcher.jsp"><f:message key="researcher.create"/></s:link></li>
+                 <li><s:link href="/createResearcher.jsp"><f:message key="user.create"/></s:link></li>
                  <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
               </c:if>
         </ul>

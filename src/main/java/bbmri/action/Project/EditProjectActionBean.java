@@ -2,12 +2,10 @@ package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -32,19 +30,19 @@ public class EditProjectActionBean extends BasicActionBean {
     })
     private Project project;
     private ProjectService projectService;
-    private List<Researcher> researchers;
-    private Researcher researcher;
+    private List<User> users;
+    private User user;
     private List<Long> selectedApprove;
     private List<Long> selected;
-    private List<Researcher> freeResearchers;
+    private List<User> freeUsers;
 
-    public List<Researcher> getFreeResearchers() {
-        this.freeResearchers = getProjectService().getAllNotAssignedResearchers(getProject().getId());
-        return freeResearchers;
+    public List<User> getFreeUsers() {
+        this.freeUsers = getProjectService().getAllNotAssignedResearchers(getProject().getId());
+        return freeUsers;
     }
 
-    public void setFreeResearchers(List<Researcher> freeResearchers) {
-        this.freeResearchers = freeResearchers;
+    public void setFreeUsers(List<User> freeUsers) {
+        this.freeUsers = freeUsers;
     }
 
 
@@ -64,21 +62,21 @@ public class EditProjectActionBean extends BasicActionBean {
         this.selected = selected;
     }
 
-    public Researcher getResearcher() {
-        return researcher;
+    public User getUser() {
+        return user;
     }
 
-    public void setResearcher(Researcher researcher) {
-        this.researcher = researcher;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public List<Researcher> getResearchers() {
-        this.researchers = getProjectService().getAllAssignedResearchers(project.getId());
-        return researchers;
+    public List<User> getUsers() {
+        this.users = getProjectService().getAllAssignedResearchers(project.getId());
+        return users;
     }
 
-    public void setResearchers(List<Researcher> researchers) {
-        this.researchers = researchers;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public ProjectService getProjectService() {
@@ -111,14 +109,14 @@ public class EditProjectActionBean extends BasicActionBean {
     public Resolution removeAll() {
         if (selected != null) {
             for (Long id : selected) {
-                if (id.equals(getContext().getLoggedResearcher().getId())) {
+                if (id.equals(getContext().getLoggedUser().getId())) {
                     /*you can't remove yourself*/
                     return new ForwardResolution("/allProjects.jsp");
                 }
                 getProjectService().removeResearcherFromProject(id, getProject().getId());
             }
         }
-        researchers = getProjectService().getAllAssignedResearchers(getProject().getId());
+        users = getProjectService().getAllAssignedResearchers(getProject().getId());
         return new ForwardResolution("/allProjects.jsp");
     }
 
@@ -128,13 +126,13 @@ public class EditProjectActionBean extends BasicActionBean {
                 getProjectService().assignResearcher(resProject, getProject().getId());
             }
         }
-        researchers = getProjectService().getAllAssignedResearchers(getProject().getId());
+        users = getProjectService().getAllAssignedResearchers(getProject().getId());
         return new ForwardResolution("/editProject.jsp");
     }
 
 
     public Resolution changeOwnership() {
-        getProjectService().changeOwnership(getContext().getProject().getId(), researcher.getId());
+        getProjectService().changeOwnership(getContext().getProject().getId(), user.getId());
         // ctx.setProject(project);
 
         return new ForwardResolution("/editProject.jsp");

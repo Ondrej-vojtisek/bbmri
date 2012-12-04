@@ -16,7 +16,7 @@ import java.util.List;
  * Time: 14:33
  * To change this template use File | Settings | File Templates.
  */
-@UrlBinding("/releaseSample/{$event}/{loggedResearcher.id}")
+@UrlBinding("/releaseSample/{$event}/{loggedUser.id}")
 public class ReleaseSampleActionBean extends BasicActionBean {
 
     private Sample sample;
@@ -25,7 +25,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
     public Biobank getBiobank() {
         if (biobank == null) {
-            biobank = getLoggedResearcher().getBiobank();
+            biobank = getLoggedUser().getBiobank();
         }
         return biobank;
     }

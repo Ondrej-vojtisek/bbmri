@@ -1,19 +1,17 @@
 package bbmri.serviceImpl;
 
 import bbmri.DAO.BiobankDAO;
-import bbmri.DAO.ResearcherDAO;
+import bbmri.DAO.UserDAO;
 import bbmri.DAOimpl.BiobankDAOImpl;
-import bbmri.DAOimpl.ResearcherDAOImpl;
+import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.Biobank;
-import bbmri.entities.Request;
-import bbmri.entities.Researcher;
+import bbmri.entities.User;
 import bbmri.entities.Sample;
 import bbmri.service.BiobankService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,24 +33,24 @@ public class BiobankServiceImpl implements BiobankService {
         return biobankDAO;
     }
 
-    ResearcherDAO researcherDAO;
+    UserDAO userDAO;
 
-    private ResearcherDAO getResearcherDAO() {
-        if (researcherDAO == null) {
-            researcherDAO = new ResearcherDAOImpl();
+    private UserDAO getUserDAO() {
+        if (userDAO == null) {
+            userDAO = new UserDAOImpl();
         }
-        return researcherDAO;
+        return userDAO;
     }
 
     public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Researcher adminDB = getResearcherDAO().get(administratorId, em);
+        User adminDB = getUserDAO().get(administratorId, em);
         if (adminDB != null) {
             getBiobankDAO().create(biobank, em);
             biobank.setAdministrator(adminDB);
         }
-        Researcher committeeDB = getResearcherDAO().get(ethicalCommitteeId, em);
+        User committeeDB = getUserDAO().get(ethicalCommitteeId, em);
         if (committeeDB != null) {
             biobank.setEthicalCommittee(committeeDB);
         }
@@ -100,8 +98,8 @@ public class BiobankServiceImpl implements BiobankService {
         em.getTransaction().begin();
 
         Biobank biobankDB = getBiobankDAO().get(biobankId, em);
-        Researcher researcher = getResearcherDAO().get(adminId, em);
-        biobankDB.setAdministrator(researcher);
+        User user = getUserDAO().get(adminId, em);
+        biobankDB.setAdministrator(user);
 
         getBiobankDAO().update(biobankDB, em);
         em.getTransaction().commit();
@@ -114,8 +112,8 @@ public class BiobankServiceImpl implements BiobankService {
         em.getTransaction().begin();
 
         Biobank biobankDB = getBiobankDAO().get(biobankId, em);
-        Researcher researcher = getResearcherDAO().get(committeeId, em);
-        biobankDB.setEthicalCommittee(researcher);
+        User user = getUserDAO().get(committeeId, em);
+        biobankDB.setEthicalCommittee(user);
 
         getBiobankDAO().update(biobankDB, em);
         em.getTransaction().commit();

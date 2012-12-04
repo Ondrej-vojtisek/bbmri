@@ -32,9 +32,9 @@ public class Project implements Serializable {
     private String fundingOrganization;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "project_researchers", joinColumns = @JoinColumn(name = "projects_id"),
-            inverseJoinColumns = @JoinColumn(name = "researchers_id"))
-    private List<Researcher> researchers = new ArrayList<Researcher>();
+    @JoinTable(name = "project_users", joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<User>();
 
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
@@ -74,12 +74,12 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public List<Researcher> getResearchers() {
-        return researchers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setResearchers(List<Researcher> researchers) {
-        this.researchers = researchers;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public Long getId() {
@@ -98,9 +98,9 @@ public class Project implements Serializable {
         this.requests = requests;
     }
 
-    public Researcher getOwner() {
-        if (!researchers.isEmpty()) {
-            return researchers.get(0);
+    public User getOwner() {
+        if (!users.isEmpty()) {
+            return users.get(0);
         }
         return null;
     }
@@ -131,7 +131,7 @@ public class Project implements Serializable {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", fundingOrganization='" + fundingOrganization + '\'' +
-                ", researchers=" + researchers +
+                ", users=" + users +
                 ", projectState=" + projectState +
                 ", requests=" + requests +
                 '}';

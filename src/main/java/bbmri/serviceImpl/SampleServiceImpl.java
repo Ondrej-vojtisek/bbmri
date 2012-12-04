@@ -44,7 +44,6 @@ public class SampleServiceImpl implements SampleService {
         return biobankDAO;
     }
 
-
     public Sample create(Sample sample, Long biobankId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

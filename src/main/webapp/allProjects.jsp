@@ -6,7 +6,7 @@
 
 <f:message key="project.all_projects" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.AllProjectsActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedResearcher.name}">
+<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="body">
 
         <fieldset>
@@ -32,20 +32,20 @@
 
                             <td><f:message key="ProjectState.${project.projectState}"/></td>
                             <td>
-                                <c:if test="${ !fn:contains(project.researchers, ab.loggedResearcher)}">
+                                <c:if test="${ !fn:contains(project.users, ab.loggedUser)}">
                                      <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="join">
                                      <s:param name="project.id" value="${project.id}"/><f:message key="join"/></s:link>
 
                                 </c:if>
                              </td>
                              <td>
-                                <c:if test="${fn:contains(project.researchers, ab.loggedResearcher)}">
+                                <c:if test="${fn:contains(project.users, ab.loggedUser)}">
                                     <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
                                     <s:param name="project.id" value="${project.id}"/><f:message key="project.leave"/></s:link>
                                 </c:if>
                             </td>
 
-                             <td><c:if test="${fn:contains(project.researchers, ab.loggedResearcher)}">
+                             <td><c:if test="${fn:contains(project.users, ab.loggedUser)}">
                                  <c:if test="${project.projectState != 'NEW' && project.projectState != null}">
                                  <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="requestSample">
                                  <s:param name="project.id" value="${project.id}"/><f:message key="request_sample"/></s:link>
@@ -54,7 +54,7 @@
                              </td>
 
                              <td>
-                                <c:if test="${fn:ownProject(project, ab.loggedResearcher)}">
+                                <c:if test="${fn:ownProject(project, ab.loggedUser)}">
 
                                     <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="edit">
                                     <s:param name="project.id" value="${project.id}"/><f:message key="edit"/></s:link>

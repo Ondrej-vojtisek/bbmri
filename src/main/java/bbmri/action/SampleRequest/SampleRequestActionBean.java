@@ -2,16 +2,12 @@ package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;
-import bbmri.service.ProjectService;
-import bbmri.service.ResearcherService;
 import bbmri.service.SampleService;
-import bbmri.serviceImpl.ProjectServiceImpl;
 import bbmri.serviceImpl.SampleServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
-import java.util.Date;
 import java.util.List;
 
 /**
