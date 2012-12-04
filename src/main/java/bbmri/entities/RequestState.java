@@ -8,5 +8,19 @@ package bbmri.entities;
  * To change this template use File | Settings | File Templates.
  */
 public enum RequestState {
-    NEW, APPROVED, DENIED, EQUIPPED;
+
+    NEW("new"),
+    APPROVED("approved"),
+    DENIED("denied"),
+    EQUIPPED("equipped");
+    private String state;
+
+    private RequestState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return this.state;
+    }
 }

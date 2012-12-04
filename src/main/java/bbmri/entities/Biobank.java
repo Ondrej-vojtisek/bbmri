@@ -16,14 +16,22 @@ import java.util.List;
 @Entity
 public class Biobank implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
     private Long id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "ADDRESS")
     private String address;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ADMIN_ID")
     Researcher administrator;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "COMMITTEE_ID")
     Researcher ethicalCommittee;
@@ -100,6 +108,13 @@ public class Biobank implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id + " ,address: " + address;
+        return "Biobank{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", administrator=" + administrator +
+                ", ethicalCommittee=" + ethicalCommittee +
+                ", samples=" + samples +
+                '}';
     }
 }

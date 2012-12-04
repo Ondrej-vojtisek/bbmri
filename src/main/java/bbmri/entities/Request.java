@@ -16,8 +16,10 @@ import java.util.Date;
 public class Request {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -26,10 +28,7 @@ public class Request {
     @ManyToOne(cascade = CascadeType.ALL)
     private Project project;
 
-    /*
-    @ManyToOne (cascade=CascadeType.ALL)
-    private Researcher reseacher;
-     */
+    @Column(name = "DATE")
     private Date date;
 
     @Enumerated(EnumType.STRING)

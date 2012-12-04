@@ -17,18 +17,40 @@ import java.util.List;
 @Entity
 public class Sample implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
     private Long id;
+
+    @Column(name = "SAMPLE_ID")
     private String sampleID;
+
+    @Column(name = "NUM_OF_SAMPLES")
     private Integer numOfSamples;
+
+    @Column(name = "NUM_OF_AVAILABLE_SAMPLES")
     private Integer numOfAvailable;
+
+    @Column(name = "TISSUE_TYPE")
     private String tissueType;
+
+    @Column(name = "TNM")
     private String TNM;
+
+    @Column(name = "PTNM")
     private String pTNM;
+
+    @Column(name = "GRADING")
     private Integer grading;
-    private Date removalTime; /*cutTime or blood take*/
-    private Date freezingTime;
+
+    @Column(name = "REMOVAL_DATE")
+    private Date removalDate; /*cutTime or blood take*/
+
+    @Column(name = "FREZING_DATE")
+    private Date freezingDate;
+
+    @Column(name = "DIAGNOSIS")
     private String diagnosis;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -118,19 +140,19 @@ public class Sample implements Serializable {
     }
 
     public Date getRemovalTime() {
-        return removalTime;
+        return removalDate;
     }
 
     public void setRemovalTime(Date removalTime) {
-        this.removalTime = removalTime;
+        this.removalDate = removalTime;
     }
 
     public Date getFreezingTime() {
-        return freezingTime;
+        return freezingDate;
     }
 
     public void setFreezingTime(Date freezingTime) {
-        this.freezingTime = freezingTime;
+        this.freezingDate = freezingTime;
     }
 
     public String getDiagnosis() {

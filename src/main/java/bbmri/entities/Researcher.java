@@ -26,21 +26,34 @@ import java.util.List;
 @Entity
 public class Researcher implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
     private Long id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "SURNAME")
     private String surname;
+
     @Column(columnDefinition = "boolean default false")
     private boolean online;
+
     //naive temporal prosthesis
+    @Column(name = "PASSWORD")
     private String password;
+
     @ManyToMany(mappedBy = "researchers", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
+
     @OneToOne(mappedBy = "administrator", cascade = CascadeType.ALL)
     Biobank biobank;
+
     @Column(columnDefinition = "boolean default false")
     private boolean administrator;
+
     @OneToOne(mappedBy = "ethicalCommittee", cascade = CascadeType.ALL)
     Biobank ethicalCommitteeOfBiobank;
 

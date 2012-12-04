@@ -16,11 +16,19 @@ import java.util.List;
 @Entity
 public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
     private Long id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
+
+    @Column(name = "FUNDING_ORGANIZATION")
     private String fundingOrganization;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -118,6 +126,14 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "id=" + id + " ,name: " + name + ", description: " + description + ", state: " + projectState;
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", fundingOrganization='" + fundingOrganization + '\'' +
+                ", researchers=" + researchers +
+                ", projectState=" + projectState +
+                ", requests=" + requests +
+                '}';
     }
 }

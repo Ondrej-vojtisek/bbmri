@@ -8,5 +8,20 @@ package bbmri.entities;
  * To change this template use File | Settings | File Templates.
  */
 public enum ProjectState {
-    NEW, APPROVED, STARTED, CANCELED, FINISHED;
+
+    NEW("new"),
+    APPROVED("approved"),
+    STARTED("started"),
+    CANCELED("canceled"),
+    FINISHED("finished");
+    private String state;
+
+    private ProjectState(String state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return this.state;
+    }
 }
