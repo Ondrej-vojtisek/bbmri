@@ -3,7 +3,10 @@ package bbmri.action.Biobank;
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
+import bbmri.service.BiobankService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -29,8 +32,14 @@ public class CreateBiobankActionBean extends BasicActionBean {
     private User administrator;
     private User ethicalCommittee;
 
+     @SpringBean
+    private UserService userService;
+
+    @SpringBean
+    private BiobankService biobankService;
+
     public List<User> getUsers() {
-        users = getUserService().getAll();
+        users = userService.getAll();
         return users;
     }
 
@@ -60,15 +69,15 @@ public class CreateBiobankActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        User resDB = getUserService().getById(administrator.getId());
+        User resDB = userService.getById(administrator.getId());
         if (resDB.getBiobank() != null) {
             return new ForwardResolution("/allBiobanks.jsp");
         }
-        resDB = getUserService().getById(ethicalCommittee.getId());
+        resDB = userService.getById(ethicalCommittee.getId());
         if (resDB.getEthicalCommitteeOfBiobank() != null) {
             return new ForwardResolution("/allBiobanks.jsp");
         }
-        getBiobankService().create(biobank, administrator.getId(), ethicalCommittee.getId());
+        biobankService.create(biobank, administrator.getId(), ethicalCommittee.getId());
         return new ForwardResolution("/allBiobanks.jsp");
     }
 

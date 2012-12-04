@@ -6,6 +6,7 @@ import bbmri.entities.Sample;
 import bbmri.service.SampleService;
 import bbmri.serviceImpl.SampleServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -46,6 +47,8 @@ public class AddSampleActionBean implements ActionBean {
                     minlength = 4, maxlength = 4)
     })
     private Sample sample;
+
+    @SpringBean
     private SampleService sampleService;
 
 
@@ -82,13 +85,6 @@ public class AddSampleActionBean implements ActionBean {
         return ctx.getLoggedUser();
     }
 
-    public SampleService getSampleService() {
-        if (sampleService == null) {
-            sampleService = new SampleServiceImpl();
-        }
-        return sampleService;
-    }
-
     @DefaultHandler
     public Resolution zobraz() {
         return new ForwardResolution("/addSample.jsp");
@@ -98,7 +94,7 @@ public class AddSampleActionBean implements ActionBean {
 
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
-            getSampleService().create(sample, biobank.getId());
+            sampleService.create(sample, biobank.getId());
         }
         return new RedirectResolution("/addSample.jsp");
     }
@@ -108,7 +104,7 @@ public class AddSampleActionBean implements ActionBean {
         if (biobank != null) {
             for (int i = 0; i < count; i++) {
                 generateSample();
-                getSampleService().create(sample, biobank.getId());
+                sampleService.create(sample, biobank.getId());
             }
         }
         return new RedirectResolution("/addSample.jsp");

@@ -4,6 +4,8 @@ import bbmri.DAO.UserDAO;
 import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.User;
 import bbmri.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -17,22 +19,18 @@ import java.util.List;
  * Time: 13:05
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-    UserDAO userDAO;
 
-    private UserDAO getUserDAO() {
-        if (userDAO == null) {
-            userDAO = new UserDAOImpl();
-        }
-        return userDAO;
-    }
+    @Autowired
+    private UserDAO userDAO;
 
     public User create(User user) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getUserDAO().create(user, em);
+        userDAO.create(user, em);
         em.getTransaction().commit();
         em.close();
         return user;
@@ -41,7 +39,7 @@ public class UserServiceImpl implements UserService {
     public void remove(User user) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getUserDAO().remove(user, em);
+        userDAO.remove(user, em);
         em.getTransaction().commit();
         em.close();
     }
@@ -49,9 +47,9 @@ public class UserServiceImpl implements UserService {
     public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB = getUserDAO().get(id, em);
+        User userDB = userDAO.get(id, em);
         if (userDB != null) {
-            getUserDAO().remove(userDB, em);
+             userDAO.remove(userDB, em);
         }
         em.getTransaction().commit();
         em.close();
@@ -60,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB = getUserDAO().get(user.getId(), em);
+        User userDB =  userDAO.get(user.getId(), em);
         if (userDB == null) {
             em.close();
             return null;
@@ -69,7 +67,7 @@ public class UserServiceImpl implements UserService {
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
         if (user.getPassword() != null) userDB.setPassword(user.getPassword());
 
-        getUserDAO().update(userDB, em);
+         userDAO.update(userDB, em);
         em.getTransaction().commit();
         em.close();
         return user;
@@ -78,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<User> users = getUserDAO().getAll(em);
+        List<User> users =  userDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
         return users;
@@ -87,7 +85,7 @@ public class UserServiceImpl implements UserService {
     public User getById(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB = getUserDAO().get(id, em);
+        User userDB = userDAO.get(id, em);
         em.getTransaction().commit();
         em.close();
         return userDB;
@@ -96,8 +94,8 @@ public class UserServiceImpl implements UserService {
     public User changeAdministrator(Long oldAdminId, Long newAdminId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userOld = getUserDAO().get(oldAdminId, em);
-        User userNew = getUserDAO().get(newAdminId, em);
+        User userOld = userDAO.get(oldAdminId, em);
+        User userNew = userDAO.get(newAdminId, em);
         userOld.setAdministrator(false);
         userNew.setAdministrator(true);
         em.getTransaction().commit();

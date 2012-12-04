@@ -10,6 +10,15 @@
         <param-value>StripesResources</param-value>
     </context-param>
 
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring-context.xml</param-value>
+    </context-param>
+
     <filter>
         <description>Dynamic mapping action beans to URL</description>
         <display-name>Stripes Dynamic Mapping Filter</display-name>
@@ -21,6 +30,12 @@
         <display-name>Stripes Filter</display-name>
         <filter-name>StripesFilter</filter-name>
         <filter-class>net.sourceforge.stripes.controller.StripesFilter</filter-class>
+        <init-param>
+            <description>propojení Stripes se Spring</description>
+            <param-name>Interceptor.Classes</param-name>
+            <param-value>net.sourceforge.stripes.integration.spring.SpringInterceptor</param-value>
+        </init-param>
+
         <init-param>
             <param-name>ActionResolver.Packages</param-name>
             <param-value>bbmri.action</param-value>
@@ -46,6 +61,9 @@
             <param-name>PopulationStrategy.Class</param-name>
             <param-value>net.sourceforge.stripes.tag.BeanFirstPopulationStrategy</param-value>
         </init-param>
+
+
+
     </filter>
 
     <filter-mapping>

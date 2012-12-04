@@ -4,6 +4,7 @@ import bbmri.entities.User;
 import bbmri.service.UserService;
 import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -13,9 +14,12 @@ import java.util.List;
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean implements ActionBean {
 
+
     private MyActionBeanContext ctx;
     private User user;
     private long id;
+
+    @SpringBean
     private UserService userService;
     private List<User> users;
 
@@ -28,19 +32,12 @@ public class UserActionBean implements ActionBean {
         return ctx;
     }
 
-    public UserService getUserService() {
-        if (userService == null) {
-            userService = new UserServiceImpl();
-        }
-        return userService;
-    }
-
     public User getLoggedUser() {
         return ctx.getLoggedUser();
     }
 
     public List<User> getUsers() {
-        return getUserService().getAll();
+        return userService.getAll();
     }
 
     public User getUser() {
@@ -68,17 +65,17 @@ public class UserActionBean implements ActionBean {
     @DefaultHandler
     public Resolution zobraz() {
 
-        users = getUserService().getAll();
+        users = userService.getAll();
         return new ForwardResolution("/allUsers.jsp");
     }
 
     public Resolution create() {
-        getUserService().create(user);
+        userService.create(user);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
     public Resolution delete() {
-        getUserService().remove((Long) id);
+        userService.remove((Long) id);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 

@@ -3,7 +3,10 @@ package bbmri.action.Biobank;
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
+import bbmri.service.BiobankService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -31,9 +34,15 @@ public class EditBiobankActionBean extends BasicActionBean {
     private User administrator;
     private User ethicalCommittee;
 
+     @SpringBean
+    private UserService userService;
+
+    @SpringBean
+    private BiobankService biobankService;
+
 
     public List<User> getUsers() {
-        users = getUserService().getAll();
+        users = userService.getAll();
         return users;
     }
 
@@ -74,25 +83,19 @@ public class EditBiobankActionBean extends BasicActionBean {
     }
 
     public Resolution update() {
-        getBiobankService().update(biobank);
+        biobankService.update(biobank);
         return new ForwardResolution("/allBiobanks.jsp");
     }
 
     public Resolution changeAdministrator() {
 
-        System.out.println("LoggedUser: " + getLoggedUser());
-        System.out.println("Administrator: " + administrator);
-
-        getBiobankService().updateAdministrator(biobank.getId(), administrator.getId());
+        biobankService.updateAdministrator(biobank.getId(), administrator.getId());
         return new ForwardResolution("/allBiobanks.jsp");
     }
 
     public Resolution changeEthicalCommittee() {
 
-        System.out.println("LoggedUser: " + getLoggedUser());
-        System.out.println("Committee: " + ethicalCommittee);
-
-        getBiobankService().updateEthicalCommittee(biobank.getId(), ethicalCommittee.getId());
+        biobankService.updateEthicalCommittee(biobank.getId(), ethicalCommittee.getId());
         return new ForwardResolution("/allBiobanks.jsp");
     }
 }

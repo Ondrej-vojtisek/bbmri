@@ -5,6 +5,7 @@ import bbmri.service.UserService;
 import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 
 /**
@@ -18,7 +19,10 @@ import net.sourceforge.stripes.validation.Validate;
 public class AccountActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
+
+    @SpringBean
     private UserService userService;
+
     @Validate(on = {"changePassword"}, required = true)
     private String password;
     @Validate(on = {"changePassword"}, required = true)
@@ -55,13 +59,6 @@ public class AccountActionBean implements ActionBean {
         return loggedUser;
     }
 
-    public UserService getUserService() {
-        if (userService == null) {
-            userService = new UserServiceImpl();
-        }
-        return userService;
-    }
-
     public User getUser() {
         return user;
     }
@@ -88,7 +85,7 @@ public class AccountActionBean implements ActionBean {
         if (user.getSurname() != null)
             loggedUser.setSurname(user.getSurname());
 
-        getUserService().update(loggedUser);
+        userService.update(loggedUser);
         ctx.setLoggedUser(loggedUser);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
@@ -97,7 +94,7 @@ public class AccountActionBean implements ActionBean {
         if (password != null && password2 != null) {
             if (password.equals(password2))
                 getLoggedUser().setPassword(password);
-            getUserService().update(getLoggedUser());
+            userService.update(getLoggedUser());
         }
         user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");

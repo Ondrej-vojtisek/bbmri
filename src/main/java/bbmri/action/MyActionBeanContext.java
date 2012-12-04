@@ -22,14 +22,6 @@ public class MyActionBeanContext extends ActionBeanContext {
         return (User) getRequest().getSession().getAttribute("loggedUser");
     }
 
-    public UserDAOImpl getResearcherDAOImpl() {
-        return (UserDAOImpl) getRequest().getSession().getAttribute("userDAOImpl");
-    }
-
-    public void setResearcherDAOImpl(UserDAOImpl userDAOImpl) {
-        getRequest().getSession().setAttribute("userDAOImpl", userDAOImpl);
-    }
-
     public Project getProject() {
         return (Project) getRequest().getSession().getAttribute("project");
     }

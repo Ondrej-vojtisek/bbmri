@@ -3,7 +3,10 @@ package bbmri.action.Biobank;
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
+import bbmri.service.BiobankService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
 
@@ -23,9 +26,15 @@ public class AllBiobanksActionBean extends BasicActionBean {
     private User administrator;
     private User ethicalCommittee;
 
+    @SpringBean
+    private UserService userService;
+
+    @SpringBean
+    private BiobankService biobankService;
+
 
     public List<User> getUsers() {
-        users = getUserService().getAll();
+        users = userService.getAll();
         return users;
     }
 
@@ -46,7 +55,7 @@ public class AllBiobanksActionBean extends BasicActionBean {
     }
 
     public List<Biobank> getBiobanks() {
-        return getBiobankService().getAll();
+        return biobankService.getAll();
     }
 
     public Biobank getBiobank() {
@@ -60,7 +69,7 @@ public class AllBiobanksActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         getUsers();
-        biobanks = getBiobankService().getAll();
+        biobanks = biobankService.getAll();
         return new ForwardResolution("/allBiobanks.jsp");
     }
 

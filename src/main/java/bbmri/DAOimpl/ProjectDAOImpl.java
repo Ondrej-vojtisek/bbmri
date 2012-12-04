@@ -4,6 +4,7 @@ import bbmri.DAO.ProjectDAO;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.*;
@@ -16,6 +17,8 @@ import java.util.List;
  * Time: 12:26
  * To change this template use File | Settings | File Templates.
  */
+
+@Repository
 public class ProjectDAOImpl implements ProjectDAO {
 
     public void create(Project project, EntityManager em) {
@@ -44,23 +47,23 @@ public class ProjectDAOImpl implements ProjectDAO {
         return em.find(Project.class, id);
     }
 
-    public List<Project> getAllByResearcher(User user) {
+    public List<Project> getAllByUser(User user) {
         return user.getProjects();
     }
 
-    public List<User> getAllResearchersByProject(Project project) {
+    public List<User> getAllUsersByProject(Project project) {
         return project.getUsers();
     }
 
-    public void assignResearcherToProject(User user, Project project) {
+    public void assignUserToProject(User user, Project project) {
         project.getUsers().add(user);
     }
 
-    public void removeResearcherFromProject(User user, Project project) {
+    public void removeUserFromProject(User user, Project project) {
         project.getUsers().remove(user);
     }
 
-    public boolean projectContainsResearcher(User user, Project project) {
+    public boolean projectContainsUser(User user, Project project) {
         return project.getUsers().contains(user);
     }
 }

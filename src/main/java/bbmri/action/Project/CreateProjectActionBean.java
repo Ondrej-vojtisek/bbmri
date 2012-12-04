@@ -13,6 +13,7 @@ import bbmri.entities.Project;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -28,15 +29,9 @@ public class CreateProjectActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 255),
     })
     private Project project;
+
+    @SpringBean
     private ProjectService projectService;
-
-    public ProjectService getProjectService() {
-        if (projectService == null) {
-            projectService = new ProjectServiceImpl();
-        }
-        return projectService;
-    }
-
     public Project getProject() {
         return project;
     }
@@ -46,7 +41,7 @@ public class CreateProjectActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        getProjectService().create(project, getLoggedUser());
+        projectService.create(project, getLoggedUser());
         return new ForwardResolution("/allProjects.jsp");
     }
 

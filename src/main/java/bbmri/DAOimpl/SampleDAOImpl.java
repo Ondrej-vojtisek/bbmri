@@ -2,6 +2,7 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.SampleDAO;
 import bbmri.entities.Sample;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,6 +15,8 @@ import java.util.List;
  * Time: 0:17
  * To change this template use File | Settings | File Templates.
  */
+
+@Repository
 public class SampleDAOImpl implements SampleDAO {
 
     public void create(Sample sample, EntityManager em) {

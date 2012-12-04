@@ -3,6 +3,7 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.UserDAO;
 import bbmri.entities.User;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
  * Time: 12:26
  * To change this template use File | Settings | File Templates.
  */
+
+@Repository
 public class UserDAOImpl implements UserDAO {
 
     public void create(User user, EntityManager em) {

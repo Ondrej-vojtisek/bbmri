@@ -2,7 +2,9 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
 
@@ -15,9 +17,12 @@ import java.util.List;
  */
 @UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
 public class ChangeAdministrator extends BasicActionBean {
-    private ProjectService projectService;
+
     private List<User> users;
     private User user;
+
+     @SpringBean
+    private UserService userService;
 
     public User getUser() {
         return user;
@@ -28,7 +33,7 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     public List<User> getUsers() {
-        this.users = getUserService().getAll();
+        this.users = userService.getAll();
         return users;
     }
 
@@ -42,7 +47,7 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     public Resolution changeAdministrator() {
-        User logged = getUserService().changeAdministrator(getContext().getLoggedUser().getId(), user.getId());
+        User logged = userService.changeAdministrator(getContext().getLoggedUser().getId(), user.getId());
         getContext().setLoggedUser(logged);
         return new ForwardResolution("/allProjects.jsp");
     }

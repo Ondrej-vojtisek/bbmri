@@ -2,9 +2,11 @@ package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;
+import bbmri.service.RequestService;
 import bbmri.service.SampleService;
 import bbmri.serviceImpl.SampleServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -21,6 +23,9 @@ import java.util.List;
 public class SampleRequestActionBean extends BasicActionBean {
 
     private Project project;
+
+    @SpringBean
+    private RequestService requestService;
 
     public void setSample(Sample sample) {
         this.sample = sample;
@@ -81,7 +86,7 @@ public class SampleRequestActionBean extends BasicActionBean {
         if (getProject().getProjectState() == ProjectState.NEW) {
             return new ForwardResolution("/allProjects.jsp");
         }
-        getRequestService().create(new Request(), getProject().getId(), sample.getId());
+        requestService.create(new Request(), getProject().getId(), sample.getId());
         return new ForwardResolution("/allProjects.jsp");
     }
 

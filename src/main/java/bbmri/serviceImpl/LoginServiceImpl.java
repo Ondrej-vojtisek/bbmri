@@ -4,6 +4,8 @@ import bbmri.DAO.UserDAO;
 import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,32 +18,28 @@ import javax.persistence.Persistence;
  * Time: 17:10
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class LoginServiceImpl implements LoginService {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-    UserDAO userDAO;
 
-    private UserDAO getUserDAO() {
-        if (userDAO == null) {
-            userDAO = new UserDAOImpl();
-        }
-        return userDAO;
-    }
+    @Autowired
+    private UserDAO userDAO;
 
     // temporal prosthesis
     public User login(Long id, String password) {
-        if (password == null || id < 0) {
+        if (password == null || id == null) {
             return null;
         }
         boolean result = false;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB = getUserDAO().get(id, em);
+        User userDB = userDAO.get(id, em);
         if (userDB != null && userDB.getPassword() != null) {
             if ((userDB.getPassword()).equals(password)) {
                 result = true;
                 userDB.setOnline(true);
-                getUserDAO().update(userDB, em);
+                userDAO.update(userDB, em);
                 em.getTransaction().commit();
             }
 
@@ -60,7 +58,7 @@ public class LoginServiceImpl implements LoginService {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         user.setOnline(false);
-        getUserDAO().update(user, em);
+        userDAO.update(user, em);
         em.getTransaction().commit();
         em.close();
     }

@@ -125,7 +125,7 @@
               <c:if test="${loggedUser.administrator}">
                  <li><f:message key="system.administrator"/></li>
                  <li><s:link href="/createBiobank.jsp"><f:message key="biobank.create"/></s:link></li>
-                 <li><s:link href="/createResearcher.jsp"><f:message key="user.create"/></s:link></li>
+                 <li><s:link href="/createUser.jsp"><f:message key="user.create"/></s:link></li>
                  <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
               </c:if>
         </ul>

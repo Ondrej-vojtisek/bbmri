@@ -26,15 +26,15 @@ public interface ProjectDAO {
 
     List<Project> getAll(EntityManager em);
 
-    List<Project> getAllByResearcher(User user);
+    List<Project> getAllByUser(User user);
 
-    List<User> getAllResearchersByProject(Project project);
+    List<User> getAllUsersByProject(Project project);
 
-    void assignResearcherToProject(User user, Project project);
+    void assignUserToProject(User user, Project project);
 
-    void removeResearcherFromProject(User user, Project project);
+    void removeUserFromProject(User user, Project project);
 
-    boolean projectContainsResearcher(User user, Project project);
+    boolean projectContainsUser(User user, Project project);
 
     List<Project> getAllByProjectState(ProjectState projectState, EntityManager em);
 

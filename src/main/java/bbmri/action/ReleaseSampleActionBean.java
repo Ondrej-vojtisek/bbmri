@@ -2,10 +2,13 @@ package bbmri.action;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
+import bbmri.service.RequestService;
+import bbmri.service.SampleService;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
 
@@ -30,6 +33,12 @@ public class ReleaseSampleActionBean extends BasicActionBean {
         return biobank;
     }
 
+    @SpringBean
+    private RequestService requestService;
+
+    @SpringBean
+    private SampleService sampleService;
+
     public void setBiobank(Biobank biobank) {
         this.biobank = biobank;
     }
@@ -43,7 +52,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     }
 
     public List<Sample> getSamples() {
-        samples = getRequestService().getAllReleasableSamplesByBiobank(getBiobank().getId());
+        samples = requestService.getAllReleasableSamplesByBiobank(getBiobank().getId());
         return samples;
     }
 
@@ -52,7 +61,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     }
 
     public Resolution release() {
-        getSampleService().decreaseCount(sample.getId(), 1);
+        sampleService.decreaseCount(sample.getId(), 1);
 
         return new ForwardResolution("/releaseSample.jsp");
     }

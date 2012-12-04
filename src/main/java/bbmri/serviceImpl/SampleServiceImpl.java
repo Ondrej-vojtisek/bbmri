@@ -10,6 +10,8 @@ import bbmri.entities.RequestState;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
 import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,31 +26,22 @@ import java.util.List;
  * Time: 0:22
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class SampleServiceImpl implements SampleService {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-    SampleDAO sampleDAO;
-    BiobankDAO biobankDAO;
 
-    private SampleDAO getSampleDAO() {
-        if (sampleDAO == null) {
-            sampleDAO = new SampleDAOImpl();
-        }
-        return sampleDAO;
-    }
+    @Autowired
+    private SampleDAO sampleDAO;
 
-    private BiobankDAO getBiobankDAO() {
-        if (biobankDAO == null) {
-            biobankDAO = new BiobankDAOImpl();
-        }
-        return biobankDAO;
-    }
+    @Autowired
+    private BiobankDAO biobankDAO;
 
     public Sample create(Sample sample, Long biobankId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getSampleDAO().create(sample, em);
-        Biobank biobank = getBiobankDAO().get(biobankId, em);
+        sampleDAO.create(sample, em);
+        Biobank biobank = biobankDAO.get(biobankId, em);
         if (biobank != null) {
             sample.setBiobank(biobank);
 
@@ -61,9 +54,9 @@ public class SampleServiceImpl implements SampleService {
     public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Sample sample = getSampleDAO().get(id, em);
+        Sample sample = sampleDAO.get(id, em);
         if (sample != null) {
-            getSampleDAO().remove(sample, em);
+            sampleDAO.remove(sample, em);
         }
         em.getTransaction().commit();
         em.close();
@@ -72,7 +65,7 @@ public class SampleServiceImpl implements SampleService {
     public Sample update(Sample sample) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getSampleDAO().update(sample, em);
+        sampleDAO.update(sample, em);
         em.getTransaction().commit();
         em.close();
         return sample;
@@ -81,7 +74,7 @@ public class SampleServiceImpl implements SampleService {
     public List<Sample> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<Sample> samples = getSampleDAO().getAll(em);
+        List<Sample> samples = sampleDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
         return samples;
@@ -90,7 +83,7 @@ public class SampleServiceImpl implements SampleService {
     public Sample decreaseCount(Long sampleId, Integer requested) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Sample sample = getSampleDAO().get(sampleId, em);
+        Sample sample = sampleDAO.get(sampleId, em);
         Integer count = sample.getNumOfAvailable();
         if ((count - requested) > 0) {
             count -= requested;
@@ -148,7 +141,7 @@ public class SampleServiceImpl implements SampleService {
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<Sample> samples = getSampleDAO().getSelected(em, query);
+        List<Sample> samples = sampleDAO.getSelected(em, query);
         em.getTransaction().commit();
         em.close();
         return samples;

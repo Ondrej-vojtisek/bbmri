@@ -4,6 +4,7 @@ import bbmri.entities.User;
 import bbmri.service.LoginService;
 import bbmri.serviceImpl.LoginServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LongTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 
@@ -20,20 +21,14 @@ public class LoginActionBean implements ActionBean {
 
     private MyActionBeanContext ctx;
 
+    @SpringBean
+    private LoginService loginService;
 
     @Validate(converter = LongTypeConverter.class, on = {"login"},
             required = true, minvalue = 1)
     private Long id;
     @Validate(on = {"login"}, required = true)
     private String password;
-    private LoginService loginService;
-
-    public LoginService getLoginService() {
-        if (loginService == null) {
-            loginService = new LoginServiceImpl();
-        }
-        return loginService;
-    }
 
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
@@ -62,7 +57,7 @@ public class LoginActionBean implements ActionBean {
     @DefaultHandler
     public Resolution login() {
         ctx.setLoggedUser(null);
-        User user = getLoginService().login(id, password);
+        User user = loginService.login(id, password);
         if (user != null) {
             ctx.setLoggedUser(user);
             return new RedirectResolution("/allProjects.jsp");
@@ -71,8 +66,8 @@ public class LoginActionBean implements ActionBean {
     }
 
     @HandlesEvent("logout")
-    public Resolution logoutResearcher() {
-        getLoginService().logout(ctx.getLoggedUser());
+    public Resolution logoutUser() {
+        loginService.logout(ctx.getLoggedUser());
         ctx.setLoggedUser(null);
         return new ForwardResolution("/index.jsp");
     }

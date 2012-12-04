@@ -6,6 +6,7 @@ import bbmri.entities.User;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
@@ -29,6 +30,8 @@ public class EditProjectActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 255),
     })
     private Project project;
+
+    @SpringBean
     private ProjectService projectService;
     private List<User> users;
     private User user;
@@ -37,7 +40,7 @@ public class EditProjectActionBean extends BasicActionBean {
     private List<User> freeUsers;
 
     public List<User> getFreeUsers() {
-        this.freeUsers = getProjectService().getAllNotAssignedResearchers(getProject().getId());
+        this.freeUsers = projectService.getAllNotAssignedUsers(getProject().getId());
         return freeUsers;
     }
 
@@ -71,19 +74,12 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public List<User> getUsers() {
-        this.users = getProjectService().getAllAssignedResearchers(project.getId());
+        this.users = projectService.getAllAssignedUsers(project.getId());
         return users;
     }
 
     public void setUsers(List<User> users) {
         this.users = users;
-    }
-
-    public ProjectService getProjectService() {
-        if (projectService == null) {
-            projectService = new ProjectServiceImpl();
-        }
-        return projectService;
     }
 
     public Project getProject() {
@@ -102,7 +98,7 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public Resolution update() {
-        getProjectService().update(project);
+        projectService.update(project);
         return new ForwardResolution("/allProjects.jsp");
     }
 
@@ -113,26 +109,26 @@ public class EditProjectActionBean extends BasicActionBean {
                     /*you can't remove yourself*/
                     return new ForwardResolution("/allProjects.jsp");
                 }
-                getProjectService().removeResearcherFromProject(id, getProject().getId());
+                projectService.removeUserFromProject(id, getProject().getId());
             }
         }
-        users = getProjectService().getAllAssignedResearchers(getProject().getId());
+        users = projectService.getAllAssignedUsers(getProject().getId());
         return new ForwardResolution("/allProjects.jsp");
     }
 
     public Resolution assignAll() {
         if (selectedApprove != null) {
             for (Long resProject : selectedApprove) {
-                getProjectService().assignResearcher(resProject, getProject().getId());
+                projectService.assignUser(resProject, getProject().getId());
             }
         }
-        users = getProjectService().getAllAssignedResearchers(getProject().getId());
+        users = projectService.getAllAssignedUsers(getProject().getId());
         return new ForwardResolution("/editProject.jsp");
     }
 
 
     public Resolution changeOwnership() {
-        getProjectService().changeOwnership(getContext().getProject().getId(), user.getId());
+        projectService.changeOwnership(getContext().getProject().getId(), user.getId());
         // ctx.setProject(project);
 
         return new ForwardResolution("/editProject.jsp");

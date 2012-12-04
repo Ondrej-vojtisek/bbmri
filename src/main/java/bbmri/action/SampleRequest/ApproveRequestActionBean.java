@@ -4,9 +4,11 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Request;
 import bbmri.entities.RequestState;
+import bbmri.service.RequestService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
 
@@ -22,12 +24,15 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private List<Request> requests;
     private Request request;
 
+    @SpringBean
+    private RequestService requestService;
+
     public List<Request> getRequests() {
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank == null) {
             return null;
         }
-        requests = getRequestService().getAllNewByBiobank(biobank.getId());
+        requests =requestService.getAllNewByBiobank(biobank.getId());
         return requests;
     }
 
@@ -40,12 +45,12 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public Resolution approve() {
-        getRequestService().changeRequestState(request.getId(), RequestState.APPROVED);
+        requestService.changeRequestState(request.getId(), RequestState.APPROVED);
         return new ForwardResolution("/approveSampleRequest.jsp");
     }
 
     public Resolution deny() {
-        getRequestService().changeRequestState(request.getId(), RequestState.DENIED);
+        requestService.changeRequestState(request.getId(), RequestState.DENIED);
         return new ForwardResolution("/approveSampleRequest.jsp");
     }
 }

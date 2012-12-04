@@ -5,6 +5,7 @@ import bbmri.service.*;
 import bbmri.serviceImpl.*;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,48 +16,6 @@ import net.sourceforge.stripes.action.ActionBeanContext;
  */
 public class BasicActionBean implements ActionBean {
     private MyActionBeanContext ctx;
-    private UserService userService;
-    private BiobankService biobankService;
-    private ProjectService projectService;
-    private SampleService sampleService;
-    private RequestService requestService;
-
-
-    public BiobankService getBiobankService() {
-        if (biobankService == null) {
-            biobankService = new BiobankServiceImpl();
-        }
-        return biobankService;
-    }
-
-    public ProjectService getProjectService() {
-        if (projectService == null) {
-            projectService = new ProjectServiceImpl();
-        }
-        return projectService;
-    }
-
-    public UserService getUserService() {
-        if (userService == null) {
-            userService = new UserServiceImpl();
-        }
-        return userService;
-    }
-
-    public SampleService getSampleService() {
-        if (sampleService == null) {
-            sampleService = new SampleServiceImpl();
-        }
-        return sampleService;
-    }
-
-    public RequestService getRequestService() {
-        if (requestService == null) {
-            requestService = new RequestServiceImpl();
-        }
-        return requestService;
-    }
-
 
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;

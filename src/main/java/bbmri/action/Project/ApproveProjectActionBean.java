@@ -6,6 +6,7 @@ import bbmri.entities.ProjectState;
 import bbmri.service.ProjectService;
 import bbmri.serviceImpl.ProjectServiceImpl;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class ApproveProjectActionBean extends BasicActionBean {
 
     private List<Project> projects;
+
+    @SpringBean
     private ProjectService projectService;
     private Project project;
 
@@ -25,19 +28,12 @@ public class ApproveProjectActionBean extends BasicActionBean {
         this.project = project;
     }
 
-    public ProjectService getProjectService() {
-        if (projectService == null) {
-            projectService = new ProjectServiceImpl();
-        }
-        return projectService;
-    }
-
     public List<Project> getProjects() {
-        return getProjectService().getAllByProjectState(ProjectState.NEW);
+        return projectService.getAllByProjectState(ProjectState.NEW);
     }
 
     public Resolution approve() {
-        getProjectService().approve(project.getId());
+        projectService.approve(project.getId());
         return new ForwardResolution("/approveProject.jsp");
     }
 }

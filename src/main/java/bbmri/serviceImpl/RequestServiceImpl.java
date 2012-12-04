@@ -10,6 +10,8 @@ import bbmri.DAOimpl.RequestDAOImpl;
 import bbmri.DAOimpl.SampleDAOImpl;
 import bbmri.entities.*;
 import bbmri.service.RequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,50 +27,31 @@ import java.util.List;
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
+@Service
 public class RequestServiceImpl implements RequestService {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-    RequestDAO requestDAO;
-    ProjectDAO projectDAO;
-    SampleDAO sampleDAO;
-    BiobankDAO biobankDAO;
 
-    private RequestDAO getRequestDAO() {
-        if (requestDAO == null) {
-            requestDAO = new RequestDAOImpl();
-        }
-        return requestDAO;
-    }
+    @Autowired
+    private RequestDAO requestDAO;
 
-    private ProjectDAO getProjectDAO() {
-        if (projectDAO == null) {
-            projectDAO = new ProjectDAOImpl();
-        }
-        return projectDAO;
-    }
+    @Autowired
+    private ProjectDAO projectDAO;
 
-    private SampleDAO getSampleDAO() {
-        if (sampleDAO == null) {
-            sampleDAO = new SampleDAOImpl();
-        }
-        return sampleDAO;
-    }
+    @Autowired
+    private SampleDAO sampleDAO;
 
-    private BiobankDAO getBiobankDAO() {
-        if (biobankDAO == null) {
-            biobankDAO = new BiobankDAOImpl();
-        }
-        return biobankDAO;
-    }
+    @Autowired
+    private BiobankDAO biobankDAO;
 
 
     public Request create(Request request, Long projectId, Long sampleId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getRequestDAO().create(request, em);
+        requestDAO.create(request, em);
 
-        Sample sampleDB = getSampleDAO().get(sampleId, em);
-        Project projectDB = getProjectDAO().get(projectId, em);
+        Sample sampleDB = sampleDAO.get(sampleId, em);
+        Project projectDB = projectDAO.get(projectId, em);
 
         if (sampleDB != null) {
             request.setProject(projectDB);
@@ -88,7 +71,7 @@ public class RequestServiceImpl implements RequestService {
     public void remove(Request request) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        getRequestDAO().remove(request, em);
+        requestDAO.remove(request, em);
         em.getTransaction().commit();
         em.close();
     }
@@ -96,9 +79,9 @@ public class RequestServiceImpl implements RequestService {
     public void remove(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Request requestDB = getRequestDAO().get(id, em);
+        Request requestDB = requestDAO.get(id, em);
         if (requestDB != null) {
-            getRequestDAO().remove(requestDB, em);
+            requestDAO.remove(requestDB, em);
         }
         em.getTransaction().commit();
         em.close();
@@ -107,14 +90,14 @@ public class RequestServiceImpl implements RequestService {
     public Request update(Request request) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Request requestDB = getRequestDAO().get(request.getId(), em);
+        Request requestDB = requestDAO.get(request.getId(), em);
         if (requestDB == null) {
             em.close();
             return null;
         }
         if (request.getRequestState() != null) requestDB.setRequestState(request.getRequestState());
 
-        getRequestDAO().update(requestDB, em);
+        requestDAO.update(requestDB, em);
         em.getTransaction().commit();
         em.close();
         return requestDB;
@@ -123,7 +106,7 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<Request> requests = getRequestDAO().getAll(em);
+        List<Request> requests = requestDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
         return requests;
@@ -132,7 +115,7 @@ public class RequestServiceImpl implements RequestService {
     public Request getById(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Request request = getRequestDAO().get(id, em);
+        Request request = requestDAO.get(id, em);
         em.getTransaction().commit();
         em.close();
         return request;
@@ -142,8 +125,8 @@ public class RequestServiceImpl implements RequestService {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        Project projectDB = getProjectDAO().get(projectId, em);
-        List<Request> requests = getRequestDAO().getAll(em);
+        Project projectDB = projectDAO.get(projectId, em);
+        List<Request> requests = requestDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
 
@@ -166,7 +149,7 @@ public class RequestServiceImpl implements RequestService {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        List<Request> requests = getRequestDAO().getAll(em);
+        List<Request> requests = requestDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
 
@@ -185,8 +168,8 @@ public class RequestServiceImpl implements RequestService {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        List<Request> requests = getRequestDAO().getAll(em);
-        Biobank biobankDB = getBiobankDAO().get(biobankId, em);
+        List<Request> requests = requestDAO.getAll(em);
+        Biobank biobankDB = biobankDAO.get(biobankId, em);
         em.getTransaction().commit();
         em.close();
 
@@ -216,7 +199,7 @@ public class RequestServiceImpl implements RequestService {
     public Request changeRequestState(Long requestId, RequestState requestState) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Request requestDB = getRequestDAO().get(requestId, em);
+        Request requestDB = requestDAO.get(requestId, em);
         if (requestDB != null) {
             requestDB.setRequestState(requestState);
             requestDAO.update(requestDB, em);
@@ -229,14 +212,14 @@ public class RequestServiceImpl implements RequestService {
     public List<Sample> getAllReleasableSamplesByBiobank(Long biobankId) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Biobank biobankDB = getBiobankDAO().get(biobankId, em);
+        Biobank biobankDB = biobankDAO.get(biobankId, em);
 
         if (biobankDB == null) {
             em.close();
             return null;
         }
 
-        List<Request> requests = getRequestDAO().getAll(em);
+        List<Request> requests = requestDAO.getAll(em);
         if (requests == null) {
             em.close();
             return null;

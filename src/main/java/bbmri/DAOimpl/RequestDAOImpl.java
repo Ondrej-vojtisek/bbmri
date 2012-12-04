@@ -2,6 +2,7 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.RequestDAO;
 import bbmri.entities.Request;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +16,8 @@ import java.util.List;
  * Time: 10:15
  * To change this template use File | Settings | File Templates.
  */
+
+@Repository
 public class RequestDAOImpl implements RequestDAO {
 
     public void create(Request request, EntityManager em) {
