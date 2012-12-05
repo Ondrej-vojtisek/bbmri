@@ -27,15 +27,15 @@
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.6" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.6" />
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.5" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-core:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.1.1.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-core:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.1.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.1.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.apache.derby:derbyclient:10.8.1.2" />
             <element id="library" level="project" name="Maven: postgresql:postgresql:9.1-901.jdbc4" />
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.18" />
@@ -51,6 +51,8 @@
             <element id="library" level="project" name="Maven: asm:asm:3.1" />
             <element id="library" level="project" name="Maven: javassist:javassist:3.12.0.GA" />
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.3" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-web:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.1.2.RELEASE" />
           </element>
         </element>
       </root>
@@ -154,7 +156,7 @@
   </component>
   <component name="IdProvider" IDEtalkID="D4441223EB0F8006B40CFFEAA6FB1424" />
   <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.7" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-target 1.6" />
   </component>
   <component name="JavadocGenerationManager">
     <option name="OUTPUT_DIRECTORY" />
@@ -811,6 +813,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/3.1.2.RELEASE/spring-jdbc-3.1.2.RELEASE-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.springframework:spring-orm:3.1.2.RELEASE">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/3.1.2.RELEASE/spring-orm-3.1.2.RELEASE-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.springframework:spring-tx:3.1.2.RELEASE">
