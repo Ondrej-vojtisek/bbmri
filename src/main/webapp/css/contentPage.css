@@ -1,0 +1,46 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+table {
+    width: 100%;
+    margin: 1em 0;
+    border: solid 1px #cccccc;
+    border-collapse: collapse;
+}
+
+table tr td, table tr th {
+    border: solid 1px #cccccc;
+    padding: 5px 5px;
+}
+
+table td {
+    background-color: #FFFFFF;
+}
+
+table th {
+    background-color: #DDD;
+    text-transform: uppercase;
+    background-image: url(../images/thead-bg.png);
+    background-repeat: repeat-x;
+    height: 25px;
+    text-align: left;
+    color: #333;
+    padding: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+    width: 100%;
+}

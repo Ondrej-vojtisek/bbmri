@@ -8,9 +8,6 @@
         <th><s:label name="project.name"/></th>
         <th><s:label name="project.description"/></th>
         <th><s:label name="project.projectState"/></th>
-        <th><s:label name="project.edit"/></th>
-        <th><s:label name="ask_to_join"/></th>
-        <th><s:label name="leave"/></th>
     </tr>
 
     <c:forEach items="${ab.projects}" var="project">
@@ -19,9 +16,6 @@
             <td><c:out value="${project.name}"/></td>
             <td><c:out value="${project.description}"/></td>
             <td><f:message key="ProjectState.${project.projectState}"/></td>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
         </tr>
     </c:forEach>
 </table>

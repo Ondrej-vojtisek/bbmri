@@ -1,7 +1,6 @@
 package bbmri.serviceImpl;
 
 import bbmri.DAO.UserDAO;
-import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.User;
 import bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class UserServiceImpl implements UserService {
         em.getTransaction().begin();
         User userDB = userDAO.get(id, em);
         if (userDB != null) {
-             userDAO.remove(userDB, em);
+            userDAO.remove(userDB, em);
         }
         em.getTransaction().commit();
         em.close();
@@ -58,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB =  userDAO.get(user.getId(), em);
+        User userDB = userDAO.get(user.getId(), em);
         if (userDB == null) {
             em.close();
             return null;
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
         if (user.getPassword() != null) userDB.setPassword(user.getPassword());
 
-         userDAO.update(userDB, em);
+        userDAO.update(userDB, em);
         em.getTransaction().commit();
         em.close();
         return user;
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        List<User> users =  userDAO.getAll(em);
+        List<User> users = userDAO.getAll(em);
         em.getTransaction().commit();
         em.close();
         return users;

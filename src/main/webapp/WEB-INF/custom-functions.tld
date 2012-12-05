@@ -10,7 +10,8 @@
         >
     <tlib-version>1.0</tlib-version>
 
-    <short-name>MyLibrary</short-name> <!-- Used for tools to display     <uri>FunkyTagLibrary</uri> -->
+    <short-name>MyLibrary</short-name>
+    <!-- Used for tools to display     <uri>FunkyTagLibrary</uri> -->
 
 
     <function>

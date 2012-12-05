@@ -5,7 +5,10 @@ import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -70,13 +73,13 @@ public class AllBiobanksActionBean extends BasicActionBean {
     public Resolution display() {
         getUsers();
         biobanks = biobankService.getAll();
-        return new ForwardResolution("/allBiobanks.jsp");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 
     public Resolution edit() {
         biobank = getContext().getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);
 
-        return new ForwardResolution("/editBiobank.jsp");
+        return new ForwardResolution("/biobank_edit.jsp");
     }
 }

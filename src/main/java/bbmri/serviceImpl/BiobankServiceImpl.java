@@ -2,11 +2,9 @@ package bbmri.serviceImpl;
 
 import bbmri.DAO.BiobankDAO;
 import bbmri.DAO.UserDAO;
-import bbmri.DAOimpl.BiobankDAOImpl;
-import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.Biobank;
-import bbmri.entities.User;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

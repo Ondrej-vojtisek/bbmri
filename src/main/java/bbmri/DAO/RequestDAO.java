@@ -3,7 +3,6 @@ package bbmri.DAO;
 import bbmri.entities.Request;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 /**

@@ -1,7 +1,6 @@
 package bbmri.serviceImpl;
 
 import bbmri.DAO.UserDAO;
-import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

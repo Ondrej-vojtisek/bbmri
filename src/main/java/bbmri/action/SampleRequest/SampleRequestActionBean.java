@@ -1,11 +1,17 @@
 package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.*;
+import bbmri.entities.Project;
+import bbmri.entities.ProjectState;
+import bbmri.entities.Request;
+import bbmri.entities.Sample;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
 import bbmri.serviceImpl.SampleServiceImpl;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -65,7 +71,7 @@ public class SampleRequestActionBean extends BasicActionBean {
                     maxlength = 7),
             @Validate(on = {"find"},
                     field = "pTNM",
-                     maxlength = 7),
+                    maxlength = 7),
             @Validate(on = {"find"},
                     field = "grading",
                     minvalue = 1, maxvalue = 8),
@@ -79,15 +85,15 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/sampleRequests.jsp");
+        return new ForwardResolution("/sample_request.jsp");
     }
 
     public Resolution request() {
         if (getProject().getProjectState() == ProjectState.NEW) {
-            return new ForwardResolution("/allProjects.jsp");
+            return new ForwardResolution("/project_all.jsp");
         }
         requestService.create(new Request(), getProject().getId(), sample.getId());
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution find() {
@@ -95,7 +101,7 @@ public class SampleRequestActionBean extends BasicActionBean {
             System.out.println(sample);
             results = getSampleService().getSamplesByQuery(sample);
         }
-        return new ForwardResolution("/sampleRequests.jsp");
+        return new ForwardResolution("/sample_request.jsp");
     }
 
 }

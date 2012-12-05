@@ -1,9 +1,11 @@
 package bbmri.action;
 
 import bbmri.entities.User;
-import bbmri.service.ProjectService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -21,7 +23,7 @@ public class ChangeAdministrator extends BasicActionBean {
     private List<User> users;
     private User user;
 
-     @SpringBean
+    @SpringBean
     private UserService userService;
 
     public User getUser() {
@@ -43,12 +45,12 @@ public class ChangeAdministrator extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution changeAdministrator() {
         User logged = userService.changeAdministrator(getContext().getLoggedUser().getId(), user.getId());
         getContext().setLoggedUser(logged);
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 }

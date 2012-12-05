@@ -6,144 +6,62 @@
 <s:layout-definition>
     <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/contentPage.css"/>
         <title><c:out value="${title}"/></title>
-        <style type="text/css">
-            table th{
-                text-align: left;
-            }
-
-
-            input.error {
-                background-color: yellow;
-            }
-
-            body {
-                font-family: Helvetica, sans-serif;
-                background-color: azure;
-            }
-
-            fieldset{
-                background-color: white;
-            }
-
-            h1 {
-                text-align: center;
-                text-shadow: aquamarine;
-            }
-
-                /*  http://www.alistapart.com/articles/taminglists/ */
-            #navigace {
-                width: 120px;
-                border-right: 1px solid #000;
-                padding: 0 0 1em 0;
-                margin-bottom: 1em;
-                background-color: #90bade;
-                color: #333;
-            }
-
-            #navigace ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                border: none;
-            }
-
-            #navigace li {
-                border-bottom: 1px solid #90bade;
-                margin: 0;
-            }
-
-            #navigace li a {
-                display: block;
-                padding: 5px 5px 5px 0.5em;
-                border-left: 10px solid #1958b7;
-                border-right: 10px solid #508fc4;
-                background-color: #2175bc;
-                color: #fff;
-                text-decoration: none;
-                width: 100%;
-            }
-
-            html>body #navigace li a {
-                width: auto;
-            }
-
-            #navigace li a:hover {
-                border-left: 10px solid #1c64d1;
-                border-right: 10px solid #5ba3e0;
-                background-color: #2586d7;
-                color: #fff;
-            }
-
-                /*  http://realworldstyle.com/2col.html */
-            #navigace {
-                width: 120px;
-                float: left;
-                margin-left: -1px;
-            }
-
-            #content {
-                padding: 10px;
-                margin-left: 130px;
-            }
-
-            textarea{
-                width: 800px;
-                height: 200px;
-
-            }
-        </style>
         <s:layout-component name="hlavicka"/>
     </head>
     <body>
-    <h1><c:out value="${title}"/></h1>
 
-    <div id="navigace">
-            <ul> <ul>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                </a>
 
-            <s:form beanclass="bbmri.action.BasicActionBean">
-            <li><f:message key="user"/></li>
-            <li><s:link href="/myAccount.jsp"><f:message key="credentials"/></s:link></li>
+                <div class="nav-collapse collapse">
+                    <p class="navbar-text pull-right">
+                        <s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">
+                            <f:message key="logout"/></s:link>
 
-            <li><s:link href="/createProject.jsp"><f:message key="projects.createProject"/></s:link></li>
-            <li><s:link href="/allProjects.jsp"><f:message key="project.all_projects"/></s:link></li>
-            <li><s:link href="/allBiobanks.jsp"><f:message key="biobanks.title"/></s:link></li>
+                    </p>
 
 
-              <c:if test="${loggedUser.ethicalCommitteeOfBiobank != null}">
-                <li><f:message key="biobank.ethical_committee"/></li>
-                <li><s:link href="/approveProject.jsp"><f:message key="approve_project"/></s:link></li>
-              </c:if>
+                    <p class="navbar-text pull-right" style="margin-right: 30px;">
+                        <f:message key="logged_user"/>: <s:link href="/myAccount.jsp"><c:out
+                            value="${logged}"/></s:link>
+                    </p>
 
-              <c:if test="${loggedUser.biobank != null}">
-                 <li><f:message key="biobank.operator"/></li>
-                 <li><s:link href="/addSample.jsp"><f:message key="samples.add"/></s:link></li>
-                 <li><s:link href="/approveSampleRequest.jsp"><f:message key="sample_requests"/></s:link></li>
-                 <li><s:link href="/releaseSample.jsp"><f:message key="sample.release"/></s:link></li>
-              </c:if>
-
-              <c:if test="${loggedUser.administrator}">
-                 <li><f:message key="system.administrator"/></li>
-                 <li><s:link href="/createBiobank.jsp"><f:message key="biobank.create"/></s:link></li>
-                 <li><s:link href="/createUser.jsp"><f:message key="user.create"/></s:link></li>
-                 <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
-              </c:if>
-        </ul>
-        </s:form>
-        <div>
-            <p><f:message key="logged_user"/>:<c:out value="${logged}"/></p>
-            <s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">
-                <f:message key="logout"/></s:link>
+                    <ul class="nav">
+                        <s:layout-component name="primary_menu"/>
+                    </ul>
+                </div>
+            </div>
         </div>
-
     </div>
 
 
-    <div id="content">
-
-        <s:layout-component name="body"/>
-
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+                <div class="well sidebar-nav">
+                    <ul class="nav nav-list">
+                        <li class="nav-header"><f:message key="operations"/></li>
+                        <s:layout-component name="secondary_menu"/>
+                    </ul>
+                </div>
+            </div>
+            <div class="span9">
+                <div class="hero-unit">
+                    <s:layout-component name="body"/>
+                </div>
+            </div>
+        </div>
     </div>
+
     </body>
     </html>
 

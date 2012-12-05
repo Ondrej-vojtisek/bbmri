@@ -4,8 +4,10 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
-import bbmri.serviceImpl.ProjectServiceImpl;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -94,12 +96,12 @@ public class EditProjectActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution update() {
         projectService.update(project);
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution removeAll() {
@@ -107,13 +109,13 @@ public class EditProjectActionBean extends BasicActionBean {
             for (Long id : selected) {
                 if (id.equals(getContext().getLoggedUser().getId())) {
                     /*you can't remove yourself*/
-                    return new ForwardResolution("/allProjects.jsp");
+                    return new ForwardResolution("/project_all.jsp");
                 }
                 projectService.removeUserFromProject(id, getProject().getId());
             }
         }
         users = projectService.getAllAssignedUsers(getProject().getId());
-        return new ForwardResolution("/allProjects.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution assignAll() {
@@ -123,7 +125,7 @@ public class EditProjectActionBean extends BasicActionBean {
             }
         }
         users = projectService.getAllAssignedUsers(getProject().getId());
-        return new ForwardResolution("/editProject.jsp");
+        return new ForwardResolution("/project_edit.jsp");
     }
 
 
@@ -131,7 +133,7 @@ public class EditProjectActionBean extends BasicActionBean {
         projectService.changeOwnership(getContext().getProject().getId(), user.getId());
         // ctx.setProject(project);
 
-        return new ForwardResolution("/editProject.jsp");
+        return new ForwardResolution("/project_edit.jsp");
     }
 
 

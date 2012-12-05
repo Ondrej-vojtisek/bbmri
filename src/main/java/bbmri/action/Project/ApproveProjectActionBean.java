@@ -4,8 +4,9 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.service.ProjectService;
-import bbmri.serviceImpl.ProjectServiceImpl;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     public Resolution approve() {
         projectService.approve(project.getId());
-        return new ForwardResolution("/approveProject.jsp");
+        return new ForwardResolution("/project_approve.jsp");
     }
 }
 

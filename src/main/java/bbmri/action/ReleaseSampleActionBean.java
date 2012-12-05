@@ -4,7 +4,6 @@ import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
@@ -63,7 +62,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     public Resolution release() {
         sampleService.decreaseCount(sample.getId(), 1);
 
-        return new ForwardResolution("/releaseSample.jsp");
+        return new ForwardResolution("/sample_release.jsp");
     }
 
 }

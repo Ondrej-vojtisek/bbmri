@@ -107,7 +107,7 @@
         </dependency>
 
 
-           <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>3.1.2.RELEASE</version>
@@ -118,7 +118,7 @@
             <version>3.1.2.RELEASE</version>
         </dependency>
 
-          <dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <type>jar</type>

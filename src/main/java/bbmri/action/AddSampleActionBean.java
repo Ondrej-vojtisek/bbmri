@@ -1,10 +1,9 @@
 package bbmri.action;
 
 import bbmri.entities.Biobank;
-import bbmri.entities.User;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 import bbmri.service.SampleService;
-import bbmri.serviceImpl.SampleServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
@@ -87,7 +86,7 @@ public class AddSampleActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/addSample.jsp");
+        return new ForwardResolution("/sample_create.jsp");
     }
 
     public Resolution create() {
@@ -96,7 +95,7 @@ public class AddSampleActionBean implements ActionBean {
         if (biobank != null) {
             sampleService.create(sample, biobank.getId());
         }
-        return new RedirectResolution("/addSample.jsp");
+        return new RedirectResolution("/sample_create.jsp");
     }
 
     public Resolution generateRandomSample() {
@@ -107,7 +106,7 @@ public class AddSampleActionBean implements ActionBean {
                 sampleService.create(sample, biobank.getId());
             }
         }
-        return new RedirectResolution("/addSample.jsp");
+        return new RedirectResolution("/sample_create.jsp");
     }
 
     public void generateSample() {

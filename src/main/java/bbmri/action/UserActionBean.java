@@ -2,7 +2,6 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.UserService;
-import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -66,7 +65,7 @@ public class UserActionBean implements ActionBean {
     public Resolution zobraz() {
 
         users = userService.getAll();
-        return new ForwardResolution("/allUsers.jsp");
+        return new ForwardResolution("/user_all.jsp");
     }
 
     public Resolution create() {

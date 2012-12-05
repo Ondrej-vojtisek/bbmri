@@ -2,7 +2,6 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.UserService;
-import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -70,7 +69,7 @@ public class AccountActionBean implements ActionBean {
     @DefaultHandler
     public Resolution zobraz() {
 
-        return new ForwardResolution("/myAccount.jsp");
+        return new ForwardResolution("/my_account.jsp");
     }
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "changePassword"})

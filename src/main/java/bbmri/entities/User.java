@@ -1,10 +1,6 @@
 package bbmri.entities;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

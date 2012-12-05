@@ -32,7 +32,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
         if (biobank == null) {
             return null;
         }
-        requests =requestService.getAllNewByBiobank(biobank.getId());
+        requests = requestService.getAllNewByBiobank(biobank.getId());
         return requests;
     }
 
@@ -46,11 +46,11 @@ public class ApproveRequestActionBean extends BasicActionBean {
 
     public Resolution approve() {
         requestService.changeRequestState(request.getId(), RequestState.APPROVED);
-        return new ForwardResolution("/approveSampleRequest.jsp");
+        return new ForwardResolution("/sample_approve_request.jsp");
     }
 
     public Resolution deny() {
         requestService.changeRequestState(request.getId(), RequestState.DENIED);
-        return new ForwardResolution("/approveSampleRequest.jsp");
+        return new ForwardResolution("/sample_approve_request.jsp");
     }
 }

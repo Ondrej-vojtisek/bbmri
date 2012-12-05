@@ -5,7 +5,9 @@ import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 @UrlBinding("/createbiobank/{$event}/{biobank.id}")
 public class CreateBiobankActionBean extends BasicActionBean {
-      @ValidateNestedProperties(value = {
+    @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true,
                     minlength = 5, maxlength = 50),
             @Validate(on = {"create"}, field = "address", required = true,
@@ -32,7 +34,7 @@ public class CreateBiobankActionBean extends BasicActionBean {
     private User administrator;
     private User ethicalCommittee;
 
-     @SpringBean
+    @SpringBean
     private UserService userService;
 
     @SpringBean
@@ -71,14 +73,14 @@ public class CreateBiobankActionBean extends BasicActionBean {
     public Resolution create() {
         User resDB = userService.getById(administrator.getId());
         if (resDB.getBiobank() != null) {
-            return new ForwardResolution("/allBiobanks.jsp");
+            return new ForwardResolution("/biobank_all.jsp");
         }
         resDB = userService.getById(ethicalCommittee.getId());
         if (resDB.getEthicalCommitteeOfBiobank() != null) {
-            return new ForwardResolution("/allBiobanks.jsp");
+            return new ForwardResolution("/biobank_all.jsp");
         }
         biobankService.create(biobank, administrator.getId(), ethicalCommittee.getId());
-        return new ForwardResolution("/allBiobanks.jsp");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 
 }

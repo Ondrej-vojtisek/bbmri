@@ -5,7 +5,10 @@ import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -23,7 +26,7 @@ import java.util.List;
 @UrlBinding("/editbiobank/{$event}/{biobank.id}")
 public class EditBiobankActionBean extends BasicActionBean {
 
-        @ValidateNestedProperties(value = {
+    @ValidateNestedProperties(value = {
             @Validate(on = {"update"}, field = "name", required = true,
                     minlength = 5, maxlength = 50),
             @Validate(on = {"update"}, field = "address", required = true,
@@ -34,7 +37,7 @@ public class EditBiobankActionBean extends BasicActionBean {
     private User administrator;
     private User ethicalCommittee;
 
-     @SpringBean
+    @SpringBean
     private UserService userService;
 
     @SpringBean
@@ -79,23 +82,23 @@ public class EditBiobankActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/editBiobank.jsp");
+        return new ForwardResolution("/biobank_edit.jsp");
     }
 
     public Resolution update() {
         biobankService.update(biobank);
-        return new ForwardResolution("/allBiobanks.jsp");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 
     public Resolution changeAdministrator() {
 
         biobankService.updateAdministrator(biobank.getId(), administrator.getId());
-        return new ForwardResolution("/allBiobanks.jsp");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 
     public Resolution changeEthicalCommittee() {
 
         biobankService.updateEthicalCommittee(biobank.getId(), ethicalCommittee.getId());
-        return new ForwardResolution("/allBiobanks.jsp");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 }

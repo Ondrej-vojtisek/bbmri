@@ -2,7 +2,6 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.LoginService;
-import bbmri.serviceImpl.LoginServiceImpl;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LongTypeConverter;
@@ -60,7 +59,7 @@ public class LoginActionBean implements ActionBean {
         User user = loginService.login(id, password);
         if (user != null) {
             ctx.setLoggedUser(user);
-            return new RedirectResolution("/allProjects.jsp");
+            return new RedirectResolution("/project_all.jsp");
         }
         return new ForwardResolution("/index.jsp");
     }

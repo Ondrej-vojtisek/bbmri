@@ -5,8 +5,7 @@ import bbmri.entities.Request;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.*;
+import javax.persistence.Query;
 import java.util.List;
 
 /**

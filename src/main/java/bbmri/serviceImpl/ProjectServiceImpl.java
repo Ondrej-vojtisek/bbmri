@@ -2,8 +2,6 @@ package bbmri.serviceImpl;
 
 import bbmri.DAO.ProjectDAO;
 import bbmri.DAO.UserDAO;
-import bbmri.DAOimpl.ProjectDAOImpl;
-import bbmri.DAOimpl.UserDAOImpl;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
@@ -100,7 +98,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getAllWhichUserAdministrate(Long id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        User userDB =userDAO.get(id, em);
+        User userDB = userDAO.get(id, em);
         List<Project> projects = projectDAO.getAllByUser(userDB);
         em.getTransaction().commit();
         em.close();
