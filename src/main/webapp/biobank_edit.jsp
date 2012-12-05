@@ -40,7 +40,7 @@
                 <table>
                     <tr>
                         <th>
-                            <f:message key="select_ethical_committee"/>
+                            <s:label name="select_ethical_committee"/>
                         </th>
                         <td>
                             <s:select name="ethicalCommittee.id">
@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                         <th>
-                            <f:message key="select_biobank_administrator"/>
+                            <s:label name="select_biobank_administrator"/>
                         </th>
                         <td>
                             <s:select name="administrator.id">

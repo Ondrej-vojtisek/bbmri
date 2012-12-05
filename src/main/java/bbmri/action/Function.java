@@ -42,7 +42,6 @@ public class Function {
 
         return admin.equals(logged);
     }
-
 }
 
 

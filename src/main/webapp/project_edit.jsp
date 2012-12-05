@@ -61,9 +61,16 @@
                             <td><c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
-                            <td><s:checkbox name="selected" value="${user.id}"/></td>
-                            <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean" event="changeOwnership">
+
+                            <td>
+                                <c:if test="${!user.equals(loggedUser)}">
+                                <s:checkbox name="selected" value="${user.id}"/></td>
+                                </c:if>
+                            <td>
+                                <c:if test="${!user.equals(loggedUser)}">
+                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean" event="changeOwnership">
                                 <s:param name="user.id" value="${user.id}"/><f:message key="give_ownership"/></s:link>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>

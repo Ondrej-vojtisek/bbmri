@@ -24,7 +24,9 @@
 
     <s:layout-component name="secondary_menu">
         <li class="active"><s:link href="/biobank_all.jsp"><f:message key="all"/></s:link></li>
+        <c:if test="${ab.loggedUser.administrator}">
         <li><s:link href="/biobank_create.jsp"><f:message key="biobank_create"/></s:link></li>
+        </c:if>
     </s:layout-component>
 
 

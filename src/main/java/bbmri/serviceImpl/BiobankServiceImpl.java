@@ -40,6 +40,9 @@ public class BiobankServiceImpl implements BiobankService {
             biobankDAO.create(biobank, em);
             biobank.setAdministrator(adminDB);
         }
+
+        System.out.println("AdminDB: " + adminDB.toString());
+
         User committeeDB = userDAO.get(ethicalCommitteeId, em);
         if (committeeDB != null) {
             biobank.setEthicalCommittee(committeeDB);

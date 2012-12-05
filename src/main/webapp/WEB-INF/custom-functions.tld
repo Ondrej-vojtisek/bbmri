@@ -32,4 +32,6 @@
         <function-signature>boolean isAdmin(java.lang.Object,java.lang.Object)</function-signature>
     </function>
 
+
+
 </taglib>
