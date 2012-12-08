@@ -4,6 +4,7 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -32,6 +33,9 @@ public class EditProjectActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 255),
     })
     private Project project;
+
+    @SpringBean
+    private UserService userService;
 
     @SpringBean
     private ProjectService projectService;
@@ -128,13 +132,9 @@ public class EditProjectActionBean extends BasicActionBean {
         return new ForwardResolution("/project_edit.jsp");
     }
 
-
     public Resolution changeOwnership() {
         projectService.changeOwnership(getContext().getProject().getId(), user.getId());
-        // ctx.setProject(project);
-
-        return new ForwardResolution("/project_edit.jsp");
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        return new ForwardResolution("/project_all.jsp");
     }
-
-
 }

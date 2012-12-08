@@ -2,15 +2,27 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
     <persistence-unit name="TestPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+         <class>bbmri.entities.Biobank</class>
+        <class>bbmri.entities.Project</class>
+        <class>bbmri.entities.Request</class>
+        <class>bbmri.entities.Sample</class>
+        <class>bbmri.entities.User</class>
+
         <properties>
-            <property name="hibernate.connection.username" value="ondra"/>
-            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.password" value="hanako"/>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/bbmri"/>
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.archive.autodetection" value="class" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/bbmri" />
+            <property name="hibernate.connection.username" value="ondra" />
+            <property name="hibernate.connection.password" value="hanako" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.generateDdl" value="true" />
         </properties>
     </persistence-unit>
 </persistence>

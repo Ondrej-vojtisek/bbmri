@@ -67,7 +67,7 @@ public class LoginActionBean implements ActionBean {
     @HandlesEvent("logout")
     public Resolution logoutUser() {
         loginService.logout(ctx.getLoggedUser());
-        ctx.setLoggedUser(null);
+       // ctx.setLoggedUser(null);
         return new ForwardResolution("/index.jsp");
     }
 

@@ -8,6 +8,7 @@ import bbmri.entities.*;
 import bbmri.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,6 +24,7 @@ import java.util.List;
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
+@Transactional
 @Service
 public class RequestServiceImpl implements RequestService {
 

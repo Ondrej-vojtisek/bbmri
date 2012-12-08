@@ -19,6 +19,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     @SpringBean
     private ProjectService projectService;
+
     private Project project;
 
     public Project getProject() {
@@ -35,6 +36,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     public Resolution approve() {
         projectService.approve(project.getId());
+
         return new ForwardResolution("/project_approve.jsp");
     }
 }

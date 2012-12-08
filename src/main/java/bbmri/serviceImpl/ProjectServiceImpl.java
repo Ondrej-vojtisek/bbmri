@@ -8,6 +8,7 @@ import bbmri.entities.User;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +23,7 @@ import java.util.List;
  * Time: 18:15
  * To change this template use File | Settings | File Templates.
  */
+@Transactional
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -189,6 +191,8 @@ public class ProjectServiceImpl implements ProjectService {
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
         }
+        projectDAO.update(projectDB, em);
+
         em.getTransaction().commit();
         em.close();
     }
@@ -224,21 +228,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project changeOwnership(Long projectId, Long newOwnerId) {
-
-        Project project;
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        project = projectDAO.get(projectId, em);
-        User user = userDAO.get(newOwnerId, em);
+        Project project = projectDAO.get(projectId, em);
+        User newOwner = userDAO.get(newOwnerId, em);
 
-        User old = userDAO.get(project.getOwner().getId(), em);
+        User oldOwner = userDAO.get(project.getOwner().getId(), em);
 
-        if (project.getUsers().contains(user)) {
-            project.getUsers().remove(old);
+        if (project.getUsers().contains(newOwner)) {
+            project.getUsers().remove(oldOwner);
+            project.getUsers().remove(newOwner);
             projectDAO.update(project, em);
-            project.getUsers().remove(user);
-            project.getUsers().add(0, user);
-            project.getUsers().add(old);
+            project.getUsers().add(0, newOwner);
+            project.getUsers().add(oldOwner);
             projectDAO.update(project, em);
         }
         em.getTransaction().commit();
