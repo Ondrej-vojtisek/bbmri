@@ -69,7 +69,7 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution leave() {
-        User user = projectService.removeUserFromProject(project.getId(), getLoggedUser().getId());
+        User user = projectService.removeUserFromProject(getLoggedUser().getId(), project.getId());
         if (user != null) {
             getContext().setLoggedUser(user);
         }
