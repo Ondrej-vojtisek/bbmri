@@ -31,7 +31,7 @@
 
 
                     <p class="navbar-text pull-right" style="margin-right: 30px;">
-                        <f:message key="logged_user"/>: <s:link href="/myAccount.jsp"><c:out
+                        <f:message key="logged_user"/>: <s:link href="/my_account.jsp"><c:out
                             value="${logged}"/></s:link>
                     </p>
 

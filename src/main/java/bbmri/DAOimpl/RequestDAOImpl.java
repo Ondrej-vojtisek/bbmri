@@ -5,6 +5,7 @@ import bbmri.entities.Request;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -19,24 +20,27 @@ import java.util.List;
 @Repository
 public class RequestDAOImpl implements RequestDAO {
 
-    public void create(Request request, EntityManager em) {
+        @PersistenceContext
+    private EntityManager em;
+
+    public void create(Request request) {
         em.persist(request);
     }
 
-    public void remove(Request request, EntityManager em) {
+    public void remove(Request request) {
         em.remove(request);
     }
 
-    public void update(Request request, EntityManager em) {
+    public void update(Request request) {
         em.merge(request);
     }
 
-    public List<Request> getAll(EntityManager em) {
+    public List<Request> getAll() {
         Query query = em.createQuery("SELECT p FROM Request p");
         return query.getResultList();
     }
 
-    public Request get(Long id, EntityManager em) {
+    public Request get(Long id) {
         return em.find(Request.class, id);
     }
 

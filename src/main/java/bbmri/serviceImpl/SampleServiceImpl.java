@@ -27,8 +27,6 @@ import java.util.List;
 @Service
 public class SampleServiceImpl implements SampleService {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-
     @Autowired
     private SampleDAO sampleDAO;
 
@@ -36,57 +34,39 @@ public class SampleServiceImpl implements SampleService {
     private BiobankDAO biobankDAO;
 
     public Sample create(Sample sample, Long biobankId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        sampleDAO.create(sample, em);
-        Biobank biobank = biobankDAO.get(biobankId, em);
+
+        sampleDAO.create(sample);
+        Biobank biobank = biobankDAO.get(biobankId);
         if (biobank != null) {
             sample.setBiobank(biobank);
 
         }
-        em.getTransaction().commit();
-        em.close();
         return sample;
     }
 
     public void remove(Long id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Sample sample = sampleDAO.get(id, em);
+        Sample sample = sampleDAO.get(id);
         if (sample != null) {
-            sampleDAO.remove(sample, em);
+            sampleDAO.remove(sample);
         }
-        em.getTransaction().commit();
-        em.close();
     }
 
     public Sample update(Sample sample) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        sampleDAO.update(sample, em);
-        em.getTransaction().commit();
-        em.close();
+        sampleDAO.update(sample);
         return sample;
     }
 
     public List<Sample> getAll() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        List<Sample> samples = sampleDAO.getAll(em);
-        em.getTransaction().commit();
-        em.close();
+        List<Sample> samples = sampleDAO.getAll();
         return samples;
     }
 
     public Sample decreaseCount(Long sampleId, Integer requested) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Sample sample = sampleDAO.get(sampleId, em);
+        Sample sample = sampleDAO.get(sampleId);
         Integer count = sample.getNumOfAvailable();
         if ((count - requested) > 0) {
             count -= requested;
         } else {
-            em.close();
             return sample;
         }
         sample.setNumOfAvailable(count);
@@ -98,8 +78,6 @@ public class SampleServiceImpl implements SampleService {
                 break;
             }
         }
-        em.getTransaction().commit();
-        em.close();
         return sample;
     }
 
@@ -136,12 +114,7 @@ public class SampleServiceImpl implements SampleService {
             query = query.substring(0, query.length() - 3);
         }
 
-
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        List<Sample> samples = sampleDAO.getSelected(em, query);
-        em.getTransaction().commit();
-        em.close();
+        List<Sample> samples = sampleDAO.getSelected(query);
         return samples;
 
     }

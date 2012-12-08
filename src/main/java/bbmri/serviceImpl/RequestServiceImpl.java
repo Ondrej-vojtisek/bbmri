@@ -28,8 +28,6 @@ import java.util.List;
 @Service
 public class RequestServiceImpl implements RequestService {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-
     @Autowired
     private RequestDAO requestDAO;
 
@@ -44,12 +42,10 @@ public class RequestServiceImpl implements RequestService {
 
 
     public Request create(Request request, Long projectId, Long sampleId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        requestDAO.create(request, em);
+        requestDAO.create(request);
 
-        Sample sampleDB = sampleDAO.get(sampleId, em);
-        Project projectDB = projectDAO.get(projectId, em);
+        Sample sampleDB = sampleDAO.get(sampleId);
+        Project projectDB = projectDAO.get(projectId);
 
         if (sampleDB != null) {
             request.setProject(projectDB);
@@ -60,73 +56,44 @@ public class RequestServiceImpl implements RequestService {
 
         request.setDate(new Date());
         request.setRequestState(RequestState.NEW);
-
-        em.getTransaction().commit();
-        em.close();
         return request;
     }
 
     public void remove(Request request) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        requestDAO.remove(request, em);
-        em.getTransaction().commit();
-        em.close();
+        requestDAO.remove(request);
     }
 
     public void remove(Long id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Request requestDB = requestDAO.get(id, em);
+        Request requestDB = requestDAO.get(id);
         if (requestDB != null) {
-            requestDAO.remove(requestDB, em);
+            requestDAO.remove(requestDB);
         }
-        em.getTransaction().commit();
-        em.close();
     }
 
     public Request update(Request request) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Request requestDB = requestDAO.get(request.getId(), em);
+        Request requestDB = requestDAO.get(request.getId());
         if (requestDB == null) {
-            em.close();
             return null;
         }
         if (request.getRequestState() != null) requestDB.setRequestState(request.getRequestState());
 
-        requestDAO.update(requestDB, em);
-        em.getTransaction().commit();
-        em.close();
+        requestDAO.update(requestDB);
         return requestDB;
     }
 
     public List<Request> getAll() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        List<Request> requests = requestDAO.getAll(em);
-        em.getTransaction().commit();
-        em.close();
+        List<Request> requests = requestDAO.getAll();
         return requests;
     }
 
     public Request getById(Long id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Request request = requestDAO.get(id, em);
-        em.getTransaction().commit();
-        em.close();
+        Request request = requestDAO.get(id);
         return request;
     }
 
     public List<Request> getAllByProject(Long projectId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        Project projectDB = projectDAO.get(projectId, em);
-        List<Request> requests = requestDAO.getAll(em);
-        em.getTransaction().commit();
-        em.close();
+        Project projectDB = projectDAO.get(projectId);
+        List<Request> requests = requestDAO.getAll();
 
         if (projectDB == null) {
             return null;
@@ -144,12 +111,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public List<Request> getAllNew() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        List<Request> requests = requestDAO.getAll(em);
-        em.getTransaction().commit();
-        em.close();
+        List<Request> requests = requestDAO.getAll();
 
         List<Request> result = new ArrayList<Request>();
         if (requests != null) {
@@ -163,14 +125,8 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public List<Request> getAllNewByBiobank(Long biobankId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        List<Request> requests = requestDAO.getAll(em);
-        Biobank biobankDB = biobankDAO.get(biobankId, em);
-        em.getTransaction().commit();
-        em.close();
-
+        List<Request> requests = requestDAO.getAll();
+        Biobank biobankDB = biobankDAO.get(biobankId);
 
         if (biobankDB == null) {
             return null;
@@ -195,31 +151,23 @@ public class RequestServiceImpl implements RequestService {
     }
 
     public Request changeRequestState(Long requestId, RequestState requestState) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Request requestDB = requestDAO.get(requestId, em);
+        Request requestDB = requestDAO.get(requestId);
         if (requestDB != null) {
             requestDB.setRequestState(requestState);
-            requestDAO.update(requestDB, em);
+            requestDAO.update(requestDB);
         }
-        em.getTransaction().commit();
-        em.close();
         return requestDB;
     }
 
     public List<Sample> getAllReleasableSamplesByBiobank(Long biobankId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Biobank biobankDB = biobankDAO.get(biobankId, em);
+        Biobank biobankDB = biobankDAO.get(biobankId);
 
         if (biobankDB == null) {
-            em.close();
             return null;
         }
 
-        List<Request> requests = requestDAO.getAll(em);
+        List<Request> requests = requestDAO.getAll();
         if (requests == null) {
-            em.close();
             return null;
         }
 
@@ -235,7 +183,6 @@ public class RequestServiceImpl implements RequestService {
                 samples.add(request.getSample());
             }
         }
-        em.close();
         return samples;
     }
 }

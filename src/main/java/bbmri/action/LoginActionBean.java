@@ -16,9 +16,7 @@ import net.sourceforge.stripes.validation.Validate;
  */
 
 @UrlBinding("/login/{$event}/{user.id}")
-public class LoginActionBean implements ActionBean {
-
-    private MyActionBeanContext ctx;
+public class LoginActionBean extends BasicActionBean{
 
     @SpringBean
     private LoginService loginService;
@@ -28,14 +26,6 @@ public class LoginActionBean implements ActionBean {
     private Long id;
     @Validate(on = {"login"}, required = true)
     private String password;
-
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
 
     public String getPassword() {
         return password;
@@ -55,10 +45,10 @@ public class LoginActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution login() {
-        ctx.setLoggedUser(null);
+        getContext().setLoggedUser(null);
         User user = loginService.login(id, password);
         if (user != null) {
-            ctx.setLoggedUser(user);
+            getContext().setLoggedUser(user);
             return new RedirectResolution("/project_all.jsp");
         }
         return new ForwardResolution("/index.jsp");
@@ -66,8 +56,8 @@ public class LoginActionBean implements ActionBean {
 
     @HandlesEvent("logout")
     public Resolution logoutUser() {
-        loginService.logout(ctx.getLoggedUser());
-       // ctx.setLoggedUser(null);
+        loginService.logout(getContext().getLoggedUser());
+        getContext().setLoggedUser(null);
         return new ForwardResolution("/index.jsp");
     }
 

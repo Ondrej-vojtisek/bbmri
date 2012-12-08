@@ -48,7 +48,6 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "ethicalCommittee", cascade = CascadeType.ALL)
     Biobank ethicalCommitteeOfBiobank;
 
-
     public User() {
     }
 

@@ -1,8 +1,10 @@
 package bbmri.action;
 
 import bbmri.entities.User;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +15,10 @@ import net.sourceforge.stripes.action.ActionBeanContext;
  */
 public class BasicActionBean implements ActionBean {
     private MyActionBeanContext ctx;
+
+    @SpringBean
+    private UserService userService;
+
 
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (MyActionBeanContext) ctx;
@@ -26,4 +32,7 @@ public class BasicActionBean implements ActionBean {
         return ctx.getLoggedUser();
     }
 
+    public void refreshLoggedUser(){
+        ctx.setLoggedUser(userService.getById(getLoggedUser().getId()));
+    }
 }

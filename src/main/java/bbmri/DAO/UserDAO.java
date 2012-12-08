@@ -14,14 +14,14 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    void create(User user, EntityManager em);
+    void create(User user);
 
-    void remove(User user, EntityManager em);
+    void remove(User user);
 
-    void update(User user, EntityManager em);
+    void update(User user);
 
-    List<User> getAll(EntityManager em);
+    List<User> getAll();
 
-    User get(Long id, EntityManager em);
+    User get(Long id);
 
 }

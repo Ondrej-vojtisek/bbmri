@@ -14,14 +14,14 @@ import java.util.List;
  */
 public interface RequestDAO {
 
-    void create(Request request, EntityManager em);
+    void create(Request request);
 
-    void remove(Request request, EntityManager em);
+    void remove(Request request);
 
-    void update(Request request, EntityManager em);
+    void update(Request request);
 
-    List<Request> getAll(EntityManager em);
+    List<Request> getAll();
 
-    Request get(Long id, EntityManager em);
+    Request get(Long id);
 
 }

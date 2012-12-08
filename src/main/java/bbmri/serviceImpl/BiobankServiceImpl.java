@@ -26,8 +26,6 @@ import java.util.List;
 @Service
 public class BiobankServiceImpl implements BiobankService {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-
     @Autowired
     private BiobankDAO biobankDAO;
 
@@ -35,96 +33,65 @@ public class BiobankServiceImpl implements BiobankService {
     private UserDAO userDAO;
 
     public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        User adminDB = userDAO.get(administratorId, em);
+        User adminDB = userDAO.get(administratorId);
         if (adminDB != null) {
-            biobankDAO.create(biobank, em);
+            biobankDAO.create(biobank);
             biobank.setAdministrator(adminDB);
         }
 
-        System.out.println("AdminDB: " + adminDB.toString());
-
-        User committeeDB = userDAO.get(ethicalCommitteeId, em);
+        User committeeDB = userDAO.get(ethicalCommitteeId);
         if (committeeDB != null) {
             biobank.setEthicalCommittee(committeeDB);
         }
-        em.getTransaction().commit();
-        em.close();
         return biobank;
     }
 
     public void remove(Long id) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Biobank biobank = biobankDAO.get(id, em);
+        Biobank biobank = biobankDAO.get(id);
         if (biobank != null) {
-            biobankDAO.remove(biobank, em);
+            biobankDAO.remove(biobank);
         }
-        em.getTransaction().commit();
-        em.close();
     }
 
     public Biobank update(Biobank biobank) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        Biobank biobankDB = biobankDAO.get(biobank.getId(), em);
+        Biobank biobankDB = biobankDAO.get(biobank.getId());
         biobankDB.setAddress(biobank.getAddress());
         biobankDB.setName(biobank.getName());
 
-        biobankDAO.update(biobankDB, em);
-        em.getTransaction().commit();
-        em.close();
+        biobankDAO.update(biobankDB);
         return biobankDB;
     }
 
     public List<Biobank> getAll() {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        List<Biobank> biobanks = biobankDAO.getAll(em);
-        em.getTransaction().commit();
-        em.close();
+        List<Biobank> biobanks = biobankDAO.getAll();
         return biobanks;
     }
 
     public Biobank updateAdministrator(Long biobankId, Long adminId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
 
-        Biobank biobankDB = biobankDAO.get(biobankId, em);
-        User userDB = userDAO.get(adminId, em);
+        Biobank biobankDB = biobankDAO.get(biobankId);
+        User userDB = userDAO.get(adminId);
         biobankDB.setAdministrator(userDB);
 
-        biobankDAO.update(biobankDB, em);
-        em.getTransaction().commit();
-        em.close();
+        biobankDAO.update(biobankDB);
+
         return biobankDB;
     }
 
     public Biobank updateEthicalCommittee(Long biobankId, Long committeeId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-
-        Biobank biobankDB = biobankDAO.get(biobankId, em);
-        User user = userDAO.get(committeeId, em);
+        Biobank biobankDB = biobankDAO.get(biobankId);
+        User user = userDAO.get(committeeId);
         biobankDB.setEthicalCommittee(user);
 
-        biobankDAO.update(biobankDB, em);
-        em.getTransaction().commit();
-        em.close();
+        biobankDAO.update(biobankDB);
         return biobankDB;
     }
 
     public List<Sample> getAllSamples(Long biobankId) {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Biobank biobankDB = biobankDAO.get(biobankId, em);
+        Biobank biobankDB = biobankDAO.get(biobankId);
         if (biobankDB != null) {
-            em.close();
             return null;
         }
-        em.close();
 
         return biobankDB.getSamples();
 

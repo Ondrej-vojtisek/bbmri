@@ -7,6 +7,7 @@ import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -21,29 +22,32 @@ import java.util.List;
 @Repository
 public class ProjectDAOImpl implements ProjectDAO {
 
-    public void create(Project project, EntityManager em) {
+    @PersistenceContext
+    private EntityManager em;
+
+    public void create(Project project) {
         em.persist(project);
     }
 
-    public void remove(Project project, EntityManager em) {
+    public void remove(Project project) {
         em.remove(project);
     }
 
-    public void update(Project project, EntityManager em) {
+    public void update(Project project) {
         em.merge(project);
     }
 
-    public List<Project> getAll(EntityManager em) {
+    public List<Project> getAll() {
         Query query = em.createQuery("SELECT p FROM Project p");
         return query.getResultList();
     }
 
-    public List<Project> getAllByProjectState(ProjectState projectState, EntityManager em) {
+    public List<Project> getAllByProjectState(ProjectState projectState) {
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
         return query.getResultList();
     }
 
-    public Project get(Long id, EntityManager em) {
+    public Project get(Long id) {
         return em.find(Project.class, id);
     }
 

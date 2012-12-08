@@ -16,15 +16,15 @@ import java.util.List;
  */
 public interface ProjectDAO {
 
-    void create(Project project, EntityManager em);
+    void create(Project project);
 
-    void remove(Project project, EntityManager em);
+    void remove(Project project);
 
-    void update(Project project, EntityManager em);
+    void update(Project project);
 
-    Project get(Long id, EntityManager em);
+    Project get(Long id);
 
-    List<Project> getAll(EntityManager em);
+    List<Project> getAll();
 
     List<Project> getAllByUser(User user);
 
@@ -36,6 +36,6 @@ public interface ProjectDAO {
 
     boolean projectContainsUser(User user, Project project);
 
-    List<Project> getAllByProjectState(ProjectState projectState, EntityManager em);
+    List<Project> getAllByProjectState(ProjectState projectState);
 
 }

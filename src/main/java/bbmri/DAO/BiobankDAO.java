@@ -14,13 +14,13 @@ import java.util.List;
  */
 public interface BiobankDAO {
 
-    void create(Biobank biobank, EntityManager em);
+    void create(Biobank biobank);
 
-    void remove(Biobank biobank, EntityManager em);
+    void remove(Biobank biobank);
 
-    void update(Biobank biobank, EntityManager em);
+    void update(Biobank biobank);
 
-    List<Biobank> getAll(EntityManager em);
+    List<Biobank> getAll();
 
-    Biobank get(Long id, EntityManager em);
+    Biobank get(Long id);
 }

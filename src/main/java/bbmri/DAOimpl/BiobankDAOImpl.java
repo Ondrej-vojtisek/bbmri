@@ -5,6 +5,7 @@ import bbmri.entities.Biobank;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -19,24 +20,27 @@ import java.util.List;
 @Repository
 public class BiobankDAOImpl implements BiobankDAO {
 
-    public void create(Biobank biobank, EntityManager em) {
+    @PersistenceContext
+    private EntityManager em;
+
+    public void create(Biobank biobank) {
         em.persist(biobank);
     }
 
-    public void remove(Biobank biobank, EntityManager em) {
+    public void remove(Biobank biobank) {
         em.remove(biobank);
     }
 
-    public void update(Biobank biobank, EntityManager em) {
+    public void update(Biobank biobank) {
         em.merge(biobank);
     }
 
-    public List<Biobank> getAll(EntityManager em) {
+    public List<Biobank> getAll() {
         Query query = em.createQuery("SELECT p FROM Biobank p");
         return query.getResultList();
     }
 
-    public Biobank get(Long id, EntityManager em) {
+    public Biobank get(Long id) {
         return em.find(Biobank.class, id);
     }
 }

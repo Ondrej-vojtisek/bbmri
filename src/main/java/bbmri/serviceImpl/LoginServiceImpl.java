@@ -22,8 +22,6 @@ import javax.persistence.Persistence;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
-
     @Autowired
     private UserDAO userDAO;
 
@@ -33,19 +31,15 @@ public class LoginServiceImpl implements LoginService {
             return null;
         }
         boolean result = false;
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        User userDB = userDAO.get(id, em);
+        User userDB = userDAO.get(id);
         if (userDB != null && userDB.getPassword() != null) {
             if ((userDB.getPassword()).equals(password)) {
                 result = true;
                 userDB.setOnline(true);
-                userDAO.update(userDB, em);
-                em.getTransaction().commit();
+                userDAO.update(userDB);
             }
 
         }
-        em.close();
         if (result) {
             return userDB;
         }
@@ -56,11 +50,7 @@ public class LoginServiceImpl implements LoginService {
         if (user == null) {
             return;
         }
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
         user.setOnline(false);
-        userDAO.update(user, em);
-        em.getTransaction().commit();
-        em.close();
+        userDAO.update(user);
     }
 }

@@ -25,24 +25,24 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager em;
 
 
-    public void create(User user, EntityManager em) {
+    public void create(User user) {
         em.persist(user);
     }
 
-    public void remove(User user, EntityManager em) {
+    public void remove(User user) {
         em.remove(user);
     }
 
-    public void update(User user, EntityManager em) {
+    public void update(User user) {
         em.merge(user);
     }
 
-    public List<User> getAll(EntityManager em) {
+    public List<User> getAll() {
         Query query = em.createQuery("SELECT p FROM User p");
         return query.getResultList();
     }
 
-    public User get(Long id, EntityManager em) {
+    public User get(Long id) {
         return em.find(User.class, id);
     }
 
