@@ -38,7 +38,6 @@ public class LoginServiceImpl implements LoginService {
                 userDB.setOnline(true);
                 userDAO.update(userDB);
             }
-
         }
         if (result) {
             return userDB;
@@ -51,6 +50,8 @@ public class LoginServiceImpl implements LoginService {
             return;
         }
         user.setOnline(false);
-        userDAO.update(user);
+        User userDB = userDAO.get(user.getId());
+        userDB.setOnline(false);
+        userDAO.update(userDB);
     }
 }

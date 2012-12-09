@@ -11,29 +11,14 @@ import java.util.List;
 
 
 @UrlBinding("/user/{$event}/{user.id}")
-public class UserActionBean implements ActionBean {
+public class UserActionBean extends BasicActionBean {
 
-
-    private MyActionBeanContext ctx;
     private User user;
     private long id;
 
     @SpringBean
     private UserService userService;
     private List<User> users;
-
-
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
-
-    public User getLoggedUser() {
-        return ctx.getLoggedUser();
-    }
 
     public List<User> getUsers() {
         return userService.getAll();
@@ -78,6 +63,9 @@ public class UserActionBean implements ActionBean {
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
+    public void refreshLoggedUser(){
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+    }
 }
 
 

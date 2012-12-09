@@ -1,14 +1,12 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -105,6 +103,7 @@ public class EditProjectActionBean extends BasicActionBean {
 
     public Resolution update() {
         projectService.update(project);
+        refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
 
@@ -119,6 +118,7 @@ public class EditProjectActionBean extends BasicActionBean {
             }
         }
         users = projectService.getAllAssignedUsers(getProject().getId());
+        refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
 
@@ -129,12 +129,17 @@ public class EditProjectActionBean extends BasicActionBean {
             }
         }
         users = projectService.getAllAssignedUsers(getProject().getId());
+        refreshLoggedUser();
         return new ForwardResolution("/project_edit.jsp");
     }
 
     public Resolution changeOwnership() {
         projectService.changeOwnership(getContext().getProject().getId(), user.getId());
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
+
+     public void refreshLoggedUser(){
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+     }
 }

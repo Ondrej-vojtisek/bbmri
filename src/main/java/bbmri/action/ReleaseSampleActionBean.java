@@ -2,11 +2,10 @@ package bbmri.action;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -61,7 +60,6 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
     public Resolution release() {
         sampleService.decreaseCount(sample.getId(), 1);
-
         return new ForwardResolution("/sample_release.jsp");
     }
 

@@ -1,14 +1,12 @@
 package bbmri.action.Biobank;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -21,13 +19,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/allbiobanks/{$event}/{biobank.id}")
-public class AllBiobanksActionBean extends BasicActionBean {
+public class AllBiobanksActionBean implements ActionBean {
 
     private Biobank biobank;
     private List<Biobank> biobanks;
     private List<User> users;
     private User administrator;
     private User ethicalCommittee;
+    private MyActionBeanContext ctx;
 
     @SpringBean
     private UserService userService;
@@ -35,6 +34,17 @@ public class AllBiobanksActionBean extends BasicActionBean {
     @SpringBean
     private BiobankService biobankService;
 
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
+
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public User getLoggedUser() {
+        return ctx.getLoggedUser();
+    }
 
     public List<User> getUsers() {
         users = userService.getAll();

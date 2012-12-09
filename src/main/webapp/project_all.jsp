@@ -65,9 +65,11 @@
                             </td>
                             <td>
                                 <c:if test="${fn:contains(project.users, ab.loggedUser)}">
-                                    <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
+                                    <c:if test="${!fn:ownProject(project, ab.loggedUser)}">
+                                        <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
                                         <s:param name="project.id" value="${project.id}"/><f:message
                                             key="project.leave"/></s:link>
+                                    </c:if>
                                 </c:if>
                             </td>
 

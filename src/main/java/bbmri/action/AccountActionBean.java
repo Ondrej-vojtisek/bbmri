@@ -15,9 +15,7 @@ import net.sourceforge.stripes.validation.Validate;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/account/{$event}/{user.id}")
-public class AccountActionBean implements ActionBean {
-
-    private MyActionBeanContext ctx;
+public class AccountActionBean extends BasicActionBean {
 
     @SpringBean
     private UserService userService;
@@ -45,19 +43,6 @@ public class AccountActionBean implements ActionBean {
         this.password2 = password2;
     }
 
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
-
-    public User getLoggedUser() {
-        loggedUser = ctx.getLoggedUser();
-        return loggedUser;
-    }
-
     public User getUser() {
         return user;
     }
@@ -68,7 +53,6 @@ public class AccountActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-
         return new ForwardResolution("/my_account.jsp");
     }
 
@@ -85,7 +69,7 @@ public class AccountActionBean implements ActionBean {
             loggedUser.setSurname(user.getSurname());
 
         userService.update(loggedUser);
-        ctx.setLoggedUser(loggedUser);
+        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
@@ -94,9 +78,14 @@ public class AccountActionBean implements ActionBean {
             if (password.equals(password2))
                 getLoggedUser().setPassword(password);
             userService.update(getLoggedUser());
+            refreshLoggedUser();
         }
         user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");
+    }
+
+    public void refreshLoggedUser(){
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 
 }

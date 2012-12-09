@@ -1,13 +1,12 @@
 package bbmri.action.Biobank;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -22,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/createbiobank/{$event}/{biobank.id}")
-public class CreateBiobankActionBean extends BasicActionBean {
+public class CreateBiobankActionBean implements ActionBean {
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true,
                     minlength = 5, maxlength = 50),
@@ -33,12 +32,25 @@ public class CreateBiobankActionBean extends BasicActionBean {
     private List<User> users;
     private User administrator;
     private User ethicalCommittee;
+     private MyActionBeanContext ctx;
 
     @SpringBean
     private UserService userService;
 
     @SpringBean
     private BiobankService biobankService;
+
+    public void setContext(ActionBeanContext ctx) {
+        this.ctx = (MyActionBeanContext) ctx;
+    }
+
+    public MyActionBeanContext getContext() {
+        return ctx;
+    }
+
+    public User getLoggedUser() {
+        return ctx.getLoggedUser();
+    }
 
     public List<User> getUsers() {
         users = userService.getAll();

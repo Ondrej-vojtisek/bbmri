@@ -2,6 +2,7 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.LoginService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LongTypeConverter;
@@ -19,6 +20,9 @@ import net.sourceforge.stripes.validation.Validate;
 public class LoginActionBean extends BasicActionBean{
 
     @SpringBean
+    private UserService userService;
+
+    @SpringBean
     private LoginService loginService;
 
     @Validate(converter = LongTypeConverter.class, on = {"login"},
@@ -30,16 +34,15 @@ public class LoginActionBean extends BasicActionBean{
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,5 +63,9 @@ public class LoginActionBean extends BasicActionBean{
         getContext().setLoggedUser(null);
         return new ForwardResolution("/index.jsp");
     }
+
+       public void refreshLoggedUser(){
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+     }
 
 }

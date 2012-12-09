@@ -6,7 +6,7 @@
     <persistence-unit name="TestPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-         <class>bbmri.entities.Biobank</class>
+        <class>bbmri.entities.Biobank</class>
         <class>bbmri.entities.Project</class>
         <class>bbmri.entities.Request</class>
         <class>bbmri.entities.Sample</class>

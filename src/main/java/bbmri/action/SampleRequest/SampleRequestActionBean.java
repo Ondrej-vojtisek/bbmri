@@ -1,17 +1,12 @@
 package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.Request;
-import bbmri.entities.Sample;
+import bbmri.action.MyActionBeanContext;
+import bbmri.entities.*;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
 import bbmri.serviceImpl.SampleServiceImpl;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;

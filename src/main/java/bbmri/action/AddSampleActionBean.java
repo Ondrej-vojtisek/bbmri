@@ -20,9 +20,7 @@ import java.util.Random;
  * Time: 0:34
  * To change this template use File | Settings | File Templates.
  */
-public class AddSampleActionBean implements ActionBean {
-
-    private MyActionBeanContext ctx;
+public class AddSampleActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "sampleID", required = true,
@@ -70,18 +68,6 @@ public class AddSampleActionBean implements ActionBean {
 
     public Sample getSample() {
         return sample;
-    }
-
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
-
-    public User getLoggedUser() {
-        return ctx.getLoggedUser();
     }
 
     @DefaultHandler

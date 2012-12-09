@@ -1,13 +1,13 @@
 package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.Request;
 import bbmri.entities.RequestState;
+import bbmri.entities.User;
 import bbmri.service.RequestService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;

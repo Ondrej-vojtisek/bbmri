@@ -1,10 +1,12 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -13,6 +15,9 @@ import java.util.List;
 
 @UrlBinding("/allprojects/{$event}/{project.id}")
 public class AllProjectsActionBean extends BasicActionBean {
+
+    @SpringBean
+    private UserService userService;
 
     @SpringBean
     private ProjectService projectService;
@@ -73,6 +78,7 @@ public class AllProjectsActionBean extends BasicActionBean {
         if (user != null) {
             getContext().setLoggedUser(user);
         }
+        refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
 
@@ -81,9 +87,13 @@ public class AllProjectsActionBean extends BasicActionBean {
         if (user != null) {
             getContext().setLoggedUser(user);
         }
+        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 
+     public void refreshLoggedUser(){
+        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+     }
 }
 
 
