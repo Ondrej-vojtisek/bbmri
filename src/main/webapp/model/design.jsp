@@ -26,7 +26,6 @@
                     <p class="navbar-text pull-right">
                         <s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">
                             <f:message key="logout"/></s:link>
-
                     </p>
 
 
@@ -34,7 +33,9 @@
                         <f:message key="logged_user"/>: <s:link href="/my_account.jsp"><c:out
                             value="${logged}"/></s:link>
                     </p>
-
+                    <p class="navbar-text pull-right" style="margin-right: 30px;">
+                        <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
+                    </p>
                     <ul class="nav">
                         <s:layout-component name="primary_menu"/>
                     </ul>

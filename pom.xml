@@ -4,7 +4,7 @@
     <groupId>bbmri</groupId>
     <artifactId>bbmri</artifactId>
     <packaging>war</packaging>
-    <version>2.0-SNAPSHOT</version>
+    <version>beta-1.0</version>
     <name>bbmri</name>
 
     <properties>
@@ -151,8 +151,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>1.4</version>
-
             </plugin>
+
+            <!-- replace version in file -->
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <execution>
+                        <!-- the replace should happen before the app is packaged -->
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <includes>
+                        <!-- replace the token in this file -->
+                        <include>target/bbmri/model/design2.jsp</include>
+                        <include>target/bbmri/model/design.jsp</include>
+                    </includes>
+                    <regex>false</regex>
+                    <!-- the name of the token to replace -->
+                    <token>PROJECT_VERSION</token>
+                    <!-- replace it with the maven project version -->
+                    <value>${project.version}</value>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

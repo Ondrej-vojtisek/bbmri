@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css"/>
         <s:layout-component name="hlavicka"/>
+        <div style="text-align: right; margin-right: 20px;"><b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i></div>
     </head>
     <body>
     <h1><c:out value="${titles}"/></h1>
