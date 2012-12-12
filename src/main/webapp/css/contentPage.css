@@ -25,13 +25,13 @@ table td {
 
 table th {
     background-color: #DDD;
-    text-transform: uppercase;
     background-image: url(../images/thead-bg.png);
     background-repeat: repeat-x;
     height: 25px;
     text-align: left;
     color: #333;
     padding: 5px;
+    font-weight: bold;
 }
 
 textarea {

@@ -83,10 +83,11 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution join() {
-        User user = projectService.assignUser(project.getId(), getLoggedUser().getId());
-        if (user != null) {
-            getContext().setLoggedUser(user);
+        Project projectDB = projectService.getById(project.getId());
+        if(projectDB.getUsers().isEmpty()){
+              return new RedirectResolution(this.getClass(), "display");
         }
+        projectService.assignUser(getLoggedUser().getId(), project.getId());
         refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }

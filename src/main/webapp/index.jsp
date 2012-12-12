@@ -5,7 +5,7 @@
 
 
 <f:message key="signin" var="title"/>
-<s:layout-render name="/model/design2.jsp" title="${title}" version="${project.version}">
+<s:layout-render name="/model/design2.jsp" title="${title}">
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.LoginActionBean">
             <fieldset>

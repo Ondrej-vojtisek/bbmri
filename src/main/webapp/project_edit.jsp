@@ -14,9 +14,6 @@
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
         </c:if>
-        <c:if test="${ab.loggedUser.biobank != null}">
-            <li><s:link href="/sample_approve_request.jsp"><f:message key="sample.requests"/></s:link></li>
-        </c:if>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
         </c:if>
@@ -65,11 +62,13 @@
                             <td>
                                 <c:if test="${!user.equals(loggedUser)}">
                                 <s:checkbox name="selected" value="${user.id}"/></td>
-                                </c:if>
+                            </c:if>
                             <td>
                                 <c:if test="${!user.equals(loggedUser)}">
-                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean" event="changeOwnership">
-                                <s:param name="user.id" value="${user.id}"/><f:message key="give_ownership"/></s:link>
+                                    <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                            event="changeOwnership">
+                                        <s:param name="user.id" value="${user.id}"/><f:message
+                                            key="give_ownership"/></s:link>
                                 </c:if>
                             </td>
                         </tr>

@@ -114,7 +114,10 @@ public class ProjectServiceImpl implements ProjectService {
     public User assignUser(Long userId, Long projectId) {
         User userDB = userDAO.get(userId);
         Project projectDB = projectDAO.get(projectId);
-        if (projectDAO.projectContainsUser(userDB, projectDB) == true) {
+
+        System.err.println("Projekt " + projectDB);
+
+        if (projectDB.getUsers().contains(userDB)){
             return null;
         }
         projectDAO.assignUserToProject(userDB, projectDB);
@@ -124,7 +127,7 @@ public class ProjectServiceImpl implements ProjectService {
     public User removeUserFromProject(Long userId, Long projectId) {
         User userDB = userDAO.get(userId);
         Project projectDB = projectDAO.get(projectId);
-        if (projectDAO.projectContainsUser(userDB, projectDB) == false) {
+        if (projectDB.getUsers().contains(userDB) == false) {
             return null;
         }
         projectDAO.removeUserFromProject(userDB, projectDB);

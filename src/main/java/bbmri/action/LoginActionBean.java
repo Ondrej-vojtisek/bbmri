@@ -47,6 +47,11 @@ public class LoginActionBean extends BasicActionBean{
     }
 
     @DefaultHandler
+    public Resolution show(){
+        return new ForwardResolution("/index.jsp");
+    }
+
+    @HandlesEvent("login")
     public Resolution login() {
         getContext().setLoggedUser(null);
         User user = loginService.login(id, password);

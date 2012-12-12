@@ -14,9 +14,6 @@
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
         </c:if>
-        <c:if test="${ab.loggedUser.biobank != null}">
-            <li><s:link href="/sample_approve_request.jsp"><f:message key="sample.requests"/></s:link></li>
-        </c:if>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
         </c:if>
@@ -67,8 +64,8 @@
                                 <c:if test="${fn:contains(project.users, ab.loggedUser)}">
                                     <c:if test="${!fn:ownProject(project, ab.loggedUser)}">
                                         <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
-                                        <s:param name="project.id" value="${project.id}"/><f:message
-                                            key="project.leave"/></s:link>
+                                            <s:param name="project.id" value="${project.id}"/><f:message
+                                                key="project.leave"/></s:link>
                                     </c:if>
                                 </c:if>
                             </td>

@@ -13,9 +13,6 @@
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
         </c:if>
-        <c:if test="${ab.loggedUser.biobank != null}">
-            <li><s:link href="/sample_approve_request.jsp"><f:message key="sample.requests"/></s:link></li>
-        </c:if>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
         </c:if>
@@ -24,19 +21,6 @@
     <s:layout-component name="secondary_menu">
     </s:layout-component>
     <s:layout-component name="body">
-
-        <table border="1">
-            <tr>
-                <th><f:message key="id"/></th>
-                <th><f:message key="name"/></th>
-                <th><f:message key="surname"/></th>
-            </tr>
-            <tr>
-                <td><c:out value="${ab.loggedUser.id}"/></td>
-                <td><c:out value="${ab.loggedUser.name}"/></td>
-                <td><c:out value="${ab.loggedUser.surname}"/></td>
-            </tr>
-        </table>
 
         <s:form beanclass="bbmri.action.AccountActionBean">
             <s:hidden name="user.id"/>
