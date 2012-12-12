@@ -61,7 +61,7 @@ public class LoginActionBean extends BasicActionBean{
     public Resolution logoutUser() {
         loginService.logout(getContext().getLoggedUser());
         getContext().setLoggedUser(null);
-        return new ForwardResolution("/index.jsp");
+        return new RedirectResolution("/index.jsp");
     }
 
        public void refreshLoggedUser(){
