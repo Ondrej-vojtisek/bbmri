@@ -17,26 +17,7 @@
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cancer-strike.iws" afterPath="$PROJECT_DIR$/cancer-strike.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/action/Project/AllProjectsActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/action/Project/AllProjectsActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/biobank_all.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/biobank_all.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/biobank_create.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/biobank_create.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/changeAdministrator.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/changeAdministrator.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/css/contentPage.css" afterPath="$PROJECT_DIR$/src/main/webapp/css/contentPage.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/my_account.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/my_account.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/project_all.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/project_all.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/project_create.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/project_create.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/project_edit.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/project_edit.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_create.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_create.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_release.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_release.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/user_all.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/user_all.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/user_create.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/user_create.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java" />
     </list>
     <ignored path="cancer-strike.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,15 +85,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProjectServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="19" selection-start="3436" selection-end="3436" vertical-scroll-proportion="-0.16">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="project_all.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
           <provider selected="true" editor-type-id="text-editor">
@@ -152,7 +124,16 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="13" selection-start="358" selection-end="366" vertical-scroll-proportion="0.3109756">
+            <state line="6" column="13" selection-start="358" selection-end="367" vertical-scroll-proportion="0.12686567">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="56" column="22" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -200,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/project_all.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/changeAdministrator.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" />
@@ -215,6 +195,7 @@
         <option value="$PROJECT_DIR$/src/main/webapp/index.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/my_account.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/css/contentPage.css" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
@@ -1277,11 +1258,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286219" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27642277" sideWeight="0.24381626" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19430894" sideWeight="0.47585395" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19430894" sideWeight="0.47585395" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29268292" sideWeight="0.47585395" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5241461" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5241461" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1370,13 +1351,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_create.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="6" selection-start="1105" selection-end="1729" vertical-scroll-proportion="-14.384615">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="72" column="26" selection-start="3674" selection-end="3674" vertical-scroll-proportion="-18.807692">
@@ -1475,9 +1449,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="22" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="358" selection-end="366" vertical-scroll-proportion="0.3109756">
+        <state line="6" column="13" selection-start="358" selection-end="367" vertical-scroll-proportion="0.12686567">
           <folding />
         </state>
       </provider>

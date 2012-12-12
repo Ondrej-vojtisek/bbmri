@@ -54,6 +54,7 @@ public class UserActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
+        getUser();
         userService.create(user);
         return new RedirectResolution(this.getClass(), "zobraz");
     }
