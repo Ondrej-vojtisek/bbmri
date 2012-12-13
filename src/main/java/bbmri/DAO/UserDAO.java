@@ -24,4 +24,5 @@ public interface UserDAO {
 
     User get(Long id);
 
+    Integer getCount();
 }

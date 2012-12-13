@@ -27,4 +27,6 @@ public interface UserService {
 
     public User changeAdministrator(Long oldAdminId, Long newAdminId);
 
+    public Integer getCount();
+
 }

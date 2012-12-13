@@ -38,4 +38,6 @@ public interface ProjectDAO {
 
     List<Project> getAllByProjectState(ProjectState projectState);
 
+    Integer getCount();
+
 }

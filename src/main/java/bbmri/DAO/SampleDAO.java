@@ -25,4 +25,6 @@ public interface SampleDAO {
     List<Sample> getAll();
 
     List<Sample> getSelected(String query);
+
+    Integer getCount();
 }

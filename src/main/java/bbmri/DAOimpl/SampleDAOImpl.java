@@ -52,4 +52,9 @@ public class SampleDAOImpl implements SampleDAO {
         return queryDB.getResultList();
     }
 
+    public Integer getCount(){
+        Query query = em.createQuery("SELECT COUNT (p) FROM Sample p");
+        return Integer.parseInt(query.getSingleResult().toString());
+    }
+
 }

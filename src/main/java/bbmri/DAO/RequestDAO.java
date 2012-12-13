@@ -24,4 +24,6 @@ public interface RequestDAO {
 
     Request get(Long id);
 
+    Integer getCount();
+
 }

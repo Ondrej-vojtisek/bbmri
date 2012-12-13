@@ -44,4 +44,9 @@ public class RequestDAOImpl implements RequestDAO {
         return em.find(Request.class, id);
     }
 
+    public Integer getCount(){
+        Query query = em.createQuery("SELECT COUNT (p) FROM Request p");
+        return Integer.parseInt(query.getSingleResult().toString());
+    }
+
 }

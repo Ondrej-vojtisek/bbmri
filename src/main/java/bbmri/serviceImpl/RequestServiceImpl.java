@@ -185,4 +185,8 @@ public class RequestServiceImpl implements RequestService {
         }
         return samples;
     }
+
+    public Integer getCount(){
+       return requestDAO.getCount();
+    }
 }

@@ -97,4 +97,8 @@ public class BiobankServiceImpl implements BiobankService {
 
     }
 
+    public Integer getCount(){
+       return biobankDAO.getCount();
+    }
+
 }

@@ -51,15 +51,18 @@ public class AddSampleActionBean extends BasicActionBean {
 
     @Validate(converter = IntegerTypeConverter.class, on = {"generateRandomSample"},
             required = true, minvalue = 1, maxvalue = 100)
-    private Integer count;
+    private Integer numOfRandom;
 
-
-    public Integer getCount() {
-        return count;
+    public Integer getCount(){
+        return sampleService.getCount();
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public Integer getNumOfRandom() {
+        return numOfRandom;
+    }
+
+    public void setNumOfRandom(Integer numOfRandom) {
+        this.numOfRandom = numOfRandom;
     }
 
     public void setSample(Sample sample) {
@@ -87,7 +90,7 @@ public class AddSampleActionBean extends BasicActionBean {
     public Resolution generateRandomSample() {
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < numOfRandom; i++) {
                 generateSample();
                 sampleService.create(sample, biobank.getId());
             }

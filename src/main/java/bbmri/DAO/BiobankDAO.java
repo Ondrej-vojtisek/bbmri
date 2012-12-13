@@ -23,4 +23,6 @@ public interface BiobankDAO {
     List<Biobank> getAll();
 
     Biobank get(Long id);
+
+    Integer getCount();
 }

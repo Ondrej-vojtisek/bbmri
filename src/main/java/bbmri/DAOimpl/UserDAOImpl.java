@@ -46,6 +46,11 @@ public class UserDAOImpl implements UserDAO {
         return em.find(User.class, id);
     }
 
+    public Integer getCount(){
+        Query query = em.createQuery("SELECT COUNT (p) FROM User p");
+        return Integer.parseInt(query.getSingleResult().toString());
+    }
+
 }
 
 

@@ -186,4 +186,8 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return project;
     }
+
+    public Integer getCount(){
+       return projectDAO.getCount();
+    }
 }

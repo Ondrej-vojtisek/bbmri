@@ -70,4 +70,9 @@ public class ProjectDAOImpl implements ProjectDAO {
     public boolean projectContainsUser(User user, Project project) {
         return project.getUsers().contains(user);
     }
+
+    public Integer getCount(){
+        Query query = em.createQuery("SELECT COUNT (p) FROM Project p");
+        return Integer.parseInt(query.getSingleResult().toString());
+    }
 }

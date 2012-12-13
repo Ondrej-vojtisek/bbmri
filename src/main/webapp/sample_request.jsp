@@ -37,18 +37,22 @@
                         <th><s:label for="z3" name="project.projectState"/></th>
                         <td><s:text id="z3" readonly="true" name="project.projectState"/></td>
                     </tr>
+                    <tr>
+                        <th><label for="z10">Present samples in DB</label></th>
+                        <td><s:text id="z10" name="count" readonly="true"/></td>
+                    </tr>
                 </table>
             </fieldset>
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
+                <p>Example: diagnosis "a%", tissueType "aa" -> diagnosis starts with 'a' AND tissueType = "aa"</p>
                 <s:hidden name="sample.sampleID"/>
                 <%@include file="/form/selectionCriteriaForm.jsp" %>
                 <s:submit name="find"><f:message key="find"/></s:submit>
             </fieldset>
 
             <fieldset>
-
                 <table border="1">
                     <tr>
                         <th><s:label name="sample.TNM"/></th>
@@ -60,6 +64,11 @@
                         <th><s:label name="sample.biobank"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
+                    <c:if test="${ab.resultCount == 0}">
+                        <tr>
+                            <td colspan="8"><s:label name="no_match_found"/></td>
+                        </tr>
+                    </c:if>
 
                     <c:forEach items="${ab.results}" var="sample">
                         <tr>

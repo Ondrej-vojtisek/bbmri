@@ -28,4 +28,6 @@ public interface BiobankService {
 
     public List<Sample> getAllSamples(Long biobankId);
 
+    public Integer getCount();
+
 }

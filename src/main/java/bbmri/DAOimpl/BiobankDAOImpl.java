@@ -43,4 +43,9 @@ public class BiobankDAOImpl implements BiobankDAO {
     public Biobank get(Long id) {
         return em.find(Biobank.class, id);
     }
+
+    public Integer getCount(){
+        Query query = em.createQuery("SELECT COUNT (p) FROM Biobank p");
+        return Integer.parseInt(query.getSingleResult().toString());
+    }
 }

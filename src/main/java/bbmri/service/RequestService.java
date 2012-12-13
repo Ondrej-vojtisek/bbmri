@@ -34,4 +34,6 @@ public interface RequestService {
     public List<Request> getAllNewByBiobank(Long biobankId);
 
     public List<Sample> getAllReleasableSamplesByBiobank(Long biobankId);
+
+    public Integer getCount();
 }

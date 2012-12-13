@@ -28,12 +28,19 @@ public class SampleRequestActionBean extends BasicActionBean {
     @SpringBean
     private RequestService requestService;
 
+    @SpringBean
+    private SampleService sampleService;
+
     public void setSample(Sample sample) {
         this.sample = sample;
     }
 
     public Sample getSample() {
         return sample;
+    }
+
+    public Integer getCount(){
+        return sampleService.getCount();
     }
 
     public void setProject(Project project) {
@@ -47,17 +54,17 @@ public class SampleRequestActionBean extends BasicActionBean {
         return project;
     }
 
-    public SampleService getSampleService() {
-        if (sampleService == null) {
-            sampleService = new SampleServiceImpl();
-        }
-        return sampleService;
-    }
-
     private List<Sample> results;
 
     public List<Sample> getResults() {
         return results;
+    }
+
+    public Integer getResultCount(){
+       if(results == null){
+           return 0;
+       }
+       return results.size();
     }
 
     @ValidateNestedProperties(value = {
@@ -76,7 +83,6 @@ public class SampleRequestActionBean extends BasicActionBean {
                     maxlength = 4)
     })
     private Sample sample;
-    private SampleService sampleService;
 
     @DefaultHandler
     public Resolution zobraz() {
@@ -93,8 +99,7 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     public Resolution find() {
         if (sample != null) {
-            System.out.println(sample);
-            results = getSampleService().getSamplesByQuery(sample);
+            results = sampleService.getSamplesByQuery(sample);
         }
         return new ForwardResolution("/sample_request.jsp");
     }

@@ -118,5 +118,8 @@ public class SampleServiceImpl implements SampleService {
         return samples;
 
     }
+    public Integer getCount(){
+       return sampleDAO.getCount();
+    }
 
 }

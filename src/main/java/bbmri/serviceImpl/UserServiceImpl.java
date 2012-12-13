@@ -73,4 +73,8 @@ public class UserServiceImpl implements UserService {
         return userOld;
 
     }
+
+    public Integer getCount(){
+       return userDAO.getCount();
+    }
 }

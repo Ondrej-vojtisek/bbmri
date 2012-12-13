@@ -24,7 +24,7 @@
             <li><s:link href="/biobank_create.jsp"><f:message key="biobank_create"/></s:link></li>
         </c:if>
         <c:if test="${ab.loggedUser.biobank != null}">
-            <li><s:link href="/sample_approve_request.jsp"><f:message key="approve"/></s:link></li>
+            <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li class="active"><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
             <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
         </c:if>
@@ -36,13 +36,28 @@
 
         <s:form beanclass="bbmri.action.AddSampleActionBean">
             <fieldset>
+            <table>
+                    <tr>
+                    <th><label for="z10">Present samples in DB</label></th>
+                    <td><s:text id="z10" name="count" readonly="true"/></td>
+                    </tr>
+                </table>
+               </fieldset>
+            <fieldset>
                 <legend><f:message key="add_sample_to_system"/></legend>
+
                 <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="create"><f:message key="samples.add"/></s:submit>
-                <th><label for="z9">Count</label></th>
-                <td><s:text id="z9" name="count"/></td>
-
-                <s:submit name="generateRandomSample">Random</s:submit>
+                </fieldset>
+                <fieldset>
+                <legend>You can add here random samples for testing purposes</legend>
+                <table>
+                    <tr>
+                    <th><label for="z9"><f:message key="count"/></label></th>
+                    <td><s:text id="z9" name="numOfRandom"/></td>
+                    <td><s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit></td>
+                    </tr>
+                </table>
             </fieldset>
         </s:form>
 

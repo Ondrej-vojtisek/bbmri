@@ -24,4 +24,6 @@ public interface SampleService {
     public Sample decreaseCount(Long sampleId, Integer requested);
 
     public List<Sample> getSamplesByQuery(Sample sample);
+
+    public Integer getCount();
 }

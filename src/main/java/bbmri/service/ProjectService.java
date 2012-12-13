@@ -45,4 +45,5 @@ public interface ProjectService {
 
     public Project changeOwnership(Long projectId, Long newOwnerId);
 
+    public Integer getCount();
 }
