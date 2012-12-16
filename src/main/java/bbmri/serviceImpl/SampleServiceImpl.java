@@ -122,4 +122,13 @@ public class SampleServiceImpl implements SampleService {
        return sampleDAO.getCount();
     }
 
+    public List<Sample> getAllByBiobank(Long biobankId){
+        Biobank biobankDB = biobankDAO.get(biobankId);
+        if(biobankDB == null){
+            return null;
+        }
+        List<Sample> samples = sampleDAO.getAllByBiobank(biobankDB);
+        return samples;
+    }
+
 }

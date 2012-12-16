@@ -4,7 +4,7 @@
     <groupId>bbmri</groupId>
     <artifactId>bbmri</artifactId>
     <packaging>war</packaging>
-    <version>beta-1.12</version>
+    <version>beta-1.13</version>
     <name>bbmri</name>
 
     <properties>

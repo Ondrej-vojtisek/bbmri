@@ -27,6 +27,7 @@
             <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li class="active"><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
             <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
+            <li><s:link href="/sample_all.jsp"><f:message key="sample.all"/></s:link></li>
         </c:if>
     </s:layout-component>
 

@@ -27,25 +27,37 @@
             <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
             <li class="active"><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
+            <li><s:link href="/sample_all.jsp"><f:message key="sample.all"/></s:link></li>
         </c:if>
     </s:layout-component>
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
-                <table border="1">
+
+                <table>
                     <tr>
+                        <th><s:label name="samples.id"/></th>
+                        <th><s:label name="samples.number_of_samples"/></th>
+                        <th><s:label name="samples.number_of_available_samples"/></th>
+                        <th><s:label name="samples.tissue_type"/></th>
                         <th><s:label name="samples.TNM"/></th>
                         <th><s:label name="samples.pTNM"/></th>
                         <th><s:label name="samples.grading"/></th>
+                        <th><s:label name="samples.diagnosis"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
 
                     <c:forEach items="${ab.samples}" var="sample">
                         <tr>
+                            <td><c:out value="${sample.id}"/></td>
+                            <td><c:out value="${sample.numOfSamples}"/></td>
+                            <td><c:out value="${sample.numOfAvailable}"/></td>
+                            <td><c:out value="${sample.tissueType}"/></td>
                             <td><c:out value="${sample.TNM}"/></td>
                             <td><c:out value="${sample.pTNM}"/></td>
                             <td><c:out value="${sample.grading}"/></td>
+                            <td><c:out value="${sample.diagnosis}"/></td>
                             <td><s:link beanclass="bbmri.action.ReleaseSampleActionBean" event="release">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
                                     key="sample.release"/></s:link>
@@ -53,6 +65,7 @@
                         </tr>
                     </c:forEach>
                 </table>
+
             </fieldset>
         </s:form>
     </s:layout-component>

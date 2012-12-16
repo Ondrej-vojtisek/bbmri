@@ -1,6 +1,7 @@
 package bbmri.DAOimpl;
 
 import bbmri.DAO.SampleDAO;
+import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import org.springframework.stereotype.Repository;
 
@@ -55,6 +56,11 @@ public class SampleDAOImpl implements SampleDAO {
     public Integer getCount(){
         Query query = em.createQuery("SELECT COUNT (p) FROM Sample p");
         return Integer.parseInt(query.getSingleResult().toString());
+    }
+
+    public List<Sample> getAllByBiobank(Biobank biobank){
+        Query query = em.createQuery("SELECT p FROM Sample p WHERE p.biobank = biobank");
+        return query.getResultList();
     }
 
 }

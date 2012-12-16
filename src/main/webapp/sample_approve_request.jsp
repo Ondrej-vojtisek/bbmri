@@ -36,7 +36,7 @@
         <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
 
             <fieldset>
-                <table border="1">
+                <table>
                     <tr>
                         <th><s:label name="request.id"/></th>
                         <th><s:label name="request.project"/></th>

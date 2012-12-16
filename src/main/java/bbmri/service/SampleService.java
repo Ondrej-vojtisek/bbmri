@@ -26,4 +26,6 @@ public interface SampleService {
     public List<Sample> getSamplesByQuery(Sample sample);
 
     public Integer getCount();
+
+    public List<Sample> getAllByBiobank(Long biobankId);
 }
