@@ -24,6 +24,5 @@
                 <s:submit name="login"><f:message key="signin"/></s:submit>
             </fieldset>
         </s:form>
-
     </s:layout-component>
 </s:layout-render>

@@ -25,3 +25,14 @@
     margin-left: 10px;
     padding: 7px 9px;
 }
+
+.images{
+    position: absolute;
+    bottom: 60px;
+    width: 100%;
+    text-align: center;
+}
+
+.images img{
+    height: 100px;
+}
