@@ -23,7 +23,8 @@ import java.util.Random;
 public class AddSampleActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"}, field = "sampleID", required = true,
+            @Validate(on = {"create"},
+                    field = "sampleID", required = true,
                     minlength = 13, maxlength = 13),
             @Validate(on = {"create"},
                     field = "TNM", required = true,
