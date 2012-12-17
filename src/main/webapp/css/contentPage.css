@@ -44,3 +44,7 @@ textarea {
 .form-signin input[type="password"] {
     width: 100%;
 }
+
+input.error {
+    background-color: #FFCC33;
+}

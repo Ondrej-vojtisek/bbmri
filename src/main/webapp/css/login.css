@@ -36,3 +36,7 @@
 .images img{
     height: 100px;
 }
+
+input.error {
+    background-color: #FFCC33;
+}
