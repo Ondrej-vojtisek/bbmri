@@ -7,7 +7,7 @@
 <f:message key="project.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
 
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li class="active"><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
         <li><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
@@ -50,7 +50,7 @@
                         <th><f:message key="id"/></th>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
-                        <th colspan="2"><s:label name="actions"/></th>
+                        <th colspan="2"><f:message key="actions"/></th>
                     </tr>
 
                     <c:forEach items="${ab.users}" var="user">

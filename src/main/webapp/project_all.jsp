@@ -6,7 +6,7 @@
 
 <f:message key="project.all_projects" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.AllProjectsActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
 
     <s:layout-component name="primary_menu">
         <li class="active"><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>

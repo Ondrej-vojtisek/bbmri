@@ -4,7 +4,7 @@
     <groupId>bbmri</groupId>
     <artifactId>bbmri</artifactId>
     <packaging>war</packaging>
-    <version>beta-1.13</version>
+    <version>beta-1.14</version>
     <name>bbmri</name>
 
     <properties>
@@ -186,8 +186,8 @@
                 <configuration>
                     <includes>
                         <!-- replace the token in this file -->
-                        <include>target/bbmri/model/design2.jsp</include>
-                        <include>target/bbmri/model/design.jsp</include>
+                        <include>target/bbmri/layout_login.jsp</include>
+                        <include>target/bbmri/layout_content.jsp</include>
                     </includes>
                     <regex>false</regex>
                     <!-- the name of the token to replace -->

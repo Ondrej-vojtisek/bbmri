@@ -115,22 +115,20 @@ public class ProjectServiceImpl implements ProjectService {
         User userDB = userDAO.get(userId);
         Project projectDB = projectDAO.get(projectId);
 
-        System.err.println("Projekt " + projectDB);
-
-        if (projectDB.getUsers().contains(userDB)){
-            return null;
+        if(!projectDB.getUsers().contains(userDB)){
+            projectDB.getUsers().add(userDB);
+            projectDAO.update(projectDB);
         }
-        projectDAO.assignUserToProject(userDB, projectDB);
         return userDB;
     }
 
     public User removeUserFromProject(Long userId, Long projectId) {
         User userDB = userDAO.get(userId);
         Project projectDB = projectDAO.get(projectId);
-        if (projectDB.getUsers().contains(userDB) == false) {
-            return null;
+        if (projectDB.getUsers().contains(userDB) == true) {
+            projectDB.getUsers().remove(userDB);
+            projectDAO.update(projectDB);
         }
-        projectDAO.removeUserFromProject(userDB, projectDB);
         return userDB;
     }
 
@@ -144,9 +142,9 @@ public class ProjectServiceImpl implements ProjectService {
         Project projectDB = projectDAO.get(id);
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
+            projectDAO.update(projectDB);
         }
-        projectDB.setDescription("HLAVA 22");
-        projectDAO.update(projectDB);
+
     }
 
     public Project getById(Long id) {

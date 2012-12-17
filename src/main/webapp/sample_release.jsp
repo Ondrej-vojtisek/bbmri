@@ -6,7 +6,7 @@
 
 <f:message key="sample.request" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.ReleaseSampleActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
         <li class="active"><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>

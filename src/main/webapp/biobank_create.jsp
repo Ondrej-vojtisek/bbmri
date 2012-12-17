@@ -6,7 +6,7 @@
 
 <f:message key="biobank.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.CreateBiobankActionBean"/>
-<s:layout-render name="/model/design.jsp" title="${title}" logged="${ab.loggedUser.name}">
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
 
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
