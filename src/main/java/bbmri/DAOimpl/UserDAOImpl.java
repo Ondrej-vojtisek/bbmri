@@ -24,16 +24,18 @@ public class UserDAOImpl implements UserDAO {
     @PersistenceContext
     private EntityManager em;
 
-
     public void create(User user) {
+        DAOUtils.notNull(user);
         em.persist(user);
     }
 
     public void remove(User user) {
+        DAOUtils.notNull(user);
         em.remove(user);
     }
 
     public void update(User user) {
+        DAOUtils.notNull(user);
         em.merge(user);
     }
 
@@ -43,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     public User get(Long id) {
+        DAOUtils.notNull(id);
         return em.find(User.class, id);
     }
 

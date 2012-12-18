@@ -25,18 +25,22 @@ public class SampleDAOImpl implements SampleDAO {
     private EntityManager em;
 
     public void create(Sample sample) {
+        DAOUtils.notNull(sample);
         em.persist(sample);
     }
 
     public void remove(Sample sample) {
+        DAOUtils.notNull(sample);
         em.remove(sample);
     }
 
     public void update(Sample sample) {
+        DAOUtils.notNull(sample);
         em.merge(sample);
     }
 
     public Sample get(Long id) {
+        DAOUtils.notNull(id);
         return em.find(Sample.class, id);
     }
 
@@ -46,7 +50,7 @@ public class SampleDAOImpl implements SampleDAO {
     }
 
     public List<Sample> getSelected(String query) {
-
+        DAOUtils.notNull(query);
         String preparedQuery = "SELECT p FROM Sample p " + query;
         System.out.println(preparedQuery);
         Query queryDB = em.createQuery(preparedQuery);
@@ -59,6 +63,7 @@ public class SampleDAOImpl implements SampleDAO {
     }
 
     public List<Sample> getAllByBiobank(Biobank biobank){
+        DAOUtils.notNull(biobank);
         Query query = em.createQuery("SELECT p FROM Sample p WHERE p.biobank = biobank");
         return query.getResultList();
     }

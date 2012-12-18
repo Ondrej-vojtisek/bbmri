@@ -7,6 +7,7 @@ import bbmri.entities.Sample;
 import bbmri.entities.User;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,72 +34,103 @@ public class BiobankServiceImpl implements BiobankService {
     private UserDAO userDAO;
 
     public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId) {
-        User adminDB = userDAO.get(administratorId);
-        if (adminDB != null) {
-            biobankDAO.create(biobank);
-            biobank.setAdministrator(adminDB);
-        }
+        try {
+            User adminDB = userDAO.get(administratorId);
+            if (adminDB != null) {
+                biobankDAO.create(biobank);
+                biobank.setAdministrator(adminDB);
+            }
 
-        User committeeDB = userDAO.get(ethicalCommitteeId);
-        if (committeeDB != null) {
-            biobank.setEthicalCommittee(committeeDB);
+            User committeeDB = userDAO.get(ethicalCommitteeId);
+            if (committeeDB != null) {
+                biobank.setEthicalCommittee(committeeDB);
+            }
+            return biobank;
+        } catch (DataAccessException ex) {
+            throw ex;
         }
-        return biobank;
     }
 
     public void remove(Long id) {
-        Biobank biobank = biobankDAO.get(id);
-        if (biobank != null) {
-            biobankDAO.remove(biobank);
+        try {
+            Biobank biobank = biobankDAO.get(id);
+            if (biobank != null) {
+                biobankDAO.remove(biobank);
+            }
+        } catch (DataAccessException ex) {
+            throw ex;
         }
     }
 
     public Biobank update(Biobank biobank) {
-        Biobank biobankDB = biobankDAO.get(biobank.getId());
-        biobankDB.setAddress(biobank.getAddress());
-        biobankDB.setName(biobank.getName());
+        try {
+            Biobank biobankDB = biobankDAO.get(biobank.getId());
+            biobankDB.setAddress(biobank.getAddress());
+            biobankDB.setName(biobank.getName());
 
-        biobankDAO.update(biobankDB);
-        return biobankDB;
+            biobankDAO.update(biobankDB);
+            return biobankDB;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public List<Biobank> getAll() {
-        List<Biobank> biobanks = biobankDAO.getAll();
-        return biobanks;
+        try {
+            List<Biobank> biobanks = biobankDAO.getAll();
+            return biobanks;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public Biobank updateAdministrator(Long biobankId, Long adminId) {
+        try {
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            User userDB = userDAO.get(adminId);
+            biobankDB.setAdministrator(userDB);
 
-        Biobank biobankDB = biobankDAO.get(biobankId);
-        User userDB = userDAO.get(adminId);
-        biobankDB.setAdministrator(userDB);
+            biobankDAO.update(biobankDB);
 
-        biobankDAO.update(biobankDB);
-
-        return biobankDB;
+            return biobankDB;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public Biobank updateEthicalCommittee(Long biobankId, Long committeeId) {
-        Biobank biobankDB = biobankDAO.get(biobankId);
-        User user = userDAO.get(committeeId);
-        biobankDB.setEthicalCommittee(user);
+        try {
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            User user = userDAO.get(committeeId);
+            biobankDB.setEthicalCommittee(user);
 
-        biobankDAO.update(biobankDB);
-        return biobankDB;
+            biobankDAO.update(biobankDB);
+            return biobankDB;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public List<Sample> getAllSamples(Long biobankId) {
-        Biobank biobankDB = biobankDAO.get(biobankId);
-        if (biobankDB != null) {
-            return null;
-        }
+        try {
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            if (biobankDB != null) {
+                return null;
+            }
 
-        return biobankDB.getSamples();
+            return biobankDB.getSamples();
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
 
     }
 
-    public Integer getCount(){
-       return biobankDAO.getCount();
+    public Integer getCount() {
+        try {
+            return biobankDAO.getCount();
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
 }

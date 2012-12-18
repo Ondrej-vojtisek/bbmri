@@ -24,14 +24,17 @@ public class BiobankDAOImpl implements BiobankDAO {
     private EntityManager em;
 
     public void create(Biobank biobank) {
+        DAOUtils.notNull(biobank);
         em.persist(biobank);
     }
 
     public void remove(Biobank biobank) {
+        DAOUtils.notNull(biobank);
         em.remove(biobank);
     }
 
     public void update(Biobank biobank) {
+        DAOUtils.notNull(biobank);
         em.merge(biobank);
     }
 
@@ -41,6 +44,7 @@ public class BiobankDAOImpl implements BiobankDAO {
     }
 
     public Biobank get(Long id) {
+        DAOUtils.notNull(id);
         return em.find(Biobank.class, id);
     }
 

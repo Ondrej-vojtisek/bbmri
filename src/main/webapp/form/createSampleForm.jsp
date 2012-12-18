@@ -3,7 +3,7 @@
 <s:errors/>
 <table>
     <tr>
-        <th><label for="z1"><s:label name="sample.ID"/></label></th>
+        <th><label for="z1"><s:label name="sample.sampleID"/></label></th>
         <td><s:text id="z1" name="sample.sampleID"/></td>
     </tr>
     <tr>

@@ -26,14 +26,17 @@ public class ProjectDAOImpl implements ProjectDAO {
     private EntityManager em;
 
     public void create(Project project) {
+        DAOUtils.notNull(project);
         em.persist(project);
     }
 
     public void remove(Project project) {
+        DAOUtils.notNull(project);
         em.remove(project);
     }
 
     public void update(Project project) {
+        DAOUtils.notNull(project);
         em.merge(project);
     }
 
@@ -43,32 +46,24 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
+        DAOUtils.notNull(projectState);
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
         return query.getResultList();
     }
 
     public Project get(Long id) {
+        DAOUtils.notNull(id);
         return em.find(Project.class, id);
     }
 
     public List<Project> getAllByUser(User user) {
+        DAOUtils.notNull(user);
         return user.getProjects();
     }
 
     public List<User> getAllUsersByProject(Project project) {
+        DAOUtils.notNull(project);
         return project.getUsers();
-    }
-
-    public void assignUserToProject(User user, Project project) {
-        project.getUsers().add(user);
-    }
-
-    public void removeUserFromProject(User user, Project project) {
-        project.getUsers().remove(user);
-    }
-
-    public boolean projectContainsUser(User user, Project project) {
-        return project.getUsers().contains(user);
     }
 
     public Integer getCount(){

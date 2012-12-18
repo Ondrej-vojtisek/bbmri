@@ -24,14 +24,17 @@ public class RequestDAOImpl implements RequestDAO {
     private EntityManager em;
 
     public void create(Request request) {
+        DAOUtils.notNull(request);
         em.persist(request);
     }
 
     public void remove(Request request) {
+        DAOUtils.notNull(request);
         em.remove(request);
     }
 
     public void update(Request request) {
+        DAOUtils.notNull(request);
         em.merge(request);
     }
 
@@ -41,6 +44,7 @@ public class RequestDAOImpl implements RequestDAO {
     }
 
     public Request get(Long id) {
+        DAOUtils.notNull(id);
         return em.find(Request.class, id);
     }
 

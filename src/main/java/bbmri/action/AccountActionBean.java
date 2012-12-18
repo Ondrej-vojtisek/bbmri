@@ -25,7 +25,6 @@ public class AccountActionBean extends BasicActionBean {
     @Validate(on = {"changePassword"}, required = true)
     private String password2;
     private User user;
-    private User loggedUser;
 
     public String getPassword() {
         return password;
@@ -53,6 +52,7 @@ public class AccountActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
+        user = getLoggedUser();
         return new ForwardResolution("/my_account.jsp");
     }
 
@@ -62,13 +62,13 @@ public class AccountActionBean extends BasicActionBean {
     }
 
     public Resolution update() {
-        if (user.getName() != null)
-            loggedUser.setName(user.getName());
-
+        if (user.getName() != null){
+            getLoggedUser().setName(user.getName());
+        }
         if (user.getSurname() != null)
-            loggedUser.setSurname(user.getSurname());
+            getLoggedUser().setSurname(user.getSurname());
 
-        userService.update(loggedUser);
+        userService.update(getLoggedUser());
         refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");
     }

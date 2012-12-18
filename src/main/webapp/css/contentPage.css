@@ -34,6 +34,10 @@ table th {
     font-weight: bold;
 }
 
+table th label{
+    font-weight: bold;
+}
+
 textarea {
     width: 100%;
     height: 200px;
@@ -48,3 +52,4 @@ textarea {
 input.error {
     background-color: #FFCC33;
 }
+

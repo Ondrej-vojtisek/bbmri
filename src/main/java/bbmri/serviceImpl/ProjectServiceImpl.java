@@ -36,8 +36,9 @@ public class ProjectServiceImpl implements ProjectService {
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
         projectDAO.create(project);
-        User resDB = userDAO.get(user.getId());
-        projectDAO.assignUserToProject(resDB, project);
+        User userDB = userDAO.get(user.getId());
+        project.getUsers().add(userDB);
+        projectDAO.update(project);
         return project;
     }
 

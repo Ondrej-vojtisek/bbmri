@@ -30,12 +30,6 @@ public interface ProjectDAO {
 
     List<User> getAllUsersByProject(Project project);
 
-    void assignUserToProject(User user, Project project);
-
-    void removeUserFromProject(User user, Project project);
-
-    boolean projectContainsUser(User user, Project project);
-
     List<Project> getAllByProjectState(ProjectState projectState);
 
     Integer getCount();

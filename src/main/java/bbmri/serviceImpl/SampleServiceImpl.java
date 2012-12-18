@@ -8,6 +8,7 @@ import bbmri.entities.RequestState;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,51 +35,70 @@ public class SampleServiceImpl implements SampleService {
     private BiobankDAO biobankDAO;
 
     public Sample create(Sample sample, Long biobankId) {
+        try {
+            sampleDAO.create(sample);
+            Biobank biobank = biobankDAO.get(biobankId);
+            if (biobank != null) {
+                sample.setBiobank(biobank);
 
-        sampleDAO.create(sample);
-        Biobank biobank = biobankDAO.get(biobankId);
-        if (biobank != null) {
-            sample.setBiobank(biobank);
-
+            }
+            return sample;
+        } catch (DataAccessException ex) {
+            throw ex;
         }
-        return sample;
     }
 
     public void remove(Long id) {
-        Sample sample = sampleDAO.get(id);
-        if (sample != null) {
-            sampleDAO.remove(sample);
+        try {
+            Sample sample = sampleDAO.get(id);
+            if (sample != null) {
+                sampleDAO.remove(sample);
+            }
+        } catch (DataAccessException ex) {
+            throw ex;
         }
     }
 
     public Sample update(Sample sample) {
-        sampleDAO.update(sample);
-        return sample;
+        try {
+            sampleDAO.update(sample);
+            return sample;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public List<Sample> getAll() {
-        List<Sample> samples = sampleDAO.getAll();
-        return samples;
+        try {
+            List<Sample> samples = sampleDAO.getAll();
+            return samples;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public Sample decreaseCount(Long sampleId, Integer requested) {
-        Sample sample = sampleDAO.get(sampleId);
-        Integer count = sample.getNumOfAvailable();
-        if ((count - requested) > 0) {
-            count -= requested;
-        } else {
-            return sample;
-        }
-        sample.setNumOfAvailable(count);
-        Request request = null;
-        for (int i = 0; i < sample.getRequests().size(); i++) {
-            if (sample.getRequests().get(i).getRequestState() == RequestState.APPROVED) {
-                request = sample.getRequests().get(i);
-                request.setRequestState(RequestState.EQUIPPED);
-                break;
+        try {
+            Sample sample = sampleDAO.get(sampleId);
+            Integer count = sample.getNumOfAvailable();
+            if ((count - requested) > 0) {
+                count -= requested;
+            } else {
+                return sample;
             }
+            sample.setNumOfAvailable(count);
+            Request request = null;
+            for (int i = 0; i < sample.getRequests().size(); i++) {
+                if (sample.getRequests().get(i).getRequestState() == RequestState.APPROVED) {
+                    request = sample.getRequests().get(i);
+                    request.setRequestState(RequestState.EQUIPPED);
+                    break;
+                }
+            }
+            return sample;
+        } catch (DataAccessException ex) {
+            throw ex;
         }
-        return sample;
     }
 
     public List<Sample> getSamplesByQuery(Sample sample) {
@@ -113,22 +133,34 @@ public class SampleServiceImpl implements SampleService {
         if (query.endsWith("AND")) {
             query = query.substring(0, query.length() - 3);
         }
-
-        List<Sample> samples = sampleDAO.getSelected(query);
-        return samples;
-
-    }
-    public Integer getCount(){
-       return sampleDAO.getCount();
-    }
-
-    public List<Sample> getAllByBiobank(Long biobankId){
-        Biobank biobankDB = biobankDAO.get(biobankId);
-        if(biobankDB == null){
-            return null;
+        try {
+            List<Sample> samples = sampleDAO.getSelected(query);
+            return samples;
+        } catch (DataAccessException ex) {
+            throw ex;
         }
-        List<Sample> samples = sampleDAO.getAllByBiobank(biobankDB);
-        return samples;
+
+    }
+
+    public Integer getCount() {
+        try {
+            return sampleDAO.getCount();
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
+
+    public List<Sample> getAllByBiobank(Long biobankId) {
+        try {
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            if (biobankDB == null) {
+                return null;
+            }
+            List<Sample> samples = sampleDAO.getAllByBiobank(biobankDB);
+            return samples;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
 }
