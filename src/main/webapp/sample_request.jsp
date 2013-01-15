@@ -24,6 +24,9 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleRequest.SampleRequestActionBean">
             <fieldset>
+                <p>
+                    <f:message key="project_approvment_doesnt_make_legal_claim"/>
+                </p>
                 <table>
                     <tr>
                         <th><s:label for="z1" name="project.name"/></th>
@@ -36,10 +39,6 @@
                     <tr>
                         <th><s:label for="z3" name="project.projectState"/></th>
                         <td><s:text id="z3" readonly="true" name="project.projectState"/></td>
-                    </tr>
-                    <tr>
-                        <th><label for="z10">Present samples in DB</label></th>
-                        <td><s:text id="z10" name="count" readonly="true"/></td>
                     </tr>
                 </table>
             </fieldset>
@@ -60,7 +59,6 @@
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
                         <th><s:label name="sample.tissueType"/></th>
-                        <th><s:label name="sample.numOfAvailable"/></th>
                         <th><s:label name="sample.biobank"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
@@ -77,7 +75,6 @@
                             <td><c:out value="${sample.grading}"/></td>
                             <td><c:out value="${sample.diagnosis}"/></td>
                             <td><c:out value="${sample.tissueType}"/></td>
-                            <td><c:out value="${sample.numOfAvailable}"/></td>
                             <td><c:out value="${sample.biobank.name}"/></td>
                             <td><s:link beanclass="bbmri.action.SampleRequest.SampleRequestActionBean" event="request">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message

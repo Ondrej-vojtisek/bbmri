@@ -32,7 +32,7 @@
 
         <s:form beanclass="bbmri.action.Project.CreateProjectActionBean">
             <fieldset>
-                <legend><f:message key="project.add_new"/></legend>
+                <legend><f:message key="project_upload_new"/></legend>
                 <%@include file="/form/createProjectForm.jsp" %>
                 <s:submit name="create"><f:message key="add"/></s:submit>
             </fieldset>

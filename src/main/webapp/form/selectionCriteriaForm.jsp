@@ -3,10 +3,6 @@
 <s:errors/>
 <table>
     <tr>
-        <th><label for="z3"><s:label name="samples.number_of_available_samples"/></label></th>
-        <td><s:text id="z3" name="sample.numOfAvailable"/></td>
-    </tr>
-    <tr>
         <th><label for="z4"><s:label name="samples.tissue_type"/></label></th>
         <td><s:text id="z4" name="sample.tissueType"/></td>
     </tr>

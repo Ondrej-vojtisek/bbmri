@@ -103,8 +103,13 @@ public class SampleServiceImpl implements SampleService {
 
     public List<Sample> getSamplesByQuery(Sample sample) {
         String query = "WHERE";
+        /*
+            Queries temporal without %
+        * */
+
         if (sample.getDiagnosis() != null) {
-            query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
+            //query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
+            query = query + " p.diagnosis ='" + sample.getDiagnosis().toString() + "'";
             query = query + " AND";
         }
         if (sample.getGrading() != null) {
@@ -112,17 +117,20 @@ public class SampleServiceImpl implements SampleService {
             query = query + " AND";
         }
         if (sample.getpTNM() != null) {
-            query = query + " p.pTNM like'" + sample.getpTNM() + "'";
+            //query = query + " p.pTNM like'" + sample.getpTNM() + "'";
+            query = query + " p.pTNM ='" + sample.getpTNM() + "'";
             query = query + " AND";
         }
 
         if (sample.getTNM() != null) {
-            query = query + " p.TNM like'" + sample.getTNM() + "'";
+            //query = query + " p.TNM like'" + sample.getTNM() + "'";
+            query = query + " p.TNM ='" + sample.getTNM() + "'";
             query = query + " AND";
         }
 
         if (sample.getTissueType() != null) {
-            query = query + " p.tissueType like'" + sample.getTissueType() + "'";
+            //query = query + " p.tissueType like'" + sample.getTissueType() + "'";
+            query = query + " p.tissueType ='" + sample.getTissueType() + "'";
             query = query + " AND";
         }
 

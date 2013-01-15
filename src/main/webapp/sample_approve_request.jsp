@@ -57,8 +57,8 @@
                                         key="approve"/></s:link>
                             </td>
                             <td>
-                                <s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="deny">
-                                    <s:param name="request.id" value="${request.id}"/><f:message key="deny"/></s:link>
+                                <s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="reject">
+                                    <s:param name="request.id" value="${request.id}"/><f:message key="reject"/></s:link>
                             </td>
                         </tr>
                     </c:forEach>

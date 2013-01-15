@@ -49,7 +49,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
         return new ForwardResolution("/sample_approve_request.jsp");
     }
 
-    public Resolution deny() {
+    public Resolution reject() {
         requestService.changeRequestState(request.getId(), RequestState.DENIED);
         return new ForwardResolution("/sample_approve_request.jsp");
     }
