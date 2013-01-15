@@ -48,6 +48,9 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "ethicalCommittee", cascade = CascadeType.ALL)
     Biobank ethicalCommitteeOfBiobank;
 
+    @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
+    private List<Project> judgedProjects = new ArrayList<Project>();
+
     public User() {
     }
 
@@ -130,6 +133,18 @@ public class User implements Serializable {
 
     public void setAdministrator(boolean administrator) {
         this.administrator = administrator;
+    }
+
+    public List<Project> getJudgedProjects() {
+        return judgedProjects;
+    }
+
+    public void setJudgedProjects(List<Project> judgedProjects) {
+        this.judgedProjects = judgedProjects;
+    }
+
+    public String getWholeName(){
+        return name + " "+ surname;
     }
 
     @Override

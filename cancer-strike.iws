@@ -15,15 +15,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cancer-strike.iws" afterPath="$PROJECT_DIR$/cancer-strike.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/ApproveRequestActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/ApproveRequestActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/entities/User.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/entities/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java" afterPath="$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/StripesResources.properties" afterPath="$PROJECT_DIR$/src/main/resources/StripesResources.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/StripesResources_en.properties" afterPath="$PROJECT_DIR$/src/main/resources/StripesResources_en.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/project_create.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/project_create.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" />
     </list>
     <ignored path="cancer-strike.iws" />
@@ -83,99 +80,96 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="contentPage.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/css/contentPage.css">
+      <file leaf-file-name="Project.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="37" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0">
+            <state line="111" column="15" selection-start="2616" selection-end="2628" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StripesResources.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources.properties">
+      <file leaf-file-name="User.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="5230" selection-end="5272" vertical-scroll-proportion="0.0">
+            <state line="34" column="40" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="ResourceBundle">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectDAO.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/ProjectDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="37" column="88" selection-start="714" selection-end="714" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RequestDAO.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/RequestDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="17" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="141" column="16" selection-start="4426" selection-end="4433" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project_approve.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApproveProjectActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="42" column="30" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="sample_request.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_request.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="25" selection-start="2083" selection-end="2083" vertical-scroll-proportion="-7.8076925">
+            <state line="43" column="52" selection-start="2162" selection-end="2182" vertical-scroll-proportion="-19.615385">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SampleDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleDAOImpl.java">
+      <file leaf-file-name="StripesResources.properties" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="37" selection-start="786" selection-end="786" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="38" selection-start="3023" selection-end="3023" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="13" selection-start="358" selection-end="368" vertical-scroll-proportion="0.129771">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="selectionCriteriaForm.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="7" selection-start="157" selection-end="157" vertical-scroll-proportion="-1.9615384">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApproveRequestActionBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/ApproveRequestActionBean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="28" selection-start="1440" selection-end="1440" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample_approve_request.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="117" selection-start="3322" selection-end="3322" vertical-scroll-proportion="-6.1153846">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StripesResources_en.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources_en.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="134" column="7" selection-start="3503" selection-end="3503" vertical-scroll-proportion="-7.05">
+            <state line="112" column="35" selection-start="5449" selection-end="5449" vertical-scroll-proportion="0.8897536">
               <folding />
             </state>
           </provider>
           <provider editor-type-id="ResourceBundle">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="35" column="4" selection-start="772" selection-end="821" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -194,22 +188,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/LoginServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/form/createSampleForm.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/AccountActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/css/contentPage.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/sample_all.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/project_create.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/StripesResources.properties" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/ApproveRequestActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/StripesResources_en.properties" />
         <option value="$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/User.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/StripesResources.properties" />
       </list>
     </option>
   </component>
@@ -381,84 +375,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="form" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -507,71 +423,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="META-INF" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviceImpl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -631,101 +487,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="DAOimpl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DAO" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SampleRequest" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1390,83 +1152,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_all.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="62" selection-start="2171" selection-end="2171" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_create.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="40" selection-start="1693" selection-end="1711" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_create.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/form/createSampleForm.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="62" selection-start="369" selection-end="381" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/my_account.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="33" selection-start="1490" selection-end="1495" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/AccountActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="39" selection-start="1547" selection-end="1547" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/css/contentPage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="37" selection-start="344" selection-end="344" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="5230" selection-end="5272" vertical-scroll-proportion="0.0" />
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/ApproveRequestActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="28" selection-start="1440" selection-end="1440" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="117" selection-start="3322" selection-end="3322" vertical-scroll-proportion="-6.1153846">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources_en.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="7" selection-start="3503" selection-end="3503" vertical-scroll-proportion="-7.05">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="7" selection-start="157" selection-end="157" vertical-scroll-proportion="-1.9615384">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_request.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="25" selection-start="2083" selection-end="2083" vertical-scroll-proportion="-7.8076925">
           <folding />
         </state>
       </provider>
@@ -1487,9 +1175,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="358" selection-end="368" vertical-scroll-proportion="0.129771">
+        <state line="6" column="13" selection-start="358" selection-end="368" vertical-scroll-proportion="0.0">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Biobank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="43" selection-start="906" selection-end="906" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Request.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="3" selection-start="535" selection-end="602" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/ProjectDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="88" selection-start="714" selection-end="714" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/RequestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="4" selection-start="772" selection-end="821" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="16" selection-start="4426" selection-end="4433" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="30" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="15" selection-start="2616" selection-end="2628" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="40" selection-start="766" selection-end="766" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_request.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="52" selection-start="2162" selection-end="2182" vertical-scroll-proportion="-19.615385">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="35" selection-start="5449" selection-end="5449" vertical-scroll-proportion="0.8897536">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="ResourceBundle">
+        <state />
       </provider>
     </entry>
   </component>

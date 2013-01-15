@@ -42,6 +42,9 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Request> requests = new ArrayList<Request>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User judgedByUser;
+
     public String getFundingOrganization() {
         return fundingOrganization;
     }
@@ -103,6 +106,14 @@ public class Project implements Serializable {
             return users.get(0);
         }
         return null;
+    }
+
+    public User getJudgedByUser() {
+        return judgedByUser;
+    }
+
+    public void setJudgedByUser(User judgedByUser) {
+        this.judgedByUser = judgedByUser;
     }
 
     @Override

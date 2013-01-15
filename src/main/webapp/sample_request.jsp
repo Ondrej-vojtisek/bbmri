@@ -40,6 +40,10 @@
                         <th><s:label for="z3" name="project.projectState"/></th>
                         <td><s:text id="z3" readonly="true" name="project.projectState"/></td>
                     </tr>
+                     <tr>
+                        <th><s:label for="z3" name="project.judgedByUser"/></th>
+                        <td><s:text id="z3" readonly="true" name="project.judgedByUser.wholeName"/></td>
+                    </tr>
                 </table>
             </fieldset>
 

@@ -39,7 +39,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
     }
 
     public Resolution approve() {
-        projectService.approve(project.getId());
+        projectService.approve(project.getId(), getContext().getLoggedUser().getId());
         refreshLoggedUser();
         return new ForwardResolution("/project_approve.jsp");
     }

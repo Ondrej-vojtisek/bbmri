@@ -33,6 +33,8 @@ public interface ProjectService {
 
     public void approve(Long id);
 
+    public void approve(Long projectId, Long userId);
+
     public List<Project> getAllByProjectState(ProjectState projectState);
 
     public List<Project> getAllApprovedByUser(User user);
