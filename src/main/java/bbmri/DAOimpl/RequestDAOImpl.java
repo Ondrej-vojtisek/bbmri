@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public class RequestDAOImpl implements RequestDAO {
 
-        @PersistenceContext
+    @PersistenceContext
     private EntityManager em;
 
     public void create(Request request) {
@@ -52,5 +52,4 @@ public class RequestDAOImpl implements RequestDAO {
         Query query = em.createQuery("SELECT COUNT (p) FROM Request p");
         return Integer.parseInt(query.getSingleResult().toString());
     }
-
 }

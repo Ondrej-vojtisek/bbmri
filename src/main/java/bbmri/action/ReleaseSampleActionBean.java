@@ -50,8 +50,10 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     }
 
     public List<Sample> getSamples() {
-        samples = requestService.getAllReleasableSamplesByBiobank(getBiobank().getId());
-        return samples;
+       // samples = requestService.getAllReleasableSamplesByBiobank(getBiobank().getId());
+       // return samples;
+
+        return null;
     }
 
     public void setSamples(List<Sample> samples) {

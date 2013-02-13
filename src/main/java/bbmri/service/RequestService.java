@@ -15,7 +15,9 @@ import java.util.List;
  */
 public interface RequestService {
 
-    public Request create(Request request, Long projectId, Long sampleId);
+    public Request create(Long sampleId);
+
+    public Request create(Long sampleId, Integer numOfRequested);
 
     public void remove(Request request);
 
@@ -26,14 +28,6 @@ public interface RequestService {
     public List<Request> getAll();
 
     public Request getById(Long id);
-
-    public List<Request> getAllNew();
-
-    public Request changeRequestState(Long requestId, RequestState requestState);
-
-    public List<Request> getAllNewByBiobank(Long biobankId);
-
-    public List<Sample> getAllReleasableSamplesByBiobank(Long biobankId);
 
     public Integer getCount();
 }

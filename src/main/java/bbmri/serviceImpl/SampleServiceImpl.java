@@ -86,15 +86,6 @@ public class SampleServiceImpl implements SampleService {
             } else {
                 return sample;
             }
-            sample.setNumOfAvailable(count);
-            Request request = null;
-            for (int i = 0; i < sample.getRequests().size(); i++) {
-                if (sample.getRequests().get(i).getRequestState() == RequestState.APPROVED) {
-                    request = sample.getRequests().get(i);
-                    request.setRequestState(RequestState.EQUIPPED);
-                    break;
-                }
-            }
             return sample;
         } catch (DataAccessException ex) {
             throw ex;

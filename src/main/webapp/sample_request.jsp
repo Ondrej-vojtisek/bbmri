@@ -64,6 +64,7 @@
                         <th><s:label name="sample.diagnosis"/></th>
                         <th><s:label name="sample.tissueType"/></th>
                         <th><s:label name="sample.biobank"/></th>
+                        <th><s:label name="select"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
                     <c:if test="${ab.resultCount == 0}">
@@ -80,6 +81,9 @@
                             <td><c:out value="${sample.diagnosis}"/></td>
                             <td><c:out value="${sample.tissueType}"/></td>
                             <td><c:out value="${sample.biobank.name}"/></td>
+                            <td>
+                                <s:checkbox name="selected" value="${sample.id}"/></td>
+                            </td>
                             <td><s:link beanclass="bbmri.action.SampleRequest.SampleRequestActionBean" event="request">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
                                     key="sample.request"/></s:link>
@@ -87,6 +91,9 @@
                         </tr>
                     </c:forEach>
                 </table>
+
+                <s:submit name="requestSelected"><f:message key="request_selected"/></s:submit>
+
             </fieldset>
         </s:form>
     </s:layout-component>

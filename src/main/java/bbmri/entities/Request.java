@@ -1,5 +1,7 @@
 package bbmri.entities;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -25,14 +27,10 @@ public class Request {
     @ManyToOne(cascade = CascadeType.ALL)
     private Sample sample;
 
+    private Integer numOfRequested;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    private Project project;
-
-    @Column(name = "DATE")
-    private Date date;
-
-    @Enumerated(EnumType.STRING)
-    private RequestState requestState;
+    private RequestGroup requestGroup;
 
     public Request() {
     }
@@ -53,28 +51,20 @@ public class Request {
         this.sample = sample;
     }
 
-    public Project getProject() {
-        return project;
+    public Integer getNumOfRequested() {
+        return numOfRequested;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setNumOfRequested(Integer numOfRequested) {
+        this.numOfRequested = numOfRequested;
     }
 
-    public Date getDate() {
-        return date;
+    public RequestGroup getRequestGroup() {
+        return requestGroup;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public RequestState getRequestState() {
-        return requestState;
-    }
-
-    public void setRequestState(RequestState requestState) {
-        this.requestState = requestState;
+    public void setRequestGroup(RequestGroup requestGroup) {
+        this.requestGroup = requestGroup;
     }
 
     @Override
@@ -99,9 +89,6 @@ public class Request {
         return "Request{" +
                 "id=" + id +
                 ", sample=" + sample +
-                ", project=" + project +
-                ", date=" + date +
-                ", requestState=" + requestState +
                 '}';
     }
 }

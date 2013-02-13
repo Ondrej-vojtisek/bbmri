@@ -39,6 +39,9 @@ public class Biobank implements Serializable {
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<Sample> samples = new ArrayList<Sample>();
 
+    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
+
     public User getEthicalCommittee() {
         return ethicalCommittee;
     }

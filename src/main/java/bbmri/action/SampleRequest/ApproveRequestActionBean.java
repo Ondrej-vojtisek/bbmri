@@ -32,8 +32,12 @@ public class ApproveRequestActionBean extends BasicActionBean {
         if (biobank == null) {
             return null;
         }
-        requests = requestService.getAllNewByBiobank(biobank.getId());
-        return requests;
+
+
+       // requests = getAllNewByBiobank
+       // requests = requestService.getAll();
+        return null;
+       // return requests;
     }
 
     public Request getRequest() {
@@ -45,12 +49,12 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public Resolution approve() {
-        requestService.changeRequestState(request.getId(), RequestState.APPROVED);
+        //requestService.changeRequestState(request.getId(), RequestState.APPROVED);
         return new ForwardResolution("/sample_approve_request.jsp");
     }
 
     public Resolution reject() {
-        requestService.changeRequestState(request.getId(), RequestState.DENIED);
+        //requestService.changeRequestState(request.getId(), RequestState.DENIED);
         return new ForwardResolution("/sample_approve_request.jsp");
     }
 }

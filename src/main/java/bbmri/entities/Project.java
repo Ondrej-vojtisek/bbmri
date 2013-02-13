@@ -39,11 +39,11 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    private List<Request> requests = new ArrayList<Request>();
-
     @ManyToOne(cascade = CascadeType.ALL)
     private User judgedByUser;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     public String getFundingOrganization() {
         return fundingOrganization;
@@ -93,14 +93,6 @@ public class Project implements Serializable {
         this.id = id;
     }
 
-    public List<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
-    }
-
     public User getOwner() {
         if (!users.isEmpty()) {
             return users.get(0);
@@ -144,7 +136,6 @@ public class Project implements Serializable {
                 ", fundingOrganization='" + fundingOrganization + '\'' +
                 ", users=" + users +
                 ", projectState=" + projectState +
-                ", requests=" + requests +
                 '}';
     }
 }

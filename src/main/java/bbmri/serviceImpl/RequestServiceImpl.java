@@ -42,22 +42,37 @@ public class RequestServiceImpl implements RequestService {
     private BiobankDAO biobankDAO;
 
 
-    public Request create(Request request, Long projectId, Long sampleId) {
+     public Request create(Long sampleId, Integer numOfRequested) {
         try {
-            requestDAO.create(request);
-
+            Request request = new Request();
             Sample sampleDB = sampleDAO.get(sampleId);
-            Project projectDB = projectDAO.get(projectId);
 
             if (sampleDB != null) {
-                request.setProject(projectDB);
-            }
-            if (projectDB != null) {
                 request.setSample(sampleDB);
             }
+            if(numOfRequested > 0){
+                request.setNumOfRequested(numOfRequested);
+            }
+            requestDAO.create(request);
 
-            request.setDate(new Date());
-            request.setRequestState(RequestState.NEW);
+            //requestDAO.update(request);
+            return request;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
+
+    public Request create(Long sampleId) {
+        try {
+            Request request = new Request();
+
+            Sample sampleDB = sampleDAO.get(sampleId);
+
+            if (sampleDB != null) {
+                request.setSample(sampleDB);
+            }
+            requestDAO.create(request);
+            //update
             return request;
         } catch (DataAccessException ex) {
             throw ex;
@@ -89,8 +104,6 @@ public class RequestServiceImpl implements RequestService {
             if (requestDB == null) {
                 return null;
             }
-            if (request.getRequestState() != null) requestDB.setRequestState(request.getRequestState());
-
             requestDAO.update(requestDB);
             return requestDB;
         } catch (DataAccessException ex) {
@@ -111,121 +124,6 @@ public class RequestServiceImpl implements RequestService {
         try {
             Request request = requestDAO.get(id);
             return request;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public List<Request> getAllByProject(Long projectId) {
-        try {
-            Project projectDB = projectDAO.get(projectId);
-            List<Request> requests = requestDAO.getAll();
-
-            if (projectDB == null) {
-                return null;
-            }
-
-            List<Request> result = new ArrayList<Request>();
-            if (requests != null) {
-                for (Request request : requests) {
-                    if (request.getProject().equals(projectDB)) {
-                        result.add(request);
-                    }
-                }
-            }
-            return result;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public List<Request> getAllNew() {
-        try {
-            List<Request> requests = requestDAO.getAll();
-
-            List<Request> result = new ArrayList<Request>();
-            if (requests != null) {
-                for (Request request : requests) {
-                    if (request.getRequestState() == RequestState.NEW) {
-                        result.add(request);
-                    }
-                }
-            }
-            return result;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public List<Request> getAllNewByBiobank(Long biobankId) {
-        try {
-            List<Request> requests = requestDAO.getAll();
-            Biobank biobankDB = biobankDAO.get(biobankId);
-
-            if (biobankDB == null) {
-                return null;
-            }
-
-
-            List<Request> result = new ArrayList<Request>();
-            if (requests != null) {
-                for (Request request : requests) {
-                    Biobank requestBiobank = request.getSample().getBiobank();
-                    if (requestBiobank == null) {
-                        continue;
-                    }
-
-                    if (request.getRequestState() == RequestState.NEW &&
-                            requestBiobank.equals(biobankDB)) {
-                        result.add(request);
-                    }
-                }
-            }
-            return result;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public Request changeRequestState(Long requestId, RequestState requestState) {
-        try {
-            Request requestDB = requestDAO.get(requestId);
-            if (requestDB != null) {
-                requestDB.setRequestState(requestState);
-                requestDAO.update(requestDB);
-            }
-            return requestDB;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public List<Sample> getAllReleasableSamplesByBiobank(Long biobankId) {
-        try {
-            Biobank biobankDB = biobankDAO.get(biobankId);
-
-            if (biobankDB == null) {
-                return null;
-            }
-
-            List<Request> requests = requestDAO.getAll();
-            if (requests == null) {
-                return null;
-            }
-
-            List<Sample> samples = new ArrayList<Sample>();
-
-            for (Request request : requests) {
-                Biobank requestBiobank = request.getSample().getBiobank();
-                if (requestBiobank == null) {
-                    continue;
-                }
-                if (request.getRequestState() == RequestState.APPROVED &&
-                        requestBiobank.equals(biobankDB)) {
-                    samples.add(request.getSample());
-                }
-            }
-            return samples;
         } catch (DataAccessException ex) {
             throw ex;
         }

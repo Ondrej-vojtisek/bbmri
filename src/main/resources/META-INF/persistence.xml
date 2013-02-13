@@ -11,6 +11,7 @@
         <class>bbmri.entities.Request</class>
         <class>bbmri.entities.Sample</class>
         <class>bbmri.entities.User</class>
+        <class>bbmri.entities.RequestGroup</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class" />

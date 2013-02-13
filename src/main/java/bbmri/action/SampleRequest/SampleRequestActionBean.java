@@ -3,6 +3,7 @@ package bbmri.action.SampleRequest;
 import bbmri.action.BasicActionBean;
 import bbmri.action.MyActionBeanContext;
 import bbmri.entities.*;
+import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
 import bbmri.serviceImpl.SampleServiceImpl;
@@ -11,6 +12,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +32,19 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     @SpringBean
     private SampleService sampleService;
+
+    @SpringBean
+    private RequestGroupService requestGroupService;
+
+    private List<Long> selected;
+
+    public void setSelected(List<Long> selected){
+        this.selected = selected;
+    }
+
+    public List<Long> getSelected(){
+       return selected;
+    }
 
     public void setSample(Sample sample) {
         this.sample = sample;
@@ -100,7 +115,7 @@ public class SampleRequestActionBean extends BasicActionBean {
         if (getProject().getProjectState() == ProjectState.NEW) {
             return new ForwardResolution("/project_all.jsp");
         }
-        requestService.create(new Request(), getProject().getId(), sample.getId());
+        requestService.create(sample.getId());
         return new ForwardResolution("/project_all.jsp");
     }
 
@@ -111,4 +126,18 @@ public class SampleRequestActionBean extends BasicActionBean {
         return new ForwardResolution("/sample_request.jsp");
     }
 
+    /*TODO: change num of requested to variable value*/
+    public Resolution requestSelected(){
+        List<Request> requests = new ArrayList<Request>();
+         if (selected != null) {
+            for (Long sampleId : selected) {
+                Request request = requestService.create(sampleId);
+                requests.add(request);
+            }
+
+            requestGroupService.create(requests, getProject().getId());
+        }
+
+       return new ForwardResolution("/project_all.jsp");
+    }
 }

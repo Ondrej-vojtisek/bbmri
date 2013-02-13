@@ -28,6 +28,7 @@
             <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
             <li class="active"><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
             <li><s:link href="/sample_all.jsp"><f:message key="sample.all"/></s:link></li>
+            <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
         </c:if>
     </s:layout-component>
 
@@ -62,6 +63,7 @@
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
                                     key="sample.release"/></s:link>
                             </td>
+
                         </tr>
                     </c:forEach>
                 </table>
