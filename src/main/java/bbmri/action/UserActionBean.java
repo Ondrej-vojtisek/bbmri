@@ -64,7 +64,7 @@ public class UserActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
-    public void refreshLoggedUser(){
+    public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 }

@@ -1,11 +1,11 @@
 package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
-import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.Request;
+import bbmri.entities.RequestGroup;
 import bbmri.entities.RequestState;
-import bbmri.entities.User;
+import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -21,23 +21,36 @@ import java.util.List;
  */
 @UrlBinding("/approveSampleRequest/{$event}/{request.id}")
 public class ApproveRequestActionBean extends BasicActionBean {
-    private List<Request> requests;
+    private List<RequestGroup> requestGroups;
     private Request request;
 
     @SpringBean
     private RequestService requestService;
 
-    public List<Request> getRequests() {
+    @SpringBean
+    private RequestGroupService requestGroupService;
+
+    private RequestGroup requestGroup;
+
+    public List<RequestGroup> getRequestGroups() {
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank == null) {
             return null;
         }
 
+        requestGroups = requestGroupService.getByBiobankAndState(biobank.getId(), RequestState.NEW);
+        return requestGroups;
+    }
 
-       // requests = getAllNewByBiobank
-       // requests = requestService.getAll();
-        return null;
-       // return requests;
+    public RequestGroup getRequestGroup() {
+        if (requestGroup == null) {
+            requestGroup = getContext().getRequestGroup();
+        }
+        return requestGroup;
+    }
+
+    public void setRequestGroup(RequestGroup requestGroup) {
+        this.requestGroup = requestGroup;
     }
 
     public Request getRequest() {
@@ -48,13 +61,25 @@ public class ApproveRequestActionBean extends BasicActionBean {
         this.request = request;
     }
 
-    public Resolution approve() {
-        //requestService.changeRequestState(request.getId(), RequestState.APPROVED);
+    @DefaultHandler
+    public Resolution display() {
+        getRequestGroups();
         return new ForwardResolution("/sample_approve_request.jsp");
     }
 
+    public Resolution approve() {
+        requestGroupService.changeRequestState(requestGroup.getId(), RequestState.APPROVED);
+        return new RedirectResolution(this.getClass(), "display");
+    }
+
     public Resolution reject() {
-        //requestService.changeRequestState(request.getId(), RequestState.DENIED);
-        return new ForwardResolution("/sample_approve_request.jsp");
+        requestGroupService.changeRequestState(requestGroup.getId(), RequestState.DENIED);
+        return new RedirectResolution(this.getClass(), "display");
+    }
+
+    public Resolution detail() {
+        requestGroup = requestGroupService.getById(requestGroup.getId());
+        getContext().setRequestGroup(requestGroup);
+        return new ForwardResolution("/requestGroup_detail.jsp");
     }
 }

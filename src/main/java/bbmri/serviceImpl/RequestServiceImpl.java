@@ -4,18 +4,14 @@ import bbmri.DAO.BiobankDAO;
 import bbmri.DAO.ProjectDAO;
 import bbmri.DAO.RequestDAO;
 import bbmri.DAO.SampleDAO;
-import bbmri.entities.*;
+import bbmri.entities.Request;
+import bbmri.entities.Sample;
 import bbmri.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,7 +38,7 @@ public class RequestServiceImpl implements RequestService {
     private BiobankDAO biobankDAO;
 
 
-     public Request create(Long sampleId, Integer numOfRequested) {
+    public Request create(Long sampleId, Integer numOfRequested) {
         try {
             Request request = new Request();
             Sample sampleDB = sampleDAO.get(sampleId);
@@ -50,7 +46,7 @@ public class RequestServiceImpl implements RequestService {
             if (sampleDB != null) {
                 request.setSample(sampleDB);
             }
-            if(numOfRequested > 0){
+            if (numOfRequested > 0) {
                 request.setNumOfRequested(numOfRequested);
             }
             requestDAO.create(request);

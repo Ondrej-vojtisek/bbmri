@@ -3,8 +3,6 @@ package bbmri.serviceImpl;
 import bbmri.DAO.BiobankDAO;
 import bbmri.DAO.SampleDAO;
 import bbmri.entities.Biobank;
-import bbmri.entities.Request;
-import bbmri.entities.RequestState;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 /**

@@ -66,8 +66,17 @@ public class ProjectDAOImpl implements ProjectDAO {
         return project.getUsers();
     }
 
-    public Integer getCount(){
+    public Integer getCount() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Project p");
         return Integer.parseInt(query.getSingleResult().toString());
     }
+
+    public byte[] getData(Project project) {
+        Query query = em.createQuery("SELECT project.agreement FROM Project project");
+        Object o = query.getSingleResult();
+        byte[] tmpArray = (byte[]) o;
+        return tmpArray;
+    }
+
+
 }

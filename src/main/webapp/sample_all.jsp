@@ -36,9 +36,9 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
-                <table>
-                    <tr>
-                        <th><s:label name="sample.sampleID"/></th>
+                <table id="sortableTable">
+                    <thead>
+                    <tr><th><s:label name="sample.sampleID"/></th>
                         <th><s:label name="sample.numOfSamples"/></th>
                         <th><s:label name="sample.numOfAvailable"/></th>
                         <th><s:label name="sample.tissueType"/></th>
@@ -47,11 +47,10 @@
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <c:forEach items="${ab.allSamples}" var="sample">
-                        <tr>
-
-                            <td><c:out value="${sample.sampleID}"/></td>
+                        <tr><td><c:out value="${sample.sampleID}"/></td>
                             <td><c:out value="${sample.numOfSamples}"/></td>
                             <td><c:out value="${sample.numOfAvailable}"/></td>
                             <td><c:out value="${sample.tissueType}"/></td>
@@ -61,6 +60,7 @@
                             <td><c:out value="${sample.diagnosis}"/></td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
             </fieldset>
         </s:form>

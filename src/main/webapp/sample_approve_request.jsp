@@ -32,40 +32,39 @@
         </c:if>
     </s:layout-component>
 
-
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
-
             <fieldset>
-                <table>
-                    <tr>
-                        <th><s:label name="request.id"/></th>
-                        <th><s:label name="request.project"/></th>
-                        <th><s:label name="request.requestState"/></th>
-                        <th><s:label name="request.sample"/></th>
-                        <th colspan="2"><s:label name="actions"/></th>
+                <table id="sortableTable">
+                    <thead>
+                    <tr><th><s:label name="id"/></th>
+                        <th><s:label name="project"/></th>
+                        <th><s:label name="requestState"/></th>
+                        <th colspan="3"><s:label name="actions"/></th>
                     </tr>
-
-                    <c:forEach items="${ab.requests}" var="request">
-                        <tr>
-                            <td><c:out value="${request.id}"/></td>
-                            <td><c:out value="${request.project.id}"/></td>
-                            <td><c:out value="${request.requestState}"/></td>
-                            <td><c:out value="${request.sample.id}"/></td>
-                            <td>
-                                <s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="approve">
-                                    <s:param name="request.id" value="${request.id}"/><f:message
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${ab.requestGroups}" var="requestGroup">
+                        <tr><td><c:out value="${requestGroup.id}"/></td>
+                            <td><c:out value="${requestGroup.project.name}"/></td>
+                            <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
+                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="approve">
+                                    <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
                                         key="approve"/></s:link>
                             </td>
-                            <td>
-                                <s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="reject">
-                                    <s:param name="request.id" value="${request.id}"/><f:message key="reject"/></s:link>
+                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="reject">
+                                    <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
+                                        key="reject"/></s:link>
+                            </td>
+                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="detail">
+                                    <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
+                                        key="detail"/></s:link>
                             </td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
             </fieldset>
-
         </s:form>
     </s:layout-component>
 </s:layout-render>

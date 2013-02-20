@@ -2,9 +2,11 @@ package bbmri.action;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
-import bbmri.entities.User;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.RedirectResolution;
+import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
@@ -54,7 +56,7 @@ public class AddSampleActionBean extends BasicActionBean {
             required = true, minvalue = 1, maxvalue = 100)
     private Integer numOfRandom;
 
-    public Integer getCount(){
+    public Integer getCount() {
         return sampleService.getCount();
     }
 

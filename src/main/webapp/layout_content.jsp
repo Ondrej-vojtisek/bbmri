@@ -13,6 +13,15 @@
         <title><c:out value="${title}"/></title>
         <s:layout-component name="hlavicka"/>
     </head>
+    <script type="text/javascript" src="/libs/jquery-latest.js"></script>
+    <script type="text/javascript" src="/libs/jquery.tablesorter.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+                    $("#sortableTable").tablesorter();
+                }
+        );
+    </script>
+
     <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,11 +37,11 @@
                             <f:message key="logout"/></s:link>
                     </p>
 
-
                     <p class="navbar-text pull-right" style="margin-right: 30px;">
                         <f:message key="logged_user"/>: <s:link href="/my_account.jsp"><c:out
                             value="${logged}"/></s:link>
                     </p>
+
                     <p class="navbar-text pull-right" style="margin-right: 30px;">
                         <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
                     </p>
@@ -43,7 +52,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="container-fluid">
         <div class="row-fluid">

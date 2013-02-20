@@ -115,9 +115,6 @@ public class Biobank implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", administrator=" + administrator +
-                ", ethicalCommittee=" + ethicalCommittee +
-                ", samples=" + samples +
                 '}';
     }
 }

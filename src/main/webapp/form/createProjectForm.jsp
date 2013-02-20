@@ -17,6 +17,7 @@
     </tr>
 
 </table>
+
 <s:textarea id="z3" name="project.description"></s:textarea>
 
 

@@ -1,6 +1,5 @@
 package bbmri.action.Biobank;
 
-import bbmri.action.BasicActionBean;
 import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
@@ -32,7 +31,7 @@ public class CreateBiobankActionBean implements ActionBean {
     private List<User> users;
     private User administrator;
     private User ethicalCommittee;
-     private MyActionBeanContext ctx;
+    private MyActionBeanContext ctx;
 
     @SpringBean
     private UserService userService;

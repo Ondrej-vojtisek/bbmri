@@ -62,7 +62,7 @@ public class AccountActionBean extends BasicActionBean {
     }
 
     public Resolution update() {
-        if (user.getName() != null){
+        if (user.getName() != null) {
             getLoggedUser().setName(user.getName());
         }
         if (user.getSurname() != null)
@@ -84,7 +84,7 @@ public class AccountActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
-    public void refreshLoggedUser(){
+    public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 

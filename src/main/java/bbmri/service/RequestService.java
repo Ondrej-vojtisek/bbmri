@@ -1,8 +1,6 @@
 package bbmri.service;
 
 import bbmri.entities.Request;
-import bbmri.entities.RequestState;
-import bbmri.entities.Sample;
 
 import java.util.List;
 

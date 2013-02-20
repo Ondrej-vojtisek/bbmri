@@ -28,6 +28,11 @@
     </s:layout-component>
 
     <s:layout-component name="body">
+        <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
+            <s:file name="content"></s:file>
+            <s:submit name="upload"><f:message key="save"/></s:submit>
+            <s:submit name="load"><f:message key="load"/></s:submit>
+        </s:form>
 
         <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
             <s:hidden name="project.id"/>
@@ -35,62 +40,52 @@
             <fieldset>
                 <legend><f:message key="project.edit"/></legend>
                 <%@include file="/form/createProjectForm.jsp" %>
-
                 <s:select id="b4" name="project.projectState">
                     <s:options-enumeration enum="bbmri.entities.ProjectState"/>
                 </s:select>
                 <s:submit name="update"><f:message key="save"/></s:submit>
             </fieldset>
 
-
             <fieldset>
                 <legend><f:message key="project.assigned_users"/></legend>
-                <table border="1">
-                    <tr>
-                        <th><f:message key="id"/></th>
+                <table id="sortableTable">
+                    <thead>
+                    <tr><th><f:message key="id"/></th>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
                         <th colspan="2"><f:message key="actions"/></th>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <c:forEach items="${ab.users}" var="user">
-                        <tr>
-                            <td><c:out value="${user.id}"/></td>
+                        <tr><td><c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
-
-                            <td>
-                                <c:if test="${!user.equals(loggedUser)}">
+                            <td><c:if test="${!user.equals(loggedUser)}">
                                 <s:checkbox name="selected" value="${user.id}"/></td>
                             </c:if>
-                            <td>
-                                <c:if test="${!user.equals(loggedUser)}">
-                                    <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                            <td><c:if test="${!user.equals(loggedUser)}">
+                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
                                             event="changeOwnership">
-                                        <s:param name="user.id" value="${user.id}"/><f:message
+                                <s:param name="user.id" value="${user.id}"/><f:message
                                             key="give_ownership"/></s:link>
-                                </c:if>
-                            </td>
+                                </c:if></td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 <s:submit name="removeAll"><f:message key="remove_selected"/></s:submit>
-
             </fieldset>
             <fieldset>
                 <legend><f:message key="all_users"/></legend>
-
-                <table border="1">
+                <table>
                     <tr>
                         <th><f:message key="id"/></th>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
                     </tr>
-
                     <c:forEach items="${ab.freeUsers}" var="user" varStatus="loop">
-
-                        <tr>
-                            <td><c:out value="${user.id}"/></td>
+                        <tr><td><c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
                             <td><s:checkbox name="selectedApprove" value="${user.id}"/></td>
@@ -99,8 +94,6 @@
                 </table>
                 <s:submit name="assignAll"><f:message key="assign_selected"/></s:submit>
             </fieldset>
-
         </s:form>
-
     </s:layout-component>
 </s:layout-render>

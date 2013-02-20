@@ -4,7 +4,6 @@ import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -33,5 +32,7 @@ public interface ProjectDAO {
     List<Project> getAllByProjectState(ProjectState projectState);
 
     Integer getCount();
+
+    public byte[] getData(Project project);
 
 }

@@ -1,7 +1,6 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
-import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
@@ -10,7 +9,10 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import org.apache.commons.io.IOUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -31,6 +33,16 @@ public class EditProjectActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 255),
     })
     private Project project;
+
+    private FileBean content;
+
+    public FileBean getContent() {
+        return content;
+    }
+
+    public void setContent(FileBean content) {
+        this.content = content;
+    }
 
     @SpringBean
     private UserService userService;
@@ -139,7 +151,30 @@ public class EditProjectActionBean extends BasicActionBean {
         return new ForwardResolution("/project_all.jsp");
     }
 
-     public void refreshLoggedUser(){
+    public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
-     }
+    }
+
+    public Resolution upload() {
+        if (content == null) {
+            System.err.println("NULL\n\n\n\n\n");
+        } else {
+            System.err.println("NOT NULL\n\n\n\n\n");
+            try {
+                InputStream is = content.getInputStream();
+                byte[] bytes = IOUtils.toByteArray(is);
+                projectService.save(getContext().getProject().getId(), bytes);
+                content.delete();
+            } catch (IOException ex) {
+
+            }
+        }
+        return new ForwardResolution("/project_all.jsp");
+    }
+
+    public Resolution load() {
+        System.err.println("ACTIONBEAN - LOAD \n\n\n\n\n\n\n\n");
+        projectService.getFile(getContext().getProject().getId());
+        return new ForwardResolution("/project_all.jsp");
+    }
 }

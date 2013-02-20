@@ -57,12 +57,12 @@ public class SampleDAOImpl implements SampleDAO {
         return queryDB.getResultList();
     }
 
-    public Integer getCount(){
+    public Integer getCount() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Sample p");
         return Integer.parseInt(query.getSingleResult().toString());
     }
 
-    public List<Sample> getAllByBiobank(Biobank biobank){
+    public List<Sample> getAllByBiobank(Biobank biobank) {
         DAOUtils.notNull(biobank);
         Query query = em.createQuery("SELECT p FROM Sample p WHERE p.biobank = biobank");
         return query.getResultList();

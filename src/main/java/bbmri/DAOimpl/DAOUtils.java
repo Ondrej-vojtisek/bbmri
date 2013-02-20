@@ -8,7 +8,7 @@ package bbmri.DAOimpl;
  * To change this template use File | Settings | File Templates.
  */
 public class DAOUtils {
-     private DAOUtils() throws InstantiationException {
+    private DAOUtils() throws InstantiationException {
         throw new InstantiationException("This code should never be reached");
     }
 

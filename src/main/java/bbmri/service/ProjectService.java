@@ -48,4 +48,8 @@ public interface ProjectService {
     public Project changeOwnership(Long projectId, Long newOwnerId);
 
     public Integer getCount();
+
+    public void save(Long id, byte[] file);
+
+    public void getFile(Long id);
 }

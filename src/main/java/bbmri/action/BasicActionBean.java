@@ -1,11 +1,8 @@
 package bbmri.action;
 
 import bbmri.entities.User;
-import bbmri.service.ProjectService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,8 +26,6 @@ public class BasicActionBean implements ActionBean {
     public User getLoggedUser() {
         return ctx.getLoggedUser();
     }
-
-
 
 
 }

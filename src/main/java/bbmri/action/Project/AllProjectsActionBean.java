@@ -1,7 +1,6 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
-import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
@@ -74,8 +73,8 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution leave() {
-        if(project == null){
-             return new RedirectResolution(this.getClass(), "display");
+        if (project == null) {
+            return new RedirectResolution(this.getClass(), "display");
         }
         User user = projectService.removeUserFromProject(getLoggedUser().getId(), project.getId());
         if (user != null) {
@@ -86,21 +85,21 @@ public class AllProjectsActionBean extends BasicActionBean {
     }
 
     public Resolution join() {
-        if(project == null){
-             return new RedirectResolution(this.getClass(), "display");
+        if (project == null) {
+            return new RedirectResolution(this.getClass(), "display");
         }
         Project projectDB = projectService.getById(project.getId());
-        if(projectDB.getUsers() == null){
-              return new RedirectResolution(this.getClass(), "display");
+        if (projectDB.getUsers() == null) {
+            return new RedirectResolution(this.getClass(), "display");
         }
         projectService.assignUser(getLoggedUser().getId(), projectDB.getId());
         refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 
-     public void refreshLoggedUser(){
+    public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
-     }
+    }
 }
 
 

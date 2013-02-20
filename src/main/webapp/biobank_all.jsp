@@ -8,6 +8,7 @@
 <f:message key="biobanks.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.AllBiobanksActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
+
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
         <li class="active"><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
@@ -32,14 +33,11 @@
             <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
         </c:if>
     </s:layout-component>
-
-
     <s:layout-component name="body">
-
-
         <fieldset>
             <legend><f:message key="biobanks.listOfBanks"/></legend>
-            <table border="1">
+            <table id="sortableTable">
+                <thead>
                 <tr>
                     <th><s:label name="biobank.id"/></th>
                     <th><s:label name="biobank.name"/></th>
@@ -48,6 +46,8 @@
                     <th><s:label name="biobank.ethicalCommittee"/></th>
                     <th><s:label name="actions"/></th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach items="${ab.biobanks}" var="biobank">
                     <tr>
                         <td><c:out value="${biobank.id}"/></td>
@@ -55,18 +55,15 @@
                         <td><c:out value="${biobank.address}"/></td>
                         <td><c:out value="${biobank.administrator}"/></td>
                         <td><c:out value="${biobank.ethicalCommittee}"/></td>
-                        <td>
-                            <c:if test="${fn:isAdmin(biobank.administrator, ab.loggedUser)}">
+                        <td><c:if test="${fn:isAdmin(biobank.administrator, ab.loggedUser)}">
                                 <s:link beanclass="bbmri.action.Biobank.AllBiobanksActionBean" event="edit">
                                     <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
-
                             </c:if>
                         </td>
-
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
         </fieldset>
-
     </s:layout-component>
 </s:layout-render>

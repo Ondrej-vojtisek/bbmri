@@ -27,16 +27,8 @@
         </c:if>
     </s:layout-component>
 
-
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.Project.CreateProjectActionBean">
-            <fieldset>
-                <legend><f:message key="project_upload_new"/></legend>
-                <%@include file="/form/createProjectForm.jsp" %>
-                <s:submit name="create"><f:message key="add"/></s:submit>
-            </fieldset>
         </s:form>
-
     </s:layout-component>
 </s:layout-render>

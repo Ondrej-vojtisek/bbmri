@@ -2,6 +2,7 @@ package bbmri.action;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
+import bbmri.entities.RequestGroup;
 import bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
 
@@ -35,6 +36,14 @@ public class MyActionBeanContext extends ActionBeanContext {
 
     public void setBiobank(Biobank biobank) {
         getRequest().getSession().setAttribute("biobank", biobank);
+    }
+
+    public RequestGroup getRequestGroup() {
+        return (RequestGroup) getRequest().getSession().getAttribute("requestGroup");
+    }
+
+    public void setRequestGroup(RequestGroup requestGroup) {
+        getRequest().getSession().setAttribute("requestGroup", requestGroup);
     }
 
 }

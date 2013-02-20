@@ -11,7 +11,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css"/>
         <s:layout-component name="hlavicka"/>
-        <div style="text-align: right; margin-right: 20px;"><b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i></div>
+        <div style="text-align: right; margin-right: 20px;"><b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
+        </div>
     </head>
     <body>
     <h1><c:out value="${titles}"/></h1>
@@ -21,12 +22,12 @@
             <s:layout-component name="body"/>
         </div>
     </div>
-        <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
+    <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">
-                <img src="images/recamo_logo.png" alt="recamo" style="margin-right: 30px;">
-                <img src="images/bbmri_logo.gif" alt="bbmri"  style="margin-left: 30px;">
+            <img src="images/recamo_logo.png" alt="recamo" style="margin-right: 30px;">
+            <img src="images/bbmri_logo.gif" alt="bbmri" style="margin-left: 30px;">
         </div>
-        </a>
+    </a>
     </body>
     </html>
 

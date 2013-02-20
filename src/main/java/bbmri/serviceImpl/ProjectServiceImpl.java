@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +115,7 @@ public class ProjectServiceImpl implements ProjectService {
         User userDB = userDAO.get(userId);
         Project projectDB = projectDAO.get(projectId);
 
-        if(!projectDB.getUsers().contains(userDB)){
+        if (!projectDB.getUsers().contains(userDB)) {
             projectDB.getUsers().add(userDB);
             projectDAO.update(projectDB);
         }
@@ -148,7 +147,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
-    public void approve(Long projectId, Long userId){
+    public void approve(Long projectId, Long userId) {
         Project projectDB = projectDAO.get(projectId);
         User userDB = userDAO.get(userId);
         if (projectDB.getProjectState() == ProjectState.NEW) {
@@ -196,7 +195,30 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
-    public Integer getCount(){
-       return projectDAO.getCount();
+    public Integer getCount() {
+        return projectDAO.getCount();
+    }
+
+
+    public void save(Long id, byte[] file) {
+        Project project = projectDAO.get(id);
+        project.setAgreement(file);
+        projectDAO.update(project);
+    }
+
+    public void getFile(Long id) {
+        System.err.println("GET FILE \n\n\n\n\n\n\n\n");
+
+        Project project = projectDAO.get(id);
+        byte[] bytes = projectDAO.getData(project);
+        System.err.println("GET FILE" + bytes.toString() + "\n\n\n\n\n\n\n\n");
+
+        try {
+            FileOutputStream fos = new FileOutputStream("\"C:\\Users\\Ori\\Downloads\\Pokus2.TXT\"");
+            fos.write(bytes);
+            fos.close();
+        } catch (IOException ex) {
+
+        }
     }
 }

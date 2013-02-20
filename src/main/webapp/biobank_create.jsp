@@ -33,9 +33,7 @@
         </c:if>
     </s:layout-component>
 
-
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.Biobank.CreateBiobankActionBean">
             <fieldset>
                 <s:hidden name="project.id"/>
@@ -43,37 +41,25 @@
                 <%@include file="/form/createBiobankForm.jsp" %>
 
                 <table>
-
                     <tr>
-                        <th>
-                            <s:label name="select_biobank_administrator"/>
-                        </th>
-                        <td>
-                            <s:select name="administrator.id">
+                        <th><s:label name="select_biobank_administrator"/></th>
+                        <td><s:select name="administrator.id">
                                 <s:option value=""><f:message key="select_one"/></s:option>
                                 <s:options-collection collection="${ab.users}" label="name" value="id"/>
                             </s:select>
                         </td>
                     </tr>
-
                     <tr>
-                        <th>
-                            <s:label name="select_ethical_committee"/>
-                        </th>
-                        <td>
-                            <s:select name="ethicalCommittee.id">
+                        <th><s:label name="select_ethical_committee"/></th>
+                        <td><s:select name="ethicalCommittee.id">
                                 <s:option value=""><f:message key="select_one"/></s:option>
                                 <s:options-collection collection="${ab.users}" label="name" value="id"/>
                             </s:select>
                         </td>
                     </tr>
-
-
                 </table>
-
                 <s:submit name="create"><f:message key="add"/></s:submit>
             </fieldset>
         </s:form>
-
     </s:layout-component>
 </s:layout-render>

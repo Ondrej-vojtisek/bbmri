@@ -7,6 +7,7 @@
 <f:message key="projects_to_approve" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.ApproveProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
+
     <s:layout-component name="primary_menu">
         <li class="active"><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
         <li><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
@@ -31,7 +32,8 @@
         <fieldset>
             <legend><f:message key="projects_to_approve"/></legend>
             <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
-                <table border="1">
+                <table id="sortableTable">
+                    <thead>
                     <tr>
                         <th><s:label name="project.id"/></th>
                         <th><s:label name="project.name"/></th>
@@ -41,29 +43,27 @@
                         <th><s:label name="project.projectState"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
-
+                    </thead>
+                    <tbody>
                     <c:forEach items="${ab.projects}" var="project">
                         <c:if test="${project.projectState == 'NEW'}">
-
                             <tr>
                                 <td><c:out value="${project.id}"/></td>
                                 <td><c:out value="${project.name}"/></td>
                                 <td><c:out value="${project.description}"/></td>
                                 <td><c:out value="${project.fundingOrganization}"/></td>
                                 <td><c:out value="${project.owner}"/></td>
-
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
-                                <td>
-                                    <s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
+                                <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
                                         <s:param name="project.id" value="${project.id}"/>
                                         <f:message key="approve"/></s:link>
                                 </td>
                             </tr>
                         </c:if>
                     </c:forEach>
+                    </tbody>
                 </table>
             </s:form>
         </fieldset>
-
     </s:layout-component>
 </s:layout-render>

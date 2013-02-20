@@ -143,8 +143,8 @@ public class User implements Serializable {
         this.judgedProjects = judgedProjects;
     }
 
-    public String getWholeName(){
-        return name + " "+ surname;
+    public String getWholeName() {
+        return name + " " + surname;
     }
 
     @Override

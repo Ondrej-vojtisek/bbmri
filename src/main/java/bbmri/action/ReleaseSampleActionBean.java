@@ -1,11 +1,15 @@
 package bbmri.action;
 
 import bbmri.entities.Biobank;
+import bbmri.entities.RequestGroup;
+import bbmri.entities.RequestState;
 import bbmri.entities.Sample;
-import bbmri.entities.User;
+import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -37,31 +41,34 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     @SpringBean
     private SampleService sampleService;
 
+    @SpringBean
+    private RequestGroupService requestGroupService;
+
+    private RequestGroup requestGroup;
+
     public void setBiobank(Biobank biobank) {
         this.biobank = biobank;
     }
 
-    public Sample getSample() {
-        return sample;
+    public RequestGroup getRequestGroup() {
+        return requestGroup;
     }
 
-    public void setSample(Sample sample) {
-        this.sample = sample;
+    public void setRequestGroup(RequestGroup requestGroup) {
+        this.requestGroup = requestGroup;
     }
 
-    public List<Sample> getSamples() {
-       // samples = requestService.getAllReleasableSamplesByBiobank(getBiobank().getId());
-       // return samples;
 
-        return null;
+    public List<RequestGroup> getReleasedRequestGroups() {
+        return requestGroupService.getByBiobankAndState(getBiobank().getId(), RequestState.EQUIPPED);
     }
 
-    public void setSamples(List<Sample> samples) {
-        this.samples = samples;
+    public List<RequestGroup> getRequestGroups() {
+        return requestGroupService.getByBiobankAndState(getBiobank().getId(), RequestState.APPROVED);
     }
 
     public Resolution release() {
-        sampleService.decreaseCount(sample.getId(), 1);
+        requestGroupService.changeRequestState(requestGroup.getId(), RequestState.EQUIPPED);
         return new ForwardResolution("/sample_release.jsp");
     }
 

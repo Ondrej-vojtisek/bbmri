@@ -32,36 +32,22 @@
         </c:if>
     </s:layout-component>
 
-
     <s:layout-component name="body">
-
-
         <s:form beanclass="bbmri.action.AddSampleActionBean">
             <fieldset>
-            <table>
-                    <tr>
-                    <th><label for="z10">Present samples in DB</label></th>
-                    <td><s:text id="z10" name="count" readonly="true"/></td>
-                    </tr>
-                </table>
-               </fieldset>
-            <fieldset>
                 <legend><f:message key="add_sample_to_system"/></legend>
-
-                <%@include file="/form/createSampleForm.jsp" %>
+                    <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="create"><f:message key="samples.add"/></s:submit>
-                </fieldset>
-                <fieldset>
+            </fieldset>
+            <fieldset>
                 <legend>You can add here random samples for testing purposes</legend>
                 <table>
-                    <tr>
-                    <th><label for="z9"><f:message key="count"/></label></th>
-                    <td><s:text id="z9" name="numOfRandom"/></td>
-                    <td><s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit></td>
+                    <tr><th><label for="z9"><f:message key="count"/></label></th>
+                        <td><s:text id="z9" name="numOfRandom"/></td>
+                        <td><s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit></td>
                     </tr>
                 </table>
             </fieldset>
         </s:form>
-
     </s:layout-component>
 </s:layout-render>

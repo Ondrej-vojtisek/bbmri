@@ -35,39 +35,27 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
-
-                <table>
-                    <tr>
-                        <th><s:label name="samples.id"/></th>
-                        <th><s:label name="samples.number_of_samples"/></th>
-                        <th><s:label name="samples.number_of_available_samples"/></th>
-                        <th><s:label name="samples.tissue_type"/></th>
-                        <th><s:label name="samples.TNM"/></th>
-                        <th><s:label name="samples.pTNM"/></th>
-                        <th><s:label name="samples.grading"/></th>
-                        <th><s:label name="samples.diagnosis"/></th>
+                <table id="sortableTable">
+                    <thead>
+                    <tr><th><s:label name="id"/></th>
+                        <th><s:label name="project"/></th>
+                        <th><s:label name="requestState"/></th>
                         <th><s:label name="actions"/></th>
                     </tr>
-
-                    <c:forEach items="${ab.samples}" var="sample">
-                        <tr>
-                            <td><c:out value="${sample.id}"/></td>
-                            <td><c:out value="${sample.numOfSamples}"/></td>
-                            <td><c:out value="${sample.numOfAvailable}"/></td>
-                            <td><c:out value="${sample.tissueType}"/></td>
-                            <td><c:out value="${sample.TNM}"/></td>
-                            <td><c:out value="${sample.pTNM}"/></td>
-                            <td><c:out value="${sample.grading}"/></td>
-                            <td><c:out value="${sample.diagnosis}"/></td>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${ab.requestGroups}" var="requestGroup">
+                        <tr><td><c:out value="${requestGroup.id}"/></td>
+                            <td><c:out value="${requestGroup.project.name}"/></td>
+                            <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
                             <td><s:link beanclass="bbmri.action.ReleaseSampleActionBean" event="release">
-                                <s:param name="sample.id" value="${sample.id}"/><f:message
-                                    key="sample.release"/></s:link>
+                                <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
+                                    key="release"/></s:link>
                             </td>
-
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
-
             </fieldset>
         </s:form>
     </s:layout-component>

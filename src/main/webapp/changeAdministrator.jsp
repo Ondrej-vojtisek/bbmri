@@ -21,10 +21,7 @@
 
     <s:layout-component name="secondary_menu">
     </s:layout-component>
-
-
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.ChangeAdministrator">
             <fieldset>
                 <legend><f:message key="change_administrator"/></legend>
@@ -34,7 +31,6 @@
                 </s:select>
                 <s:submit name="changeAdministrator"><f:message key="change_administrator"/></s:submit>
             </fieldset>
-
         </s:form>
     </s:layout-component>
 </s:layout-render>

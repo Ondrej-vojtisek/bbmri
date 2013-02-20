@@ -45,6 +45,23 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
+    /*
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(name="AGREEMENT", columnDefinition = "BLOB NOT NULL")
+      */
+    @Lob
+    @Column(length = 100000)
+    private byte[] agreement;
+
+    public byte[] getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(byte[] agreement) {
+        this.agreement = agreement;
+    }
+
+
     public String getFundingOrganization() {
         return fundingOrganization;
     }

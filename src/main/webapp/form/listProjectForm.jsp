@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <s:errors/>
-<table border="1">
+<table>
     <tr>
         <th><s:label name="project.id"/></th>
         <th><s:label name="project.name"/></th>

@@ -1,6 +1,5 @@
 package bbmri.action.Biobank;
 
-import bbmri.action.BasicActionBean;
 import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;

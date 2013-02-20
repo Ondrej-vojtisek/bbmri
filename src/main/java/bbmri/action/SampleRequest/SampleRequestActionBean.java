@@ -1,13 +1,17 @@
 package bbmri.action.SampleRequest;
 
 import bbmri.action.BasicActionBean;
-import bbmri.action.MyActionBeanContext;
-import bbmri.entities.*;
+import bbmri.entities.Project;
+import bbmri.entities.ProjectState;
+import bbmri.entities.Request;
+import bbmri.entities.Sample;
 import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
-import bbmri.serviceImpl.SampleServiceImpl;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -38,12 +42,12 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     private List<Long> selected;
 
-    public void setSelected(List<Long> selected){
+    public void setSelected(List<Long> selected) {
         this.selected = selected;
     }
 
-    public List<Long> getSelected(){
-       return selected;
+    public List<Long> getSelected() {
+        return selected;
     }
 
     public void setSample(Sample sample) {
@@ -54,7 +58,7 @@ public class SampleRequestActionBean extends BasicActionBean {
         return sample;
     }
 
-    public Integer getCount(){
+    public Integer getCount() {
         return sampleService.getCount();
     }
 
@@ -69,8 +73,8 @@ public class SampleRequestActionBean extends BasicActionBean {
         return project;
     }
 
-    public List<Sample> getAllSamples(){
-        if(getLoggedUser().getBiobank() == null){
+    public List<Sample> getAllSamples() {
+        if (getLoggedUser().getBiobank() == null) {
             return null;
         }
         return sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
@@ -82,11 +86,11 @@ public class SampleRequestActionBean extends BasicActionBean {
         return results;
     }
 
-    public Integer getResultCount(){
-       if(results == null){
-           return 0;
-       }
-       return results.size();
+    public Integer getResultCount() {
+        if (results == null) {
+            return 0;
+        }
+        return results.size();
     }
 
     @ValidateNestedProperties(value = {
@@ -127,9 +131,9 @@ public class SampleRequestActionBean extends BasicActionBean {
     }
 
     /*TODO: change num of requested to variable value*/
-    public Resolution requestSelected(){
+    public Resolution requestSelected() {
         List<Request> requests = new ArrayList<Request>();
-         if (selected != null) {
+        if (selected != null) {
             for (Long sampleId : selected) {
                 Request request = requestService.create(sampleId);
                 requests.add(request);
@@ -138,6 +142,6 @@ public class SampleRequestActionBean extends BasicActionBean {
             requestGroupService.create(requests, getProject().getId());
         }
 
-       return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_all.jsp");
     }
 }

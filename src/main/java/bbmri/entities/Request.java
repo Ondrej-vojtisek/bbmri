@@ -1,9 +1,6 @@
 package bbmri.entities;
 
-import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
-
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.

@@ -40,6 +40,5 @@
             </fieldset>
         </s:form>
 
-
     </s:layout-component>
 </s:layout-render>

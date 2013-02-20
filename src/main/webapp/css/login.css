@@ -26,14 +26,14 @@
     padding: 7px 9px;
 }
 
-.images{
+.images {
     position: absolute;
     bottom: 60px;
     width: 100%;
     text-align: center;
 }
 
-.images img{
+.images img {
     height: 100px;
 }
 

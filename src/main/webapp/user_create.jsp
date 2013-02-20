@@ -30,7 +30,7 @@
         <s:form beanclass="bbmri.action.UserActionBean">
             <fieldset>
                 <legend><f:message key="user.create"/></legend>
-                <%@include file="/form/createUserAndPasswordForm.jsp" %>
+                    <%@include file="/form/createUserAndPasswordForm.jsp" %>
                 <s:submit name="create"><f:message key="add"/></s:submit>
             </fieldset>
         </s:form>
