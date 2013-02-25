@@ -49,8 +49,9 @@ public class CreateProjectActionBean extends BasicActionBean {
 
     public Resolution create() {
         projectService.create(project, getLoggedUser());
+        getContext().setProject(project);
         refreshLoggedUser();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_create_upload_agreement.jsp");
     }
 
     public void refreshLoggedUser() {

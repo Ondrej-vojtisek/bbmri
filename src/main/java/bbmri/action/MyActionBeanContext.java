@@ -5,6 +5,7 @@ import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
 import bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.FileBean;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,6 +45,14 @@ public class MyActionBeanContext extends ActionBeanContext {
 
     public void setRequestGroup(RequestGroup requestGroup) {
         getRequest().getSession().setAttribute("requestGroup", requestGroup);
+    }
+
+    public FileBean getFile() {
+        return (FileBean) getRequest().getSession().getAttribute("file");
+    }
+
+    public void setFile(FileBean file) {
+        getRequest().getSession().setAttribute("file", file);
     }
 
 }

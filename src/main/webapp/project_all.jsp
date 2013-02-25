@@ -55,18 +55,18 @@
 
                             <td><f:message key="ProjectState.${project.projectState}"/></td>
                             <td><c:if test="${ !fn:contains(project.users, ab.loggedUser)}">
-                                    <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="join">
-                                        <s:param name="project.id" value="${project.id}"/><f:message
-                                            key="join"/></s:link>
-                                </c:if>
+                                <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="join">
+                                    <s:param name="project.id" value="${project.id}"/><f:message
+                                        key="join"/></s:link>
+                            </c:if>
                             </td>
                             <td><c:if test="${fn:contains(project.users, ab.loggedUser)}">
-                                    <c:if test="${!fn:ownProject(project, ab.loggedUser)}">
-                                        <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
-                                            <s:param name="project.id" value="${project.id}"/><f:message
-                                                key="project.leave"/></s:link>
-                                    </c:if>
+                                <c:if test="${!fn:ownProject(project, ab.loggedUser)}">
+                                    <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="leave">
+                                        <s:param name="project.id" value="${project.id}"/><f:message
+                                            key="project.leave"/></s:link>
                                 </c:if>
+                            </c:if>
                             </td>
 
                             <td><c:if test="${fn:contains(project.users, ab.loggedUser)}">
@@ -80,10 +80,10 @@
                             </td>
 
                             <td><c:if test="${fn:ownProject(project, ab.loggedUser)}">
-                                    <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="edit">
-                                        <s:param name="project.id" value="${project.id}"/><f:message
-                                            key="edit"/></s:link>
-                                </c:if>
+                                <s:link beanclass="bbmri.action.Project.AllProjectsActionBean" event="edit">
+                                    <s:param name="project.id" value="${project.id}"/><f:message
+                                        key="edit"/></s:link>
+                            </c:if>
                             </td>
                         </tr>
                     </c:forEach>

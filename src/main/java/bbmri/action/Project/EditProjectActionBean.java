@@ -1,6 +1,7 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
+import bbmri.entities.Attachment;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
@@ -9,10 +10,10 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -34,14 +35,14 @@ public class EditProjectActionBean extends BasicActionBean {
     })
     private Project project;
 
-    private FileBean content;
+    private FileBean agreement;
 
-    public FileBean getContent() {
-        return content;
+    public FileBean getAgreement() {
+        return agreement;
     }
 
-    public void setContent(FileBean content) {
-        this.content = content;
+    public void setAgreement(FileBean agreement) {
+        this.agreement = agreement;
     }
 
     @SpringBean
@@ -156,25 +157,28 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public Resolution upload() {
-        if (content == null) {
-            System.err.println("NULL\n\n\n\n\n");
-        } else {
-            System.err.println("NOT NULL\n\n\n\n\n");
+        if (agreement != null) {
+            Attachment attachment = new Attachment();
+            attachment.setFileName(agreement.getFileName());
+            attachment.setContentType(agreement.getContentType());
+            attachment.setSize(agreement.getSize());
+            Project projectDB = projectService.getById(getContext().getProject().getId());
+            projectService.saveAgreement(getContext().getProject().getId(), attachment);
             try {
-                InputStream is = content.getInputStream();
-                byte[] bytes = IOUtils.toByteArray(is);
-                projectService.save(getContext().getProject().getId(), bytes);
-                content.delete();
-            } catch (IOException ex) {
-
+                agreement.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
+                        + attachment.getId().toString()));
+            } catch (IOException e) {
             }
         }
         return new ForwardResolution("/project_all.jsp");
     }
 
-    public Resolution load() {
-        System.err.println("ACTIONBEAN - LOAD \n\n\n\n\n\n\n\n");
-        projectService.getFile(getContext().getProject().getId());
-        return new ForwardResolution("/project_all.jsp");
+    public Resolution download() throws Exception {
+        Attachment attachment = projectService.getAgreement(getContext().getProject().getId());
+        String fileName = attachment.getFileName();
+        String filePath = projectService.getAttachmentPath(attachment);
+        return new StreamingResolution(attachment.getContentType(),
+                new FileInputStream(filePath)).setFilename(fileName);
     }
+
 }

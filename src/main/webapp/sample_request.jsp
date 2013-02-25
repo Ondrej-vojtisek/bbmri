@@ -28,16 +28,20 @@
                     <f:message key="project_approvment_doesnt_make_legal_claim"/>
                 </p>
                 <table>
-                    <tr><th><s:label for="z1" name="project.name"/></th>
+                    <tr>
+                        <th><s:label for="z1" name="project.name"/></th>
                         <td><s:text id="z1" readonly="true" name="project.name"/></td>
                     </tr>
-                    <tr><th><s:label for="z2" name="project.fundingOrganization"/></th>
+                    <tr>
+                        <th><s:label for="z2" name="project.fundingOrganization"/></th>
                         <td><s:text id="z2" readonly="true" name="project.fundingOrganization"/></td>
                     </tr>
-                    <tr><th><s:label for="z3" name="project.projectState"/></th>
+                    <tr>
+                        <th><s:label for="z3" name="project.projectState"/></th>
                         <td><s:text id="z3" readonly="true" name="project.projectState"/></td>
                     </tr>
-                    <tr><th><s:label for="z3" name="project.judgedByUser"/></th>
+                    <tr>
+                        <th><s:label for="z3" name="project.judgedByUser"/></th>
                         <td><s:text id="z3" readonly="true" name="project.judgedByUser.wholeName"/></td>
                     </tr>
                 </table>
@@ -54,7 +58,8 @@
             <fieldset>
                 <table id="sortableTable">
                     <thead>
-                    <tr><th><s:label name="sample.TNM"/></th>
+                    <tr>
+                        <th><s:label name="sample.TNM"/></th>
                         <th><s:label name="sample.pTNM"/></th>
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
@@ -66,11 +71,14 @@
                     </thead>
 
                     <c:if test="${ab.resultCount == 0}">
-                        <tr><td colspan="8"><s:label name="no_match_found"/></td></tr>
+                        <tr>
+                            <td colspan="8"><s:label name="no_match_found"/></td>
+                        </tr>
                     </c:if>
                     <tbody>
                     <c:forEach items="${ab.results}" var="sample">
-                    <tr><td><c:out value="${sample.TNM}"/></td>
+                    <tr>
+                        <td><c:out value="${sample.TNM}"/></td>
                         <td><c:out value="${sample.pTNM}"/></td>
                         <td><c:out value="${sample.grading}"/></td>
                         <td><c:out value="${sample.diagnosis}"/></td>

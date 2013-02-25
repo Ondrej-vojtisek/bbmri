@@ -45,22 +45,8 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    /*
-    @Lob @Basic(fetch = FetchType.LAZY)
-    @Column(name="AGREEMENT", columnDefinition = "BLOB NOT NULL")
-      */
-    @Lob
-    @Column(length = 100000)
-    private byte[] agreement;
-
-    public byte[] getAgreement() {
-        return agreement;
-    }
-
-    public void setAgreement(byte[] agreement) {
-        this.agreement = agreement;
-    }
-
+    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+    Attachment agreement;
 
     public String getFundingOrganization() {
         return fundingOrganization;
@@ -123,6 +109,14 @@ public class Project implements Serializable {
 
     public void setJudgedByUser(User judgedByUser) {
         this.judgedByUser = judgedByUser;
+    }
+
+    public Attachment getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(Attachment agreement) {
+        this.agreement = agreement;
     }
 
     @Override

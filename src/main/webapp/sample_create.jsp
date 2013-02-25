@@ -36,13 +36,14 @@
         <s:form beanclass="bbmri.action.AddSampleActionBean">
             <fieldset>
                 <legend><f:message key="add_sample_to_system"/></legend>
-                    <%@include file="/form/createSampleForm.jsp" %>
+                <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="create"><f:message key="samples.add"/></s:submit>
             </fieldset>
             <fieldset>
                 <legend>You can add here random samples for testing purposes</legend>
                 <table>
-                    <tr><th><label for="z9"><f:message key="count"/></label></th>
+                    <tr>
+                        <th><label for="z9"><f:message key="count"/></label></th>
                         <td><s:text id="z9" name="numOfRandom"/></td>
                         <td><s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit></td>
                     </tr>

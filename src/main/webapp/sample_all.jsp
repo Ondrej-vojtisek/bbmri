@@ -38,7 +38,8 @@
             <fieldset>
                 <table id="sortableTable">
                     <thead>
-                    <tr><th><s:label name="sample.sampleID"/></th>
+                    <tr>
+                        <th><s:label name="sample.sampleID"/></th>
                         <th><s:label name="sample.numOfSamples"/></th>
                         <th><s:label name="sample.numOfAvailable"/></th>
                         <th><s:label name="sample.tissueType"/></th>
@@ -50,7 +51,8 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${ab.allSamples}" var="sample">
-                        <tr><td><c:out value="${sample.sampleID}"/></td>
+                        <tr>
+                            <td><c:out value="${sample.sampleID}"/></td>
                             <td><c:out value="${sample.numOfSamples}"/></td>
                             <td><c:out value="${sample.numOfAvailable}"/></td>
                             <td><c:out value="${sample.tissueType}"/></td>

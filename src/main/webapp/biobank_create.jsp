@@ -44,17 +44,17 @@
                     <tr>
                         <th><s:label name="select_biobank_administrator"/></th>
                         <td><s:select name="administrator.id">
-                                <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
-                            </s:select>
+                            <s:option value=""><f:message key="select_one"/></s:option>
+                            <s:options-collection collection="${ab.users}" label="name" value="id"/>
+                        </s:select>
                         </td>
                     </tr>
                     <tr>
                         <th><s:label name="select_ethical_committee"/></th>
                         <td><s:select name="ethicalCommittee.id">
-                                <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
-                            </s:select>
+                            <s:option value=""><f:message key="select_one"/></s:option>
+                            <s:options-collection collection="${ab.users}" label="name" value="id"/>
+                        </s:select>
                         </td>
                     </tr>
                 </table>

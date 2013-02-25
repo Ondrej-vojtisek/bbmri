@@ -71,12 +71,4 @@ public class ProjectDAOImpl implements ProjectDAO {
         return Integer.parseInt(query.getSingleResult().toString());
     }
 
-    public byte[] getData(Project project) {
-        Query query = em.createQuery("SELECT project.agreement FROM Project project");
-        Object o = query.getSingleResult();
-        byte[] tmpArray = (byte[]) o;
-        return tmpArray;
-    }
-
-
 }

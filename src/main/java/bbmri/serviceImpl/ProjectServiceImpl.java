@@ -1,7 +1,9 @@
 package bbmri.serviceImpl;
 
+import bbmri.DAO.AttachmentDAO;
 import bbmri.DAO.ProjectDAO;
 import bbmri.DAO.UserDAO;
+import bbmri.entities.Attachment;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
@@ -10,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +31,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectDAO projectDAO;
+
+    @Autowired
+    private AttachmentDAO attachmentDAO;
 
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
@@ -200,25 +203,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-    public void save(Long id, byte[] file) {
-        Project project = projectDAO.get(id);
-        project.setAgreement(file);
-        projectDAO.update(project);
+    public void saveAgreement(Long id, Attachment agreement) {
+        Project projectDB = projectDAO.get(id);
+        agreement.setProject(projectDB);
+        attachmentDAO.create(agreement);
     }
 
-    public void getFile(Long id) {
-        System.err.println("GET FILE \n\n\n\n\n\n\n\n");
+    public Attachment getAgreement(Long id) {
+        Project projectDB = projectDAO.get(id);
+        return projectDB.getAgreement();
+    }
 
-        Project project = projectDAO.get(id);
-        byte[] bytes = projectDAO.getData(project);
-        System.err.println("GET FILE" + bytes.toString() + "\n\n\n\n\n\n\n\n");
-
-        try {
-            FileOutputStream fos = new FileOutputStream("\"C:\\Users\\Ori\\Downloads\\Pokus2.TXT\"");
-            fos.write(bytes);
-            fos.close();
-        } catch (IOException ex) {
-
-        }
+    public String getAttachmentPath(Attachment attachment) {
+        return attachmentDAO.getPath(attachment);
     }
 }

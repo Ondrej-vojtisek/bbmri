@@ -55,8 +55,8 @@
                                 <td><c:out value="${project.owner}"/></td>
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
                                 <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
-                                        <s:param name="project.id" value="${project.id}"/>
-                                        <f:message key="approve"/></s:link>
+                                    <s:param name="project.id" value="${project.id}"/>
+                                    <f:message key="approve"/></s:link>
                                 </td>
                             </tr>
                         </c:if>

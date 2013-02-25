@@ -33,6 +33,4 @@ public interface ProjectDAO {
 
     Integer getCount();
 
-    public byte[] getData(Project project);
-
 }

@@ -56,9 +56,9 @@
                         <td><c:out value="${biobank.administrator}"/></td>
                         <td><c:out value="${biobank.ethicalCommittee}"/></td>
                         <td><c:if test="${fn:isAdmin(biobank.administrator, ab.loggedUser)}">
-                                <s:link beanclass="bbmri.action.Biobank.AllBiobanksActionBean" event="edit">
-                                    <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
-                            </c:if>
+                            <s:link beanclass="bbmri.action.Biobank.AllBiobanksActionBean" event="edit">
+                                <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
+                        </c:if>
                         </td>
                     </tr>
                 </c:forEach>

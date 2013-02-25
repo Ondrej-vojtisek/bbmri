@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.Attachment;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
@@ -49,7 +50,9 @@ public interface ProjectService {
 
     public Integer getCount();
 
-    public void save(Long id, byte[] file);
+    public void saveAgreement(Long id, Attachment agreement);
 
-    public void getFile(Long id);
+    public Attachment getAgreement(Long id);
+
+    String getAttachmentPath(Attachment attachment);
 }

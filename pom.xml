@@ -131,10 +131,10 @@
         </dependency>
 
         <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>1.0</version>
-         </dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.0</version>
+        </dependency>
 
     </dependencies>
 

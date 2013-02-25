@@ -37,7 +37,8 @@
             <fieldset>
                 <table id="sortableTable">
                     <thead>
-                    <tr><th><s:label name="id"/></th>
+                    <tr>
+                        <th><s:label name="id"/></th>
                         <th><s:label name="project"/></th>
                         <th><s:label name="requestState"/></th>
                         <th><s:label name="actions"/></th>
@@ -45,7 +46,8 @@
                     </thead>
                     <tbody>
                     <c:forEach items="${ab.requestGroups}" var="requestGroup">
-                        <tr><td><c:out value="${requestGroup.id}"/></td>
+                        <tr>
+                            <td><c:out value="${requestGroup.id}"/></td>
                             <td><c:out value="${requestGroup.project.name}"/></td>
                             <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
                             <td><s:link beanclass="bbmri.action.ReleaseSampleActionBean" event="release">
