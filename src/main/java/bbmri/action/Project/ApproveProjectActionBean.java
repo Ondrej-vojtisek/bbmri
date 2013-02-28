@@ -7,6 +7,7 @@ import bbmri.service.ProjectService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -40,6 +41,9 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     public Resolution approve() {
         projectService.approve(project.getId(), getContext().getLoggedUser().getId());
+        getContext().getMessages().add(
+                              new SimpleMessage("Project id={0} was created", project.getId())
+                      );
         refreshLoggedUser();
         return new ForwardResolution("/project_approve.jsp");
     }

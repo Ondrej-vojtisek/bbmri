@@ -69,11 +69,17 @@ public class ApproveRequestActionBean extends BasicActionBean {
 
     public Resolution approve() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.APPROVED);
+        getContext().getMessages().add(
+                new SimpleMessage("Request group id = {0} was APPROVED", requestGroup.getId())
+        );
         return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution reject() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.DENIED);
+        getContext().getMessages().add(
+                       new SimpleMessage("Request group id = {0} was DENIED", requestGroup.getId())
+               );
         return new RedirectResolution(this.getClass(), "display");
     }
 

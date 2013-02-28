@@ -36,6 +36,7 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
+                <legend>DOPSAT</legend>
                 <table id="sortableTable">
                     <thead>
                     <tr>

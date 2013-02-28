@@ -29,7 +29,9 @@
                     <s:option value=""><f:message key="select_one"/></s:option>
                     <s:options-collection collection="${ab.users}" label="name" value="id"/>
                 </s:select>
-                <s:submit name="changeAdministrator"><f:message key="change_administrator"/></s:submit>
+                <s:submit name="changeAdministrator"
+                          onclick="return confirm('Change administrator?');"><f:message
+                        key="change_administrator"/></s:submit>
             </fieldset>
         </s:form>
     </s:layout-component>

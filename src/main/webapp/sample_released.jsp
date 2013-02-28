@@ -26,9 +26,9 @@
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
-            <li class="active"><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
+            <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
             <li><s:link href="/sample_all.jsp"><f:message key="sample.all"/></s:link></li>
-            <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
+            <li class="active"><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
         </c:if>
     </s:layout-component>
 
@@ -46,14 +46,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${ab.requestGroups}" var="requestGroup">
+                    <c:forEach items="${ab.releasedRequestGroups}" var="requestGroup">
                         <tr>
                             <td><c:out value="${requestGroup.id}"/></td>
                             <td><c:out value="${requestGroup.project.name}"/></td>
                             <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
-                            <td><s:link beanclass="bbmri.action.ReleaseSampleActionBean" event="release">
+                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="detail">
                                 <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
-                                    key="release"/></s:link>
+                                    key="detail"/></s:link>
                             </td>
                         </tr>
                     </c:forEach>

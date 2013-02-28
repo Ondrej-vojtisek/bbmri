@@ -9,6 +9,7 @@ import bbmri.service.RequestService;
 import bbmri.service.SampleService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -69,6 +70,9 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
     public Resolution release() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.EQUIPPED);
+        getContext().getMessages().add(
+                new SimpleMessage("Samples from request group {0} was equipped", requestGroup)
+        );
         return new ForwardResolution("/sample_release.jsp");
     }
 

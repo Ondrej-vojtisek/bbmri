@@ -24,6 +24,7 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleRequest.SampleRequestActionBean">
             <fieldset>
+                <legend></legend>
                 <p>
                     <f:message key="project_approvment_doesnt_make_legal_claim"/>
                 </p>

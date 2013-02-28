@@ -3,10 +3,7 @@ package bbmri.action;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
@@ -86,18 +83,27 @@ public class AddSampleActionBean extends BasicActionBean {
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
             sampleService.create(sample, biobank.getId());
+            getContext().getMessages().add(
+                    new SimpleMessage("Added 1 sample")
+            );
         }
+
         return new RedirectResolution("/sample_create.jsp");
     }
 
     public Resolution generateRandomSample() {
         Biobank biobank = getLoggedUser().getBiobank();
+        Integer added = 0;
         if (biobank != null) {
             for (int i = 0; i < numOfRandom; i++) {
                 generateSample();
                 sampleService.create(sample, biobank.getId());
+                added = i + 1;
             }
         }
+        getContext().getMessages().add(
+                new SimpleMessage("Added {0} sample(s)", added)
+        );
         return new RedirectResolution("/sample_create.jsp");
     }
 

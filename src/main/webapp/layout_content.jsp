@@ -65,6 +65,9 @@
             </div>
             <div class="span9">
                 <div class="hero-unit">
+                    <div class="action_message">
+                        <s:messages/>
+                    </div>
                     <s:layout-component name="body"/>
                 </div>
             </div>

@@ -56,11 +56,18 @@ public class UserActionBean extends BasicActionBean {
     public Resolution create() {
         getUser();
         userService.create(user);
+        getContext().getMessages().add(
+                new SimpleMessage("User {0} was created", user)
+        );
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 
     public Resolution delete() {
-        userService.remove((Long) id);
+        User user = userService.getById(id);
+        userService.remove(user);
+        getContext().getMessages().add(
+                new SimpleMessage("User {0} was created", user)
+        );
         return new RedirectResolution(this.getClass(), "zobraz");
     }
 

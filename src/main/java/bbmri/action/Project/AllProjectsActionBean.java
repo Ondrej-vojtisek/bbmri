@@ -57,7 +57,6 @@ public class AllProjectsActionBean extends BasicActionBean {
     public Resolution edit() {
         project = projectService.getById(project.getId());
         getContext().setProject(project);
-
         return new ForwardResolution("/project_edit.jsp");
     }
 
@@ -76,9 +75,13 @@ public class AllProjectsActionBean extends BasicActionBean {
         if (project == null) {
             return new RedirectResolution(this.getClass(), "display");
         }
+        Project projectDB = projectService.getById(project.getId());
         User user = projectService.removeUserFromProject(getLoggedUser().getId(), project.getId());
         if (user != null) {
             getContext().setLoggedUser(user);
+            getContext().getMessages().add(
+                                  new SimpleMessage("You have left project {0}", projectDB.getName())
+                          );
         }
         refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
@@ -93,8 +96,11 @@ public class AllProjectsActionBean extends BasicActionBean {
             return new RedirectResolution(this.getClass(), "display");
         }
         projectService.assignUser(getLoggedUser().getId(), projectDB.getId());
+        getContext().getMessages().add(
+                              new SimpleMessage("You have joined project {0}", projectDB.getName())
+                      );
         refreshLoggedUser();
-        return new RedirectResolution(this.getClass(), "display");
+        return new ForwardResolution(this.getClass(), "display");
     }
 
     public void refreshLoggedUser() {

@@ -28,7 +28,6 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-
         <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
             <s:form beanclass="bbmri.action.Project.AllProjectsActionBean">

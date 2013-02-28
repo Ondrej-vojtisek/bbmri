@@ -8,10 +8,7 @@ import bbmri.entities.Sample;
 import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -120,6 +117,9 @@ public class SampleRequestActionBean extends BasicActionBean {
             return new ForwardResolution("/project_all.jsp");
         }
         requestService.create(sample.getId());
+        getContext().getMessages().add(
+                       new SimpleMessage("Request for sample id = {0} was created", sample.getId())
+               );
         return new ForwardResolution("/project_all.jsp");
     }
 
@@ -140,6 +140,9 @@ public class SampleRequestActionBean extends BasicActionBean {
             }
 
             requestGroupService.create(requests, getProject().getId());
+            getContext().getMessages().add(
+                           new SimpleMessage("Requests were created")
+                   );
         }
 
         return new ForwardResolution("/project_all.jsp");

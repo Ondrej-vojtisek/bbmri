@@ -28,23 +28,26 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-        <table id="sortableTable">
-            <thead>
-            <tr>
-                <th><s:label name="id"/></th>
-                <th><s:label name="name"/></th>
-                <th><s:label name="surname"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach var="user" items="${ab.users}">
+        <fieldset>
+            <legend>DOPSAT</legend>
+            <table id="sortableTable">
+                <thead>
                 <tr>
-                    <td><c:out value="${user.id}"/></td>
-                    <td><c:out value="${user.name}"/></td>
-                    <td><c:out value="${user.surname}"/></td>
+                    <th><s:label name="id"/></th>
+                    <th><s:label name="name"/></th>
+                    <th><s:label name="surname"/></th>
                 </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:forEach var="user" items="${ab.users}">
+                    <tr>
+                        <td><c:out value="${user.id}"/></td>
+                        <td><c:out value="${user.name}"/></td>
+                        <td><c:out value="${user.surname}"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </fieldset>
     </s:layout-component>
 </s:layout-render>

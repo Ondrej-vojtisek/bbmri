@@ -79,6 +79,9 @@ public class AccountActionBean extends BasicActionBean {
                 getLoggedUser().setPassword(password);
             userService.update(getLoggedUser());
             refreshLoggedUser();
+            getContext().getMessages().add(
+                    new SimpleMessage("Password was changed")
+            );
         }
         user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "zobraz");

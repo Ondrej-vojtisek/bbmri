@@ -14,6 +14,7 @@ import bbmri.service.ProjectService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -50,6 +51,9 @@ public class CreateProjectActionBean extends BasicActionBean {
     public Resolution create() {
         projectService.create(project, getLoggedUser());
         getContext().setProject(project);
+        getContext().getMessages().add(
+                              new SimpleMessage("Project id={0} was created", project.getId())
+                      );
         refreshLoggedUser();
         return new ForwardResolution("/project_create_upload_agreement.jsp");
     }

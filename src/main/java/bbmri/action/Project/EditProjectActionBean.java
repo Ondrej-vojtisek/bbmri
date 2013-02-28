@@ -121,6 +121,7 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public Resolution removeAll() {
+        Integer removed = 0;
         if (selected != null) {
             for (Long id : selected) {
                 if (id.equals(getContext().getLoggedUser().getId())) {
@@ -128,19 +129,28 @@ public class EditProjectActionBean extends BasicActionBean {
                     return new ForwardResolution("/project_all.jsp");
                 }
                 projectService.removeUserFromProject(id, getProject().getId());
+                removed++;
             }
         }
+        getContext().getMessages().add(
+                                 new SimpleMessage("{0} users removed", removed)
+                         );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
 
     public Resolution assignAll() {
+        Integer assigned = 0;
         if (selectedApprove != null) {
             for (Long resProject : selectedApprove) {
                 projectService.assignUser(resProject, getProject().getId());
+                assigned++;
             }
         }
+        getContext().getMessages().add(
+                       new SimpleMessage("{0} users removed", assigned)
+               );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
         return new ForwardResolution("/project_edit.jsp");
@@ -148,6 +158,9 @@ public class EditProjectActionBean extends BasicActionBean {
 
     public Resolution changeOwnership() {
         projectService.changeOwnership(getContext().getProject().getId(), user.getId());
+        getContext().getMessages().add(
+                              new SimpleMessage("Ownership of project was changed")
+                      );
         refreshLoggedUser();
         return new ForwardResolution("/project_all.jsp");
     }
@@ -167,6 +180,9 @@ public class EditProjectActionBean extends BasicActionBean {
             try {
                 agreement.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
                         + attachment.getId().toString()));
+                getContext().getMessages().add(
+                                      new SimpleMessage("File was uploaded")
+                              );
             } catch (IOException e) {
             }
         }

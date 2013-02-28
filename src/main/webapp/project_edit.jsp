@@ -28,7 +28,6 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
             <s:hidden name="project.id"/>
             <s:hidden name="project.users"/>

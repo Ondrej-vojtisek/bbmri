@@ -53,3 +53,11 @@ input.error {
     background-color: #FFCC33;
 }
 
+.action_message{
+    background: #adff2f;
+}
+
+.action_message li{
+    list-style-type: none;
+}
+
