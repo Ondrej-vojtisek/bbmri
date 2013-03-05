@@ -25,6 +25,7 @@
         <c:if test="${ab.loggedUser.ethicalCommitteeOfBiobank != null}">
             <li class="active"><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
+        <li><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
     </s:layout-component>
 
     <s:layout-component name="body">
@@ -50,6 +51,10 @@
                                 <td><c:out value="${project.fundingOrganization}"/></td>
                                 <td><c:out value="${project.owner.wholeName}"/></td>
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
+                                <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="detail">
+                                    <s:param name="project.id" value="${project.id}"/>
+                                    <f:message key="detail"/></s:link>
+                                </td>
                                 <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
                                     <s:param name="project.id" value="${project.id}"/>
                                     <f:message key="approve"/></s:link>

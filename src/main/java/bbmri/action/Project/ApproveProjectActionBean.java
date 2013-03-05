@@ -5,10 +5,7 @@ import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.service.ProjectService;
 import bbmri.service.UserService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SimpleMessage;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.List;
@@ -28,6 +25,9 @@ public class ApproveProjectActionBean extends BasicActionBean {
     private Project project;
 
     public Project getProject() {
+        if(project == null){
+            project = getContext().getProject();
+        }
         return project;
     }
 
@@ -39,6 +39,11 @@ public class ApproveProjectActionBean extends BasicActionBean {
         return projectService.getAllByProjectState(ProjectState.NEW);
     }
 
+    @DefaultHandler
+     public Resolution display() {
+         return new ForwardResolution("/project_approve.jsp");
+     }
+
     public Resolution approve() {
         projectService.approve(project.getId(), getContext().getLoggedUser().getId());
         getContext().getMessages().add(
@@ -48,8 +53,18 @@ public class ApproveProjectActionBean extends BasicActionBean {
         return new ForwardResolution("/project_approve.jsp");
     }
 
+    public Resolution detail() {
+           project = projectService.getById(project.getId());
+           getContext().setProject(project);
+           return new ForwardResolution("/project_detail.jsp");
+       }
+
     public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+    }
+
+    public Resolution back(){
+        return new RedirectResolution(this.getClass(), "display");
     }
 }
 

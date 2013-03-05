@@ -43,6 +43,10 @@ public class AllProjectsActionBean extends BasicActionBean {
         this.project = project;
     }
 
+    public List<Project> getMyProjects(){
+        return projectService.getAllByUserWithRequests(getLoggedUser().getId());
+    }
+
     @DefaultHandler
     public Resolution display() {
         getProjects();

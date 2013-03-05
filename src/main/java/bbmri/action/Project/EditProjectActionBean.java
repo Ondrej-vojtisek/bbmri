@@ -56,7 +56,7 @@ public class EditProjectActionBean extends BasicActionBean {
         this.attachment = attachment;
     }
 
-    public List<Attachment> getPokus(){
+    public List<Attachment> getAttachments(){
         return projectService.getAttachmentsByProject(getProject().getId());
     }
 

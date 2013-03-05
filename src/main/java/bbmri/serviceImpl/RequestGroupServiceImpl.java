@@ -238,4 +238,19 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             throw ex;
         }
     }
+
+    public List<Request> getRequestsByRequestGroup(Long id){
+        RequestGroup requestGroupDB = requestGroupDAO.get(id);
+        if(requestGroupDB == null){
+            return null;
+        }
+        List<Request> results = new ArrayList<Request>();
+        List<Request> requests = requestDAO.getAll();
+        for(int i = 0; i < requests.size(); i++){
+            if(requests.get(i).getRequestGroup().equals(requestGroupDB)){
+                results.add(requests.get(i));
+            }
+        }
+        return results;
+    }
 }

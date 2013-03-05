@@ -56,4 +56,6 @@ public interface ProjectService {
     List<Attachment> getAttachmentsByProject(Long id);
 
     Attachment getAttachmentById(Long id);
+
+    List<Project> getAllByUserWithRequests(Long id);
 }

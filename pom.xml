@@ -187,8 +187,8 @@
                 <configuration>
                     <includes>
                         <!-- replace the token in this file -->
-                        <include>target/bbmri/layout_login.jsp</include>
                         <include>target/bbmri/layout_content.jsp</include>
+                        <include>target/bbmri/layout_login.jsp</include>
                     </includes>
                     <regex>false</regex>
                     <!-- the name of the token to replace -->

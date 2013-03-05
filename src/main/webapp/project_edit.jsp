@@ -106,7 +106,7 @@
                     </thead>
 
                     <tbody>
-                    <c:forEach items="${ab.pokus}" var="attachment" varStatus="loop">
+                    <c:forEach items="${ab.attachments}" var="attachment" varStatus="loop">
                         <tr>
                             <td><c:out value="${attachment.fileName}"/></td>
                             <td><c:out value="${attachment.contentType}"/></td>

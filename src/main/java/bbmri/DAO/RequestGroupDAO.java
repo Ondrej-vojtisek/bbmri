@@ -1,5 +1,6 @@
 package bbmri.DAO;
 
+import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
 
 import java.util.List;
@@ -24,5 +25,7 @@ public interface RequestGroupDAO {
     RequestGroup get(Long id);
 
     Integer getCount();
+
+    List<RequestGroup> getAllByProject(Project project);
 
 }

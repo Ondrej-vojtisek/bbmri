@@ -25,6 +25,7 @@
         <c:if test="${ab.loggedUser.ethicalCommitteeOfBiobank != null}">
             <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
+        <li><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
     </s:layout-component>
 
     <s:layout-component name="body">

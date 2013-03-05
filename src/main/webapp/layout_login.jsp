@@ -11,10 +11,12 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css"/>
         <s:layout-component name="hlavicka"/>
-        <div style="text-align: right; margin-right: 20px;"><b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
-        </div>
     </head>
     <body>
+    <div style="text-align: right; margin-right: 20px;">
+        <b><f:message key="version"/>:</b> <i>beta-1.2</i>
+    </div>
+
     <h1><c:out value="${titles}"/></h1>
 
     <div class="login_screen">

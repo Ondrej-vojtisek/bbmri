@@ -61,6 +61,10 @@ public class ApproveRequestActionBean extends BasicActionBean {
         this.request = request;
     }
 
+    public List<Request> getRequests(){
+        return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
+    }
+
     @DefaultHandler
     public Resolution display() {
         getRequestGroups();
@@ -88,4 +92,8 @@ public class ApproveRequestActionBean extends BasicActionBean {
         getContext().setRequestGroup(requestGroup);
         return new ForwardResolution("/requestGroup_detail.jsp");
     }
+
+    public Resolution back(){
+            return new RedirectResolution(this.getClass(), "display");
+        }
 }

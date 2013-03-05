@@ -36,26 +36,48 @@
         <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
             <fieldset>
                 <legend><f:message key="Request.group.detail"/></legend>
-
-            <p><c:out value="${requestGroup.project.name}"/>
-               <f:message key="RequestState.${requestGroup.requestState}"/>
-            </p>
-
-            <table id="sortableTable">
-                <thead>
-                <tr>
-                    <th><s:label name="request.numOfRequested"/></th>
-                    <th><s:label name="sample.TNM"/></th>
-                    <th><s:label name="sample.pTNM"/></th>
-                    <th><s:label name="sample.grading"/></th>
-                    <th><s:label name="sample.diagnosis"/></th>
-                    <th><s:label name="sample.tissueType"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+                <table>
+                    <tr>
+                        <th><s:label for="z1" name="project.name"/></th>
+                        <td><s:text id="z1" readonly="true" name="requestGroup.project.name"/></td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="z2" name="requestState"/></th>
+                        <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="z3" name="project.owner"/></th>
+                        <td><s:text id="z3" readonly="true" name="requestGroup.project.owner.wholeName"/></td>
+                    </tr>
+                </table>
             </fieldset>
+            <fieldset>
+                <table id="sortableTable">
+                    <thead>
+                    <tr>
+                        <th><s:label name="request.numOfRequested"/></th>
+                        <th><s:label name="sample.TNM"/></th>
+                        <th><s:label name="sample.pTNM"/></th>
+                        <th><s:label name="sample.grading"/></th>
+                        <th><s:label name="sample.diagnosis"/></th>
+                        <th><s:label name="sample.tissueType"/></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${ab.requests}" var="request" varStatus="loop">
+                    <tr>
+                        <td><c:out value="${request.numOfRequested}"/></td>
+                        <td><c:out value="${request.sample.TNM}"/></td>
+                        <td><c:out value="${request.sample.pTNM}"/></td>
+                        <td><c:out value="${request.sample.grading}"/></td>
+                        <td><c:out value="${request.sample.diagnosis}"/></td>
+                        <td><c:out value="${request.sample.tissueType}"/></td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </fieldset>
+            <s:link href="/sample_approve_request.jsp"><f:message key="back"/></s:link>
         </s:form>
     </s:layout-component>
 </s:layout-render>

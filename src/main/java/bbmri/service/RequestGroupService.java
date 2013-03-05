@@ -38,4 +38,6 @@ public interface RequestGroupService {
     List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState);
 
     void changeRequestState(Long requestGroupId, RequestState requestState);
+
+    List<Request> getRequestsByRequestGroup(Long id);
 }

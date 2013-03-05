@@ -2,6 +2,7 @@ package bbmri.serviceImpl;
 
 import bbmri.DAO.AttachmentDAO;
 import bbmri.DAO.ProjectDAO;
+import bbmri.DAO.RequestGroupDAO;
 import bbmri.DAO.UserDAO;
 import bbmri.entities.*;
 import bbmri.service.ProjectService;
@@ -31,6 +32,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private AttachmentDAO attachmentDAO;
+
+    @Autowired
+    private RequestGroupDAO requestGroupDAO;
 
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
@@ -70,10 +74,19 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public List<Project> getAllByUser(Long id) {
-        User userDB = userDAO.get(id);
-        List<Project> projects = projectDAO.getAllByUser(userDB);
-        return projects;
+            User userDB = userDAO.get(id);
+            List<Project> projects = projectDAO.getAllByUser(userDB);
+            return projects;
     }
+
+    public List<Project> getAllByUserWithRequests(Long id) {
+           User userDB = userDAO.get(id);
+           List<Project> projects = projectDAO.getAllByUser(userDB);
+           for(int i = 0; i < projects.size(); i++){
+              projects.get(i).setRequestGroups(requestGroupDAO.getAllByProject(projects.get(i)));
+           }
+           return projects;
+       }
 
     public List<Project> getAllWhichUserAdministrate(Long id) {
         User userDB = userDAO.get(id);
