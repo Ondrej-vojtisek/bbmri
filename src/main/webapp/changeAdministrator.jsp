@@ -27,7 +27,7 @@
                 <legend><f:message key="change_administrator"/></legend>
                 <s:select name="user.id">
                     <s:option value=""><f:message key="select_one"/></s:option>
-                    <s:options-collection collection="${ab.users}" label="name" value="id"/>
+                    <s:options-collection collection="${ab.users}" label="wholeName" value="id"/>
                 </s:select>
                 <s:submit name="changeAdministrator"
                           onclick="return confirm('Change administrator?');"><f:message

@@ -1,9 +1,6 @@
 package bbmri.service;
 
-import bbmri.entities.Attachment;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.User;
+import bbmri.entities.*;
 
 import java.util.List;
 
@@ -50,9 +47,13 @@ public interface ProjectService {
 
     public Integer getCount();
 
-    public void saveAgreement(Long id, Attachment agreement);
+    public void saveAttachment(Long id, Attachment attachment);
 
-    public Attachment getAgreement(Long id);
+    public Attachment getAttachmentByProject(Long id, AttachmentType attachmentType);
 
     String getAttachmentPath(Attachment attachment);
+
+    List<Attachment> getAttachmentsByProject(Long id);
+
+    Attachment getAttachmentById(Long id);
 }

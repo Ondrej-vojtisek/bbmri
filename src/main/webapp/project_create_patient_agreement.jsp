@@ -29,10 +29,10 @@
 
     <s:layout-component name="body">
         <fieldset>
-            <legend><f:message key="project_upload_agreement"/></legend>
+            <legend><f:message key="project_upload_patient_agreement"/></legend>
             <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
-                <s:file name="agreement"></s:file>
-                <s:submit name="upload" value="Upload"/>
+                <s:file name="attachmentFileBean"></s:file>
+                <s:submit name="uploadPatientAgreement" value="Upload"/>
             </s:form>
         </fieldset>
     </s:layout-component>

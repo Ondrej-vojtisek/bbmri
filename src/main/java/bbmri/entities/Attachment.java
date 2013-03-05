@@ -13,19 +13,27 @@ import java.io.Serializable;
 @Table(name = "Attachment")
 @Entity
 public class Attachment implements Serializable {
+    private static final String patient_agreement = "_pat";
+    private static final String ethical_agreement = "_eth";
+
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID", nullable = false)
     private Long id;
-
     private String fileName;
     private Long size;
     private String contentType;
-    @OneToOne(cascade = CascadeType.ALL)
+    @Enumerated(EnumType.STRING)
+    private AttachmentType attachmentType;
+
+   /* @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PROJECT_ID")
-    Project project;
+    Project project;   */
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Project project;
 
     public Long getId() {
         return id;
@@ -67,6 +75,14 @@ public class Attachment implements Serializable {
         this.project = project;
     }
 
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
+    }
+
+    public void setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,18 +92,25 @@ public class Attachment implements Serializable {
 
         if (!contentType.equals(that.contentType)) return false;
         if (!fileName.equals(that.fileName)) return false;
-        if (!id.equals(that.id)) return false;
-        if (!size.equals(that.size)) return false;
+        if (!project.equals(that.project)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + fileName.hashCode();
-        result = 31 * result + size.hashCode();
+        int result = fileName.hashCode();
         result = 31 * result + contentType.hashCode();
+        result = 31 * result + project.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Attachment{" +
+                "attachmentType=" + attachmentType +
+                ", contentType='" + contentType + '\'' +
+                ", fileName='" + fileName + '\'' +
+                '}';
     }
 }

@@ -3,10 +3,7 @@ package bbmri.serviceImpl;
 import bbmri.DAO.AttachmentDAO;
 import bbmri.DAO.ProjectDAO;
 import bbmri.DAO.UserDAO;
-import bbmri.entities.Attachment;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.User;
+import bbmri.entities.*;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -202,19 +199,44 @@ public class ProjectServiceImpl implements ProjectService {
         return projectDAO.getCount();
     }
 
-
-    public void saveAgreement(Long id, Attachment agreement) {
+    public void saveAttachment(Long id, Attachment attachment) {
         Project projectDB = projectDAO.get(id);
-        agreement.setProject(projectDB);
-        attachmentDAO.create(agreement);
+        attachment.setProject(projectDB);
+        attachmentDAO.create(attachment);
+        projectDB.getAttachments().add(attachment);
+        projectDAO.update(projectDB);
     }
 
-    public Attachment getAgreement(Long id) {
+    public Attachment getAttachmentByProject(Long id, AttachmentType attachmentType) {
         Project projectDB = projectDAO.get(id);
-        return projectDB.getAgreement();
+        List<Attachment> attachments = projectDB.getAttachments();
+        if(attachments != null){
+            for(int i = 0; i < attachments.size(); i++){
+                if(attachments.get(i).getAttachmentType().equals(attachmentType)){
+                    return  attachments.get(i);
+                }
+            }
+        }
+        return null;
     }
 
     public String getAttachmentPath(Attachment attachment) {
         return attachmentDAO.getPath(attachment);
+    }
+
+    public List<Attachment> getAttachmentsByProject(Long id){
+        Project projectDB = projectDAO.get(id);
+        List<Attachment> attachments = attachmentDAO.getAll();
+        List<Attachment> results = new ArrayList<Attachment>();
+        for(int i = 0; i < attachments.size(); i++){
+            if(attachments.get(i).getProject().equals(projectDB)){
+                results.add(attachments.get(i));
+            }
+        }
+        return results;
+    }
+
+    public Attachment getAttachmentById(Long id){
+        return attachmentDAO.get(id);
     }
 }

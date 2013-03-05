@@ -71,7 +71,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     public Resolution release() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.EQUIPPED);
         getContext().getMessages().add(
-                new SimpleMessage("Samples from request group {0} was equipped", requestGroup)
+                new SimpleMessage("Samples from request group with id = {0} was equipped", requestGroup.getId())
         );
         return new ForwardResolution("/sample_release.jsp");
     }

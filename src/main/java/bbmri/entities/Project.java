@@ -1,5 +1,8 @@
 package bbmri.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,8 +48,11 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    @OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
-    Attachment agreement;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Attachment> attachments = new ArrayList<Attachment>();
+
+    /*@OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
+    private Attachment agreement; */
 
     public String getFundingOrganization() {
         return fundingOrganization;
@@ -110,13 +116,30 @@ public class Project implements Serializable {
     public void setJudgedByUser(User judgedByUser) {
         this.judgedByUser = judgedByUser;
     }
-
+/*
     public Attachment getAgreement() {
         return agreement;
     }
 
     public void setAgreement(Attachment agreement) {
         this.agreement = agreement;
+    }
+*/
+
+    public List<RequestGroup> getRequestGroups() {
+        return requestGroups;
+    }
+
+    public void setRequestGroups(List<RequestGroup> requestGroups) {
+        this.requestGroups = requestGroups;
+    }
+    @Fetch(value= FetchMode.SELECT)
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
     }
 
     @Override

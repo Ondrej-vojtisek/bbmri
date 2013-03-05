@@ -54,7 +54,8 @@ input.error {
 }
 
 .action_message{
-    background: #adff2f;
+    font-style: italic;
+    color: #43e9ff;
 }
 
 .action_message li{

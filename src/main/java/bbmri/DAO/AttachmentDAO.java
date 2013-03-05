@@ -1,6 +1,7 @@
 package bbmri.DAO;
 
 import bbmri.entities.Attachment;
+import bbmri.entities.Project;
 
 import java.io.File;
 import java.util.List;
@@ -25,11 +26,6 @@ public interface AttachmentDAO {
     Attachment get(Long id);
 
     Integer getCount();
-
-
-    File load(Attachment attachment);
-
-    void delete(Attachment attachment);
 
     String getPath(Attachment attachment);
 

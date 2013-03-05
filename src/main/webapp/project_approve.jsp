@@ -34,24 +34,21 @@
                 <table id="sortableTable">
                     <thead>
                     <tr>
-                        <th><s:label name="project.id"/></th>
                         <th><s:label name="project.name"/></th>
                         <th><s:label name="project.description"/></th>
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
-                        <th><s:label name="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${ab.projects}" var="project">
                         <c:if test="${project.projectState == 'NEW'}">
                             <tr>
-                                <td><c:out value="${project.id}"/></td>
                                 <td><c:out value="${project.name}"/></td>
                                 <td><c:out value="${project.description}"/></td>
                                 <td><c:out value="${project.fundingOrganization}"/></td>
-                                <td><c:out value="${project.owner}"/></td>
+                                <td><c:out value="${project.owner.wholeName}"/></td>
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
                                 <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
                                     <s:param name="project.id" value="${project.id}"/>

@@ -39,22 +39,19 @@
             <table id="sortableTable">
                 <thead>
                 <tr>
-                    <th><s:label name="biobank.id"/></th>
                     <th><s:label name="biobank.name"/></th>
                     <th><s:label name="biobank.address"/></th>
                     <th><s:label name="biobank.operator"/></th>
                     <th><s:label name="biobank.ethicalCommittee"/></th>
-                    <th><s:label name="actions"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${ab.biobanks}" var="biobank">
                     <tr>
-                        <td><c:out value="${biobank.id}"/></td>
                         <td><c:out value="${biobank.name}"/></td>
                         <td><c:out value="${biobank.address}"/></td>
-                        <td><c:out value="${biobank.administrator}"/></td>
-                        <td><c:out value="${biobank.ethicalCommittee}"/></td>
+                        <td><c:out value="${biobank.administrator.wholeName}"/></td>
+                        <td><c:out value="${biobank.ethicalCommittee.wholeName}"/></td>
                         <td><c:if test="${fn:isAdmin(biobank.administrator, ab.loggedUser)}">
                             <s:link beanclass="bbmri.action.Biobank.AllBiobanksActionBean" event="edit">
                                 <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>

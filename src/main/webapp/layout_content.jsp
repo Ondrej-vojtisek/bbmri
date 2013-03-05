@@ -13,8 +13,8 @@
         <title><c:out value="${title}"/></title>
         <s:layout-component name="hlavicka"/>
     </head>
-    <script type="text/javascript" src="/libs/jquery-latest.js"></script>
-    <script type="text/javascript" src="/libs/jquery.tablesorter.js"></script>
+    <script type="text/javascript" src="libs/jquery-latest.js"></script>
+    <script type="text/javascript" src="libs/jquery.tablesorter.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
                     $("#sortableTable").tablesorter();

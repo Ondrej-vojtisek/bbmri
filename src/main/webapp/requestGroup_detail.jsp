@@ -34,10 +34,12 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
-            <f:message key="Request.group.detail"/>
-            <c:out value="${requestGroup.id}"/>
-            <c:out value="${requestGroup.project.name}"/>
-            <f:message key="RequestState.${requestGroup.requestState}"/>
+            <fieldset>
+                <legend><f:message key="Request.group.detail"/></legend>
+
+            <p><c:out value="${requestGroup.project.name}"/>
+               <f:message key="RequestState.${requestGroup.requestState}"/>
+            </p>
 
             <table id="sortableTable">
                 <thead>
@@ -53,6 +55,7 @@
                 <tbody>
                 </tbody>
             </table>
+            </fieldset>
         </s:form>
     </s:layout-component>
 </s:layout-render>

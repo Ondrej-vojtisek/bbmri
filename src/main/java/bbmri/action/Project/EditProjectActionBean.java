@@ -2,6 +2,7 @@ package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Attachment;
+import bbmri.entities.AttachmentType;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.ProjectService;
@@ -34,17 +35,7 @@ public class EditProjectActionBean extends BasicActionBean {
                     minlength = 5, maxlength = 255),
     })
     private Project project;
-
-    private FileBean agreement;
-
-    public FileBean getAgreement() {
-        return agreement;
-    }
-
-    public void setAgreement(FileBean agreement) {
-        this.agreement = agreement;
-    }
-
+    private FileBean attachmentFileBean;
     @SpringBean
     private UserService userService;
 
@@ -55,6 +46,27 @@ public class EditProjectActionBean extends BasicActionBean {
     private List<Long> selectedApprove;
     private List<Long> selected;
     private List<User> freeUsers;
+    private Attachment attachment;
+
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
+    }
+
+    public List<Attachment> getPokus(){
+        return projectService.getAttachmentsByProject(getProject().getId());
+    }
+
+    public FileBean getAttachmentFileBean() {
+        return attachmentFileBean;
+    }
+
+    public void setAttachmentFileBean(FileBean attachmentFileBean) {
+        this.attachmentFileBean = attachmentFileBean;
+    }
 
     public List<User> getFreeUsers() {
         this.freeUsers = projectService.getAllNotAssignedUsers(getProject().getId());
@@ -169,32 +181,76 @@ public class EditProjectActionBean extends BasicActionBean {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 
-    public Resolution upload() {
-        if (agreement != null) {
+    public Resolution uploadPatientAgreement() {
+        if (attachmentFileBean != null) {
             Attachment attachment = new Attachment();
-            attachment.setFileName(agreement.getFileName());
-            attachment.setContentType(agreement.getContentType());
-            attachment.setSize(agreement.getSize());
+            attachment.setFileName(attachmentFileBean.getFileName());
+            attachment.setContentType(attachmentFileBean.getContentType());
+            attachment.setSize(attachmentFileBean.getSize());
+            attachment.setAttachmentType(AttachmentType.PATIENT_AGREEMENT);
             Project projectDB = projectService.getById(getContext().getProject().getId());
-            projectService.saveAgreement(getContext().getProject().getId(), attachment);
+            projectService.saveAttachment(getContext().getProject().getId(), attachment);
             try {
-                agreement.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
-                        + attachment.getId().toString()));
+                attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
+                        + attachment.getId().toString() + attachment.getAttachmentType().toString()));
                 getContext().getMessages().add(
                                       new SimpleMessage("File was uploaded")
                               );
             } catch (IOException e) {
+                getContext().getMessages().add(
+                                                     new SimpleMessage("Exception: " + e)
+                                             );
             }
         }
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_create_ethical_agreement.jsp");
     }
 
-    public Resolution download() throws Exception {
-        Attachment attachment = projectService.getAgreement(getContext().getProject().getId());
+    public Resolution uploadEthicalAgreement() {
+          if (attachmentFileBean != null) {
+              Attachment attachment = new Attachment();
+              attachment.setFileName(attachmentFileBean.getFileName());
+              attachment.setContentType(attachmentFileBean.getContentType());
+              attachment.setSize(attachmentFileBean.getSize());
+              attachment.setAttachmentType(AttachmentType.ETHICAL_AGREEMENT);
+              Project projectDB = projectService.getById(getContext().getProject().getId());
+              projectService.saveAttachment(getContext().getProject().getId(), attachment);
+              try {
+                  attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
+                          + attachment.getId().toString() + attachment.getAttachmentType().toString()));
+                  getContext().getMessages().add(
+                                        new SimpleMessage("File was uploaded")
+                                );
+              } catch (IOException e) {
+                  getContext().getMessages().add(
+                                                       new SimpleMessage("Exception: " + e)
+                                               );
+              }
+          }
+          return new ForwardResolution("/project_all.jsp");
+      }
+
+    public Resolution download() throws Exception{
+        attachment = projectService.getAttachmentById(attachment.getId());
         String fileName = attachment.getFileName();
         String filePath = projectService.getAttachmentPath(attachment);
         return new StreamingResolution(attachment.getContentType(),
-                new FileInputStream(filePath)).setFilename(fileName);
+               new FileInputStream(filePath)).setFilename(fileName);
     }
+
+    public Resolution downloadEthicalAgreement() throws Exception {
+            Attachment attachment = projectService.getAttachmentByProject(getContext().getProject().getId(), AttachmentType.ETHICAL_AGREEMENT);
+            String fileName = attachment.getFileName();
+            String filePath = projectService.getAttachmentPath(attachment);
+            return new StreamingResolution(attachment.getContentType(),
+                    new FileInputStream(filePath)).setFilename(fileName);
+        }
+
+    public Resolution downloadPatientAgreement() throws Exception {
+          Attachment attachment = projectService.getAttachmentByProject(getContext().getProject().getId(), AttachmentType.PATIENT_AGREEMENT);
+          String fileName = attachment.getFileName();
+          String filePath = projectService.getAttachmentPath(attachment);
+          return new StreamingResolution(attachment.getContentType(),
+                  new FileInputStream(filePath)).setFilename(fileName);
+      }
 
 }

@@ -60,6 +60,9 @@ public class LoginActionBean extends BasicActionBean {
             getContext().setLoggedUser(user);
             return new RedirectResolution("/project_all.jsp");
         }
+        getContext().getMessages().add(
+                       new SimpleMessage("Indentifier or password is not correct")
+               );
         return new ForwardResolution("/index.jsp");
     }
 

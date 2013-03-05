@@ -45,16 +45,13 @@
                 <table id="sortableTable">
                     <thead>
                     <tr>
-                        <th><f:message key="id"/></th>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
-                        <th colspan="2"><f:message key="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${ab.users}" var="user">
                         <tr>
-                            <td><c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
                             <td>
@@ -75,15 +72,14 @@
             </fieldset>
             <fieldset>
                 <legend><f:message key="all_users"/></legend>
+                <p><i>(There will be a search for users, not list of all users)</i><p>
                 <table>
                     <tr>
-                        <th><f:message key="id"/></th>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
                     </tr>
                     <c:forEach items="${ab.freeUsers}" var="user" varStatus="loop">
                         <tr>
-                            <td><c:out value="${user.id}"/></td>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
                             <td><s:checkbox name="selectedApprove" value="${user.id}"/></td>
@@ -92,15 +88,40 @@
                 </table>
                 <s:submit name="assignAll"><f:message key="assign_selected"/></s:submit>
             </fieldset>
-        </s:form>
 
-        <c:if test="${not empty project.agreement}">
+
+        </s:form>
+        <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
+
             <fieldset>
-                <legend><f:message key="patient_agreement"/></legend>
-                <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
-                    <s:submit name="download" value="Download"/>
-                </s:form>
+                <legend><f:message key="project_files"/></legend>
+                <table>
+                    <thead>
+                    <tr>
+                        <th><f:message key="attachment.name"/></th>
+                        <th><f:message key="attachment.type"/></th>
+                        <th><f:message key="attachment.size"/></th>
+                        <th><f:message key="attachment.importance"/></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <c:forEach items="${ab.pokus}" var="attachment" varStatus="loop">
+                        <tr>
+                            <td><c:out value="${attachment.fileName}"/></td>
+                            <td><c:out value="${attachment.contentType}"/></td>
+                            <td><c:out value="${attachment.size}"/></td>
+                            <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
+                            <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                event="download">
+                                <s:param name="attachment.id" value="${attachment.id}"/>
+                                <f:message key="download"/></s:link>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </fieldset>
-        </c:if>
+        </s:form>
     </s:layout-component>
 </s:layout-render>

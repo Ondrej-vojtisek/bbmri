@@ -45,9 +45,9 @@
                     <tr>
                         <th><label for="z9"><f:message key="count"/></label></th>
                         <td><s:text id="z9" name="numOfRandom"/></td>
-                        <td><s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit></td>
                     </tr>
                 </table>
+                <s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit>
             </fieldset>
         </s:form>
     </s:layout-component>

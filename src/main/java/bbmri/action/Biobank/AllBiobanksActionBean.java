@@ -1,5 +1,6 @@
 package bbmri.action.Biobank;
 
+import bbmri.action.BasicActionBean;
 import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
@@ -18,14 +19,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/allbiobanks/{$event}/{biobank.id}")
-public class AllBiobanksActionBean implements ActionBean {
+public class AllBiobanksActionBean extends BasicActionBean {
 
     private Biobank biobank;
     private List<Biobank> biobanks;
-    private List<User> users;
-    private User administrator;
-    private User ethicalCommittee;
-    private MyActionBeanContext ctx;
 
     @SpringBean
     private UserService userService;
@@ -33,38 +30,6 @@ public class AllBiobanksActionBean implements ActionBean {
     @SpringBean
     private BiobankService biobankService;
 
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
-
-    public User getLoggedUser() {
-        return ctx.getLoggedUser();
-    }
-
-    public List<User> getUsers() {
-        users = userService.getAll();
-        return users;
-    }
-
-    public User getAdministrator() {
-        return administrator;
-    }
-
-    public void setAdministrator(User administrator) {
-        this.administrator = administrator;
-    }
-
-    public User getEthicalCommittee() {
-        return ethicalCommittee;
-    }
-
-    public void setEthicalCommittee(User ethicalCommittee) {
-        this.ethicalCommittee = ethicalCommittee;
-    }
 
     public List<Biobank> getBiobanks() {
         return biobankService.getAll();
@@ -80,7 +45,6 @@ public class AllBiobanksActionBean implements ActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        getUsers();
         biobanks = biobankService.getAll();
         return new ForwardResolution("/biobank_all.jsp");
     }

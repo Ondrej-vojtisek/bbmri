@@ -29,7 +29,7 @@
 
     <s:layout-component name="body">
         <fieldset>
-            <legend>DOPSAT</legend>
+            <legend><f:message key="all_users"/></legend>
             <table id="sortableTable">
                 <thead>
                 <tr>

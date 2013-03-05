@@ -1,5 +1,6 @@
 package bbmri.action.Biobank;
 
+import bbmri.action.BasicActionBean;
 import bbmri.action.MyActionBeanContext;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 
 @UrlBinding("/editbiobank/{$event}/{biobank.id}")
-public class EditBiobankActionBean implements ActionBean {
+public class EditBiobankActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"update"}, field = "name", required = true,
@@ -33,25 +34,12 @@ public class EditBiobankActionBean implements ActionBean {
     private List<User> users;
     private User administrator;
     private User ethicalCommittee;
-    private MyActionBeanContext ctx;
 
     @SpringBean
     private UserService userService;
 
     @SpringBean
     private BiobankService biobankService;
-
-    public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
-    }
-
-    public MyActionBeanContext getContext() {
-        return ctx;
-    }
-
-    public User getLoggedUser() {
-        return ctx.getLoggedUser();
-    }
 
     public List<User> getUsers() {
         users = userService.getAll();
@@ -100,7 +88,6 @@ public class EditBiobankActionBean implements ActionBean {
     }
 
     public Resolution changeAdministrator() {
-
         biobankService.updateAdministrator(biobank.getId(), administrator.getId());
         return new ForwardResolution("/biobank_all.jsp");
     }

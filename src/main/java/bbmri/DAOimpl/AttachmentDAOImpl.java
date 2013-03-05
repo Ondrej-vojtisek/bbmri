@@ -2,6 +2,7 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.AttachmentDAO;
 import bbmri.entities.Attachment;
+import bbmri.entities.Project;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -75,17 +76,8 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         }
     }
 
-    public File load(Attachment attachment) {
-
-        return null;
-    }
-
-    public void delete(Attachment attachment) {
-
-    }
-
     public String getPath(Attachment attachment) {
         DAOUtils.notNull(attachment);
-        return ("bbmri_data\\" + attachment.getProject().getId().toString() + "\\" + attachment.getId());
+        return ("bbmri_data\\" + attachment.getProject().getId().toString() + "\\" + attachment.getId() + attachment.getAttachmentType().toString());
     }
 }

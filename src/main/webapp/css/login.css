@@ -40,3 +40,12 @@
 input.error {
     background-color: #FFCC33;
 }
+
+.action_message{
+    font-style: italic;
+    color: #FFCC33;
+}
+
+.action_message li{
+    list-style-type: none;
+}

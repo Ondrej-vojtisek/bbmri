@@ -35,21 +35,20 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.ReleaseSampleActionBean">
             <fieldset>
-                <legend>DOPSAT</legend>
+                <legend><f:message key="sample.released"/></legend>
                 <table id="sortableTable">
                     <thead>
                     <tr>
-                        <th><s:label name="id"/></th>
                         <th><s:label name="project"/></th>
+                        <th><s:label name="biobank"/></th>
                         <th><s:label name="requestState"/></th>
-                        <th><s:label name="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${ab.releasedRequestGroups}" var="requestGroup">
                         <tr>
-                            <td><c:out value="${requestGroup.id}"/></td>
                             <td><c:out value="${requestGroup.project.name}"/></td>
+                            <td><c:out value="${requestGroup.biobank.name}"/></td>
                             <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
                             <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="detail">
                                 <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message

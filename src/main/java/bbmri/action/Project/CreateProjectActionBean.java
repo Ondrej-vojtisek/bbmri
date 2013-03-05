@@ -52,10 +52,10 @@ public class CreateProjectActionBean extends BasicActionBean {
         projectService.create(project, getLoggedUser());
         getContext().setProject(project);
         getContext().getMessages().add(
-                              new SimpleMessage("Project id={0} was created", project.getId())
+                              new SimpleMessage("Project id={0} was created", project.getName())
                       );
         refreshLoggedUser();
-        return new ForwardResolution("/project_create_upload_agreement.jsp");
+        return new ForwardResolution("/project_create_patient_agreement.jsp");
     }
 
     public void refreshLoggedUser() {
