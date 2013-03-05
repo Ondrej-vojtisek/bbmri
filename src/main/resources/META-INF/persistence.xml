@@ -13,6 +13,7 @@
         <class>bbmri.entities.User</class>
         <class>bbmri.entities.RequestGroup</class>
         <class>bbmri.entities.Attachment</class>
+        <class>bbmri.entities.Notification</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

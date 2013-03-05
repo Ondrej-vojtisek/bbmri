@@ -30,6 +30,17 @@
 
     <s:layout-component name="body">
         <fieldset>
+            <legend><f:message key="notifications"/></legend>
+            <s:form beanclass="bbmri.action.Project.AllProjectsActionBean">
+                <c:forEach items="${ab.notifications}" var="notification">
+                     <div><c:out value="${notification.message}"/></div>
+                </c:forEach>
+            </s:form>
+        </fieldset>
+
+
+
+        <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
             <s:form beanclass="bbmri.action.Project.AllProjectsActionBean">
                 <table id="sortableTable">

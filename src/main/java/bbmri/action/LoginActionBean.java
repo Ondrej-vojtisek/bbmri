@@ -2,6 +2,7 @@ package bbmri.action;
 
 import bbmri.entities.User;
 import bbmri.service.LoginService;
+import bbmri.service.NotificationService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -24,6 +25,9 @@ public class LoginActionBean extends BasicActionBean {
 
     @SpringBean
     private LoginService loginService;
+
+    @SpringBean
+    private NotificationService notificationService;
 
     @Validate(converter = LongTypeConverter.class, on = {"login"},
             required = true, minvalue = 1)
@@ -68,7 +72,8 @@ public class LoginActionBean extends BasicActionBean {
 
     @HandlesEvent("logout")
     public Resolution logoutUser() {
-        loginService.logout(getContext().getLoggedUser());
+        loginService.logout(getLoggedUser());
+        notificationService.setAllNewByRecipientToVisited(getLoggedUser().getId());
         getContext().setLoggedUser(null);
         return new RedirectResolution("/index.jsp");
     }

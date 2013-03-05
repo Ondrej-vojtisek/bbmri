@@ -1,9 +1,11 @@
 package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
+import bbmri.entities.Notification;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
+import bbmri.service.NotificationService;
 import bbmri.service.ProjectService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
@@ -20,6 +22,9 @@ public class AllProjectsActionBean extends BasicActionBean {
 
     @SpringBean
     private ProjectService projectService;
+
+    @SpringBean
+    private NotificationService notificationService;
 
     private Project project;
     private List<Project> projects;
@@ -45,6 +50,13 @@ public class AllProjectsActionBean extends BasicActionBean {
 
     public List<Project> getMyProjects(){
         return projectService.getAllByUserWithRequests(getLoggedUser().getId());
+    }
+
+    public List<Notification> getNotifications(){
+      //  List<Notification> notifications = notificationService.getAllNewByRecipient(getLoggedUser().getId());
+      //  System.err.println("\n\n\n\n" + notifications);
+      //  return notifications;
+        return null;
     }
 
     @DefaultHandler
@@ -99,11 +111,23 @@ public class AllProjectsActionBean extends BasicActionBean {
         if (projectDB.getUsers() == null) {
             return new RedirectResolution(this.getClass(), "display");
         }
+        /*
         projectService.assignUser(getLoggedUser().getId(), projectDB.getId());
         getContext().getMessages().add(
                               new SimpleMessage("You have joined project {0}", projectDB.getName())
                       );
         refreshLoggedUser();
+        */
+        getContext().getMessages().add(
+                                    new SimpleMessage("Message has been sent to project leader.")
+                            );
+
+        Notification notification = new Notification();
+        notification.setSenderId(getLoggedUser().getId());
+        notification.setRecipientId(projectDB.getOwner().getId());
+        notification.setMessage("I would like to join your project team. " + getLoggedUser().getWholeName());
+        notification.setVisited(false);
+        notificationService.create(notification);
         return new ForwardResolution(this.getClass(), "display");
     }
 
