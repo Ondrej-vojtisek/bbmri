@@ -23,10 +23,8 @@ import java.util.List;
 @UrlBinding("/createbiobank/{$event}/{biobank.id}")
 public class CreateBiobankActionBean extends BasicActionBean {
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"}, field = "name", required = true,
-                    minlength = 5, maxlength = 50),
-            @Validate(on = {"create"}, field = "address", required = true,
-                    minlength = 5, maxlength = 100),
+            @Validate(on = {"create"}, field = "name", required = true),
+            @Validate(on = {"create"}, field = "address", required = true),
     })
     private Biobank biobank;
     private List<User> users;

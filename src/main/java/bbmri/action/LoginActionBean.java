@@ -73,7 +73,7 @@ public class LoginActionBean extends BasicActionBean {
     @HandlesEvent("logout")
     public Resolution logoutUser() {
         loginService.logout(getLoggedUser());
-        notificationService.setAllNewByRecipientToVisited(getLoggedUser().getId());
+       // notificationService.setAllNewByRecipientToVisited(getLoggedUser().getId());
         getContext().setLoggedUser(null);
         return new RedirectResolution("/index.jsp");
     }

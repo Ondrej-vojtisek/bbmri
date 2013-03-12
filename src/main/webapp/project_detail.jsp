@@ -52,7 +52,7 @@
                     <td><s:text id="z5" readonly="true" name="project.owner.wholeName"/></td>
                 </tr>
             </table>
-            <s:textarea readonly="true" id="z5" name="project.description"></s:textarea>
+            <s:textarea readonly="true" id="z5" name="project.annotation"></s:textarea>
             <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
 
                 <fieldset>

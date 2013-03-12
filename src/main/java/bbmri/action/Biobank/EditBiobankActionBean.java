@@ -25,10 +25,8 @@ import java.util.List;
 public class EditBiobankActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"update"}, field = "name", required = true,
-                    minlength = 5, maxlength = 50),
-            @Validate(on = {"update"}, field = "address", required = true,
-                    minlength = 5, maxlength = 100),
+            @Validate(on = {"update"}, field = "name", required = true),
+            @Validate(on = {"update"}, field = "address", required = true),
     })
     private Biobank biobank;
     private List<User> users;

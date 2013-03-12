@@ -12,13 +12,13 @@
     </tr>
     <tr>
         <th>
-            <p><s:label for="z3" name="project.description"/></p>
+            <p><s:label for="z3" name="project.annotation"/></p>
         </th>
     </tr>
 
 </table>
 
-<s:textarea id="z3" name="project.description"></s:textarea>
+<s:textarea id="z3" name="project.annotation"></s:textarea>
 
 
 

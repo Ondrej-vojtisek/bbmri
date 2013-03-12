@@ -47,7 +47,7 @@
                     <thead>
                     <tr>
                         <th><s:label name="project.name"/></th>
-                        <th><s:label name="project.description"/></th>
+                        <th><s:label name="project.annotation"/></th>
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
@@ -57,7 +57,7 @@
                     <c:forEach items="${ab.projects}" var="project">
                         <tr>
                             <td><c:out value="${project.name}"/></td>
-                            <td><c:out value="${project.description}"/></td>
+                            <td><c:out value="${project.annotation}"/></td>
                             <td><c:out value="${project.fundingOrganization}"/></td>
                             <td><c:out value="${project.owner.wholeName}"/></td>
 

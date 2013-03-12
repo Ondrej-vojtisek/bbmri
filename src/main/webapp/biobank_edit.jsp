@@ -46,7 +46,7 @@
                         <th><s:label name="select_ethical_committee"/></th>
                         <td><s:select name="ethicalCommittee.id">
                                 <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
+                                <s:options-collection collection="${ab.users}" label="wholeName" value="id"/>
                             </s:select>
                         </td>
                         <td><s:submit name="changeEthicalCommittee"><f:message
@@ -58,7 +58,7 @@
                         <th><s:label name="select_biobank_administrator"/></th>
                         <td><s:select name="administrator.id">
                                 <s:option value=""><f:message key="select_one"/></s:option>
-                                <s:options-collection collection="${ab.users}" label="name" value="id"/>
+                                <s:options-collection collection="${ab.users}" label="wholeName" value="id"/>
                             </s:select>
                         </td>
                         <td><s:submit name="changeAdministrator"><f:message

@@ -6,7 +6,7 @@
     <tr>
         <th><s:label name="project.id"/></th>
         <th><s:label name="project.name"/></th>
-        <th><s:label name="project.description"/></th>
+        <th><s:label name="project.annotation"/></th>
         <th><s:label name="project.projectState"/></th>
     </tr>
 
@@ -14,7 +14,7 @@
         <tr>
             <td><c:out value="${project.id}"/></td>
             <td><c:out value="${project.name}"/></td>
-            <td><c:out value="${project.description}"/></td>
+            <td><c:out value="${project.annotation}"/></td>
             <td><f:message key="ProjectState.${project.projectState}"/></td>
         </tr>
     </c:forEach>

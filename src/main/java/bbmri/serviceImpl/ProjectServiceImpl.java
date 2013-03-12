@@ -60,7 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
                 project.getProjectState() != ProjectState.APPROVED) {
             projectDB.setProjectState(project.getProjectState());
         }
-        projectDB.setDescription(project.getDescription());
+        projectDB.setAnnotation(project.getAnnotation());
         projectDB.setFundingOrganization(project.getFundingOrganization());
         projectDB.setName(project.getName());
 

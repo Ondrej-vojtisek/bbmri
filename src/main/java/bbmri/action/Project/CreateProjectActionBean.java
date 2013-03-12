@@ -24,12 +24,9 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 public class CreateProjectActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"}, field = "name", required = true,
-                    minlength = 5, maxlength = 255),
-            @Validate(on = {"create"}, field = "description", required = true,
-                    minlength = 5, maxlength = 255),
-            @Validate(on = {"create"}, field = "fundingOrganization", required = true,
-                    minlength = 5, maxlength = 255),
+            @Validate(on = {"create"}, field = "name", required = true),
+            @Validate(on = {"create"}, field = "annotation", required = true),
+            @Validate(on = {"create"}, field = "fundingOrganization", required = true),
     })
 
     private Project project;

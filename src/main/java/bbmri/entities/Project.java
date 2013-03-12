@@ -28,8 +28,8 @@ public class Project implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @Column(name = "ANNOTATION")
+    private String annotation;
 
     @Column(name = "FUNDING_ORGANIZATION")
     private String fundingOrganization;
@@ -62,12 +62,12 @@ public class Project implements Serializable {
         this.fundingOrganization = fundingOrganization;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAnnotation() {
+        return annotation;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setAnnotation(String annotation) {
+        this.annotation = annotation;
     }
 
     public ProjectState getProjectState() {
@@ -166,9 +166,8 @@ public class Project implements Serializable {
         return "Project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", annotation='" + annotation + '\'' +
                 ", fundingOrganization='" + fundingOrganization + '\'' +
-                ", users=" + users +
                 ", projectState=" + projectState +
                 '}';
     }

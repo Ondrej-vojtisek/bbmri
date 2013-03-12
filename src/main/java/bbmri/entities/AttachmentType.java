@@ -10,6 +10,7 @@ package bbmri.entities;
 public enum AttachmentType {
     PATIENT_AGREEMENT("_patient"),
     ETHICAL_AGREEMENT("_ethical"),
+    MATERIAL_TRANSFER_AGREEMENT("_mta"),
     RESULT("_result"),
     OTHER("_other");
     private String state;
