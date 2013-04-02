@@ -28,27 +28,14 @@ public class Biobank implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ADMIN_ID")
-    User administrator;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "COMMITTEE_ID")
-    User ethicalCommittee;
+    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    private List<User> administrators = new ArrayList<User>();
 
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<Sample> samples = new ArrayList<Sample>();
 
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
-
-    public User getEthicalCommittee() {
-        return ethicalCommittee;
-    }
-
-    public void setEthicalCommittee(User ethicalCommittee) {
-        this.ethicalCommittee = ethicalCommittee;
-    }
 
     public Long getId() {
         return id;
@@ -66,14 +53,6 @@ public class Biobank implements Serializable {
         this.address = address;
     }
 
-    public User getAdministrator() {
-        return administrator;
-    }
-
-    public void setAdministrator(User administrator) {
-        this.administrator = administrator;
-    }
-
     public String getName() {
         return name;
     }
@@ -89,6 +68,21 @@ public class Biobank implements Serializable {
     public void setSamples(List<Sample> samples) {
         this.samples = samples;
     }
+
+    public List<User> getAdministrators() {
+        return administrators;
+    }
+
+    public void setAdministrators(List<User> administrators) {
+        this.administrators = administrators;
+    }
+
+    public User getOwner() {
+          if (!administrators.isEmpty()) {
+              return administrators.get(0);
+          }
+          return null;
+      }
 
     @Override
     public int hashCode() {

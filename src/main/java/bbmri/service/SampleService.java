@@ -13,19 +13,23 @@ import java.util.List;
  */
 public interface SampleService {
 
-    public Sample create(Sample sample, Long biobankId);
+     Sample create(Sample sample, Long biobankId);
 
-    public void remove(Long id);
+     void remove(Long id);
 
-    public Sample update(Sample sample);
+     Sample update(Sample sample);
 
-    public List<Sample> getAll();
+     List<Sample> getAll();
 
-    public Sample decreaseCount(Long sampleId, Integer requested);
+     Sample decreaseCount(Long sampleId, Integer requested);
 
-    public List<Sample> getSamplesByQuery(Sample sample);
+     Sample amortizeSample(Long sampleId, Integer requested);
 
-    public Integer getCount();
+     List<Sample> getSamplesByQuery(Sample sample);
 
-    public List<Sample> getAllByBiobank(Long biobankId);
+     Integer getCount();
+
+     List<Sample> getAllByBiobank(Long biobankId);
+
+     Sample getById(Long id);
 }

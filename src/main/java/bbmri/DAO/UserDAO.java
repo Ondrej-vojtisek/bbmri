@@ -1,5 +1,6 @@
 package bbmri.DAO;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.User;
 
 import java.util.List;
@@ -24,4 +25,8 @@ public interface UserDAO {
     User get(Long id);
 
     Integer getCount();
+
+    List<User> getAllAdministratorsOfBiobank(Biobank biobank);
+
+    List<User> getAllNonAdministratorUsers();
 }

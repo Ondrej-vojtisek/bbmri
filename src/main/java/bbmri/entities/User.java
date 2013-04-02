@@ -39,14 +39,11 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
-    @OneToOne(mappedBy = "administrator", cascade = CascadeType.ALL)
-    Biobank biobank;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Biobank biobank;
 
     @Column(columnDefinition = "boolean default false")
     private boolean administrator;
-
-    @OneToOne(mappedBy = "ethicalCommittee", cascade = CascadeType.ALL)
-    Biobank ethicalCommitteeOfBiobank;
 
     @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
     private List<Project> judgedProjects = new ArrayList<Project>();
@@ -57,14 +54,6 @@ public class User implements Serializable {
     public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
-    }
-
-    public Biobank getEthicalCommitteeOfBiobank() {
-        return ethicalCommitteeOfBiobank;
-    }
-
-    public void setEthicalCommitteeOfBiobank(Biobank ethicalCommitteeOfBiobank) {
-        this.ethicalCommitteeOfBiobank = ethicalCommitteeOfBiobank;
     }
 
     public boolean isOnline() {

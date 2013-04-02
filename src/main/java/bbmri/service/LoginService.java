@@ -11,8 +11,8 @@ import bbmri.entities.User;
  */
 public interface LoginService {
 
-    public User login(Long id, String password);
+    User login(Long id, String password);
 
-    public void logout(User user);
+    void logout(User user);
 
 }

@@ -1,6 +1,7 @@
 package bbmri.DAO;
 
 import bbmri.entities.Biobank;
+import bbmri.entities.User;
 
 import java.util.List;
 

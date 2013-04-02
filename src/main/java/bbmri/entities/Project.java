@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,16 +23,14 @@ public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "ANNOTATION")
+    @Column(name="ANNOTATION", columnDefinition="TEXT")
     private String annotation;
 
-    @Column(name = "FUNDING_ORGANIZATION")
     private String fundingOrganization;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -51,8 +50,57 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
-    /*@OneToOne(mappedBy = "project", cascade = CascadeType.ALL)
-    private Attachment agreement; */
+    /*Which member of ethical committee approved project*/
+    private String approvedBy;
+
+    private Date approvalDate;
+
+    private String mainInvestigator;
+
+    private String homeInstitution;
+
+    /*Where the approval is stored - in which institution*/
+    private String approvalStorage;
+
+    public String getApprovalStorage() {
+        return approvalStorage;
+    }
+
+    public void setApprovalStorage(String approvalStorage) {
+        this.approvalStorage = approvalStorage;
+    }
+
+    public String getHomeInstitution() {
+         return homeInstitution;
+     }
+
+    public void setHomeInstitution(String homeInstitution) {
+        this.homeInstitution = homeInstitution;
+    }
+
+    public String getMainInvestigator() {
+        return mainInvestigator;
+    }
+
+    public void setMainInvestigator(String mainInvestigator) {
+        this.mainInvestigator = mainInvestigator;
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
+    public Date getApprovalDate() {
+        return approvalDate;
+    }
+
+    public void setApprovalDate(Date approvalDate) {
+        this.approvalDate = approvalDate;
+    }
 
     public String getFundingOrganization() {
         return fundingOrganization;

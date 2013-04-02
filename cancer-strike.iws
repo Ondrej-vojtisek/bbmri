@@ -24,8 +24,8 @@
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/github_settings.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033903392" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/file.template.settings.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033903392" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/template.settings.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033920735" ignored="false" />
-    <file path="/persistence.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362528463703" ignored="false" />
-    <file path="/StripesResources.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362524821426" ignored="false" />
+    <file path="/persistence.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363735088294" ignored="false" />
+    <file path="/StripesResources.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363769083369" ignored="false" />
     <file path="/sample_approve_request.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362431921622" ignored="false" />
     <file path="/ApproveRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362516310063" ignored="false" />
     <file path="/requestGroup_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362516916938" ignored="false" />
@@ -37,20 +37,20 @@
     <file path="/RequestGroup.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361315281277" ignored="false" />
     <file path="/sample_released.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362436728877" ignored="false" />
     <file path="/AllProjectsActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362526488706" ignored="false" />
-    <file path="/createProjectForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361350127614" ignored="false" />
-    <file path="/Project.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131418866" ignored="false" />
+    <file path="/createProjectForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363822241778" ignored="false" />
+    <file path="/Project.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363719103590" ignored="false" />
     <file path="/ProjectDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361376672319" ignored="false" />
     <file path="/ProjectServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131450257" ignored="false" />
     <file path="/project_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362514048655" ignored="false" />
-    <file path="/EditProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362514042405" ignored="false" />
-    <file path="/fragment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362393135266" ignored="false" />
+    <file path="/EditProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363178334469" ignored="false" />
+    <file path="/fragment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363182201283" ignored="false" />
     <file path="/pom.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362437780012" ignored="false" />
     <file path="/layout_content.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361973643879" ignored="false" />
-    <file path="/project_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362525568200" ignored="false" />
-    <file path="/biobank_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362430959303" ignored="false" />
+    <file path="/project_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363183746812" ignored="false" />
+    <file path="/biobank_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363732656076" ignored="false" />
     <file path="/project_approve.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131474382" ignored="false" />
     <file path="/sample_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362435956137" ignored="false" />
-    <file path="/sample_request.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361972460107" ignored="false" />
+    <file path="/sample_request.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364925993128" ignored="false" />
     <file path="/user_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362444255903" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/themes/green/style.css" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398813330" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/css/jq.css" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398813331" ignored="false" />
@@ -78,7 +78,7 @@
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-ajax.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/tests/assets/ajax-content.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-empty-table.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398858599" ignored="false" />
-    <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131555042" ignored="false" />
+    <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363825941184" ignored="false" />
     <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392715230" ignored="false" />
     <file path="/file.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361823090904" ignored="false" />
     <file path="/Attachment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392287475" ignored="false" />
@@ -86,24 +86,24 @@
     <file path="/AttachmentDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362390762179" ignored="false" />
     <file path="/ProjectDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361832468399" ignored="false" />
     <file path="/project_create_upload_agreement.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362393960509" ignored="false" />
-    <file path="/project_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361834253510" ignored="false" />
-    <file path="/CreateProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362429220478" ignored="false" />
+    <file path="/project_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363185693716" ignored="false" />
+    <file path="/CreateProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363178395069" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/jquery-latest.js" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361834808920" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/jquery.tablesorter.min.js" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361834809717" ignored="false" />
     <file path="/changeAdministrator.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362444169927" ignored="false" />
     <file path="/AddSampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361972016591" ignored="false" />
     <file path="/UserActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361973271565" ignored="false" />
     <file path="/contentPage.css" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362429344045" ignored="false" />
-    <file path="/SampleRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361973966174" ignored="false" />
+    <file path="/SampleRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364926047503" ignored="false" />
     <file path="/AttachmentType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131158165" ignored="false" />
-    <file path="/project_create_ethical_agreement.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362393985995" ignored="false" />
+    <file path="/project_create_ethical_agreement.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363132434659" ignored="false" />
     <file path="/biobank_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362442061820" ignored="false" />
     <file path="/ApproveProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362513748244" ignored="false" />
     <file path="/spring-context.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362439906020" ignored="false" />
     <file path="/AllBiobanksActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362441494926" ignored="false" />
     <file path="/project_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362515253379" ignored="false" />
     <file path="/layout_login.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362515137776" ignored="false" />
-    <file path="/samples_my_requests.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362521372084" ignored="false" />
+    <file path="/samples_my_requests.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363822437771" ignored="false" />
     <file path="/RequestGroupDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362520837755" ignored="false" />
     <file path="/Notification.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362522231946" ignored="false" />
     <file path="/NotificationDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362522134188" ignored="false" />
@@ -112,8 +112,23 @@
     <file path="/NotificationService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362522624907" ignored="false" />
     <file path="/LoginActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362524630143" ignored="false" />
     <file path="/NotificationActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362525422611" ignored="false" />
-    <file path="/biobank_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131083248" ignored="false" />
+    <file path="/biobank_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363734121524" ignored="false" />
     <file path="/StripesResources_en.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131277761" ignored="false" />
+    <file path="/project_create_mta.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363185715608" ignored="false" />
+    <file path="/project_create_information.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363822122830" ignored="false" />
+    <file path="/project_my_projects.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363183420929" ignored="false" />
+    <file path="/sample_amortize.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363789418795" ignored="false" />
+    <file path="/Biobank.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363733887784" ignored="false" />
+    <file path="/BiobankServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363736809308" ignored="false" />
+    <file path="/EditBiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363736440054" ignored="false" />
+    <file path="/Function.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363732105829" ignored="false" />
+    <file path="/CreateBiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363732415877" ignored="false" />
+    <file path="/BiobankDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363734475776" ignored="false" />
+    <file path="/UserDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363735909646" ignored="false" />
+    <file path="/UserServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363735981842" ignored="false" />
+    <file path="/SampleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363789971549" ignored="false" />
+    <file path="/SampleDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363774364010" ignored="false" />
+    <file path="/BiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363825341709" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,82 +187,93 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Project.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java">
+      <file leaf-file-name="sample_amortize.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_amortize.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="30" selection-start="710" selection-end="710" vertical-scroll-proportion="-6.16">
+            <state line="57" column="37" selection-start="3073" selection-end="3073" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProjectServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
+      <file leaf-file-name="BiobankActionBean.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/BiobankActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="43" selection-start="1776" selection-end="1776" vertical-scroll-proportion="0.0">
+            <state line="32" column="15" selection-start="954" selection-end="954" vertical-scroll-proportion="0.5987421">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sample_request.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_request.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="55" column="24" selection-start="2818" selection-end="2818" vertical-scroll-proportion="-23.538462">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_all.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
+      <file leaf-file-name="SampleRequestActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/SampleRequestActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="66" selection-start="3014" selection-end="3014" vertical-scroll-proportion="-12.769231">
+            <state line="149" column="47" selection-start="3968" selection-end="3993" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_approve.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
+      <file leaf-file-name="biobank_all.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_all.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="70" selection-start="2661" selection-end="2661" vertical-scroll-proportion="-7.5384617">
+            <state line="46" column="11" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_detail.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_detail.jsp">
+      <file leaf-file-name="CreateBiobankActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/CreateBiobankActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="72" selection-start="2775" selection-end="2775" vertical-scroll-proportion="-0.34615386">
+            <state line="52" column="52" selection-start="1503" selection-end="1503" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="createProjectForm.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/form/createProjectForm.jsp">
+      <file leaf-file-name="biobank_create.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_create.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="44" selection-start="553" selection-end="553" vertical-scroll-proportion="-11.230769">
+            <state line="43" column="25" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listProjectForm.jsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/form/listProjectForm.jsp">
+      <file leaf-file-name="EditBiobankActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/EditBiobankActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="10" selection-start="798" selection-end="798" vertical-scroll-proportion="0.4949367">
+            <state line="64" column="0" selection-start="1636" selection-end="1865" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateProjectActionBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/CreateProjectActionBean.java">
+      <file leaf-file-name="biobank_edit.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="58" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
+            <state line="61" column="15" selection-start="3056" selection-end="3056" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditProjectActionBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/EditProjectActionBean.java">
+      <file leaf-file-name="AllBiobanksActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/AllBiobanksActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="48" selection-start="1019" selection-end="1029" vertical-scroll-proportion="0.0">
+            <state line="41" column="20" selection-start="980" selection-end="980" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -272,22 +298,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/layout_content.jsp" />
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/CreateBiobankActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/EditBiobankActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/AttachmentType.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/StripesResources_en.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/CreateProjectActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/EditProjectActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_all.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_detail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAO/SampleDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/project_create_information.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/form/createProjectForm.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/form/listProjectForm.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/samples_my_requests.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/sample_amortize.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/CreateBiobankActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/biobank_all.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/biobank_create.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/BiobankActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/SampleRequestActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/sample_request.jsp" />
       </list>
     </option>
   </component>
@@ -471,6 +497,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="form" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -758,6 +810,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="SampleRequest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="action" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Project" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -853,7 +939,7 @@
     <property name="RESOURCE_BUNDLE_SPLITTER_PROPORTION" value="0.5" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="MavenSettings" />
+    <property name="options.lastSelected" value="reference.settings.ide.settings.webservices" />
     <property name="last_opened_file_path" value="C:/msysgit/bin/git.exe" />
     <property name="DefaultHtmlFileTemplate" value="Html" />
     <property name="project.structure.side.proportion" value="0.35300925" />
@@ -868,11 +954,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\data" />
       <recent name="C:\Users\Ori\StudijniMaterialy\Diplomka\bbmri_project\src\main\webapp\css" />
       <recent name="C:\Users\Ori\StudijniMaterialy\Diplomka\bbmri_project\src\main\webapp\images" />
       <recent name="C:\Users\Ori\StudijniMaterialy\Diplomka\Cancer_strike_project\src\main\resources" />
       <recent name="C:\Users\Ori\Studijni materialy\Diplomka\Cancer_strike_project\src\main\java\cz\muni\makub\model" />
-      <recent name="C:\Users\Ori\Studijni materialy\Diplomka\Cancer_strike_project\src" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="bbmri.model" />
@@ -1031,25 +1117,73 @@
       </MavenSettings>
       <method />
     </configuration>
+    <configuration default="true" type="TomeeConfiguration" factoryName="Local">
+      <deployment />
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_cancer-strike_2" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="50622" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -1065,65 +1199,11 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JettyConfiguration" factoryName="Local">
-      <deployment />
-      <server-settings>
-        <data>
-          <option name="configFiles">
-            <list>
-              <JettyConfigFile>
-                <option name="active" value="true" />
-                <option name="path" value="etc\jetty-jmx.xml" />
-              </JettyConfigFile>
-            </list>
-          </option>
-        </data>
-      </server-settings>
-      <predefined_log_file id="Jetty" enabled="true" />
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <method />
-    </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
       <JSRemoteDebuggerConfigurationSettings>
         <option name="engineId" value="embedded" />
         <option name="fileUrl" />
       </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Remote">
@@ -1150,6 +1230,27 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
@@ -1195,6 +1296,117 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
+      <method />
+    </configuration>
+    <configuration default="true" type="GlassfishConfiguration" factoryName="Local">
+      <deployment />
+      <server-settings>
+        <option name="DOMAIN" value="" />
+        <option name="PRESERVE" value="false" />
+        <option name="VIRTUAL_SERVER" />
+        <option name="USERNAME" value="admin" />
+        <option name="PASSWORD" value="" />
+      </server-settings>
+      <predefined_log_file id="GlassFish" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="9009" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browserFamily" value="FIREFOX" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JettyConfiguration" factoryName="Local">
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="configFiles">
+            <list>
+              <JettyConfigFile>
+                <option name="active" value="true" />
+                <option name="path" value="etc\jetty-jmx.xml" />
+              </JettyConfigFile>
+            </list>
+          </option>
+        </data>
+      </server-settings>
+      <predefined_log_file id="Jetty" enabled="true" />
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote">
@@ -1279,14 +1491,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38006952" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495935" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32979977" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
@@ -1302,12 +1513,13 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1904376" sideWeight="0.52143687" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32908458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26256078" sideWeight="0.52143687" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47856316" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34927067" sideWeight="0.46581692" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5341831" sideWeight="0.0" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37775204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1407,118 +1619,117 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/AllBiobanksActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="38" selection-start="893" selection-end="893" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="51.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/changeAdministrator.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="47" selection-start="3697" selection-end="3697" vertical-scroll-proportion="-27.76923">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/AttachmentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="26" selection-start="335" selection-end="335" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/StripesResources_en.properties">
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="31" selection-start="3390" selection-end="3390" vertical-scroll-proportion="-6.16">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/CreateProjectActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="58" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/EditProjectActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="48" selection-start="1019" selection-end="1029" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/Project.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="30" selection-start="710" selection-end="710" vertical-scroll-proportion="-6.16">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="43" selection-start="1776" selection-end="1776" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="66" selection-start="3014" selection-end="3014" vertical-scroll-proportion="-12.769231">
+        <state line="30" column="16" selection-start="1654" selection-end="1844" vertical-scroll-proportion="-19.615385">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="70" selection-start="2661" selection-end="2661" vertical-scroll-proportion="-7.5384617">
+        <state line="28" column="4" selection-start="1607" selection-end="1785" vertical-scroll-proportion="-18.307692">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_detail.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/samples_my_requests.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="72" selection-start="2775" selection-end="2775" vertical-scroll-proportion="-0.34615386">
+        <state line="29" column="19" selection-start="1784" selection-end="1784" vertical-scroll-proportion="-11.423077">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/form/createProjectForm.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/form/selectionCriteriaForm.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="44" selection-start="553" selection-end="553" vertical-scroll-proportion="-11.230769">
+        <state line="11" column="10" selection-start="466" selection-end="466" vertical-scroll-proportion="-7.1923075">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/libs/jquery.tablesorter.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/MyActionBeanContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="1091" selection-end="1091" vertical-scroll-proportion="0.4022416">
+        <state line="16" column="13" selection-start="415" selection-end="415" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/form/listProjectForm.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/EditProjectActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="10" selection-start="798" selection-end="798" vertical-scroll-proportion="0.4949367">
+        <state line="27" column="13" selection-start="810" selection-end="810" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_amortize.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="37" selection-start="3073" selection-end="3073" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_all.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="11" selection-start="2439" selection-end="2439" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/CreateBiobankActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="52" selection-start="1503" selection-end="1503" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_create.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="25" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="15" selection-start="3056" selection-end="3056" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/EditBiobankActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1636" selection-end="1865" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/SampleRequest/SampleRequestActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="149" column="47" selection-start="3968" selection-end="3993" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/sample_request.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="24" selection-start="2818" selection-end="2818" vertical-scroll-proportion="-23.538462">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/AllBiobanksActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="20" selection-start="980" selection-end="980" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/BiobankActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="15" selection-start="954" selection-end="954" vertical-scroll-proportion="0.5987421">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

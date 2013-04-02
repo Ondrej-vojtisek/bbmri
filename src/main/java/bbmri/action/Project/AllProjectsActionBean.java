@@ -62,7 +62,7 @@ public class AllProjectsActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         getProjects();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution create() {
@@ -84,7 +84,7 @@ public class AllProjectsActionBean extends BasicActionBean {
             getContext().setProject(project);
             return new ForwardResolution("/sample_request.jsp");
         }
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution leave() {
@@ -100,7 +100,7 @@ public class AllProjectsActionBean extends BasicActionBean {
                           );
         }
         refreshLoggedUser();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution join() {

@@ -13,20 +13,22 @@ import java.util.List;
  */
 public interface UserService {
 
-    public User create(User user);
+     User create(User user);
 
-    public void remove(User user);
+     void remove(User user);
 
-    public void remove(Long id);
+     void remove(Long id);
 
-    public User update(User user);
+     User update(User user);
 
-    public List<User> getAll();
+     List<User> getAll();
 
-    public User getById(Long id);
+     User getById(Long id);
 
-    public User changeAdministrator(Long oldAdminId, Long newAdminId);
+     User changeAdministrator(Long oldAdminId, Long newAdminId);
 
-    public Integer getCount();
+     Integer getCount();
+
+    List<User> getNonAdministratorUsers();
 
 }

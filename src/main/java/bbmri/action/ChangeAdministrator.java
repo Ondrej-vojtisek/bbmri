@@ -42,7 +42,7 @@ public class ChangeAdministrator extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution changeAdministrator() {
@@ -51,7 +51,7 @@ public class ChangeAdministrator extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public void refreshLoggedUser() {

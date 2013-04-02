@@ -31,7 +31,9 @@ public class EditBiobankActionBean extends BasicActionBean {
     private Biobank biobank;
     private List<User> users;
     private User administrator;
-    private User ethicalCommittee;
+    private List<Long> selected;
+    private User user;
+    private List<Long> selectedApprove;
 
     @SpringBean
     private UserService userService;
@@ -39,30 +41,34 @@ public class EditBiobankActionBean extends BasicActionBean {
     @SpringBean
     private BiobankService biobankService;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Long> getSelected() {
+        return selected;
+    }
+
+    public void setSelected(List<Long> selected) {
+        this.selected = selected;
+    }
+
     public List<User> getUsers() {
         users = userService.getAll();
         return users;
     }
 
-    public User getAdministrator() {
-        administrator = getBiobank().getAdministrator();
-        return administrator;
-
+    public List<User> getAdministrators() {
+        return biobankService.getAllAdministrators(getBiobank().getId());
     }
 
     public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
-
-    public User getEthicalCommittee() {
-        ethicalCommittee = getBiobank().getEthicalCommittee();
-        return ethicalCommittee;
-    }
-
-    public void setEthicalCommittee(User ethicalCommittee) {
-        this.ethicalCommittee = ethicalCommittee;
-    }
-
 
     public Biobank getBiobank() {
         if (biobank == null) {
@@ -75,6 +81,18 @@ public class EditBiobankActionBean extends BasicActionBean {
         this.biobank = biobank;
     }
 
+    public List<User> getFreeUsers() {
+          return userService.getNonAdministratorUsers();
+      }
+
+    public List<Long> getSelectedApprove() {
+        return selectedApprove;
+    }
+
+    public void setSelectedApprove(List<Long> selectedApprove) {
+        this.selectedApprove = selectedApprove;
+    }
+
     @DefaultHandler
     public Resolution zobraz() {
         return new ForwardResolution("/biobank_edit.jsp");
@@ -85,14 +103,51 @@ public class EditBiobankActionBean extends BasicActionBean {
         return new ForwardResolution("/biobank_all.jsp");
     }
 
-    public Resolution changeAdministrator() {
-        biobankService.updateAdministrator(biobank.getId(), administrator.getId());
-        return new ForwardResolution("/biobank_all.jsp");
-    }
+    public Resolution removeAll() {
+           Integer removed = 0;
+           if (selected != null) {
+               for (Long id : selected) {
+                   if (id.equals(getContext().getLoggedUser().getId())) {
+                       /*you can't remove yourself*/
+                       return new ForwardResolution("/biobank_all.jsp");
+                   }
+                   biobankService.removeAdministratorFromBiobank(id, getBiobank().getId());
+                   removed++;
+               }
+           }
+           getContext().getMessages().add(
+                                    new SimpleMessage("{0} administrators removed", removed)
+                            );
+           users = biobankService.getAllAdministrators(getBiobank().getId());
+           refreshLoggedUser();
+           return new ForwardResolution("/biobank_all.jsp");
+       }
 
-    public Resolution changeEthicalCommittee() {
+    public Resolution changeOwnership() {
+           biobankService.changeOwnership(getContext().getProject().getId(), user.getId());
+           getContext().getMessages().add(
+                                 new SimpleMessage("Ownership of biobank was changed")
+                         );
+           refreshLoggedUser();
+           return new ForwardResolution("/biobank_all.jsp");
+       }
 
-        biobankService.updateEthicalCommittee(biobank.getId(), ethicalCommittee.getId());
-        return new ForwardResolution("/biobank_all.jsp");
-    }
+    public Resolution assignAll() {
+           Integer assigned = 0;
+           if (selectedApprove != null) {
+               for (Long userId : selectedApprove) {
+                   biobankService.assignAdministrator(userId, getBiobank().getId());
+                   assigned++;
+               }
+           }
+           getContext().getMessages().add(
+                          new SimpleMessage("{0} users assigned", assigned)
+                  );
+           return new ForwardResolution("/biobank_all.jsp");
+       }
+
+
+    public void refreshLoggedUser() {
+             getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+         }
 }

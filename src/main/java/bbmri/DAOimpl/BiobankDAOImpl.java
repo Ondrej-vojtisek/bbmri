@@ -2,6 +2,7 @@ package bbmri.DAOimpl;
 
 import bbmri.DAO.BiobankDAO;
 import bbmri.entities.Biobank;
+import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

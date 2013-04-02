@@ -29,7 +29,6 @@ public class CreateBiobankActionBean extends BasicActionBean {
     private Biobank biobank;
     private List<User> users;
     private User administrator;
-    private User ethicalCommittee;
 
     @SpringBean
     private UserService userService;
@@ -38,9 +37,9 @@ public class CreateBiobankActionBean extends BasicActionBean {
     private BiobankService biobankService;
 
     public List<User> getUsers() {
-        users = userService.getAll();
-        return users;
-    }
+            users = userService.getAll();
+            return users;
+        }
 
     public User getAdministrator() {
         return administrator;
@@ -49,15 +48,6 @@ public class CreateBiobankActionBean extends BasicActionBean {
     public void setAdministrator(User administrator) {
         this.administrator = administrator;
     }
-
-    public User getEthicalCommittee() {
-        return ethicalCommittee;
-    }
-
-    public void setEthicalCommittee(User ethicalCommittee) {
-        this.ethicalCommittee = ethicalCommittee;
-    }
-
 
     public Biobank getBiobank() {
         return biobank;
@@ -70,14 +60,15 @@ public class CreateBiobankActionBean extends BasicActionBean {
     public Resolution create() {
         User resDB = userService.getById(administrator.getId());
         if (resDB.getBiobank() != null) {
+            refreshLoggedUser();
             return new ForwardResolution("/biobank_all.jsp");
         }
-        resDB = userService.getById(ethicalCommittee.getId());
-        if (resDB.getEthicalCommitteeOfBiobank() != null) {
-            return new ForwardResolution("/biobank_all.jsp");
-        }
-        biobankService.create(biobank, administrator.getId(), ethicalCommittee.getId());
+        biobankService.create(biobank, administrator.getId());
         return new ForwardResolution("/biobank_all.jsp");
     }
+
+    public void refreshLoggedUser() {
+          getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+      }
 
 }

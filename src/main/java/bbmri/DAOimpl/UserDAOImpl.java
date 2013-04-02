@@ -2,6 +2,7 @@ package bbmri.DAOimpl;
 
 
 import bbmri.DAO.UserDAO;
+import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
@@ -53,6 +54,17 @@ public class UserDAOImpl implements UserDAO {
         Query query = em.createQuery("SELECT COUNT (p) FROM User p");
         return Integer.parseInt(query.getSingleResult().toString());
     }
+
+    public List<User> getAllAdministratorsOfBiobank(Biobank biobank){
+        DAOUtils.notNull(biobank);
+        Query query = em.createQuery("SELECT p FROM User p WHERE p.biobank = biobank");
+        return query.getResultList();
+    }
+
+    public List<User> getAllNonAdministratorUsers(){
+           Query query = em.createQuery("SELECT p FROM User p WHERE p.biobank = null");
+           return query.getResultList();
+       }
 
 }
 

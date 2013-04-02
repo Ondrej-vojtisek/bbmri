@@ -26,6 +26,7 @@ public class CreateProjectActionBean extends BasicActionBean {
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true),
             @Validate(on = {"create"}, field = "annotation", required = true),
+            @Validate(on = {"create"}, field = "approvedBy", required = true),
             @Validate(on = {"create"}, field = "fundingOrganization", required = true),
     })
 
@@ -52,7 +53,7 @@ public class CreateProjectActionBean extends BasicActionBean {
                               new SimpleMessage("Project id={0} was created", project.getName())
                       );
         refreshLoggedUser();
-        return new ForwardResolution("/project_create_patient_agreement.jsp");
+        return new ForwardResolution("/project_create_mta.jsp");
     }
 
     public void refreshLoggedUser() {

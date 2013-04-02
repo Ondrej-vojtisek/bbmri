@@ -75,17 +75,43 @@ public class SampleServiceImpl implements SampleService {
     public Sample decreaseCount(Long sampleId, Integer requested) {
         try {
             Sample sample = sampleDAO.get(sampleId);
-            Integer count = sample.getNumOfAvailable();
-            if ((count - requested) > 0) {
-                count -= requested;
+            Integer available = sample.getNumOfAvailable();
+            Integer numOfSamples = sample.getNumOfSamples();
+            if ((available - requested) > 0) {
+                sample.setNumOfAvailable(available - requested);
+                sample.setNumOfAvailable(numOfSamples - requested);
             } else {
                 return sample;
             }
+            sampleDAO.update(sample);
             return sample;
         } catch (DataAccessException ex) {
             throw ex;
         }
     }
+
+    public Sample amortizeSample(Long sampleId, Integer requested) {
+          try {
+              Sample sample = sampleDAO.get(sampleId);
+              Integer available = sample.getNumOfAvailable();
+              Integer numOfSamples = sample.getNumOfSamples();
+              if ((available - requested) >= 0) {
+                  available -= requested;
+                  numOfSamples -=requested;
+              }else if((numOfSamples - requested) >= 0){
+                  available = 0;
+                  numOfSamples -= requested;
+              } else{
+                  return sample;
+              }
+              sample.setNumOfAvailable(available);
+              sample.setNumOfSamples(numOfSamples);
+              sampleDAO.update(sample);
+              return sample;
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
 
     public List<Sample> getSamplesByQuery(Sample sample) {
         String query = "WHERE";
@@ -150,8 +176,20 @@ public class SampleServiceImpl implements SampleService {
             if (biobankDB == null) {
                 return null;
             }
-            List<Sample> samples = sampleDAO.getAllByBiobank(biobankDB);
+            String query = "WHERE";
+            query = query + " p.biobank.id ='" + biobankId.toString() + "'";
+            List<Sample> samples = sampleDAO.getSelected(query);
+
             return samples;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
+
+    public Sample getById(Long id) {
+        try {
+            Sample sampleDB = sampleDAO.get(id);
+            return sampleDB;
         } catch (DataAccessException ex) {
             throw ex;
         }

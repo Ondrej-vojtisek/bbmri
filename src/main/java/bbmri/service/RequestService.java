@@ -13,19 +13,19 @@ import java.util.List;
  */
 public interface RequestService {
 
-    public Request create(Long sampleId);
+     Request create(Long sampleId);
 
-    public Request create(Long sampleId, Integer numOfRequested);
+     Request create(Long sampleId, Integer numOfRequested);
 
-    public void remove(Request request);
+     void remove(Request request);
 
-    public void remove(Long id);
+     void remove(Long id);
 
-    public Request update(Request request);
+     Request update(Request request);
 
-    public List<Request> getAll();
+     List<Request> getAll();
 
-    public Request getById(Long id);
+     Request getById(Long id);
 
-    public Integer getCount();
+     Integer getCount();
 }

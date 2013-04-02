@@ -107,4 +107,13 @@ public class UserServiceImpl implements UserService {
             throw ex;
         }
     }
+
+    public List<User> getNonAdministratorUsers() {
+        try {
+            return userDAO.getAllNonAdministratorUsers();
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+
+    }
 }

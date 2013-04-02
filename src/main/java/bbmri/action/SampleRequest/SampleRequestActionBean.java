@@ -39,6 +39,19 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     private List<Long> selected;
 
+    private Integer amortizedCount;
+
+    private Long sampleId;
+
+
+    public Integer getAmortizedCount() {
+        return amortizedCount;
+    }
+
+    public void setAmortizedCount(Integer amortizedCount) {
+        this.amortizedCount = amortizedCount;
+    }
+
     public void setSelected(List<Long> selected) {
         this.selected = selected;
     }
@@ -71,6 +84,10 @@ public class SampleRequestActionBean extends BasicActionBean {
     }
 
     public List<Sample> getAllSamples() {
+            return sampleService.getAll();
+        }
+
+    public List<Sample> getAllSamplesByBiobank() {
         if (getLoggedUser().getBiobank() == null) {
             return null;
         }
@@ -114,20 +131,27 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     public Resolution request() {
         if (getProject().getProjectState() == ProjectState.NEW) {
-            return new ForwardResolution("/project_all.jsp");
+            return new ForwardResolution("/project_my_projects.jsp");
         }
         requestService.create(sample.getId());
         getContext().getMessages().add(
                        new SimpleMessage("Request for sample id = {0} was created", sample.getId())
                );
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution find() {
         if (sample != null) {
             results = sampleService.getSamplesByQuery(sample);
         }
-        return new ForwardResolution("/sample_request.jsp");
+        return new ForwardResolution("/sample_amortize.jsp");
+    }
+
+    public Resolution createParametrizedRequest() {
+        if (sample != null) {
+            results = sampleService.getSamplesByQuery(sample);
+        }
+        return new ForwardResolution("/sample_amortize.jsp");
     }
 
     /*TODO: change num of requested to variable value*/
@@ -145,6 +169,14 @@ public class SampleRequestActionBean extends BasicActionBean {
                    );
         }
 
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
+    }
+
+    public Resolution amortizeSamples(){
+            System.err.println("Not null sample Id: " + sampleService.getById(sample.getId()));
+            System.err.println("AmortizedCount" + amortizedCount);
+            Integer count = 2;
+            sampleService.amortizeSample(sample.getId(), count);
+        return new ForwardResolution("/sample_amortize.jsp");
     }
 }

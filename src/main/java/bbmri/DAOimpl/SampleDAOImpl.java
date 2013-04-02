@@ -62,10 +62,4 @@ public class SampleDAOImpl implements SampleDAO {
         return Integer.parseInt(query.getSingleResult().toString());
     }
 
-    public List<Sample> getAllByBiobank(Biobank biobank) {
-        DAOUtils.notNull(biobank);
-        Query query = em.createQuery("SELECT p FROM Sample p WHERE p.biobank = biobank");
-        return query.getResultList();
-    }
-
 }

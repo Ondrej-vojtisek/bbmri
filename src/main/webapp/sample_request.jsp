@@ -8,7 +8,7 @@
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleRequest.SampleRequestActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
-        <li><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
+        <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
         <li><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
@@ -51,51 +51,10 @@
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
                 <p>Example: diagnosis "a%", tissueType "aa" -> diagnosis starts with 'a' AND tissueType = "aa"</p>
-                <s:hidden name="sample.sampleID"/>
                 <%@include file="/form/selectionCriteriaForm.jsp" %>
-                <s:submit name="find"><f:message key="find"/></s:submit>
+                <s:submit name="createParametrizedRequest"><f:message key="request_sample"/></s:submit>
             </fieldset>
 
-            <fieldset>
-                <table id="sortableTable">
-                    <thead>
-                    <tr>
-                        <th><s:label name="sample.TNM"/></th>
-                        <th><s:label name="sample.pTNM"/></th>
-                        <th><s:label name="sample.grading"/></th>
-                        <th><s:label name="sample.diagnosis"/></th>
-                        <th><s:label name="sample.tissueType"/></th>
-                        <th><s:label name="sample.biobank"/></th>
-                        <th><s:label name="select"/></th>
-                        <th><s:label name="actions"/></th>
-                    </tr>
-                    </thead>
-
-                    <c:if test="${ab.resultCount == 0}">
-                        <tr>
-                            <td colspan="8"><s:label name="no_match_found"/></td>
-                        </tr>
-                    </c:if>
-                    <tbody>
-                    <c:forEach items="${ab.results}" var="sample">
-                    <tr>
-                        <td><c:out value="${sample.TNM}"/></td>
-                        <td><c:out value="${sample.pTNM}"/></td>
-                        <td><c:out value="${sample.grading}"/></td>
-                        <td><c:out value="${sample.diagnosis}"/></td>
-                        <td><c:out value="${sample.tissueType}"/></td>
-                        <td><c:out value="${sample.biobank.name}"/></td>
-                        <td><s:checkbox name="selected" value="${sample.id}"/></td>
-                        <td><s:link beanclass="bbmri.action.SampleRequest.SampleRequestActionBean" event="request">
-                            <s:param name="sample.id" value="${sample.id}"/><f:message
-                                key="sample.request"/></s:link>
-                        </td>
-                    </tr>
-                    </c:forEach>
-                    <tbody>
-                </table>
-                <s:submit name="requestSelected"><f:message key="request_selected"/></s:submit>
-            </fieldset>
         </s:form>
     </s:layout-component>
 </s:layout-render>

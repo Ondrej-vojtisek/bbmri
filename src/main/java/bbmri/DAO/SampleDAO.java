@@ -28,5 +28,4 @@ public interface SampleDAO {
 
     Integer getCount();
 
-    List<Sample> getAllByBiobank(Biobank biobank);
 }

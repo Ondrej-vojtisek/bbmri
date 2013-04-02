@@ -2,6 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 
 import java.util.List;
 
@@ -14,20 +15,24 @@ import java.util.List;
  */
 public interface BiobankService {
 
-    public Biobank create(Biobank biobank, Long administratorId, Long ethicalCommitteeId);
+    Biobank create(Biobank biobank, Long administratorId);
 
-    public void remove(Long id);
+    void remove(Long id);
 
-    public Biobank update(Biobank biobank);
+    Biobank update(Biobank biobank);
 
-    public List<Biobank> getAll();
+    List<Biobank> getAll();
 
-    public Biobank updateAdministrator(Long biobankId, Long adminId);
+    List<Sample> getAllSamples(Long biobankId);
 
-    public Biobank updateEthicalCommittee(Long biobankId, Long committeeId);
+    Integer getCount();
 
-    public List<Sample> getAllSamples(Long biobankId);
+    User removeAdministratorFromBiobank(Long userId, Long biobankId);
 
-    public Integer getCount();
+    List<User> getAllAdministrators(Long biobankId);
+
+    Biobank changeOwnership(Long biobankId, Long newOwnerId);
+
+    User assignAdministrator(Long userId, Long biobankId);
 
 }

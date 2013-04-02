@@ -8,7 +8,7 @@
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.AllProjectsActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
-        <li class="active"><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
+        <li class="active"><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
         <li><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
@@ -19,19 +19,23 @@
     </s:layout-component>
 
     <s:layout-component name="secondary_menu">
-        <li><s:link href="/project_all.jsp"><f:message key="all"/></s:link></li>
-        <li><s:link href="/project_create.jsp"><f:message key="projects.createProject"/></s:link></li>
-        <c:if test="${ab.loggedUser.ethicalCommitteeOfBiobank != null}">
+        <li><s:link href="/project_my_projects.jsp"><f:message key="my_projects"/></s:link></li>
+        <li><s:link href="/project_create_information.jsp"><f:message key="projects.createProject"/></s:link></li>
+        <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
         <li class="active"><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
+        <c:if test="${ab.loggedUser.biobank != null || ab.loggedUser.administrator}">
+            <li><s:link href="/project_all.jsp"><f:message key="all"/></s:link></li>
+            </c:if>
     </s:layout-component>
 
     <s:layout-component name="body">
+
         <s:form beanclass="bbmri.action.Project.AllProjectsActionBean">
             <c:forEach items="${ab.myProjects}" var="project">
                 <fieldset>
-                    <legend><c:out value="${project.name}"/></legend>
+                    <legend><f:message key="project.name"/>: <c:out value="${project.name}"/></legend>
                     <div><b><f:message key="project.fundingOrganization"/>:</b>
                         <c:out value="${project.fundingOrganization}"/></div>
                     <div><b><f:message key="project.owner"/>:</b>

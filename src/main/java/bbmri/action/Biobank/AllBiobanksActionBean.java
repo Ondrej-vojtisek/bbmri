@@ -45,6 +45,7 @@ public class AllBiobanksActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
+        refreshLoggedUser();
         biobanks = biobankService.getAll();
         return new ForwardResolution("/biobank_all.jsp");
     }
@@ -55,4 +56,8 @@ public class AllBiobanksActionBean extends BasicActionBean {
 
         return new ForwardResolution("/biobank_edit.jsp");
     }
+
+    public void refreshLoggedUser() {
+             getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+         }
 }

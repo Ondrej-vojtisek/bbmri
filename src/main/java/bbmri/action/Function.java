@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 
@@ -31,16 +32,6 @@ public class Function {
         }
 
         return usr.equals(proj.getOwner());
-    }
-
-    public static boolean isAdmin(Object administrator, Object loggedUser) {
-        if (administrator == null || loggedUser == null) {
-            return false;
-        }
-        User admin = (User) administrator;
-        User logged = (User) loggedUser;
-
-        return admin.equals(logged);
     }
 }
 

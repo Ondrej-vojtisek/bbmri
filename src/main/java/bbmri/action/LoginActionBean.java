@@ -62,7 +62,7 @@ public class LoginActionBean extends BasicActionBean {
         User user = loginService.login(id, password);
         if (user != null) {
             getContext().setLoggedUser(user);
-            return new RedirectResolution("/project_all.jsp");
+            return new RedirectResolution("/project_my_projects.jsp");
         }
         getContext().getMessages().add(
                        new SimpleMessage("Indentifier or password is not correct")

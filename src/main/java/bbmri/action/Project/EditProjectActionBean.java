@@ -120,13 +120,13 @@ public class EditProjectActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution zobraz() {
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution update() {
         projectService.update(project);
         refreshLoggedUser();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution removeAll() {
@@ -135,7 +135,7 @@ public class EditProjectActionBean extends BasicActionBean {
             for (Long id : selected) {
                 if (id.equals(getContext().getLoggedUser().getId())) {
                     /*you can't remove yourself*/
-                    return new ForwardResolution("/project_all.jsp");
+                    return new ForwardResolution("/project_my_projects.jsp");
                 }
                 projectService.removeUserFromProject(id, getProject().getId());
                 removed++;
@@ -146,7 +146,7 @@ public class EditProjectActionBean extends BasicActionBean {
                          );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public Resolution assignAll() {
@@ -158,7 +158,7 @@ public class EditProjectActionBean extends BasicActionBean {
             }
         }
         getContext().getMessages().add(
-                       new SimpleMessage("{0} users removed", assigned)
+                       new SimpleMessage("{0} users assigned", assigned)
                );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
@@ -171,44 +171,20 @@ public class EditProjectActionBean extends BasicActionBean {
                               new SimpleMessage("Ownership of project was changed")
                       );
         refreshLoggedUser();
-        return new ForwardResolution("/project_all.jsp");
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
     public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 
-    public Resolution uploadPatientAgreement() {
-        if (attachmentFileBean != null) {
-            Attachment attachment = new Attachment();
-            attachment.setFileName(attachmentFileBean.getFileName());
-            attachment.setContentType(attachmentFileBean.getContentType());
-            attachment.setSize(attachmentFileBean.getSize());
-            attachment.setAttachmentType(AttachmentType.PATIENT_AGREEMENT);
-            Project projectDB = projectService.getById(getContext().getProject().getId());
-            projectService.saveAttachment(getContext().getProject().getId(), attachment);
-            try {
-                attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
-                        + attachment.getId().toString() + attachment.getAttachmentType().toString()));
-                getContext().getMessages().add(
-                                      new SimpleMessage("File was uploaded")
-                              );
-            } catch (IOException e) {
-                getContext().getMessages().add(
-                                                     new SimpleMessage("Exception: " + e)
-                                             );
-            }
-        }
-        return new ForwardResolution("/project_create_ethical_agreement.jsp");
-    }
-
-    public Resolution uploadEthicalAgreement() {
+    public Resolution uploadMTA() {
           if (attachmentFileBean != null) {
               Attachment attachment = new Attachment();
               attachment.setFileName(attachmentFileBean.getFileName());
               attachment.setContentType(attachmentFileBean.getContentType());
               attachment.setSize(attachmentFileBean.getSize());
-              attachment.setAttachmentType(AttachmentType.ETHICAL_AGREEMENT);
+              attachment.setAttachmentType(AttachmentType.MATERIAL_TRANSFER_AGREEMENT);
               Project projectDB = projectService.getById(getContext().getProject().getId());
               projectService.saveAttachment(getContext().getProject().getId(), attachment);
               try {
@@ -223,7 +199,7 @@ public class EditProjectActionBean extends BasicActionBean {
                                                );
               }
           }
-          return new ForwardResolution("/project_all.jsp");
+          return new ForwardResolution("/project_my_projects.jsp");
       }
 
     public Resolution download() throws Exception{
@@ -233,21 +209,4 @@ public class EditProjectActionBean extends BasicActionBean {
         return new StreamingResolution(attachment.getContentType(),
                new FileInputStream(filePath)).setFilename(fileName);
     }
-
-    public Resolution downloadEthicalAgreement() throws Exception {
-            Attachment attachment = projectService.getAttachmentByProject(getContext().getProject().getId(), AttachmentType.ETHICAL_AGREEMENT);
-            String fileName = attachment.getFileName();
-            String filePath = projectService.getAttachmentPath(attachment);
-            return new StreamingResolution(attachment.getContentType(),
-                    new FileInputStream(filePath)).setFilename(fileName);
-        }
-
-    public Resolution downloadPatientAgreement() throws Exception {
-          Attachment attachment = projectService.getAttachmentByProject(getContext().getProject().getId(), AttachmentType.PATIENT_AGREEMENT);
-          String fileName = attachment.getFileName();
-          String filePath = projectService.getAttachmentPath(attachment);
-          return new StreamingResolution(attachment.getContentType(),
-                  new FileInputStream(filePath)).setFilename(fileName);
-      }
-
 }

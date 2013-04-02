@@ -10,7 +10,7 @@
 
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
-        <li><s:link href="/project_all.jsp"><f:message key="projects"/></s:link></li>
+        <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
         <li><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
         <c:if test="${ab.loggedUser.administrator}">
             <li class="active"><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
