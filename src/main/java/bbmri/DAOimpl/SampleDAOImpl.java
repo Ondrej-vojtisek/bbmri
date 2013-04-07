@@ -52,7 +52,6 @@ public class SampleDAOImpl implements SampleDAO {
     public List<Sample> getSelected(String query) {
         DAOUtils.notNull(query);
         String preparedQuery = "SELECT p FROM Sample p " + query;
-        System.out.println(preparedQuery);
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();
     }

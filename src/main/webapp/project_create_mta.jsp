@@ -25,16 +25,18 @@
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
-        <li><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
+        <c:if test="${ab.loggedUser.biobank != null || ab.loggedUser.administrator}">
+        <li><s:link href="/project_all.jsp"><f:message key="all_projects"/></s:link></li>
+        </c:if>
     </s:layout-component>
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Project.ProjectActionBean">
-            <fieldset>
-                <legend><f:message key="project_upload_new"/> - <f:message key="first_step"/></legend>
-                <%@include file="/form/createProjectForm.jsp" %>
-                <s:submit name="create"><f:message key="add"/></s:submit>
-            </fieldset>
-        </s:form>
+        <fieldset>
+            <legend><f:message key="project_upload_mta"/> - <f:message key="second_step"/></legend>
+            <s:form beanclass="bbmri.action.Project.ProjectActionBean">
+                <s:file name="attachmentFileBean"></s:file>
+                <s:submit name="uploadMTA" value="Upload"/>
+            </s:form>
+        </fieldset>
     </s:layout-component>
 </s:layout-render>

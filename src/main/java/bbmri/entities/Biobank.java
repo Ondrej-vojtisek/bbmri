@@ -37,6 +37,9 @@ public class Biobank implements Serializable {
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
+    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
+
     public Long getId() {
         return id;
     }
@@ -75,6 +78,22 @@ public class Biobank implements Serializable {
 
     public void setAdministrators(List<User> administrators) {
         this.administrators = administrators;
+    }
+
+    public List<RequestGroup> getRequestGroups() {
+        return requestGroups;
+    }
+
+    public void setRequestGroups(List<RequestGroup> requestGroups) {
+        this.requestGroups = requestGroups;
+    }
+
+    public List<SampleQuestion> getSampleQuestions() {
+        return sampleQuestions;
+    }
+
+    public void setSampleQuestions(List<SampleQuestion> sampleQuestions) {
+        this.sampleQuestions = sampleQuestions;
     }
 
     public User getOwner() {

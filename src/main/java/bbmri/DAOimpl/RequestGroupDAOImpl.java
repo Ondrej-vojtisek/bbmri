@@ -3,6 +3,7 @@ package bbmri.DAOimpl;
 import bbmri.DAO.RequestGroupDAO;
 import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
+import bbmri.entities.SampleQuestion;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -58,4 +59,11 @@ public class RequestGroupDAOImpl implements RequestGroupDAO {
          Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = project");
          return query.getResultList();
      }
+
+    public List<SampleQuestion> getSelected(String query) {
+        DAOUtils.notNull(query);
+        String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
+        Query queryDB = em.createQuery(preparedQuery);
+        return queryDB.getResultList();
+    }
 }

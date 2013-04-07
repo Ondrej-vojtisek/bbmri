@@ -21,6 +21,7 @@
                 }
         );
     </script>
+    <s:layout-component name="script"/>
 
     <body>
 
@@ -33,7 +34,7 @@
 
                 <div class="nav-collapse collapse">
                     <p class="navbar-text pull-right">
-                        <s:link event="logout" beanclass="bbmri.action.LoginActionBean" name="logout">
+                        <s:link event="logout" beanclass="bbmri.action.LoginActionBean">
                             <f:message key="logout"/></s:link>
                     </p>
 

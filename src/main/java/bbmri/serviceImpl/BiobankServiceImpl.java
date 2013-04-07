@@ -147,4 +147,13 @@ public class BiobankServiceImpl implements BiobankService {
            return userDB;
        }
 
+    public Biobank getById(Long id) {
+          try {
+              Biobank biobankDB = biobankDAO.get(id);
+              return biobankDB;
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
+
 }

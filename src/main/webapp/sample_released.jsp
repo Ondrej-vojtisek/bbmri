@@ -51,7 +51,7 @@
                             <td><c:out value="${requestGroup.project.name}"/></td>
                             <td><c:out value="${requestGroup.biobank.name}"/></td>
                             <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
-                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="detail">
+                            <td><s:link beanclass="bbmri.action.Sample.ApproveRequestActionBean" event="detail">
                                 <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
                                     key="detail"/></s:link>
                             </td>

@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 <f:message key="samples.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.Sample.ApproveRequestActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
@@ -33,7 +33,7 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
+        <s:form beanclass="bbmri.action.Sample.ApproveRequestActionBean">
             <fieldset>
                 <legend><f:message key="Request.group.detail"/></legend>
                 <table>

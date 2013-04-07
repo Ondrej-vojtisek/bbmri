@@ -5,7 +5,7 @@
 
 
 <f:message key="samples.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.AddSampleActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.Sample.SampleActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
@@ -34,7 +34,7 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.AddSampleActionBean">
+        <s:form beanclass="bbmri.action.Sample.SampleActionBean">
             <fieldset>
                 <legend><f:message key="add_sample_to_system"/></legend>
                 <%@include file="/form/createSampleForm.jsp" %>

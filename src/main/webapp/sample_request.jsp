@@ -5,7 +5,7 @@
 
 
 <f:message key="sample.request" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleRequest.SampleRequestActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
@@ -22,7 +22,7 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleRequest.SampleRequestActionBean">
+        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
             <fieldset>
                 <legend></legend>
                 <p>
@@ -50,9 +50,15 @@
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
-                <p>Example: diagnosis "a%", tissueType "aa" -> diagnosis starts with 'a' AND tissueType = "aa"</p>
-                <%@include file="/form/selectionCriteriaForm.jsp" %>
-                <s:submit name="createParametrizedRequest"><f:message key="request_sample"/></s:submit>
+                <s:select name="biobank.id">
+                    <s:option value=""><f:message key="select_one"/></s:option>
+                    <s:options-collection collection="${ab.biobanks}" label="name" value="id"/>
+                </s:select>
+
+                <p><s:label for="z5" name="sampleQuestion.specification"/></p>
+                <s:textarea id="z5" name="sampleQuestion.specification"></s:textarea>
+
+                <s:submit name="createSampleQuestion"><f:message key="request_sample"/></s:submit>
             </fieldset>
 
         </s:form>

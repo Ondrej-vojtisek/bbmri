@@ -1,4 +1,4 @@
-package bbmri.action.SampleRequest;
+package bbmri.action.Sample;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
@@ -39,17 +39,14 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     private List<Long> selected;
 
-    private Integer amortizedCount;
+    private Sample sampleQuery;
 
-    private Long sampleId;
-
-
-    public Integer getAmortizedCount() {
-        return amortizedCount;
+    public Sample getSampleQuery() {
+        return sampleQuery;
     }
 
-    public void setAmortizedCount(Integer amortizedCount) {
-        this.amortizedCount = amortizedCount;
+    public void setSampleQuery(Sample sampleQuery) {
+        this.sampleQuery = sampleQuery;
     }
 
     public void setSelected(List<Long> selected) {
@@ -125,8 +122,14 @@ public class SampleRequestActionBean extends BasicActionBean {
     private Sample sample;
 
     @DefaultHandler
-    public Resolution zobraz() {
-        return new ForwardResolution("/sample_request.jsp");
+    public Resolution display() {
+        if(sampleQuery == null){
+            sampleQuery = getContext().getSample();
+        }
+        if(sampleQuery != null){
+            results = sampleService.getSamplesByQuery(sampleQuery);
+        }
+        return new ForwardResolution("/sample_amortize.jsp");
     }
 
     public Resolution request() {
@@ -141,9 +144,7 @@ public class SampleRequestActionBean extends BasicActionBean {
     }
 
     public Resolution find() {
-        if (sample != null) {
-            results = sampleService.getSamplesByQuery(sample);
-        }
+        results = sampleService.getSamplesByQuery(sampleQuery);
         return new ForwardResolution("/sample_amortize.jsp");
     }
 
@@ -170,13 +171,5 @@ public class SampleRequestActionBean extends BasicActionBean {
         }
 
         return new ForwardResolution("/project_my_projects.jsp");
-    }
-
-    public Resolution amortizeSamples(){
-            System.err.println("Not null sample Id: " + sampleService.getById(sample.getId()));
-            System.err.println("AmortizedCount" + amortizedCount);
-            Integer count = 2;
-            sampleService.amortizeSample(sample.getId(), count);
-        return new ForwardResolution("/sample_amortize.jsp");
     }
 }

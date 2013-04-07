@@ -21,12 +21,13 @@
 
     <s:layout-component name="secondary_menu">
         <li><s:link href="/project_my_projects.jsp"><f:message key="my_projects"/></s:link></li>
-        <li><s:link href="/project_create_information.jsp"><f:message key="projects.createProject"/></s:link></li>
+        <li><s:link  beanclass="bbmri.action.Project.ProjectActionBean" event="createInitial"><f:message key="projects.createProject"/></s:link></li>
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
+        <li><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
         <c:if test="${ab.loggedUser.biobank != null || ab.loggedUser.administrator}">
-        <li><s:link href="/project_all.jsp"><f:message key="all"/></s:link></li>
+        <li><s:link href="/project_all.jsp"><f:message key="all_projects"/></s:link></li>
         </c:if>
     </s:layout-component>
 
@@ -116,7 +117,7 @@
                             <td><c:out value="${attachment.size}"/></td>
                             <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
                             <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean"
-                                event="decreaseSamples">
+                                event="download">
                                 <s:param name="attachment.id" value="${attachment.id}"/>
                                 <f:message key="download"/></s:link>
                             </td>

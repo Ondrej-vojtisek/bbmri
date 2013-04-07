@@ -3,15 +3,15 @@
 <s:errors/>
 <table>
     <tr>
-        <th><label for="z4"><s:label name="samples.tissue_type"/></label></th>
-        <td><s:text id="z4" name="sample.tissueType"/></td>
+        <th><label for="z1"><s:label name="samples.tissue_type"/></label></th>
+        <td><s:text id="z1" name="sample.tissueType"/></td>
     </tr>
     <tr>
-        <th><label for="z7"><s:label name="samples.grading"/></label></th>
-        <td><s:text id="z7" name="sample.grading"/></td>
+        <th><label for="z2"><s:label name="samples.grading"/></label></th>
+        <td><s:text id="z2" name="sample.grading"/></td>
     </tr>
     <tr>
-        <th><label for="z8"><s:label name="samples.diagnosis"/></label></th>
-        <td><s:text id="z8" name="sample.diagnosis"/></td>
+        <th><label for="z3"><s:label name="samples.diagnosis"/></label></th>
+        <td><s:text id="z3" name="sample.diagnosis"/></td>
     </tr>
 </table>

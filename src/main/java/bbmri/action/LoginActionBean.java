@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
 import bbmri.service.NotificationService;
@@ -17,7 +18,7 @@ import net.sourceforge.stripes.validation.Validate;
  * To change this template use File | Settings | File Templates.
  */
 
-@UrlBinding("/login/{$event}/{user.id}")
+@UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean {
 
     @SpringBean
@@ -52,7 +53,7 @@ public class LoginActionBean extends BasicActionBean {
     }
 
     @DefaultHandler
-    public Resolution show() {
+    public Resolution display() {
         return new ForwardResolution("/index.jsp");
     }
 
@@ -62,20 +63,19 @@ public class LoginActionBean extends BasicActionBean {
         User user = loginService.login(id, password);
         if (user != null) {
             getContext().setLoggedUser(user);
-            return new RedirectResolution("/project_my_projects.jsp");
+            return new RedirectResolution(bbmri.action.Project.ProjectActionBean.class);
         }
         getContext().getMessages().add(
                        new SimpleMessage("Indentifier or password is not correct")
                );
-        return new ForwardResolution("/index.jsp");
+        return new ForwardResolution(this.getClass(), "display");
     }
 
-    @HandlesEvent("logout")
-    public Resolution logoutUser() {
+    public Resolution logout() {
         loginService.logout(getLoggedUser());
        // notificationService.setAllNewByRecipientToVisited(getLoggedUser().getId());
         getContext().setLoggedUser(null);
-        return new RedirectResolution("/index.jsp");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public void refreshLoggedUser() {

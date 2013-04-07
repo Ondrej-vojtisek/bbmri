@@ -50,6 +50,9 @@ public class Project implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
+
     /*Which member of ethical committee approved project*/
     private String approvedBy;
 
@@ -164,7 +167,16 @@ public class Project implements Serializable {
     public void setJudgedByUser(User judgedByUser) {
         this.judgedByUser = judgedByUser;
     }
-/*
+
+    public List<SampleQuestion> getSampleQuestions() {
+        return sampleQuestions;
+    }
+
+    public void setSampleQuestions(List<SampleQuestion> sampleQuestions) {
+        this.sampleQuestions = sampleQuestions;
+    }
+
+    /*
     public Attachment getAgreement() {
         return agreement;
     }

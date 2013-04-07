@@ -1,4 +1,4 @@
-package bbmri.action.SampleRequest;
+package bbmri.action.Sample;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;

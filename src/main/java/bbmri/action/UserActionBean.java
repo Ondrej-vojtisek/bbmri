@@ -14,7 +14,7 @@ import java.util.List;
 public class UserActionBean extends BasicActionBean {
 
     private User user;
-    private long id;
+    private Long id;
 
     @SpringBean
     private UserService userService;
@@ -32,11 +32,11 @@ public class UserActionBean extends BasicActionBean {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,8 +47,7 @@ public class UserActionBean extends BasicActionBean {
     )
 
     @DefaultHandler
-    public Resolution zobraz() {
-
+    public Resolution display() {
         users = userService.getAll();
         return new ForwardResolution("/user_all.jsp");
     }
@@ -59,7 +58,7 @@ public class UserActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)
         );
-        return new RedirectResolution(this.getClass(), "zobraz");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution delete() {
@@ -68,8 +67,10 @@ public class UserActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)
         );
-        return new RedirectResolution(this.getClass(), "zobraz");
+        return new RedirectResolution(this.getClass(), "display");
     }
+
+
 
     public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));

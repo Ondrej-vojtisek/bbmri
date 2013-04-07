@@ -26,11 +26,9 @@ public class ChangeAdministrator extends BasicActionBean {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
-
     public List<User> getUsers() {
         this.users = userService.getAll();
         return users;

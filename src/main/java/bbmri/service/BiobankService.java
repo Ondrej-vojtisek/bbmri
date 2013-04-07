@@ -35,4 +35,6 @@ public interface BiobankService {
 
     User assignAdministrator(Long userId, Long biobankId);
 
+    Biobank getById(Long id);
+
 }

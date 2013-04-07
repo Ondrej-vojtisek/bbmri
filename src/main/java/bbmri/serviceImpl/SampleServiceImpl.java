@@ -31,16 +31,16 @@ public class SampleServiceImpl implements SampleService {
 
     public Sample create(Sample sample, Long biobankId) {
         try {
-            sampleDAO.create(sample);
-            Biobank biobank = biobankDAO.get(biobankId);
-            if (biobank != null) {
-                sample.setBiobank(biobank);
+                    sampleDAO.create(sample);
+                    Biobank biobank = biobankDAO.get(biobankId);
+                    if (biobank != null) {
+                        sample.setBiobank(biobank);
 
-            }
-            return sample;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+                    }
+                    return sample;
+                } catch (DataAccessException ex) {
+                    throw ex;
+                }
     }
 
     public void remove(Long id) {
@@ -103,6 +103,10 @@ public class SampleServiceImpl implements SampleService {
                   numOfSamples -= requested;
               } else{
                   return sample;
+              }
+              if(numOfSamples == 0){
+                  sampleDAO.remove(sample);
+                  return null;
               }
               sample.setNumOfAvailable(available);
               sample.setNumOfSamples(numOfSamples);

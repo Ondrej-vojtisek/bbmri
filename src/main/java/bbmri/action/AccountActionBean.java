@@ -51,7 +51,7 @@ public class AccountActionBean extends BasicActionBean {
     }
 
     @DefaultHandler
-    public Resolution zobraz() {
+    public Resolution display() {
         user = getLoggedUser();
         return new ForwardResolution("/my_account.jsp");
     }
@@ -70,7 +70,7 @@ public class AccountActionBean extends BasicActionBean {
 
         userService.update(getLoggedUser());
         refreshLoggedUser();
-        return new RedirectResolution(this.getClass(), "zobraz");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution changePassword() {
@@ -84,7 +84,7 @@ public class AccountActionBean extends BasicActionBean {
             );
         }
         user = getLoggedUser();
-        return new RedirectResolution(this.getClass(), "zobraz");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public void refreshLoggedUser() {

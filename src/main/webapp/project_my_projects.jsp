@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="fn" uri="/WEB-INF/custom-functions.tld" %>
 
-<f:message key="project.all_projects" var="title"/>
+<f:message key="projects.MyProjects" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.ProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
 
@@ -20,18 +20,27 @@
     </s:layout-component>
 
     <s:layout-component name="secondary_menu">
-        <li><s:link href="/project_my_projects.jsp"><f:message key="my_projects"/></s:link></li>
+        <li class="active"><s:link href="/project_my_projects.jsp"><f:message key="my_projects"/></s:link></li>
         <li><s:link  beanclass="bbmri.action.Project.ProjectActionBean" event="createInitial"><f:message key="projects.createProject"/></s:link></li>
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
         </c:if>
         <li><s:link href="/samples_my_requests.jsp"><f:message key="my_requests"/></s:link></li>
         <c:if test="${ab.loggedUser.biobank != null || ab.loggedUser.administrator}">
-        <li class="active"><s:link href="/project_all.jsp"><f:message key="all_projects"/></s:link></li>
+        <li><s:link href="/project_all.jsp"><f:message key="all_projects"/></s:link></li>
         </c:if>
     </s:layout-component>
 
     <s:layout-component name="body">
+
+        <fieldset>
+            <legend><f:message key="notifications"/></legend>
+            <s:form beanclass="bbmri.action.Project.ProjectActionBean">
+                <c:forEach items="${ab.notifications}" var="notification">
+                     <div><c:out value="${notification.message}"/></div>
+                </c:forEach>
+            </s:form>
+        </fieldset>
 
         <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
@@ -47,7 +56,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${ab.projects}" var="project">
+                    <c:forEach items="${ab.myProjects}" var="project">
                         <tr>
                             <td><c:out value="${project.name}"/></td>
                             <td><c:out value="${project.annotation}"/></td>

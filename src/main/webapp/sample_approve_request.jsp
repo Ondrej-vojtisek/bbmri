@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 <f:message key="samples.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
     <s:layout-component name="primary_menu">
         <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
@@ -34,38 +34,33 @@
     </s:layout-component>
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean">
-            <fieldset>
-                <legend><f:message key="samples_to_be_released"/></legend>
-                <table id="sortableTable">
-                    <thead>
+        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+            <table id="sortableTable">
+                <thead>
+                <tr>
+                    <th><s:label name="project.name"/></th>
+                    <th><s:label name="project.owner"/></th>
+                    <th><s:label name="sampleQuestion.specification"/></th>
+                </tr>
+
+                </thead>
+                <tbody>
+
+                <c:forEach items="${ab.sampleQuestions}" var="sampleQuestion">
                     <tr>
-                        <th><s:label name="project"/></th>
-                        <th><s:label name="requestState"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${ab.requestGroups}" var="requestGroup">
-                        <tr>
-                            <td><c:out value="${requestGroup.project.name}"/></td>
-                            <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
-                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="approve">
-                                <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
-                                    key="approve"/></s:link>
-                            </td>
-                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="reject">
-                                <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
-                                    key="reject"/></s:link>
-                            </td>
-                            <td><s:link beanclass="bbmri.action.SampleRequest.ApproveRequestActionBean" event="detail">
-                                <s:param name="requestGroup.id" value="${requestGroup.id}"/><f:message
+                        <td><c:out value="${sampleQuestion.project.name}"/></td>
+                        <td><c:out value="${sampleQuestion.project.owner.wholeName}"/></td>
+                        <td><c:out value="${sampleQuestion.specification}"/></td>
+                        <td>
+                            <s:link beanclass="bbmri.action.SampleQuestionActionBean" event="detail">
+                                <s:param name="sampleQuestion.id" value="${sampleQuestion.id}"/><f:message
                                     key="detail"/></s:link>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </fieldset>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
         </s:form>
     </s:layout-component>
 </s:layout-render>

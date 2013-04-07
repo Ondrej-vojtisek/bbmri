@@ -32,7 +32,6 @@ public class EditProjectActionBean extends BasicActionBean {
             @Validate(on = {"create"}, field = "fundingOrganization", required = true),
     })
     private Project project;
-    private FileBean attachmentFileBean;
     @SpringBean
     private UserService userService;
 
@@ -45,26 +44,6 @@ public class EditProjectActionBean extends BasicActionBean {
     private List<User> freeUsers;
     private Attachment attachment;
 
-    public Attachment getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(Attachment attachment) {
-        this.attachment = attachment;
-    }
-
-    public List<Attachment> getAttachments(){
-        return projectService.getAttachmentsByProject(getProject().getId());
-    }
-
-    public FileBean getAttachmentFileBean() {
-        return attachmentFileBean;
-    }
-
-    public void setAttachmentFileBean(FileBean attachmentFileBean) {
-        this.attachmentFileBean = attachmentFileBean;
-    }
-
     public List<User> getFreeUsers() {
         this.freeUsers = projectService.getAllNotAssignedUsers(getProject().getId());
         return freeUsers;
@@ -73,7 +52,6 @@ public class EditProjectActionBean extends BasicActionBean {
     public void setFreeUsers(List<User> freeUsers) {
         this.freeUsers = freeUsers;
     }
-
 
     public List<Long> getSelectedApprove() {
         return selectedApprove;
@@ -118,15 +96,23 @@ public class EditProjectActionBean extends BasicActionBean {
         this.project = project;
     }
 
+    public Attachment getAttachment() {
+               return attachment;
+           }
+
+    public void setAttachment(Attachment attachment) {
+               this.attachment = attachment;
+    }
+
     @DefaultHandler
-    public Resolution zobraz() {
-        return new ForwardResolution("/project_my_projects.jsp");
+    public Resolution display() {
+        return new ForwardResolution("/project_edit.jsp");
     }
 
     public Resolution update() {
         projectService.update(project);
         refreshLoggedUser();
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(ProjectActionBean.class);
     }
 
     public Resolution removeAll() {
@@ -135,7 +121,7 @@ public class EditProjectActionBean extends BasicActionBean {
             for (Long id : selected) {
                 if (id.equals(getContext().getLoggedUser().getId())) {
                     /*you can't remove yourself*/
-                    return new ForwardResolution("/project_my_projects.jsp");
+                    return new ForwardResolution(ProjectActionBean.class);
                 }
                 projectService.removeUserFromProject(id, getProject().getId());
                 removed++;
@@ -146,7 +132,7 @@ public class EditProjectActionBean extends BasicActionBean {
                          );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(ProjectActionBean.class);
     }
 
     public Resolution assignAll() {
@@ -162,7 +148,7 @@ public class EditProjectActionBean extends BasicActionBean {
                );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
-        return new ForwardResolution("/project_edit.jsp");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution changeOwnership() {
@@ -171,42 +157,24 @@ public class EditProjectActionBean extends BasicActionBean {
                               new SimpleMessage("Ownership of project was changed")
                       );
         refreshLoggedUser();
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(ProjectActionBean.class);
     }
 
     public void refreshLoggedUser() {
         getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
     }
 
-    public Resolution uploadMTA() {
-          if (attachmentFileBean != null) {
-              Attachment attachment = new Attachment();
-              attachment.setFileName(attachmentFileBean.getFileName());
-              attachment.setContentType(attachmentFileBean.getContentType());
-              attachment.setSize(attachmentFileBean.getSize());
-              attachment.setAttachmentType(AttachmentType.MATERIAL_TRANSFER_AGREEMENT);
-              Project projectDB = projectService.getById(getContext().getProject().getId());
-              projectService.saveAttachment(getContext().getProject().getId(), attachment);
-              try {
-                  attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
-                          + attachment.getId().toString() + attachment.getAttachmentType().toString()));
-                  getContext().getMessages().add(
-                                        new SimpleMessage("File was uploaded")
-                                );
-              } catch (IOException e) {
-                  getContext().getMessages().add(
-                                                       new SimpleMessage("Exception: " + e)
-                                               );
-              }
+    public List<Attachment> getAttachments() {
+              return projectService.getAttachmentsByProject(getProject().getId());
           }
-          return new ForwardResolution("/project_my_projects.jsp");
-      }
 
-    public Resolution download() throws Exception{
-        attachment = projectService.getAttachmentById(attachment.getId());
-        String fileName = attachment.getFileName();
-        String filePath = projectService.getAttachmentPath(attachment);
-        return new StreamingResolution(attachment.getContentType(),
-               new FileInputStream(filePath)).setFilename(fileName);
-    }
+    public Resolution download() throws Exception {
+               System.err.println("Attachment ID : " + attachment.getId());
+               attachment = projectService.getAttachmentById(attachment.getId());
+               String fileName = attachment.getFileName();
+               String filePath = projectService.getAttachmentPath(attachment);
+               return new StreamingResolution(attachment.getContentType(),
+                       new FileInputStream(filePath)).setFilename(fileName);
+           }
+
 }

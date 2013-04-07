@@ -1,5 +1,6 @@
-package bbmri.action;
+package bbmri.action.Sample;
 
+import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
@@ -10,16 +11,21 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
 
+import java.util.List;
 import java.util.Random;
 
 /**
- * Created by IntelliJ IDEA.
+ * Created with IntelliJ IDEA.
  * User: Ori
- * Date: 7.11.12
- * Time: 0:34
+ * Date: 6.4.13
+ * Time: 19:50
  * To change this template use File | Settings | File Templates.
  */
-public class AddSampleActionBean extends BasicActionBean {
+@UrlBinding("/Sample/{$event}/{project.id}")
+public class SampleActionBean extends BasicActionBean {
+
+    @SpringBean
+    private SampleService sampleService;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"},
@@ -41,17 +47,41 @@ public class AddSampleActionBean extends BasicActionBean {
             @Validate(on = {"create"}, field = "numOfAvailable", required = true,
                     minvalue = 1),
             @Validate(on = {"create"}, field = "diagnosis", required = true,
-                    minlength = 4, maxlength = 4)
+                    minlength = 4, maxlength = 4),
+            @Validate(on = {"find"},
+                    field = "TNM",
+                    maxlength = 7),
+            @Validate(on = {"find"},
+                    field = "pTNM",
+                    maxlength = 7),
+            @Validate(on = {"find"},
+                    field = "grading",
+                    minvalue = 1, maxvalue = 8),
+            @Validate(on = {"find"}, field = "tissueType",
+                    maxlength = 2),
+            @Validate(on = {"find"}, field = "diagnosis",
+                    maxlength = 4)
     })
     private Sample sample;
-
-    @SpringBean
-    private SampleService sampleService;
-
 
     @Validate(converter = IntegerTypeConverter.class, on = {"generateRandomSample"},
             required = true, minvalue = 1, maxvalue = 100)
     private Integer numOfRandom;
+
+    private List<Sample> results;
+
+    public Sample getSample() {
+        if(sample == null){
+           // if(getContext().getSample() != null){
+                sample = getContext().getSample();
+         //   }
+        }
+        return sample;
+    }
+
+    public void setSample(Sample sample) {
+        this.sample = sample;
+    }
 
     public Integer getCount() {
         return sampleService.getCount();
@@ -65,21 +95,29 @@ public class AddSampleActionBean extends BasicActionBean {
         this.numOfRandom = numOfRandom;
     }
 
-    public void setSample(Sample sample) {
-        this.sample = sample;
+    public List<Sample> getResults() {
+        if(results == null){
+            Sample sampleQuery = getSample();
+            if(sampleQuery != null){
+                results = sampleService.getSamplesByQuery(sampleQuery);
+            }
+        }
+        return results;
     }
 
-    public Sample getSample() {
-        return sample;
+    public Integer getResultCount() {
+        if (getResults() == null) {
+            return 0;
+        }
+        return results.size();
     }
 
     @DefaultHandler
-    public Resolution zobraz() {
+    public Resolution display() {
         return new ForwardResolution("/sample_create.jsp");
     }
 
     public Resolution create() {
-
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
             sampleService.create(sample, biobank.getId());
@@ -87,8 +125,7 @@ public class AddSampleActionBean extends BasicActionBean {
                     new SimpleMessage("Added 1 sample")
             );
         }
-
-        return new RedirectResolution("/sample_create.jsp");
+        return new ForwardResolution(this.getClass(), "display");
     }
 
     public Resolution generateRandomSample() {
@@ -104,7 +141,7 @@ public class AddSampleActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Added {0} sample(s)", added)
         );
-        return new RedirectResolution("/sample_create.jsp");
+        return new ForwardResolution(this.getClass(), "display");
     }
 
     public void generateSample() {
@@ -121,7 +158,31 @@ public class AddSampleActionBean extends BasicActionBean {
         sample.setTissueType(randomStringUtils.random(2, true, true));
     }
 
+    public Resolution amortizeSamples() {
+        // TODO - variable amount of amortized samples
+        System.err.println("Number of amortized: " + amortizeNumber);
+        System.err.println("Sample: " + sample);
+        Integer count = 1;
+        sampleService.amortizeSample(sample.getId(), count);
+        getContext().setSample(sample);
+        amortizeNumber = null;
+        return new ForwardResolution("/sample_amortize.jsp");
+    }
 
+    public Resolution find() {
+        results = sampleService.getSamplesByQuery(sample);
+        getContext().setSample(sample);
+        return new ForwardResolution("/sample_amortize.jsp");
+    }
+
+
+    private Integer amortizeNumber;
+
+    public Integer getAmortizeNumber() {
+        return amortizeNumber;
+    }
+
+    public void setAmortizeNumber(Integer amortizeNumber) {
+        this.amortizeNumber = amortizeNumber;
+    }
 }
-
-

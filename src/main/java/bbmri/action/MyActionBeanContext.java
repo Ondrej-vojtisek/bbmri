@@ -1,9 +1,6 @@
 package bbmri.action;
 
-import bbmri.entities.Biobank;
-import bbmri.entities.Project;
-import bbmri.entities.RequestGroup;
-import bbmri.entities.User;
+import bbmri.entities.*;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.action.FileBean;
 
@@ -47,12 +44,20 @@ public class MyActionBeanContext extends ActionBeanContext {
         getRequest().getSession().setAttribute("requestGroup", requestGroup);
     }
 
-    public FileBean getFile() {
-        return (FileBean) getRequest().getSession().getAttribute("file");
+    public Sample getSample() {
+        return (Sample) getRequest().getSession().getAttribute("sample");
     }
 
-    public void setFile(FileBean file) {
-        getRequest().getSession().setAttribute("file", file);
+    public void setSample(Sample sample) {
+        getRequest().getSession().setAttribute("sample", sample);
     }
+
+    public SampleQuestion getSampleQuestion() {
+           return (SampleQuestion) getRequest().getSession().getAttribute("sampleQuestion");
+       }
+
+       public void setSampleQuestion(SampleQuestion sampleQuestion) {
+           getRequest().getSession().setAttribute("sampleQuestion", sampleQuestion);
+       }
 
 }
