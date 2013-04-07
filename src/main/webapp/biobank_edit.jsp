@@ -27,9 +27,6 @@
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
-            <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
-
-            <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
         </c:if>
     </s:layout-component>
 

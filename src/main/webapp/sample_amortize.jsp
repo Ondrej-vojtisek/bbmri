@@ -27,10 +27,8 @@
         <c:if test="${ab.loggedUser.biobank != null}">
             <li><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
             <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
-            <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
-
-            <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
             <li class="active"><s:link href="/sample_amortize.jsp"><f:message key="sample.amortize"/></s:link></li>
+            <li><s:link href="/requestGroup_all.jsp"><f:message key="sample.requests"/></s:link></li>
         </c:if>
     </s:layout-component>
 
@@ -40,7 +38,7 @@
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
                 <p>Example: diagnosis "a%", tissueType "aa" -> diagnosis starts with 'a' AND tissueType = "aa"</p>
-                <%@include file="/form/selectionCriteriaForm.jsp" %>
+                <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="find"><f:message key="find"/></s:submit>
             </fieldset>
             <fieldset>

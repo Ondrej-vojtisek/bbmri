@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public interface SampleService {
      Sample amortizeSample(Long sampleId, Integer requested);
 
      List<Sample> getSamplesByQuery(Sample sample);
+
+     List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank);
 
      Integer getCount();
 

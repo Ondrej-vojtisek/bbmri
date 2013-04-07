@@ -163,8 +163,62 @@ public class SampleServiceImpl implements SampleService {
         } catch (DataAccessException ex) {
             throw ex;
         }
-
     }
+
+    public List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank) {
+          String query = "WHERE";
+          /*
+              Queries temporal without %
+          * */
+
+          if(biobank == null){
+              return null;
+          }
+
+          query = query + " p.biobank.id ='" + biobank.getId() + "'";
+          query = query + " AND";
+
+          if (sample.getDiagnosis() != null) {
+              //query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
+              query = query + " p.diagnosis ='" + sample.getDiagnosis().toString() + "'";
+              query = query + " AND";
+          }
+          if (sample.getGrading() != null) {
+              query = query + " p.grading ='" + sample.getGrading() + "'";
+              query = query + " AND";
+          }
+          if (sample.getpTNM() != null) {
+              //query = query + " p.pTNM like'" + sample.getpTNM() + "'";
+              query = query + " p.pTNM ='" + sample.getpTNM() + "'";
+              query = query + " AND";
+          }
+
+          if (sample.getTNM() != null) {
+              //query = query + " p.TNM like'" + sample.getTNM() + "'";
+              query = query + " p.TNM ='" + sample.getTNM() + "'";
+              query = query + " AND";
+          }
+
+          if (sample.getTissueType() != null) {
+              //query = query + " p.tissueType like'" + sample.getTissueType() + "'";
+              query = query + " p.tissueType ='" + sample.getTissueType() + "'";
+              query = query + " AND";
+          }
+
+          if (sample.getNumOfAvailable() != null) {
+              query = query + " p.numOfAvailable ='" + sample.getNumOfAvailable() + "'";
+          }
+
+          if (query.endsWith("AND")) {
+              query = query.substring(0, query.length() - 3);
+          }
+          try {
+              List<Sample> samples = sampleDAO.getSelected(query);
+              return samples;
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
 
     public Integer getCount() {
         try {

@@ -67,13 +67,13 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     public List<RequestGroup> getRequestGroups() {
         return requestGroupService.getByBiobankAndState(getBiobank().getId(), RequestState.APPROVED);
     }
-
+    /*
     public Resolution release() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.EQUIPPED);
         getContext().getMessages().add(
                 new SimpleMessage("Samples from request group with id = {0} was equipped", requestGroup.getId())
         );
         return new ForwardResolution("/sample_release.jsp");
-    }
+    }  */
 
 }

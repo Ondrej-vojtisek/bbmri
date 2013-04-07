@@ -72,9 +72,7 @@ public class SampleActionBean extends BasicActionBean {
 
     public Sample getSample() {
         if(sample == null){
-           // if(getContext().getSample() != null){
                 sample = getContext().getSample();
-         //   }
         }
         return sample;
     }
@@ -174,7 +172,6 @@ public class SampleActionBean extends BasicActionBean {
         getContext().setSample(sample);
         return new ForwardResolution("/sample_amortize.jsp");
     }
-
 
     private Integer amortizeNumber;
 

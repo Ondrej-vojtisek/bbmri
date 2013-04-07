@@ -246,6 +246,8 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
         List<Request> results = new ArrayList<Request>();
         List<Request> requests = requestDAO.getAll();
+
+
         for(int i = 0; i < requests.size(); i++){
             if(requests.get(i).getRequestGroup().equals(requestGroupDB)){
                 results.add(requests.get(i));

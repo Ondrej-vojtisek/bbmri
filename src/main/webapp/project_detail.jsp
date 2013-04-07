@@ -23,7 +23,7 @@
         <li><s:link href="/project_my_projects.jsp"><f:message key="my_projects"/></s:link></li>
         <li><s:link  beanclass="bbmri.action.Project.ProjectActionBean" event="createInitial"><f:message key="projects.createProject"/></s:link></li>
         <c:if test="${ab.loggedUser.biobank != null}">
-            <li><s:link href="/project_approve.jsp"><f:message key="approve"/></s:link></li>
+            <li><s:link href="/project_approve.jsp"><f:message key="approve_project"/></s:link></li>
         </c:if>
         <c:if test="${ab.loggedUser.biobank != null || ab.loggedUser.administrator}">
         <li><s:link href="/project_all.jsp"><f:message key="all_projects"/></s:link></li>

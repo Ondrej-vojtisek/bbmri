@@ -25,9 +25,8 @@
             </c:if>
             <c:if test="${ab.loggedUser.biobank != null}">
                 <li class="active"><s:link href="/sample_approve_request.jsp"><f:message key="approve_sample_request"/></s:link></li>
+                <li><s:link href="/sample_amortize.jsp"><f:message key="sample.amortize"/></s:link></li>
                 <li><s:link href="/sample_create.jsp"><f:message key="sample_create"/></s:link></li>
-                <li><s:link href="/sample_release.jsp"><f:message key="sample.release"/></s:link></li>
-                <li><s:link href="/sample_released.jsp"><f:message key="sample.released"/></s:link></li>
             </c:if>
         </c:if>
     </s:layout-component>
@@ -77,7 +76,6 @@
                     </tbody>
                 </table>
             </fieldset>
-            <s:link href="/sample_approve_request.jsp"><f:message key="back"/></s:link>
         </s:form>
     </s:layout-component>
 </s:layout-render>
