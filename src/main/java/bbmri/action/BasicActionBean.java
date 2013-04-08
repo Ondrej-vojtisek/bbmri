@@ -1,8 +1,7 @@
 package bbmri.action;
 
 import bbmri.entities.User;
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,6 +24,22 @@ public class BasicActionBean implements ActionBean {
 
     public User getLoggedUser() {
         return ctx.getLoggedUser();
+    }
+
+    @HandlesEvent("releaseContext")
+    public void releaseContext(){
+        System.err.println("ReleaseContext");
+
+        getContext().setProject(null);
+        getContext().setBiobank(null);
+        getContext().setRequest(null);
+        getContext().setRequestGroup(null);
+        getContext().setSampleQuestion(null);
+        getContext().setSample(null);
+    }
+
+    public Resolution primary_menu_project(){
+        return new ForwardResolution("/project_my_projects.jsp");
     }
 
 

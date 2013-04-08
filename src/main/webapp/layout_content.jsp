@@ -44,7 +44,7 @@
                     </p>
 
                     <p class="navbar-text pull-right" style="margin-right: 30px;">
-                        <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
+                        <b><f:message key="version"/>:</b> <i>beta-1.25</i>
                     </p>
                     <ul class="nav">
                         <s:layout-component name="primary_menu"/>

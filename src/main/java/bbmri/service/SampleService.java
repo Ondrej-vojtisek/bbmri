@@ -24,7 +24,7 @@ public interface SampleService {
 
      Sample decreaseCount(Long sampleId, Integer requested);
 
-     Sample amortizeSample(Long sampleId, Integer requested);
+     Sample withdrawSample(Long sampleId, Integer requested);
 
      List<Sample> getSamplesByQuery(Sample sample);
 

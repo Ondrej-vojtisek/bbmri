@@ -97,7 +97,7 @@ public class SampleActionBean extends BasicActionBean {
         if(results == null){
             Sample sampleQuery = getSample();
             if(sampleQuery != null){
-                results = sampleService.getSamplesByQuery(sampleQuery);
+                results = sampleService.getSamplesByQueryAndBiobank(sampleQuery, getLoggedUser().getBiobank());
             }
         }
         return results;
@@ -156,30 +156,28 @@ public class SampleActionBean extends BasicActionBean {
         sample.setTissueType(randomStringUtils.random(2, true, true));
     }
 
-    public Resolution amortizeSamples() {
-        // TODO - variable amount of amortized samples
-        System.err.println("Number of amortized: " + amortizeNumber);
-        System.err.println("Sample: " + sample);
+    public Resolution withdrawSamples() {
+        // TODO - variable amount of withdrawed samples
         Integer count = 1;
-        sampleService.amortizeSample(sample.getId(), count);
+        sampleService.withdrawSample(sample.getId(), count);
         getContext().setSample(sample);
-        amortizeNumber = null;
-        return new ForwardResolution("/sample_amortize.jsp");
+        withdrawNumber = null;
+        return new ForwardResolution("/sample_withdraw.jsp");
     }
 
     public Resolution find() {
         results = sampleService.getSamplesByQuery(sample);
         getContext().setSample(sample);
-        return new ForwardResolution("/sample_amortize.jsp");
+        return new ForwardResolution("/sample_withdraw.jsp");
     }
 
-    private Integer amortizeNumber;
+    private Integer withdrawNumber;
 
-    public Integer getAmortizeNumber() {
-        return amortizeNumber;
+    public Integer getWithdrawNumber() {
+        return withdrawNumber;
     }
 
-    public void setAmortizeNumber(Integer amortizeNumber) {
-        this.amortizeNumber = amortizeNumber;
+    public void setWithdrawNumber(Integer withdrawNumber) {
+        this.withdrawNumber = withdrawNumber;
     }
 }

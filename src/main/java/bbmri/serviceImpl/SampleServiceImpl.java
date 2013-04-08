@@ -90,7 +90,7 @@ public class SampleServiceImpl implements SampleService {
         }
     }
 
-    public Sample amortizeSample(Long sampleId, Integer requested) {
+    public Sample withdrawSample(Long sampleId, Integer requested) {
           try {
               Sample sample = sampleDAO.get(sampleId);
               Integer available = sample.getNumOfAvailable();

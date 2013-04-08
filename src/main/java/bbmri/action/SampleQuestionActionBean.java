@@ -102,11 +102,13 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
+        getContext().setSampleQuestion(null);
         return new ForwardResolution("/sample_request.jsp");
     }
 
     public Resolution createSampleQuestion(){
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
+        getContext().setSampleQuestion(null);
         return new ForwardResolution(bbmri.action.Project.ProjectActionBean.class);
     }
 

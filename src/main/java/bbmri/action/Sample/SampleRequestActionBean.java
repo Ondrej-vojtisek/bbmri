@@ -129,7 +129,7 @@ public class SampleRequestActionBean extends BasicActionBean {
         if(sampleQuery != null){
             results = sampleService.getSamplesByQuery(sampleQuery);
         }
-        return new ForwardResolution("/sample_amortize.jsp");
+        return new ForwardResolution("/sample_withdraw.jsp");
     }
 
     public Resolution request() {
@@ -145,14 +145,14 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     public Resolution find() {
         results = sampleService.getSamplesByQuery(sampleQuery);
-        return new ForwardResolution("/sample_amortize.jsp");
+        return new ForwardResolution("/sample_withdraw.jsp");
     }
 
     public Resolution createParametrizedRequest() {
         if (sample != null) {
             results = sampleService.getSamplesByQuery(sample);
         }
-        return new ForwardResolution("/sample_amortize.jsp");
+        return new ForwardResolution("/sample_withdraw.jsp");
     }
 
     /*TODO: change num of requested to variable value*/

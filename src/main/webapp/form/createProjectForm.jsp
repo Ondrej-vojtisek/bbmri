@@ -20,7 +20,7 @@
     </tr>
 
     <tr>
-        <th><s:label for="z4" name="project.mainInvestigator"/></th>
+        <th><s:label for="z4" name="project.principalInvestigator"/></th>
         <td><s:text id="z4" name="project.mainInvestigator"/></td>
     </tr>
     <tr>
