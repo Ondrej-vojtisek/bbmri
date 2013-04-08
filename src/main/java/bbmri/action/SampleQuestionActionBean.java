@@ -102,7 +102,6 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        getContext().setSampleQuestion(null);
         return new ForwardResolution("/sample_request.jsp");
     }
 
@@ -162,13 +161,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
 
     public Resolution find(){
-        System.err.println("Sample " + sample);
-
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
-
-
-
-      //  getContext().setSample(sample);
         getContext().setSampleQuestion(sampleQuestion);
         return new ForwardResolution("/sample_question_detail.jsp");
     }

@@ -37,7 +37,8 @@
                 <legend><f:message key="project_upload_new"/></legend>
                 <li>Osoba, která v systému zakládá projekt, je odpovědná za uvedených správných a pravdivých údajů.</li>
                 <li>Zadat lze pouze projekty, které byly schváleny etickou komisí instituce podávajícího</li>
-                <li>Součástí založení projektu je nahrání naskenovaného formuláře Material Transfer Agreement (MTA), který je ke stažení zde:   <s:link href="data/mta_form.pdf" target="blank"><f:message key="download_mta_form"/></s:link></li>
+                <li>Součástí založení projektu je nahrání naskenovaného formuláře Material Transfer Agreement (MTA), který je ke stažení zde:
+                    <s:link href="/data/mta_form.pdf" target="blank"><f:message key="download_mta_form"/></s:link></li>
                 <br>
 
                 <br>

@@ -14,7 +14,7 @@
     </head>
     <body>
     <div style="text-align: right; margin-right: 20px;">
-        <b><f:message key="version"/>:</b> <i>beta-1.25</i>
+        <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
     </div>
 
     <h1><c:out value="${titles}"/></h1>

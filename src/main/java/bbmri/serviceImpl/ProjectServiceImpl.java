@@ -82,8 +82,10 @@ public class ProjectServiceImpl implements ProjectService {
     public List<Project> getAllByUserWithRequests(Long id) {
            User userDB = userDAO.get(id);
            List<Project> projects = projectDAO.getAllByUser(userDB);
-           for(int i = 0; i < projects.size(); i++){
-              projects.get(i).setRequestGroups(requestGroupDAO.getAllByProject(projects.get(i)));
+           if(projects != null){
+               for(int i = 0; i < projects.size(); i++){
+                  projects.get(i).setRequestGroups(requestGroupDAO.getAllByProject(projects.get(i)));
+               }
            }
            return projects;
        }

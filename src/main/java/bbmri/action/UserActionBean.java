@@ -40,12 +40,6 @@ public class UserActionBean extends BasicActionBean {
         this.id = id;
     }
 
-    @ValidateNestedProperties(value = {
-            @Validate(on = {"pridej", "uloz"}, field = "name", required = true),
-            @Validate(on = {"pridej", "uloz"}, field = "surname", required = true)
-    }
-    )
-
     @DefaultHandler
     public Resolution display() {
         users = userService.getAll();
@@ -53,7 +47,10 @@ public class UserActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
-        getUser();
+
+        user.setBiobank(null);
+        user.setAdministrator(false);
+        user.setOnline(false);
         userService.create(user);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)

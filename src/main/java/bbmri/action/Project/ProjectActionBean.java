@@ -53,7 +53,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     public List<Project> getMyProjects() {
-        return projectService.getAllByUserWithRequests(getLoggedUser().getId());
+        return projectService.getAllByUser(getLoggedUser().getId());
     }
 
     public List<Notification> getNotifications() {
@@ -106,6 +106,7 @@ public class ProjectActionBean extends BasicActionBean {
 
         if (project.getProjectState() != ProjectState.NEW) {
             getContext().setProject(project);
+            getContext().setSampleQuestion(null);
             return new ForwardResolution("/sample_request.jsp");
         }
         return new ForwardResolution(this.getClass(), "display");
