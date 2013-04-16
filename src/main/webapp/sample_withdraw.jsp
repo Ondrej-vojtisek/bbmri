@@ -4,23 +4,25 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 
 
-<f:message key="sample.request" var="title"/>
+<f:message key="sample.withdraw" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Sample.SampleActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}">
 
     <s:layout-component name="primary_menu">
+
+
         <li><s:link href="/project_my_projects.jsp"><f:message key="projects"/></s:link></li>
-        <li class="active"><s:link event="primary_menu_biobank" ><f:message key="biobanks"/></s:link></li>
+        <li class="active"><s:link href="/biobank_all.jsp"><f:message key="biobanks"/></s:link></li>
         <c:if test="${ab.loggedUser.administrator}">
-            <li><s:link href="/user_all.jsp" ><f:message key="users"/></s:link></li>
+            <li><s:link href="/user_all.jsp"><f:message key="users"/></s:link></li>
         </c:if>
         <c:if test="${ab.loggedUser.administrator}">
-            <li><s:link href="/changeAdministrator.jsp" ><f:message key="change_administrator"/></s:link></li>
+            <li><s:link href="/changeAdministrator.jsp"><f:message key="change_administrator"/></s:link></li>
         </c:if>
     </s:layout-component>
 
     <s:layout-component name="secondary_menu">
-        <li><s:link event="primary_menu_biobank"><f:message key="biobanks_all"/></s:link></li>
+        <li><s:link href="/biobank_all.jsp"><f:message key="biobanks_all"/></s:link></li>
         <c:if test="${ab.loggedUser.administrator}">
             <li><s:link href="/biobank_create.jsp"><f:message key="biobank_create"/></s:link></li>
         </c:if>
@@ -31,6 +33,7 @@
             <li><s:link href="/requestGroup_all.jsp"><f:message key="sample.requests"/></s:link></li>
         </c:if>
     </s:layout-component>
+
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.Sample.SampleActionBean">
@@ -83,4 +86,6 @@
 
         </s:form>
     </s:layout-component>
+
+
 </s:layout-render>
