@@ -4,6 +4,7 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
+import bbmri.webEntities.SampleRequestWrapper;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
@@ -43,6 +44,15 @@ public class SampleActionBean extends BasicActionBean {
     })
     private Sample sample;
 
+    private List<Long> selectedSamples;
+
+    public List<Long> getSelectedSamples() {
+        return selectedSamples;
+    }
+
+    public void setSelectedSamples(List<Long> selectedSamples) {
+        this.selectedSamples = selectedSamples;
+    }
 
     private List<Sample> results;
 
@@ -85,9 +95,12 @@ public class SampleActionBean extends BasicActionBean {
 
     public Resolution withdrawSamples() {
         // TODO - variable amount of withdrawed samples
-        Integer count = 1;
+         System.err.println("SAMPLES: " + selectedSamples);
+
+    /*    Integer count = 1;
         sampleService.withdrawSample(sample.getId(), count);
         getContext().setSample(sample);
+        */
         return new ForwardResolution("/sample_withdraw.jsp");
     }
 

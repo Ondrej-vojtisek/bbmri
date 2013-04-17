@@ -35,5 +35,12 @@
             </fieldset>
         </s:form>
 
+        <s:form beanclass="bbmri.action.UserActionBean">
+                    <fieldset>
+                        <s:file name="excelFileBean"></s:file>
+                        <s:submit name="uploadExcel" value="Upload"/>
+                    </fieldset>
+        </s:form>
+
     </s:layout-component>
 </s:layout-render>

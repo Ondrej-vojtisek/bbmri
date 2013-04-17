@@ -71,16 +71,13 @@
                         <td><c:out value="${sample.diagnosis}"/></td>
                         <td><c:out value="${sample.tissueType}"/></td>
                         <td>
-                            <s:link beanclass="bbmri.action.Sample.SampleActionBean"
-                                    event="withdrawSamples">
-                                <s:param name="sample.id" value="${sample.id}"/>
-                                <f:message key="sample.withdraw"/></s:link>
+                            <s:checkbox name="selectedSamples" value="${sample.id}"/>
                         </td>
                     </tr>
                     </c:forEach>
                     <tbody>
                 </table>
-                <s:submit name="requestSelected"><f:message key="request_selected"/></s:submit>
+                <s:submit name="withdrawSamples"><f:message key="request_selected"/></s:submit>
             </fieldset>
 
 

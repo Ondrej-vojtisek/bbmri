@@ -26,6 +26,26 @@ public class UserServiceImpl implements UserService {
 
     public User create(User user) {
         try {
+            if(user.getId() != null){
+                if(userDAO.get(user.getId()) != null){
+                    // TODO throw exception - There is already a user with the same ID in the database
+                    return null;
+                }
+//                Long id = user.getId();
+//                user.setId(null);
+//                userDAO.create(user);
+//                user.setId(id);
+                System.err.println("User: " + user);
+
+                user.setId(new Long(10));
+                System.err.println("User: " + user);
+
+                userDAO.update(user);
+
+                System.err.println("User: " + user);
+
+                return user;
+            }
             userDAO.create(user);
             return user;
         } catch (DataAccessException ex) {

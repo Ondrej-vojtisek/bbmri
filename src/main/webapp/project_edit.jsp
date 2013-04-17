@@ -93,7 +93,6 @@
                 <s:submit name="assignAll"><f:message key="assign_selected"/></s:submit>
             </fieldset>
 
-
         </s:form>
         <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
 

@@ -1,12 +1,14 @@
 package bbmri.action;
 
 import bbmri.entities.User;
+import bbmri.io.ExcelImport;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,6 +69,54 @@ public class UserActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "display");
     }
 
+    private FileBean excelFileBean;
+
+    public FileBean getExcelFileBean() {
+        return excelFileBean;
+    }
+
+    public void setExcelFileBean(FileBean excelFileBean) {
+        this.excelFileBean = excelFileBean;
+    }
+
+    public Resolution uploadExcel() {
+        String filePath = "temp\\" + excelFileBean.getFileName();
+        if (excelFileBean == null) {
+            getContext().getMessages().add(
+                    new SimpleMessage("ExcelFileBean null")
+            );
+            return new ForwardResolution(this.getClass(), "display");
+        }
+        File file = new File(filePath);
+
+        try {
+            excelFileBean.save(file);
+
+        } catch (IOException e) {
+            getContext().getMessages().add(
+                    new SimpleMessage("Exception: " + e)
+            );
+        }
+
+        List<User> users = new ArrayList<User>();
+
+        try {
+            ExcelImport excelImport = new ExcelImport();
+            users = excelImport.parseExcelUserTable(filePath);
+
+            for(User user : users){
+                userService.create(user);
+            }
+
+        } catch (Exception e) {
+            getContext().getMessages().add(
+                    new SimpleMessage("Exception: " + e)
+            );
+        }
+        file.delete();
+
+        return new ForwardResolution(this.getClass(), "display");
+    }
 
 
     public void refreshLoggedUser() {
