@@ -42,7 +42,7 @@
                         <th><s:label name="select_biobank_administrator"/></th>
                         <td><s:select name="administrator.id">
                             <s:option value=""><f:message key="select_one"/></s:option>
-                            <s:options-collection collection="${ab.users}" label="wholeName" value="id"/>
+                            <s:options-collection collection="${ab.nonAdministrators}" label="wholeName" value="id"/>
                         </s:select>
                         </td>
                     </tr>

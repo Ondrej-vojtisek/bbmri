@@ -88,7 +88,7 @@ public class BiobankActionBean extends BasicActionBean {
         return userService.getAll();
     }
 
-    public List<User> getFreeUsers() {
+    public List<User> getNonAdministrators() {
         return userService.getNonAdministratorUsers();
     }
 
@@ -110,7 +110,7 @@ public class BiobankActionBean extends BasicActionBean {
     public Resolution display() {
         refreshLoggedUser();
         biobanks = biobankService.getAll();
-        return new ForwardResolution(this.getClass(), "display");
+        return new ForwardResolution("/biobank_all.jsp");
     }
 
     public Resolution edit() {
@@ -122,8 +122,11 @@ public class BiobankActionBean extends BasicActionBean {
     public Resolution create() {
         User resDB = userService.getById(administrator.getId());
         if (resDB.getBiobank() != null) {
+            getContext().getMessages().add(
+                         new SimpleMessage("Selected user is already an administrator of a biobank")
+                 );
             refreshLoggedUser();
-            return new ForwardResolution("/biobank_all.jsp");
+            return new ForwardResolution(this.getClass(), "display");
         }
         biobankService.create(biobank, administrator.getId());
         return new ForwardResolution(this.getClass(), "display");
