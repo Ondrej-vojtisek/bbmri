@@ -2,10 +2,7 @@ package bbmri.action;
 
 import bbmri.entities.*;
 import bbmri.service.*;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SimpleMessage;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import java.util.ArrayList;
@@ -18,6 +15,7 @@ import java.util.List;
  * Time: 21:31
  * To change this template use File | Settings | File Templates.
  */
+//@UrlBinding("/sampleQuestion/{$event}/{sampleQuestion.id}")
 public class SampleQuestionActionBean extends BasicActionBean {
 
     @SpringBean
@@ -104,6 +102,21 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public Resolution display() {
         return new ForwardResolution("/sample_request.jsp");
     }
+
+    @HandlesEvent("myRequests")
+       public Resolution myRequest() {
+           return new ForwardResolution("/samples_my_requests.jsp");
+       }
+
+    @HandlesEvent("approveSampleRequest")
+          public Resolution approveSampleRequest() {
+              return new ForwardResolution("/sample_approve_request.jsp");
+          }
+
+    @HandlesEvent("allRequestGroups")
+              public Resolution allRequestGroups() {
+                  return new ForwardResolution("/requestGroup_all.jsp");
+              }
 
     public Resolution createSampleQuestion(){
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());

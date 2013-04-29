@@ -48,6 +48,11 @@ public class UserActionBean extends BasicActionBean {
         return new ForwardResolution("/user_all.jsp");
     }
 
+    @HandlesEvent("createUser")
+    public Resolution createUser(){
+        return new ForwardResolution("/user_create.jsp");
+    }
+
     public Resolution create() {
 
         user.setBiobank(null);

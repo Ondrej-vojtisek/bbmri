@@ -39,8 +39,8 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     @DefaultHandler
-    public Resolution zobraz() {
-        return new ForwardResolution("/project_my_projects.jsp");
+    public Resolution display() {
+        return new ForwardResolution("/changeAdministrator.jsp");
     }
 
     public Resolution changeAdministrator() {

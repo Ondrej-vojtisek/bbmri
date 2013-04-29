@@ -113,6 +113,11 @@ public class BiobankActionBean extends BasicActionBean {
         return new ForwardResolution("/biobank_all.jsp");
     }
 
+    @HandlesEvent("createBiobank")
+    public Resolution createBiobank(){
+        return new ForwardResolution("/biobank_create.jsp");
+    }
+
     public Resolution edit() {
         biobank = getContext().getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);

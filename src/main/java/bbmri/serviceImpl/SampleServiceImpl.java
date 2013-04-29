@@ -159,6 +159,7 @@ public class SampleServiceImpl implements SampleService {
         }
         try {
             List<Sample> samples = sampleDAO.getSelected(query);
+
             return samples;
         } catch (DataAccessException ex) {
             throw ex;

@@ -1,7 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-<%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:layout-definition>
     <html>
@@ -39,7 +37,7 @@
                     </p>
 
                     <p class="navbar-text pull-right" style="margin-right: 30px;">
-                        <f:message key="logged_user"/>: <s:link href="/my_account.jsp"><c:out
+                        <f:message key="logged_user"/>: <s:link beanclass="bbmri.action.AccountActionBean"><c:out
                             value="${logged}"/></s:link>
                     </p>
 
@@ -47,7 +45,20 @@
                         <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
                     </p>
                     <ul class="nav">
-                        <s:layout-component name="primary_menu"/>
+
+
+                            <li <c:if test="${primarymenu == 'project'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean"><f:message
+                                    key="projects"/></s:link></li>
+                            <li <c:if test="${primarymenu == 'biobank'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message
+                                    key="biobanks"/></s:link></li>
+                            <c:if test="${administrator}">
+                                <li <c:if test="${primarymenu == 'users'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.UserActionBean"><f:message
+                                        key="users"/></s:link></li>
+                            </c:if>
+                            <c:if test="${administrator}">
+                                <li <c:if test="${primarymenu == 'changeadministrator'}"> class="active" </c:if>><s:link beanclass="bbmri.action.ChangeAdministrator"><f:message
+                                        key="change_administrator"/></s:link></li>
+                            </c:if>
                     </ul>
                 </div>
             </div>
@@ -60,7 +71,38 @@
                 <div class="well sidebar-nav">
                     <ul class="nav nav-list">
                         <li class="nav-header"><f:message key="operations"/></li>
-                        <s:layout-component name="secondary_menu"/>
+
+                        <c:if test="${primarymenu == 'project'}">
+                            <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean"><f:message key="my_projects"/></s:link></li>
+                            <li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if> ><s:link  beanclass="bbmri.action.Project.ProjectActionBean" event="createInitial"><f:message key="projects.createProject"/></s:link></li>
+                            <c:if test="${not empty biobank}">
+                                <li <c:if test="${secondarymenu == 'project_approve'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean"><f:message key="approve_project"/></s:link></li>
+                            </c:if>
+                            <li <c:if test="${secondarymenu == 'samples_my_requests'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="myRequests"><f:message key="my_requests"/></s:link></li>
+                            <c:if test="${not empty biobank || administrator}">
+                            <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean" event="displayAll"><f:message key="all_projects"/></s:link></li>
+                            </c:if>
+                        </c:if>
+
+                        <c:if test="${primarymenu == 'biobank'}">
+                            <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message key="biobanks_all"/></s:link></li>
+                            <c:if test="${administrator}">
+                                <li <c:if test="${secondarymenu == 'biobank_create'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean" event="createBiobank"><f:message key="biobank_create"/></s:link></li>
+                            </c:if>
+                            <c:if test="${not empty biobank}">
+                                <li <c:if test="${secondarymenu == 'sample_approve_request'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="approveSampleRequest"><f:message key="approve_sample_request"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_create'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Sample.CreateSampleActionBean"><f:message key="sample_create"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_withdraw'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Sample.SampleActionBean"><f:message key="sample.withdraw"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'requestGroup_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="allRequestGroups"><f:message key="sample.requests"/></s:link></li>
+                            </c:if>
+                        </c:if>
+
+                        <c:if test="${primarymenu == 'users'}">
+                            <c:if test="${administrator}">
+                                <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.UserActionBean"><f:message key="all"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>><s:link beanclass="bbmri.action.UserActionBean" event="createUser"><f:message key="user.create"/></s:link></li>
+                            </c:if>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -69,6 +111,7 @@
                     <div class="action_message">
                         <s:messages/>
                     </div>
+
                     <s:layout-component name="body"/>
                 </div>
             </div>

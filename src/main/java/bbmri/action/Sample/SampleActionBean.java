@@ -4,6 +4,7 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
+import bbmri.webEntities.IdAndCount;
 import bbmri.webEntities.SampleRequestWrapper;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -12,6 +13,7 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +24,7 @@ import java.util.Random;
  * Time: 19:50
  * To change this template use File | Settings | File Templates.
  */
+@UrlBinding("/Sample/{$event}/{sample.id}")
 public class SampleActionBean extends BasicActionBean {
 
     @SpringBean
@@ -104,8 +107,36 @@ public class SampleActionBean extends BasicActionBean {
         return new ForwardResolution("/sample_withdraw.jsp");
     }
 
+   // private List<Integer> releasedCount;
+
+    private int[] releasedCount;
+
+    public int[] getReleasedCount() {
+        return releasedCount;
+    }
+
+    public void setReleasedCount(int[] releasedCount) {
+        this.releasedCount = releasedCount;
+    }
+
+    /*
+    public List<Integer> getReleasedCount() {
+        return releasedCount;
+    }
+    public void setReleasedCount(List<Integer> releasedCount) {
+        this.releasedCount = releasedCount;
+    }   */
+
+    public Resolution withdrawSamples2() {
+        System.err.println("SAMPLES: " + selectedSamples);
+
+        //releasedCount = null;
+        selectedSamples = null;
+        return new ForwardResolution("/sample_withdraw.jsp");
+       }
+
     public Resolution find() {
-        results = sampleService.getSamplesByQuery(sample);
+        results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSample(sample);
         return new ForwardResolution("/sample_withdraw.jsp");
     }

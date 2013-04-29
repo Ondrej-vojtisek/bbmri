@@ -78,8 +78,18 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        getProjects();
-        return new ForwardResolution("/project_my_projects.jsp");
+        //getProjects();
+    return new ForwardResolution("/project_my_projects.jsp");
+    }
+
+    @HandlesEvent("displayAll")
+    public Resolution displayAll() {
+    return new ForwardResolution("/project_all.jsp");
+    }
+
+    @HandlesEvent("createProject")
+    public Resolution createProject(){
+        return new ForwardResolution("/project_create.jsp");
     }
 
     public Resolution createInitial() {

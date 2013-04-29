@@ -20,6 +20,7 @@ import java.util.Random;
  * Time: 23:06
  * To change this template use File | Settings | File Templates.
  */
+//@UrlBinding("/Sample/{$event}/{sample.id}")
 public class CreateSampleActionBean extends BasicActionBean {
 
     @SpringBean
