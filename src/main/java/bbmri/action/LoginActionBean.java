@@ -21,6 +21,8 @@ import net.sourceforge.stripes.validation.Validate;
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean {
 
+    private static final String INDEX = "/index.jsp";
+
     @SpringBean
     private UserService userService;
 
@@ -54,7 +56,7 @@ public class LoginActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/index.jsp");
+        return new ForwardResolution(INDEX);
     }
 
     @HandlesEvent("login")

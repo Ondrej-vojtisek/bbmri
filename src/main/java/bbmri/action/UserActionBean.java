@@ -15,6 +15,9 @@ import java.util.List;
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
 
+    private static final String ALL = "/user_all.jsp";
+    private static final String CREATE = "/user_create.jsp";
+
     private User user;
     private Long id;
 
@@ -45,12 +48,12 @@ public class UserActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         users = userService.getAll();
-        return new ForwardResolution("/user_all.jsp");
+        return new ForwardResolution(ALL);
     }
 
     @HandlesEvent("createUser")
     public Resolution createUser(){
-        return new ForwardResolution("/user_create.jsp");
+        return new ForwardResolution(CREATE);
     }
 
     public Resolution create() {

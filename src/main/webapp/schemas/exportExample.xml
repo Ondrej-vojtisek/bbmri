@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patient xsi:noNamespaceSchemaLocation="exportNIS.xsd"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns="http://bbmri.cz/schemas/biobank/data"
+   rc="88050113280" biobank="001MOUBRNO" consent="true">
+    <!-- Rodne cislo prodlouzeno o znak duplicity,
+    idendifikator biobanky alfanumericke znaky o maximalni delce 32,
+     consent: platne hodnoty jsou true/false/1/0 -->
+
+<!-- Long-term samples -->
+    <LTS>
+        <blood year="2013" number="110">
+            <samplesNo>3</samplesNo>
+            <availableSamplesNo>0</availableSamplesNo>
+            <!-- datum -->
+            <takingDate>2013-03-30T09:00:00</takingDate>
+        </blood>
+
+        <genome year="2013" number="112">
+            <samplesNo>3</samplesNo>
+            <availableSamplesNo>2</availableSamplesNo>
+           <!-- tissueType muze nabyvat hodnot 1,2,4, gD, ... -->
+            <tissueType>gD</tissueType>
+            <takingDate>20013-03-30T09:00:00</takingDate>
+        </genome>
+
+        <tissue year="2013" number="112">
+            <samplesNo>5</samplesNo>
+            <availableSamplesNo>2</availableSamplesNo>
+            <tissueType>01</tissueType>
+            <!-- viz. TNM klasifikace -->
+            <TNM>T1aN0M0</TNM>
+            <pTNM>T1bN0M0</pTNM>
+            <!-- hodnota z intervalu 1(vcetne) - 9  -->
+            <grading>1</grading>
+            <cutTime>2013-01-03T09:00:00</cutTime>
+            <freezeTime>2013-04-04T12:00:00</freezeTime>
+        </tissue>
+    </LTS>
+
+<!-- Short-term samples -->
+    <STS>
+        <bloodRsv year="2013" number="99">
+            <!-- viz. MKN-10 klasifikace -->
+
+            <!-- viz. jak omezit toto pole?  -->
+
+            <diagnosis>N26</diagnosis>
+            <takingDate>2013-04-04T12:00:00</takingDate>
+        </bloodRsv>
+    </STS>
+
+</patient>

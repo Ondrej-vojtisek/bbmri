@@ -24,6 +24,14 @@ import java.util.List;
 @UrlBinding("/Project/{$event}/{project.id}")
 public class ProjectActionBean extends BasicActionBean {
 
+    private static final String ALL = "/project_all.jsp";
+    private static final String MY_PROJECTS = "/project_my_projects.jsp";
+    private static final String CREATE = "/project_create.jsp";
+    private static final String CREATE_INFORMATION = "/project_create_information.jsp";
+    private static final String CREATE_MTA = "/project_create_mta.jsp";
+    private static final String EDIT = "/project_edit.jsp";
+    private static final String SAMPLE_REQUEST = "/sample_request.jsp";
+
     @SpringBean
     private UserService userService;
 
@@ -79,34 +87,34 @@ public class ProjectActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         //getProjects();
-    return new ForwardResolution("/project_my_projects.jsp");
+    return new ForwardResolution(MY_PROJECTS);
     }
 
     @HandlesEvent("displayAll")
     public Resolution displayAll() {
-    return new ForwardResolution("/project_all.jsp");
+    return new ForwardResolution(ALL);
     }
 
     @HandlesEvent("createProject")
     public Resolution createProject(){
-        return new ForwardResolution("/project_create.jsp");
+        return new ForwardResolution(CREATE);
     }
 
     public Resolution createInitial() {
          getContext().setProject(null);
-         return new ForwardResolution("/project_create_information.jsp");
+         return new ForwardResolution(CREATE_INFORMATION);
      }
 
     public Resolution create() {
         Project projectNew = projectService.create(project, getLoggedUser());
         getContext().setProject(projectNew);
-        return new ForwardResolution("/project_create_mta.jsp");
+        return new ForwardResolution(CREATE_MTA);
     }
 
     public Resolution edit() {
         project = projectService.getById(project.getId());
         getContext().setProject(project);
-        return new ForwardResolution("/project_edit.jsp");
+        return new ForwardResolution(EDIT);
     }
 
     public Resolution requestSample() {
@@ -116,7 +124,7 @@ public class ProjectActionBean extends BasicActionBean {
         if (project.getProjectState() != ProjectState.NEW) {
             getContext().setProject(project);
             getContext().setSampleQuestion(null);
-            return new ForwardResolution("/sample_request.jsp");
+            return new ForwardResolution(SAMPLE_REQUEST);
         }
         return new ForwardResolution(this.getClass(), "display");
     }

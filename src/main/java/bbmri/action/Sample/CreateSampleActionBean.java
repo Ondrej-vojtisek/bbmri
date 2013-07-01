@@ -23,6 +23,8 @@ import java.util.Random;
 //@UrlBinding("/Sample/{$event}/{sample.id}")
 public class CreateSampleActionBean extends BasicActionBean {
 
+    private static final String CREATE = "/sample_create.jsp";
+
     @SpringBean
     private SampleService sampleService;
 
@@ -64,7 +66,7 @@ public class CreateSampleActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/sample_create.jsp");
+        return new ForwardResolution(CREATE);
     }
 
     public Resolution create() {

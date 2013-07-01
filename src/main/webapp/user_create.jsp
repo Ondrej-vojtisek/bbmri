@@ -9,7 +9,6 @@
                  secondarymenu="user_create">
 
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.UserActionBean">
             <fieldset>
                 <legend><f:message key="user.create"/></legend>

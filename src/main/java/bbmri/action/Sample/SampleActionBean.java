@@ -27,6 +27,11 @@ import java.util.Random;
 @UrlBinding("/Sample/{$event}/{sample.id}")
 public class SampleActionBean extends BasicActionBean {
 
+    private static final String WITHDRAW = "/sample_withdraw.jsp.jsp";
+    private static final String ALL = "/sample_all.jsp";
+    private static final String EDIT = "/sample_edit.jsp";
+
+
     @SpringBean
     private SampleService sampleService;
 
@@ -53,6 +58,18 @@ public class SampleActionBean extends BasicActionBean {
         return selectedSamples;
     }
 
+    public List<Sample> getSamples(){
+        Biobank biobank = getLoggedUser().getBiobank();
+        if(biobank != null){
+            return sampleService.getAllByBiobank(biobank.getId());
+        }
+        return null;
+    }
+
+    public Integer getSamplesSize(){
+        return getSamples().size();
+    }
+
     public void setSelectedSamples(List<Long> selectedSamples) {
         this.selectedSamples = selectedSamples;
     }
@@ -61,7 +78,7 @@ public class SampleActionBean extends BasicActionBean {
 
     public Sample getSample() {
         if(sample == null){
-                sample = getContext().getSample();
+            sample = getContext().getSample();
         }
         return sample;
     }
@@ -93,7 +110,12 @@ public class SampleActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
+    }
+
+    @HandlesEvent("allSamples")
+    public Resolution allSamples(){
+        return new ForwardResolution(ALL);
     }
 
     public Resolution withdrawSamples() {
@@ -104,7 +126,7 @@ public class SampleActionBean extends BasicActionBean {
         sampleService.withdrawSample(sample.getId(), count);
         getContext().setSample(sample);
         */
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
     }
 
    // private List<Integer> releasedCount;
@@ -132,12 +154,30 @@ public class SampleActionBean extends BasicActionBean {
 
         //releasedCount = null;
         selectedSamples = null;
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
        }
 
     public Resolution find() {
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSample(sample);
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
+    }
+
+    @HandlesEvent("save")
+    public Resolution save(){
+        sampleService.update(sample);
+        return new ForwardResolution(ALL);
+    }
+
+    @HandlesEvent("cancel")
+    public Resolution cancel(){
+        return new ForwardResolution(ALL);
+    }
+
+    @HandlesEvent("edit")
+    public Resolution edit() {
+        sample = sampleService.getById(sample.getId());
+        getContext().setSample(sample);
+        return new ForwardResolution(EDIT);
     }
 }

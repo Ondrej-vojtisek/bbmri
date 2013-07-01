@@ -18,6 +18,13 @@ import java.util.List;
 //@UrlBinding("/sampleQuestion/{$event}/{sampleQuestion.id}")
 public class SampleQuestionActionBean extends BasicActionBean {
 
+    private static final String REQUEST = "/sample_request.jsp";
+    private static final String MY_REQUESTS = "/samples_my_requests.jsp";
+    private static final String REQUESTGROUP_DETAIL = "/requestGroup_detail.jsp";
+    private static final String REQUESTGROUP_ALL = "/requestGroup_all.jsp";
+    private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
+    private static final String QUESTION_DETAIL = "/sample_question_detail.jsp";
+
     @SpringBean
     private SampleQuestionService sampleQuestionService;
 
@@ -100,22 +107,22 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/sample_request.jsp");
+        return new ForwardResolution(REQUEST);
     }
 
     @HandlesEvent("myRequests")
        public Resolution myRequest() {
-           return new ForwardResolution("/samples_my_requests.jsp");
+           return new ForwardResolution(MY_REQUESTS);
        }
 
     @HandlesEvent("approveSampleRequest")
           public Resolution approveSampleRequest() {
-              return new ForwardResolution("/sample_approve_request.jsp");
+              return new ForwardResolution(APPROVE_REQUEST);
           }
 
     @HandlesEvent("allRequestGroups")
               public Resolution allRequestGroups() {
-                  return new ForwardResolution("/requestGroup_all.jsp");
+                  return new ForwardResolution(REQUESTGROUP_ALL);
               }
 
     public Resolution createSampleQuestion(){
@@ -127,7 +134,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
       public Resolution detail() {
           sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
           getContext().setSampleQuestion(sampleQuestion);
-          return new ForwardResolution("/sample_question_detail.jsp");
+          return new ForwardResolution(QUESTION_DETAIL);
       }
 
     public Resolution remove() {
@@ -136,12 +143,12 @@ public class SampleQuestionActionBean extends BasicActionBean {
              sampleQuestion.setProcessed(true);
              sampleQuestionService.update(sampleQuestion);
          }
-         return new ForwardResolution("/sample_approve_request.jsp");
+         return new ForwardResolution(APPROVE_REQUEST);
       }
 
 
     public Resolution back() {
-        return new ForwardResolution("/sample_approve_request.jsp");
+        return new ForwardResolution(APPROVE_REQUEST);
     }
 
     public Sample getSample() {
@@ -176,7 +183,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public Resolution find(){
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSampleQuestion(sampleQuestion);
-        return new ForwardResolution("/sample_question_detail.jsp");
+        return new ForwardResolution(QUESTION_DETAIL);
     }
 
     /*TODO: change num of requested to variable value*/
@@ -198,7 +205,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
             sampleQuestion.setProcessed(true);
             sampleQuestionService.update(sampleQuestion);
 
-            return new ForwardResolution("/sample_approve_request.jsp");
+            return new ForwardResolution(APPROVE_REQUEST);
         }
 
     public List<Project> getMyProjects() {
@@ -208,7 +215,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public Resolution requestGroupDetail(){
         requestGroup = requestGroupService.getById(requestGroup.getId());
         getContext().setRequestGroup(requestGroup);
-        return new ForwardResolution("/requestGroup_detail.jsp");
+        return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 
     public List<RequestGroup> getAllRequestGroups(){
@@ -235,7 +242,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
             }
             requestGroupService.changeRequestState(requestGroupDB.getId(), RequestState.EQUIPPED);
         }
-        return new ForwardResolution("/requestGroup_all.jsp");
+        return new ForwardResolution(REQUESTGROUP_ALL);
     }
 
 }

@@ -1,6 +1,7 @@
 package Experimental;
 
 import bbmri.entities.Biobank;
+import bbmri.entities.Sample;
 import bbmri.entities.User;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -30,7 +31,12 @@ public class HelloWorld {
        // String filename = "pokus.xlsx";
        // List<User> users = parseUserFile(filename);
       //  System.out.println("Users: " + users);
+
         System.out.println("Hello");
+    //    String filename = "mou_data.xls";
+    //    List<Sample> samples = parseSampleFile(filename);
+    //    System.out.println("Samples: " + samples);
+
     }
 
 
@@ -113,4 +119,72 @@ public class HelloWorld {
         }
         return user;
     }
+
+    public static List<Sample> parseSampleFile(String filename) throws Exception {
+           List<Sample> samples = new ArrayList<Sample>();
+           FileInputStream fis = null;
+              try {
+                         fis = new FileInputStream(filename);
+
+                         Workbook workbook = WorkbookFactory.create(fis);
+                         Sheet sheet = workbook.getSheetAt(0);
+
+                         Iterator rows = sheet.rowIterator();
+                         int rowNumber = 0;
+                         while (rows.hasNext()) {
+                             Row row = (Row) rows.next();
+                             Iterator cells = row.cellIterator();
+
+                             List data = new ArrayList();
+                             while (cells.hasNext()) {
+                                 Cell cell = (Cell) cells.next();
+                                 data.add(cell);
+                             }
+                             if (rowNumber != 0) {
+                                 parseSample(samples, data);
+                             }
+                             rowNumber++;
+                         }
+                     } catch (IOException e) {
+                         e.printStackTrace();
+                     } finally {
+                         if (fis != null) {
+                             fis.close();
+                         }
+                     }
+           return samples;
+       }
+
+
+    private static void parseSample(List<Sample> samples, List rowData) {
+
+            for (int i = 0; i < rowData.size(); i++) {
+                Cell cell = (Cell) rowData.get(i);
+                switch (i) {
+                    case 0:
+                        // Zaznam
+                        break;
+                    case 1:
+                        // Datum - ceho?
+                        break;
+                    case 2:
+                        // Pacient
+                        break;
+                    case 3:
+                        // RC
+                        break;
+                    case 4:
+                        // Chorobopis
+                        break;
+                    case 5:
+                       // Sample sample = new Sample();
+                       // String bm = cell.getStringCellValue();
+                        //bm.
+                       // String record = bm.substring(bm.indexOf('('), bm.indexOf(')'));
+
+                        break;
+                }
+            }
+        }
+
 }

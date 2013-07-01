@@ -1,6 +1,6 @@
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="samples.title" var="title"/>
+<f:message key="sample.import" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Sample.CreateSampleActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
                  primarymenu="biobank"
@@ -24,6 +24,11 @@
                     </tr>
                 </table>
                 <s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit>
+            </fieldset>
+
+            <fieldset>
+                <legend>Import samples</legend>
+
             </fieldset>
         </s:form>
     </s:layout-component>

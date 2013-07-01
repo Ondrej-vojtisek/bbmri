@@ -17,6 +17,9 @@ import java.util.List;
 @UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
 public class ChangeAdministrator extends BasicActionBean {
 
+    private static final String CHANGE_ADMINISTRATOR = "/changeAdministrator.jsp";
+    private static final String MY_PROJECTS = "/project_my_projects.jsp";
+
     private List<User> users;
     private User user;
 
@@ -40,7 +43,7 @@ public class ChangeAdministrator extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/changeAdministrator.jsp");
+        return new ForwardResolution(CHANGE_ADMINISTRATOR);
     }
 
     public Resolution changeAdministrator() {
@@ -49,7 +52,7 @@ public class ChangeAdministrator extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(MY_PROJECTS);
     }
 
     public void refreshLoggedUser() {

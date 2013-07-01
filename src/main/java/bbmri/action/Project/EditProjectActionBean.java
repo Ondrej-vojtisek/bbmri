@@ -26,6 +26,9 @@ import java.util.List;
  */
 @UrlBinding("/editproject/{$event}/{project.id}")
 public class EditProjectActionBean extends BasicActionBean {
+
+    private static final String EDIT = "/project_edit.jsp";
+
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true),
             @Validate(on = {"create"}, field = "annotation", required = true),
@@ -106,7 +109,7 @@ public class EditProjectActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution("/project_edit.jsp");
+        return new ForwardResolution(EDIT);
     }
 
     public Resolution update() {

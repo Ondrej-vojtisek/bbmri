@@ -163,6 +163,20 @@ public class Sample implements Serializable {
         this.diagnosis = diagnosis;
     }
 
+    /**
+     * Return true if all necessary field are filled
+     */
+
+    public boolean getFilled(){
+       if(id == null || TNM == null || pTNM == null || diagnosis == null
+              /* || freezingDate == null */ || grading == null || numOfAvailable == null
+               || numOfSamples == null /*|| removalDate == null || */
+               || sampleID == null || tissueType == null || biobank == null){
+           return false;
+       }
+       return true;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -26,6 +26,9 @@ import java.util.List;
 @UrlBinding("/sampleRequests/{$event}/{sample.id}")
 public class SampleRequestActionBean extends BasicActionBean {
 
+    private static final String WITHDRAW = "/sample_withdraw.jsp";
+    private static final String MY_PROJECTS = " /project_my_projects.jsp";
+
     private Project project;
 
     @SpringBean
@@ -129,30 +132,30 @@ public class SampleRequestActionBean extends BasicActionBean {
         if(sampleQuery != null){
             results = sampleService.getSamplesByQuery(sampleQuery);
         }
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
     }
 
     public Resolution request() {
         if (getProject().getProjectState() == ProjectState.NEW) {
-            return new ForwardResolution("/project_my_projects.jsp");
+            return new ForwardResolution(MY_PROJECTS);
         }
         requestService.create(sample.getId());
         getContext().getMessages().add(
                        new SimpleMessage("Request for sample id = {0} was created", sample.getId())
                );
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(MY_PROJECTS);
     }
 
     public Resolution find() {
         results = sampleService.getSamplesByQuery(sampleQuery);
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
     }
 
     public Resolution createParametrizedRequest() {
         if (sample != null) {
             results = sampleService.getSamplesByQuery(sample);
         }
-        return new ForwardResolution("/sample_withdraw.jsp");
+        return new ForwardResolution(WITHDRAW);
     }
 
     /*TODO: change num of requested to variable value*/
@@ -170,6 +173,6 @@ public class SampleRequestActionBean extends BasicActionBean {
                    );
         }
 
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(MY_PROJECTS);
     }
 }

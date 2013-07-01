@@ -21,6 +21,11 @@ import java.util.List;
  */
 @UrlBinding("/approveSampleRequest/{$event}/{request.id}")
 public class ApproveRequestActionBean extends BasicActionBean {
+
+    private static final String DETAIL = "/requestGroup_detail.jsp";
+    private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
+
+
     private List<RequestGroup> requestGroups;
     private Request request;
 
@@ -68,7 +73,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         getRequestGroups();
-        return new ForwardResolution("/sample_approve_request.jsp");
+        return new ForwardResolution(APPROVE_REQUEST);
     }
 
     public Resolution approve() {
@@ -90,7 +95,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     public Resolution detail() {
         requestGroup = requestGroupService.getById(requestGroup.getId());
         getContext().setRequestGroup(requestGroup);
-        return new ForwardResolution("/requestGroup_detail.jsp");
+        return new ForwardResolution(DETAIL);
     }
 
     public Resolution back(){

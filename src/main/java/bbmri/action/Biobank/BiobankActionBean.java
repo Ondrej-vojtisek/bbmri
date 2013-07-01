@@ -23,6 +23,10 @@ import java.util.List;
 @UrlBinding("/Biobank/{$event}/{biobank.id}")
 public class BiobankActionBean extends BasicActionBean {
 
+    private static final String ALL = "/biobank_all.jsp";
+    private static final String CREATE = "/biobank_create.jsp";
+    private static final String EDIT = "/biobank_edit.jsp";
+
     @SpringBean
     private UserService userService;
 
@@ -110,18 +114,18 @@ public class BiobankActionBean extends BasicActionBean {
     public Resolution display() {
         refreshLoggedUser();
         biobanks = biobankService.getAll();
-        return new ForwardResolution("/biobank_all.jsp");
+        return new ForwardResolution(ALL);
     }
 
     @HandlesEvent("createBiobank")
     public Resolution createBiobank(){
-        return new ForwardResolution("/biobank_create.jsp");
+        return new ForwardResolution(CREATE);
     }
 
     public Resolution edit() {
         biobank = getContext().getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);
-        return new ForwardResolution("/biobank_edit.jsp");
+        return new ForwardResolution(EDIT);
     }
 
     public Resolution create() {

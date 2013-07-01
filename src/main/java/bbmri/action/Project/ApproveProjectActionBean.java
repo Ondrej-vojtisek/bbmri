@@ -14,6 +14,9 @@ import java.util.List;
 @UrlBinding("/approveproject/{$event}/{project.id}")
 public class ApproveProjectActionBean extends BasicActionBean {
 
+    private static final String APPROVE = "/project_approve.jsp";
+    private static final String DETAIL = "/project_detail.jsp";
+
     private List<Project> projects;
 
     @SpringBean
@@ -41,7 +44,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     @DefaultHandler
      public Resolution display() {
-         return new ForwardResolution("/project_approve.jsp");
+         return new ForwardResolution(APPROVE);
      }
 
     public Resolution approve() {
@@ -50,13 +53,13 @@ public class ApproveProjectActionBean extends BasicActionBean {
                               new SimpleMessage("Project id={0} was approved", project.getName())
                       );
         refreshLoggedUser();
-        return new ForwardResolution("/project_approve.jsp");
+        return new ForwardResolution(APPROVE);
     }
 
     public Resolution detail() {
            project = projectService.getById(project.getId());
            getContext().setProject(project);
-           return new ForwardResolution("/project_detail.jsp");
+           return new ForwardResolution(DETAIL);
        }
 
     public void refreshLoggedUser() {

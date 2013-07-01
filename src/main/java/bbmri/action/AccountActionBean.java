@@ -17,6 +17,8 @@ import net.sourceforge.stripes.validation.Validate;
 @UrlBinding("/account/{$event}/{user.id}")
 public class AccountActionBean extends BasicActionBean {
 
+    private static final String MY_ACCOUNT = "/my_account.jsp";
+
     @SpringBean
     private UserService userService;
 
@@ -53,7 +55,7 @@ public class AccountActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         user = getLoggedUser();
-        return new ForwardResolution("/my_account.jsp");
+        return new ForwardResolution(MY_ACCOUNT);
     }
 
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "changePassword"})

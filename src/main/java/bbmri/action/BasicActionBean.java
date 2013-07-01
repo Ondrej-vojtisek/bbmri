@@ -12,6 +12,8 @@ import net.sourceforge.stripes.action.*;
  */
 public class BasicActionBean implements ActionBean {
 
+    private static final String MY_PROJECTS = "/project_my_projects.jsp";
+
     private MyActionBeanContext ctx;
 
     public void setContext(ActionBeanContext ctx) {
@@ -39,7 +41,7 @@ public class BasicActionBean implements ActionBean {
     }
 
     public Resolution primary_menu_project(){
-        return new ForwardResolution("/project_my_projects.jsp");
+        return new ForwardResolution(MY_PROJECTS);
     }
 
 
