@@ -62,3 +62,7 @@ input.error {
     list-style-type: none;
 }
 
+.not_filled td{
+    background-color: #ff5b52;
+}
+
