@@ -4,7 +4,6 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
-import bbmri.webEntities.IdAndCount;
 import bbmri.webEntities.SampleRequestWrapper;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
