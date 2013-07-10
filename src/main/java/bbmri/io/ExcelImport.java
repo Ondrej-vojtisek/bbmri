@@ -2,7 +2,7 @@ package bbmri.io;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
-import org.apache.poi.ss.usermodel.*;
+//import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ExcelImport {
 
     public List<User> parseExcelUserTable(String fileName) throws Exception {
-        List<User> users = new ArrayList<User>();
+       /* List<User> users = new ArrayList<User>();
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(fileName);
@@ -52,11 +52,13 @@ public class ExcelImport {
             }
         }
         return users;
-
+              */
+        return null;
     }
 
     private static User parseUser(List rowData) {
-        User user = new User();
+
+       /* User user = new User();
         for (int i = 0; i < rowData.size(); i++) {
             Cell cell = (Cell) rowData.get(i);
 
@@ -98,5 +100,7 @@ public class ExcelImport {
             }
         }
         return user;
+        */
+        return null;
     }
 }

@@ -41,11 +41,13 @@
             <artifactId>jstl</artifactId>
             <version>1.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
+
 
         <!-- stripes -->
         <dependency>
@@ -73,7 +75,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${org.springframework.version}</version>
         </dependency>
 
         <dependency>
@@ -106,23 +108,22 @@
             <version>2.3</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${org.springframework.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${org.springframework.version}</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>3.1.2.RELEASE</version>
+            <version>${org.springframework.version}</version>
         </dependency>
 
         <dependency>
@@ -134,7 +135,7 @@
 
         <!--
              Microsoft EXCEL file parsing
-     	    -->
+
         <dependency>
         	<groupId>org.apache.poi</groupId>
         	<artifactId>poi</artifactId>
@@ -146,6 +147,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.9</version>
         </dependency>
+           -->
 
 
     </dependencies>

@@ -12,7 +12,6 @@
         <blood year="2013" number="110">
             <samplesNo>3</samplesNo>
             <availableSamplesNo>0</availableSamplesNo>
-            <!-- datum -->
             <takingDate>2013-03-30T09:00:00</takingDate>
         </blood>
 
@@ -25,26 +24,30 @@
         </genome>
 
         <tissue year="2013" number="112">
+            <!--
+            Ujasnit si význam pole number. V NISu se pracuje se dvěmi ID vzorku. jedno je bioptická žádanka což je číslo
+            umožňující přiřazení záznamu k operaci, operatérovi a i k fyzickému vzorku v biobance a pak identifikátor
+            vzorku v NISu
+            -->
             <samplesNo>5</samplesNo>
             <availableSamplesNo>2</availableSamplesNo>
             <tissueType>01</tissueType>
             <!-- viz. TNM klasifikace -->
             <TNM>T1aN0M0</TNM>
             <pTNM>T1bN0M0</pTNM>
-            <!-- hodnota z intervalu 1(vcetne) - 9  -->
+            <!-- hodnota z intervalu 1(vcetne) - 9
+            Místo hodnoty Grading by bylo lepší uvézt morfologii (ta grading obsahuje)
+            -->
             <grading>1</grading>
             <cutTime>2013-01-03T09:00:00</cutTime>
             <freezeTime>2013-04-04T12:00:00</freezeTime>
+
         </tissue>
     </LTS>
 
 <!-- Short-term samples -->
     <STS>
         <bloodRsv year="2013" number="99">
-            <!-- viz. MKN-10 klasifikace -->
-
-            <!-- viz. jak omezit toto pole?  -->
-
             <diagnosis>N26</diagnosis>
             <takingDate>2013-04-04T12:00:00</takingDate>
         </bloodRsv>

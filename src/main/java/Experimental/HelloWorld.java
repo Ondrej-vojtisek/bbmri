@@ -3,11 +3,13 @@ package Experimental;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.entities.User;
+/*
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+*/
 
 
 import java.io.FileInputStream;
@@ -41,10 +43,11 @@ public class HelloWorld {
 
 
     public static List<User> parseUserFile(String filename) throws Exception {
+          /*
         List<User> users = new ArrayList<User>();
         FileInputStream fis = null;
            try {
-                      fis = new FileInputStream(filename);
+                    fis = new FileInputStream(filename);
 
                       Workbook workbook = WorkbookFactory.create(fis);
                       Sheet sheet = workbook.getSheetAt(0);
@@ -72,10 +75,14 @@ public class HelloWorld {
                           fis.close();
                       }
                   }
+
         return users;
+            */
+        return null;
     }
 
     private static User parseUser(List rowData) {
+        /*
         User user = new User();
         for (int i = 0; i < rowData.size(); i++) {
             Cell cell = (Cell) rowData.get(i);
@@ -118,10 +125,13 @@ public class HelloWorld {
             }
         }
         return user;
+        */
+        return null;
     }
 
     public static List<Sample> parseSampleFile(String filename) throws Exception {
-           List<Sample> samples = new ArrayList<Sample>();
+
+        /*List<Sample> samples = new ArrayList<Sample>();
            FileInputStream fis = null;
               try {
                          fis = new FileInputStream(filename);
@@ -153,11 +163,13 @@ public class HelloWorld {
                          }
                      }
            return samples;
+           */
+        return null;
        }
 
 
     private static void parseSample(List<Sample> samples, List rowData) {
-
+               /*
             for (int i = 0; i < rowData.size(); i++) {
                 Cell cell = (Cell) rowData.get(i);
                 switch (i) {
@@ -185,6 +197,8 @@ public class HelloWorld {
                         break;
                 }
             }
+            */
+
         }
 
 }
