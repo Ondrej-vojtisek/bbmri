@@ -49,7 +49,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <s:submit name="removeAll"><f:message key="remove_selected"/></s:submit>
+                <s:submit name="removeAll" onclick="return confirm('Delete?')"><f:message key="remove_selected"/></s:submit>
             </fieldset>
             <fieldset>
                 <legend><f:message key="all_users"/></legend>

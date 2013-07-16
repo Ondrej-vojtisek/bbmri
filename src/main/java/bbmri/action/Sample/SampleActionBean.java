@@ -124,10 +124,8 @@ public class SampleActionBean extends BasicActionBean {
         sampleService.withdrawSample(sample.getId(), count);
         getContext().setSample(sample);
         */
-        return new ForwardResolution(WITHDRAW);
+        return new RedirectResolution(WITHDRAW);
     }
-
-   // private List<Integer> releasedCount;
 
     private int[] releasedCount;
 
@@ -138,22 +136,6 @@ public class SampleActionBean extends BasicActionBean {
     public void setReleasedCount(int[] releasedCount) {
         this.releasedCount = releasedCount;
     }
-
-    /*
-    public List<Integer> getReleasedCount() {
-        return releasedCount;
-    }
-    public void setReleasedCount(List<Integer> releasedCount) {
-        this.releasedCount = releasedCount;
-    }   */
-
-    public Resolution withdrawSamples2() {
-        System.err.println("SAMPLES: " + selectedSamples);
-
-        //releasedCount = null;
-        selectedSamples = null;
-        return new ForwardResolution(WITHDRAW);
-       }
 
     public Resolution find() {
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());

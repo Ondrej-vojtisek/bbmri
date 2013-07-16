@@ -30,6 +30,7 @@
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
+
                     </tr>
                     </thead>
                     <tbody>

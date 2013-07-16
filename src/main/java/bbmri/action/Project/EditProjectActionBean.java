@@ -135,7 +135,7 @@ public class EditProjectActionBean extends BasicActionBean {
                          );
         users = projectService.getAllAssignedUsers(getProject().getId());
         refreshLoggedUser();
-        return new ForwardResolution(ProjectActionBean.class);
+        return new RedirectResolution(ProjectActionBean.class);
     }
 
     public Resolution assignAll() {
@@ -160,7 +160,7 @@ public class EditProjectActionBean extends BasicActionBean {
                               new SimpleMessage("Ownership of project was changed")
                       );
         refreshLoggedUser();
-        return new ForwardResolution(ProjectActionBean.class);
+        return new RedirectResolution(ProjectActionBean.class);
     }
 
     public void refreshLoggedUser() {

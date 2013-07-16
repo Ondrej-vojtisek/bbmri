@@ -99,6 +99,6 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public Resolution back(){
-            return new RedirectResolution(this.getClass(), "display");
+            return new ForwardResolution(this.getClass(), "display");
         }
 }

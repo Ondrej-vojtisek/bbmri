@@ -13,7 +13,17 @@
             <fieldset>
                 <s:hidden name="project.id"/>
                 <legend><f:message key="biobank.create"/></legend>
-                <%@include file="/form/createBiobankForm.jsp" %>
+                <s:errors/>
+                <table>
+                    <tr>
+                        <th><s:label for="z1" name="biobank.name"/></th>
+                        <td><s:text id="z1" name="newBiobank.name"/></td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="z2" name="biobank.address"/></th>
+                        <td><s:text id="z2" name="newBiobank.address"/></td>
+                    </tr>
+                </table>
 
                 <table>
                     <tr>

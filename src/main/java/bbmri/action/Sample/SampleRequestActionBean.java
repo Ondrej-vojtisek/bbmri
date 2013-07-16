@@ -143,7 +143,7 @@ public class SampleRequestActionBean extends BasicActionBean {
         getContext().getMessages().add(
                        new SimpleMessage("Request for sample id = {0} was created", sample.getId())
                );
-        return new ForwardResolution(MY_PROJECTS);
+        return new RedirectResolution(MY_PROJECTS);
     }
 
     public Resolution find() {
@@ -173,6 +173,6 @@ public class SampleRequestActionBean extends BasicActionBean {
                    );
         }
 
-        return new ForwardResolution(MY_PROJECTS);
+        return new RedirectResolution(MY_PROJECTS);
     }
 }

@@ -37,8 +37,8 @@ public class BiobankActionBean extends BasicActionBean {
 
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create", "update"}, field = "name", required = true),
-            @Validate(on = {"create", "update"}, field = "address", required = true),
+            @Validate(on = {"update"}, field = "name", required = true),
+            @Validate(on = {"update"}, field = "address", required = true),
     })
     private Biobank biobank;
     private List<Biobank> biobanks;
@@ -46,6 +46,11 @@ public class BiobankActionBean extends BasicActionBean {
     private List<Long> selected;
     private User user;
     private List<Long> selectedApprove;
+    @ValidateNestedProperties(value = {
+               @Validate(on = {"create"}, field = "name", required = true),
+               @Validate(on = {"create"}, field = "address", required = true),
+       })
+    private Biobank newBiobank;
 
     /* Setter / Getter */
 
@@ -63,6 +68,14 @@ public class BiobankActionBean extends BasicActionBean {
     public void setBiobank(Biobank biobank) {
         this.biobank = biobank;
     }
+
+    public Biobank getNewBiobank() {
+           return newBiobank;
+       }
+
+       public void setNewBiobank(Biobank newBiobank) {
+           this.newBiobank = newBiobank;
+       }
 
     public User getAdministrator() {
         return administrator;
@@ -137,7 +150,7 @@ public class BiobankActionBean extends BasicActionBean {
             refreshLoggedUser();
             return new ForwardResolution(this.getClass(), "display");
         }
-        biobankService.create(biobank, administrator.getId());
+        biobankService.create(newBiobank, administrator.getId());
         return new ForwardResolution(this.getClass(), "display");
     }
 
@@ -166,7 +179,7 @@ public class BiobankActionBean extends BasicActionBean {
                 new SimpleMessage("{0} administrators removed", removed)
         );
         refreshLoggedUser();
-        return new ForwardResolution(this.getClass(), "display");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution changeOwnership() {
@@ -175,7 +188,7 @@ public class BiobankActionBean extends BasicActionBean {
                 new SimpleMessage("Ownership of biobank was changed")
         );
         refreshLoggedUser();
-        return new ForwardResolution(this.getClass(), "display");
+        return new RedirectResolution(this.getClass(), "display");
     }
 
     public Resolution assignAll() {
@@ -189,6 +202,6 @@ public class BiobankActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("{0} users assigned", assigned)
         );
-        return new ForwardResolution(this.getClass(), "display");
+        return new RedirectResolution(this.getClass(), "display");
     }
 }

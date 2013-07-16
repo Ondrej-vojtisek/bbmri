@@ -52,7 +52,7 @@ public class ChangeAdministrator extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );
-        return new ForwardResolution(MY_PROJECTS);
+        return new RedirectResolution(MY_PROJECTS);
     }
 
     public void refreshLoggedUser() {

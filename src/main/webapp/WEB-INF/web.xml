@@ -10,14 +10,18 @@
         <param-value>StripesResources</param-value>
     </context-param>
 
+    <!-- spring -->
     <listener>
+        <description>initialize spring framework when application is started</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
     <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring-context.xml</param-value>
-    </context-param>
+           <param-name>contextConfigLocation</param-name>
+           <param-value>/WEB-INF/spring-context.xml</param-value>
+       </context-param>
+
+    <!-- stripes -->
 
     <filter>
         <description>Dynamic mapping action beans to URL</description>
@@ -54,7 +58,8 @@
         <init-param>
             <description>Which locales are supported</description>
             <param-name>LocalePicker.Locales</param-name>
-            <param-value>en:utf-8</param-value>
+            <param-value>en:UTF-8</param-value>
+            <!-- cs:utf-8 -->
         </init-param>
 
         <init-param>
@@ -70,7 +75,6 @@
         <url-pattern>*.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-
 
     <filter-mapping>
         <filter-name>DynamicMappingFilter</filter-name>

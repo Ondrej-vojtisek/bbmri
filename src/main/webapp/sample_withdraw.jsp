@@ -52,7 +52,6 @@
                     <tbody>
                 </table>
                 <s:submit name="withdrawSamples"><f:message key="request_selected"/></s:submit>
-                <s:submit name="withdrawSamples2">Pokus</s:submit>
             </fieldset>
 
 

@@ -128,7 +128,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public Resolution createSampleQuestion(){
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
         getContext().setSampleQuestion(null);
-        return new ForwardResolution(bbmri.action.Project.ProjectActionBean.class);
+        return new RedirectResolution(bbmri.action.Project.ProjectActionBean.class);
     }
 
       public Resolution detail() {
@@ -143,7 +143,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
              sampleQuestion.setProcessed(true);
              sampleQuestionService.update(sampleQuestion);
          }
-         return new ForwardResolution(APPROVE_REQUEST);
+         return new RedirectResolution(APPROVE_REQUEST);
       }
 
 
@@ -205,7 +205,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
             sampleQuestion.setProcessed(true);
             sampleQuestionService.update(sampleQuestion);
 
-            return new ForwardResolution(APPROVE_REQUEST);
+            return new RedirectResolution(APPROVE_REQUEST);
         }
 
     public List<Project> getMyProjects() {
@@ -242,7 +242,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
             }
             requestGroupService.changeRequestState(requestGroupDB.getId(), RequestState.EQUIPPED);
         }
-        return new ForwardResolution(REQUESTGROUP_ALL);
+        return new RedirectResolution(REQUESTGROUP_ALL);
     }
 
 }
