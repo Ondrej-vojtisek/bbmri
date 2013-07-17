@@ -132,6 +132,14 @@
             <version>1.0</version>
         </dependency>
 
+        <!-- Stripes security
+
+        <dependency>
+            <groupId>net.sourceforge.stripes.security</groupId>
+            <artifactId>stripes-security</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        -->
 
         <!--
              Microsoft EXCEL file parsing

@@ -17,6 +17,5 @@
                 <s:submit name="create"><f:message key="add"/></s:submit>
             </fieldset>
         </s:form>
-
     </s:layout-component>
 </s:layout-render>
