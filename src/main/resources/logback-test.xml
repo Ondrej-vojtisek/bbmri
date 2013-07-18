@@ -1,41 +1,32 @@
-<configuration>
+<configuration scan="true">
 
-    <!--
-<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    -->
-    <!--    encoders are assigned the type
-     ch.qos.logback.classic.encoder.PatternLayoutEncoder by default
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-    -->
+    <!-- definition of appender STDOUT -->
+     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+       <encoder>
+         <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+       </encoder>
+     </appender>
+
+    <logger name="org.hibernate" level="OFF"/>
+    <logger name="o.hibernate.type.BasicTypeRegistry" level="OFF"/>
+    <logger name="o.h.annotations.common.Version" level="OFF"/>
+    <logger name="org.hibernate.cfg.Environment" level="OFF"/>
+    <logger name="o.h.i.f.DefaultIdentifierGeneratorFactory" level="OFF"/>
+    <logger name="org.hibernate.jdbc.AbstractBatcher" level="OFF"/>
+    <logger name="org.hibernate.loader.Loader" level="OFF"/>
+    <logger name="o.h.e.loading.CollectionLoadContext" level="OFF"/>
+    <logger name="org.hibernate.SQL" level="OFF"/>
+    <logger name="o.h.transaction.JDBCTransaction" level="OFF"/>
+    <logger name="o.h.e.d.AbstractFlushingEventListener" level="OFF"/>
+    <logger name="org.hibernate.engine.Collections" level="OFF"/>
+    <logger name="o.h.e.d.AbstractFlushingEventListener" level="OFF"/>
+    <logger name="org.hibernate.pretty.Printer" level="OFF"/>
 
 
-    <root level="ERROR">
-        <appender-ref ref="STDOUT"/>
+
+    <root level="DEBUG">
+      <!-- appender referenced after it is defined -->
+      <appender-ref ref="STDOUT"/>
     </root>
-    <!--
-    <root level="WARNING">
-        <appender-ref ref="STDOUT"/>
-    </root>
-
-
-    <category name="net.sourceforge.stripes">
-            <priority value="error"/>
-    </category>
-         org.hibernate
-
-          org.hibernate.cfg.Configuration
-    o.h.i.f.DefaultIdentifierGeneratorFactory
-    o.h.i.f.DefaultIdentifierGeneratorFactory
-    o.h.tool.hbm2ddl.SchemaExport
-    o.hibernate.impl.SessionFactoryImpl
-    -->
-
-    <category name="bbmri">
-        <priority value="debug"/>
-    </category>
-
 
 </configuration>
