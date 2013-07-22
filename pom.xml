@@ -11,6 +11,7 @@
         <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.libs>${project.basedir}/src/lib</project.libs>
     </properties>
 
     <dependencies>
@@ -59,6 +60,23 @@
             <groupId>servlets.com</groupId>
             <artifactId>cos</artifactId>
             <version>05Nov2002</version>
+        </dependency>
+
+        <!-- stripesstuff -->
+        <dependency>
+            <groupId>org.stripesstuff.plugin.security</groupId>
+            <systemPath>${project.libs}/stripesstuff-0.3.jar</systemPath>
+            <artifactId>stripesstuff</artifactId>
+            <version>0.3</version>
+            <scope>system</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.stripesstuff.stripersist</groupId>
+            <systemPath>${project.libs}/stripersist-1.0.3.jar</systemPath>
+            <artifactId>stripersist</artifactId>
+            <version>1.0.3</version>
+            <scope>system</scope>
         </dependency>
 
         <!-- logback -->

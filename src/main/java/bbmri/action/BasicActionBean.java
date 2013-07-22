@@ -1,7 +1,11 @@
 package bbmri.action;
 
 import bbmri.entities.User;
+import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,15 +16,22 @@ import net.sourceforge.stripes.action.*;
  */
 public class BasicActionBean implements ActionBean {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @SpringBean
+    private UserService userService;
+
     private static final String MY_PROJECTS = "/project_my_projects.jsp";
 
-    private MyActionBeanContext ctx;
+    private TheActionBeanContext ctx;
 
+    @Override
     public void setContext(ActionBeanContext ctx) {
-        this.ctx = (MyActionBeanContext) ctx;
+        this.ctx = (TheActionBeanContext) ctx;
     }
 
-    public MyActionBeanContext getContext() {
+    @Override
+    public TheActionBeanContext getContext() {
         return ctx;
     }
 
@@ -28,21 +39,13 @@ public class BasicActionBean implements ActionBean {
         return ctx.getLoggedUser();
     }
 
-    @HandlesEvent("releaseContext")
-    public void releaseContext(){
-        System.err.println("ReleaseContext");
-
-        getContext().setProject(null);
-        getContext().setBiobank(null);
-        getContext().setRequest(null);
-        getContext().setRequestGroup(null);
-        getContext().setSampleQuestion(null);
-        getContext().setSample(null);
-    }
-
     public Resolution primary_menu_project(){
         return new ForwardResolution(MY_PROJECTS);
     }
 
+    public User getUser(){
+        Long id = ctx.getIdentifier();
+        return userService.getById(id);
+    }
 
 }

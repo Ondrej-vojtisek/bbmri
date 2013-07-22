@@ -4,6 +4,8 @@ import bbmri.entities.User;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -16,6 +18,8 @@ import java.util.List;
  */
 @UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
 public class ChangeAdministrator extends BasicActionBean {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String CHANGE_ADMINISTRATOR = "/changeAdministrator.jsp";
     private static final String MY_PROJECTS = "/project_my_projects.jsp";

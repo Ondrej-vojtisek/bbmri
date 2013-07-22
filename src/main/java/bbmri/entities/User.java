@@ -3,7 +3,9 @@ package bbmri.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,6 +49,9 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
     private List<Project> judgedProjects = new ArrayList<Project>();
+
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> roles = new HashSet<Role>();
 
     public User() {
     }
@@ -134,6 +139,14 @@ public class User implements Serializable {
 
     public String getWholeName() {
         return name + " " + surname;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

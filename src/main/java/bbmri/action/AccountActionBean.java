@@ -6,6 +6,8 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,6 +18,8 @@ import net.sourceforge.stripes.validation.Validate;
  */
 @UrlBinding("/account/{$event}/{user.id}")
 public class AccountActionBean extends BasicActionBean {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String MY_ACCOUNT = "/my_account.jsp";
 

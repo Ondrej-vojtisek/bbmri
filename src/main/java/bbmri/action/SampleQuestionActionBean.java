@@ -4,6 +4,8 @@ import bbmri.entities.*;
 import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 //@UrlBinding("/sampleQuestion/{$event}/{sampleQuestion.id}")
 public class SampleQuestionActionBean extends BasicActionBean {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String REQUEST = "/sample_request.jsp";
     private static final String MY_REQUESTS = "/samples_my_requests.jsp";

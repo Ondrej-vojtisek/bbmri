@@ -2,4 +2,5 @@
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="fn" uri="/WEB-INF/custom-functions.tld" %>
-<%@ taglib prefix="ss" uri="/WEB-INF/stripes-security.tld" %>
+<f:setBundle var="texts" basename="texts" scope="application" />
+<f:setBundle var="errors" basename="errors" scope="application" />

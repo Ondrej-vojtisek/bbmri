@@ -38,7 +38,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter" ref="jpaAdapter"/>
-        <property name="persistenceUnitName" value="TestPU"/>
+        <property name="persistenceUnitName" value="MyPersistenceUnit"/>
     </bean>
 
 </beans>

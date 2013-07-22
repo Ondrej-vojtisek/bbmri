@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,10 +36,15 @@ public class HelloWorld {
        // List<User> users = parseUserFile(filename);
       //  System.out.println("Users: " + users);
 
-        System.out.println("Hello");
     //    String filename = "mou_data.xls";
     //    List<Sample> samples = parseSampleFile(filename);
     //    System.out.println("Samples: " + samples);
+
+
+        Logger logger = LoggerFactory.getLogger("chapters.introduction.HelloWorld1");
+        logger.debug("Hello world.");
+        logger.warn("Hello world.");
+        logger.info("Hello world.");
 
     }
 

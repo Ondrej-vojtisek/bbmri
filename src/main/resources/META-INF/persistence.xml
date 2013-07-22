@@ -3,7 +3,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
 
-    <persistence-unit name="TestPU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="MyPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
         <class>bbmri.entities.Biobank</class>
@@ -15,6 +15,7 @@
         <class>bbmri.entities.Attachment</class>
         <class>bbmri.entities.Notification</class>
         <class>bbmri.entities.SampleQuestion</class>
+        <class>bbmri.entities.Role</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

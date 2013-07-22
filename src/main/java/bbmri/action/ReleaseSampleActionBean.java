@@ -12,6 +12,8 @@ import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.SimpleMessage;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ import java.util.List;
  */
 @UrlBinding("/releaseSample/{$event}/{loggedUser.id}")
 public class ReleaseSampleActionBean extends BasicActionBean {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private Sample sample;
     private List<Sample> samples;

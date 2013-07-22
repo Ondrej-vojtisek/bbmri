@@ -5,6 +5,8 @@ import bbmri.io.ExcelImport;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String ALL = "/user_all.jsp";
     private static final String CREATE = "/user_create.jsp";

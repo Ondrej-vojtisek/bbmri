@@ -92,7 +92,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     @HandlesEvent("displayAll")
     public Resolution displayAll() {
-    return new ForwardResolution(ALL);
+        return new ForwardResolution(ALL);
     }
 
     @HandlesEvent("createProject")
