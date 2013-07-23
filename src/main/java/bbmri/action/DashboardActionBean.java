@@ -46,16 +46,5 @@ public class DashboardActionBean extends BasicActionBean {
         return null;
     }
 
-    @PermitAll
-    @HandlesEvent("iamsecure")
-   public Resolution videt() {
-      return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-   }
-
-    @RolesAllowed({"developer"})
-       @HandlesEvent("develop")
-      public Resolution pokus() {
-         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-    }
 
 }

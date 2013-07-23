@@ -33,7 +33,6 @@ public class LoginServiceImpl implements LoginService {
             if (userDB != null && userDB.getPassword() != null) {
                 if ((userDB.getPassword()).equals(password)) {
                     result = true;
-                    userDB.setOnline(true);
                     userDAO.update(userDB);
                 }
             }
@@ -52,7 +51,6 @@ public class LoginServiceImpl implements LoginService {
         }
         try {
             User userDB = userDAO.get(user.getId());
-            userDB.setOnline(false);
             userDAO.update(userDB);
         } catch (DataAccessException ex) {
             throw ex;

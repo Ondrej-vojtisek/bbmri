@@ -10,7 +10,7 @@ package bbmri.entities;
 public enum RoleType {
       USER("user"),
       ADMINISTRATOR("administrator"),
-      BIOBANK_ADMINISTRATOR("biobank_administrator"),
+      BIOBANK_OPERATOR("biobank_operator"),
       PROJECT_LEADER("project_leader"),
       DEVELOPER("developer");
 

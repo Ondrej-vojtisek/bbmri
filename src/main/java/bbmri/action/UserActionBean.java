@@ -62,8 +62,6 @@ public class UserActionBean extends BasicActionBean {
     public Resolution create() {
 
         user.setBiobank(null);
-        user.setAdministrator(false);
-        user.setOnline(false);
         userService.create(user);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)

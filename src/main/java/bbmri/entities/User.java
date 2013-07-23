@@ -1,5 +1,8 @@
 package bbmri.entities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import java.util.Set;
 @Table(name = "Users")
 @Entity
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -34,9 +38,6 @@ public class User implements Serializable {
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(columnDefinition = "boolean default false")
-    private boolean online;
-
     //naive temporal prosthesis
     @Column(name = "PASSWORD")
     private String password;
@@ -46,9 +47,6 @@ public class User implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Biobank biobank;
-
-    @Column(columnDefinition = "boolean default false")
-    private boolean administrator;
 
     @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
     private List<Project> judgedProjects = new ArrayList<Project>();
@@ -62,14 +60,6 @@ public class User implements Serializable {
     public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
-    }
-
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
     }
 
     public String getPassword() {
@@ -125,11 +115,7 @@ public class User implements Serializable {
     }
 
     public boolean isAdministrator() {
-        return administrator;
-    }
-
-    public void setAdministrator(boolean administrator) {
-        this.administrator = administrator;
+         return roles.contains(new Role(RoleType.ADMINISTRATOR.toString()));
     }
 
     public List<Project> getJudgedProjects() {

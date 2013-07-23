@@ -1,6 +1,8 @@
 package bbmri.serviceImpl;
 
 import bbmri.DAO.UserDAO;
+import bbmri.entities.Role;
+import bbmri.entities.RoleType;
 import bbmri.entities.User;
 import bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,13 +109,39 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public User removeRole(Long userId, RoleType roleType){
+          try {
+              User userDB = userDAO.get(userId);
+              Role role = new Role(roleType.toString());
+              if(userDB.getRoles().contains(role)){
+                  userDB.getRoles().remove(role);
+                  userDAO.update(userDB);
+              }
+              return userDB;
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
+
+    public User setRole(Long userId, RoleType roleType){
+        try {
+            User userDB = userDAO.get(userId);
+            Role role = new Role(roleType.toString());
+            if(!userDB.getRoles().contains(role)){
+                userDB.getRoles().add(role);
+                userDAO.update(userDB);
+            }
+            return userDB;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
+
     public User changeAdministrator(Long oldAdminId, Long newAdminId) {
         try {
-            User userOld = userDAO.get(oldAdminId);
-            User userNew = userDAO.get(newAdminId);
-            userOld.setAdministrator(false);
-            userNew.setAdministrator(true);
-            return userOld;
+            removeRole(oldAdminId, RoleType.ADMINISTRATOR);
+            setRole(newAdminId, RoleType.ADMINISTRATOR);
+            return userDAO.get(oldAdminId);
         } catch (DataAccessException ex) {
             throw ex;
         }

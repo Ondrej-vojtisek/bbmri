@@ -9,6 +9,8 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.Set;
 
 /**
@@ -75,5 +77,17 @@ public class BasicActionBean implements ActionBean {
         return userService.getById(id).getRoles();
 
     }
+
+    @PermitAll
+     @HandlesEvent("iamsecure")
+    public Resolution videt() {
+       return new ForwardResolution("/WEB-INF/jsp/some.jsp");
+    }
+
+     @RolesAllowed({"developer"})
+        @HandlesEvent("develop")
+       public Resolution pokus() {
+          return new ForwardResolution("/WEB-INF/jsp/some.jsp");
+     }
 
 }

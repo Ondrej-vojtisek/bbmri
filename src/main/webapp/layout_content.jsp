@@ -22,7 +22,7 @@
     <s:layout-component name="script"/>
 
     <body>
-
+    <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
@@ -59,6 +59,7 @@
                                 <li <c:if test="${primarymenu == 'changeadministrator'}"> class="active" </c:if>><s:link beanclass="bbmri.action.ChangeAdministrator"><f:message
                                         key="change_administrator"/></s:link></li>
                             </c:if>
+
                     </ul>
                 </div>
             </div>
@@ -104,6 +105,7 @@
                                 <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>><s:link beanclass="bbmri.action.UserActionBean" event="createUser"><f:message key="user.create"/></s:link></li>
                             </c:if>
                         </c:if>
+
                     </ul>
                 </div>
             </div>

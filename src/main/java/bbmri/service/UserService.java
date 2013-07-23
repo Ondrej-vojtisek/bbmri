@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.RoleType;
 import bbmri.entities.User;
 
 import java.util.List;
@@ -29,6 +30,10 @@ public interface UserService {
 
      Integer getCount();
 
-    List<User> getNonAdministratorUsers();
+     List<User> getNonAdministratorUsers();
+
+     User setRole(Long userId, RoleType roleType);
+
+     User removeRole(Long userId, RoleType roleType);
 
 }
