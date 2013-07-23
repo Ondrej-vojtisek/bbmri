@@ -1,11 +1,15 @@
 package bbmri.action;
 
+import bbmri.entities.Role;
+import bbmri.entities.RoleType;
 import bbmri.entities.User;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -44,8 +48,17 @@ public class BasicActionBean implements ActionBean {
     }
 
     public User getUser(){
+
         Long id = ctx.getIdentifier();
+        logger.debug("getUserbyId: " + id + " user: " + userService.getById(id));
         return userService.getById(id);
+    }
+
+    public Set<Role> getRoles(){
+        Long id = ctx.getIdentifier();
+        logger.debug("getUserbyId: " + id + " user: " + userService.getById(id));
+        return userService.getById(id).getRoles();
+
     }
 
 }

@@ -23,6 +23,7 @@ import javax.annotation.security.PermitAll;
  */
 
 //@UrlBinding("/login/{$event}")
+@HttpCache(allow=false)
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean implements ValidationErrorHandler {
 
@@ -67,6 +68,10 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @DontValidate
     @DefaultHandler
     public Resolution display() {
+
+        logger.debug("Display - Context: " + getContext().getIdentifier() );
+
+        getContext().dropUser();
         return new ForwardResolution(INDEX);
     }
 
@@ -77,6 +82,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().setUser(user);
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
+        setContext(null);
         return new RedirectResolution(DashboardActionBean.class);
     }
 
@@ -84,15 +90,12 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @DontValidate
     public Resolution logout() {
         logger.debug("LOGOUT");
-        user = null;
         getContext().dropUser();
         return new RedirectResolution(INDEX);
     }
 
     @ValidationMethod
       public void validateUser(ValidationErrors errors){
-        logger.debug("*************** Validate ****************");
-
           if(id != null && password != null){
               user = loginService.login(id, password);
           }
@@ -103,8 +106,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
               );
 
           }
-
-        logger.debug("**************** User" + user );
       }
 
     @DontValidate

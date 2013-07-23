@@ -31,6 +31,9 @@ public class User implements Serializable {
     @Column(name = "SURNAME")
     private String surname;
 
+    @Column(name = "EMAIL")
+    private String email;
+
     @Column(columnDefinition = "boolean default false")
     private boolean online;
 
@@ -147,6 +150,14 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

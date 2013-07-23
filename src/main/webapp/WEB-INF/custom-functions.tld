@@ -32,5 +32,11 @@
         <function-signature>boolean isAdmin(java.lang.Object,java.lang.Object)</function-signature>
     </function>
 
+    <function>
+            <name>isAdministrator</name>
+            <function-class>bbmri.action.BasicActionBean</function-class>
+            <function-signature>boolean isAdministrator()</function-signature>
+        </function>
+
 
 </taglib>
