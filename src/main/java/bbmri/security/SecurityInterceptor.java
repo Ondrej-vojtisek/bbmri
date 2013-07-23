@@ -12,6 +12,7 @@ import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.exception.StripesRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.stripesstuff.plugin.security.SecurityManager;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;

@@ -52,4 +52,10 @@ public class DashboardActionBean extends BasicActionBean {
       return new ForwardResolution("/WEB-INF/jsp/some.jsp");
    }
 
+    @RolesAllowed({"developer"})
+       @HandlesEvent("develop")
+      public Resolution pokus() {
+         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
+      }
+
 }

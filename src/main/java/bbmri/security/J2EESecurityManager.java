@@ -17,6 +17,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
+import org.stripesstuff.plugin.security.SecurityManager;
 
 /**
  * Security manager that implements the J2EE security annotations.

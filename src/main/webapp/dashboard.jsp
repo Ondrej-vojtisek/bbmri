@@ -20,6 +20,10 @@
                 Something you want to do here.
             </security:allowed>
 
+            <security:allowed bean="ab" event="develop">
+                            Something you want to do here.
+                        </security:allowed>
+
 
         </s:form>
         </fieldset>

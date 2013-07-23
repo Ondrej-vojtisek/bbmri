@@ -191,7 +191,7 @@
     <file path="$USER_HOME$/StudijniMaterialy/Diplomka/untitled/.idea/misc.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1371036675618" ignored="false" />
     <file path="$USER_HOME$/StudijniMaterialy/Diplomka/ShibbolethExample/.idea/ant.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1371036632781" ignored="false" />
     <file path="$USER_HOME$/StudijniMaterialy/Diplomka/untitled/pom.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1371036633469" ignored="false" />
-    <file path="/web.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374498089663" ignored="false" />
+    <file path="/web.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374569695563" ignored="false" />
     <file path="/exportExample.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1372843294912" ignored="false" />
     <file path="/pokus.xsd" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1371065147692" ignored="false" />
     <file path="/CreateSampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1372679111949" ignored="false" />
@@ -201,19 +201,19 @@
     <file path="/StripesSecurityFilter.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374059725721" ignored="false" />
     <file path="/SecurityManager.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374060189387" ignored="false" />
     <file path="/TheActionBeanContext.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374503395345" ignored="false" />
-    <file path="/dashboard.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374568405696" ignored="false" />
-    <file path="/DashboardActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374568331372" ignored="false" />
+    <file path="/dashboard.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374570982200" ignored="false" />
+    <file path="/DashboardActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374571000759" ignored="false" />
     <file path="/LocalizableActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374069234409" ignored="false" />
     <file path="/EmptyActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374073660265" ignored="false" />
     <file path="/empty.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374074446787" ignored="false" />
     <file path="/EssentialActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374141764163" ignored="false" />
     <file path="/logback-test.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374162086824" ignored="false" />
-    <file path="/SecurityInterceptor.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374406823507" ignored="false" />
+    <file path="/SecurityInterceptor.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374570857596" ignored="false" />
     <file path="/401.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374148695889" ignored="false" />
-    <file path="/AssociatedSecurityManager.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374568636428" ignored="false" />
+    <file path="/AssociatedSecurityManager.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374570501168" ignored="false" />
     <file path="/Spring25Interceptor.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374152023223" ignored="false" />
     <file path="$PROJECT_DIR$/../_repo_thalamoss/thalamoss/src/main/java/eu/thalamoss/extension/context/TheBeanContextFactory.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374154026964" ignored="false" />
-    <file path="/J2EESecurityManager.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374501204863" ignored="false" />
+    <file path="/J2EESecurityManager.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374570774675" ignored="false" />
     <file path="$PROJECT_DIR$/../_repo_thalamoss/thalamoss/src/main/java/eu/thalamoss/website/LoginActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374396726725" ignored="false" />
     <file path="/RoleDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374490551907" ignored="false" />
     <file path="/RoleDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374490763113" ignored="false" />
@@ -226,6 +226,9 @@
     <file path="/errors.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374498062049" ignored="false" />
     <file path="/RoleTypes.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374565718988" ignored="false" />
     <file path="/custom-functions.tld" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374566423071" ignored="false" />
+    <file path="/Pokus.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374569149494" ignored="false" />
+    <file path="/SecurityManagerImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374570703496" ignored="false" />
+    <file path="/login.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374571134154" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +290,7 @@
       <file leaf-file-name="DashboardActionBean.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/DashboardActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="38" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0">
+            <state line="59" column="0" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -296,43 +299,16 @@
       <file leaf-file-name="LoginActionBean.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="13" selection-start="686" selection-end="686" vertical-scroll-proportion="0.0">
+            <state line="43" column="27" selection-start="1149" selection-end="1163" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BasicActionBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/BasicActionBean.java">
+      <file leaf-file-name="login.jsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="5" selection-start="1568" selection-end="1568" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="taglibs.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/common/taglibs.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="79" selection-start="344" selection-end="344" vertical-scroll-proportion="-2.6153846">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custom-functions.tld" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/custom-functions.tld">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="1" selection-start="1068" selection-end="1289" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout_content.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/layout_content.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="37" selection-start="949" selection-end="949" vertical-scroll-proportion="13.076923">
+            <state line="11" column="32" selection-start="508" selection-end="508" vertical-scroll-proportion="0.34311926">
               <folding />
             </state>
           </provider>
@@ -341,34 +317,65 @@
       <file leaf-file-name="dashboard.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/dashboard.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="42" selection-start="444" selection-end="444" vertical-scroll-proportion="-6.5384617">
+            <state line="22" column="54" selection-start="870" selection-end="870" vertical-scroll-proportion="-14.384615">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AssociatedSecurityManager.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AssociatedSecurityManager.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/AssociatedSecurityManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="94" selection-start="806" selection-end="806" vertical-scroll-proportion="0.11486486">
+            <state line="16" column="0" selection-start="609" selection-end="665" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_approve.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
+      <file leaf-file-name="SecurityHandler.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="85" selection-start="208" selection-end="293" vertical-scroll-proportion="-2.6153846">
+            <state line="22" column="17" selection-start="495" selection-end="495" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_all.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
+      <file leaf-file-name="SecurityManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="98" selection-start="2026" selection-end="2277" vertical-scroll-proportion="-14.269231">
+            <state line="28" column="17" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SecurityInterceptor.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityInterceptor.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="26" column="23" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="J2EESecurityManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/J2EESecurityManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="20" column="31" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomLocalizationBundleFactory.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/CustomLocalizationBundleFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="39" selection-start="614" selection-end="614" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -400,22 +407,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/errors_en.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/MultipleResourceBundle.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/J2EESecurityManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/TheActionBeanContext.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/Role.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/RoleTypes.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/RoleType.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Function.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/custom-functions.tld" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/action/BasicActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/common/taglibs.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/DashboardActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/Pokus.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/security/AssociatedSecurityManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/SecurityManagerImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/J2EESecurityManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/security/SecurityInterceptor.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/dashboard.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/DashboardActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/login.jsp" />
       </list>
     </option>
   </component>
@@ -1493,7 +1500,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="776" extended-state="0" />
+    <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40219092" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
@@ -1515,8 +1522,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17909238" sideWeight="0.30672926" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28606158" sideWeight="0.43348983" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5665102" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28606158" sideWeight="0.23630673" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.7636933" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1624,64 +1631,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="14" selection-start="1810" selection-end="1810" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleGeneralEditorProvider">
-        <state />
-      </provider>
-      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="31" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorReferencesProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/AttachmentType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="5" selection-start="204" selection-end="539" vertical-scroll-proportion="0.66557914">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/ProjectState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="12" selection-start="184" selection-end="184" vertical-scroll-proportion="0.24959217">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="839" selection-end="839" vertical-scroll-proportion="0.72104406">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/RoleType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/custom-functions.tld">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="1" selection-start="1068" selection-end="1289" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/layout_content.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="37" selection-start="949" selection-end="949" vertical-scroll-proportion="13.076923">
@@ -1703,13 +1652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="13" selection-start="686" selection-end="686" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="98" selection-start="2026" selection-end="2277" vertical-scroll-proportion="-14.269231">
@@ -1724,23 +1666,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/DashboardActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleGeneralEditorProvider">
+        <state />
+      </provider>
+      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="38" selection-start="750" selection-end="750" vertical-scroll-proportion="0.0">
+        <state line="68" column="21" selection-start="2303" selection-end="2303" vertical-scroll-proportion="-14.96">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="com.intellij.javaee.module.view.web.viewlets.WebModuleAssemblyDescriptorReferencesProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/CustomLocalizationBundleFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="39" selection-start="614" selection-end="614" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/dashboard.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="42" selection-start="444" selection-end="444" vertical-scroll-proportion="-6.5384617">
+        <state line="22" column="17" selection-start="495" selection-end="495" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="17" selection-start="1103" selection-end="1103" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/J2EESecurityManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="31" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/AssociatedSecurityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="94" selection-start="806" selection-end="806" vertical-scroll-proportion="0.11486486">
+        <state line="16" column="0" selection-start="609" selection-end="665" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/security/SecurityInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="23" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/dashboard.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="54" selection-start="870" selection-end="870" vertical-scroll-proportion="-14.384615">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/DashboardActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="0" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/LoginActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="27" selection-start="1149" selection-end="1163" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="32" selection-start="508" selection-end="508" vertical-scroll-proportion="0.34311926">
           <folding />
         </state>
       </provider>
