@@ -14,11 +14,14 @@ import org.apache.poi.ss.usermodel.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.tools.jar.Main;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,22 +34,9 @@ public class HelloWorld {
 
 
     //@SuppressWarnings("unchecked")
-    public static void main(String[] args) throws Exception {
-       // String filename = "pokus.xlsx";
-       // List<User> users = parseUserFile(filename);
-      //  System.out.println("Users: " + users);
+    public static void main(String[] args) {
 
-    //    String filename = "mou_data.xls";
-    //    List<Sample> samples = parseSampleFile(filename);
-    //    System.out.println("Samples: " + samples);
-
-
-        Logger logger = LoggerFactory.getLogger("chapters.introduction.HelloWorld1");
-        logger.debug("Hello world.");
-        logger.warn("Hello world.");
-        logger.info("Hello world.");
-
-    }
+        }
 
 
     public static List<User> parseUserFile(String filename) throws Exception {

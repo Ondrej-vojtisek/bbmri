@@ -213,7 +213,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
         }
 
     public List<Project> getMyProjects() {
-          return projectService.getAllByUserWithRequests(getLoggedUser().getId());
+          return projectService.getAllByUserWithRequests(getContext().getIdentifier());
       }
 
     public Resolution requestGroupDetail(){

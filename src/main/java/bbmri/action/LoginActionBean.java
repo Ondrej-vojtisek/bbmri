@@ -79,7 +79,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         logger.debug("Login");
         if (user != null) {
             //getContext().setLoggedUser(user);
-            getContext().setUser(user);
+            getContext().setLoggedUser(user);
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
         setContext(null);

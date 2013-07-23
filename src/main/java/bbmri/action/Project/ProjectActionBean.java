@@ -61,7 +61,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     public List<Project> getMyProjects() {
-        return projectService.getAllByUser(getLoggedUser().getId());
+        return projectService.getAllByUser(getContext().getIdentifier());
     }
 
     public List<Notification> getNotifications() {
@@ -134,7 +134,7 @@ public class ProjectActionBean extends BasicActionBean {
             return new RedirectResolution(this.getClass(), "display");
         }
         Project projectDB = projectService.getById(project.getId());
-        User user = projectService.removeUserFromProject(getLoggedUser().getId(), project.getId());
+        User user = projectService.removeUserFromProject(getContext().getIdentifier(), project.getId());
         if (user != null) {
             getContext().setLoggedUser(user);
             getContext().getMessages().add(
@@ -171,7 +171,7 @@ public class ProjectActionBean extends BasicActionBean {
         }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
 

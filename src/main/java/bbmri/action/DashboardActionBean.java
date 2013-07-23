@@ -26,10 +26,10 @@ public class DashboardActionBean extends BasicActionBean {
 
 
     public String getData(){
-        if(getUser() == null){
+        if(getLoggedUser() == null){
             return "NULL";
         }
-        String s = getUser().toString() + " has roles: " + getUser().getRoles();
+        String s = getLoggedUser().toString() + " has roles: " + getLoggedUser().getRoles();
         return s;
     }
 

@@ -94,7 +94,7 @@ public class AccountActionBean extends BasicActionBean {
     }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
 }

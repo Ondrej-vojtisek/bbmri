@@ -38,7 +38,7 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
         // and no instance is assigned
         if(set && user == null){
             // Retrieve the appropriate instance
-            user =  basicBean.getUser();
+            user =  basicBean.getLoggedUser();
         }
         // When no identifier
         else if(!set){

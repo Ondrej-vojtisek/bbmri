@@ -48,7 +48,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
      }
 
     public Resolution approve() {
-        projectService.approve(project.getId(), getContext().getLoggedUser().getId());
+        projectService.approve(project.getId(), getContext().getIdentifier());
         getContext().getMessages().add(
                               new SimpleMessage("Project id={0} was approved", project.getName())
                       );
@@ -63,7 +63,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
        }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
     public Resolution back(){

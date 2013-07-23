@@ -60,7 +60,7 @@ public class BiobankActionBean extends BasicActionBean {
 
     public Biobank getBiobank() {
         if (biobank == null) {
-            biobank = getContext().getLoggedUser().getBiobank();
+            biobank = getLoggedUser().getBiobank();
         }
         return biobank;
     }
@@ -136,7 +136,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public Resolution edit() {
-        biobank = getContext().getLoggedUser().getBiobank();
+        biobank = getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);
         return new ForwardResolution(EDIT);
     }
@@ -155,7 +155,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
     public Resolution update() {
@@ -167,7 +167,7 @@ public class BiobankActionBean extends BasicActionBean {
         Integer removed = 0;
         if (selected != null) {
             for (Long id : selected) {
-                if (id.equals(getContext().getLoggedUser().getId())) {
+                if (id.equals(getContext().getIdentifier())) {
                            /*you can't remove yourself*/
                     return new ForwardResolution(this.getClass(), "display");
                 }

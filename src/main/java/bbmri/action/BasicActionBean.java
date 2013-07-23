@@ -39,15 +39,11 @@ public class BasicActionBean implements ActionBean {
         return ctx;
     }
 
-    public User getLoggedUser() {
-        return ctx.getLoggedUser();
-    }
-
     public Resolution primary_menu_project(){
         return new ForwardResolution(MY_PROJECTS);
     }
 
-    public User getUser(){
+    public User getLoggedUser(){
 
         Long id = ctx.getIdentifier();
         logger.debug("getUserbyId: " + id + " user: " + userService.getById(id));

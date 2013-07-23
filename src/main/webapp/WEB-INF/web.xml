@@ -18,7 +18,7 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring-context.xml</param-value>
+        <param-value>/WEB-INF/spring-context2.xml</param-value>
     </context-param>
 
     <welcome-file-list>
@@ -68,10 +68,7 @@
             </param-value>
         </init-param>
 
-        <init-param>
-            <param-name>ActionBeanContextFactory.class</param-name>
-            <param-value>bbmri.action.TheActionBeanContextFactory</param-value>
-        </init-param>
+
 
         <init-param>
            <param-name>ResourceBundles.BaseNames</param-name>

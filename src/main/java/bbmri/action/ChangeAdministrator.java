@@ -51,7 +51,7 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     public Resolution changeAdministrator() {
-        userService.changeAdministrator(getContext().getLoggedUser().getId(), user.getId());
+        userService.changeAdministrator(getContext().getIdentifier(), user.getId());
         refreshLoggedUser();
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
@@ -60,6 +60,6 @@ public class ChangeAdministrator extends BasicActionBean {
     }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 }

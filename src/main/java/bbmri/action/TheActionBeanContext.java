@@ -77,7 +77,7 @@ public class TheActionBeanContext extends ActionBeanContext {
         setCurrent(IDENTIFIER, null);
     }
 
-    public void setUser(User user) {
+    public void setLoggedUser(User user) {
         // Forget the value
         dropIdentifier();
 
@@ -103,15 +103,6 @@ public class TheActionBeanContext extends ActionBeanContext {
             // Invalidate the session
             session.invalidate();
         }
-    }
-
-
-    public void setLoggedUser(User loggedUser) {
-        getRequest().getSession().setAttribute("loggedUser", loggedUser);
-    }
-
-    public User getLoggedUser() {
-        return (User) getRequest().getSession().getAttribute("loggedUser");
     }
 
     public Project getProject() {

@@ -122,7 +122,7 @@ public class EditProjectActionBean extends BasicActionBean {
         Integer removed = 0;
         if (selected != null) {
             for (Long id : selected) {
-                if (id.equals(getContext().getLoggedUser().getId())) {
+                if (id.equals(getContext().getIdentifier())) {
                     /*you can't remove yourself*/
                     return new ForwardResolution(ProjectActionBean.class);
                 }
@@ -164,7 +164,7 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getLoggedUser().getId()));
+        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
     public List<Attachment> getAttachments() {
