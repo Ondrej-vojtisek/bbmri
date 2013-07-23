@@ -9,6 +9,8 @@ import net.sourceforge.stripes.validation.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Ori
@@ -16,15 +18,13 @@ import org.slf4j.LoggerFactory;
  * Time: 14:12
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/account/{$event}/{user.id}")
 public class AccountActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String MY_ACCOUNT = "/my_account.jsp";
-
-    @SpringBean
-    private UserService userService;
 
     @Validate(on = {"changePassword"}, required = true)
     private String password;

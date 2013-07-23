@@ -40,8 +40,6 @@ public class ProjectActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    @SpringBean
-    private ProjectService projectService;
 
     private Project project;
 

@@ -12,6 +12,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
+import javax.annotation.security.PermitAll;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.List;
  * Time: 20:25
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/editproject/{$event}/{project.id}")
 public class EditProjectActionBean extends BasicActionBean {
 
@@ -35,11 +37,6 @@ public class EditProjectActionBean extends BasicActionBean {
             @Validate(on = {"create"}, field = "fundingOrganization", required = true),
     })
     private Project project;
-    @SpringBean
-    private UserService userService;
-
-    @SpringBean
-    private ProjectService projectService;
     private List<User> users;
     private User user;
     private List<Long> selectedApprove;
@@ -114,7 +111,6 @@ public class EditProjectActionBean extends BasicActionBean {
 
     public Resolution update() {
         projectService.update(project);
-        refreshLoggedUser();
         return new ForwardResolution(ProjectActionBean.class);
     }
 
@@ -134,7 +130,6 @@ public class EditProjectActionBean extends BasicActionBean {
                                  new SimpleMessage("{0} users removed", removed)
                          );
         users = projectService.getAllAssignedUsers(getProject().getId());
-        refreshLoggedUser();
         return new RedirectResolution(ProjectActionBean.class);
     }
 
@@ -150,7 +145,6 @@ public class EditProjectActionBean extends BasicActionBean {
                        new SimpleMessage("{0} users assigned", assigned)
                );
         users = projectService.getAllAssignedUsers(getProject().getId());
-        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -159,12 +153,7 @@ public class EditProjectActionBean extends BasicActionBean {
         getContext().getMessages().add(
                               new SimpleMessage("Ownership of project was changed")
                       );
-        refreshLoggedUser();
         return new RedirectResolution(ProjectActionBean.class);
-    }
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
     public List<Attachment> getAttachments() {

@@ -7,6 +7,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * Time: 21:31
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 //@UrlBinding("/sampleQuestion/{$event}/{sampleQuestion.id}")
 public class SampleQuestionActionBean extends BasicActionBean {
 
@@ -29,23 +31,6 @@ public class SampleQuestionActionBean extends BasicActionBean {
     private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
     private static final String QUESTION_DETAIL = "/sample_question_detail.jsp";
 
-    @SpringBean
-    private SampleQuestionService sampleQuestionService;
-
-    @SpringBean
-    private BiobankService biobankService;
-
-    @SpringBean
-    private ProjectService projectService;
-
-    @SpringBean
-    private SampleService sampleService;
-
-    @SpringBean
-    private RequestGroupService requestGroupService;
-
-    @SpringBean
-    private RequestService requestService;
 
     public List<SampleQuestion> getSampleQuestions(){
         return sampleQuestionService.getAllByBiobank(getLoggedUser().getBiobank());

@@ -8,12 +8,13 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@PermitAll
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
 
@@ -25,8 +26,6 @@ public class UserActionBean extends BasicActionBean {
     private User user;
     private Long id;
 
-    @SpringBean
-    private UserService userService;
     private List<User> users;
 
     public List<User> getUsers() {

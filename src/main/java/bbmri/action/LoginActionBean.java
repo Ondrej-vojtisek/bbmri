@@ -35,9 +35,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @SpringBean
     private LoginService loginService;
 
-    @SpringBean
-    private NotificationService notificationService;
-
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1)
     private Long id;

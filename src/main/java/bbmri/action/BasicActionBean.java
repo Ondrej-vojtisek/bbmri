@@ -3,7 +3,7 @@ package bbmri.action;
 import bbmri.entities.Role;
 import bbmri.entities.RoleType;
 import bbmri.entities.User;
-import bbmri.service.UserService;
+import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -23,7 +23,26 @@ public class BasicActionBean implements ActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserService userService;
+    protected UserService userService;
+
+    @SpringBean
+    protected BiobankService biobankService;
+
+    @SpringBean
+    protected ProjectService projectService;
+
+    @SpringBean
+    protected RequestService requestService;
+
+    @SpringBean
+    protected SampleService sampleService;
+
+    @SpringBean
+    protected RequestGroupService requestGroupService;
+
+    @SpringBean
+    protected SampleQuestionService sampleQuestionService;
+
 
     private static final String MY_PROJECTS = "/project_my_projects.jsp";
 

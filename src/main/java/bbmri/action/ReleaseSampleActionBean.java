@@ -15,6 +15,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ import java.util.List;
  * Time: 14:33
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/releaseSample/{$event}/{loggedUser.id}")
 public class ReleaseSampleActionBean extends BasicActionBean {
 
@@ -40,14 +42,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
         return biobank;
     }
 
-    @SpringBean
-    private RequestService requestService;
 
-    @SpringBean
-    private SampleService sampleService;
-
-    @SpringBean
-    private RequestGroupService requestGroupService;
 
     private RequestGroup requestGroup;
 

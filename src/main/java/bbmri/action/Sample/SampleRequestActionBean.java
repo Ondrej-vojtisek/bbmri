@@ -13,6 +13,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
+import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
  * Time: 23:46
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/sampleRequests/{$event}/{sample.id}")
 public class SampleRequestActionBean extends BasicActionBean {
 
@@ -30,15 +32,6 @@ public class SampleRequestActionBean extends BasicActionBean {
     private static final String MY_PROJECTS = " /project_my_projects.jsp";
 
     private Project project;
-
-    @SpringBean
-    private RequestService requestService;
-
-    @SpringBean
-    private SampleService sampleService;
-
-    @SpringBean
-    private RequestGroupService requestGroupService;
 
     private List<Long> selected;
 

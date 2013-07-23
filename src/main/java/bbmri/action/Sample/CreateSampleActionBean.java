@@ -11,6 +11,7 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
 
+import javax.annotation.security.PermitAll;
 import java.util.Random;
 
 /**
@@ -20,13 +21,11 @@ import java.util.Random;
  * Time: 23:06
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 //@UrlBinding("/Sample/{$event}/{sample.id}")
 public class CreateSampleActionBean extends BasicActionBean {
 
     private static final String CREATE = "/sample_create.jsp";
-
-    @SpringBean
-    private SampleService sampleService;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"},

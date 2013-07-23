@@ -27,8 +27,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     private static final String IDENTIFIER = "id";
 
-    //  @SpringBean
-    //  private UserService userService;
 
     /**
      * Stores the given attribute in session.

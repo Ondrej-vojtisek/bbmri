@@ -8,9 +8,10 @@ import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
-
+@PermitAll
 @UrlBinding("/approveproject/{$event}/{project.id}")
 public class ApproveProjectActionBean extends BasicActionBean {
 
@@ -18,12 +19,6 @@ public class ApproveProjectActionBean extends BasicActionBean {
     private static final String DETAIL = "/project_detail.jsp";
 
     private List<Project> projects;
-
-    @SpringBean
-    private UserService userService;
-
-    @SpringBean
-    private ProjectService projectService;
 
     private Project project;
 
@@ -52,7 +47,6 @@ public class ApproveProjectActionBean extends BasicActionBean {
         getContext().getMessages().add(
                               new SimpleMessage("Project id={0} was approved", project.getName())
                       );
-        refreshLoggedUser();
         return new ForwardResolution(APPROVE);
     }
 
@@ -61,10 +55,6 @@ public class ApproveProjectActionBean extends BasicActionBean {
            getContext().setProject(project);
            return new ForwardResolution(DETAIL);
        }
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
-    }
 
     public Resolution back(){
         return new ForwardResolution(this.getClass(), "display");

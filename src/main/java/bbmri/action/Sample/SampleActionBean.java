@@ -11,6 +11,7 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
 
+import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +23,7 @@ import java.util.Random;
  * Time: 19:50
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/Sample/{$event}/{sample.id}")
 public class SampleActionBean extends BasicActionBean {
 
@@ -29,9 +31,6 @@ public class SampleActionBean extends BasicActionBean {
     private static final String ALL = "/sample_all.jsp";
     private static final String EDIT = "/sample_edit.jsp";
 
-
-    @SpringBean
-    private SampleService sampleService;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"find"},

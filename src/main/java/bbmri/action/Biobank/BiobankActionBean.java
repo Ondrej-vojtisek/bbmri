@@ -10,6 +10,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -20,18 +21,13 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
+@PermitAll
 @UrlBinding("/Biobank/{$event}/{biobank.id}")
 public class BiobankActionBean extends BasicActionBean {
 
     private static final String ALL = "/biobank_all.jsp";
     private static final String CREATE = "/biobank_create.jsp";
     private static final String EDIT = "/biobank_edit.jsp";
-
-    @SpringBean
-    private UserService userService;
-
-    @SpringBean
-    private BiobankService biobankService;
 
 /* Variables */
 
@@ -125,7 +121,6 @@ public class BiobankActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        refreshLoggedUser();
         biobanks = biobankService.getAll();
         return new ForwardResolution(ALL);
     }
@@ -147,15 +142,10 @@ public class BiobankActionBean extends BasicActionBean {
             getContext().getMessages().add(
                          new SimpleMessage("Selected user is already an administrator of a biobank")
                  );
-            refreshLoggedUser();
             return new ForwardResolution(this.getClass(), "display");
         }
         biobankService.create(newBiobank, administrator.getId());
         return new ForwardResolution(this.getClass(), "display");
-    }
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 
     public Resolution update() {
@@ -178,7 +168,6 @@ public class BiobankActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("{0} administrators removed", removed)
         );
-        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -187,7 +176,6 @@ public class BiobankActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Ownership of biobank was changed")
         );
-        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 

@@ -10,6 +10,7 @@ import bbmri.service.RequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ import java.util.List;
  * Time: 13:12
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/approveSampleRequest/{$event}/{request.id}")
 public class ApproveRequestActionBean extends BasicActionBean {
 
@@ -28,12 +30,6 @@ public class ApproveRequestActionBean extends BasicActionBean {
 
     private List<RequestGroup> requestGroups;
     private Request request;
-
-    @SpringBean
-    private RequestService requestService;
-
-    @SpringBean
-    private RequestGroupService requestGroupService;
 
     private RequestGroup requestGroup;
 

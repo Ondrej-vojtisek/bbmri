@@ -7,6 +7,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
  * Time: 20:25
  * To change this template use File | Settings | File Templates.
  */
+@PermitAll
 @UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
 public class ChangeAdministrator extends BasicActionBean {
 
@@ -26,9 +28,6 @@ public class ChangeAdministrator extends BasicActionBean {
 
     private List<User> users;
     private User user;
-
-    @SpringBean
-    private UserService userService;
 
     public User getUser() {
         return user;
