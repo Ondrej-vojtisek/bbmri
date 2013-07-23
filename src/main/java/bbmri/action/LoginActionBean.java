@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.action.Project.ProjectActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
@@ -30,9 +31,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String INDEX = "/login.jsp";
-
-    @SpringBean
-    private UserService userService;
 
     @SpringBean
     private LoginService loginService;
@@ -82,8 +80,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().setLoggedUser(user);
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
-        setContext(null);
-        return new RedirectResolution(DashboardActionBean.class);
+        //return new RedirectResolution(DashboardActionBean.class);
+        return new RedirectResolution(ProjectActionBean.class);
     }
 
     @PermitAll

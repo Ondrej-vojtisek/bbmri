@@ -56,6 +56,6 @@ public class DashboardActionBean extends BasicActionBean {
        @HandlesEvent("develop")
       public Resolution pokus() {
          return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-      }
+    }
 
 }
