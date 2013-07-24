@@ -84,10 +84,10 @@
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
-                        <th><f:message key="attachment.name"/></th>
-                        <th><f:message key="attachment.type"/></th>
-                        <th><f:message key="attachment.size"/></th>
-                        <th><f:message key="attachment.importance"/></th>
+                        <th><s:label name="attachment.name"/></th>
+                        <th><s:label name="attachment.type"/></th>
+                        <th><s:label name="attachment.size"/></th>
+                        <th><s:label name="attachment.importance"/></th>
                         <th class="noSort"><f:message key="actions"/></th>
                     </tr>
                     </thead>

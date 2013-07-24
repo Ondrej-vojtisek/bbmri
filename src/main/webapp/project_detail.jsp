@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="project.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
@@ -39,13 +39,14 @@
 
                 <fieldset>
                     <legend><f:message key="project_files"/></legend>
-                    <table>
+                    <table cellspacing="0" class="tablesorter">
                         <thead>
                         <tr>
-                            <th><f:message key="attachment.name"/></th>
-                            <th><f:message key="attachment.type"/></th>
-                            <th><f:message key="attachment.size"/></th>
-                            <th><f:message key="attachment.importance"/></th>
+                            <th><s:label name="attachment.name"/></th>
+                            <th><s:label name="attachment.type"/></th>
+                            <th><s:label name="attachment.size"/></th>
+                            <th><s:label name="attachment.importance"/></th>
+                            <th class="noSort"><f:message key="actions"/></th>
                         </tr>
                         </thead>
 

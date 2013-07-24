@@ -26,9 +26,9 @@
             <table id="sortable" cellspacing="0" class="tablesorter">
                          <thead>
                          <tr>
-                             <th><f:message key="name"/></th>
-                             <th><f:message key="surname"/></th>
-
+                             <th><s:label name="name"/></th>
+                             <th><s:label name="surname"/></th>
+                             <th colspan="2" class="noSort"><s:label name="actions"/></th>
                          </tr>
                          </thead>
                          <tbody>
@@ -38,8 +38,9 @@
                                  <td><c:out value="${user.surname}"/></td>
                                  <td>
                                      <c:if test="${!user.equals(loggedUser)}">
-                                     <s:checkbox name="selected" value="${user.id}"/></td>
-                                 </c:if>
+                                     <s:checkbox name="selected" value="${user.id}"/></c:if>
+                                 </td>
+
                                  <td><c:if test="${!user.equals(loggedUser)}">
                                      <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
                                              event="changeOwnership">

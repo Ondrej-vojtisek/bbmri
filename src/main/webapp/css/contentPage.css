@@ -95,7 +95,7 @@ table.tablesorter tbody td {
 	vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
-	background-color: #8dbdd8;
+	background-color: #aae2ff;
 }
 table.tablesorter thead tr .headerSortUp {
 	background-image: url(../images/ice-asc.gif);

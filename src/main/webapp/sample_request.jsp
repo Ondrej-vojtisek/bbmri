@@ -44,7 +44,7 @@
                 </s:select>
                 <p><f:message key="samples_classification_description"/></p>
                 <p><s:label for="z5" name="sampleQuestion.specification"/></p>
-                <s:textarea id="z5" name="sampleQuestion.specification"></s:textarea>
+                <s:textarea id="z5" name="sampleQuestion.specification"/>
 
                 <s:submit name="createSampleQuestion"><f:message key="request_sample"/></s:submit>
             </fieldset>
