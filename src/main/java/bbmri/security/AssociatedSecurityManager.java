@@ -1,19 +1,15 @@
 package bbmri.security;
 
 import bbmri.action.BasicActionBean;
-import bbmri.action.EssentialActionBean;
 import bbmri.action.LoginActionBean;
 import bbmri.entities.Role;
 import bbmri.entities.User;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.stripesstuff.plugin.security.SecurityHandler;
 
 import javax.servlet.http.HttpServletResponse;

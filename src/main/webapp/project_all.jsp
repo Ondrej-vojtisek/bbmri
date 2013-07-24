@@ -31,33 +31,7 @@
                             <td><c:out value="${project.annotation}"/></td>
                             <td><c:out value="${project.fundingOrganization}"/></td>
                             <td><c:out value="${project.owner.wholeName}"/></td>
-
                             <td><f:message key="ProjectState.${project.projectState}"/></td>
-                            <td><c:if test="${fn:contains(project.users, ab.loggedUser)}">
-                                <c:if test="${!fn:ownProject(project, ab.loggedUser)}">
-                                    <s:link beanclass="bbmri.action.Project.ProjectActionBean" event="leave">
-                                        <s:param name="project.id" value="${project.id}"/><f:message
-                                            key="project.leave"/></s:link>
-                                </c:if>
-                            </c:if>
-                            </td>
-
-                            <td><c:if test="${fn:contains(project.users, ab.loggedUser)}">
-                                <c:if test="${project.projectState != 'NEW' && project.projectState != null}">
-                                    <s:link beanclass="bbmri.action.Project.ProjectActionBean"
-                                            event="requestSample">
-                                        <s:param name="project.id" value="${project.id}"/><f:message
-                                            key="request_sample"/></s:link>
-                                </c:if>
-                            </c:if>
-                            </td>
-
-                            <td><c:if test="${fn:ownProject(project, ab.loggedUser)}">
-                                <s:link beanclass="bbmri.action.Project.ProjectActionBean" event="edit">
-                                    <s:param name="project.id" value="${project.id}"/><f:message
-                                        key="edit"/></s:link>
-                            </c:if>
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

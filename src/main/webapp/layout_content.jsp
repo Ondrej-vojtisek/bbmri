@@ -15,9 +15,10 @@
     <script type="text/javascript" src="libs/jquery.tablesorter.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-                    $("#sortableTable").tablesorter();
-                }
-        );
+                           $("#sortableTable").tablesorter();
+                       }
+               );
+
     </script>
     <s:layout-component name="script"/>
 

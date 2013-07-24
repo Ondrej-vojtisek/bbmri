@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="biobanks.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.BiobankActionBean"/>
@@ -25,11 +25,16 @@
                         <td><c:out value="${biobank.name}"/></td>
                         <td><c:out value="${biobank.address}"/></td>
                         <td>
-                            <c:if test="${biobank.id == ab.loggedUser.biobank.id}">
-                                <s:link beanclass="bbmri.action.Biobank.BiobankActionBean" event="edit">
-                                <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
-                            </c:if>
 
+                            <c:choose>
+                                <c:when test="${biobank.id == ab.loggedUser.biobank.id}">
+                                    <s:link beanclass="bbmri.action.Biobank.BiobankActionBean" event="edit">
+                                                                        <s:param name="biobank.id" value="${biobank.id}"/><f:message key="edit"/></s:link>
+                                </c:when>
+                                <c:otherwise>
+                                    <f:message key="edit"/>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
