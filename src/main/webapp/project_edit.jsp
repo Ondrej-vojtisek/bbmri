@@ -29,6 +29,7 @@
                     <tr>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
+                        <th colspan="2" class="noSort"><f:message key="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,11 +55,15 @@
             </fieldset>
             <fieldset>
                 <legend><f:message key="all_users"/></legend>
-                <table>
+                <table cellspacing="0" class="tablesorter">
+                    <thead>
                     <tr>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
+                        <th class="noSort"><f:message key="actions"/></th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <c:forEach items="${ab.freeUsers}" var="user" varStatus="loop">
                         <tr>
                             <td><c:out value="${user.name}"/></td>
@@ -66,6 +71,7 @@
                             <td><s:checkbox name="selectedApprove" value="${user.id}"/></td>
                         </tr>
                     </c:forEach>
+                    </tbody>
                 </table>
                 <s:submit name="assignAll"><f:message key="assign_selected"/></s:submit>
             </fieldset>
@@ -75,13 +81,14 @@
 
             <fieldset>
                 <legend><f:message key="project_files"/></legend>
-                <table>
+                <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
                         <th><f:message key="attachment.name"/></th>
                         <th><f:message key="attachment.type"/></th>
                         <th><f:message key="attachment.size"/></th>
                         <th><f:message key="attachment.importance"/></th>
+                        <th class="noSort"><f:message key="actions"/></th>
                     </tr>
                     </thead>
 
