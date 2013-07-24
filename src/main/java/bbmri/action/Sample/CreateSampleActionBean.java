@@ -10,6 +10,8 @@ import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.Random;
@@ -26,6 +28,8 @@ import java.util.Random;
 public class CreateSampleActionBean extends BasicActionBean {
 
     private static final String CREATE = "/sample_create.jsp";
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"},

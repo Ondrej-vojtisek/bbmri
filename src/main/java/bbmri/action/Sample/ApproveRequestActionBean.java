@@ -9,6 +9,8 @@ import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -27,6 +29,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private static final String DETAIL = "/requestGroup_detail.jsp";
     private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
 
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private List<RequestGroup> requestGroups;
     private Request request;

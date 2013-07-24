@@ -9,6 +9,8 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -28,6 +30,8 @@ public class BiobankActionBean extends BasicActionBean {
     private static final String ALL = "/biobank_all.jsp";
     private static final String CREATE = "/biobank_create.jsp";
     private static final String EDIT = "/biobank_edit.jsp";
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 /* Variables */
 

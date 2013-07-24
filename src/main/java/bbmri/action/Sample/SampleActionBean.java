@@ -10,6 +10,8 @@ import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.apache.commons.lang.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
@@ -27,10 +29,11 @@ import java.util.Random;
 @UrlBinding("/Sample/{$event}/{sample.id}")
 public class SampleActionBean extends BasicActionBean {
 
-    private static final String WITHDRAW = "/sample_withdraw.jsp.jsp";
+    private static final String WITHDRAW = "/sample_withdraw.jsp";
     private static final String ALL = "/sample_all.jsp";
     private static final String EDIT = "/sample_edit.jsp";
 
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"find"},
@@ -107,6 +110,7 @@ public class SampleActionBean extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
+        logger.debug("DISPLAY");
         return new ForwardResolution(WITHDRAW);
     }
 

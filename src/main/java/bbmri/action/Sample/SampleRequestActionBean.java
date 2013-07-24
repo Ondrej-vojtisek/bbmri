@@ -12,6 +12,8 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class SampleRequestActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/sample_withdraw.jsp";
     private static final String MY_PROJECTS = " /project_my_projects.jsp";
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private Project project;
 
@@ -125,6 +129,8 @@ public class SampleRequestActionBean extends BasicActionBean {
         if(sampleQuery != null){
             results = sampleService.getSamplesByQuery(sampleQuery);
         }
+
+
         return new ForwardResolution(WITHDRAW);
     }
 
