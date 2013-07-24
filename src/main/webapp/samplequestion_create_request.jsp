@@ -3,14 +3,14 @@
 
 <f:message key="sample.request" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}">
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
-        <table id="sortableTable">
+            <table cellspacing="0" class="tablesorter">
             <thead><tr>
                 <th><s:label name="project.name"/></th>
                 <th><s:label name="project.owner"/></th>

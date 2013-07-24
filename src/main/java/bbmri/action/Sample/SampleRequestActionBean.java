@@ -27,7 +27,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/sampleRequests/{$event}/{sample.id}")
+@UrlBinding("/sampleRequests")
 public class SampleRequestActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/sample_withdraw.jsp";
@@ -121,6 +121,7 @@ public class SampleRequestActionBean extends BasicActionBean {
     })
     private Sample sample;
 
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         if(sampleQuery == null){
@@ -133,7 +134,7 @@ public class SampleRequestActionBean extends BasicActionBean {
 
         return new ForwardResolution(WITHDRAW);
     }
-
+    @DontValidate
     public Resolution request() {
         if (getProject().getProjectState() == ProjectState.NEW) {
             return new ForwardResolution(MY_PROJECTS);
@@ -144,19 +145,19 @@ public class SampleRequestActionBean extends BasicActionBean {
                );
         return new RedirectResolution(MY_PROJECTS);
     }
-
+    @DontValidate
     public Resolution find() {
         results = sampleService.getSamplesByQuery(sampleQuery);
         return new ForwardResolution(WITHDRAW);
     }
-
+    @DontValidate
     public Resolution createParametrizedRequest() {
         if (sample != null) {
             results = sampleService.getSamplesByQuery(sample);
         }
         return new ForwardResolution(WITHDRAW);
     }
-
+    @DontValidate
     /*TODO: change num of requested to variable value*/
     public Resolution requestSelected() {
         List<Request> requests = new ArrayList<Request>();

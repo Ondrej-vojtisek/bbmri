@@ -26,7 +26,7 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/Sample/{$event}/{sample.id}")
+@UrlBinding("/Sample")
 public class SampleActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/sample_withdraw.jsp";
@@ -108,17 +108,20 @@ public class SampleActionBean extends BasicActionBean {
         return results.size();
     }
 
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         logger.debug("DISPLAY");
         return new ForwardResolution(WITHDRAW);
     }
 
+    @DontValidate
     @HandlesEvent("allSamples")
     public Resolution allSamples(){
         return new ForwardResolution(ALL);
     }
 
+    @DontValidate
     public Resolution withdrawSamples() {
         // TODO - variable amount of withdrawed samples
          System.err.println("SAMPLES: " + selectedSamples);
@@ -140,23 +143,27 @@ public class SampleActionBean extends BasicActionBean {
         this.releasedCount = releasedCount;
     }
 
+    @DontValidate
     public Resolution find() {
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSample(sample);
         return new ForwardResolution(WITHDRAW);
     }
 
+    @DontValidate
     @HandlesEvent("save")
     public Resolution save(){
         sampleService.update(sample);
         return new ForwardResolution(ALL);
     }
 
+    @DontValidate
     @HandlesEvent("cancel")
     public Resolution cancel(){
         return new ForwardResolution(ALL);
     }
 
+    @DontValidate
     @HandlesEvent("edit")
     public Resolution edit() {
         sample = sampleService.getById(sample.getId());

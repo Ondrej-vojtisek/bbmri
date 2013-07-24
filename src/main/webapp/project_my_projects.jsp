@@ -10,11 +10,10 @@
                  secondarymenu="project_my_projects">
 
     <s:layout-component name="body">
-
         <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
             <s:form beanclass="bbmri.action.Project.ProjectActionBean">
-                <table id="sortableTable">
+                <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
                         <th><s:label name="project.name"/></th>
@@ -22,6 +21,7 @@
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
+                        <th colspan="3" class="noSort"><s:label name="actions"/></th>
 
                     </tr>
                     </thead>

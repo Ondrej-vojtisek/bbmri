@@ -4,7 +4,7 @@
 <f:message key="users.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.UserActionBean"/>
 
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}" primarymenu="users"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}" primarymenu="users"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}"
                  secondarymenu="user_all">
@@ -12,7 +12,7 @@
     <s:layout-component name="body">
         <fieldset>
             <legend><f:message key="all_users"/></legend>
-            <table id="sortableTable">
+            <table id="sortable" cellspacing="0" class="tablesorter">
                 <thead>
                 <tr>
                     <th><s:label name="id"/></th>

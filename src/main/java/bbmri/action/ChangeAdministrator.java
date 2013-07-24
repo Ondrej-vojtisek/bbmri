@@ -49,16 +49,12 @@ public class ChangeAdministrator extends BasicActionBean {
         return new ForwardResolution(CHANGE_ADMINISTRATOR);
     }
 
+    @DontValidate
     public Resolution changeAdministrator() {
         userService.changeAdministrator(getContext().getIdentifier(), user.getId());
-        refreshLoggedUser();
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );
         return new RedirectResolution(MY_PROJECTS);
-    }
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 }

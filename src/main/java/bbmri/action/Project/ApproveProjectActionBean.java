@@ -12,7 +12,8 @@ import javax.annotation.security.PermitAll;
 import java.util.List;
 
 @PermitAll
-@UrlBinding("/approveproject/{$event}/{project.id}")
+
+@UrlBinding("/approveproject")
 public class ApproveProjectActionBean extends BasicActionBean {
 
     private static final String APPROVE = "/project_approve.jsp";
@@ -38,10 +39,11 @@ public class ApproveProjectActionBean extends BasicActionBean {
     }
 
     @DefaultHandler
+    @DontValidate
      public Resolution display() {
          return new ForwardResolution(APPROVE);
      }
-
+    @DontValidate
     public Resolution approve() {
         projectService.approve(project.getId(), getContext().getIdentifier());
         getContext().getMessages().add(
@@ -50,12 +52,14 @@ public class ApproveProjectActionBean extends BasicActionBean {
         return new ForwardResolution(APPROVE);
     }
 
+    @DontValidate
     public Resolution detail() {
            project = projectService.getById(project.getId());
            getContext().setProject(project);
            return new ForwardResolution(DETAIL);
        }
 
+    @DontValidate
     public Resolution back(){
         return new ForwardResolution(this.getClass(), "display");
     }

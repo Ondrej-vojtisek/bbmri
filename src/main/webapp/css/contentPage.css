@@ -6,7 +6,7 @@ body {
 .sidebar-nav {
     padding: 9px 0;
 }
-
+/*
 table {
     width: 100%;
     margin: 1em 0;
@@ -36,7 +36,7 @@ table th {
 
 table th label {
     font-weight: bold;
-}
+}    */
 
 textarea {
     width: 100%;
@@ -66,7 +66,44 @@ input.error {
     background-color: #ff5b52;
 }
 
-.not_active{
-    color: #43e9ff;
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
 }
-
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #1b1b1b;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px 12px 4px 4px;
+    color: #0088cc;
+}
+table.tablesorter thead tr .header {
+	background-image: url(../images/ice-unsorted.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color: #8dbdd8;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../images/ice-asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../images/ice-desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #0088cc;
+    color: #FFF;
+}

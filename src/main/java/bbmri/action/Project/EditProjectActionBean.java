@@ -103,17 +103,20 @@ public class EditProjectActionBean extends BasicActionBean {
     public void setAttachment(Attachment attachment) {
                this.attachment = attachment;
     }
+    @DontValidate
 
     @DefaultHandler
     public Resolution display() {
         return new ForwardResolution(EDIT);
     }
 
+    @DontValidate
     public Resolution update() {
         projectService.update(project);
         return new ForwardResolution(ProjectActionBean.class);
     }
 
+    @DontValidate
     public Resolution removeAll() {
         Integer removed = 0;
         if (selected != null) {
@@ -133,6 +136,7 @@ public class EditProjectActionBean extends BasicActionBean {
         return new RedirectResolution(ProjectActionBean.class);
     }
 
+    @DontValidate
     public Resolution assignAll() {
         Integer assigned = 0;
         if (selectedApprove != null) {
@@ -148,6 +152,7 @@ public class EditProjectActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "display");
     }
 
+    @DontValidate
     public Resolution changeOwnership() {
         projectService.changeOwnership(getContext().getProject().getId(), user.getId());
         getContext().getMessages().add(
@@ -160,6 +165,7 @@ public class EditProjectActionBean extends BasicActionBean {
               return projectService.getAttachmentsByProject(getProject().getId());
           }
 
+    @DontValidate
     public Resolution download() throws Exception {
                System.err.println("Attachment ID : " + attachment.getId());
                attachment = projectService.getAttachmentById(attachment.getId());

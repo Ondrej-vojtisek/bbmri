@@ -99,23 +99,27 @@ public class ProjectActionBean extends BasicActionBean {
             return new ForwardResolution(CREATE);
         }
 
+    @DontValidate
         public Resolution createInitial() {
              getContext().setProject(null);
              return new ForwardResolution(CREATE_INFORMATION);
          }
 
+    @DontValidate
         public Resolution create() {
             Project projectNew = projectService.create(project, getLoggedUser());
             getContext().setProject(projectNew);
             return new ForwardResolution(CREATE_MTA);
         }
 
+    @DontValidate
         public Resolution edit() {
             project = projectService.getById(project.getId());
             getContext().setProject(project);
             return new ForwardResolution(EDIT);
         }
 
+    @DontValidate
         public Resolution requestSample() {
             project = projectService.getById(project.getId());
             // you can't request sample for not approved project
@@ -128,6 +132,7 @@ public class ProjectActionBean extends BasicActionBean {
             return new ForwardResolution(this.getClass(), "display");
         }
 
+    @DontValidate
         public Resolution leave() {
             if (project == null) {
                 return new RedirectResolution(this.getClass(), "display");
@@ -143,7 +148,7 @@ public class ProjectActionBean extends BasicActionBean {
             return new ForwardResolution(this.getClass(), "display");
         }
 
-
+    @DontValidate
         public Resolution uploadMTA() {
                 if (attachmentFileBean != null) {
                     Attachment attachment = new Attachment();

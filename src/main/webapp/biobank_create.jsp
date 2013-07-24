@@ -3,7 +3,7 @@
 
 <f:message key="biobank.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.BiobankActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}"

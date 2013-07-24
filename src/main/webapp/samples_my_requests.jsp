@@ -3,7 +3,7 @@
 
 <f:message key="sample.request" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}"
@@ -23,14 +23,15 @@
                         <f:message key="ProjectState.${project.projectState}"/></div>
                 </fieldset>
 
-                <table id="sortableTable">
+                <table id="sortable" cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
-                        <th><f:message key="id"/></th>
-                        <th><f:message key="requestGroup.created"/></th>
-                        <th><f:message key="requestGroup.lastModification"/></th>
-                        <th><f:message key="requestGroup.requestState"/></th>
-                        <th><f:message key="biobank.name"/></th>
+                        <th><s:label name="id"/></th>
+                        <th><s:label name="requestGroup.created"/></th>
+                        <th><s:label name="requestGroup.lastModification"/></th>
+                        <th><s:label name="requestGroup.requestState"/></th>
+                        <th><s:label name="biobank.name"/></th>
+                        <th class="noSort"><s:label name="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>

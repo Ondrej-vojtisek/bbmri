@@ -4,7 +4,7 @@
 <f:message key="biobank.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Biobank.BiobankActionBean"/>
 
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}">
@@ -23,11 +23,12 @@
         <s:form beanclass="bbmri.action.Biobank.BiobankActionBean">
         <fieldset>
             <legend><f:message key="biobank.administrators"/></legend>
-                     <table id="sortableTable">
+            <table id="sortable" cellspacing="0" class="tablesorter">
                          <thead>
                          <tr>
                              <th><f:message key="name"/></th>
                              <th><f:message key="surname"/></th>
+
                          </tr>
                          </thead>
                          <tbody>

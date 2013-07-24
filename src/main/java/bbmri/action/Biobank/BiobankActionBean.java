@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 @PermitAll
-@UrlBinding("/Biobank/{$event}/{biobank.id}")
+@UrlBinding("/Biobank")
 public class BiobankActionBean extends BasicActionBean {
 
     private static final String ALL = "/biobank_all.jsp";
@@ -122,24 +122,24 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     /* Methods */
-
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         biobanks = biobankService.getAll();
         return new ForwardResolution(ALL);
     }
-
+    @DontValidate
     @HandlesEvent("createBiobank")
     public Resolution createBiobank(){
         return new ForwardResolution(CREATE);
     }
-
+    @DontValidate
     public Resolution edit() {
         biobank = getLoggedUser().getBiobank();
         getContext().setBiobank(biobank);
         return new ForwardResolution(EDIT);
     }
-
+    @DontValidate
     public Resolution create() {
         User resDB = userService.getById(administrator.getId());
         if (resDB.getBiobank() != null) {
@@ -151,12 +151,12 @@ public class BiobankActionBean extends BasicActionBean {
         biobankService.create(newBiobank, administrator.getId());
         return new ForwardResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution update() {
         biobankService.update(biobank);
         return new ForwardResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution removeAll() {
         Integer removed = 0;
         if (selected != null) {
@@ -174,7 +174,7 @@ public class BiobankActionBean extends BasicActionBean {
         );
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution changeOwnership() {
         biobankService.changeOwnership(getContext().getProject().getId(), user.getId());
         getContext().getMessages().add(
@@ -182,7 +182,7 @@ public class BiobankActionBean extends BasicActionBean {
         );
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution assignAll() {
         Integer assigned = 0;
         if (selectedApprove != null) {

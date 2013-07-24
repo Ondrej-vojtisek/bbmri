@@ -3,7 +3,7 @@
 
 <f:message key="credentials.change_title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.AccountActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}">
 

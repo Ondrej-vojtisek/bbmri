@@ -93,39 +93,39 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public void setSelected(List<Long> selected) {
         this.selected = selected;
     }
-
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         return new ForwardResolution(REQUEST);
     }
-
+    @DontValidate
     @HandlesEvent("myRequests")
        public Resolution myRequest() {
            return new ForwardResolution(MY_REQUESTS);
        }
-
+    @DontValidate
     @HandlesEvent("approveSampleRequest")
           public Resolution approveSampleRequest() {
               return new ForwardResolution(APPROVE_REQUEST);
           }
-
+    @DontValidate
     @HandlesEvent("allRequestGroups")
               public Resolution allRequestGroups() {
                   return new ForwardResolution(REQUESTGROUP_ALL);
               }
-
+    @DontValidate
     public Resolution createSampleQuestion(){
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
         getContext().setSampleQuestion(null);
         return new RedirectResolution(bbmri.action.Project.ProjectActionBean.class);
     }
-
+    @DontValidate
       public Resolution detail() {
           sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
           getContext().setSampleQuestion(sampleQuestion);
           return new ForwardResolution(QUESTION_DETAIL);
       }
-
+    @DontValidate
     public Resolution remove() {
          sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
          if(sampleQuestion != null){
@@ -135,7 +135,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
          return new RedirectResolution(APPROVE_REQUEST);
       }
 
-
+    @DontValidate
     public Resolution back() {
         return new ForwardResolution(APPROVE_REQUEST);
     }
@@ -168,13 +168,13 @@ public class SampleQuestionActionBean extends BasicActionBean {
           return results.size();
       }
 
-
+    @DontValidate
     public Resolution find(){
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSampleQuestion(sampleQuestion);
         return new ForwardResolution(QUESTION_DETAIL);
     }
-
+    @DontValidate
     /*TODO: change num of requested to variable value*/
         public Resolution requestSelected() {
 
@@ -200,7 +200,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public List<Project> getMyProjects() {
           return projectService.getAllByUserWithRequests(getContext().getIdentifier());
       }
-
+    @DontValidate
     public Resolution requestGroupDetail(){
         requestGroup = requestGroupService.getById(requestGroup.getId());
         getContext().setRequestGroup(requestGroup);
@@ -211,7 +211,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
         return requestGroupService.getByBiobankAndState(getLoggedUser().getBiobank().getId(), RequestState.NEW);
 
     }
-
+    @DontValidate
     public Resolution releaseSamples(){
         RequestGroup requestGroupDB = requestGroupService.getById(requestGroup.getId());
         if(requestGroupDB != null){

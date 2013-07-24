@@ -23,7 +23,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/approveSampleRequest/{$event}/{request.id}")
+@UrlBinding("/approveSampleRequest")
 public class ApproveRequestActionBean extends BasicActionBean {
 
     private static final String DETAIL = "/requestGroup_detail.jsp";
@@ -68,13 +68,13 @@ public class ApproveRequestActionBean extends BasicActionBean {
     public List<Request> getRequests(){
         return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
     }
-
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         getRequestGroups();
         return new ForwardResolution(APPROVE_REQUEST);
     }
-
+    @DontValidate
     public Resolution approve() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.APPROVED);
         getContext().getMessages().add(
@@ -82,7 +82,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
         );
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution reject() {
         requestGroupService.changeRequestState(requestGroup.getId(), RequestState.DENIED);
         getContext().getMessages().add(
@@ -90,13 +90,13 @@ public class ApproveRequestActionBean extends BasicActionBean {
                );
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution detail() {
         requestGroup = requestGroupService.getById(requestGroup.getId());
         getContext().setRequestGroup(requestGroup);
         return new ForwardResolution(DETAIL);
     }
-
+    @DontValidate
     public Resolution back(){
             return new ForwardResolution(this.getClass(), "display");
         }

@@ -56,17 +56,20 @@ public class AccountActionBean extends BasicActionBean {
         this.user = user;
     }
 
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         user = getLoggedUser();
         return new ForwardResolution(MY_ACCOUNT);
     }
 
+
     @Before(stages = LifecycleStage.BindingAndValidation, on = {"update", "changePassword"})
     public void fillInputs() {
         user = getLoggedUser();
     }
 
+    @DontValidate
     public Resolution update() {
         if (user.getName() != null) {
             getLoggedUser().setName(user.getName());
@@ -75,16 +78,14 @@ public class AccountActionBean extends BasicActionBean {
             getLoggedUser().setSurname(user.getSurname());
 
         userService.update(getLoggedUser());
-        refreshLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution changePassword() {
         if (password != null && password2 != null) {
             if (password.equals(password2))
                 getLoggedUser().setPassword(password);
             userService.update(getLoggedUser());
-            refreshLoggedUser();
             getContext().getMessages().add(
                     new SimpleMessage("Password was changed")
             );
@@ -92,9 +93,4 @@ public class AccountActionBean extends BasicActionBean {
         user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
-    }
-
 }

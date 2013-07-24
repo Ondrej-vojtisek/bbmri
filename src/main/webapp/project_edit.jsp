@@ -4,7 +4,7 @@
 <f:message key="project.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
 
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}">
@@ -24,7 +24,7 @@
 
             <fieldset>
                 <legend><f:message key="project.assigned_users"/></legend>
-                <table id="sortableTable">
+                <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
                         <th><f:message key="name"/></th>

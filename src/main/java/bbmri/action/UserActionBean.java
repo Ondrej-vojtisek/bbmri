@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @PermitAll
-@UrlBinding("/user/{$event}/{user.id}")
+@UrlBinding("/user")
 public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -47,18 +47,18 @@ public class UserActionBean extends BasicActionBean {
     public void setId(Long id) {
         this.id = id;
     }
-
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         users = userService.getAll();
         return new ForwardResolution(ALL);
     }
-
+    @DontValidate
     @HandlesEvent("createUser")
     public Resolution createUser(){
         return new ForwardResolution(CREATE);
     }
-
+    @DontValidate
     public Resolution create() {
 
         user.setBiobank(null);
@@ -68,7 +68,7 @@ public class UserActionBean extends BasicActionBean {
         );
         return new RedirectResolution(this.getClass(), "display");
     }
-
+    @DontValidate
     public Resolution delete() {
         User user = userService.getById(id);
         userService.remove(user);
@@ -87,7 +87,7 @@ public class UserActionBean extends BasicActionBean {
     public void setExcelFileBean(FileBean excelFileBean) {
         this.excelFileBean = excelFileBean;
     }
-
+    @DontValidate
     public Resolution uploadExcel() {
         String filePath = "temp\\" + excelFileBean.getFileName();
         if (excelFileBean == null) {
@@ -125,11 +125,6 @@ public class UserActionBean extends BasicActionBean {
         file.delete();
 
         return new ForwardResolution(this.getClass(), "display");
-    }
-
-
-    public void refreshLoggedUser() {
-        getContext().setLoggedUser(userService.getById(getContext().getIdentifier()));
     }
 }
 

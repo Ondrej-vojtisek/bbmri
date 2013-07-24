@@ -67,11 +67,13 @@ public class CreateSampleActionBean extends BasicActionBean {
         this.numOfRandom = numOfRandom;
     }
 
+    @DontValidate
     @DefaultHandler
     public Resolution display() {
         return new ForwardResolution(CREATE);
     }
 
+    @DontValidate
     public Resolution create() {
         Biobank biobank = getLoggedUser().getBiobank();
         if (biobank != null) {
@@ -83,6 +85,7 @@ public class CreateSampleActionBean extends BasicActionBean {
         return new ForwardResolution(this.getClass(), "display");
     }
 
+    @DontValidate
     public Resolution generateRandomSample() {
         Biobank biobank = getLoggedUser().getBiobank();
         Integer added = 0;
@@ -99,6 +102,7 @@ public class CreateSampleActionBean extends BasicActionBean {
         return new ForwardResolution(this.getClass(), "display");
     }
 
+    @DontValidate
     public void generateSample() {
         RandomStringUtils randomStringUtils = new RandomStringUtils();
         Random generator = new Random();

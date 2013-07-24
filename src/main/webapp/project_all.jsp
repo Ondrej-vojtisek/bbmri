@@ -3,7 +3,7 @@
 
 <f:message key="project.all_projects" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.ProjectActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}"
@@ -14,7 +14,7 @@
         <fieldset>
             <legend><f:message key="project.all_projects"/></legend>
             <s:form beanclass="bbmri.action.Project.ProjectActionBean">
-                <table id="sortableTable">
+                <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
                         <th><s:label name="project.name"/></th>

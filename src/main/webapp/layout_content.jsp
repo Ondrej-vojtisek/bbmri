@@ -14,14 +14,30 @@
     <script type="text/javascript" src="libs/jquery-latest.js"></script>
     <script type="text/javascript" src="libs/jquery.tablesorter.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-                           $("#sortableTable").tablesorter();
-                       }
-               );
+
+        $(document).ready(function() {
+
+            // Get Headers with Class noSort //
+            var theHeaders = {}
+            $(this).find('th.noSort').each(function(i,el){
+                theHeaders[$(this).index()] = { sorter: false };
+            });
+
+            // Initialize Table Sorter //
+            $("table").tablesorter({
+                 headers: theHeaders,
+                 widgets: ["zebra"],
+                    // change the default striping class names
+                    // updated in v2.1 to use widgetOptions.zebra = ["even", "odd"]
+                    // widgetZebra: { css: [ "normal-row", "alt-row" ] } still works
+                    widgetOptions : {
+                      zebra : [ "normal-row", "alt-row" ]
+                    }
+            });
+        });
+
 
     </script>
-    <s:layout-component name="script"/>
-
     <body>
     <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -48,18 +64,22 @@
                     <ul class="nav">
 
 
-                            <li <c:if test="${primarymenu == 'project'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean"><f:message
-                                    key="projects"/></s:link></li>
-                            <li <c:if test="${primarymenu == 'biobank'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message
-                                    key="biobanks"/></s:link></li>
-                            <c:if test="${administrator}">
-                                <li <c:if test="${primarymenu == 'users'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.UserActionBean"><f:message
-                                        key="users"/></s:link></li>
-                            </c:if>
-                            <c:if test="${administrator}">
-                                <li <c:if test="${primarymenu == 'changeadministrator'}"> class="active" </c:if>><s:link beanclass="bbmri.action.ChangeAdministrator"><f:message
-                                        key="change_administrator"/></s:link></li>
-                            </c:if>
+                        <li <c:if test="${primarymenu == 'project'}"> class="active" </c:if> ><s:link
+                                beanclass="bbmri.action.Project.ProjectActionBean"><f:message
+                                key="projects"/></s:link></li>
+                        <li <c:if test="${primarymenu == 'biobank'}"> class="active" </c:if> ><s:link
+                                beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message
+                                key="biobanks"/></s:link></li>
+                        <c:if test="${administrator}">
+                            <li <c:if test="${primarymenu == 'users'}"> class="active" </c:if> ><s:link
+                                    beanclass="bbmri.action.UserActionBean"><f:message
+                                    key="users"/></s:link></li>
+                        </c:if>
+                        <c:if test="${administrator}">
+                            <li <c:if test="${primarymenu == 'changeadministrator'}"> class="active" </c:if>><s:link
+                                    beanclass="bbmri.action.ChangeAdministrator"><f:message
+                                    key="change_administrator"/></s:link></li>
+                        </c:if>
 
                     </ul>
                 </div>
@@ -75,35 +95,63 @@
                         <li class="nav-header"><f:message key="operations"/></li>
 
                         <c:if test="${primarymenu == 'project'}">
-                            <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean"><f:message key="my_projects"/></s:link></li>
-                            <li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if> ><s:link  beanclass="bbmri.action.Project.ProjectActionBean" event="createInitial"><f:message key="projects.createProject"/></s:link></li>
+                            <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if> ><s:link
+                                    beanclass="bbmri.action.Project.ProjectActionBean"><f:message
+                                    key="my_projects"/></s:link></li>
+                            <li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if> >
+                                <s:link beanclass="bbmri.action.Project.ProjectActionBean"
+                                        event="createInitial"><f:message key="projects.createProject"/></s:link></li>
                             <c:if test="${not empty biobank}">
-                                <li <c:if test="${secondarymenu == 'project_approve'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean"><f:message key="approve_project"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'project_approve'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Project.ApproveProjectActionBean"><f:message
+                                        key="approve_project"/></s:link></li>
                             </c:if>
-                            <li <c:if test="${secondarymenu == 'samples_my_requests'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="myRequests"><f:message key="my_requests"/></s:link></li>
+                            <li <c:if test="${secondarymenu == 'samples_my_requests'}"> class="active" </c:if> ><s:link
+                                    beanclass="bbmri.action.SampleQuestionActionBean" event="myRequests"><f:message
+                                    key="my_requests"/></s:link></li>
                             <c:if test="${not empty biobank || administrator}">
-                            <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Project.ProjectActionBean" event="displayAll"><f:message key="all_projects"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Project.ProjectActionBean" event="displayAll"><f:message
+                                        key="all_projects"/></s:link></li>
                             </c:if>
                         </c:if>
 
                         <c:if test="${primarymenu == 'biobank'}">
-                            <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message key="biobanks_all"/></s:link></li>
+                            <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link
+                                    beanclass="bbmri.action.Biobank.BiobankActionBean"><f:message
+                                    key="biobanks_all"/></s:link></li>
                             <c:if test="${administrator}">
-                                <li <c:if test="${secondarymenu == 'biobank_create'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Biobank.BiobankActionBean" event="createBiobank"><f:message key="biobank_create"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'biobank_create'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Biobank.BiobankActionBean"
+                                        event="createBiobank"><f:message key="biobank_create"/></s:link></li>
                             </c:if>
                             <c:if test="${not empty biobank}">
-                                <li <c:if test="${secondarymenu == 'sample_approve_request'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="approveSampleRequest"><f:message key="approve_sample_request"/></s:link></li>
-                                <li <c:if test="${secondarymenu == 'sample_create'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Sample.CreateSampleActionBean"><f:message key="sample_create"/></s:link></li>
-                                <li <c:if test="${secondarymenu == 'sample_withdraw'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Sample.SampleActionBean"><f:message key="sample.withdraw"/></s:link></li>
-                                <li <c:if test="${secondarymenu == 'requestGroup_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="allRequestGroups"><f:message key="sample.requests"/></s:link></li>
-                                <li <c:if test="${secondarymenu == 'sample_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.Sample.SampleActionBean" event="allSamples"><f:message key="sample.all"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_approve_request'}"> class="active" </c:if> >
+                                    <s:link beanclass="bbmri.action.SampleQuestionActionBean"
+                                            event="approveSampleRequest"><f:message
+                                            key="approve_sample_request"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_create'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Sample.CreateSampleActionBean"><f:message
+                                        key="sample_create"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_withdraw'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Sample.SampleActionBean"><f:message
+                                        key="sample.withdraw"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'requestGroup_all'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.SampleQuestionActionBean"
+                                        event="allRequestGroups"><f:message key="sample.requests"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'sample_all'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.Sample.SampleActionBean" event="allSamples"><f:message
+                                        key="sample.all"/></s:link></li>
                             </c:if>
                         </c:if>
 
                         <c:if test="${primarymenu == 'users'}">
                             <c:if test="${administrator}">
-                                <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if> ><s:link beanclass="bbmri.action.UserActionBean"><f:message key="all"/></s:link></li>
-                                <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>><s:link beanclass="bbmri.action.UserActionBean" event="createUser"><f:message key="user.create"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if> ><s:link
+                                        beanclass="bbmri.action.UserActionBean"><f:message key="all"/></s:link></li>
+                                <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>><s:link
+                                        beanclass="bbmri.action.UserActionBean" event="createUser"><f:message
+                                        key="user.create"/></s:link></li>
                             </c:if>
                         </c:if>
 

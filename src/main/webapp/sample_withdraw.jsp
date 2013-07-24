@@ -3,7 +3,7 @@
 
 <f:message key="sample.withdraw" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Sample.SampleActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.name}"
+<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
                  administrator="${ab.loggedUser.administrator}"
@@ -19,7 +19,7 @@
             </fieldset>
             <fieldset>
                 <legend><f:message key="withdraw_samples_of_biobank"/></legend>
-                <table id="sortableTable">
+                <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
                         <th><s:label name="sample.numOfSamples"/></th>
@@ -27,12 +27,14 @@
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
                         <th><s:label name="sample.tissueType"/></th>
+                        <th class="noSort"><s:label name="actions"/></th>
                     </tr>
                     </thead>
 
                     <c:if test="${ab.resultCount == 0}">
                         <tr>
                             <td colspan="8"><s:label name="no_match_found"/></td>
+
                         </tr>
                     </c:if>
                     <tbody>
@@ -44,8 +46,7 @@
                         <td><c:out value="${sample.diagnosis}"/></td>
                         <td><c:out value="${sample.tissueType}"/></td>
                         <td>
-                                    <s:text name="selectedSamples" />
-                                    <s:checkbox name="selectedSamples" value="${sample.id}"/>
+                            <s:checkbox name="selectedSamples" value="${sample.id}"/>
                         </td>
                     </tr>
                     </c:forEach>
