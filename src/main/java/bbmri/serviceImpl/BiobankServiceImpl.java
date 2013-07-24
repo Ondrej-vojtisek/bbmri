@@ -110,10 +110,6 @@ public class BiobankServiceImpl implements BiobankService {
            } catch (DataAccessException ex) {
                throw ex;
            }
-
-
-
-
     }
 
     public List<User> getAllAdministrators(Long biobankId) {

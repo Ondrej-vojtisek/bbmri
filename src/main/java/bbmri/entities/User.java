@@ -111,7 +111,7 @@ public class User implements Serializable {
     }
 
     public boolean isOperator() {
-        return biobank != null;
+        return roles.contains(new Role(RoleType.BIOBANK_OPERATOR.toString()));
     }
 
     public boolean isAdministrator() {
