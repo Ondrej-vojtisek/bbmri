@@ -53,6 +53,18 @@ public class Sample implements Serializable {
     @Column(name = "DIAGNOSIS")
     private String diagnosis;
 
+    @Column(name = "MORPHOLOGY")
+    private String morphology;
+
+    @Column(name ="BIOPTICAL_REPORT_YEAR")
+    private String biopticalReportYear;
+
+    @Column(name ="BIOPTICAL_REPORT_NUMBER")
+    private String biopticalReportNumber;
+
+    @Enumerated(EnumType.STRING)
+    private SampleRetrieval retrieved;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Biobank biobank;
 
@@ -163,17 +175,66 @@ public class Sample implements Serializable {
         this.diagnosis = diagnosis;
     }
 
+    public Date getRemovalDate() {
+        return removalDate;
+    }
+
+    public void setRemovalDate(Date removalDate) {
+        this.removalDate = removalDate;
+    }
+
+    public Date getFreezingDate() {
+        return freezingDate;
+    }
+
+    public void setFreezingDate(Date freezingDate) {
+        this.freezingDate = freezingDate;
+    }
+
+    public String getMorphology() {
+        return morphology;
+    }
+
+    public void setMorphology(String morphology) {
+        this.morphology = morphology;
+    }
+
+    public String getBiopticalReportYear() {
+        return biopticalReportYear;
+    }
+
+    public void setBiopticalReportYear(String biopticalReportYear) {
+        this.biopticalReportYear = biopticalReportYear;
+    }
+
+    public String getBiopticalReportNumber() {
+        return biopticalReportNumber;
+    }
+
+    public void setBiopticalReportNumber(String biopticalReportNumber) {
+        this.biopticalReportNumber = biopticalReportNumber;
+    }
+
+    public SampleRetrieval getRetrieved() {
+        return retrieved;
+    }
+
+    public void setRetrieved(SampleRetrieval retrieved) {
+        this.retrieved = retrieved;
+    }
+
     /**
      * Return true if all necessary field are filled
+     * TODO - tohle zatim nema smysl. Potreba rozlisit STS/LTS apod..
      */
 
     public boolean getFilled(){
-       if(id == null || TNM == null || pTNM == null || diagnosis == null
-              /* || freezingDate == null */ || grading == null || numOfAvailable == null
-               || numOfSamples == null /*|| removalDate == null || */
+      /* if(id == null || TNM == null || pTNM == null || diagnosis == null
+               || grading == null || numOfAvailable == null
+               || numOfSamples == null
                || sampleID == null || tissueType == null || biobank == null){
            return false;
-       }
+       }  */
        return true;
     }
 
