@@ -11,7 +11,7 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
             <fieldset>
-                <legend>Create sample request</legend>
+                <legend><f:message key="sample_request_create"/></legend>
                 <p>
                     <f:message key="project_approvment_doesnt_make_legal_claim"/>
                 </p>
@@ -42,7 +42,7 @@
                     <s:option value=""><f:message key="select_one"/></s:option>
                     <s:options-collection collection="${ab.biobanks}" label="name" value="id"/>
                 </s:select>
-                <p>Samples in database are characterized by these attributes: tissue type, TNM, pTNM, grading and diagnosis. It is recommended to specify requested samples with this attributes.</p>
+                <p><f:message key="samples_classification_description"/></p>
                 <p><s:label for="z5" name="sampleQuestion.specification"/></p>
                 <s:textarea id="z5" name="sampleQuestion.specification"></s:textarea>
 

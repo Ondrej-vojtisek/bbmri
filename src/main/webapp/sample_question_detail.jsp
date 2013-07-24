@@ -31,7 +31,6 @@
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
-                <p>Example: diagnosis "a%", tissueType "aa" -> diagnosis starts with 'a' AND tissueType = "aa"</p>
                 <s:hidden name="sample.sampleID"/>
                 <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="find"><f:message key="find"/></s:submit>

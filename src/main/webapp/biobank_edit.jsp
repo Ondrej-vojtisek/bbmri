@@ -53,7 +53,6 @@
                  </fieldset>
             <fieldset>
                           <legend><f:message key="all_users"/></legend>
-                          <p><i>(There will be a search for users, not list of all users)</i><p>
                           <table>
                               <tr>
                                   <th><f:message key="name"/></th>

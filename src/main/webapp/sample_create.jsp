@@ -17,7 +17,8 @@
                 <s:submit name="create"><f:message key="samples.add"/></s:submit>
             </fieldset>
             <fieldset>
-                <legend>You can add here random samples for testing purposes</legend>
+                <legend><f:message key="add_random_samples"/></legend>
+                <i><f:message key="for_testing_purpose"/></i>
                 <table>
                     <tr>
                         <th><label for="z9"><f:message key="count"/></label></th>
@@ -28,7 +29,7 @@
             </fieldset>
 
             <fieldset>
-                <legend>Import samples</legend>
+                <legend><f:message key="import_samples"/></legend>
 
             </fieldset>
         </s:form>
