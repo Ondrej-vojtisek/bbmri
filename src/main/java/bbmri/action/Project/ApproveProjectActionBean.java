@@ -59,10 +59,6 @@ public class ApproveProjectActionBean extends BasicActionBean {
            return new ForwardResolution(DETAIL);
        }
 
-    @DontValidate
-    public Resolution back(){
-        return new ForwardResolution(this.getClass(), "display");
-    }
 }
 
 

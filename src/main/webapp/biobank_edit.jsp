@@ -32,6 +32,11 @@
                          </tr>
                          </thead>
                          <tbody>
+
+                         <c:if test="${empty ab.administrators}">
+                            <tr><td colspan="4"><f:message key="empty"/></td></tr>
+                         </c:if>
+
                          <c:forEach items="${ab.administrators}" var="user">
                              <tr>
                                  <td><c:out value="${user.name}"/></td>

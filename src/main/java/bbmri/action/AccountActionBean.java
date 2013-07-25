@@ -1,5 +1,7 @@
 package bbmri.action;
 
+import bbmri.entities.Project;
+import bbmri.entities.Role;
 import bbmri.entities.User;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
@@ -10,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +23,7 @@ import javax.annotation.security.PermitAll;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/account/{$event}/{user.id}")
+@UrlBinding("/account")
 public class AccountActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -54,6 +58,28 @@ public class AccountActionBean extends BasicActionBean {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<String> getMyRoles(){
+        List<String> roles = new ArrayList<String>();
+        for (Role role : getLoggedUser().getRoles()){
+            roles.add(role.getName());
+        }
+        /*TODO - tohle bude muset byt udelano jinak*/
+        if(getLoggedUser().getBiobank() != null){
+            roles.add("Biobank operator of " + getLoggedUser().getBiobank().getName());
+        }
+        if(getLoggedUser().getProjects() != null){
+            for(Project project : getLoggedUser().getProjects()){
+                if(project.getMainInvestigator().equals(getLoggedUser())){
+                    roles.add("Main investigation of project: " + project.getName());
+                }else{
+                    roles.add("Working on a project: " + project.getName());
+                }
+            }
+
+        }
+        return roles;
     }
 
     @DontValidate

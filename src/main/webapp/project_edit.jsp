@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="project.edit" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
@@ -29,29 +29,52 @@
                     <tr>
                         <th><f:message key="name"/></th>
                         <th><f:message key="surname"/></th>
-                        <th colspan="2" class="noSort"><f:message key="actions"/></th>
+                        <th class="noSort"><f:message key="select"/></th>
+                        <th class="noSort"><f:message key="remove"/></th>
+                        <th class="noSort"><f:message key="change_owner"/></th>
+
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty ab.users}">
+                        <tr>
+                            <td><f:message key="empty"/></td>
+                        </tr>
+                    </c:if>
+
                     <c:forEach items="${ab.users}" var="user">
                         <tr>
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
                             <td>
                                 <c:if test="${!user.equals(loggedUser)}">
-                                <s:checkbox name="selected" value="${user.id}"/></td>
-                            </c:if>
+                                    <s:checkbox name="selected" value="${user.id}"/>
+                                </c:if>
+                            </td>
+                            <td>
+                                <c:if test="${!user.equals(loggedUser)}">
+                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                        event="remove">
+                                    <s:param name="user.id" value="${user.id}"/>
+                                    <f:message
+                                            key="remove"/>
+                                </s:link>
+                                </c:if>
+
                             <td><c:if test="${!user.equals(loggedUser)}">
                                 <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
                                         event="changeOwnership">
                                     <s:param name="user.id" value="${user.id}"/><f:message
                                         key="give_ownership"/></s:link>
-                            </c:if></td>
+                            </c:if>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-                <s:submit name="removeAll" onclick="return confirm('Delete?')"><f:message key="remove_selected"/></s:submit>
+                <s:submit name="removeAll" onclick="return confirm('Delete?')"><f:message
+                        key="remove_selected"/></s:submit>
             </fieldset>
             <fieldset>
                 <legend><f:message key="all_users"/></legend>
@@ -64,6 +87,13 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty ab.freeUsers}">
+                        <tr>
+                            <td><f:message key="empty"/></td>
+                        </tr>
+                    </c:if>
+
                     <c:forEach items="${ab.freeUsers}" var="user" varStatus="loop">
                         <tr>
                             <td><c:out value="${user.name}"/></td>
@@ -93,6 +123,13 @@
                     </thead>
 
                     <tbody>
+
+                    <c:if test="${empty ab.attachments}">
+                        <tr>
+                            <td colspan="5"><f:message key="empty"/></td>
+                        </tr>
+                    </c:if>
+
                     <c:forEach items="${ab.attachments}" var="attachment" varStatus="loop">
                         <tr>
                             <td><c:out value="${attachment.fileName}"/></td>
@@ -100,7 +137,7 @@
                             <td><c:out value="${attachment.size}"/></td>
                             <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
                             <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean"
-                                event="download">
+                                        event="download">
                                 <s:param name="attachment.id" value="${attachment.id}"/>
                                 <f:message key="download"/></s:link>
                             </td>

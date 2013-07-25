@@ -25,6 +25,13 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty ab.projects}">
+                        <tr>
+                            <td colspan="7"><f:message key="empty"/></td>
+                        </tr>
+                    </c:if>
+
                     <c:forEach items="${ab.projects}" var="project">
                         <c:if test="${project.projectState == 'NEW'}">
                             <tr>

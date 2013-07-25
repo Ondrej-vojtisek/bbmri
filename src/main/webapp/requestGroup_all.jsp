@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="sample.requests" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
@@ -25,6 +25,13 @@
             </tr>
             </thead>
             <tbody>
+
+            <c:if test="${empty ab.allRequestGroups}">
+                <tr>
+                    <td colspan="8"><f:message key="empty"/></td>
+                </tr>
+            </c:if>
+
             <c:forEach items="${ab.allRequestGroups}" var="requestGroup">
                 <tr>
                     <td><c:out value="${requestGroup.id}"/></td>

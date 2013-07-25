@@ -17,7 +17,6 @@
                     <thead>
                     <tr>
                         <th><s:label name="project.name"/></th>
-                        <th><s:label name="project.annotation"/></th>
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
@@ -26,10 +25,16 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty ab.myProjects}">
+                        <tr>
+                            <td colspan="7"><f:message key="empty"/></td>
+                        </tr>
+                    </c:if>
+
                     <c:forEach items="${ab.myProjects}" var="project">
                         <tr>
                             <td><c:out value="${project.name}"/></td>
-                            <td><c:out value="${project.annotation}"/></td>
                             <td><c:out value="${project.fundingOrganization}"/></td>
                             <td><c:out value="${project.owner.wholeName}"/></td>
 
@@ -43,7 +48,7 @@
                                                 key="project.leave"/></s:link>
                                     </c:when>
                                     <c:otherwise>
-                                        <f:message key="project.leave"/>
+                                        &nbsp
                                     </c:otherwise>
                                 </c:choose>
                             </td>
@@ -58,11 +63,9 @@
                                                 key="request_sample"/></s:link>
                                     </c:when>
                                     <c:otherwise>
-                                        <f:message key="request_sample"/>
+                                        &nbsp
                                     </c:otherwise>
                                 </c:choose>
-
-
                             </td>
 
                             <td>
@@ -73,10 +76,14 @@
                                                 key="edit"/></s:link>
                                     </c:when>
                                     <c:otherwise>
-                                        <f:message key="edit"/>
+                                        <s:link beanclass="bbmri.action.Project.ApproveProjectActionBean"
+                                                event="detail">
+                                            <s:param name="project.id" value="${project.id}"/>
+                                            <f:message key="detail"/></s:link>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
+
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -8,6 +8,7 @@ import bbmri.service.ProjectService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +43,8 @@ public class ProjectActionBean extends BasicActionBean {
 
 
     private Project project;
+        private FileBean attachmentFileBean;
 
-    private FileBean attachmentFileBean;
         private Attachment attachment;
 
         public List<Project> getProjects() {
@@ -170,7 +171,10 @@ public class ProjectActionBean extends BasicActionBean {
                         );
                     }
                 }
-                return new ForwardResolution(this.getClass(), "display");
+                getContext().getMessages().add(
+                       new SimpleMessage("Select file!")
+                     );
+                return new ForwardResolution(CREATE_MTA);
             }
 
 

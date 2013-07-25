@@ -40,6 +40,13 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty ab.requests}">
+                                    <tr>
+                                        <td colspan="6"><f:message key="empty"/></td>
+                                    </tr>
+                                </c:if>
+
                     <c:forEach items="${ab.requests}" var="request" varStatus="loop">
                     <tr>
                         <td><c:out value="${request.numOfRequested}"/></td>

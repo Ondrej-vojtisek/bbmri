@@ -22,6 +22,7 @@
                         <f:message key="ProjectState.${project.projectState}"/></div>
                 </fieldset>
 
+
                 <table id="sortable" cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
@@ -34,6 +35,11 @@
                     </tr>
                     </thead>
                     <tbody>
+
+                    <c:if test="${empty project.requestGroups}">
+                    <tr><td colspan="6"><f:message key="empty"/></td></tr>
+                    </c:if>
+
                     <c:forEach items="${project.requestGroups}" var="requestGroup">
                         <tr>
                             <td><c:out value="${requestGroup.id}"/></td>

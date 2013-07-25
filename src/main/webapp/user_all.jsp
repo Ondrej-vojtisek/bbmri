@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="users.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.UserActionBean"/>
@@ -21,6 +21,13 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <c:if test="${empty ab.users}">
+                    <tr>
+                        <td colspan="3"><f:message key="empty"/></td>
+                    </tr>
+                </c:if>
+
                 <c:forEach var="user" items="${ab.users}">
                     <tr>
                         <td><c:out value="${user.id}"/></td>

@@ -21,6 +21,10 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                <c:if test="${empty ab.biobanks}">
+                    <tr><td colspan="3"><f:message key="empty"/></td></tr>
+                </c:if>
                 <c:forEach items="${ab.biobanks}" var="biobank">
                     <tr>
                         <td><c:out value="${biobank.name}"/></td>
@@ -33,7 +37,7 @@
                                             key="edit"/></s:link>
                                 </c:when>
                                 <c:otherwise>
-                                    <f:message key="edit"/>
+                                    &nbsp
                                 </c:otherwise>
                             </c:choose>
                         </td>

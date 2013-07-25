@@ -51,6 +51,13 @@
                         </thead>
 
                         <tbody>
+
+                        <c:if test="${empty ab.attachments}">
+                                                <tr>
+                                                    <td colspan="5"><f:message key="empty"/></td>
+                                                </tr>
+                                            </c:if>
+
                         <c:forEach items="${ab.attachments}" var="attachment" varStatus="loop">
                             <tr>
                                 <td><c:out value="${attachment.fileName}"/></td>
@@ -68,8 +75,6 @@
                     </table>
                 </fieldset>
             </s:form>
-
-            <s:link beanclass="bbmri.action.Project.ApproveProjectActionBean"><f:message key="back"/></s:link>
         </s:form>
     </s:layout-component>
 </s:layout-render>

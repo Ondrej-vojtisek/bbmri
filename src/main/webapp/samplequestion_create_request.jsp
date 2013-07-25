@@ -20,6 +20,12 @@
             </thead>
             <tbody>
 
+            <c:if test="${empty ab.sampleQuestions}">
+                                                            <tr>
+                                                                <td colspan="3"><f:message key="empty"/></td>
+                                                            </tr>
+                                                        </c:if>
+
         <c:forEach items="${ab.sampleQuestions}" var="sampleQuestion">
             <tr>
                 <td><c:out value="${sampleQuestion.project.name}"/></td>
