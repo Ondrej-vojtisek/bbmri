@@ -5,6 +5,8 @@ import bbmri.DAO.SampleDAO;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,8 @@ public class SampleServiceImpl implements SampleService {
 
     @Autowired
     private BiobankDAO biobankDAO;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public Sample create(Sample sample, Long biobankId) {
         try {

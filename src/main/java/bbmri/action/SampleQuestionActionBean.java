@@ -1,9 +1,9 @@
 package bbmri.action;
 
 import bbmri.entities.*;
-import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-//@UrlBinding("/sampleQuestion/{$event}/{sampleQuestion.id}")
+@UrlBinding("/sampleQuestion")
 public class SampleQuestionActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -32,13 +32,22 @@ public class SampleQuestionActionBean extends BasicActionBean {
     private static final String QUESTION_DETAIL = "/sample_question_detail.jsp";
 
 
-    public List<SampleQuestion> getSampleQuestions(){
+    public List<SampleQuestion> getSampleQuestions() {
         return sampleQuestionService.getAllByBiobank(getLoggedUser().getBiobank());
     }
 
     private Biobank biobank;
     private Project project;
     private SampleQuestion sampleQuestion;
+
+
+    @ValidateNestedProperties(value = {
+            @Validate(field = "TNM", maxlength = 7),
+            @Validate(field = "pTNM", maxlength = 7),
+            @Validate(field = "grading", minvalue = 1, maxvalue = 8),
+            @Validate(field = "tissueType", maxlength = 2),
+            @Validate(field = "diagnosis", maxlength = 4)
+    })
     private Sample sample;
     private List<Sample> results;
     private List<Long> selected;
@@ -52,7 +61,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
         this.requestGroup = requestGroup;
     }
 
-    public List<Biobank> getBiobanks(){
+    public List<Biobank> getBiobanks() {
         return biobankService.getAll();
     }
 
@@ -76,8 +85,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public SampleQuestion getSampleQuestion() {
-        if(sampleQuestion == null){
-           sampleQuestion = getContext().getSampleQuestion();
+        if (sampleQuestion == null) {
+            sampleQuestion = getContext().getSampleQuestion();
         }
         return sampleQuestion;
     }
@@ -93,47 +102,54 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public void setSelected(List<Long> selected) {
         this.selected = selected;
     }
+
     @DontValidate
     @DefaultHandler
     public Resolution display() {
         return new ForwardResolution(REQUEST);
     }
+
     @DontValidate
     @HandlesEvent("myRequests")
-       public Resolution myRequest() {
-           return new ForwardResolution(MY_REQUESTS);
-       }
+    public Resolution myRequest() {
+        return new ForwardResolution(MY_REQUESTS);
+    }
+
     @DontValidate
     @HandlesEvent("approveSampleRequest")
-          public Resolution approveSampleRequest() {
-              return new ForwardResolution(APPROVE_REQUEST);
-          }
+    public Resolution approveSampleRequest() {
+        return new ForwardResolution(APPROVE_REQUEST);
+    }
+
     @DontValidate
     @HandlesEvent("allRequestGroups")
-              public Resolution allRequestGroups() {
-                  return new ForwardResolution(REQUESTGROUP_ALL);
-              }
+    public Resolution allRequestGroups() {
+        return new ForwardResolution(REQUESTGROUP_ALL);
+    }
+
     @DontValidate
-    public Resolution createSampleQuestion(){
+    public Resolution createSampleQuestion() {
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
         getContext().setSampleQuestion(null);
         return new RedirectResolution(bbmri.action.Project.ProjectActionBean.class);
     }
+
     @DontValidate
-      public Resolution detail() {
-          sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
-          getContext().setSampleQuestion(sampleQuestion);
-          return new ForwardResolution(QUESTION_DETAIL);
-      }
+    public Resolution detail() {
+        sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
+        getContext().setSampleQuestion(sampleQuestion);
+        return new ForwardResolution(QUESTION_DETAIL);
+    }
+
     @DontValidate
     public Resolution remove() {
-         sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
-         if(sampleQuestion != null){
-             sampleQuestion.setProcessed(true);
-             sampleQuestionService.update(sampleQuestion);
-         }
-         return new RedirectResolution(APPROVE_REQUEST);
-      }
+        sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
+        if (sampleQuestion != null) {
+            sampleQuestion.setProcessed(true);
+            sampleQuestionService.update(sampleQuestion);
+        }
+        return new RedirectResolution(APPROVE_REQUEST);
+    }
 
     @DontValidate
     public Resolution back() {
@@ -141,9 +157,6 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public Sample getSample() {
-        if(sample == null){
-                sample = getContext().getSample();
-        }
         return sample;
     }
 
@@ -152,77 +165,88 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public List<Sample> getResults() {
-          if(results == null){
-              Sample sampleQuery = getSample();
-              if(sampleQuery != null){
-                  results = sampleService.getSamplesByQuery(sampleQuery);
-              }
-          }
-          return results;
-      }
+        if (sample == null) {
+            results = sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
+        } else {
+            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
+        }
+        return results;
+    }
 
     public Integer getResultCount() {
-          if (getResults() == null) {
-              return 0;
-          }
-          return results.size();
-      }
+        if (getResults() == null) {
+            return 0;
+        }
+        return results.size();
+    }
 
-    @DontValidate
-    public Resolution find(){
-        results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
-        getContext().setSampleQuestion(sampleQuestion);
+    public Resolution find() {
+        logger.debug("Find sample- " + sample);
+
+
+        if (sample != null) {
+            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
+            getContext().setSampleQuestion(sampleQuestion);
+            getContext().setSample(sample);
+        }
         return new ForwardResolution(QUESTION_DETAIL);
     }
+
     @DontValidate
     /*TODO: change num of requested to variable value*/
-        public Resolution requestSelected() {
+    public Resolution requestSelected() {
 
-            List<Request> requests = new ArrayList<Request>();
-            if (selected != null) {
-                for (Long sampleId : selected) {
-                    Request request = requestService.create(sampleId, 1);
-                    requests.add(request);
-                }
-
-                RequestGroup requestGroup = requestGroupService.create(requests, sampleQuestion.getProject().getId());
-                getContext().getMessages().add(
-                               new SimpleMessage("Requests were created")
-                       );
-               // sampleQuestion.setRequestState(RequestState.APPROVED);
-               // sampleQuestion.setProcessed(true);
-                sampleQuestionService.update(sampleQuestion);
-                getContext().setRequestGroupId(requestGroup.getId());
-                return new ForwardResolution(REQUESTGROUP_DETAIL);
+        List<Request> requests = new ArrayList<Request>();
+        if (selected != null) {
+            for (Long sampleId : selected) {
+                Request request = requestService.create(sampleId, 1);
+                requests.add(request);
             }
+
+            RequestGroup requestGroup = requestGroupService.create(requests, sampleQuestion.getProject().getId());
+            getContext().getMessages().add(
+                    new SimpleMessage("Requests were created")
+            );
+            sampleQuestion.setRequestState(RequestState.APPROVED);
+            sampleQuestion.setProcessed(true);
+            sampleQuestionService.update(sampleQuestion);
+            getContext().setRequestGroupId(requestGroup.getId());
+            return new ForwardResolution(REQUESTGROUP_DETAIL);
+        }
         return new ForwardResolution(APPROVE_REQUEST);
 
-        }
+    }
 
     public List<Project> getMyProjects() {
-          return projectService.getAllByUserWithRequests(getContext().getIdentifier());
-      }
+        return projectService.getAllByUserWithRequests(getContext().getIdentifier());
+    }
+
     @DontValidate
-    public Resolution requestGroupDetail(){
+    public Resolution requestGroupDetail() {
         requestGroup = requestGroupService.getById(requestGroup.getId());
         getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 
-    public List<RequestGroup> getAllRequestGroups(){
-        return requestGroupService.getByBiobankAndState(getLoggedUser().getBiobank().getId(), RequestState.NEW);
+    public List<RequestGroup> getAllRequestGroups() {
+        return requestGroupService.getByBiobank(getLoggedUser().getBiobank().getId());
 
     }
 
     @DontValidate
-    public Resolution reject(){
+    public Resolution reject() {
         sampleQuestion.setProcessed(true);
         sampleQuestion.setRequestState(RequestState.DENIED);
         sampleQuestionService.update(sampleQuestion);
-
         getContext().getMessages().add(
-                                     new SimpleMessage("Query for samples was rejected")
-                             );
+                new SimpleMessage("Query for samples was rejected")
+        );
+        RequestGroup requestGroup = requestGroupService.create(null, sampleQuestion.getProject().getId());
+        requestGroup.setRequestState(RequestState.DENIED);
+        requestGroup.setBiobank(getLoggedUser().getBiobank());
+        requestGroup.setProject(sampleQuestion.getProject());
+        requestGroupService.update(requestGroup);
+
         return new RedirectResolution(APPROVE_REQUEST);
 
     }

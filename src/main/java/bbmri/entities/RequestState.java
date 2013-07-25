@@ -12,7 +12,7 @@ public enum RequestState {
     NEW("new"),
     APPROVED("approved"),
     DENIED("denied"),
-    EQUIPPED("equipped");
+    DELIVERED("delivered");
     private String state;
 
     private RequestState(String state) {

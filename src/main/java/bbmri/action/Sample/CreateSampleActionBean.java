@@ -24,7 +24,7 @@ import java.util.Random;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-//@UrlBinding("/Sample/{$event}/{sample.id}")
+@UrlBinding("/SampleCreate")
 public class CreateSampleActionBean extends BasicActionBean {
 
     private static final String CREATE = "/sample_create.jsp";
@@ -32,28 +32,36 @@ public class CreateSampleActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"},
-                    field = "sampleID", required = true,
-                    minlength = 13, maxlength = 13),
-            @Validate(on = {"create"},
-                    field = "TNM", required = true,
-                    minlength = 7, maxlength = 7),
-            @Validate(on = {"create"},
-                    field = "pTNM", required = true,
-                    minlength = 7, maxlength = 7),
-            @Validate(on = {"create"},
-                    field = "grading", required = true,
-                    minvalue = 1, maxvalue = 8),
-            @Validate(on = {"create"}, field = "tissueType", required = true,
-                    minlength = 2, maxlength = 2),
-            @Validate(on = {"create"}, field = "numOfSamples", required = true,
-                    minvalue = 1),
-            @Validate(on = {"create"}, field = "numOfAvailable", required = true,
-                    minvalue = 1),
-            @Validate(on = {"create"}, field = "diagnosis", required = true,
-                    minlength = 4, maxlength = 4),
-    })
+             @Validate(on = {"create"},
+                     field = "sampleID", required = true,
+                     minlength = 13, maxlength = 13),
+             @Validate(on = {"create"},
+                     field = "TNM", required = true,
+                     minlength = 7, maxlength = 7),
+             @Validate(on = {"create"},
+                     field = "pTNM", required = true,
+                     minlength = 7, maxlength = 7),
+             @Validate(on = {"create"},
+                     field = "grading", required = true,
+                     minvalue = 1, maxvalue = 8),
+             @Validate(on = {"create"}, field = "tissueType", required = true,
+                     minlength = 2, maxlength = 2),
+             @Validate(on = {"create"}, field = "numOfSamples", required = true,
+                     minvalue = 1),
+             @Validate(on = {"create"}, field = "numOfAvailable", required = true,
+                     minvalue = 1),
+             @Validate(on = {"create"}, field = "diagnosis", required = true,
+                     minlength = 4, maxlength = 4),
+     })
     private Sample sample;
+
+    public Sample getSample() {
+        return sample;
+    }
+
+    public void setSample(Sample sample) {
+        this.sample = sample;
+    }
 
     @Validate(converter = IntegerTypeConverter.class, on = {"generateRandomSample"},
             required = true, minvalue = 1, maxvalue = 100)
@@ -73,9 +81,12 @@ public class CreateSampleActionBean extends BasicActionBean {
         return new ForwardResolution(CREATE);
     }
 
-    @DontValidate
     public Resolution create() {
         Biobank biobank = getLoggedUser().getBiobank();
+
+        logger.debug("Sample: " + sample);
+
+
         if (biobank != null) {
             sampleService.create(sample, biobank.getId());
             getContext().getMessages().add(

@@ -88,11 +88,10 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     public List<Sample> getResults() {
-        if(results == null){
-            Sample sampleQuery = getSample();
-            if(sampleQuery != null){
-                results = sampleService.getSamplesByQueryAndBiobank(sampleQuery, getLoggedUser().getBiobank());
-            }
+        if(sample == null){
+           results = sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
+        }else{
+            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         }
         return results;
     }
@@ -133,7 +132,6 @@ public class SampleActionBean extends BasicActionBean {
         this.releasedCount = releasedCount;
     }
 
-    @DontValidate
     public Resolution find() {
         results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
         getContext().setSample(sample);

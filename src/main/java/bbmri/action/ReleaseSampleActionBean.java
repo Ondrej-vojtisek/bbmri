@@ -62,7 +62,7 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
 
     public List<RequestGroup> getReleasedRequestGroups() {
-        return requestGroupService.getByBiobankAndState(getBiobank().getId(), RequestState.EQUIPPED);
+        return requestGroupService.getByBiobankAndState(getBiobank().getId(), RequestState.DELIVERED);
     }
 
     public List<RequestGroup> getRequestGroups() {

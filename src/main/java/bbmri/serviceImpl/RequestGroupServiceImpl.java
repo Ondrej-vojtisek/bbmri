@@ -52,14 +52,21 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             if (projectDB == null) {
                 return null;
             }
-            if (requests == null) {
-                return null;
-            }
-            if (requests.isEmpty()) {
-                return null;
-            }
             Date created = new Date();
             RequestGroup requestGroup = new RequestGroup();
+            requestGroup.setCreated(created);
+            requestGroup.setLastModification(created);
+            requestGroup.setRequestState(RequestState.NEW);
+
+            if (requests == null) {
+                requestGroupDAO.create(requestGroup);
+                return requestGroup;
+            }
+            if (requests.isEmpty()) {
+                requestGroupDAO.create(requestGroup);
+                return requestGroup;
+            }
+
 
             Request firstRequestDB = requestDAO.get(requests.get(0).getId());
             Biobank biobankDB = biobankDAO.get(firstRequestDB.getSample().getBiobank().getId());
@@ -71,6 +78,8 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             requestGroup.setLastModification(created);
             requestGroup.setRequestState(RequestState.NEW);
             requestGroupDAO.create(requestGroup);
+
+
 
             /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
             biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
@@ -148,6 +157,24 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             if (requestGroupDB == null) {
                 return null;
             }
+            if (requestGroup.getBiobank() != null) {
+                requestGroupDB.setBiobank(requestGroup.getBiobank());
+            }
+            if (requestGroup.getCreated() != null) {
+                requestGroupDB.setCreated(requestGroup.getCreated());
+            }
+            if (requestGroup.getLastModification() != null) {
+                requestGroupDB.setLastModification(requestGroup.getLastModification());
+            }
+            if (requestGroup.getProject() != null) {
+                requestGroupDB.setProject(requestGroup.getProject());
+            }
+            if (requestGroup.getRequests() != null) {
+                requestGroupDB.setRequests(requestGroup.getRequests());
+            }
+            if (requestGroup.getRequestState() != null) {
+                requestGroupDB.setRequestState(requestGroup.getRequestState());
+            }
             requestGroupDAO.update(requestGroupDB);
             return requestGroupDB;
         } catch (DataAccessException ex) {
@@ -203,8 +230,15 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         try {
             List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            if (biobankDB == null) {
+                return null;
+            }
+
             for (int i = 0; i < allRequestGroups.size(); i++) {
-                if (allRequestGroups.get(i).getBiobank().getId().equals(biobankId)) {
+                if (allRequestGroups.get(i).getBiobank() == null) {
+                    continue;
+                } else if (allRequestGroups.get(i).getBiobank().equals(biobankDB)) {
                     results.add(allRequestGroups.get(i));
                 }
             }
@@ -241,17 +275,17 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
     }
 
-    public List<Request> getRequestsByRequestGroup(Long id){
+    public List<Request> getRequestsByRequestGroup(Long id) {
         RequestGroup requestGroupDB = requestGroupDAO.get(id);
-        if(requestGroupDB == null){
+        if (requestGroupDB == null) {
             return null;
         }
         List<Request> results = new ArrayList<Request>();
         List<Request> requests = requestDAO.getAll();
 
 
-        for(int i = 0; i < requests.size(); i++){
-            if(requests.get(i).getRequestGroup().equals(requestGroupDB)){
+        for (int i = 0; i < requests.size(); i++) {
+            if (requests.get(i).getRequestGroup().equals(requestGroupDB)) {
                 results.add(requests.get(i));
             }
         }

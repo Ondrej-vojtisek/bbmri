@@ -32,9 +32,11 @@
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
+        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
                 <s:hidden name="sample.sampleID"/>
                 <%@include file="/form/createSampleForm.jsp" %>
                 <s:submit name="find"><f:message key="find"/></s:submit>
+        </s:form>
             </fieldset>
 
             <fieldset>

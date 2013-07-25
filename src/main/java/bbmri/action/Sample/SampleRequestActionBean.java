@@ -145,7 +145,7 @@ public class SampleRequestActionBean extends BasicActionBean {
                );
         return new RedirectResolution(MY_PROJECTS);
     }
-    @DontValidate
+
     public Resolution find() {
         results = sampleService.getSamplesByQuery(sampleQuery);
         return new ForwardResolution(WITHDRAW);
