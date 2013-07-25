@@ -10,7 +10,6 @@
                  secondarymenu="samples_my_requests">
 
     <s:layout-component name="body">
-
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
             <c:forEach items="${ab.myProjects}" var="project">
                 <fieldset>

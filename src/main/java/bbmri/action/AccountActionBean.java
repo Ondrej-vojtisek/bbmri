@@ -71,26 +71,29 @@ public class AccountActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution update() {
+        logger.debug("Update: User: " + user);
+        User userDB = getLoggedUser();
+
         if (user.getName() != null) {
-            getLoggedUser().setName(user.getName());
+            userDB.setName(user.getName());
         }
         if (user.getSurname() != null)
-            getLoggedUser().setSurname(user.getSurname());
+            userDB.setSurname(user.getSurname());
 
-        userService.update(getLoggedUser());
+        userService.update(userDB);
         return new RedirectResolution(this.getClass(), "display");
     }
     @DontValidate
     public Resolution changePassword() {
+        User userDB = getLoggedUser();
         if (password != null && password2 != null) {
             if (password.equals(password2))
-                getLoggedUser().setPassword(password);
-            userService.update(getLoggedUser());
+                userDB.setPassword(password);
+            userService.update(userDB);
             getContext().getMessages().add(
                     new SimpleMessage("Password was changed")
             );
         }
-        user = getLoggedUser();
         return new RedirectResolution(this.getClass(), "display");
     }
 }
