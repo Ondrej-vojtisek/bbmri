@@ -27,11 +27,6 @@
                 </table>
                 <s:submit name="generateRandomSample"><f:message key="add_random_samples"/></s:submit>
             </fieldset>
-
-            <fieldset>
-                <legend><f:message key="import_samples"/></legend>
-
-            </fieldset>
         </s:form>
     </s:layout-component>
 </s:layout-render>

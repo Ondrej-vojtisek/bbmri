@@ -31,7 +31,6 @@ public class SampleActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/sample_withdraw.jsp";
     private static final String ALL = "/sample_all.jsp";
-    private static final String EDIT = "/sample_edit.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -77,9 +76,6 @@ public class SampleActionBean extends BasicActionBean {
     private List<Sample> results;
 
     public Sample getSample() {
-        if(sample == null){
-            sample = getContext().getSample();
-        }
         return sample;
     }
 
@@ -145,23 +141,10 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("save")
-    public Resolution save(){
-        sampleService.update(sample);
-        return new ForwardResolution(ALL);
-    }
-
-    @DontValidate
-    @HandlesEvent("cancel")
-    public Resolution cancel(){
-        return new ForwardResolution(ALL);
-    }
-
-    @DontValidate
     @HandlesEvent("edit")
     public Resolution edit() {
         sample = sampleService.getById(sample.getId());
         getContext().setSample(sample);
-        return new ForwardResolution(EDIT);
+        return new ForwardResolution(EditSampleActionBean.class);
     }
 }

@@ -19,7 +19,7 @@
             </fieldset>
             <fieldset>
                 <legend><f:message key="withdraw_samples_of_biobank"/></legend>
-                <table cellspacing="0" class="tablesorter">
+                <table cellspacing="0" class="tablesorter narrow">
                     <thead>
                     <tr>
                         <th><s:label name="sample.numOfSamples"/></th>

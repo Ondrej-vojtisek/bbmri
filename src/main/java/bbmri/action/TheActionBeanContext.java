@@ -26,7 +26,10 @@ public class TheActionBeanContext extends ActionBeanContext {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String IDENTIFIER = "id";
-
+    /*private static final String SAMPLE_ID = "sample";
+    private static final String PROJECT_ID = "project";
+    private static final String BIOBANK_ID = "project";
+    */
 
     /**
      * Stores the given attribute in session.
