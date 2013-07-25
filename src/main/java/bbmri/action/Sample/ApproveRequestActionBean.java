@@ -46,13 +46,6 @@ public class ApproveRequestActionBean extends BasicActionBean {
         return requestGroups;
     }
 
-    public RequestGroup getRequestGroup() {
-        if (requestGroup == null) {
-            requestGroup = getContext().getRequestGroup();
-        }
-        return requestGroup;
-    }
-
     public void setRequestGroup(RequestGroup requestGroup) {
         this.requestGroup = requestGroup;
     }
@@ -66,7 +59,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public List<Request> getRequests(){
-        return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
+        return requestGroupService.getRequestsByRequestGroup(getContext().getRequestGroupId());
     }
     @DontValidate
     @DefaultHandler
@@ -93,7 +86,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     @DontValidate
     public Resolution detail() {
         requestGroup = requestGroupService.getById(requestGroup.getId());
-        getContext().setRequestGroup(requestGroup);
+        getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(DETAIL);
     }
     @DontValidate

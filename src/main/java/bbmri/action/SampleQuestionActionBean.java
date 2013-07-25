@@ -185,16 +185,18 @@ public class SampleQuestionActionBean extends BasicActionBean {
                     requests.add(request);
                 }
 
-                requestGroupService.create(requests, sampleQuestion.getProject().getId());
+                RequestGroup requestGroup = requestGroupService.create(requests, sampleQuestion.getProject().getId());
                 getContext().getMessages().add(
                                new SimpleMessage("Requests were created")
                        );
+               // sampleQuestion.setRequestState(RequestState.APPROVED);
+               // sampleQuestion.setProcessed(true);
+                sampleQuestionService.update(sampleQuestion);
+                getContext().setRequestGroupId(requestGroup.getId());
+                return new ForwardResolution(REQUESTGROUP_DETAIL);
             }
+        return new ForwardResolution(APPROVE_REQUEST);
 
-            sampleQuestion.setProcessed(true);
-            sampleQuestionService.update(sampleQuestion);
-
-            return new RedirectResolution(APPROVE_REQUEST);
         }
 
     public List<Project> getMyProjects() {
@@ -203,7 +205,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     @DontValidate
     public Resolution requestGroupDetail(){
         requestGroup = requestGroupService.getById(requestGroup.getId());
-        getContext().setRequestGroup(requestGroup);
+        getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 
@@ -211,27 +213,18 @@ public class SampleQuestionActionBean extends BasicActionBean {
         return requestGroupService.getByBiobankAndState(getLoggedUser().getBiobank().getId(), RequestState.NEW);
 
     }
+
     @DontValidate
-    public Resolution releaseSamples(){
-        RequestGroup requestGroupDB = requestGroupService.getById(requestGroup.getId());
-        if(requestGroupDB != null){
+    public Resolution reject(){
+        sampleQuestion.setProcessed(true);
+        sampleQuestion.setRequestState(RequestState.DENIED);
+        sampleQuestionService.update(sampleQuestion);
 
-            List<Request> requests = requestGroupService.getRequestsByRequestGroup(requestGroupDB.getId());
-            //TODO
-            Integer numOfRequested;
-            for(int i = 0; i < requests.size(); i++){
+        getContext().getMessages().add(
+                                     new SimpleMessage("Query for samples was rejected")
+                             );
+        return new RedirectResolution(APPROVE_REQUEST);
 
-                if(requests.get(i).getNumOfRequested() == null){
-                    numOfRequested = 1;
-                }else{
-                    numOfRequested = requests.get(i).getNumOfRequested();
-                }
-
-                sampleService.decreaseCount(requests.get(i).getSample().getId(), numOfRequested);
-            }
-            requestGroupService.changeRequestState(requestGroupDB.getId(), RequestState.EQUIPPED);
-        }
-        return new RedirectResolution(REQUESTGROUP_ALL);
     }
 
 }

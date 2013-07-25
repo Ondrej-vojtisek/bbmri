@@ -46,17 +46,17 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
     }
 
-    public void create(List<Request> requests, Long projectId) {
+    public RequestGroup create(List<Request> requests, Long projectId) {
         try {
             Project projectDB = projectDAO.get(projectId);
             if (projectDB == null) {
-                return;
+                return null;
             }
             if (requests == null) {
-                return;
+                return null;
             }
             if (requests.isEmpty()) {
-                return;
+                return null;
             }
             Date created = new Date();
             RequestGroup requestGroup = new RequestGroup();
@@ -114,11 +114,13 @@ public class RequestGroupServiceImpl implements RequestGroupService {
                 }
                 requestGroupDAO.update(requestGroupDB);
                 it.remove(); // avoids a ConcurrentModificationException
+                return requestGroup;
             }
 
         } catch (DataAccessException ex) {
             throw ex;
         }
+        return null;
     }
 
     public void remove(RequestGroup requestGroup) {

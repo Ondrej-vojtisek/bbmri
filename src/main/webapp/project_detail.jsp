@@ -87,10 +87,12 @@
                 <legend><f:message key="project_approval"/></legend>
                     <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
                         <s:submit name="approve" onclick="return confirm('Confirm?')">
+                            <s:param name="project.id" value="${project.id}"/>
                             <f:message key="confirm"/>
                         </s:submit>
 
                         <s:submit name="deny" onclick="return confirm('Deny?')">
+                            <s:param name="project.id" value="${project.id}"/>
                             <f:message key="deny"/>
                         </s:submit>
                     </s:form>

@@ -26,10 +26,11 @@ public class TheActionBeanContext extends ActionBeanContext {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String IDENTIFIER = "id";
-    /*private static final String SAMPLE_ID = "sample";
+    private static final String SAMPLE_ID = "sample";
     private static final String PROJECT_ID = "project";
-    private static final String BIOBANK_ID = "project";
-    */
+    private static final String BIOBANK_ID = "biobank";
+    private static final String REQUEST_GROUP_ID = "requestGroup";
+
 
     /**
      * Stores the given attribute in session.
@@ -66,45 +67,60 @@ public class TheActionBeanContext extends ActionBeanContext {
         return value;
     }
 
-    public void setIdentifier(Long id) {
-        setCurrent(IDENTIFIER, id);
-    }
-
-    public Long getIdentifier() {
-        return getCurrent(IDENTIFIER, null);
-    }
-
-    public void dropIdentifier() {
-        setCurrent(IDENTIFIER, null);
-    }
-
-    public void setLoggedUser(User user) {
-        // Forget the value
-        dropIdentifier();
-
-        // When user is given
-        if (user != null) {
-            // Update the identifier
-            setIdentifier(user.getId());
-        }
-    }
-
     public void dropUser() {
-        // Load the identifier
-
         // Forget the value
         dropIdentifier();
-
         // When logged
         // Retrieve the session instance
         HttpSession session = getRequest().getSession();
-
         // When session available
         if (session != null) {
             // Invalidate the session
             session.invalidate();
         }
     }
+
+    public void setIdentifier(Long id) {
+          setCurrent(IDENTIFIER, id);
+      }
+      public Long getIdentifier() {
+          return getCurrent(IDENTIFIER, null);
+      }
+      public void dropIdentifier() {
+          setCurrent(IDENTIFIER, null);
+      }
+
+    public void setLoggedUser(User user) {
+              // Forget the value
+              dropIdentifier();
+
+              // When user is given
+              if (user != null) {
+                  // Update the identifier
+                  setIdentifier(user.getId());
+              }
+          }
+
+    public void setRequestGroupId(Long id) {
+           setCurrent(REQUEST_GROUP_ID, id);
+       }
+       public Long getRequestGroupId() {
+           return getCurrent(REQUEST_GROUP_ID, null);
+       }
+       public void dropRequestGroupId() {
+           setCurrent(REQUEST_GROUP_ID, null);
+       }
+       public void setRequestGroupId(RequestGroup requestGroup) {
+           // Forget the value
+           dropRequestGroupId();
+
+           // When user is given
+           if (requestGroup != null) {
+               // Update the identifier
+               setRequestGroupId(requestGroup.getId());
+           }
+       }
+
 
     public Project getProject() {
         return (Project) getRequest().getSession().getAttribute("project");
@@ -120,14 +136,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public void setBiobank(Biobank biobank) {
         getRequest().getSession().setAttribute("biobank", biobank);
-    }
-
-    public RequestGroup getRequestGroup() {
-        return (RequestGroup) getRequest().getSession().getAttribute("requestGroup");
-    }
-
-    public void setRequestGroup(RequestGroup requestGroup) {
-        getRequest().getSession().setAttribute("requestGroup", requestGroup);
     }
 
     public Sample getSample() {

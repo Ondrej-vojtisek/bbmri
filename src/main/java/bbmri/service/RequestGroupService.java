@@ -17,7 +17,7 @@ public interface RequestGroupService {
 
     RequestGroup create(RequestGroup requestGroup);
 
-    void create(List<Request> requests, Long projectId);
+    RequestGroup create(List<Request> requests, Long projectId);
 
     void remove(RequestGroup requestGroup);
 

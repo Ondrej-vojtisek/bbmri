@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.entities.RequestGroup;
 import bbmri.entities.Role;
 import bbmri.entities.RoleType;
 import bbmri.entities.User;
@@ -67,16 +68,20 @@ public class BasicActionBean implements ActionBean {
     public User getLoggedUser(){
 
         Long id = ctx.getIdentifier();
-        logger.debug("getUserbyId: " + id + " user: " + userService.getById(id));
         return userService.getById(id);
     }
 
     public Set<Role> getRoles(){
         Long id = ctx.getIdentifier();
-        logger.debug("getUserbyId: " + id + " user: " + userService.getById(id));
         return userService.getById(id).getRoles();
 
     }
+
+    public RequestGroup getRequestGroupBSC(){
+
+            Long id = ctx.getRequestGroupId();
+            return requestGroupService.getById(id);
+        }
 
     @PermitAll
      @HandlesEvent("iamsecure")

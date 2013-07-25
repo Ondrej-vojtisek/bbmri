@@ -52,7 +52,7 @@
                     </c:forEach>
                     <tbody>
                 </table>
-                <s:submit name="withdrawSamples"><f:message key="request_selected"/></s:submit>
+                <s:submit name="withdrawSamples"><f:message key="proceed_with_selected"/></s:submit>
             </fieldset>
 
 

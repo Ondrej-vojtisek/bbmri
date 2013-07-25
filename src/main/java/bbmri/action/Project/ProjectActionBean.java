@@ -171,10 +171,7 @@ public class ProjectActionBean extends BasicActionBean {
                         );
                     }
                 }
-                getContext().getMessages().add(
-                       new SimpleMessage("Select file!")
-                     );
-                return new ForwardResolution(CREATE_MTA);
+                return new ForwardResolution(MY_PROJECTS);
             }
 
 

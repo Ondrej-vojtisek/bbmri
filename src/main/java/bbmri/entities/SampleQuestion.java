@@ -30,6 +30,9 @@ public class SampleQuestion {
     @ManyToOne(cascade = CascadeType.ALL)
         private Project project;
 
+    @Enumerated(EnumType.STRING)
+    private RequestState requestState;
+
     private boolean processed = false;
 
     public boolean isProcessed() {
@@ -70,6 +73,14 @@ public class SampleQuestion {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public RequestState getRequestState() {
+        return requestState;
+    }
+
+    public void setRequestState(RequestState requestState) {
+        this.requestState = requestState;
     }
 
     @Override

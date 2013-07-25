@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="samples.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
@@ -11,6 +11,9 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+
+            <fieldset>
+
             <table cellspacing="0" class="tablesorter">
                 <thead>
                 <tr>
@@ -24,10 +27,10 @@
                 <tbody>
 
                 <c:if test="${empty ab.sampleQuestions}">
-                                                  <tr>
-                                                      <td colspan="4"><f:message key="empty"/></td>
-                                                  </tr>
-                                              </c:if>
+                    <tr>
+                        <td colspan="4"><f:message key="empty"/></td>
+                    </tr>
+                </c:if>
 
                 <c:forEach items="${ab.sampleQuestions}" var="sampleQuestion">
                     <tr>
@@ -37,12 +40,13 @@
                         <td>
                             <s:link beanclass="bbmri.action.SampleQuestionActionBean" event="detail">
                                 <s:param name="sampleQuestion.id" value="${sampleQuestion.id}"/><f:message
-                                    key="detail"/></s:link>
+                                    key="proceed"/></s:link>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+            </fieldset>
 
         </s:form>
     </s:layout-component>

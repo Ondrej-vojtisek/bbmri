@@ -21,7 +21,7 @@
                 <th><s:label name="requestGroup.requestState"/></th>
                 <th><s:label name="biobank.name"/></th>
                 <th><s:label name="project.name"/></th>
-                <th colspan="2" class="noSort"><s:label name="actions"/></th>
+                <th class="noSort"><s:label name="actions"/></th>
             </tr>
             </thead>
             <tbody>
@@ -43,10 +43,6 @@
                     <td><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="requestGroupDetail">
                         <s:param name="requestGroup.id" value="${requestGroup.id}"/>
                         <f:message key="detail"/></s:link>
-                    </td>
-                    <td><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="releaseSamples">
-                        <s:param name="requestGroup.id" value="${requestGroup.id}"/>
-                        <f:message key="release_samples"/></s:link>
                     </td>
                 </tr>
             </c:forEach>

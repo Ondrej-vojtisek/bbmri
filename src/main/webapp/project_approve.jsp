@@ -17,7 +17,6 @@
                     <thead>
                     <tr>
                         <th><s:label name="project.name"/></th>
-                        <th><s:label name="project.annotation"/></th>
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
@@ -36,11 +35,9 @@
                         <c:if test="${project.projectState == 'NEW'}">
                             <tr>
                                 <td><c:out value="${project.name}"/></td>
-                                <td><c:out value="${project.annotation}"/></td>
                                 <td><c:out value="${project.fundingOrganization}"/></td>
                                 <td><c:out value="${project.owner.wholeName}"/></td>
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
-
                                 <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="detail">
                                     <s:param name="project.id" value="${project.id}"/>
                                     <f:message key="proceed"/></s:link>

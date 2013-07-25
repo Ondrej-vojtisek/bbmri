@@ -11,6 +11,8 @@
 
     <s:layout-component name="body">
 
+        <fieldset>
+        <legend><f:message key="sample.question"/></legend>
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
             <table>
                 <tr>
@@ -26,8 +28,7 @@
                 </tr>
             </table>
             <s:textarea readonly="true" id="z3" name="sampleQuestion.specification"></s:textarea>
-
-            <s:text id="z1" readonly="true" name="sampleQuestion.project.name"/>
+            <fieldset>
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
@@ -37,15 +38,17 @@
             </fieldset>
 
             <fieldset>
-                <table cellspacing="0" class="tablesorter">
+                <table cellspacing="0" class="tablesorter narrow">
                     <thead>
                     <tr>
+                        <th><s:label name="sample.numOfSamples"/></th>
+                        <th><s:label name="sample.numOfAvailable"/></th>
                         <th><s:label name="sample.TNM"/></th>
                         <th><s:label name="sample.pTNM"/></th>
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
                         <th><s:label name="sample.tissueType"/></th>
-                        <th class="noSort"><s:label name="actions"/></th>
+                        <th class="noSort"><s:label name="select"/></th>
                     </tr>
                     </thead>
 
@@ -57,6 +60,8 @@
                     <tbody>
                     <c:forEach items="${ab.results}" var="sample">
                     <tr>
+                        <td><c:out value="${sample.numOfSamples}"/></td>
+                        <td><c:out value="${sample.numOfAvailable}"/></td>
                         <td><c:out value="${sample.TNM}"/></td>
                         <td><c:out value="${sample.pTNM}"/></td>
                         <td><c:out value="${sample.grading}"/></td>
@@ -67,7 +72,8 @@
                     </c:forEach>
                     <tbody>
                 </table>
-                <s:submit name="requestSelected"><f:message key="proceed_selected"/></s:submit>
+                <s:submit name="requestSelected"><f:message key="proceed_with_selected"/></s:submit>
+                <s:submit name="reject"><f:message key="reject"/></s:submit>
             </fieldset>
         </s:form>
     </s:layout-component>

@@ -16,7 +16,7 @@
                 <li><f:message key="project_upload_information_1"/></li>
                 <li><f:message key="project_upload_information_2"/></li>
                 <li><f:message key="project_upload_information_3"/>
-                    <s:link href="/data/mta_form.pdf" target="blank"><f:message key="download_mta_form"/></s:link></li>
+                    <s:link href="/data/MTA_BBMRICZ.doc" target="blank"><f:message key="download_mta_form"/></s:link></li>
                 <br>
                 <br>
             </fieldset>

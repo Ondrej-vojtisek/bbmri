@@ -11,6 +11,7 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.Sample.SampleActionBean">
+            <fieldset>
                 <legend><f:message key="sample.all"/></legend>
             <table cellspacing="0" class="tablesorter narrow">
                     <thead>

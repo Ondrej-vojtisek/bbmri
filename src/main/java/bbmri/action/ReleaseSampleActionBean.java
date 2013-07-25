@@ -31,6 +31,8 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    private static final String REQUESTGROUP_DETAIL = "/requestGroup_detail.jsp";
+
     private Sample sample;
     private List<Sample> samples;
     private Biobank biobank;
