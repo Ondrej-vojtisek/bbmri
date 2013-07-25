@@ -123,13 +123,7 @@ public class SampleActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution withdrawSamples() {
-        // TODO - variable amount of withdrawed samples
-         System.err.println("SAMPLES: " + selectedSamples);
-
-    /*    Integer count = 1;
-        sampleService.withdrawSample(sample.getId(), count);
-        getContext().setSample(sample);
-        */
+        getContext().setSample(null);
         return new RedirectResolution(WITHDRAW);
     }
 

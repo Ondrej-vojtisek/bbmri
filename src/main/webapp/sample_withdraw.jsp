@@ -27,7 +27,7 @@
                         <th><s:label name="sample.grading"/></th>
                         <th><s:label name="sample.diagnosis"/></th>
                         <th><s:label name="sample.tissueType"/></th>
-                        <th class="noSort"><s:label name="actions"/></th>
+                        <th class="noSort"><s:label name="select"/></th>
                     </tr>
                     </thead>
 

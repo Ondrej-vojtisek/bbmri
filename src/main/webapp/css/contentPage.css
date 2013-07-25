@@ -107,3 +107,19 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 background-color: #0088cc;
     color: #FFF;
 }
+
+.narrow thead label{
+    width: 40px;
+}
+
+.header_width_50{
+    width: 50px;
+}
+
+.header_width_750{
+    width: 75px;
+}
+
+.header_width_100{
+    width: 100px;
+}

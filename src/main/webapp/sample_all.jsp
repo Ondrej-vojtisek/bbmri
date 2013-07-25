@@ -12,7 +12,7 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.Sample.SampleActionBean">
                 <legend><f:message key="sample.all"/></legend>
-            <table cellspacing="0" class="tablesorter">
+            <table cellspacing="0" class="tablesorter narrow">
                     <thead>
                     <tr>
                         <th><s:label name="sample.numOfSamples"/></th>
