@@ -172,6 +172,16 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    public void deny(Long projectId, Long userId) {
+           Project projectDB = projectDAO.get(projectId);
+           User userDB = userDAO.get(userId);
+           if (projectDB.getProjectState() == ProjectState.NEW) {
+               projectDB.setProjectState(ProjectState.CANCELED);
+               projectDB.setJudgedByUser(userDB);
+               projectDAO.update(projectDB);
+           }
+       }
+
     public Project getById(Long id) {
         Project project;
         project = projectDAO.get(id);

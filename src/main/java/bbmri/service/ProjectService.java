@@ -33,6 +33,8 @@ public interface ProjectService {
 
      void approve(Long projectId, Long userId);
 
+     void deny(Long projectId, Long userId);
+
      List<Project> getAllByProjectState(ProjectState projectState);
 
      List<Project> getAllApprovedByUser(User user);

@@ -11,7 +11,7 @@
 
     <s:layout-component name="body">
         <fieldset>
-            <legend><f:message key="project.all_projects"/></legend>
+            <legend><f:message key="projects.MyProjects"/></legend>
             <s:form beanclass="bbmri.action.Project.ProjectActionBean">
                 <table cellspacing="0" class="tablesorter">
                     <thead>

@@ -11,6 +11,9 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
+
+            <fieldset>
+            <legend><f:message key="project_detail"/></legend>
             <table>
                 <tr>
                     <th><s:label for="z1" name="project.name"/></th>
@@ -35,6 +38,7 @@
                 </tr>
             </table>
             <s:textarea readonly="true" id="z5" name="project.annotation"></s:textarea>
+            <fieldset>
             <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
 
                 <fieldset>
@@ -75,6 +79,27 @@
                     </table>
                 </fieldset>
             </s:form>
+
+
+
+            <c:if test="${not empty ab.loggedUser.biobank}">
+                <fieldset>
+                <legend><f:message key="project_approval"/></legend>
+                    <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
+                        <s:submit name="approve" onclick="return confirm('Confirm?')">
+                            <f:message key="confirm"/>
+                        </s:submit>
+
+                        <s:submit name="deny" onclick="return confirm('Deny?')">
+                            <f:message key="deny"/>
+                        </s:submit>
+                    </s:form>
+
+                </fieldset>
+
+
+            </c:if>
+
         </s:form>
     </s:layout-component>
 </s:layout-render>

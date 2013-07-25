@@ -42,7 +42,7 @@
     <file path="/createProjectForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363822241778" ignored="false" />
     <file path="/Project.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363719103590" ignored="false" />
     <file path="/ProjectDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361376672319" ignored="false" />
-    <file path="/ProjectServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365454769820" ignored="false" />
+    <file path="/ProjectServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752846152" ignored="false" />
     <file path="/project_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745305500" ignored="false" />
     <file path="/EditProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1373987981552" ignored="false" />
     <file path="/fragment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374566351020" ignored="false" />
@@ -50,7 +50,7 @@
     <file path="/layout_content.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374696921642" ignored="false" />
     <file path="/project_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745346906" ignored="false" />
     <file path="/biobank_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374744803895" ignored="false" />
-    <file path="/project_approve.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745335267" ignored="false" />
+    <file path="/project_approve.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752306206" ignored="false" />
     <file path="/sample_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374667496425" ignored="false" />
     <file path="/sample_request.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374656870878" ignored="false" />
     <file path="/user_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1367276257784" ignored="false" />
@@ -81,7 +81,7 @@
     <file path="$PROJECT_DIR$/src/main/webapp/libs/tests/assets/ajax-content.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-empty-table.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398858599" ignored="false" />
     <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374738900175" ignored="false" />
-    <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392715230" ignored="false" />
+    <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752803775" ignored="false" />
     <file path="/file.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361823090904" ignored="false" />
     <file path="/Attachment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392287475" ignored="false" />
     <file path="/AttachmentDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374488278068" ignored="false" />
@@ -98,10 +98,10 @@
     <file path="/AttachmentType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131158165" ignored="false" />
     <file path="/project_create_ethical_agreement.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363132434659" ignored="false" />
     <file path="/biobank_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1373531997407" ignored="false" />
-    <file path="/ApproveProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374740124308" ignored="false" />
+    <file path="/ApproveProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752181812" ignored="false" />
     <file path="/spring-context.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374495474736" ignored="false" />
     <file path="/AllBiobanksActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362441494926" ignored="false" />
-    <file path="/project_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745316031" ignored="false" />
+    <file path="/project_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374753406949" ignored="false" />
     <file path="/layout_login.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362515137776" ignored="false" />
     <file path="/samples_my_requests.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374736362839" ignored="false" />
     <file path="/RequestGroupDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364929525211" ignored="false" />
@@ -219,7 +219,7 @@
     <file path="/DataInit.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374491908042" ignored="false" />
     <file path="/DAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374490432212" ignored="false" />
     <file path="/RoleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374491140733" ignored="false" />
-    <file path="/texts.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745469901" ignored="false" />
+    <file path="/texts.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752625567" ignored="false" />
     <file path="/errors.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374498062049" ignored="false" />
     <file path="/RoleTypes.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374565718988" ignored="false" />
     <file path="/custom-functions.tld" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374566423071" ignored="false" />
@@ -292,61 +292,94 @@
       <file leaf-file-name="project_approve.jsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="31" selection-start="1549" selection-end="1549" vertical-scroll-proportion="-13.730769">
+            <state line="45" column="59" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-11.307693">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_all.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
+      <file leaf-file-name="project_detail.jsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_detail.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="26" selection-start="1417" selection-end="1417" vertical-scroll-proportion="-15.038462">
+            <state line="28" column="21" selection-start="1389" selection-end="1389" vertical-scroll-proportion="1.7629629">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="my_account.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/my_account.jsp">
+      <file leaf-file-name="project_edit.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_edit.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="76" column="60" selection-start="3626" selection-end="3758" vertical-scroll-proportion="-12.423077">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/login.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layout_login.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/layout_login.jsp">
+      <file leaf-file-name="texts_cs.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/texts_cs.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
+          <provider editor-type-id="ResourceBundle">
+            <state />
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="changeAdministrator.jsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/changeAdministrator.jsp">
+      <file leaf-file-name="texts.properties" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/texts.properties">
+          <provider editor-type-id="text-editor">
+            <state line="246" column="33" selection-start="8261" selection-end="8261" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="ResourceBundle">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProjectService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="35" column="5" selection-start="697" selection-end="736" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="biobank_edit.jsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
+      <file leaf-file-name="ProjectServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="36" selection-start="4012" selection-end="4012" vertical-scroll-proportion="0.7597173">
+            <state line="242" column="13" selection-start="7925" selection-end="7925" vertical-scroll-proportion="-95.44">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout_content.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/layout_content.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="111" column="42" selection-start="5941" selection-end="5958" vertical-scroll-proportion="-15.692307">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApproveProjectActionBean.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="62" column="23" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project_my_projects.jsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/project_my_projects.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="45" selection-start="1296" selection-end="1296" vertical-scroll-proportion="15.692307">
               <folding />
             </state>
           </provider>
@@ -378,22 +411,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/texts_cs.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/biobank_all.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/my_account.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/requestGroup_all.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/requestGroup_detail.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/sample_approve_request.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/samplequestion_create_request.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/user_all.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_my_projects.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/project_edit.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_detail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/project_all.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/texts_en.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/project_my_projects.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/project_approve.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/texts.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/project_detail.jsp" />
       </list>
     </option>
   </component>
@@ -684,6 +717,10 @@
               <option name="myItemId" value="bbmri" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="serviceImpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -711,7 +748,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="entities" />
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1406,7 +1469,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40219092" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1428,8 +1491,8 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26418152" sideWeight="0.5367762" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3484603" sideWeight="0.5367762" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4632238" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24149108" sideWeight="0.5367762" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4632238" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -1536,62 +1599,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_my_projects.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="39" selection-start="1593" selection-end="1593" vertical-scroll-proportion="-16.23077">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_edit.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="31" selection-start="5763" selection-end="5763" vertical-scroll-proportion="-9.538462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_detail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="45" selection-start="2864" selection-end="2864" vertical-scroll-proportion="-10.692307">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_create_mta.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_create_information.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_create.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="31" selection-start="1549" selection-end="1549" vertical-scroll-proportion="-13.730769">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_all.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="26" selection-start="1417" selection-end="1417" vertical-scroll-proportion="-15.038462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/my_account.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1630,9 +1637,37 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="41" selection-start="280" selection-end="280" vertical-scroll-proportion="-3.2692308">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_my_projects.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="45" selection-start="1296" selection-end="1296" vertical-scroll-proportion="15.692307">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_approve.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="59" selection-start="2502" selection-end="2502" vertical-scroll-proportion="-11.307693">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/layout_content.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="42" selection-start="5941" selection-end="5958" vertical-scroll-proportion="-15.692307">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/texts_cs.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
           <folding />
         </state>
       </provider>
@@ -1642,7 +1677,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/texts.properties">
       <provider editor-type-id="text-editor">
-        <state line="244" column="11" selection-start="8211" selection-end="8211" vertical-scroll-proportion="0.0">
+        <state line="246" column="33" selection-start="8261" selection-end="8261" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1650,9 +1685,37 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/biobank_edit.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="36" selection-start="4012" selection-end="4012" vertical-scroll-proportion="0.7597173">
+        <state line="62" column="23" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="5" selection-start="697" selection-end="736" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="242" column="13" selection-start="7925" selection-end="7925" vertical-scroll-proportion="-95.44">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="60" selection-start="3626" selection-end="3758" vertical-scroll-proportion="-12.423077">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/project_detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="21" selection-start="1389" selection-end="1389" vertical-scroll-proportion="1.7629629">
           <folding />
         </state>
       </provider>

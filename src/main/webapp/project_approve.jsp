@@ -21,7 +21,7 @@
                         <th><s:label name="project.fundingOrganization"/></th>
                         <th><s:label name="project.owner"/></th>
                         <th><s:label name="project.projectState"/></th>
-                        <th colspan="2" class="noSort"><s:label name="actions"/></th>
+                        <th class="noSort"><s:label name="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,11 +43,7 @@
 
                                 <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="detail">
                                     <s:param name="project.id" value="${project.id}"/>
-                                    <f:message key="detail"/></s:link>
-                                </td>
-                                <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="approve">
-                                    <s:param name="project.id" value="${project.id}"/>
-                                    <f:message key="approve"/></s:link>
+                                    <f:message key="proceed"/></s:link>
                                 </td>
                             </tr>
                         </c:if>

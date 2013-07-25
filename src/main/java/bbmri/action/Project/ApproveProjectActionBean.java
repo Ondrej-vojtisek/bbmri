@@ -47,10 +47,19 @@ public class ApproveProjectActionBean extends BasicActionBean {
     public Resolution approve() {
         projectService.approve(project.getId(), getContext().getIdentifier());
         getContext().getMessages().add(
-                              new SimpleMessage("Project id={0} was approved", project.getName())
+                              new SimpleMessage("Project {0} was approved", project.getName())
                       );
         return new ForwardResolution(APPROVE);
     }
+
+    @DontValidate
+       public Resolution deny() {
+          // projectService.(project.getId(), getContext().getIdentifier());
+           getContext().getMessages().add(
+                                 new SimpleMessage("Project {0} was denied", project.getName())
+                         );
+           return new ForwardResolution(APPROVE);
+       }
 
     @DontValidate
     public Resolution detail() {
