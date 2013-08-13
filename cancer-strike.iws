@@ -260,7 +260,7 @@
     <file path="/RequestDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376401997878" ignored="false" />
     <file path="/RequestDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406073322" ignored="false" />
     <file path="/RequestGroupDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376402111975" ignored="false" />
-    <file path="/UserDaoTest.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426623495" ignored="false" />
+    <file path="/UserDaoTest.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376427122774" ignored="false" />
     <file path="/DAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376425428535" ignored="false" />
     <file path="/BasicDaoImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376425998461" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/java/bbmri/security/SecurityHandler.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376425603466" ignored="false" />
@@ -345,28 +345,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RoleServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RoleServiceImpl.java">
+      <file leaf-file-name="RoleDaoImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RoleDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="28" selection-start="207" selection-end="207" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/LoginServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="28" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="17" selection-start="1537" selection-end="1537" vertical-scroll-proportion="0.0">
+            <state line="19" column="13" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -374,37 +356,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestServiceImpl.java">
+      <file leaf-file-name="SampleDaoImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="28" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BiobankServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/BiobankServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="14" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/UserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="28" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/UserDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="13" selection-start="429" selection-end="429" vertical-scroll-proportion="0.0">
+            <state line="22" column="13" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -412,28 +367,77 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/AbstractTest.java">
+      <file leaf-file-name="SampleQuestionDaoImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleQuestionDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="13" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0">
+            <state line="22" column="13" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test-applicationContext.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/test-applicationContext.xml">
+      <file leaf-file-name="UserDaoImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="27" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
+            <state line="15" column="13" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BasicDaoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="46" selection-start="472" selection-end="492" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttachmentDaoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="51" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spring-context2.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context2.xml">
+      <file leaf-file-name="ProjectDaoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="38" selection-start="793" selection-end="793" vertical-scroll-proportion="0.33333334">
+            <state line="11" column="48" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RequestGroupDaoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="53" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SampleDaoTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="47" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SampleQuestionDaoTest.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="55" selection-start="256" selection-end="256" vertical-scroll-proportion="0.23522012">
               <folding />
             </state>
           </provider>
@@ -465,13 +469,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleQuestionDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/ProjectDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RequestDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestGroupServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleQuestionServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RoleServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/LoginServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" />
@@ -481,6 +478,13 @@
         <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/UserDaoTest.java" />
         <option value="$PROJECT_DIR$/src/main/resources/test-applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context2.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/AttachmentDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java" />
       </list>
     </option>
   </component>
@@ -806,96 +810,6 @@
               <option name="myItemId" value="bbmri" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="serviceImpl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entities" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -924,66 +838,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="daoImpl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dao" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cancer-strike" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1246,7 +1100,7 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="UserDaoTest" type="JUnit" factoryName="JUnit" temporary="true">
+    <configuration default="false" name="BasicDaoTest" type="JUnit" factoryName="JUnit" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
           <option name="PATTERN" value="tests.daoTest.*" />
@@ -1257,7 +1111,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="tests.daoTest" />
-      <option name="MAIN_CLASS_NAME" value="tests.daoTest.UserDaoTest" />
+      <option name="MAIN_CLASS_NAME" value="tests.daoTest.BasicDaoTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -1646,12 +1500,12 @@
       <item index="1" class="java.lang.String" itemvalue="JUnit.helloTest" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.HelloWorldTest" />
       <item index="3" class="java.lang.String" itemvalue="JUnit.HelloWorldTest2" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.UserDaoTest" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.BasicDaoTest" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.UserDaoTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.BasicDaoTest" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.HelloWorldTest2" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.HelloWorldTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.helloTest" />
@@ -1719,7 +1573,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40219092" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1741,7 +1595,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19286872" sideWeight="0.36732328" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33711508" sideWeight="0.36732328" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33711508" sideWeight="0.36732328" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6326767" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
@@ -1849,9 +1703,25 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/dao/AttachmentDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="11" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0">
+        <state line="15" column="17" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/AttachmentDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="0" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/BiobankDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="13" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1860,7 +1730,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/ProjectDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="24" selection-end="52" vertical-scroll-proportion="0.0">
+        <state line="22" column="13" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1869,108 +1739,96 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RequestDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="18" selection-start="522" selection-end="522" vertical-scroll-proportion="0.0">
+        <state line="20" column="13" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestGroupServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RequestGroupDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="12" selection-start="734" selection-end="734" vertical-scroll-proportion="0.0">
+        <state line="21" column="13" selection-start="526" selection-end="526" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleQuestionServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RoleDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="28" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="12" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0">
+        <state line="19" column="13" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RoleServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="28" selection-start="207" selection-end="207" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/LoginServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="28" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="17" selection-start="1537" selection-end="1537" vertical-scroll-proportion="0.0">
+        <state line="22" column="13" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleQuestionDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="28" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0">
+        <state line="22" column="13" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/BiobankServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="14" selection-start="42" selection-end="42" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/UserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="28" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/UserDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="429" selection-end="429" vertical-scroll-proportion="0.0">
+        <state line="15" column="13" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/AbstractTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="634" selection-end="634" vertical-scroll-proportion="0.0">
+        <state line="19" column="46" selection-start="472" selection-end="492" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="51" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/test-applicationContext.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="27" selection-start="855" selection-end="855" vertical-scroll-proportion="0.0">
+        <state line="11" column="48" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context2.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="38" selection-start="793" selection-end="793" vertical-scroll-proportion="0.33333334">
+        <state line="11" column="53" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="47" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="55" selection-start="256" selection-end="256" vertical-scroll-proportion="0.23522012">
           <folding />
         </state>
       </provider>

@@ -41,22 +41,6 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
         em.remove(attachment);
     }
 
-    public List<Attachment> all() {
-        Query query = em.createQuery("SELECT p FROM Attachment p");
-        return query.getResultList();
-    }
-
-    public Attachment get(Long id) {
-        notNull(id);
-        return em.find(Attachment.class, id);
-    }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM Attachment p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
-
-
     void createFolder(Attachment attachment) {
         notNull(attachment);
         File rootDir = new File("bbmri_data");
