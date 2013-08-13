@@ -18,38 +18,6 @@ import java.util.List;
  */
 
 @Repository
-public class RequestDAOImpl implements RequestDAO {
+public class RequestDAOImpl extends DAOImpl<Request> implements RequestDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    public void create(Request request) {
-        DAOUtils.notNull(request);
-        em.persist(request);
-    }
-
-    public void remove(Request request) {
-        DAOUtils.notNull(request);
-        em.remove(request);
-    }
-
-    public void update(Request request) {
-        DAOUtils.notNull(request);
-        em.merge(request);
-    }
-
-    public List<Request> all() {
-        Query query = em.createQuery("SELECT p FROM Request p");
-        return query.getResultList();
-    }
-
-    public Request get(Long id) {
-        DAOUtils.notNull(id);
-        return em.find(Request.class, id);
-    }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM Request p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
 }

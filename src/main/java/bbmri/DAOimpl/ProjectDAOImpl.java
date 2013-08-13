@@ -20,40 +20,15 @@ import java.util.List;
  */
 
 @Repository
-public class ProjectDAOImpl implements ProjectDAO {
+public class ProjectDAOImpl extends DAOImpl<Project> implements ProjectDAO {
 
     @PersistenceContext
     private EntityManager em;
-
-    public void create(Project project) {
-        DAOUtils.notNull(project);
-        em.persist(project);
-    }
-
-    public void remove(Project project) {
-        DAOUtils.notNull(project);
-        em.remove(project);
-    }
-
-    public void update(Project project) {
-        DAOUtils.notNull(project);
-        em.merge(project);
-    }
-
-    public List<Project> all() {
-        Query query = em.createQuery("SELECT p FROM Project p");
-        return query.getResultList();
-    }
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         DAOUtils.notNull(projectState);
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
         return query.getResultList();
-    }
-
-    public Project get(Long id) {
-        DAOUtils.notNull(id);
-        return em.find(Project.class, id);
     }
 
     public List<Project> getAllByUser(User user) {
@@ -65,10 +40,4 @@ public class ProjectDAOImpl implements ProjectDAO {
         DAOUtils.notNull(project);
         return project.getUsers();
     }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM Project p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
-
 }

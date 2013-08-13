@@ -3,6 +3,7 @@ package bbmri.DAOimpl;
 import bbmri.DAO.SampleDAO;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,35 +20,10 @@ import java.util.List;
  */
 
 @Repository
-public class SampleDAOImpl implements SampleDAO {
+public class SampleDAOImpl extends DAOImpl<Sample> implements SampleDAO {
 
     @PersistenceContext
     private EntityManager em;
-
-    public void create(Sample sample) {
-        DAOUtils.notNull(sample);
-        em.persist(sample);
-    }
-
-    public void remove(Sample sample) {
-        DAOUtils.notNull(sample);
-        em.remove(sample);
-    }
-
-    public void update(Sample sample) {
-        DAOUtils.notNull(sample);
-        em.merge(sample);
-    }
-
-    public Sample get(Long id) {
-        DAOUtils.notNull(id);
-        return em.find(Sample.class, id);
-    }
-
-    public List<Sample> all() {
-        Query query = em.createQuery("SELECT p FROM Sample p");
-        return query.getResultList();
-    }
 
     public List<Sample> getSelected(String query) {
         DAOUtils.notNull(query);
@@ -55,10 +31,4 @@ public class SampleDAOImpl implements SampleDAO {
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();
     }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM Sample p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
-
 }

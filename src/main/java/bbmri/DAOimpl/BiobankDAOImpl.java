@@ -19,38 +19,6 @@ import java.util.List;
  */
 
 @Repository
-public class BiobankDAOImpl implements BiobankDAO {
+public class BiobankDAOImpl extends DAOImpl<Biobank> implements BiobankDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    public void create(Biobank biobank) {
-        DAOUtils.notNull(biobank);
-        em.persist(biobank);
-    }
-
-    public void remove(Biobank biobank) {
-        DAOUtils.notNull(biobank);
-        em.remove(biobank);
-    }
-
-    public void update(Biobank biobank) {
-        DAOUtils.notNull(biobank);
-        em.merge(biobank);
-    }
-
-    public List<Biobank> all() {
-        Query query = em.createQuery("SELECT p FROM Biobank p");
-        return query.getResultList();
-    }
-
-    public Biobank get(Long id) {
-        DAOUtils.notNull(id);
-        return em.find(Biobank.class, id);
-    }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM Biobank p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
 }

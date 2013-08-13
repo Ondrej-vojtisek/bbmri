@@ -17,39 +17,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class RoleDAOImpl implements RoleDAO {
-    
-    @PersistenceContext
-        private EntityManager em;
-    
-    public void create(Role role) {
-           DAOUtils.notNull(role);
-           em.persist(role);
-       }
-   
-       public void remove(Role role) {
-           DAOUtils.notNull(role);
-           em.remove(role);
-       }
-   
-       public void update(Role role) {
-           DAOUtils.notNull(role);
-           em.merge(role);
-       }
-   
-       public List<Role> all() {
-           Query query = em.createQuery("SELECT p FROM Role p");
-           return query.getResultList();
-       }
-   
-       public Role get(Long id) {
-           DAOUtils.notNull(id);
-           return em.find(Role.class, id);
-       }
-
-       public Integer count() {
-           Query query = em.createQuery("SELECT COUNT (p) FROM Role p");
-           return Integer.parseInt(query.getSingleResult().toString());
-       }
+public class RoleDAOImpl extends DAOImpl<Role> implements RoleDAO {
 
 }

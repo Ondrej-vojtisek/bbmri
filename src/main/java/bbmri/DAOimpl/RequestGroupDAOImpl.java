@@ -19,40 +19,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class RequestGroupDAOImpl implements RequestGroupDAO {
+public class RequestGroupDAOImpl extends DAOImpl<RequestGroup> implements RequestGroupDAO {
 
     @PersistenceContext
     private EntityManager em;
-
-    public void create(RequestGroup requestGroup) {
-        DAOUtils.notNull(requestGroup);
-        em.persist(requestGroup);
-    }
-
-    public void remove(RequestGroup requestGroup) {
-        DAOUtils.notNull(requestGroup);
-        em.remove(requestGroup);
-    }
-
-    public void update(RequestGroup requestGroup) {
-        DAOUtils.notNull(requestGroup);
-        em.merge(requestGroup);
-    }
-
-    public List<RequestGroup> all() {
-        Query query = em.createQuery("SELECT p FROM RequestGroup p");
-        return query.getResultList();
-    }
-
-    public RequestGroup get(Long id) {
-        DAOUtils.notNull(id);
-        return em.find(RequestGroup.class, id);
-    }
-
-    public Integer count() {
-        Query query = em.createQuery("SELECT COUNT (p) FROM RequestGroup p");
-        return Integer.parseInt(query.getSingleResult().toString());
-    }
 
     public List<RequestGroup> getAllByProject(Project project) {
          DAOUtils.notNull(project);

@@ -3,6 +3,7 @@ package bbmri.DAOimpl;
 import bbmri.DAO.AttachmentDAO;
 import bbmri.entities.Attachment;
 import bbmri.entities.Project;
+import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,7 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class AttachmentDAOImpl implements AttachmentDAO {
+public class AttachmentDAOImpl extends DAOImpl<Attachment> implements AttachmentDAO {
 
     @PersistenceContext
     private EntityManager em;
@@ -41,11 +42,6 @@ public class AttachmentDAOImpl implements AttachmentDAO {
             }
         }
         em.remove(attachment);
-    }
-
-    public void update(Attachment attachment) {
-        DAOUtils.notNull(attachment);
-        em.merge(attachment);
     }
 
     public List<Attachment> all() {
