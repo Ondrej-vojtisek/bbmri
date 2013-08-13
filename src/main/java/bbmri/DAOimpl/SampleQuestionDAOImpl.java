@@ -26,7 +26,7 @@ public class SampleQuestionDAOImpl extends DAOImpl<SampleQuestion> implements Sa
     private EntityManager em;
 
     public List<SampleQuestion> getSelected(String query) {
-        DAOUtils.notNull(query);
+        notNull(query);
         String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();

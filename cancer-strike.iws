@@ -80,7 +80,7 @@
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-ajax.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/tests/assets/ajax-content.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-empty-table.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398858599" ignored="false" />
-    <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374807093795" ignored="false" />
+    <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376409488958" ignored="false" />
     <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752803775" ignored="false" />
     <file path="/file.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361823090904" ignored="false" />
     <file path="/Attachment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392287475" ignored="false" />
@@ -261,7 +261,7 @@
     <file path="/RequestDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406073322" ignored="false" />
     <file path="/RequestGroupDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376402111975" ignored="false" />
     <file path="/UserDaoTest.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376404212112" ignored="false" />
-    <file path="/DAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376408373458" ignored="false" />
+    <file path="/DAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376409450305" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +323,7 @@
       <file leaf-file-name="SampleDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="0" selection-start="621" selection-end="621" vertical-scroll-proportion="0.0">
+            <state line="28" column="8" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -332,7 +332,16 @@
       <file leaf-file-name="SampleQuestionDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleQuestionDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="0" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0">
+            <state line="33" column="4" selection-start="953" selection-end="953" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AttachmentDAO.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/AttachmentDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="5" selection-start="337" selection-end="337" vertical-scroll-proportion="0.25595984">
               <folding />
             </state>
           </provider>
@@ -341,7 +350,7 @@
       <file leaf-file-name="RequestGroupDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestGroupDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
+            <state line="33" column="8" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -356,40 +365,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ProjectDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/ProjectDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="5" selection-start="1155" selection-end="1155" vertical-scroll-proportion="0.0">
+            <state line="39" column="8" selection-start="1070" selection-end="1070" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BiobankDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/BiobankDAOImpl.java">
+      <file leaf-file-name="AttachmentDAOImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/AttachmentDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0">
+            <state line="75" column="8" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.0">
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DAOImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="880" selection-end="880" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -398,17 +387,24 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/UserDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="21" column="27" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDAO.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="UserDAO.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/UserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="17" selection-start="269" selection-end="269" vertical-scroll-proportion="0.7759336">
+            <state line="14" column="17" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DAOImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="12" selection-start="1158" selection-end="1158" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -446,14 +442,14 @@
         <option value="$PROJECT_DIR$/src/main/java/bbmri/entities/User.java" />
         <option value="$PROJECT_DIR$/src/main/resources/texts_cs.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/texts.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/AttachmentDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/UserDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/BiobankDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/ProjectDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestGroupDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RoleDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/AttachmentDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/ProjectDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestGroupDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleQuestionDAOImpl.java" />
       </list>
@@ -534,7 +530,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1296" />
-    <option name="height" value="776" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -1042,9 +1038,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1064,7 +1060,7 @@
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\form" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserDaoTest">
+  <component name="RunManager" selected="Tomcat Server.index.jsp">
     <configuration default="false" name="index.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 7">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index.jsp" />
       <deployment>
@@ -1563,21 +1559,6 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Local">
       <deployment />
       <server-settings>
@@ -1594,6 +1575,21 @@
       </server-settings>
       <predefined_log_file id="Jetty" enabled="true" />
       <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote">
@@ -1625,8 +1621,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.UserDaoTest" />
-        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index.jsp" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.UserDaoTest" />
         <item index="2" class="java.lang.String" itemvalue="JUnit.HelloWorldTest2" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.HelloWorldTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.helloTest" />
@@ -1693,14 +1689,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="776" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40219092" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39593115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495935" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32979977" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
@@ -1709,20 +1704,21 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5164319" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27642277" sideWeight="0.24381626" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32707354" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22852512" sideWeight="0.3114241" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19286872" sideWeight="0.6025039" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33711508" sideWeight="0.48356807" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33711508" sideWeight="0.36619717" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.63380283" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39593115" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5164319" sideWeight="0.49675852" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.3943662" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6056338" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1824,43 +1820,25 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/entities/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="433" selection-end="433" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/texts.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="31" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.8285199">
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="ResourceBundle">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="31" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.8285199" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/texts_cs.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="16" selection-start="0" selection-end="7925" vertical-scroll-proportion="0.78909093">
-          <folding />
-        </state>
-      </provider>
       <provider editor-type-id="ResourceBundle">
         <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="16" selection-start="0" selection-end="7925" vertical-scroll-proportion="0.78909093" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/DAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="47" selection-start="377" selection-end="377" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/AttachmentDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="1239" selection-end="1239" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1872,25 +1850,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="880" selection-end="880" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/BiobankDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="0" selection-start="542" selection-end="542" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/ProjectDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="5" selection-start="1155" selection-end="1155" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1902,13 +1864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestGroupDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="660" selection-end="660" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RoleDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="499" selection-end="499" vertical-scroll-proportion="0.0">
@@ -1916,32 +1871,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleQuestionDAOImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0">
+        <state line="21" column="27" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/DAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="12" selection-start="1158" selection-end="1158" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/AttachmentDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="8" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/ProjectDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="8" selection-start="1070" selection-end="1070" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/RequestGroupDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="8" selection-start="965" selection-end="965" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="0" selection-start="621" selection-end="621" vertical-scroll-proportion="0.0">
+        <state line="28" column="8" selection-start="682" selection-end="682" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/UserDAOImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAOimpl/SampleQuestionDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="27" selection-start="364" selection-end="364" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="33" column="4" selection-start="953" selection-end="953" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/UserDAO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/DAO/AttachmentDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="269" selection-end="269" vertical-scroll-proportion="0.7759336">
+        <state line="16" column="5" selection-start="337" selection-end="337" vertical-scroll-proportion="0.25595984">
           <folding />
         </state>
       </provider>

@@ -26,13 +26,13 @@ public class AttachmentDAOImpl extends DAOImpl<Attachment> implements Attachment
     private EntityManager em;
 
     public void create(Attachment attachment) {
-        DAOUtils.notNull(attachment);
+        notNull(attachment);
         em.persist(attachment);
         createFolder(attachment);
     }
 
     public void remove(Attachment attachment) {
-        DAOUtils.notNull(attachment);
+        notNull(attachment);
         File file = new File(getPath(attachment));
         file.delete();
         File dir = new File("bbmri_data\\" + attachment.getProject().getId().toString());
@@ -50,7 +50,7 @@ public class AttachmentDAOImpl extends DAOImpl<Attachment> implements Attachment
     }
 
     public Attachment get(Long id) {
-        DAOUtils.notNull(id);
+        notNull(id);
         return em.find(Attachment.class, id);
     }
 
@@ -61,7 +61,7 @@ public class AttachmentDAOImpl extends DAOImpl<Attachment> implements Attachment
 
 
     void createFolder(Attachment attachment) {
-        DAOUtils.notNull(attachment);
+        notNull(attachment);
         File rootDir = new File("bbmri_data");
         if (!rootDir.exists()) {
             rootDir.mkdir();
@@ -73,7 +73,7 @@ public class AttachmentDAOImpl extends DAOImpl<Attachment> implements Attachment
     }
 
     public String getPath(Attachment attachment) {
-        DAOUtils.notNull(attachment);
+        notNull(attachment);
         return ("bbmri_data\\" + attachment.getProject().getId().toString() + "\\" + attachment.getId() + attachment.getAttachmentType().toString());
     }
 }

@@ -26,18 +26,18 @@ public class ProjectDAOImpl extends DAOImpl<Project> implements ProjectDAO {
     private EntityManager em;
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
-        DAOUtils.notNull(projectState);
+        notNull(projectState);
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
         return query.getResultList();
     }
 
     public List<Project> getAllByUser(User user) {
-        DAOUtils.notNull(user);
+        notNull(user);
         return user.getProjects();
     }
 
     public List<User> getAllUsersByProject(Project project) {
-        DAOUtils.notNull(project);
+        notNull(project);
         return project.getUsers();
     }
 }

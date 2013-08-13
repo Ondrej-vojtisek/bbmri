@@ -25,13 +25,13 @@ public class RequestGroupDAOImpl extends DAOImpl<RequestGroup> implements Reques
     private EntityManager em;
 
     public List<RequestGroup> getAllByProject(Project project) {
-         DAOUtils.notNull(project);
+         notNull(project);
          Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = project");
          return query.getResultList();
      }
 
     public List<SampleQuestion> getSelected(String query) {
-        DAOUtils.notNull(query);
+        notNull(query);
         String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();

@@ -26,7 +26,7 @@ public class SampleDAOImpl extends DAOImpl<Sample> implements SampleDAO {
     private EntityManager em;
 
     public List<Sample> getSelected(String query) {
-        DAOUtils.notNull(query);
+        notNull(query);
         String preparedQuery = "SELECT p FROM Sample p " + query;
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();

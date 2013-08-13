@@ -33,22 +33,22 @@ public abstract class DAOImpl<T> implements DAO<T> {
     }
 
     public void create(T t) {
-        DAOUtils.notNull(t);
+        notNull(t);
         em.persist(t);
     }
 
     public void remove(T t) {
-        DAOUtils.notNull(t);
+        notNull(t);
         em.remove(t);
     }
 
     public void update(T t) {
-        DAOUtils.notNull(t);
+        notNull(t);
         em.merge(t);
     }
 
     public T get(Long id) {
-            DAOUtils.notNull(id);
+            notNull(id);
             return em.find(entityClass, id);
         }
 
@@ -62,6 +62,13 @@ public abstract class DAOImpl<T> implements DAO<T> {
         String stringQuery = "SELECT COUNT (p) FROM " + entityClass.getSimpleName() + " p";
         Query query = em.createQuery(stringQuery);
         return Integer.parseInt(query.getSingleResult().toString());
+    }
+
+    public static void notNull(final Object o) throws IllegalArgumentException {
+        if (o == null) {
+            throw new IllegalArgumentException("Object to create can "
+                    + "not be a null object");
+        }
     }
 
 }
