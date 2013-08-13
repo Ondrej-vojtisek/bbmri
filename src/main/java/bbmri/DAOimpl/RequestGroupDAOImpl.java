@@ -21,9 +21,6 @@ import java.util.List;
 @Repository
 public class RequestGroupDAOImpl extends DAOImpl<RequestGroup> implements RequestGroupDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
     public List<RequestGroup> getAllByProject(Project project) {
          notNull(project);
          Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = project");

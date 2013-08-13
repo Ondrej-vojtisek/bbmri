@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class DAOImpl<T> implements DAO<T> {
 
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

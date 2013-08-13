@@ -22,9 +22,6 @@ import java.util.List;
 @Repository
 public class ProjectDAOImpl extends DAOImpl<Project> implements ProjectDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");

@@ -22,9 +22,6 @@ import java.util.List;
 @Repository
 public class SampleQuestionDAOImpl extends DAOImpl<SampleQuestion> implements SampleQuestionDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
     public List<SampleQuestion> getSelected(String query) {
         notNull(query);
         String preparedQuery = "SELECT p FROM SampleQuestion p " + query;

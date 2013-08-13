@@ -22,9 +22,6 @@ import java.util.List;
 @Repository
 public class AttachmentDAOImpl extends DAOImpl<Attachment> implements AttachmentDAO {
 
-    @PersistenceContext
-    private EntityManager em;
-
     public void create(Attachment attachment) {
         notNull(attachment);
         em.persist(attachment);
