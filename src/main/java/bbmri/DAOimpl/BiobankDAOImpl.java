@@ -39,7 +39,7 @@ public class BiobankDAOImpl implements BiobankDAO {
         em.merge(biobank);
     }
 
-    public List<Biobank> getAll() {
+    public List<Biobank> all() {
         Query query = em.createQuery("SELECT p FROM Biobank p");
         return query.getResultList();
     }
@@ -49,7 +49,7 @@ public class BiobankDAOImpl implements BiobankDAO {
         return em.find(Biobank.class, id);
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Biobank p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

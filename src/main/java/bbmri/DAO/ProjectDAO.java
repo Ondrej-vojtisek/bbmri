@@ -13,24 +13,12 @@ import java.util.List;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectDAO {
-
-    void create(Project project);
-
-    void remove(Project project);
-
-    void update(Project project);
-
-    Project get(Long id);
-
-    List<Project> getAll();
+public interface ProjectDAO extends DAO<Project> {
 
     List<Project> getAllByUser(User user);
 
     List<User> getAllUsersByProject(Project project);
 
     List<Project> getAllByProjectState(ProjectState projectState);
-
-    Integer getCount();
 
 }

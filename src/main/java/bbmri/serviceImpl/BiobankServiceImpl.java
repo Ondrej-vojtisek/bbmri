@@ -70,7 +70,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     public List<Biobank> getAll() {
         try {
-            List<Biobank> biobanks = biobankDAO.getAll();
+            List<Biobank> biobanks = biobankDAO.all();
             return biobanks;
         } catch (DataAccessException ex) {
             throw ex;
@@ -93,7 +93,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     public Integer getCount() {
         try {
-            return biobankDAO.getCount();
+            return biobankDAO.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -116,7 +116,7 @@ public class BiobankServiceImpl implements BiobankService {
     public List<User> getAllAdministrators(Long biobankId) {
         try {
             Biobank biobankDB = biobankDAO.get(biobankId);
-            List<User> users = userDAO.getAll();
+            List<User> users = userDAO.all();
             List<User> results = new ArrayList<User>();
             for (User user : users) {
                 if (user.getBiobank() != null) {

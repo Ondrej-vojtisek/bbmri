@@ -12,20 +12,8 @@ import java.util.List;
  * Time: 0:16
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleDAO {
-
-    void create(Sample sample);
-
-    void remove(Sample sample);
-
-    void update(Sample sample);
-
-    Sample get(Long id);
-
-    List<Sample> getAll();
+public interface SampleDAO extends DAO<Sample>{
 
     List<Sample> getSelected(String query);
-
-    Integer getCount();
 
 }

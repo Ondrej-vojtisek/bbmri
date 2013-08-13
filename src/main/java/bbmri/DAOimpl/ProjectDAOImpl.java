@@ -40,7 +40,7 @@ public class ProjectDAOImpl implements ProjectDAO {
         em.merge(project);
     }
 
-    public List<Project> getAll() {
+    public List<Project> all() {
         Query query = em.createQuery("SELECT p FROM Project p");
         return query.getResultList();
     }
@@ -66,7 +66,7 @@ public class ProjectDAOImpl implements ProjectDAO {
         return project.getUsers();
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Project p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

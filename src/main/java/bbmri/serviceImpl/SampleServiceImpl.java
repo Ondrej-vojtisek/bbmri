@@ -69,7 +69,7 @@ public class SampleServiceImpl implements SampleService {
 
     public List<Sample> getAll() {
         try {
-            List<Sample> samples = sampleDAO.getAll();
+            List<Sample> samples = sampleDAO.all();
             return samples;
         } catch (DataAccessException ex) {
             throw ex;
@@ -227,7 +227,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Integer getCount() {
         try {
-            return sampleDAO.getCount();
+            return sampleDAO.count();
         } catch (DataAccessException ex) {
             throw ex;
         }

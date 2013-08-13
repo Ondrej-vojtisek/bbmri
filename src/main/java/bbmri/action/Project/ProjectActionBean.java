@@ -2,21 +2,14 @@ package bbmri.action.Project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;
-import bbmri.io.ExcelImport;
-import bbmri.service.NotificationService;
-import bbmri.service.ProjectService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 

@@ -112,7 +112,7 @@ public class RequestServiceImpl implements RequestService {
 
     public List<Request> getAll() {
         try {
-            List<Request> requests = requestDAO.getAll();
+            List<Request> requests = requestDAO.all();
             return requests;
         } catch (DataAccessException ex) {
             throw ex;
@@ -130,7 +130,7 @@ public class RequestServiceImpl implements RequestService {
 
     public Integer getCount() {
         try {
-            return requestDAO.getCount();
+            return requestDAO.count();
         } catch (DataAccessException ex) {
             throw ex;
         }

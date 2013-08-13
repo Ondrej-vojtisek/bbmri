@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-    private UserDAO userDAO;
+        private UserDAO userDAO;
 
     @Autowired
     private RoleDAO roleDAO;
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAll() {
         try {
-            List<User> users = userDAO.getAll();
+            List<User> users = userDAO.all();
             return users;
         } catch (DataAccessException ex) {
             throw ex;
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
 
     public Integer getCount() {
         try {
-            return userDAO.getCount();
+            return userDAO.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getNonAdministratorUsers() {
         try {
-            List<User> users = userDAO.getAll();
+            List<User> users = userDAO.all();
             List<User> results = new ArrayList<User>();
             for(User user : users){
                 if(user.getBiobank() == null){
@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAdministratorsOfBiobank(Long biobankId) {
             try {
-                List<User> users = userDAO.getAll();
+                List<User> users = userDAO.all();
                 List<User> results = new ArrayList<User>();
                 for(User user : users){
                     if(user.getBiobank().getId() == biobankId){

@@ -38,7 +38,7 @@ public class RequestDAOImpl implements RequestDAO {
         em.merge(request);
     }
 
-    public List<Request> getAll() {
+    public List<Request> all() {
         Query query = em.createQuery("SELECT p FROM Request p");
         return query.getResultList();
     }
@@ -48,7 +48,7 @@ public class RequestDAOImpl implements RequestDAO {
         return em.find(Request.class, id);
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Request p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

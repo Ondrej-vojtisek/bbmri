@@ -13,19 +13,7 @@ import java.util.List;
  * Time: 20:33
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleQuestionDAO {
-    
-    void create(SampleQuestion sampleQuestion);
-    
-    void remove(SampleQuestion sampleQuestion);
-    
-    void update(SampleQuestion sampleQuestion);
-    
-    List<SampleQuestion> getAll();
-    
-    SampleQuestion get(Long id);
-    
-    Integer getCount();
+public interface SampleQuestionDAO extends DAO<SampleQuestion> {
 
     List<SampleQuestion> getSelected(String query);
     

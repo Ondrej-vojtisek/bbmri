@@ -96,7 +96,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
        public List<SampleQuestion> getAll() {
            try {
-               List<SampleQuestion> sampleQuestions = sampleQuestionDAO.getAll();
+               List<SampleQuestion> sampleQuestions = sampleQuestionDAO.all();
                return sampleQuestions;
            } catch (DataAccessException ex) {
                throw ex;

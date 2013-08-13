@@ -44,7 +44,7 @@ public class SampleDAOImpl implements SampleDAO {
         return em.find(Sample.class, id);
     }
 
-    public List<Sample> getAll() {
+    public List<Sample> all() {
         Query query = em.createQuery("SELECT p FROM Sample p");
         return query.getResultList();
     }
@@ -56,7 +56,7 @@ public class SampleDAOImpl implements SampleDAO {
         return queryDB.getResultList();
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Sample p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

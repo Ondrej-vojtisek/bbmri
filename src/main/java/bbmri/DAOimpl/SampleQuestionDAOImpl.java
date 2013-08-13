@@ -39,7 +39,7 @@ public class SampleQuestionDAOImpl implements SampleQuestionDAO {
         em.merge(sampleQuestion);
     }
 
-    public List<SampleQuestion> getAll(){
+    public List<SampleQuestion> all(){
         Query query = em.createQuery("SELECT p FROM SampleQuestion p");
         return query.getResultList();
     }
@@ -49,7 +49,7 @@ public class SampleQuestionDAOImpl implements SampleQuestionDAO {
          return em.find(SampleQuestion.class, id);
     }
 
-    public Integer getCount(){
+    public Integer count(){
         Query query = em.createQuery("SELECT COUNT (p) FROM SampleQuestion p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

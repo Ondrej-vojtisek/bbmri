@@ -39,7 +39,7 @@ public class RequestGroupDAOImpl implements RequestGroupDAO {
         em.merge(requestGroup);
     }
 
-    public List<RequestGroup> getAll() {
+    public List<RequestGroup> all() {
         Query query = em.createQuery("SELECT p FROM RequestGroup p");
         return query.getResultList();
     }
@@ -49,7 +49,7 @@ public class RequestGroupDAOImpl implements RequestGroupDAO {
         return em.find(RequestGroup.class, id);
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM RequestGroup p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

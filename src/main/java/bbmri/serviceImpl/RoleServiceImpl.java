@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
    
        public List<Role> getAll() {
            try {
-               List<Role> roles = roleDAO.getAll();
+               List<Role> roles = roleDAO.all();
                return roles;
            } catch (DataAccessException ex) {
                throw ex;

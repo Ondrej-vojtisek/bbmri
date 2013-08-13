@@ -13,19 +13,7 @@ import java.util.List;
  * Time: 21:51
  * To change this template use File | Settings | File Templates.
  */
-public interface AttachmentDAO {
-
-    void create(Attachment attachment);
-
-    void remove(Attachment attachment);
-
-    void update(Attachment attachment);
-
-    List<Attachment> getAll();
-
-    Attachment get(Long id);
-
-    Integer getCount();
+public interface AttachmentDAO extends DAO<Attachment> {
 
     String getPath(Attachment attachment);
 

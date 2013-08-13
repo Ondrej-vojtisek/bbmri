@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO{
 
     @PersistenceContext
     private EntityManager em;
@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
         em.merge(user);
     }
 
-    public List<User> getAll() {
+    public List<User> all() {
         Query query = em.createQuery("SELECT p FROM User p");
         return query.getResultList();
     }
@@ -50,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
         return em.find(User.class, id);
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM User p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

@@ -69,7 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public List<Project> getAll() {
-        List<Project> projects = projectDAO.getAll();
+        List<Project> projects = projectDAO.all();
         return projects;
     }
 
@@ -192,7 +192,7 @@ public class ProjectServiceImpl implements ProjectService {
         List<User> result = new ArrayList<User>();
         Project project;
         project = projectDAO.get(id);
-        List<User> allUsers = userDAO.getAll();
+        List<User> allUsers = userDAO.all();
         if (allUsers != null) {
             for (User user : allUsers) {
                 if (!user.getProjects().contains(project)) {
@@ -221,7 +221,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Integer getCount() {
-        return projectDAO.getCount();
+        return projectDAO.count();
     }
 
     public void saveAttachment(Long id, Attachment attachment) {
@@ -251,7 +251,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<Attachment> getAttachmentsByProject(Long id){
         Project projectDB = projectDAO.get(id);
-        List<Attachment> attachments = attachmentDAO.getAll();
+        List<Attachment> attachments = attachmentDAO.all();
         List<Attachment> results = new ArrayList<Attachment>();
         for(int i = 0; i < attachments.size(); i++){
             if(attachments.get(i).getProject().equals(projectDB)){

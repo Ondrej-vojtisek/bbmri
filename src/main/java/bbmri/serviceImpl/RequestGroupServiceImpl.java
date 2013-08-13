@@ -184,7 +184,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getAll() {
         try {
-            return requestGroupDAO.getAll();
+            return requestGroupDAO.all();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -200,7 +200,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public Integer getCount() {
         try {
-            return requestGroupDAO.getCount();
+            return requestGroupDAO.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -213,7 +213,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
                 return null;
             }
 
-            List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
+            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
             for (int i = 0; i < allRequestGroups.size(); i++) {
                 if (allRequestGroups.get(i).getProject().equals(projectDB)) {
@@ -236,7 +236,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
                 return null;
             }
 
-            List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
+            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
 
 
@@ -257,7 +257,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
         try {
-            List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
+            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
             for (int i = 0; i < allRequestGroups.size(); i++) {
                 if (allRequestGroups.get(i).getBiobank().getId().equals(biobankId) &&
@@ -287,7 +287,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             return null;
         }
         List<Request> results = new ArrayList<Request>();
-        List<Request> requests = requestDAO.getAll();
+        List<Request> requests = requestDAO.all();
 
 
         for (int i = 0; i < requests.size(); i++) {

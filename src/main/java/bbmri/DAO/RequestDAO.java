@@ -11,18 +11,6 @@ import java.util.List;
  * Time: 10:15
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestDAO {
-
-    void create(Request request);
-
-    void remove(Request request);
-
-    void update(Request request);
-
-    List<Request> getAll();
-
-    Request get(Long id);
-
-    Integer getCount();
+public interface RequestDAO extends DAO<Request> {
 
 }

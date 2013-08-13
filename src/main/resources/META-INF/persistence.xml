@@ -13,7 +13,6 @@
         <class>bbmri.entities.User</class>
         <class>bbmri.entities.RequestGroup</class>
         <class>bbmri.entities.Attachment</class>
-        <class>bbmri.entities.Notification</class>
         <class>bbmri.entities.SampleQuestion</class>
         <class>bbmri.entities.Role</class>
 
@@ -30,4 +29,33 @@
             <property name="hibernate.generateDdl" value="true"/>
         </properties>
     </persistence-unit>
+
+    <persistence-unit name="TestPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+        <class>bbmri.entities.Biobank</class>
+        <class>bbmri.entities.Project</class>
+        <class>bbmri.entities.Request</class>
+        <class>bbmri.entities.Sample</class>
+        <class>bbmri.entities.User</class>
+        <class>bbmri.entities.RequestGroup</class>
+        <class>bbmri.entities.Attachment</class>
+        <class>bbmri.entities.SampleQuestion</class>
+        <class>bbmri.entities.Role</class>
+
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:BBMRITestDB"/>
+            <property name="hibernate.connection.username" value="heslo"/>
+            <property name="hibernate.connection.password" value="heslo"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+
 </persistence>

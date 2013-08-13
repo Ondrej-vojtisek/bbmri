@@ -12,19 +12,7 @@ import java.util.List;
  * Time: 12:16
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestGroupDAO {
-
-    void create(RequestGroup requestGroup);
-
-    void remove(RequestGroup requestGroup);
-
-    void update(RequestGroup requestGroup);
-
-    List<RequestGroup> getAll();
-
-    RequestGroup get(Long id);
-
-    Integer getCount();
+public interface RequestGroupDAO extends DAO<RequestGroup> {
 
     List<RequestGroup> getAllByProject(Project project);
 

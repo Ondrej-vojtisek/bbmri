@@ -48,7 +48,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         em.merge(attachment);
     }
 
-    public List<Attachment> getAll() {
+    public List<Attachment> all() {
         Query query = em.createQuery("SELECT p FROM Attachment p");
         return query.getResultList();
     }
@@ -58,7 +58,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
         return em.find(Attachment.class, id);
     }
 
-    public Integer getCount() {
+    public Integer count() {
         Query query = em.createQuery("SELECT COUNT (p) FROM Attachment p");
         return Integer.parseInt(query.getSingleResult().toString());
     }

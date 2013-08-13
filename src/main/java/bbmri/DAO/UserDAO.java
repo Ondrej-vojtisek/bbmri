@@ -12,18 +12,6 @@ import java.util.List;
  * Time: 12:21
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDAO {
-
-    void create(User user);
-
-    void remove(User user);
-
-    void update(User user);
-
-    List<User> getAll();
-
-    User get(Long id);
-
-    Integer getCount();
+public interface UserDAO extends DAO<User>{
 
 }

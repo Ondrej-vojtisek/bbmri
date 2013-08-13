@@ -10,11 +10,17 @@ import java.util.List;
  * Time: 12:52
  * To change this template use File | Settings | File Templates.
  */
-public interface DAO<T, ID extends Serializable> {
+public interface DAO<T> {
 
-    public List<T> read();
-    public T read(ID id);
-    public void save(T t);
-    public void delete(T t);
-    public void commit();
+      List<T> all();
+
+      T get(Long id);
+
+      void create(T t);
+
+      void remove(T t);
+
+      void update(T t);
+
+      Integer count();
 }

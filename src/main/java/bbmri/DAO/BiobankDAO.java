@@ -12,17 +12,6 @@ import java.util.List;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankDAO {
+public interface BiobankDAO extends DAO<Biobank> {
 
-    void create(Biobank biobank);
-
-    void remove(Biobank biobank);
-
-    void update(Biobank biobank);
-
-    List<Biobank> getAll();
-
-    Biobank get(Long id);
-
-    Integer getCount();
 }

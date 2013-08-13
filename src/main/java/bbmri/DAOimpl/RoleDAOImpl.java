@@ -37,7 +37,7 @@ public class RoleDAOImpl implements RoleDAO {
            em.merge(role);
        }
    
-       public List<Role> getAll() {
+       public List<Role> all() {
            Query query = em.createQuery("SELECT p FROM Role p");
            return query.getResultList();
        }
@@ -47,9 +47,7 @@ public class RoleDAOImpl implements RoleDAO {
            return em.find(Role.class, id);
        }
 
-
-   
-       public Integer getCount() {
+       public Integer count() {
            Query query = em.createQuery("SELECT COUNT (p) FROM Role p");
            return Integer.parseInt(query.getSingleResult().toString());
        }

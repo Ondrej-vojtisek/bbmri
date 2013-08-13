@@ -11,18 +11,6 @@ import java.util.List;
  * Time: 12:55
  * To change this template use File | Settings | File Templates.
  */
-public interface RoleDAO {
-
-    void create(Role role);
-
-    void remove(Role role);
-
-    void update(Role role);
-
-    List<Role> getAll();
-
-    Role get(Long id);
-
-    Integer getCount();
+public interface RoleDAO extends DAO<Role> {
 
 }
