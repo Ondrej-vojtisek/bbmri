@@ -3,10 +3,8 @@ package bbmri.action;
 import bbmri.entities.Project;
 import bbmri.entities.Role;
 import bbmri.entities.User;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,20 +58,20 @@ public class AccountActionBean extends BasicActionBean {
         this.user = user;
     }
 
-    public List<String> getMyRoles(){
+    public List<String> getMyRoles() {
         List<String> roles = new ArrayList<String>();
-        for (Role role : getLoggedUser().getRoles()){
+        for (Role role : getLoggedUser().getRoles()) {
             roles.add(role.getName());
         }
         /*TODO - tohle bude muset byt udelano jinak*/
-        if(getLoggedUser().getBiobank() != null){
+        if (getLoggedUser().getBiobank() != null) {
             roles.add("Biobank operator of " + getLoggedUser().getBiobank().getName());
         }
-        if(getLoggedUser().getProjects() != null){
-            for(Project project : getLoggedUser().getProjects()){
-                if(project.getMainInvestigator().equals(getLoggedUser())){
+        if (getLoggedUser().getProjects() != null) {
+            for (Project project : getLoggedUser().getProjects()) {
+                if (project.getMainInvestigator().equals(getLoggedUser())) {
                     roles.add("Main investigation of project: " + project.getName());
-                }else{
+                } else {
                     roles.add("Working on a project: " + project.getName());
                 }
             }
@@ -109,16 +107,19 @@ public class AccountActionBean extends BasicActionBean {
         userService.update(userDB);
         return new RedirectResolution(this.getClass(), "display");
     }
+
     @DontValidate
     public Resolution changePassword() {
         User userDB = getLoggedUser();
         if (password != null && password2 != null) {
-            if (password.equals(password2))
+            if (password.equals(password2)) {
                 userDB.setPassword(password);
-            userService.update(userDB);
-            getContext().getMessages().add(
-                    new SimpleMessage("Password was changed")
-            );
+                userService.update(userDB);
+                getContext().getMessages().add(
+                        new SimpleMessage("Password was changed")
+                );
+
+            }
         }
         return new RedirectResolution(this.getClass(), "display");
     }

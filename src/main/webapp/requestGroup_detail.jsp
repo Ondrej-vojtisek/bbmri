@@ -47,7 +47,7 @@
 
                     <c:if test="${empty ab.requests}">
                         <tr>
-                            <td colspan="6"><f:message key="empty"/></td>
+                            <td colspan="7"><f:message key="empty"/></td>
                         </tr>
                     </c:if>
 
@@ -60,7 +60,7 @@
                             <td><c:out value="${request.sample.diagnosis}"/></td>
                             <td><c:out value="${request.sample.tissueType}"/></td>
                             <td><s:link beanclass="bbmri.action.RequestGroupDetailActionBean" event="edit">
-                                <s:param name="project.id" value="${request.id}"/>
+                                <s:param name="request" value="${request.id}"/>
                                 <f:message key="edit"/></s:link>
                             </td>
                         </tr>

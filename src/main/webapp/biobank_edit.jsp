@@ -23,7 +23,7 @@
         <s:form beanclass="bbmri.action.Biobank.BiobankActionBean">
         <fieldset>
             <legend><f:message key="biobank.administrators"/></legend>
-            <table id="sortable" cellspacing="0" class="tablesorter">
+            <table cellspacing="0" class="tablesorter">
                          <thead>
                          <tr>
                              <th><s:label name="name"/></th>
@@ -33,21 +33,17 @@
                          </thead>
                          <tbody>
 
-                         <c:if test="${empty ab.administrators}">
-                            <tr><td colspan="4"><f:message key="empty"/></td></tr>
-                         </c:if>
-
                          <c:forEach items="${ab.administrators}" var="user">
                              <tr>
                                  <td><c:out value="${user.name}"/></td>
                                  <td><c:out value="${user.surname}"/></td>
                                  <td>
-                                     <c:if test="${!user.equals(loggedUser)}">
+                                     <c:if test="${!user.equals(ab.loggedUser)}">
                                      <s:checkbox name="selected" value="${user.id}"/></c:if>
                                  </td>
 
-                                 <td><c:if test="${!user.equals(loggedUser)}">
-                                     <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                 <td><c:if test="${!user.equals(ab.loggedUser)}">
+                                     <s:link beanclass="bbmri.action.Biobank.BiobankActionBean"
                                              event="changeOwnership">
                                          <s:param name="user.id" value="${user.id}"/><f:message
                                              key="give_ownership"/></s:link>
@@ -58,23 +54,7 @@
                      </table>
                      <s:submit name="removeAll"><f:message key="remove_selected"/></s:submit>
                  </fieldset>
-            <fieldset>
-                          <legend><f:message key="all_users"/></legend>
-                          <table>
-                              <tr>
-                                  <th><f:message key="name"/></th>
-                                  <th><f:message key="surname"/></th>
-                              </tr>
-                              <c:forEach items="${ab.nonAdministrators}" var="user" varStatus="loop">
-                                  <tr>
-                                      <td><c:out value="${user.name}"/></td>
-                                      <td><c:out value="${user.surname}"/></td>
-                                      <td><s:checkbox name="selectedApprove" value="${user.id}"/></td>
-                                  </tr>
-                              </c:forEach>
-                          </table>
-                          <s:submit name="assignAll"><f:message key="assign_selected"/></s:submit>
-                      </fieldset>
+
 
         </s:form>
     </s:layout-component>

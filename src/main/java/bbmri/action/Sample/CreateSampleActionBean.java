@@ -102,7 +102,7 @@ public class CreateSampleActionBean extends BasicActionBean {
         Integer added = 0;
         if (biobank != null) {
             for (int i = 0; i < numOfRandom; i++) {
-                generateSample();
+                generateSample(i);
                 sampleService.create(sample, biobank.getId());
                 added = i + 1;
             }
@@ -114,7 +114,7 @@ public class CreateSampleActionBean extends BasicActionBean {
     }
 
     @DontValidate
-    public void generateSample() {
+    public void generateSample(Integer i) {
         RandomStringUtils randomStringUtils = new RandomStringUtils();
         Random generator = new Random();
         sample = new Sample();
@@ -126,5 +126,7 @@ public class CreateSampleActionBean extends BasicActionBean {
         sample.setTNM(randomStringUtils.random(7, true, true));
         sample.setpTNM(randomStringUtils.random(7, true, true));
         sample.setTissueType(randomStringUtils.random(2, true, true));
+        sample.setBiopticalReportYear("2013");
+        sample.setBiopticalReportNumber(i.toString());
     }
 }

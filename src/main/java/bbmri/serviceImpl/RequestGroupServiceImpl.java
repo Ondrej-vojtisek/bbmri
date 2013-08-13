@@ -228,20 +228,26 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getByBiobank(Long biobankId) {
         try {
-            List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
-            List<RequestGroup> results = new ArrayList<RequestGroup>();
+            if(biobankId == null){
+                return null;
+            }
             Biobank biobankDB = biobankDAO.get(biobankId);
             if (biobankDB == null) {
                 return null;
             }
 
-            for (int i = 0; i < allRequestGroups.size(); i++) {
-                if (allRequestGroups.get(i).getBiobank() == null) {
+            List<RequestGroup> allRequestGroups = requestGroupDAO.getAll();
+            List<RequestGroup> results = new ArrayList<RequestGroup>();
+
+
+            for (RequestGroup requestGroup : allRequestGroups) {
+                if (requestGroup.getBiobank() == null) {
                     continue;
-                } else if (allRequestGroups.get(i).getBiobank().equals(biobankDB)) {
-                    results.add(allRequestGroups.get(i));
+                } else if (requestGroup.getBiobank().equals(biobankDB)) {
+                    results.add(requestGroup);
                 }
             }
+
             return results;
 
         } catch (DataAccessException ex) {
@@ -285,8 +291,10 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
 
         for (int i = 0; i < requests.size(); i++) {
-            if (requests.get(i).getRequestGroup().equals(requestGroupDB)) {
-                results.add(requests.get(i));
+            if (requests.get(i).getRequestGroup() != null) {
+                if (requests.get(i).getRequestGroup().equals(requestGroupDB)) {
+                    results.add(requests.get(i));
+                }
             }
         }
         return results;

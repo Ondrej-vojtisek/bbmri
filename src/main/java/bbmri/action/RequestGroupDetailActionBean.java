@@ -2,7 +2,10 @@ package bbmri.action;
 
 import bbmri.entities.Request;
 import bbmri.entities.RequestGroup;
+import bbmri.entities.Sample;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +21,7 @@ import java.util.List;
  */
 @PermitAll
 @UrlBinding("/requestGroupDetail")
-public class RequestGroupDetailActionBean extends BasicActionBean{
+public class RequestGroupDetailActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -26,28 +29,64 @@ public class RequestGroupDetailActionBean extends BasicActionBean{
     private static final String REQUEST_DETAIL = "/requestDetail.jsp";
     private static final String REQUEST_DETAIL_EXPORT = "/requestGroup_detail_export.jsp";
 
-    public RequestGroup getRequestGroup(){
+    public RequestGroup getRequestGroup() {
         return getRequestGroupBSC();
     }
 
-    public List<Request> getRequests(){
-          return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
-      }
+    public List<Request> getRequests() {
+        return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
+    }
 
+    @ValidateNestedProperties(value = {
+                @Validate(on = {"update"}, required = true,
+                        field = "numOfRequested",
+                        minvalue = 1, maxvalue = 100)
+        })
+    private Request request;
+
+    public Request getRequest() {
+        if(request == null){
+            request = getRequestBSC();
+        }
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
+    }
+
+    public Sample getSample() {
+        return getRequest().getSample();
+    }
 
     @DefaultHandler
     @DontValidate
-    public Resolution requestGroupDetail(){
+    public Resolution requestGroupDetail() {
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 
-        @DontValidate
-        public Resolution edit(){
-            return new ForwardResolution(REQUEST_DETAIL);
-        }
+    @HandlesEvent("edit")
+    @DontValidate
+    public Resolution edit() {
+        Long requestId = Long.parseLong(getContext().getRequest().getParameter("request"));
+        Request request = requestService.getById(requestId);
+        getContext().setRequestId(requestId);
+
+        return new ForwardResolution(REQUEST_DETAIL);
+    }
 
     @DontValidate
-    public Resolution export(){
+    public Resolution export() {
         return new ForwardResolution(REQUEST_DETAIL_EXPORT);
     }
+
+    @DontValidate
+    public Resolution cancel() {
+        return new ForwardResolution(REQUESTGROUP_DETAIL);
+    }
+
+       public Resolution update() {
+        requestService.update(request);
+        return new ForwardResolution(REQUESTGROUP_DETAIL);
+       }
 }

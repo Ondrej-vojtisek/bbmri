@@ -38,16 +38,17 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     private Biobank biobank;
     private Project project;
+
     private SampleQuestion sampleQuestion;
 
-
+ /*
     @ValidateNestedProperties(value = {
             @Validate(field = "TNM", maxlength = 7),
             @Validate(field = "pTNM", maxlength = 7),
             @Validate(field = "grading", minvalue = 1, maxvalue = 8),
             @Validate(field = "tissueType", maxlength = 2),
             @Validate(field = "diagnosis", maxlength = 4)
-    })
+    })  */
     private Sample sample;
     private List<Sample> results;
     private List<Long> selected;
@@ -106,6 +107,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
+        getContext().setSampleQuestion(sampleQuestion);
+
         return new ForwardResolution(REQUEST);
     }
 
@@ -127,7 +130,6 @@ public class SampleQuestionActionBean extends BasicActionBean {
         return new ForwardResolution(REQUESTGROUP_ALL);
     }
 
-    @DontValidate
     public Resolution createSampleQuestion() {
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
         getContext().setSampleQuestion(null);
@@ -193,16 +195,15 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     @DontValidate
-    /*TODO: change num of requested to variable value*/
     public Resolution requestSelected() {
-
+        getSampleQuestion();
+        logger.debug("RequestSelected Selected> " + selected);
         List<Request> requests = new ArrayList<Request>();
         if (selected != null) {
             for (Long sampleId : selected) {
                 Request request = requestService.create(sampleId, 1);
                 requests.add(request);
             }
-
             RequestGroup requestGroup = requestGroupService.create(requests, sampleQuestion.getProject().getId());
             getContext().getMessages().add(
                     new SimpleMessage("Requests were created")
@@ -228,6 +229,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 
+    @DontValidate
     public List<RequestGroup> getAllRequestGroups() {
         return requestGroupService.getByBiobank(getLoggedUser().getBiobank().getId());
 
@@ -235,6 +237,9 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution reject() {
+
+        getSampleQuestion();
+
         sampleQuestion.setProcessed(true);
         sampleQuestion.setRequestState(RequestState.DENIED);
         sampleQuestionService.update(sampleQuestion);

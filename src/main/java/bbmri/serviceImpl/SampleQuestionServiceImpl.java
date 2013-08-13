@@ -34,6 +34,22 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
     @Autowired
     private ProjectDAO projectDAO;
 
+    public SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId){
+        try {
+                    sampleQuestionDAO.create(sampleQuestion);
+                    Biobank biobankDB = biobankDAO.get(biobankId);
+                    if (biobankDB != null) {
+                        sampleQuestion.setBiobank(biobankDB);
+                    }
+                    sampleQuestion.setProject(null);
+                    sampleQuestionDAO.update(sampleQuestion);
+                    return sampleQuestion;
+                } catch (DataAccessException ex) {
+                    throw ex;
+                }
+    }
+
+
     public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId) {
         try {
             sampleQuestionDAO.create(sampleQuestion);
@@ -41,11 +57,17 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
             if (biobankDB != null) {
                 sampleQuestion.setBiobank(biobankDB);
             }
+            if(projectId == null){
+                sampleQuestion.setProject(null);
+                sampleQuestionDAO.update(sampleQuestion);
+                return sampleQuestion;
+            }
+
             Project projectDB = projectDAO.get(projectId);
             if (projectDB != null) {
                 sampleQuestion.setProject(projectDB);
             }
-
+            sampleQuestionDAO.update(sampleQuestion);
             return sampleQuestion;
         } catch (DataAccessException ex) {
             throw ex;

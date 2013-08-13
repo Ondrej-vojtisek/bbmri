@@ -26,16 +26,31 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/editproject/{$event}/{project.id}")
+@UrlBinding("/editproject")
 public class EditProjectActionBean extends BasicActionBean {
 
     private static final String EDIT = "/project_edit.jsp";
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"}, field = "name", required = true),
-            @Validate(on = {"create"}, field = "annotation", required = true),
-            @Validate(on = {"create"}, field = "fundingOrganization", required = true),
-    })
+                @Validate(on = {"update"},
+                        field = "name",
+                        required = true),
+                @Validate(on = {"update"},
+                        field = "fundingOrganization",
+                        required = true),
+                @Validate(on = {"update"},
+                        field = "approvedBy",
+                        required = true),
+                @Validate(on = {"update"}, field = "mainInvestigator",
+                        required = true),
+                @Validate(on = {"update"}, field = "homeInstitution",
+                        required = true),
+                @Validate(on = {"update"}, field = "annotation",
+                                   required = true),
+                @Validate(on = {"update"}, field = "approvalStorage",
+                                  required = true)
+
+        })
     private Project project;
     private List<User> users;
     private User user;
@@ -110,7 +125,6 @@ public class EditProjectActionBean extends BasicActionBean {
         return new ForwardResolution(EDIT);
     }
 
-    @DontValidate
     public Resolution update() {
         projectService.update(project);
         return new ForwardResolution(ProjectActionBean.class);

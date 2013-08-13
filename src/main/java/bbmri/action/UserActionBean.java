@@ -5,6 +5,8 @@ import bbmri.io.ExcelImport;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +25,17 @@ public class UserActionBean extends BasicActionBean {
     private static final String ALL = "/user_all.jsp";
     private static final String CREATE = "/user_create.jsp";
 
+    @ValidateNestedProperties(value = {
+                    @Validate(on = {"create"},
+                            field = "name",
+                            required = true),
+                    @Validate(on = {"create"},
+                            field = "surname",
+                            required = true),
+                    @Validate(on = {"create"},
+                            field = "password",
+                            required = true)
+            })
     private User user;
     private Long id;
 
@@ -58,10 +71,9 @@ public class UserActionBean extends BasicActionBean {
     public Resolution createUser(){
         return new ForwardResolution(CREATE);
     }
-    @DontValidate
     public Resolution create() {
+        logger.debug("User: " + user);
 
-        user.setBiobank(null);
         userService.create(user);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)

@@ -27,4 +27,6 @@ public interface SampleQuestionService {
 
     SampleQuestion getById(Long id);
 
+    SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId);
+
 }

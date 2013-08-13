@@ -100,6 +100,9 @@ public class RequestServiceImpl implements RequestService {
             if (requestDB == null) {
                 return null;
             }
+            if(request.getNumOfRequested() != null){
+                requestDB.setNumOfRequested(request.getNumOfRequested());
+            }
             requestDAO.update(requestDB);
             return requestDB;
         } catch (DataAccessException ex) {

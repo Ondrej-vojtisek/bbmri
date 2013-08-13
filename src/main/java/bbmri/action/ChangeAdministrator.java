@@ -18,7 +18,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@UrlBinding("/ChangeAdministrator/{$event}/{user.id}")
+@UrlBinding("/ChangeAdministrator")
 public class ChangeAdministrator extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -51,7 +51,10 @@ public class ChangeAdministrator extends BasicActionBean {
 
     @DontValidate
     public Resolution changeAdministrator() {
+        logger.debug("Roles: " + getRoles());
+
         userService.changeAdministrator(getContext().getIdentifier(), user.getId());
+        logger.debug("Roles: " + getRoles());
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );

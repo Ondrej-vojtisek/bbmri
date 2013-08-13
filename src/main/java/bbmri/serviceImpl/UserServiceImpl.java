@@ -1,15 +1,19 @@
 package bbmri.serviceImpl;
 
+import bbmri.DAO.RoleDAO;
 import bbmri.DAO.UserDAO;
 import bbmri.entities.Role;
 import bbmri.entities.RoleType;
 import bbmri.entities.User;
 import bbmri.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,31 +27,16 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
     @Autowired
     private UserDAO userDAO;
 
+    @Autowired
+    private RoleDAO roleDAO;
+
     public User create(User user) {
         try {
-            if(user.getId() != null){
-                if(userDAO.get(user.getId()) != null){
-                    // TODO throw exception - There is already a user with the same ID in the database
-                    return null;
-                }
-//                Long id = user.getId();
-//                user.setId(null);
-//                userDAO.create(user);
-//                user.setId(id);
-                System.err.println("User: " + user);
-
-                user.setId(new Long(10));
-                System.err.println("User: " + user);
-
-                userDAO.update(user);
-
-                System.err.println("User: " + user);
-
-                return user;
-            }
             userDAO.create(user);
             return user;
         } catch (DataAccessException ex) {
@@ -114,9 +103,12 @@ public class UserServiceImpl implements UserService {
               User userDB = userDAO.get(userId);
               Role role = new Role(roleType.toString());
               if(userDB.getRoles().contains(role)){
-                  userDB.getRoles().remove(role);
-                  userDAO.update(userDB);
+                  Role roleDB = roleDAO.get(new Long(2));
+                  roleDB.getUser().remove(userDB);
+                  roleDAO.update(roleDB);
               }
+
+              userDAO.update(userDB);
               return userDB;
           } catch (DataAccessException ex) {
               throw ex;
@@ -128,9 +120,11 @@ public class UserServiceImpl implements UserService {
             User userDB = userDAO.get(userId);
             Role role = new Role(roleType.toString());
             if(!userDB.getRoles().contains(role)){
-                userDB.getRoles().add(role);
-                userDAO.update(userDB);
+                Role roleDB = roleDAO.get(new Long(2));
+                roleDB.getUser().add(userDB);
+                roleDAO.update(roleDB);
             }
+            userDAO.update(userDB);
             return userDB;
         } catch (DataAccessException ex) {
             throw ex;
@@ -139,8 +133,8 @@ public class UserServiceImpl implements UserService {
 
     public User changeAdministrator(Long oldAdminId, Long newAdminId) {
         try {
-            removeRole(oldAdminId, RoleType.ADMINISTRATOR);
             setRole(newAdminId, RoleType.ADMINISTRATOR);
+            removeRole(oldAdminId, RoleType.ADMINISTRATOR);
             return userDAO.get(oldAdminId);
         } catch (DataAccessException ex) {
             throw ex;
@@ -158,10 +152,35 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getNonAdministratorUsers() {
         try {
-            return userDAO.getAllNonAdministratorUsers();
+            List<User> users = userDAO.getAll();
+            List<User> results = new ArrayList<User>();
+            for(User user : users){
+                if(user.getBiobank() == null){
+                    results.add(user);
+                }
+            }
+
+            return results;
         } catch (DataAccessException ex) {
             throw ex;
         }
 
     }
+
+    public List<User> getAdministratorsOfBiobank(Long biobankId) {
+            try {
+                List<User> users = userDAO.getAll();
+                List<User> results = new ArrayList<User>();
+                for(User user : users){
+                    if(user.getBiobank().getId() == biobankId){
+                        results.add(user);
+                    }
+                }
+
+                return results;
+            } catch (DataAccessException ex) {
+                throw ex;
+            }
+
+        }
 }

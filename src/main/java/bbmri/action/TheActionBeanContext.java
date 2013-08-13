@@ -30,6 +30,7 @@ public class TheActionBeanContext extends ActionBeanContext {
     private static final String PROJECT_ID = "project";
     private static final String BIOBANK_ID = "biobank";
     private static final String REQUEST_GROUP_ID = "requestGroup";
+    private static final String REQUEST_ID = "request";
 
 
     /**
@@ -101,25 +102,45 @@ public class TheActionBeanContext extends ActionBeanContext {
               }
           }
 
-    public void setRequestGroupId(Long id) {
-           setCurrent(REQUEST_GROUP_ID, id);
+    public void setRequestId(Long id) {
+           setCurrent(REQUEST_ID, id);
        }
-       public Long getRequestGroupId() {
-           return getCurrent(REQUEST_GROUP_ID, null);
+       public Long getRequestId() {
+           return getCurrent(REQUEST_ID, null);
        }
-       public void dropRequestGroupId() {
-           setCurrent(REQUEST_GROUP_ID, null);
+       public void dropRequestId() {
+           setCurrent(REQUEST_ID, null);
        }
-       public void setRequestGroupId(RequestGroup requestGroup) {
+       public void setRequestId(Request request) {
            // Forget the value
-           dropRequestGroupId();
+           dropRequestId();
 
            // When user is given
-           if (requestGroup != null) {
+           if (request != null) {
                // Update the identifier
-               setRequestGroupId(requestGroup.getId());
+               setRequestId(request.getId());
            }
        }
+
+    public void setRequestGroupId(Long id) {
+               setCurrent(REQUEST_GROUP_ID, id);
+           }
+           public Long getRequestGroupId() {
+               return getCurrent(REQUEST_GROUP_ID, null);
+           }
+           public void dropRequestGroupId() {
+               setCurrent(REQUEST_GROUP_ID, null);
+           }
+           public void setRequestGroupId(RequestGroup requestGroup) {
+               // Forget the value
+               dropRequestGroupId();
+
+               // When user is given
+               if (requestGroup != null) {
+                   // Update the identifier
+                   setRequestGroupId(requestGroup.getId());
+               }
+           }
 
 
     public Project getProject() {

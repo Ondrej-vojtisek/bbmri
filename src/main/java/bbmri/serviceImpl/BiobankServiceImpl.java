@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,58 +99,73 @@ public class BiobankServiceImpl implements BiobankService {
         }
     }
 
-    public User removeAdministratorFromBiobank(Long userId, Long biobankId){
+    public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
         try {
             User userDB = userDAO.get(userId);
             Biobank biobankDB = biobankDAO.get(biobankId);
-            if(userDB.getBiobank().equals(biobankDB)){
+            if (userDB.getBiobank().equals(biobankDB)) {
                 userDB.setBiobank(null);
                 userDAO.update(userDB);
             }
             return userDB;
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
     }
 
     public List<User> getAllAdministrators(Long biobankId) {
-          Biobank biobankDB = biobankDAO.get(biobankId);
-          return  userDAO.getAllAdministratorsOfBiobank(biobankDB);
-      }
+        try {
+            Biobank biobankDB = biobankDAO.get(biobankId);
+            List<User> users = userDAO.getAll();
+            List<User> results = new ArrayList<User>();
+            for (User user : users) {
+                if (user.getBiobank() != null) {
+                    if (user.getBiobank().equals(biobankDB)) {
+                        results.add(user);
+                    }
+                }
+            }
+            return results;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
 
     public Biobank changeOwnership(Long biobankId, Long newOwnerId) {
-          Biobank biobank = biobankDAO.get(biobankId);
-          User newOwner = userDAO.get(newOwnerId);
-          User oldOwner = userDAO.get(biobank.getOwner().getId());
+        Biobank biobank = biobankDAO.get(biobankId);
+        User newOwner = userDAO.get(newOwnerId);
+        User oldOwner = userDAO.get(biobank.getOwner().getId());
 
-          if (biobank.getAdministrators().contains(newOwner)) {
-              biobank.getAdministrators().remove(oldOwner);
-              biobank.getAdministrators().remove(newOwner);
-              biobankDAO.update(biobank);
-              biobank.getAdministrators().add(0, newOwner);
-              biobank.getAdministrators().add(oldOwner);
-              biobankDAO.update(biobank);
-          }
-          return biobank;
-      }
+        if (biobank.getAdministrators().contains(oldOwner)) {
+            biobank.getAdministrators().remove(oldOwner);
+            if (biobank.getAdministrators().contains(newOwner)) {
+                biobank.getAdministrators().remove(newOwner);
+            }
+            biobankDAO.update(biobank);
+            biobank.getAdministrators().add(0, newOwner);
+            biobank.getAdministrators().add(oldOwner);
+            biobankDAO.update(biobank);
+        }
+        return biobank;
+    }
 
     public User assignAdministrator(Long userId, Long biobankId) {
-           User userDB = userDAO.get(userId);
-           Biobank biobankDB = biobankDAO.get(biobankId);
-           if(userDB.getBiobank() == null){
-               userDB.setBiobank(biobankDB);
-               userDAO.update(userDB);
-           }
-           return userDB;
-       }
+        User userDB = userDAO.get(userId);
+        Biobank biobankDB = biobankDAO.get(biobankId);
+        if (userDB.getBiobank() == null) {
+            userDB.setBiobank(biobankDB);
+            userDAO.update(userDB);
+        }
+        return userDB;
+    }
 
     public Biobank getById(Long id) {
-          try {
-              Biobank biobankDB = biobankDAO.get(id);
-              return biobankDB;
-          } catch (DataAccessException ex) {
-              throw ex;
-          }
-      }
+        try {
+            Biobank biobankDB = biobankDAO.get(id);
+            return biobankDB;
+        } catch (DataAccessException ex) {
+            throw ex;
+        }
+    }
 
 }

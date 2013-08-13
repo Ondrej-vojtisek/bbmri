@@ -133,9 +133,10 @@
                                 <li <c:if test="${secondarymenu == 'sample_create'}"> class="active" </c:if> ><s:link
                                         beanclass="bbmri.action.Sample.CreateSampleActionBean"><f:message
                                         key="sample_create"/></s:link></li>
+                                <%--
                                 <li <c:if test="${secondarymenu == 'sample_withdraw'}"> class="active" </c:if> ><s:link
                                         beanclass="bbmri.action.Sample.SampleActionBean"><f:message
-                                        key="sample.withdraw"/></s:link></li>
+                                        key="sample.withdraw"/></s:link></li>     --%>
                                 <li <c:if test="${secondarymenu == 'requestGroup_all'}"> class="active" </c:if> ><s:link
                                         beanclass="bbmri.action.SampleQuestionActionBean"
                                         event="allRequestGroups"><f:message key="sample.requests"/></s:link></li>

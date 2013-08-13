@@ -1,5 +1,6 @@
 package bbmri.security;
 
+import bbmri.action.BasicActionBean;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.Resolution;

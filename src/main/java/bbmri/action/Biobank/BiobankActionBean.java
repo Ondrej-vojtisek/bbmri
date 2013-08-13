@@ -118,7 +118,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public List<User> getAdministrators() {
-        return biobankService.getAllAdministrators(getBiobank().getId());
+        return biobankService.getAllAdministrators(getLoggedUser().getBiobank().getId());
     }
 
     /* Methods */
@@ -176,7 +176,9 @@ public class BiobankActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution changeOwnership() {
-        biobankService.changeOwnership(getContext().getProject().getId(), user.getId());
+
+        logger.debug("New user = " + user);
+        biobankService.changeOwnership(getLoggedUser().getBiobank().getId(), user.getId());
         getContext().getMessages().add(
                 new SimpleMessage("Ownership of biobank was changed")
         );

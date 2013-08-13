@@ -24,4 +24,5 @@ public interface RoleDAO {
     Role get(Long id);
 
     Integer getCount();
+
 }

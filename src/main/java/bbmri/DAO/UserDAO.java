@@ -26,7 +26,4 @@ public interface UserDAO {
 
     Integer getCount();
 
-    List<User> getAllAdministratorsOfBiobank(Biobank biobank);
-
-    List<User> getAllNonAdministratorUsers();
 }

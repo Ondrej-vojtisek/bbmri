@@ -1,11 +1,8 @@
 package bbmri.action;
 
 import bbmri.action.Project.ProjectActionBean;
-import bbmri.entities.Project;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
-import bbmri.service.NotificationService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.*;
@@ -73,12 +70,9 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     public Resolution login() {
         logger.debug("Login");
         if (user != null) {
-            //getContext().setLoggedUser(user);
             getContext().setLoggedUser(user);
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
-      //  return new RedirectResolution("/dashboard.jsp");
-       // return new RedirectResolution("/TestPage.jsp");
         return new RedirectResolution(ProjectActionBean.class);
     }
 
@@ -95,12 +89,13 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
           if(id != null && password != null){
               user = loginService.login(id, password);
           }
-
           if(user == null){
               getContext().getMessages().add(
-                new SimpleMessage("Login incorrect")
-              );
+                      /*new LocalizableError("pokus") */
+                      new SimpleMessage("Login incorrect")
 
+              );
+              //            new SimpleMessage("Login incorrect")
           }
       }
 
@@ -118,12 +113,15 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
               // Display a global error message
              // errors.addGlobalError(new LocalizableError("allFieldsRequired"));
               getContext().getMessages().add(
-                             new SimpleMessage("allFieldsRequired")
+                             /*new SimpleMessage("allFieldsRequired")*/
+              new LocalizableError("allFieldsRequired")
                            );
           }
 
           // Implicit
           return null;
       }
+
+
 
 }

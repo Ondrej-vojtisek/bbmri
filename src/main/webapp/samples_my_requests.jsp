@@ -31,7 +31,6 @@
                         <th><s:label name="requestGroup.lastModification"/></th>
                         <th><s:label name="requestGroup.requestState"/></th>
                         <th><s:label name="biobank.name"/></th>
-                        <th class="noSort"><s:label name="actions"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,10 +46,7 @@
                             <td><c:out value="${requestGroup.lastModification}"/></td>
                             <td><f:message key="RequestState.${requestGroup.requestState}"/></td>
                             <td><c:out value="${requestGroup.biobank.name}"/></td>
-                            <td><s:link beanclass="bbmri.action.SampleQuestionActionBean" event="requestGroupDetail">
-                                <s:param name="requestGroup.id" value="${requestGroup.id}"/>
-                                <f:message key="detail"/></s:link>
-                            </td>
+
                         </tr>
 
                     </c:forEach>

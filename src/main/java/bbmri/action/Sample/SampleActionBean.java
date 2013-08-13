@@ -1,8 +1,7 @@
 package bbmri.action.Sample;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.Biobank;
-import bbmri.entities.Sample;
+import bbmri.entities.*;
 import bbmri.service.SampleService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -31,6 +30,7 @@ public class SampleActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/sample_withdraw.jsp";
     private static final String ALL = "/sample_all.jsp";
+    private static final String REQUESTGROUP_DETAIL = "/requestGroup_detail.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -133,8 +133,6 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     public Resolution find() {
-        results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
-        getContext().setSample(sample);
         return new ForwardResolution(WITHDRAW);
     }
 
@@ -145,4 +143,13 @@ public class SampleActionBean extends BasicActionBean {
         getContext().setSample(sample);
         return new ForwardResolution(EditSampleActionBean.class);
     }
+
+    @DontValidate
+        public Resolution requestSelected() {
+
+            logger.debug("selected: " + selectedSamples);
+
+            return new ForwardResolution(WITHDRAW);
+
+        }
 }

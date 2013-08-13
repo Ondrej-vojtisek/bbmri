@@ -9,6 +9,7 @@ import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,27 @@ public class ProjectActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
+
+    @ValidateNestedProperties(value = {
+             @Validate(on = {"create"},
+                     field = "name",
+                     required = true),
+             @Validate(on = {"create"},
+                     field = "fundingOrganization",
+                     required = true),
+             @Validate(on = {"create"},
+                     field = "approvedBy",
+                     required = true),
+             @Validate(on = {"create"}, field = "mainInvestigator",
+                     required = true),
+             @Validate(on = {"create"}, field = "homeInstitution",
+                     required = true),
+             @Validate(on = {"create"}, field = "annotation",
+                                required = true),
+             @Validate(on = {"create"}, field = "approvalStorage",
+                               required = true)
+
+     })
     private Project project;
         private FileBean attachmentFileBean;
 
@@ -52,8 +74,6 @@ public class ProjectActionBean extends BasicActionBean {
         }
 
         public Project getProject() {
-            if (project == null)
-                project = getContext().getProject();
             return project;
         }
 
@@ -106,7 +126,6 @@ public class ProjectActionBean extends BasicActionBean {
              return new ForwardResolution(CREATE_INFORMATION);
          }
 
-    @DontValidate
         public Resolution create() {
             Project projectNew = projectService.create(project, getLoggedUser());
             getContext().setProject(projectNew);

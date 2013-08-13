@@ -1,17 +1,16 @@
 package bbmri.action;
 
-import bbmri.entities.RequestGroup;
-import bbmri.entities.Role;
-import bbmri.entities.RoleType;
-import bbmri.entities.User;
+import bbmri.entities.*;
 import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
+import javax.servlet.jsp.jstl.core.Config;
+import javax.servlet.jsp.jstl.fmt.LocalizationContext;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -83,16 +82,12 @@ public class BasicActionBean implements ActionBean {
             return requestGroupService.getById(id);
         }
 
-    @PermitAll
-     @HandlesEvent("iamsecure")
-    public Resolution videt() {
-       return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-    }
+    public Request getRequestBSC(){
 
-     @RolesAllowed({"developer"})
-        @HandlesEvent("develop")
-       public Resolution pokus() {
-          return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-     }
+               Long id = ctx.getRequestId();
+               return requestService.getById(id);
+           }
+
+
 
 }

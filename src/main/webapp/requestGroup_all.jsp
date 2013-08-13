@@ -10,9 +10,7 @@
                  secondarymenu="requestGroup_all">
 
     <s:layout-component name="body">
-
-
-        <table id="sortable" cellspacing="0" class="tablesorter">
+        <table cellspacing="0" class="tablesorter">
             <thead>
             <tr>
                 <th><s:label name="id"/></th>
@@ -27,10 +25,9 @@
 
             <c:if test="${empty ab.allRequestGroups}">
                 <tr>
-                    <td colspan="8"><f:message key="empty"/></td>
+                    <td colspan="6"><f:message key="empty"/></td>
                 </tr>
             </c:if>
-
             <c:forEach items="${ab.allRequestGroups}" var="requestGroup">
                 <tr>
                     <td><c:out value="${requestGroup.id}"/></td>
@@ -41,8 +38,10 @@
                     <td><c:out value="${requestGroup.project.name}"/></td>
                 </tr>
             </c:forEach>
+
             </tbody>
         </table>
+
 
     </s:layout-component>
 </s:layout-render>

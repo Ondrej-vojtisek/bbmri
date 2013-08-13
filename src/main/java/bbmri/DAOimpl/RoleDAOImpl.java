@@ -46,6 +46,8 @@ public class RoleDAOImpl implements RoleDAO {
            DAOUtils.notNull(id);
            return em.find(Role.class, id);
        }
+
+
    
        public Integer getCount() {
            Query query = em.createQuery("SELECT COUNT (p) FROM Role p");

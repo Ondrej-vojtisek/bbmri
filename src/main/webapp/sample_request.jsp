@@ -10,6 +10,7 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+            <s:errors/>
             <fieldset>
                 <legend><f:message key="sample_request_create"/></legend>
                 <p>
@@ -37,12 +38,12 @@
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
-                <f:message key="select_biobank"/>
+                <s:label name="select_biobank"/>
                 <s:select name="biobank.id">
                     <s:option value=""><f:message key="select_one"/></s:option>
                     <s:options-collection collection="${ab.biobanks}" label="name" value="id"/>
                 </s:select>
-                <p><f:message key="samples_classification_description"/></p>
+                <p><s:label name="samples_classification_description"/></p>
                 <p><s:label for="z5" name="sampleQuestion.specification"/></p>
                 <s:textarea id="z5" name="sampleQuestion.specification"/>
 

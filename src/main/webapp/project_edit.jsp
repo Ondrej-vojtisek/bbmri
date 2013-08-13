@@ -48,12 +48,12 @@
                             <td><c:out value="${user.name}"/></td>
                             <td><c:out value="${user.surname}"/></td>
                             <td>
-                                <c:if test="${!user.equals(loggedUser)}">
+                                <c:if test="${!user.equals(ab.loggedUser)}">
                                     <s:checkbox name="selected" value="${user.id}"/>
                                 </c:if>
                             </td>
                             <td>
-                                <c:if test="${!user.equals(loggedUser)}">
+                                <c:if test="${!user.equals(ab.loggedUser)}">
                                 <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
                                         event="remove">
                                     <s:param name="user.id" value="${user.id}"/>
@@ -62,7 +62,7 @@
                                 </s:link>
                                 </c:if>
 
-                            <td><c:if test="${!user.equals(loggedUser)}">
+                            <td><c:if test="${!user.equals(ab.loggedUser)}">
                                 <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
                                         event="changeOwnership">
                                     <s:param name="user.id" value="${user.id}"/><f:message
