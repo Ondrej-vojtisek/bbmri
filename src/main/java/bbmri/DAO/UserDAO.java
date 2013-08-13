@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
@@ -12,6 +12,6 @@ import java.util.List;
  * Time: 12:21
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDAO extends DAO<User>{
+public interface UserDao extends BasicDao<User>{
 
 }

@@ -1,6 +1,6 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.UserDAO;
+import bbmri.dao.UserDao;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
     // temporal prosthesis
     public User login(Long id, String password) {
@@ -29,11 +29,11 @@ public class LoginServiceImpl implements LoginService {
         }
         boolean result = false;
         try {
-            User userDB = userDAO.get(id);
+            User userDB = userDao.get(id);
             if (userDB != null && userDB.getPassword() != null) {
                 if ((userDB.getPassword()).equals(password)) {
                     result = true;
-                    userDAO.update(userDB);
+                    userDao.update(userDB);
                 }
             }
             if (result) {
@@ -50,8 +50,8 @@ public class LoginServiceImpl implements LoginService {
             return;
         }
         try {
-            User userDB = userDAO.get(user.getId());
-            userDAO.update(userDB);
+            User userDB = userDao.get(user.getId());
+            userDao.update(userDB);
         } catch (DataAccessException ex) {
             throw ex;
         }

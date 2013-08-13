@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.ProjectDAO;
+import bbmri.dao.ProjectDao;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.User;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public class ProjectDAOImpl extends DAOImpl<Project> implements ProjectDAO {
+public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao {
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);

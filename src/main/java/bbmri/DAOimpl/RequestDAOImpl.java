@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.RequestDAO;
+import bbmri.dao.RequestDao;
 import bbmri.entities.Request;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +18,6 @@ import java.util.List;
  */
 
 @Repository
-public class RequestDAOImpl extends DAOImpl<Request> implements RequestDAO {
+public class RequestDaoImpl extends BasicDaoImpl<Request> implements RequestDao {
 
 }

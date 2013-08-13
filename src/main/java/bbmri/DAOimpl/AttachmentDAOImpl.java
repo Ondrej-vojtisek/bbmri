@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.AttachmentDAO;
+import bbmri.dao.AttachmentDao;
 import bbmri.entities.Attachment;
 import bbmri.entities.Project;
 import bbmri.entities.User;
@@ -20,7 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class AttachmentDAOImpl extends DAOImpl<Attachment> implements AttachmentDAO {
+public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements AttachmentDao {
 
     public void create(Attachment attachment) {
         notNull(attachment);

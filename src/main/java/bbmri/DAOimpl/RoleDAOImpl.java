@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.RoleDAO;
+import bbmri.dao.RoleDao;
 import bbmri.entities.Role;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +17,6 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class RoleDAOImpl extends DAOImpl<Role> implements RoleDAO {
+public class RoleDaoImpl extends BasicDaoImpl<Role> implements RoleDao {
 
 }

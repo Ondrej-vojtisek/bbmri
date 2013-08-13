@@ -1,6 +1,6 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.*;
+import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.service.RequestGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +22,23 @@ import java.util.*;
 public class RequestGroupServiceImpl implements RequestGroupService {
 
     @Autowired
-    private RequestDAO requestDAO;
+    private RequestDao requestDao;
 
     @Autowired
-    private ProjectDAO projectDAO;
+    private ProjectDao projectDao;
 
     @Autowired
-    private SampleDAO sampleDAO;
+    private SampleDao sampleDao;
 
     @Autowired
-    private BiobankDAO biobankDAO;
+    private BiobankDao biobankDao;
 
     @Autowired
-    private RequestGroupDAO requestGroupDAO;
+    private RequestGroupDao requestGroupDao;
 
     public RequestGroup create(RequestGroup requestGroup) {
         try {
-            requestGroupDAO.create(requestGroup);
+            requestGroupDao.create(requestGroup);
             return requestGroup;
 
         } catch (DataAccessException ex) {
@@ -48,7 +48,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public RequestGroup create(List<Request> requests, Long projectId) {
         try {
-            Project projectDB = projectDAO.get(projectId);
+            Project projectDB = projectDao.get(projectId);
             if (projectDB == null) {
                 return null;
             }
@@ -59,17 +59,17 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             requestGroup.setRequestState(RequestState.NEW);
 
             if (requests == null) {
-                requestGroupDAO.create(requestGroup);
+                requestGroupDao.create(requestGroup);
                 return requestGroup;
             }
             if (requests.isEmpty()) {
-                requestGroupDAO.create(requestGroup);
+                requestGroupDao.create(requestGroup);
                 return requestGroup;
             }
 
 
-            Request firstRequestDB = requestDAO.get(requests.get(0).getId());
-            Biobank biobankDB = biobankDAO.get(firstRequestDB.getSample().getBiobank().getId());
+            Request firstRequestDB = requestDao.get(requests.get(0).getId());
+            Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
 
             requestGroup.getRequests().add(firstRequestDB);
             requestGroup.setProject(projectDB);
@@ -77,7 +77,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             requestGroup.setCreated(created);
             requestGroup.setLastModification(created);
             requestGroup.setRequestState(RequestState.NEW);
-            requestGroupDAO.create(requestGroup);
+            requestGroupDao.create(requestGroup);
 
 
 
@@ -96,16 +96,16 @@ public class RequestGroupServiceImpl implements RequestGroupService {
                 } else {
                     RequestGroup requestGroupNew = new RequestGroup();
                     requestGroupNew.setProject(projectDB);
-                    Biobank biobankDBnew = biobankDAO.get(actualRequest.getSample().getBiobank().getId());
+                    Biobank biobankDBnew = biobankDao.get(actualRequest.getSample().getBiobank().getId());
                     requestGroupNew.setBiobank(biobankDBnew);
                     requestGroupNew.setCreated(created);
                     requestGroupNew.setLastModification(created);
                     requestGroupNew.setRequestState(RequestState.NEW);
 
-                    Request requestDBnew = requestDAO.get(actualRequest.getId());
+                    Request requestDBnew = requestDao.get(actualRequest.getId());
                     requestGroupNew.getRequests().add(requestDBnew);
 
-                    requestGroupDAO.create(requestGroupNew);
+                    requestGroupDao.create(requestGroupNew);
                     rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
                 }
             }
@@ -115,13 +115,13 @@ public class RequestGroupServiceImpl implements RequestGroupService {
                 Map.Entry entry = (Map.Entry) it.next();
                 RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
 
-                RequestGroup requestGroupDB = requestGroupDAO.get(requestGroupItem.getId());
+                RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
                 for (int i = 0; i < requestGroupItem.getRequests().size(); i++) {
                     Request request = requestGroupItem.getRequests().get(i);
                     request.setRequestGroup(requestGroupDB);
-                    requestDAO.update(request);
+                    requestDao.update(request);
                 }
-                requestGroupDAO.update(requestGroupDB);
+                requestGroupDao.update(requestGroupDB);
                 it.remove(); // avoids a ConcurrentModificationException
                 return requestGroup;
             }
@@ -134,7 +134,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public void remove(RequestGroup requestGroup) {
         try {
-            requestGroupDAO.remove(requestGroup);
+            requestGroupDao.remove(requestGroup);
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -142,9 +142,9 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public void remove(Long id) {
         try {
-            RequestGroup requestGroupDB = requestGroupDAO.get(id);
+            RequestGroup requestGroupDB = requestGroupDao.get(id);
             if (requestGroupDB != null) {
-                requestGroupDAO.remove(requestGroupDB);
+                requestGroupDao.remove(requestGroupDB);
             }
         } catch (DataAccessException ex) {
             throw ex;
@@ -153,7 +153,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public RequestGroup update(RequestGroup requestGroup) {
         try {
-            RequestGroup requestGroupDB = requestGroupDAO.get(requestGroup.getId());
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroup.getId());
             if (requestGroupDB == null) {
                 return null;
             }
@@ -175,7 +175,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             if (requestGroup.getRequestState() != null) {
                 requestGroupDB.setRequestState(requestGroup.getRequestState());
             }
-            requestGroupDAO.update(requestGroupDB);
+            requestGroupDao.update(requestGroupDB);
             return requestGroupDB;
         } catch (DataAccessException ex) {
             throw ex;
@@ -184,7 +184,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getAll() {
         try {
-            return requestGroupDAO.all();
+            return requestGroupDao.all();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -192,7 +192,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public RequestGroup getById(Long id) {
         try {
-            return requestGroupDAO.get(id);
+            return requestGroupDao.get(id);
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -200,7 +200,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public Integer getCount() {
         try {
-            return requestGroupDAO.count();
+            return requestGroupDao.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -208,12 +208,12 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getByProject(Long projectId) {
         try {
-            Project projectDB = projectDAO.get(projectId);
+            Project projectDB = projectDao.get(projectId);
             if (projectDB == null) {
                 return null;
             }
 
-            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
+            List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
             for (int i = 0; i < allRequestGroups.size(); i++) {
                 if (allRequestGroups.get(i).getProject().equals(projectDB)) {
@@ -231,12 +231,12 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             if(biobankId == null){
                 return null;
             }
-            Biobank biobankDB = biobankDAO.get(biobankId);
+            Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB == null) {
                 return null;
             }
 
-            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
+            List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
 
 
@@ -257,7 +257,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
         try {
-            List<RequestGroup> allRequestGroups = requestGroupDAO.all();
+            List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
             for (int i = 0; i < allRequestGroups.size(); i++) {
                 if (allRequestGroups.get(i).getBiobank().getId().equals(biobankId) &&
@@ -273,21 +273,21 @@ public class RequestGroupServiceImpl implements RequestGroupService {
 
     public void changeRequestState(Long requestGroupId, RequestState requestState) {
         try {
-            RequestGroup requestGroupDB = requestGroupDAO.get(requestGroupId);
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
             requestGroupDB.setRequestState(requestState);
-            requestGroupDAO.update(requestGroupDB);
+            requestGroupDao.update(requestGroupDB);
         } catch (DataAccessException ex) {
             throw ex;
         }
     }
 
     public List<Request> getRequestsByRequestGroup(Long id) {
-        RequestGroup requestGroupDB = requestGroupDAO.get(id);
+        RequestGroup requestGroupDB = requestGroupDao.get(id);
         if (requestGroupDB == null) {
             return null;
         }
         List<Request> results = new ArrayList<Request>();
-        List<Request> requests = requestDAO.all();
+        List<Request> requests = requestDao.all();
 
 
         for (int i = 0; i < requests.size(); i++) {

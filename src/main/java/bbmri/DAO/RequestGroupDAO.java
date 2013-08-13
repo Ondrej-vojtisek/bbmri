@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 12:16
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestGroupDAO extends DAO<RequestGroup> {
+public interface RequestGroupDao extends BasicDao<RequestGroup> {
 
     List<RequestGroup> getAllByProject(Project project);
 

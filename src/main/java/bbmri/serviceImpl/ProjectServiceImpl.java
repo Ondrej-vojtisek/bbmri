@@ -1,9 +1,9 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.AttachmentDAO;
-import bbmri.DAO.ProjectDAO;
-import bbmri.DAO.RequestGroupDAO;
-import bbmri.DAO.UserDAO;
+import bbmri.dao.AttachmentDao;
+import bbmri.dao.ProjectDao;
+import bbmri.dao.RequestGroupDao;
+import bbmri.dao.UserDao;
 import bbmri.entities.*;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,35 +25,35 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
     @Autowired
-    private ProjectDAO projectDAO;
+    private ProjectDao projectDao;
 
     @Autowired
-    private AttachmentDAO attachmentDAO;
+    private AttachmentDao attachmentDao;
 
     @Autowired
-    private RequestGroupDAO requestGroupDAO;
+    private RequestGroupDao requestGroupDao;
 
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
-        projectDAO.create(project);
-        User userDB = userDAO.get(user.getId());
+        projectDao.create(project);
+        User userDB = userDao.get(user.getId());
         project.getUsers().add(userDB);
-        projectDAO.update(project);
+        projectDao.update(project);
         return project;
     }
 
     public void remove(Long id) {
-        Project project = projectDAO.get(id);
+        Project project = projectDao.get(id);
         if (project != null) {
-            projectDAO.remove(project);
+            projectDao.remove(project);
         }
     }
 
     public Project update(Project project) {
-        Project projectDB = projectDAO.get(project.getId());
+        Project projectDB = projectDao.get(project.getId());
 
         if (projectDB.getProjectState() != ProjectState.NEW &&
                 project.getProjectState() != ProjectState.NEW &&
@@ -64,35 +64,35 @@ public class ProjectServiceImpl implements ProjectService {
         projectDB.setFundingOrganization(project.getFundingOrganization());
         projectDB.setName(project.getName());
 
-        projectDAO.update(projectDB);
+        projectDao.update(projectDB);
         return project;
     }
 
     public List<Project> getAll() {
-        List<Project> projects = projectDAO.all();
+        List<Project> projects = projectDao.all();
         return projects;
     }
 
     public List<Project> getAllByUser(Long id) {
-            User userDB = userDAO.get(id);
-            List<Project> projects = projectDAO.getAllByUser(userDB);
+            User userDB = userDao.get(id);
+            List<Project> projects = projectDao.getAllByUser(userDB);
             return projects;
     }
 
     public List<Project> getAllByUserWithRequests(Long id) {
-           User userDB = userDAO.get(id);
-           List<Project> projects = projectDAO.getAllByUser(userDB);
+           User userDB = userDao.get(id);
+           List<Project> projects = projectDao.getAllByUser(userDB);
            if(projects != null){
                for(int i = 0; i < projects.size(); i++){
-                  projects.get(i).setRequestGroups(requestGroupDAO.getAllByProject(projects.get(i)));
+                  projects.get(i).setRequestGroups(requestGroupDao.getAllByProject(projects.get(i)));
                }
            }
            return projects;
        }
 
     public List<Project> getAllWhichUserAdministrate(Long id) {
-        User userDB = userDAO.get(id);
-        List<Project> projects = projectDAO.getAllByUser(userDB);
+        User userDB = userDao.get(id);
+        List<Project> projects = projectDao.getAllByUser(userDB);
 
         List<Project> result = new ArrayList<Project>();
         if (projects != null) {
@@ -107,12 +107,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
-        List<Project> projects = projectDAO.getAllByProjectState(projectState);
+        List<Project> projects = projectDao.getAllByProjectState(projectState);
         return projects;
     }
 
     public List<Project> getAllApprovedByUser(User user) {
-        List<Project> projects = projectDAO.getAllByUser(user);
+        List<Project> projects = projectDao.getAllByUser(user);
         List<Project> result = new ArrayList<Project>();
         if (projects != null) {
             for (Project project : projects) {
@@ -127,72 +127,72 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     public User assignUser(Long userId, Long projectId) {
-        User userDB = userDAO.get(userId);
-        Project projectDB = projectDAO.get(projectId);
+        User userDB = userDao.get(userId);
+        Project projectDB = projectDao.get(projectId);
 
         if (!projectDB.getUsers().contains(userDB)) {
             projectDB.getUsers().add(userDB);
-            projectDAO.update(projectDB);
+            projectDao.update(projectDB);
         }
         return userDB;
     }
 
     public User removeUserFromProject(Long userId, Long projectId) {
-        User userDB = userDAO.get(userId);
-        Project projectDB = projectDAO.get(projectId);
+        User userDB = userDao.get(userId);
+        Project projectDB = projectDao.get(projectId);
         if (projectDB.getUsers().contains(userDB) == true) {
             projectDB.getUsers().remove(userDB);
-            projectDAO.update(projectDB);
+            projectDao.update(projectDB);
         }
         return userDB;
     }
 
     public List<User> getAllAssignedUsers(Long projectId) {
-        Project projectDB = projectDAO.get(projectId);
-        List<User> users = projectDAO.getAllUsersByProject(projectDB);
+        Project projectDB = projectDao.get(projectId);
+        List<User> users = projectDao.getAllUsersByProject(projectDB);
         return users;
     }
 
     public void approve(Long id) {
-        Project projectDB = projectDAO.get(id);
+        Project projectDB = projectDao.get(id);
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
-            projectDAO.update(projectDB);
+            projectDao.update(projectDB);
         }
 
     }
 
     public void approve(Long projectId, Long userId) {
-        Project projectDB = projectDAO.get(projectId);
-        User userDB = userDAO.get(userId);
+        Project projectDB = projectDao.get(projectId);
+        User userDB = userDao.get(userId);
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
             projectDB.setJudgedByUser(userDB);
-            projectDAO.update(projectDB);
+            projectDao.update(projectDB);
         }
     }
 
     public void deny(Long projectId, Long userId) {
-           Project projectDB = projectDAO.get(projectId);
-           User userDB = userDAO.get(userId);
+           Project projectDB = projectDao.get(projectId);
+           User userDB = userDao.get(userId);
            if (projectDB.getProjectState() == ProjectState.NEW) {
                projectDB.setProjectState(ProjectState.CANCELED);
                projectDB.setJudgedByUser(userDB);
-               projectDAO.update(projectDB);
+               projectDao.update(projectDB);
            }
        }
 
     public Project getById(Long id) {
         Project project;
-        project = projectDAO.get(id);
+        project = projectDao.get(id);
         return project;
     }
 
     public List<User> getAllNotAssignedUsers(Long id) {
         List<User> result = new ArrayList<User>();
         Project project;
-        project = projectDAO.get(id);
-        List<User> allUsers = userDAO.all();
+        project = projectDao.get(id);
+        List<User> allUsers = userDao.all();
         if (allUsers != null) {
             for (User user : allUsers) {
                 if (!user.getProjects().contains(project)) {
@@ -204,36 +204,36 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project changeOwnership(Long projectId, Long newOwnerId) {
-        Project project = projectDAO.get(projectId);
-        User newOwner = userDAO.get(newOwnerId);
+        Project project = projectDao.get(projectId);
+        User newOwner = userDao.get(newOwnerId);
 
-        User oldOwner = userDAO.get(project.getOwner().getId());
+        User oldOwner = userDao.get(project.getOwner().getId());
 
         if (project.getUsers().contains(newOwner)) {
             project.getUsers().remove(oldOwner);
             project.getUsers().remove(newOwner);
-            projectDAO.update(project);
+            projectDao.update(project);
             project.getUsers().add(0, newOwner);
             project.getUsers().add(oldOwner);
-            projectDAO.update(project);
+            projectDao.update(project);
         }
         return project;
     }
 
     public Integer getCount() {
-        return projectDAO.count();
+        return projectDao.count();
     }
 
     public void saveAttachment(Long id, Attachment attachment) {
-        Project projectDB = projectDAO.get(id);
+        Project projectDB = projectDao.get(id);
         attachment.setProject(projectDB);
-        attachmentDAO.create(attachment);
+        attachmentDao.create(attachment);
         projectDB.getAttachments().add(attachment);
-        projectDAO.update(projectDB);
+        projectDao.update(projectDB);
     }
 
     public Attachment getAttachmentByProject(Long id, AttachmentType attachmentType) {
-        Project projectDB = projectDAO.get(id);
+        Project projectDB = projectDao.get(id);
         List<Attachment> attachments = projectDB.getAttachments();
         if(attachments != null){
             for(int i = 0; i < attachments.size(); i++){
@@ -246,12 +246,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public String getAttachmentPath(Attachment attachment) {
-        return attachmentDAO.getPath(attachment);
+        return attachmentDao.getPath(attachment);
     }
 
     public List<Attachment> getAttachmentsByProject(Long id){
-        Project projectDB = projectDAO.get(id);
-        List<Attachment> attachments = attachmentDAO.all();
+        Project projectDB = projectDao.get(id);
+        List<Attachment> attachments = attachmentDao.all();
         List<Attachment> results = new ArrayList<Attachment>();
         for(int i = 0; i < attachments.size(); i++){
             if(attachments.get(i).getProject().equals(projectDB)){
@@ -262,6 +262,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Attachment getAttachmentById(Long id){
-        return attachmentDAO.get(id);
+        return attachmentDao.get(id);
     }
 }

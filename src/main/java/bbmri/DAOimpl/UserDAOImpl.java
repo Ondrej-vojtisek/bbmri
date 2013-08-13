@@ -1,7 +1,7 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
 
-import bbmri.DAO.UserDAO;
+import bbmri.dao.UserDao;
 import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class UserDAOImpl extends DAOImpl<User> implements UserDAO {
+public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
 }
 

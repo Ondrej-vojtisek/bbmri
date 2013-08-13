@@ -1,7 +1,7 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.BiobankDAO;
-import bbmri.DAO.UserDAO;
+import bbmri.dao.BiobankDao;
+import bbmri.dao.UserDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.entities.User;
@@ -26,16 +26,16 @@ import java.util.List;
 public class BiobankServiceImpl implements BiobankService {
 
     @Autowired
-    private BiobankDAO biobankDAO;
+    private BiobankDao biobankDao;
 
     @Autowired
-    private UserDAO userDAO;
+    private UserDao userDao;
 
     public Biobank create(Biobank biobank, Long administratorId) {
         try {
-            User adminDB = userDAO.get(administratorId);
+            User adminDB = userDao.get(administratorId);
             if (adminDB != null) {
-                biobankDAO.create(biobank);
+                biobankDao.create(biobank);
                 adminDB.setBiobank(biobank);
             }
             return biobank;
@@ -46,9 +46,9 @@ public class BiobankServiceImpl implements BiobankService {
 
     public void remove(Long id) {
         try {
-            Biobank biobank = biobankDAO.get(id);
+            Biobank biobank = biobankDao.get(id);
             if (biobank != null) {
-                biobankDAO.remove(biobank);
+                biobankDao.remove(biobank);
             }
         } catch (DataAccessException ex) {
             throw ex;
@@ -57,11 +57,11 @@ public class BiobankServiceImpl implements BiobankService {
 
     public Biobank update(Biobank biobank) {
         try {
-            Biobank biobankDB = biobankDAO.get(biobank.getId());
+            Biobank biobankDB = biobankDao.get(biobank.getId());
             biobankDB.setAddress(biobank.getAddress());
             biobankDB.setName(biobank.getName());
 
-            biobankDAO.update(biobankDB);
+            biobankDao.update(biobankDB);
             return biobankDB;
         } catch (DataAccessException ex) {
             throw ex;
@@ -70,7 +70,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     public List<Biobank> getAll() {
         try {
-            List<Biobank> biobanks = biobankDAO.all();
+            List<Biobank> biobanks = biobankDao.all();
             return biobanks;
         } catch (DataAccessException ex) {
             throw ex;
@@ -79,7 +79,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     public List<Sample> getAllSamples(Long biobankId) {
         try {
-            Biobank biobankDB = biobankDAO.get(biobankId);
+            Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB != null) {
                 return null;
             }
@@ -93,7 +93,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     public Integer getCount() {
         try {
-            return biobankDAO.count();
+            return biobankDao.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -101,11 +101,11 @@ public class BiobankServiceImpl implements BiobankService {
 
     public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
         try {
-            User userDB = userDAO.get(userId);
-            Biobank biobankDB = biobankDAO.get(biobankId);
+            User userDB = userDao.get(userId);
+            Biobank biobankDB = biobankDao.get(biobankId);
             if (userDB.getBiobank().equals(biobankDB)) {
                 userDB.setBiobank(null);
-                userDAO.update(userDB);
+                userDao.update(userDB);
             }
             return userDB;
         } catch (DataAccessException ex) {
@@ -115,8 +115,8 @@ public class BiobankServiceImpl implements BiobankService {
 
     public List<User> getAllAdministrators(Long biobankId) {
         try {
-            Biobank biobankDB = biobankDAO.get(biobankId);
-            List<User> users = userDAO.all();
+            Biobank biobankDB = biobankDao.get(biobankId);
+            List<User> users = userDao.all();
             List<User> results = new ArrayList<User>();
             for (User user : users) {
                 if (user.getBiobank() != null) {
@@ -132,36 +132,36 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public Biobank changeOwnership(Long biobankId, Long newOwnerId) {
-        Biobank biobank = biobankDAO.get(biobankId);
-        User newOwner = userDAO.get(newOwnerId);
-        User oldOwner = userDAO.get(biobank.getOwner().getId());
+        Biobank biobank = biobankDao.get(biobankId);
+        User newOwner = userDao.get(newOwnerId);
+        User oldOwner = userDao.get(biobank.getOwner().getId());
 
         if (biobank.getAdministrators().contains(oldOwner)) {
             biobank.getAdministrators().remove(oldOwner);
             if (biobank.getAdministrators().contains(newOwner)) {
                 biobank.getAdministrators().remove(newOwner);
             }
-            biobankDAO.update(biobank);
+            biobankDao.update(biobank);
             biobank.getAdministrators().add(0, newOwner);
             biobank.getAdministrators().add(oldOwner);
-            biobankDAO.update(biobank);
+            biobankDao.update(biobank);
         }
         return biobank;
     }
 
     public User assignAdministrator(Long userId, Long biobankId) {
-        User userDB = userDAO.get(userId);
-        Biobank biobankDB = biobankDAO.get(biobankId);
+        User userDB = userDao.get(userId);
+        Biobank biobankDB = biobankDao.get(biobankId);
         if (userDB.getBiobank() == null) {
             userDB.setBiobank(biobankDB);
-            userDAO.update(userDB);
+            userDao.update(userDB);
         }
         return userDB;
     }
 
     public Biobank getById(Long id) {
         try {
-            Biobank biobankDB = biobankDAO.get(id);
+            Biobank biobankDB = biobankDao.get(id);
             return biobankDB;
         } catch (DataAccessException ex) {
             throw ex;

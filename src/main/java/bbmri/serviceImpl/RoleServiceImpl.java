@@ -1,6 +1,6 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.RoleDAO;
+import bbmri.dao.RoleDao;
 import bbmri.entities.Role;
 import bbmri.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     
     @Autowired
-       private RoleDAO roleDAO;
+       private RoleDao roleDao;
    
        public Role create(Role role) {
            try {
-               roleDAO.create(role);
+               roleDao.create(role);
                return role;
            } catch (DataAccessException ex) {
                throw ex;
@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
    
        public void remove(Role role) {
            try {
-               roleDAO.remove(role);
+               roleDao.remove(role);
            } catch (DataAccessException ex) {
                throw ex;
            }
@@ -43,9 +43,9 @@ public class RoleServiceImpl implements RoleService {
    
        public void remove(Long id) {
            try {
-               Role roleDB = roleDAO.get(id);
+               Role roleDB = roleDao.get(id);
                if (roleDB != null) {
-                   roleDAO.remove(roleDB);
+                   roleDao.remove(roleDB);
                }
            } catch (DataAccessException ex) {
                throw ex;
@@ -54,13 +54,13 @@ public class RoleServiceImpl implements RoleService {
    
        public Role update(Role role) {
            try {
-               Role roleDB = roleDAO.get(role.getId());
+               Role roleDB = roleDao.get(role.getId());
                if (roleDB == null) {
                    return null;
                }
                if (role.getName() != null) roleDB.setName(role.getName());
 
-               roleDAO.update(roleDB);
+               roleDao.update(roleDB);
                return role;
            } catch (DataAccessException ex) {
                throw ex;
@@ -69,7 +69,7 @@ public class RoleServiceImpl implements RoleService {
    
        public List<Role> getAll() {
            try {
-               List<Role> roles = roleDAO.all();
+               List<Role> roles = roleDao.all();
                return roles;
            } catch (DataAccessException ex) {
                throw ex;
@@ -78,7 +78,7 @@ public class RoleServiceImpl implements RoleService {
    
        public Role getById(Long id) {
            try {
-               Role roleDB = roleDAO.get(id);
+               Role roleDB = roleDao.get(id);
                return roleDB;
            } catch (DataAccessException ex) {
                throw ex;

@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.SampleQuestionDAO;
+import bbmri.dao.SampleQuestionDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.SampleQuestion;
@@ -20,7 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class SampleQuestionDAOImpl extends DAOImpl<SampleQuestion> implements SampleQuestionDAO {
+public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
 
     public List<SampleQuestion> getSelected(String query) {
         notNull(query);

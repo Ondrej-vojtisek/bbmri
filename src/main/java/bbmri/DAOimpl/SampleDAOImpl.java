@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.SampleDAO;
+import bbmri.dao.SampleDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.entities.User;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @Repository
-public class SampleDAOImpl extends DAOImpl<Sample> implements SampleDAO {
+public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
     public List<Sample> getSelected(String query) {
         notNull(query);

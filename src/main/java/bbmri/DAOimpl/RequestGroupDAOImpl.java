@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.RequestGroupDAO;
+import bbmri.dao.RequestGroupDao;
 import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
 import bbmri.entities.SampleQuestion;
@@ -19,7 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class RequestGroupDAOImpl extends DAOImpl<RequestGroup> implements RequestGroupDAO {
+public class RequestGroupDaoImpl extends BasicDaoImpl<RequestGroup> implements RequestGroupDao {
 
     public List<RequestGroup> getAllByProject(Project project) {
          notNull(project);

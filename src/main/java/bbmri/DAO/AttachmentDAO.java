@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Attachment;
 import bbmri.entities.Project;
@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 21:51
  * To change this template use File | Settings | File Templates.
  */
-public interface AttachmentDAO extends DAO<Attachment> {
+public interface AttachmentDao extends BasicDao<Attachment> {
 
     String getPath(Attachment attachment);
 

@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 20:33
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleQuestionDAO extends DAO<SampleQuestion> {
+public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
 
     List<SampleQuestion> getSelected(String query);
     

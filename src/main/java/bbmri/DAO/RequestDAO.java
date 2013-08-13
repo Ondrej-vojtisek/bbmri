@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Request;
 
@@ -11,6 +11,6 @@ import java.util.List;
  * Time: 10:15
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestDAO extends DAO<Request> {
+public interface RequestDao extends BasicDao<Request> {
 
 }

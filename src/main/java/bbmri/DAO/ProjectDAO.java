@@ -1,4 +1,4 @@
-package bbmri.DAO;
+package bbmri.dao;
 
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectDAO extends DAO<Project> {
+public interface ProjectDao extends BasicDao<Project> {
 
     List<Project> getAllByUser(User user);
 

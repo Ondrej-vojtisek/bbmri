@@ -1,7 +1,7 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.BiobankDAO;
-import bbmri.DAO.SampleDAO;
+import bbmri.dao.BiobankDao;
+import bbmri.dao.SampleDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
@@ -26,17 +26,17 @@ import java.util.List;
 public class SampleServiceImpl implements SampleService {
 
     @Autowired
-    private SampleDAO sampleDAO;
+    private SampleDao sampleDao;
 
     @Autowired
-    private BiobankDAO biobankDAO;
+    private BiobankDao biobankDao;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public Sample create(Sample sample, Long biobankId) {
         try {
-                    sampleDAO.create(sample);
-                    Biobank biobank = biobankDAO.get(biobankId);
+                    sampleDao.create(sample);
+                    Biobank biobank = biobankDao.get(biobankId);
                     if (biobank != null) {
                         sample.setBiobank(biobank);
 
@@ -49,9 +49,9 @@ public class SampleServiceImpl implements SampleService {
 
     public void remove(Long id) {
         try {
-            Sample sample = sampleDAO.get(id);
+            Sample sample = sampleDao.get(id);
             if (sample != null) {
-                sampleDAO.remove(sample);
+                sampleDao.remove(sample);
             }
         } catch (DataAccessException ex) {
             throw ex;
@@ -60,7 +60,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Sample update(Sample sample) {
         try {
-            sampleDAO.update(sample);
+            sampleDao.update(sample);
             return sample;
         } catch (DataAccessException ex) {
             throw ex;
@@ -69,7 +69,7 @@ public class SampleServiceImpl implements SampleService {
 
     public List<Sample> getAll() {
         try {
-            List<Sample> samples = sampleDAO.all();
+            List<Sample> samples = sampleDao.all();
             return samples;
         } catch (DataAccessException ex) {
             throw ex;
@@ -78,7 +78,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Sample decreaseCount(Long sampleId, Integer requested) {
         try {
-            Sample sample = sampleDAO.get(sampleId);
+            Sample sample = sampleDao.get(sampleId);
             Integer available = sample.getNumOfAvailable();
             Integer numOfSamples = sample.getNumOfSamples();
             if ((available - requested) > 0) {
@@ -87,7 +87,7 @@ public class SampleServiceImpl implements SampleService {
             } else {
                 return sample;
             }
-            sampleDAO.update(sample);
+            sampleDao.update(sample);
             return sample;
         } catch (DataAccessException ex) {
             throw ex;
@@ -96,7 +96,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Sample withdrawSample(Long sampleId, Integer requested) {
           try {
-              Sample sample = sampleDAO.get(sampleId);
+              Sample sample = sampleDao.get(sampleId);
               Integer available = sample.getNumOfAvailable();
               Integer numOfSamples = sample.getNumOfSamples();
               if ((available - requested) >= 0) {
@@ -109,12 +109,12 @@ public class SampleServiceImpl implements SampleService {
                   return sample;
               }
               if(numOfSamples == 0){
-                  sampleDAO.remove(sample);
+                  sampleDao.remove(sample);
                   return null;
               }
               sample.setNumOfAvailable(available);
               sample.setNumOfSamples(numOfSamples);
-              sampleDAO.update(sample);
+              sampleDao.update(sample);
               return sample;
           } catch (DataAccessException ex) {
               throw ex;
@@ -162,7 +162,7 @@ public class SampleServiceImpl implements SampleService {
             query = query.substring(0, query.length() - 3);
         }
         try {
-            List<Sample> samples = sampleDAO.getSelected(query);
+            List<Sample> samples = sampleDao.getSelected(query);
 
             return samples;
         } catch (DataAccessException ex) {
@@ -218,7 +218,7 @@ public class SampleServiceImpl implements SampleService {
               query = query.substring(0, query.length() - 3);
           }
           try {
-              List<Sample> samples = sampleDAO.getSelected(query);
+              List<Sample> samples = sampleDao.getSelected(query);
               return samples;
           } catch (DataAccessException ex) {
               throw ex;
@@ -227,7 +227,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Integer getCount() {
         try {
-            return sampleDAO.count();
+            return sampleDao.count();
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -235,13 +235,13 @@ public class SampleServiceImpl implements SampleService {
 
     public List<Sample> getAllByBiobank(Long biobankId) {
         try {
-            Biobank biobankDB = biobankDAO.get(biobankId);
+            Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB == null) {
                 return null;
             }
             String query = "WHERE";
             query = query + " p.biobank.id ='" + biobankId.toString() + "'";
-            List<Sample> samples = sampleDAO.getSelected(query);
+            List<Sample> samples = sampleDao.getSelected(query);
 
             return samples;
         } catch (DataAccessException ex) {
@@ -251,7 +251,7 @@ public class SampleServiceImpl implements SampleService {
 
     public Sample getById(Long id) {
         try {
-            Sample sampleDB = sampleDAO.get(id);
+            Sample sampleDB = sampleDao.get(id);
             return sampleDB;
         } catch (DataAccessException ex) {
             throw ex;

@@ -1,9 +1,9 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.BiobankDAO;
-import bbmri.DAO.ProjectDAO;
-import bbmri.DAO.RequestDAO;
-import bbmri.DAO.SampleDAO;
+import bbmri.dao.BiobankDao;
+import bbmri.dao.ProjectDao;
+import bbmri.dao.RequestDao;
+import bbmri.dao.SampleDao;
 import bbmri.entities.Request;
 import bbmri.entities.Sample;
 import bbmri.service.RequestService;
@@ -26,22 +26,22 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     @Autowired
-    private RequestDAO requestDAO;
+    private RequestDao requestDao;
 
     @Autowired
-    private ProjectDAO projectDAO;
+    private ProjectDao projectDao;
 
     @Autowired
-    private SampleDAO sampleDAO;
+    private SampleDao sampleDao;
 
     @Autowired
-    private BiobankDAO biobankDAO;
+    private BiobankDao biobankDao;
 
 
     public Request create(Long sampleId, Integer numOfRequested) {
         try {
             Request request = new Request();
-            Sample sampleDB = sampleDAO.get(sampleId);
+            Sample sampleDB = sampleDao.get(sampleId);
 
             if (sampleDB != null) {
                 request.setSample(sampleDB);
@@ -49,9 +49,9 @@ public class RequestServiceImpl implements RequestService {
             if (numOfRequested > 0) {
                 request.setNumOfRequested(numOfRequested);
             }
-            requestDAO.create(request);
+            requestDao.create(request);
 
-            //requestDAO.update(request);
+            //requestDao.update(request);
             return request;
         } catch (DataAccessException ex) {
             throw ex;
@@ -62,12 +62,12 @@ public class RequestServiceImpl implements RequestService {
         try {
             Request request = new Request();
 
-            Sample sampleDB = sampleDAO.get(sampleId);
+            Sample sampleDB = sampleDao.get(sampleId);
 
             if (sampleDB != null) {
                 request.setSample(sampleDB);
             }
-            requestDAO.create(request);
+            requestDao.create(request);
             //update
             return request;
         } catch (DataAccessException ex) {
@@ -77,7 +77,7 @@ public class RequestServiceImpl implements RequestService {
 
     public void remove(Request request) {
         try {
-            requestDAO.remove(request);
+            requestDao.remove(request);
         } catch (DataAccessException ex) {
             throw ex;
         }
@@ -85,9 +85,9 @@ public class RequestServiceImpl implements RequestService {
 
     public void remove(Long id) {
         try {
-            Request requestDB = requestDAO.get(id);
+            Request requestDB = requestDao.get(id);
             if (requestDB != null) {
-                requestDAO.remove(requestDB);
+                requestDao.remove(requestDB);
             }
         } catch (DataAccessException ex) {
             throw ex;
@@ -96,14 +96,14 @@ public class RequestServiceImpl implements RequestService {
 
     public Request update(Request request) {
         try {
-            Request requestDB = requestDAO.get(request.getId());
+            Request requestDB = requestDao.get(request.getId());
             if (requestDB == null) {
                 return null;
             }
             if(request.getNumOfRequested() != null){
                 requestDB.setNumOfRequested(request.getNumOfRequested());
             }
-            requestDAO.update(requestDB);
+            requestDao.update(requestDB);
             return requestDB;
         } catch (DataAccessException ex) {
             throw ex;
@@ -112,7 +112,7 @@ public class RequestServiceImpl implements RequestService {
 
     public List<Request> getAll() {
         try {
-            List<Request> requests = requestDAO.all();
+            List<Request> requests = requestDao.all();
             return requests;
         } catch (DataAccessException ex) {
             throw ex;
@@ -121,7 +121,7 @@ public class RequestServiceImpl implements RequestService {
 
     public Request getById(Long id) {
         try {
-            Request request = requestDAO.get(id);
+            Request request = requestDao.get(id);
             return request;
         } catch (DataAccessException ex) {
             throw ex;
@@ -130,7 +130,7 @@ public class RequestServiceImpl implements RequestService {
 
     public Integer getCount() {
         try {
-            return requestDAO.count();
+            return requestDao.count();
         } catch (DataAccessException ex) {
             throw ex;
         }

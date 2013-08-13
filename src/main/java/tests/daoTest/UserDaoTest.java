@@ -1,6 +1,6 @@
 package tests.daoTest;
 
-import bbmri.DAO.UserDAO;
+import bbmri.dao.UserDao;
 import bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 public class UserDaoTest extends AbstractTest {
 
     @Autowired
-    UserDAO userDAO;
+    UserDao userDao;
 
     private User createTestUser() {
         User user = new User();
@@ -39,39 +39,39 @@ public class UserDaoTest extends AbstractTest {
     @Test
     public void create() {
         User user = createTestUser();
-        userDAO.create(user);
-        userDAO.get(user.getId());
-        assertEquals(user, userDAO.get(user.getId()));
+        userDao.create(user);
+        userDao.get(user.getId());
+        assertEquals(user, userDao.get(user.getId()));
     }
 
     @Test
     public void remove() {
         User user = createTestUser();
-        userDAO.create(user);
-        userDAO.remove(user);
-        assertEquals(null, userDAO.get(user.getId()));
+        userDao.create(user);
+        userDao.remove(user);
+        assertEquals(null, userDao.get(user.getId()));
     }
 
     @Test
     public void count() {
-        assertEquals(new Integer(0), userDAO.count());
+        assertEquals(new Integer(0), userDao.count());
         User user = createTestUser();
-        userDAO.create(user);
-        assertEquals(new Integer(1), userDAO.count());
-        userDAO.create(createTestUser2());
-        assertEquals(new Integer(2), userDAO.count());
-        userDAO.remove(user);
-        assertEquals(new Integer(1), userDAO.count());
+        userDao.create(user);
+        assertEquals(new Integer(1), userDao.count());
+        userDao.create(createTestUser2());
+        assertEquals(new Integer(2), userDao.count());
+        userDao.remove(user);
+        assertEquals(new Integer(1), userDao.count());
     }
 
     @Test
     public void all() {
-        assertEquals(new ArrayList<User>(), userDAO.all());
+        assertEquals(new ArrayList<User>(), userDao.all());
         User user = createTestUser();
-        userDAO.create(user);
-        assertEquals(user, userDAO.all().get(0));
-        userDAO.remove(user);
-        assertEquals(new ArrayList<User>(), userDAO.all());
+        userDao.create(user);
+        assertEquals(user, userDao.all().get(0));
+        userDao.remove(user);
+        assertEquals(new ArrayList<User>(), userDao.all());
     }
 
 

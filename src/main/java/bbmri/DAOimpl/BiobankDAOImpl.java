@@ -1,6 +1,6 @@
-package bbmri.DAOimpl;
+package bbmri.daoImpl;
 
-import bbmri.DAO.BiobankDAO;
+import bbmri.dao.BiobankDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,6 @@ import java.util.List;
  */
 
 @Repository
-public class BiobankDAOImpl extends DAOImpl<Biobank> implements BiobankDAO {
+public class BiobankDaoImpl extends BasicDaoImpl<Biobank> implements BiobankDao {
 
 }

@@ -1,8 +1,8 @@
 package bbmri.serviceImpl;
 
-import bbmri.DAO.BiobankDAO;
-import bbmri.DAO.ProjectDAO;
-import bbmri.DAO.SampleQuestionDAO;
+import bbmri.dao.BiobankDao;
+import bbmri.dao.ProjectDao;
+import bbmri.dao.SampleQuestionDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.SampleQuestion;
@@ -26,23 +26,23 @@ import java.util.List;
 public class SampleQuestionServiceImpl implements SampleQuestionService {
 
     @Autowired
-    private SampleQuestionDAO sampleQuestionDAO;
+    private SampleQuestionDao sampleQuestionDao;
 
     @Autowired
-    private BiobankDAO biobankDAO;
+    private BiobankDao biobankDao;
 
     @Autowired
-    private ProjectDAO projectDAO;
+    private ProjectDao projectDao;
 
     public SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId){
         try {
-                    sampleQuestionDAO.create(sampleQuestion);
-                    Biobank biobankDB = biobankDAO.get(biobankId);
+                    sampleQuestionDao.create(sampleQuestion);
+                    Biobank biobankDB = biobankDao.get(biobankId);
                     if (biobankDB != null) {
                         sampleQuestion.setBiobank(biobankDB);
                     }
                     sampleQuestion.setProject(null);
-                    sampleQuestionDAO.update(sampleQuestion);
+                    sampleQuestionDao.update(sampleQuestion);
                     return sampleQuestion;
                 } catch (DataAccessException ex) {
                     throw ex;
@@ -52,22 +52,22 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
     public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId) {
         try {
-            sampleQuestionDAO.create(sampleQuestion);
-            Biobank biobankDB = biobankDAO.get(biobankId);
+            sampleQuestionDao.create(sampleQuestion);
+            Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB != null) {
                 sampleQuestion.setBiobank(biobankDB);
             }
             if(projectId == null){
                 sampleQuestion.setProject(null);
-                sampleQuestionDAO.update(sampleQuestion);
+                sampleQuestionDao.update(sampleQuestion);
                 return sampleQuestion;
             }
 
-            Project projectDB = projectDAO.get(projectId);
+            Project projectDB = projectDao.get(projectId);
             if (projectDB != null) {
                 sampleQuestion.setProject(projectDB);
             }
-            sampleQuestionDAO.update(sampleQuestion);
+            sampleQuestionDao.update(sampleQuestion);
             return sampleQuestion;
         } catch (DataAccessException ex) {
             throw ex;
@@ -76,9 +76,9 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
     public void remove(Long id) {
         try {
-            SampleQuestion sampleQuestionDB = sampleQuestionDAO.get(id);
+            SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
             if (sampleQuestionDB != null) {
-                sampleQuestionDAO.remove(sampleQuestionDB);
+                sampleQuestionDao.remove(sampleQuestionDB);
             }
         } catch (DataAccessException ex) {
             throw ex;
@@ -87,7 +87,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
     public SampleQuestion update(SampleQuestion sampleQuestion) {
            try {
-               sampleQuestionDAO.update(sampleQuestion);
+               sampleQuestionDao.update(sampleQuestion);
                return sampleQuestion;
            } catch (DataAccessException ex) {
                throw ex;
@@ -96,7 +96,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
        public List<SampleQuestion> getAll() {
            try {
-               List<SampleQuestion> sampleQuestions = sampleQuestionDAO.all();
+               List<SampleQuestion> sampleQuestions = sampleQuestionDao.all();
                return sampleQuestions;
            } catch (DataAccessException ex) {
                throw ex;
@@ -110,7 +110,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
             }
             String query = "WHERE";
             query = query + " p.project.id ='" + project.getId().toString() + "'";
-            List<SampleQuestion> sampleQuestions = sampleQuestionDAO.getSelected(query);
+            List<SampleQuestion> sampleQuestions = sampleQuestionDao.getSelected(query);
             return sampleQuestions;
         } catch (DataAccessException ex) {
             throw ex;
@@ -125,7 +125,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
             String query = "WHERE";
             query = query + " p.biobank.id ='" + biobank.getId().toString() + "' AND " +
             "p.processed = 'f'";
-            List<SampleQuestion> sampleQuestions = sampleQuestionDAO.getSelected(query);
+            List<SampleQuestion> sampleQuestions = sampleQuestionDao.getSelected(query);
             return sampleQuestions;
         } catch (DataAccessException ex) {
             throw ex;
@@ -134,7 +134,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
 
     public SampleQuestion getById(Long id) {
               try {
-                  SampleQuestion sampleQuestionDB = sampleQuestionDAO.get(id);
+                  SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
                   return sampleQuestionDB;
               } catch (DataAccessException ex) {
                   throw ex;
