@@ -11,18 +11,6 @@ import java.util.List;
  * Time: 13:01
  * To change this template use File | Settings | File Templates.
  */
-public interface RoleService {
-    
-    Role create(Role role);
-   
-    void remove(Role role);
-   
-    void remove(Long id);
-   
-    Role update(Role role);
-   
-    List<Role> getAll();
-   
-    Role getById(Long id);
-    
+public interface RoleService extends BasicService<Role>{
+
 }

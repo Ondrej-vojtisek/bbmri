@@ -84,7 +84,7 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     public Integer getCount() {
-        return sampleService.getCount();
+        return sampleService.count();
     }
 
     public List<Sample> getResults() {
@@ -139,7 +139,7 @@ public class SampleActionBean extends BasicActionBean {
     @DontValidate
     @HandlesEvent("edit")
     public Resolution edit() {
-        sample = sampleService.getById(sample.getId());
+        sample = sampleService.get(sample.getId());
         getContext().setSample(sample);
         return new ForwardResolution(EditSampleActionBean.class);
     }

@@ -67,25 +67,25 @@ public class BasicActionBean implements ActionBean {
     public User getLoggedUser(){
 
         Long id = ctx.getIdentifier();
-        return userService.getById(id);
+        return userService.get(id);
     }
 
     public Set<Role> getRoles(){
         Long id = ctx.getIdentifier();
-        return userService.getById(id).getRoles();
+        return userService.get(id).getRoles();
 
     }
 
     public RequestGroup getRequestGroupBSC(){
 
             Long id = ctx.getRequestGroupId();
-            return requestGroupService.getById(id);
+            return requestGroupService.get(id);
         }
 
     public Request getRequestBSC(){
 
                Long id = ctx.getRequestId();
-               return requestService.getById(id);
+               return requestService.get(id);
            }
 
 

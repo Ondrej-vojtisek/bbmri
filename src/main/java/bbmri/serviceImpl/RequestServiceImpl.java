@@ -38,6 +38,16 @@ public class RequestServiceImpl implements RequestService {
     private BiobankDao biobankDao;
 
 
+    public Request create(Request request) {
+          try {
+              requestDao.create(request);
+              return request;
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
+
+
     public Request create(Long sampleId, Integer numOfRequested) {
         try {
             Request request = new Request();
@@ -110,7 +120,7 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    public List<Request> getAll() {
+    public List<Request> all() {
         try {
             List<Request> requests = requestDao.all();
             return requests;
@@ -119,7 +129,7 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    public Request getById(Long id) {
+    public Request get(Long id) {
         try {
             Request request = requestDao.get(id);
             return request;
@@ -128,7 +138,7 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    public Integer getCount() {
+    public Integer count() {
         try {
             return requestDao.count();
         } catch (DataAccessException ex) {

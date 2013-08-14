@@ -32,8 +32,8 @@
     <file path="/ApproveRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374761311096" ignored="false" />
     <file path="/requestGroup_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374788428456" ignored="false" />
     <file path="/MyActionBeanContext.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365338154212" ignored="false" />
-    <file path="/RequestGroupService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374806398580" ignored="false" />
-    <file path="/RequestGroupServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426433895" ignored="false" />
+    <file path="/RequestGroupService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429782745" ignored="false" />
+    <file path="/RequestGroupServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430074180" ignored="false" />
     <file path="/ReleaseSampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374781827921" ignored="false" />
     <file path="/sample_release.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362432643551" ignored="false" />
     <file path="/RequestGroup.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361315281277" ignored="false" />
@@ -42,7 +42,7 @@
     <file path="/createProjectForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363822241778" ignored="false" />
     <file path="/Project.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363719103590" ignored="false" />
     <file path="/ProjectDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406086679" ignored="false" />
-    <file path="/ProjectServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426516351" ignored="false" />
+    <file path="/ProjectServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430174954" ignored="false" />
     <file path="/project_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745305500" ignored="false" />
     <file path="/EditProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1373987981552" ignored="false" />
     <file path="/fragment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376424166312" ignored="false" />
@@ -81,7 +81,7 @@
     <file path="$PROJECT_DIR$/src/main/webapp/libs/tests/assets/ajax-content.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398849321" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/webapp/libs/docs/example-empty-table.html" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361398858599" ignored="false" />
     <file path="/a.dummy" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426880314" ignored="false" />
-    <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374752803775" ignored="false" />
+    <file path="/ProjectService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430025789" ignored="false" />
     <file path="/file.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361823090904" ignored="false" />
     <file path="/Attachment.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362392287475" ignored="false" />
     <file path="/AttachmentDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406120958" ignored="false" />
@@ -92,9 +92,9 @@
     <file path="/CreateProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363178395069" ignored="false" />
     <file path="/changeAdministrator.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1367275461458" ignored="false" />
     <file path="/AddSampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365324955615" ignored="false" />
-    <file path="/UserActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374805229759" ignored="false" />
+    <file path="/UserActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430510531" ignored="false" />
     <file path="/contentPage.css" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374754093073" ignored="false" />
-    <file path="/SampleRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374657397440" ignored="false" />
+    <file path="/SampleRequestActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430539443" ignored="false" />
     <file path="/AttachmentType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363131158165" ignored="false" />
     <file path="/project_create_ethical_agreement.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363132434659" ignored="false" />
     <file path="/biobank_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1373531997407" ignored="false" />
@@ -119,34 +119,34 @@
     <file path="/project_my_projects.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374696397599" ignored="false" />
     <file path="/sample_amortize.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365370896050" ignored="false" />
     <file path="/Biobank.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364927165727" ignored="false" />
-    <file path="/BiobankServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426573092" ignored="false" />
+    <file path="/BiobankServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430441146" ignored="false" />
     <file path="/EditBiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364995771813" ignored="false" />
     <file path="/Function.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374565287756" ignored="false" />
     <file path="/CreateBiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1363732415877" ignored="false" />
     <file path="/BiobankDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406100300" ignored="false" />
     <file path="/UserDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406891843" ignored="false" />
-    <file path="/UserServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426583918" ignored="false" />
-    <file path="/SampleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426544632" ignored="false" />
+    <file path="/UserServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428335195" ignored="false" />
+    <file path="/SampleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428587830" ignored="false" />
     <file path="/SampleDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406022138" ignored="false" />
-    <file path="/BiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374799530967" ignored="false" />
+    <file path="/BiobankActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430580581" ignored="false" />
     <file path="/SampleQuestion.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374757807712" ignored="false" />
     <file path="/SampleQuestionDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376402153074" ignored="false" />
     <file path="/SampleQuestionDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406005630" ignored="false" />
-    <file path="/SampleQuestionService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364929265839" ignored="false" />
-    <file path="/SampleQuestionServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426499998" ignored="false" />
+    <file path="/SampleQuestionService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428993623" ignored="false" />
+    <file path="/SampleQuestionServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429129526" ignored="false" />
     <file path="/SampleDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376402134585" ignored="false" />
-    <file path="/SampleQuestionActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374809196017" ignored="false" />
-    <file path="/BiobankService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364934438777" ignored="false" />
+    <file path="/SampleQuestionActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430590544" ignored="false" />
+    <file path="/BiobankService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430206430" ignored="false" />
     <file path="/samplequestion_create_request.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1367275544422" ignored="false" />
     <file path="/selectionCriteriaForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1364978601514" ignored="false" />
-    <file path="/ProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374796465247" ignored="false" />
+    <file path="/ProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430526902" ignored="false" />
     <file path="/AccountActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374741099180" ignored="false" />
     <file path="/AttachmentActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365266654460" ignored="false" />
-    <file path="/SampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374792625568" ignored="false" />
+    <file path="/SampleActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430610095" ignored="false" />
     <file path="/sample_question_detail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374803360688" ignored="false" />
     <file path="/requestGroup_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365349597959" ignored="false" />
     <file path="/requestGroup_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374745099709" ignored="false" />
-    <file path="/SampleService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365449941558" ignored="false" />
+    <file path="/SampleService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428424069" ignored="false" />
     <file path="/BasicActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376386594764" ignored="false" />
     <file path="/my_account.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374744898004" ignored="false" />
     <file path="/sample_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374656727711" ignored="false" />
@@ -164,7 +164,7 @@
     <file path="/ExcelImport.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1372767472895" ignored="false" />
     <file path="/User.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374590031370" ignored="false" />
     <file path="/IdAndCount.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1367236106333" ignored="false" />
-    <file path="/ChangeAdministrator.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374795078979" ignored="false" />
+    <file path="/ChangeAdministrator.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376430474761" ignored="false" />
     <file path="/sample_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374755563118" ignored="false" />
     <file path="/Sample.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374704549721" ignored="false" />
     <file path="/exportNIS.xsd" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1373448944276" ignored="false" />
@@ -218,7 +218,7 @@
     <file path="/Role.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374503559368" ignored="false" />
     <file path="/DataInit.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374491908042" ignored="false" />
     <file path="/DAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376403396514" ignored="false" />
-    <file path="/RoleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426526310" ignored="false" />
+    <file path="/RoleServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429481239" ignored="false" />
     <file path="/texts.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376405956931" ignored="false" />
     <file path="/errors.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374498062049" ignored="false" />
     <file path="/RoleTypes.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374565718988" ignored="false" />
@@ -237,7 +237,7 @@
     <file path="/requestDetail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374789611278" ignored="false" />
     <file path="/requestGroup_detail_export.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374784256966" ignored="false" />
     <file path="/RequestState.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374781513857" ignored="false" />
-    <file path="/RequestServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426560608" ignored="false" />
+    <file path="/RequestServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429718875" ignored="false" />
     <file path="/createSampleForm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374800827243" ignored="false" />
     <file path="/Text.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376383567258" ignored="false" />
     <file path="$PROJECT_DIR$/../_repo_thalamoss/thalamoss/src/main/resources/translation/shared.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376388691160" ignored="false" />
@@ -256,7 +256,6 @@
     <file path="/BaseDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376400319655" ignored="false" />
     <file path="/UserDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376400714647" ignored="false" />
     <file path="/BiobankDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376401690696" ignored="false" />
-    <file path="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ProjectActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376401862820" ignored="false" />
     <file path="/RequestDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376401997878" ignored="false" />
     <file path="/RequestDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376406073322" ignored="false" />
     <file path="/RequestGroupDAO.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376402111975" ignored="false" />
@@ -287,6 +286,11 @@
     <file path="/BiobankDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426061419" ignored="false" />
     <file path="/LoginServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426533291" ignored="false" />
     <file path="/spring-context2.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376426893335" ignored="false" />
+    <file path="/BasicService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428099943" ignored="false" />
+    <file path="/UserService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428197273" ignored="false" />
+    <file path="/BasicServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376428251263" ignored="false" />
+    <file path="/RoleService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429171548" ignored="false" />
+    <file path="/RequestService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1376429543506" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,106 +348,7 @@
     <favorites_list name="cancer-strike" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="RoleDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RoleDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="13" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="13" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleQuestionDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleQuestionDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="13" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDaoImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BasicDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="46" selection-start="472" selection-end="492" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AttachmentDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="51" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProjectDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="48" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestGroupDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="53" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleDaoTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="47" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleQuestionDaoTest.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="55" selection-start="256" selection-end="256" vertical-scroll-proportion="0.23522012">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -469,22 +374,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RoleServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/LoginServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/SampleServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestGroupServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/ProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/service/BiobankService.java" />
         <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/BiobankServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/UserDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/test-applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context2.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/bbmri/daoImpl/AttachmentDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/BasicActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/ChangeAdministrator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/RequestGroupDetailActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Sample/ApproveRequestActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Project/ProjectActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Sample/SampleRequestActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/BiobankActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/SampleQuestionActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/Sample/SampleActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/bbmri/service/RequestService.java" />
       </list>
     </option>
   </component>
@@ -593,6 +498,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -810,6 +716,66 @@
               <option name="myItemId" value="bbmri" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="serviceImpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -838,6 +804,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="daoImpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cancer-strike" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dao" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -899,7 +895,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Favorites" />
     </panes>
   </component>
@@ -921,9 +916,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1442,21 +1437,6 @@
       <option name="trusted" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JettyConfiguration" factoryName="Local">
       <deployment />
       <server-settings>
@@ -1473,6 +1453,21 @@
       </server-settings>
       <predefined_log_file id="Jetty" enabled="true" />
       <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote">
@@ -1579,7 +1574,6 @@
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39513326" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2495935" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32979977" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
@@ -1595,13 +1589,14 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19286872" sideWeight="0.36732328" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33711508" sideWeight="0.36732328" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25931928" sideWeight="0.36732328" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6326767" sideWeight="0.3273906" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39513326" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.3943662" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6056338" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1703,132 +1698,108 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/dao/AttachmentDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/ProjectService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="17" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+        <state line="13" column="62" selection-start="253" selection-end="283" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/AttachmentDaoImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/BiobankService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="0" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/BiobankDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="478" selection-end="478" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/ProjectDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RequestDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="13" selection-start="450" selection-end="450" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RequestGroupDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="526" selection-end="526" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/RoleDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/SampleQuestionDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="553" selection-end="553" vertical-scroll-proportion="0.0">
+        <state line="16" column="0" selection-start="350" selection-end="350" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/daoImpl/UserDaoImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/BiobankServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/BasicDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="46" selection-start="472" selection-end="492" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/AttachmentDaoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="51" selection-start="252" selection-end="252" vertical-scroll-proportion="0.0">
+        <state line="65" column="33" selection-start="1712" selection-end="1712" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/ProjectDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/BasicActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="48" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0">
+        <state line="87" column="40" selection-start="2115" selection-end="2115" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/ChangeAdministrator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="19" selection-start="1072" selection-end="1072" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/RequestGroupDetailActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="44" selection-start="2127" selection-end="2127" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Sample/ApproveRequestActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="42" selection-start="2825" selection-end="2825" vertical-scroll-proportion="0.6882641">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/RequestGroupDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ApproveProjectActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="53" selection-start="254" selection-end="254" vertical-scroll-proportion="0.0">
+        <state line="65" column="39" selection-start="1959" selection-end="1959" vertical-scroll-proportion="0.716329">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Project/ProjectActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="47" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+        <state line="152" column="46" selection-start="4959" selection-end="4959" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tests/daoTest/SampleQuestionDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Biobank/BiobankActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="55" selection-start="256" selection-end="256" vertical-scroll-proportion="0.23522012">
+        <state line="141" column="40" selection-start="3756" selection-end="3756" vertical-scroll-proportion="0.020262217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/SampleQuestionActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="46" selection-start="4302" selection-end="4302" vertical-scroll-proportion="0.020262217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Sample/SampleActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="28" selection-start="4025" selection-end="4025" vertical-scroll-proportion="0.6555423">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/UserActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="42" selection-start="2319" selection-end="2319" vertical-scroll-proportion="0.020262217">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/action/Sample/SampleRequestActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="165" column="48" selection-start="4674" selection-end="4674" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/service/RequestService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="5" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/bbmri/serviceImpl/RequestServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="30" selection-start="1150" selection-end="1150" vertical-scroll-proportion="0.41564792">
           <folding />
         </state>
       </provider>

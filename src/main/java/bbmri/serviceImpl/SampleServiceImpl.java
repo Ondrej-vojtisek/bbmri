@@ -33,6 +33,15 @@ public class SampleServiceImpl implements SampleService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    public Sample create(Sample sample) {
+           try {
+                       sampleDao.create(sample);
+                       return sample;
+                   } catch (DataAccessException ex) {
+                       throw ex;
+                   }
+       }
+
     public Sample create(Sample sample, Long biobankId) {
         try {
                     sampleDao.create(sample);
@@ -58,6 +67,14 @@ public class SampleServiceImpl implements SampleService {
         }
     }
 
+    public void remove(Sample sample) {
+          try {
+            sampleDao.remove(sample);
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
+
     public Sample update(Sample sample) {
         try {
             sampleDao.update(sample);
@@ -67,7 +84,7 @@ public class SampleServiceImpl implements SampleService {
         }
     }
 
-    public List<Sample> getAll() {
+    public List<Sample> all() {
         try {
             List<Sample> samples = sampleDao.all();
             return samples;
@@ -225,7 +242,7 @@ public class SampleServiceImpl implements SampleService {
           }
       }
 
-    public Integer getCount() {
+    public Integer count() {
         try {
             return sampleDao.count();
         } catch (DataAccessException ex) {
@@ -249,7 +266,7 @@ public class SampleServiceImpl implements SampleService {
         }
     }
 
-    public Sample getById(Long id) {
+    public Sample get(Long id) {
         try {
             Sample sampleDB = sampleDao.get(id);
             return sampleDB;

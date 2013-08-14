@@ -11,21 +11,9 @@ import java.util.List;
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestService {
+public interface RequestService extends BasicService<Request>{
 
      Request create(Long sampleId);
 
      Request create(Long sampleId, Integer numOfRequested);
-
-     void remove(Request request);
-
-     void remove(Long id);
-
-     Request update(Request request);
-
-     List<Request> getAll();
-
-     Request getById(Long id);
-
-     Integer getCount();
 }

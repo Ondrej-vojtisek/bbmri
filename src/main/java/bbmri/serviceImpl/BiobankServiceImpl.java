@@ -31,6 +31,15 @@ public class BiobankServiceImpl implements BiobankService {
     @Autowired
     private UserDao userDao;
 
+    public Biobank create(Biobank biobank) {
+            try {
+                biobankDao.create(biobank);
+                return biobank;
+            } catch (DataAccessException ex) {
+                throw ex;
+            }
+        }
+
     public Biobank create(Biobank biobank, Long administratorId) {
         try {
             User adminDB = userDao.get(administratorId);
@@ -55,6 +64,14 @@ public class BiobankServiceImpl implements BiobankService {
         }
     }
 
+    public void remove(Biobank biobank) {
+          try {
+            biobankDao.remove(biobank);
+          } catch (DataAccessException ex) {
+              throw ex;
+          }
+      }
+
     public Biobank update(Biobank biobank) {
         try {
             Biobank biobankDB = biobankDao.get(biobank.getId());
@@ -68,7 +85,7 @@ public class BiobankServiceImpl implements BiobankService {
         }
     }
 
-    public List<Biobank> getAll() {
+    public List<Biobank> all() {
         try {
             List<Biobank> biobanks = biobankDao.all();
             return biobanks;
@@ -91,7 +108,7 @@ public class BiobankServiceImpl implements BiobankService {
 
     }
 
-    public Integer getCount() {
+    public Integer count() {
         try {
             return biobankDao.count();
         } catch (DataAccessException ex) {
@@ -159,7 +176,7 @@ public class BiobankServiceImpl implements BiobankService {
         return userDB;
     }
 
-    public Biobank getById(Long id) {
+    public Biobank get(Long id) {
         try {
             Biobank biobankDB = biobankDao.get(id);
             return biobankDB;

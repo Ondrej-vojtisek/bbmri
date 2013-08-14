@@ -67,7 +67,7 @@ public class RoleServiceImpl implements RoleService {
            }
        }
    
-       public List<Role> getAll() {
+       public List<Role> all() {
            try {
                List<Role> roles = roleDao.all();
                return roles;
@@ -76,10 +76,18 @@ public class RoleServiceImpl implements RoleService {
            }
        }
    
-       public Role getById(Long id) {
+       public Role get(Long id) {
            try {
                Role roleDB = roleDao.get(id);
                return roleDB;
+           } catch (DataAccessException ex) {
+               throw ex;
+           }
+       }
+
+    public Integer count() {
+           try {
+               return roleDao.count();
            } catch (DataAccessException ex) {
                throw ex;
            }

@@ -42,7 +42,7 @@ public class UserActionBean extends BasicActionBean {
     private List<User> users;
 
     public List<User> getUsers() {
-        return userService.getAll();
+        return userService.all();
     }
 
     public User getUser() {
@@ -63,7 +63,7 @@ public class UserActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        users = userService.getAll();
+        users = userService.all();
         return new ForwardResolution(ALL);
     }
     @DontValidate
@@ -82,7 +82,7 @@ public class UserActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution delete() {
-        User user = userService.getById(id);
+        User user = userService.get(id);
         userService.remove(user);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)

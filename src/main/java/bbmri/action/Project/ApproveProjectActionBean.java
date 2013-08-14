@@ -63,7 +63,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution detail() {
-           project = projectService.getById(project.getId());
+           project = projectService.get(project.getId());
            getContext().setProject(project);
            return new ForwardResolution(DETAIL);
        }

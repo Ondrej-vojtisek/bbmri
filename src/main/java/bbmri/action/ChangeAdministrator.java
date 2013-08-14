@@ -36,7 +36,7 @@ public class ChangeAdministrator extends BasicActionBean {
         this.user = user;
     }
     public List<User> getUsers() {
-        this.users = userService.getAll();
+        this.users = userService.all();
         return users;
     }
 

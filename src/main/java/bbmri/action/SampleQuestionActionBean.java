@@ -63,7 +63,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public List<Biobank> getBiobanks() {
-        return biobankService.getAll();
+        return biobankService.all();
     }
 
     public Biobank getBiobank() {
@@ -138,14 +138,14 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution detail() {
-        sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
+        sampleQuestion = sampleQuestionService.get(sampleQuestion.getId());
         getContext().setSampleQuestion(sampleQuestion);
         return new ForwardResolution(QUESTION_DETAIL);
     }
 
     @DontValidate
     public Resolution remove() {
-        sampleQuestion = sampleQuestionService.getById(sampleQuestion.getId());
+        sampleQuestion = sampleQuestionService.get(sampleQuestion.getId());
         if (sampleQuestion != null) {
             sampleQuestion.setProcessed(true);
             sampleQuestionService.update(sampleQuestion);
@@ -224,7 +224,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution requestGroupDetail() {
-        requestGroup = requestGroupService.getById(requestGroup.getId());
+        requestGroup = requestGroupService.get(requestGroup.getId());
         getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }

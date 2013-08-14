@@ -13,19 +13,11 @@ import java.util.List;
  * Time: 20:02
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankService {
+public interface BiobankService  extends BasicService<Biobank> {
 
-    Biobank create(Biobank biobank, Long administratorId);
-
-    void remove(Long id);
-
-    Biobank update(Biobank biobank);
-
-    List<Biobank> getAll();
+   Biobank create(Biobank biobank, Long administratorId);
 
     List<Sample> getAllSamples(Long biobankId);
-
-    Integer getCount();
 
     User removeAdministratorFromBiobank(Long userId, Long biobankId);
 
@@ -35,6 +27,5 @@ public interface BiobankService {
 
     User assignAdministrator(Long userId, Long biobankId);
 
-    Biobank getById(Long id);
 
 }

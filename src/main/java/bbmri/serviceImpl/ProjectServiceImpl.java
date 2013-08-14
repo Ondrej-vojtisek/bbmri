@@ -36,6 +36,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private RequestGroupDao requestGroupDao;
 
+
+    public Project create(Project project) {
+           project.setProjectState(ProjectState.NEW);
+           projectDao.create(project);
+           return project;
+       }
+
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
         projectDao.create(project);
@@ -51,6 +58,10 @@ public class ProjectServiceImpl implements ProjectService {
             projectDao.remove(project);
         }
     }
+
+    public void remove(Project project) {
+             projectDao.remove(project);
+     }
 
     public Project update(Project project) {
         Project projectDB = projectDao.get(project.getId());
@@ -68,7 +79,7 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
-    public List<Project> getAll() {
+    public List<Project> all() {
         List<Project> projects = projectDao.all();
         return projects;
     }
@@ -182,7 +193,7 @@ public class ProjectServiceImpl implements ProjectService {
            }
        }
 
-    public Project getById(Long id) {
+    public Project get(Long id) {
         Project project;
         project = projectDao.get(id);
         return project;
@@ -220,7 +231,7 @@ public class ProjectServiceImpl implements ProjectService {
         return project;
     }
 
-    public Integer getCount() {
+    public Integer count() {
         return projectDao.count();
     }
 

@@ -13,19 +13,19 @@ import java.util.List;
  * Time: 20:44
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleQuestionService {
+public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId);
 
-    void remove(Long id);
+//    void remove(Long id);
 
-    SampleQuestion update(SampleQuestion sampleQuestion);
+//    SampleQuestion update(SampleQuestion sampleQuestion);
 
     List<SampleQuestion> getAllByProject(Project project);
 
     List<SampleQuestion> getAllByBiobank(Biobank biobank);
 
-    SampleQuestion getById(Long id);
+//    SampleQuestion getById(Long id);
 
     SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId);
 

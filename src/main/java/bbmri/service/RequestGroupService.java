@@ -13,23 +13,9 @@ import java.util.List;
  * Time: 12:02
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestGroupService {
-
-    RequestGroup create(RequestGroup requestGroup);
+public interface RequestGroupService  extends BasicService<RequestGroup>{
 
     RequestGroup create(List<Request> requests, Long projectId);
-
-    void remove(RequestGroup requestGroup);
-
-    void remove(Long id);
-
-    RequestGroup update(RequestGroup requestGroup);
-
-    List<RequestGroup> getAll();
-
-    RequestGroup getById(Long id);
-
-    Integer getCount();
 
     List<RequestGroup> getByProject(Long projectId);
 

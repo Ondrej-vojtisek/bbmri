@@ -63,7 +63,7 @@ public class ProjectActionBean extends BasicActionBean {
         private Attachment attachment;
 
         public List<Project> getProjects() {
-            return projectService.getAll();
+            return projectService.all();
         }
 
         public Project getProject() {
@@ -127,14 +127,14 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
         public Resolution edit() {
-            project = projectService.getById(project.getId());
+            project = projectService.get(project.getId());
             getContext().setProject(project);
             return new ForwardResolution(EDIT);
         }
 
     @DontValidate
         public Resolution requestSample() {
-            project = projectService.getById(project.getId());
+            project = projectService.get(project.getId());
             // you can't request sample for not approved project
 
             if (project.getProjectState() != ProjectState.NEW) {
@@ -150,7 +150,7 @@ public class ProjectActionBean extends BasicActionBean {
             if (project == null) {
                 return new RedirectResolution(this.getClass(), "display");
             }
-            Project projectDB = projectService.getById(project.getId());
+            Project projectDB = projectService.get(project.getId());
             User user = projectService.removeUserFromProject(getContext().getIdentifier(), project.getId());
             if (user != null) {
                 getContext().setLoggedUser(user);
@@ -169,7 +169,7 @@ public class ProjectActionBean extends BasicActionBean {
                     attachment.setContentType(attachmentFileBean.getContentType());
                     attachment.setSize(attachmentFileBean.getSize());
                     attachment.setAttachmentType(AttachmentType.MATERIAL_TRANSFER_AGREEMENT);
-                    Project projectDB = projectService.getById(getContext().getProject().getId());
+                    Project projectDB = projectService.get(getContext().getProject().getId());
                     projectService.saveAttachment(getContext().getProject().getId(), attachment);
                     try {
                         attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"

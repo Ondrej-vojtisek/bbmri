@@ -11,15 +11,15 @@ import java.util.List;
  * Time: 18:15
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectService {
+public interface ProjectService  extends BasicService<Project> {
 
     Project create(Project project, User user);
 
-     void remove(Long id);
+//     void remove(Long id);
 
-     Project update(Project project);
+//     Project update(Project project);
 
-     List<Project> getAll();
+//     List<Project> getAll();
 
      List<Project> getAllByUser(Long id);
 
@@ -41,13 +41,13 @@ public interface ProjectService {
 
      List<Project> getAllWhichUserAdministrate(Long id);
 
-     Project getById(Long id);
+//     Project getById(Long id);
 
      List<User> getAllNotAssignedUsers(Long id);
 
      Project changeOwnership(Long projectId, Long newOwnerId);
 
-     Integer getCount();
+//     Integer getCount();
 
      void saveAttachment(Long id, Attachment attachment);
 

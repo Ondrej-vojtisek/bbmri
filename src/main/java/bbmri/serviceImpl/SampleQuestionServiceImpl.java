@@ -49,6 +49,15 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
                 }
     }
 
+    public SampleQuestion create(SampleQuestion sampleQuestion) {
+            try {
+                sampleQuestionDao.create(sampleQuestion);
+                return sampleQuestion;
+            } catch (DataAccessException ex) {
+                throw ex;
+            }
+        }
+
 
     public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId) {
         try {
@@ -85,6 +94,14 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
         }
     }
 
+    public void remove(SampleQuestion sampleQuestion) {
+           try {
+                   sampleQuestionDao.remove(sampleQuestion);
+           } catch (DataAccessException ex) {
+               throw ex;
+           }
+       }
+
     public SampleQuestion update(SampleQuestion sampleQuestion) {
            try {
                sampleQuestionDao.update(sampleQuestion);
@@ -94,7 +111,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
            }
        }
 
-       public List<SampleQuestion> getAll() {
+       public List<SampleQuestion> all() {
            try {
                List<SampleQuestion> sampleQuestions = sampleQuestionDao.all();
                return sampleQuestions;
@@ -132,7 +149,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
         }
     }
 
-    public SampleQuestion getById(Long id) {
+    public SampleQuestion get(Long id) {
               try {
                   SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
                   return sampleQuestionDB;
@@ -140,4 +157,12 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
                   throw ex;
               }
           }
+
+    public Integer count() {
+           try {
+               return sampleQuestionDao.count();
+           } catch (DataAccessException ex) {
+               throw ex;
+           }
+       }
 }

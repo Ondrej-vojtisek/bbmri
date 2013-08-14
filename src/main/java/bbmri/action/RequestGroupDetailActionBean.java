@@ -69,7 +69,7 @@ public class RequestGroupDetailActionBean extends BasicActionBean {
     @DontValidate
     public Resolution edit() {
         Long requestId = Long.parseLong(getContext().getRequest().getParameter("request"));
-        Request request = requestService.getById(requestId);
+        Request request = requestService.get(requestId);
         getContext().setRequestId(requestId);
 
         return new ForwardResolution(REQUEST_DETAIL);

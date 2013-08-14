@@ -85,7 +85,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution detail() {
-        requestGroup = requestGroupService.getById(requestGroup.getId());
+        requestGroup = requestGroupService.get(requestGroup.getId());
         getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(DETAIL);
     }

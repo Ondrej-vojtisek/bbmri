@@ -66,7 +66,7 @@ public class SampleRequestActionBean extends BasicActionBean {
     }
 
     public Integer getCount() {
-        return sampleService.getCount();
+        return sampleService.count();
     }
 
     public void setProject(Project project) {
@@ -81,7 +81,7 @@ public class SampleRequestActionBean extends BasicActionBean {
     }
 
     public List<Sample> getAllSamples() {
-            return sampleService.getAll();
+            return sampleService.all();
         }
 
     public List<Sample> getAllSamplesByBiobank() {

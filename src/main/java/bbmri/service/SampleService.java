@@ -12,15 +12,15 @@ import java.util.List;
  * Time: 0:22
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleService {
+public interface SampleService extends BasicService<Sample>{
 
      Sample create(Sample sample, Long biobankId);
 
-     void remove(Long id);
+//     void remove(Long id);
 
-     Sample update(Sample sample);
+//     Sample update(Sample sample);
 
-     List<Sample> getAll();
+//     List<Sample> getAll();
 
      Sample decreaseCount(Long sampleId, Integer requested);
 
@@ -30,9 +30,9 @@ public interface SampleService {
 
      List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank);
 
-     Integer getCount();
+//     Integer getCount();
 
      List<Sample> getAllByBiobank(Long biobankId);
 
-     Sample getById(Long id);
+//     Sample getById(Long id);
 }

@@ -12,23 +12,9 @@ import java.util.List;
  * Time: 12:55
  * To change this template use File | Settings | File Templates.
  */
-public interface UserService {
-
-     User create(User user);
-
-     void remove(User user);
-
-     void remove(Long id);
-
-     User update(User user);
-
-     List<User> getAll();
-
-     User getById(Long id);
+public interface UserService extends BasicService<User>{
 
      User changeAdministrator(Long oldAdminId, Long newAdminId);
-
-     Integer getCount();
 
      List<User> getNonAdministratorUsers();
 

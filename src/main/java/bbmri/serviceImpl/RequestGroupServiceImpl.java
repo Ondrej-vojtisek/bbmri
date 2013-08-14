@@ -182,7 +182,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
     }
 
-    public List<RequestGroup> getAll() {
+    public List<RequestGroup> all() {
         try {
             return requestGroupDao.all();
         } catch (DataAccessException ex) {
@@ -190,7 +190,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
     }
 
-    public RequestGroup getById(Long id) {
+    public RequestGroup get(Long id) {
         try {
             return requestGroupDao.get(id);
         } catch (DataAccessException ex) {
@@ -198,7 +198,7 @@ public class RequestGroupServiceImpl implements RequestGroupService {
         }
     }
 
-    public Integer getCount() {
+    public Integer count() {
         try {
             return requestGroupDao.count();
         } catch (DataAccessException ex) {

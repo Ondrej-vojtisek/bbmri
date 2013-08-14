@@ -55,7 +55,7 @@ public class BiobankActionBean extends BasicActionBean {
     /* Setter / Getter */
 
     public List<Biobank> getBiobanks() {
-        return biobankService.getAll();
+        return biobankService.all();
     }
 
     public Biobank getBiobank() {
@@ -102,7 +102,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public List<User> getUsers() {
-        return userService.getAll();
+        return userService.all();
     }
 
     public List<User> getNonAdministrators() {
@@ -125,7 +125,7 @@ public class BiobankActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        biobanks = biobankService.getAll();
+        biobanks = biobankService.all();
         return new ForwardResolution(ALL);
     }
     @DontValidate
@@ -141,7 +141,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution create() {
-        User resDB = userService.getById(administrator.getId());
+        User resDB = userService.get(administrator.getId());
         if (resDB.getBiobank() != null) {
             getContext().getMessages().add(
                          new SimpleMessage("Selected user is already an administrator of a biobank")

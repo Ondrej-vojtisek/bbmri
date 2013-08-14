@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public List<User> getAll() {
+    public List<User> all() {
         try {
             List<User> users = userDao.all();
             return users;
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User getById(Long id) {
+    public User get(Long id) {
         try {
             User userDB = userDao.get(id);
             return userDB;
@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public Integer getCount() {
+    public Integer count() {
         try {
             return userDao.count();
         } catch (DataAccessException ex) {
