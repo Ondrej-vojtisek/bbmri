@@ -86,13 +86,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<Project> getAllByUser(Long id) {
             User userDB = userDao.get(id);
-            List<Project> projects = projectDao.getAllByUser(userDB);
-            return projects;
+          //  List<Project> projects = projectDao.getAllByUser(userDB);
+            return userDB.getProjects();
     }
 
     public List<Project> getAllByUserWithRequests(Long id) {
            User userDB = userDao.get(id);
-           List<Project> projects = projectDao.getAllByUser(userDB);
+        //   List<Project> projects = projectDao.getAllByUser(userDB);
+           List<Project> projects = userDB.getProjects();
            if(projects != null){
                for(int i = 0; i < projects.size(); i++){
                   projects.get(i).setRequestGroups(requestGroupDao.getAllByProject(projects.get(i)));
@@ -103,7 +104,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<Project> getAllWhichUserAdministrate(Long id) {
         User userDB = userDao.get(id);
-        List<Project> projects = projectDao.getAllByUser(userDB);
+//        List<Project> projects = projectDao.getAllByUser(userDB);
+        List<Project> projects = userDB.getProjects();
 
         List<Project> result = new ArrayList<Project>();
         if (projects != null) {
@@ -123,7 +125,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public List<Project> getAllApprovedByUser(User user) {
-        List<Project> projects = projectDao.getAllByUser(user);
+        User userDB = userDao.get(user.getId());
+//        List<Project> projects = projectDao.getAllByUser(user);
+        List<Project> projects = userDB.getProjects();
+
         List<Project> result = new ArrayList<Project>();
         if (projects != null) {
             for (Project project : projects) {
@@ -160,8 +165,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     public List<User> getAllAssignedUsers(Long projectId) {
         Project projectDB = projectDao.get(projectId);
-        List<User> users = projectDao.getAllUsersByProject(projectDB);
-        return users;
+       // List<User> users = projectDao.getAllUsersByProject(projectDB);
+        return projectDB.getUsers();
     }
 
     public void approve(Long id) {

@@ -15,10 +15,6 @@ import java.util.List;
  */
 public interface ProjectDao extends BasicDao<Project> {
 
-    List<Project> getAllByUser(User user);
-
-    List<User> getAllUsersByProject(Project project);
-
     List<Project> getAllByProjectState(ProjectState projectState);
 
 }

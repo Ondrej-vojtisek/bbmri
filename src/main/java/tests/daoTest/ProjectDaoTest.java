@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tests.AbstractTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -27,32 +30,23 @@ public class ProjectDaoTest extends AbstractTest {
     UserDao userDao;
 
 
-    private void prepareTestedEnvironment() {
+    private User createUser(int i){
         User user = new User();
-        user.setName("Pokusny");
-        user.setSurname("Uzivatel");
+        user.setName("Pokusny" + i);
+        user.setSurname("Uzivatel" + i);
         userDao.create(user);
+        return user;
+    }
 
+    private List<Project> prepareTestedEnvironment(User user) {
         Project project1 = new Project();
         project1.setName("P1");
         project1.setProjectState(ProjectState.NEW);
-  //      project1.setRequestGroups(null);
-  //      project1.setSampleQuestions(null);
-  //      project1.setUsers(null);
-        project1.setAnnotation("P1_anotace");
-   //     project1.setApprovalDate(null);
-        project1.setApprovalStorage("Storage");
-        project1.setApprovedBy("ApprovedBy");
-   //     project1.setAttachments(null);
-        project1.setFundingOrganization("Funding");
-        project1.setHomeInstitution("Home");
-        project1.setMainInvestigator("MainInvestigator");
         projectDao.create(project1);
 
-     //   project1.getUsers().add(user);
-     //   projectDao.update(project1);
+        project1.getUsers().add(user);
+        projectDao.update(project1);
 
-/*
         Project project2 = new Project();
         project2.setName("P2");
         project2.setProjectState(ProjectState.NEW);
@@ -68,34 +62,25 @@ public class ProjectDaoTest extends AbstractTest {
 
         project3.getUsers().add(user);
         projectDao.update(project3);
-        */
+
+        List<Project> results = new ArrayList<Project>();
+
+        results.add(project1);
+        results.add(project2);
+        results.add(project3);
+        return results;
     }
 
     @Test
     public void getAllByProjectStateTest() {
-        prepareTestedEnvironment();
-        logger.debug(projectDao.all().get(0).getName());
-        assertEquals(1, 1);
+        User user = createUser(1);
+        List<Project> results = prepareTestedEnvironment(user);
+        List<Project> approved = projectDao.getAllByProjectState(ProjectState.APPROVED);
+        assertEquals(1, approved.size());
+        assertEquals(approved.get(0), results.get(2));
+        List<Project> newProjects = projectDao.getAllByProjectState(ProjectState.NEW);
+        assertEquals(2, newProjects.size());
+        assertEquals(newProjects.get(0), results.get(0));
+        assertEquals(newProjects.get(1), results.get(1));
     }
-
-    /*
-
-
-    public List<Project> getAllByProjectState(ProjectState projectState) {
-        notNull(projectState);
-        Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
-        return query.getResultList();
-    }
-
-    public List<Project> getAllByUser(User user) {
-        notNull(user);
-        return user.getProjects();
-    }
-
-    public List<User> getAllUsersByProject(Project project) {
-        notNull(project);
-        return project.getUsers();
-    }
-    */
-
 }

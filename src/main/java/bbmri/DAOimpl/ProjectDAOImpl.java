@@ -24,17 +24,8 @@ public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao 
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
-        Query query = em.createQuery("SELECT p FROM Project p where p.projectState=projectState");
+        Query query = em.createQuery("SELECT p FROM Project p where p.projectState = :param");
+        query.setParameter("param", projectState);
         return query.getResultList();
-    }
-
-    public List<Project> getAllByUser(User user) {
-        notNull(user);
-        return user.getProjects();
-    }
-
-    public List<User> getAllUsersByProject(Project project) {
-        notNull(project);
-        return project.getUsers();
     }
 }

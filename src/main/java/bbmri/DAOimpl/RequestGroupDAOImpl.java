@@ -23,14 +23,8 @@ public class RequestGroupDaoImpl extends BasicDaoImpl<RequestGroup> implements R
 
     public List<RequestGroup> getAllByProject(Project project) {
          notNull(project);
-         Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = project");
+         Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = :param");
+        query.setParameter("param", project);
          return query.getResultList();
      }
-
-    public List<SampleQuestion> getSelected(String query) {
-        notNull(query);
-        String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
-        Query queryDB = em.createQuery(preparedQuery);
-        return queryDB.getResultList();
-    }
 }

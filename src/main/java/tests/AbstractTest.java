@@ -21,19 +21,13 @@ import org.slf4j.LoggerFactory;
 @Transactional
 @Ignore
 public class AbstractTest {
-    /**
-       * Logger to log all messages to.
-       */
 
-      public Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-      /**
-       * This method logs a message for INFO level.
-       *
-       * @param message message to log
-       */
-      protected void log(String message) {
-          logger.debug(message);
-      }
+    public void log(String msg){
+        logger.debug(msg);
+
+    }
+
 
 }

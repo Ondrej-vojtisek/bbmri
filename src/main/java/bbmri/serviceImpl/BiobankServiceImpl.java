@@ -75,9 +75,12 @@ public class BiobankServiceImpl implements BiobankService {
     public Biobank update(Biobank biobank) {
         try {
             Biobank biobankDB = biobankDao.get(biobank.getId());
-            biobankDB.setAddress(biobank.getAddress());
-            biobankDB.setName(biobank.getName());
-
+            if(biobank.getAddress() != null){
+                biobankDB.setAddress(biobank.getAddress());
+            }
+            if(biobank.getName() != null){
+                            biobankDB.setName(biobank.getName());
+            }
             biobankDao.update(biobankDB);
             return biobankDB;
         } catch (DataAccessException ex) {
@@ -86,21 +89,15 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public List<Biobank> all() {
-        try {
-            List<Biobank> biobanks = biobankDao.all();
-            return biobanks;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+            return biobankDao.all();
     }
 
     public List<Sample> getAllSamples(Long biobankId) {
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB != null) {
+            if (biobankDB == null) {
                 return null;
             }
-
             return biobankDB.getSamples();
         } catch (DataAccessException ex) {
             throw ex;
@@ -109,11 +106,7 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public Integer count() {
-        try {
-            return biobankDao.count();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return biobankDao.count();
     }
 
     public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
@@ -177,12 +170,7 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public Biobank get(Long id) {
-        try {
-            Biobank biobankDB = biobankDao.get(id);
-            return biobankDB;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return biobankDao.get(id);
     }
 
 }
