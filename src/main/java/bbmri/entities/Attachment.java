@@ -13,8 +13,9 @@ import java.io.Serializable;
 @Table(name = "Attachment")
 @Entity
 public class Attachment implements Serializable {
-    private static final String patient_agreement = "_pat";
-    private static final String ethical_agreement = "_eth";
+
+    public final static String ROOT_DIR = "bbmri_data";
+    public final static String ROOT_DIR_PATH = ROOT_DIR + "\\";
 
     private static final long serialVersionUID = 1L;
 

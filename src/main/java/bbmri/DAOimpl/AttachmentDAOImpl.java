@@ -32,7 +32,7 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
         notNull(attachment);
         File file = new File(getPath(attachment));
         file.delete();
-        File dir = new File("bbmri_data\\" + attachment.getProject().getId().toString());
+        File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
         if (dir.isDirectory()) {
             if (dir.list().length < 1) {
                 dir.delete();
@@ -41,13 +41,13 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
         em.remove(attachment);
     }
 
-    void createFolder(Attachment attachment) {
+    private void createFolder(Attachment attachment) {
         notNull(attachment);
-        File rootDir = new File("bbmri_data");
+        File rootDir = new File(Attachment.ROOT_DIR);
         if (!rootDir.exists()) {
             rootDir.mkdir();
         }
-        File dir = new File("bbmri_data\\" + attachment.getProject().getId().toString());
+        File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -55,6 +55,6 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
 
     public String getPath(Attachment attachment) {
         notNull(attachment);
-        return ("bbmri_data\\" + attachment.getProject().getId().toString() + "\\" + attachment.getId() + attachment.getAttachmentType().toString());
+        return (Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString() + "\\" + attachment.getId() + attachment.getAttachmentType().toString());
     }
 }

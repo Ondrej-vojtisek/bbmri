@@ -172,7 +172,8 @@ public class ProjectActionBean extends BasicActionBean {
                     Project projectDB = projectService.get(getContext().getProject().getId());
                     projectService.saveAttachment(getContext().getProject().getId(), attachment);
                     try {
-                        attachmentFileBean.save(new File("bbmri_data\\" + projectDB.getId().toString() + "\\"
+
+                        attachmentFileBean.save(new File(Attachment.ROOT_DIR_PATH + projectDB.getId().toString() + "\\"
                                 + attachment.getId().toString() + attachment.getAttachmentType().toString()));
                         getContext().getMessages().add(
                                 new SimpleMessage("File was uploaded")

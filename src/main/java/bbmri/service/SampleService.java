@@ -16,12 +16,6 @@ public interface SampleService extends BasicService<Sample>{
 
      Sample create(Sample sample, Long biobankId);
 
-//     void remove(Long id);
-
-//     Sample update(Sample sample);
-
-//     List<Sample> getAll();
-
      Sample decreaseCount(Long sampleId, Integer requested);
 
      Sample withdrawSample(Long sampleId, Integer requested);
@@ -30,9 +24,6 @@ public interface SampleService extends BasicService<Sample>{
 
      List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank);
 
-//     Integer getCount();
-
      List<Sample> getAllByBiobank(Long biobankId);
 
-//     Sample getById(Long id);
 }

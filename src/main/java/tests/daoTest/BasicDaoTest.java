@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test of BasicDao - all methods used in User, Role.. etc..
+ * Test of BasicDao - all methods used in User, Role.. etc. Tested on User for example.
  * User: Ori
  * Date: 13.8.13
  * Time: 16:02

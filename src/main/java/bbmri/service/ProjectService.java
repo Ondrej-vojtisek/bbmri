@@ -15,12 +15,6 @@ public interface ProjectService  extends BasicService<Project> {
 
     Project create(Project project, User user);
 
-//     void remove(Long id);
-
-//     Project update(Project project);
-
-//     List<Project> getAll();
-
      List<Project> getAllByUser(Long id);
 
      User assignUser(Long userId, Long projectId);
@@ -41,13 +35,9 @@ public interface ProjectService  extends BasicService<Project> {
 
      List<Project> getAllWhichUserAdministrate(Long id);
 
-//     Project getById(Long id);
-
      List<User> getAllNotAssignedUsers(Long id);
 
      Project changeOwnership(Long projectId, Long newOwnerId);
-
-//     Integer getCount();
 
      void saveAttachment(Long id, Attachment attachment);
 
