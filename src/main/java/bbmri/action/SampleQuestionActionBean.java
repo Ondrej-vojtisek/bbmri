@@ -2,8 +2,6 @@ package bbmri.action;
 
 import bbmri.entities.*;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,7 +131,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public Resolution createSampleQuestion() {
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
         getContext().setSampleQuestion(null);
-        return new RedirectResolution(bbmri.action.Project.ProjectActionBean.class);
+        return new RedirectResolution(bbmri.action.project.ProjectActionBean.class);
     }
 
     @DontValidate

@@ -1,12 +1,9 @@
-package bbmri.action.Biobank;
+package bbmri.action.biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
-import bbmri.service.BiobankService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;

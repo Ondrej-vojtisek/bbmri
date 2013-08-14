@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <f:message key="projects.createProject" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Project.ProjectActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.project.ProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
@@ -10,7 +10,7 @@
                  secondarymenu="project_create_project">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Project.ProjectActionBean">
+        <s:form beanclass="bbmri.action.project.ProjectActionBean">
             <fieldset>
                 <legend><f:message key="project_upload_new"/></legend>
                 <li><f:message key="project_upload_information_1"/></li>
@@ -21,7 +21,7 @@
                 <br>
             </fieldset>
             <br>
-            <s:link beanclass="bbmri.action.Project.ProjectActionBean" event="createProject" style="float: right;"><f:message key="continue"/></s:link>
+            <s:link beanclass="bbmri.action.project.ProjectActionBean" event="createProject" style="float: right;"><f:message key="continue"/></s:link>
         </s:form>
     </s:layout-component>
 </s:layout-render>

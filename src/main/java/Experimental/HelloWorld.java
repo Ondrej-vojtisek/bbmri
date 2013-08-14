@@ -1,6 +1,5 @@
-package Experimental;
+package experimental;
 
-import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.entities.User;
 /*
@@ -12,16 +11,7 @@ import org.apache.poi.ss.usermodel.*;
 */
 
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import sun.tools.jar.Main;
 
 /**
  * Created with IntelliJ IDEA.

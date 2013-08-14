@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="sample.import" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Sample.CreateSampleActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.sample.CreateSampleActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
@@ -10,7 +10,7 @@
                  secondarymenu="sample_create">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Sample.CreateSampleActionBean">
+        <s:form beanclass="bbmri.action.sample.CreateSampleActionBean">
             <fieldset>
                 <legend><f:message key="add_sample_to_system"/></legend>
                 <%@include file="/form/createSampleForm.jsp" %>

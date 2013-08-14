@@ -44,18 +44,17 @@
         <class>bbmri.entities.Role</class>
 
         <properties>
-            <property name="hibernate.archive.autodetection" value="class, hbm"/>
+
+            <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
-            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:BBMRITestDB"/>
-            <property name="hibernate.connection.username" value="heslo"/>
-            <property name="hibernate.connection.password" value="heslo"/>
+            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:testdb;sql.syntax_pgs=true"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.format_sql" value="true"/>
+
         </properties>
 
     </persistence-unit>
-
 
 </persistence>

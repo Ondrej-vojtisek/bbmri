@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <f:message key="biobank.edit" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Biobank.BiobankActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
@@ -11,7 +11,7 @@
 
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.Biobank.BiobankActionBean">
+        <s:form beanclass="bbmri.action.biobank.BiobankActionBean">
             <s:hidden name="biobank.id"/>
             <fieldset>
                 <legend><f:message key="project.edit"/></legend>
@@ -20,7 +20,7 @@
             </fieldset>
 
         </s:form>
-        <s:form beanclass="bbmri.action.Biobank.BiobankActionBean">
+        <s:form beanclass="bbmri.action.biobank.BiobankActionBean">
         <fieldset>
             <legend><f:message key="biobank.administrators"/></legend>
             <table cellspacing="0" class="tablesorter">
@@ -43,7 +43,7 @@
                                  </td>
 
                                  <td><c:if test="${!user.equals(ab.loggedUser)}">
-                                     <s:link beanclass="bbmri.action.Biobank.BiobankActionBean"
+                                     <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
                                              event="changeOwnership">
                                          <s:param name="user.id" value="${user.id}"/><f:message
                                              key="give_ownership"/></s:link>

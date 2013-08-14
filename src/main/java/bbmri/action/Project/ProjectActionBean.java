@@ -1,4 +1,4 @@
-package bbmri.action.Project;
+package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;

@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="project.edit" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.project.EditProjectActionBean"/>
 
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
@@ -10,7 +10,7 @@
                  administrator="${ab.loggedUser.administrator}">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
+        <s:form beanclass="bbmri.action.project.ApproveProjectActionBean">
 
             <fieldset>
             <legend><f:message key="project_detail"/></legend>
@@ -39,7 +39,7 @@
             </table>
             <s:textarea readonly="true" id="z5" name="project.annotation"></s:textarea>
             <fieldset>
-            <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
+            <s:form beanclass="bbmri.action.project.EditProjectActionBean">
 
                 <fieldset>
                     <legend><f:message key="project_files"/></legend>
@@ -68,7 +68,7 @@
                                 <td><c:out value="${attachment.contentType}"/></td>
                                 <td><c:out value="${attachment.size}"/></td>
                                 <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
-                                <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                <td><s:link beanclass="bbmri.action.project.EditProjectActionBean"
                                             event="download">
                                     <s:param name="attachment.id" value="${attachment.id}"/>
                                     <f:message key="download"/></s:link>
@@ -85,7 +85,7 @@
             <c:if test="${not empty ab.loggedUser.biobank}">
                 <fieldset>
                 <legend><f:message key="project_approval"/></legend>
-                    <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
+                    <s:form beanclass="bbmri.action.project.ApproveProjectActionBean">
                         <s:submit name="approve" onclick="return confirm('Confirm?')">
                             <s:param name="project.id" value="${project.id}"/>
                             <f:message key="confirm"/>

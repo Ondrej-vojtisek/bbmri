@@ -1,14 +1,11 @@
-package bbmri.action.Sample;
+package bbmri.action.sample;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.Request;
 import bbmri.entities.RequestGroup;
 import bbmri.entities.RequestState;
-import bbmri.service.RequestGroupService;
-import bbmri.service.RequestService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

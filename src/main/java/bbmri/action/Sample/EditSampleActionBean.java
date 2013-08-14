@@ -1,14 +1,12 @@
-package bbmri.action.Sample;
+package bbmri.action.sample;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

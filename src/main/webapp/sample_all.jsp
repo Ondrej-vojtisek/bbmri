@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <f:message key="sample.all" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Sample.SampleActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.sample.SampleActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
@@ -10,7 +10,7 @@
                  secondarymenu="sample_all">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Sample.SampleActionBean">
+        <s:form beanclass="bbmri.action.sample.SampleActionBean">
             <fieldset>
                 <legend><f:message key="sample.all"/></legend>
             <table cellspacing="0" class="tablesorter narrow">
@@ -39,7 +39,7 @@
                         <td><c:out value="${sample.diagnosis}"/></td>
                         <td><c:out value="${sample.tissueType}"/></td>
                         <td>
-                            <s:link beanclass="bbmri.action.Sample.SampleActionBean" event="edit">
+                            <s:link beanclass="bbmri.action.sample.SampleActionBean" event="edit">
                                 <s:param name="sample.id" value="${sample.id}"/><f:message
                                 key="edit"/></s:link>
                         </td>

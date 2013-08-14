@@ -1,6 +1,6 @@
 package bbmri.action;
 
-import bbmri.action.Project.ProjectActionBean;
+import bbmri.action.project.ProjectActionBean;
 import bbmri.entities.User;
 import bbmri.service.LoginService;
 import net.sourceforge.stripes.action.*;

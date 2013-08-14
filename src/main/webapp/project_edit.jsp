@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="project.edit" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Project.EditProjectActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.project.EditProjectActionBean"/>
 
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
@@ -10,7 +10,7 @@
                  administrator="${ab.loggedUser.administrator}">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
+        <s:form beanclass="bbmri.action.project.EditProjectActionBean">
             <s:hidden name="project.id"/>
             <s:hidden name="project.users"/>
             <fieldset>
@@ -54,7 +54,7 @@
                             </td>
                             <td>
                                 <c:if test="${!user.equals(ab.loggedUser)}">
-                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                <s:link beanclass="bbmri.action.project.EditProjectActionBean"
                                         event="remove">
                                     <s:param name="user.id" value="${user.id}"/>
                                     <f:message
@@ -63,7 +63,7 @@
                                 </c:if>
 
                             <td><c:if test="${!user.equals(ab.loggedUser)}">
-                                <s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                                <s:link beanclass="bbmri.action.project.EditProjectActionBean"
                                         event="changeOwnership">
                                     <s:param name="user.id" value="${user.id}"/><f:message
                                         key="give_ownership"/></s:link>
@@ -107,7 +107,7 @@
             </fieldset>
 
         </s:form>
-        <s:form beanclass="bbmri.action.Project.EditProjectActionBean">
+        <s:form beanclass="bbmri.action.project.EditProjectActionBean">
 
             <fieldset>
                 <legend><f:message key="project_files"/></legend>
@@ -136,7 +136,7 @@
                             <td><c:out value="${attachment.contentType}"/></td>
                             <td><c:out value="${attachment.size}"/></td>
                             <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
-                            <td><s:link beanclass="bbmri.action.Project.EditProjectActionBean"
+                            <td><s:link beanclass="bbmri.action.project.EditProjectActionBean"
                                         event="download">
                                 <s:param name="attachment.id" value="${attachment.id}"/>
                                 <f:message key="download"/></s:link>

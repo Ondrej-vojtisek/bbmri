@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="biobanks.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Biobank.BiobankActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="biobank"
                  biobank="${ab.loggedUser.biobank}"
@@ -32,7 +32,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${biobank.id == ab.loggedUser.biobank.id}">
-                                    <s:link beanclass="bbmri.action.Biobank.BiobankActionBean" event="edit">
+                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
                                         <s:param name="biobank.id" value="${biobank.id}"/><f:message
                                             key="edit"/></s:link>
                                 </c:when>

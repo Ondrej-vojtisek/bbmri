@@ -25,7 +25,7 @@ public class AbstractTest {
        * Logger to log all messages to.
        */
 
-      Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+      public Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
       /**
        * This method logs a message for INFO level.

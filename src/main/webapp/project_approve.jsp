@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="projects_to_approve" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Project.ApproveProjectActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.project.ApproveProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
@@ -12,7 +12,7 @@
     <s:layout-component name="body">
         <fieldset>
             <legend><f:message key="projects_to_approve"/></legend>
-            <s:form beanclass="bbmri.action.Project.ApproveProjectActionBean">
+            <s:form beanclass="bbmri.action.project.ApproveProjectActionBean">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
@@ -38,7 +38,7 @@
                                 <td><c:out value="${project.fundingOrganization}"/></td>
                                 <td><c:out value="${project.owner.wholeName}"/></td>
                                 <td><f:message key="ProjectState.${project.projectState}"/></td>
-                                <td><s:link beanclass="bbmri.action.Project.ApproveProjectActionBean" event="detail">
+                                <td><s:link beanclass="bbmri.action.project.ApproveProjectActionBean" event="detail">
                                     <s:param name="project.id" value="${project.id}"/>
                                     <f:message key="proceed"/></s:link>
                                 </td>

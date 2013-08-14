@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 21:21
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Sample")
+@Table(name = "sample")
 @Entity
 public class Sample implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -259,7 +259,7 @@ public class Sample implements Serializable {
 
     @Override
     public String toString() {
-        return "Sample{" +
+        return "sample{" +
                 "id=" + id +
                 ", sampleID='" + sampleID + '\'' +
                 ", numOfSamples=" + numOfSamples +

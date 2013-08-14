@@ -28,7 +28,7 @@ public class Project implements Serializable {
 
     private String name;
 
-    @Column(name="ANNOTATION", columnDefinition="TEXT")
+    @Column(columnDefinition="TEXT")
     private String annotation;
 
     private String fundingOrganization;
@@ -223,7 +223,7 @@ public class Project implements Serializable {
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "project{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", annotation='" + annotation + '\'' +

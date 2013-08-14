@@ -1,15 +1,11 @@
-package bbmri.action.Sample;
+package bbmri.action.sample;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import bbmri.entities.Request;
 import bbmri.entities.Sample;
-import bbmri.service.RequestGroupService;
-import bbmri.service.RequestService;
-import bbmri.service.SampleService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;

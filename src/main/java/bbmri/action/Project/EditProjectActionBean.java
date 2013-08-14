@@ -1,21 +1,15 @@
-package bbmri.action.Project;
+package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Attachment;
-import bbmri.entities.AttachmentType;
 import bbmri.entities.Project;
 import bbmri.entities.User;
-import bbmri.service.ProjectService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.PermitAll;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
 /**

@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="projects.MyProjects" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.Project.ProjectActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.project.ProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
                  biobank="${ab.loggedUser.biobank}"
@@ -12,7 +12,7 @@
     <s:layout-component name="body">
         <fieldset>
             <legend><f:message key="projects.MyProjects"/></legend>
-            <s:form beanclass="bbmri.action.Project.ProjectActionBean">
+            <s:form beanclass="bbmri.action.project.ProjectActionBean">
                 <table cellspacing="0" class="tablesorter">
                     <thead>
                     <tr>
@@ -43,7 +43,7 @@
                                 <c:choose>
                                     <c:when test="${fn:contains(project.users, ab.loggedUser) &&
                                         !fn:ownProject(project, ab.loggedUser)}">
-                                        <s:link beanclass="bbmri.action.Project.ProjectActionBean" event="leave">
+                                        <s:link beanclass="bbmri.action.project.ProjectActionBean" event="leave">
                                             <s:param name="project.id" value="${project.id}"/><f:message
                                                 key="project.leave"/></s:link>
                                     </c:when>
@@ -57,7 +57,7 @@
                                 <c:choose>
                                     <c:when test="${fn:contains(project.users, ab.loggedUser) &&project.projectState != 'NEW'
                                          && project.projectState != null}">
-                                        <s:link beanclass="bbmri.action.Project.ProjectActionBean"
+                                        <s:link beanclass="bbmri.action.project.ProjectActionBean"
                                                 event="requestSample">
                                             <s:param name="project.id" value="${project.id}"/><f:message
                                                 key="request_sample"/></s:link>
@@ -71,12 +71,12 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${fn:ownProject(project, ab.loggedUser)}">
-                                        <s:link beanclass="bbmri.action.Project.ProjectActionBean" event="edit">
+                                        <s:link beanclass="bbmri.action.project.ProjectActionBean" event="edit">
                                             <s:param name="project.id" value="${project.id}"/><f:message
                                                 key="edit"/></s:link>
                                     </c:when>
                                     <c:otherwise>
-                                        <s:link beanclass="bbmri.action.Project.ApproveProjectActionBean"
+                                        <s:link beanclass="bbmri.action.project.ApproveProjectActionBean"
                                                 event="detail">
                                             <s:param name="project.id" value="${project.id}"/>
                                             <f:message key="detail"/></s:link>

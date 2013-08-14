@@ -1,12 +1,9 @@
-package bbmri.action.Project;
+package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
-import bbmri.service.ProjectService;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
