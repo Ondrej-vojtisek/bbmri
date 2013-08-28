@@ -49,6 +49,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
                 }
     }
 
+    /*
     public SampleQuestion create(SampleQuestion sampleQuestion) {
             try {
                 sampleQuestionDao.create(sampleQuestion);
@@ -57,7 +58,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
                 throw ex;
             }
         }
-
+        */
 
     public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId) {
         try {
@@ -94,6 +95,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
         }
     }
 
+    /*
     public void remove(SampleQuestion sampleQuestion) {
            try {
                    sampleQuestionDao.remove(sampleQuestion);
@@ -101,6 +103,7 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
                throw ex;
            }
        }
+       */
 
     public SampleQuestion update(SampleQuestion sampleQuestion) {
            try {

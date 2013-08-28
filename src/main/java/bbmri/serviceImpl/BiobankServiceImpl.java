@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class BiobankServiceImpl implements BiobankService {
+public class BiobankServiceImpl extends BasicServiceImpl implements BiobankService {
 
     @Autowired
     private BiobankDao biobankDao;
@@ -31,21 +31,17 @@ public class BiobankServiceImpl implements BiobankService {
     @Autowired
     private UserDao userDao;
 
-    public Biobank create(Biobank biobank) {
-            try {
-                biobankDao.create(biobank);
-                return biobank;
-            } catch (DataAccessException ex) {
-                throw ex;
-            }
-        }
-
     public Biobank create(Biobank biobank, Long administratorId) {
+        notNull(biobank);
+        notNull(administratorId);
+
         try {
             User adminDB = userDao.get(administratorId);
             if (adminDB != null) {
                 biobankDao.create(biobank);
                 adminDB.setBiobank(biobank);
+                biobank.getAdministrators().add(adminDB);
+                biobankDao.update(biobank);
             }
             return biobank;
         } catch (DataAccessException ex) {
@@ -54,9 +50,17 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public void remove(Long id) {
+        notNull(id);
         try {
             Biobank biobank = biobankDao.get(id);
             if (biobank != null) {
+                List<User> administrators = biobank.getAdministrators();
+                for(User user : administrators){
+                    user.setBiobank(null);
+                    userDao.update(user);
+                }
+                biobank.setAdministrators(null);
+                biobankDao.update(biobank);
                 biobankDao.remove(biobank);
             }
         } catch (DataAccessException ex) {
@@ -64,6 +68,7 @@ public class BiobankServiceImpl implements BiobankService {
         }
     }
 
+    /*
     public void remove(Biobank biobank) {
           try {
             biobankDao.remove(biobank);
@@ -71,8 +76,11 @@ public class BiobankServiceImpl implements BiobankService {
               throw ex;
           }
       }
+      */
 
     public Biobank update(Biobank biobank) {
+        notNull(biobank);
+
         try {
             Biobank biobankDB = biobankDao.get(biobank.getId());
             if(biobank.getAddress() != null){
@@ -93,6 +101,8 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public List<Sample> getAllSamples(Long biobankId) {
+        notNull(biobankId);
+
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB == null) {
@@ -110,10 +120,9 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
+        notNull(userId);
+        notNull(biobankId);
         try {
-            if(userId == null || biobankId == null){
-                return null;
-            }
             User userDB = userDao.get(userId);
             Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB.getAdministrators().contains(userDB)) {
@@ -127,6 +136,8 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public List<User> getAllAdministrators(Long biobankId) {
+        notNull(biobankId);
+
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
             /*List<User> users = userDao.all();
@@ -148,6 +159,9 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public Biobank changeOwnership(Long biobankId, Long newOwnerId) {
+        notNull(biobankId);
+        notNull(newOwnerId);
+
         Biobank biobank = biobankDao.get(biobankId);
         User newOwner = userDao.get(newOwnerId);
         User oldOwner = userDao.get(biobank.getOwner().getId());
@@ -166,6 +180,9 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public User assignAdministrator(Long userId, Long biobankId) {
+        notNull(userId);
+        notNull(biobankId);
+
         User userDB = userDao.get(userId);
         Biobank biobankDB = biobankDao.get(biobankId);
         if (userDB.getBiobank() == null) {
@@ -176,6 +193,7 @@ public class BiobankServiceImpl implements BiobankService {
     }
 
     public Biobank get(Long id) {
+        notNull(id);
         return biobankDao.get(id);
     }
 

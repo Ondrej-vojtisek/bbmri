@@ -14,12 +14,14 @@ import java.util.List;
  */
 public interface UserService extends BasicService<User>{
 
-     User changeAdministrator(Long oldAdminId, Long newAdminId);
+    User create(User user);
 
-     List<User> getNonAdministratorUsers();
+    User changeAdministrator(Long oldAdminId, Long newAdminId);
 
-     User setRole(Long userId, RoleType roleType);
+    List<User> getNonAdministratorUsers();
 
-     User removeRole(Long userId, RoleType roleType);
+    User setRole(Long userId, RoleType roleType);
+
+    User removeRole(Long userId, RoleType roleType);
 
 }

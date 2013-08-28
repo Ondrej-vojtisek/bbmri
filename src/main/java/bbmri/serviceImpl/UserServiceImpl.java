@@ -1,7 +1,9 @@
 package bbmri.serviceImpl;
 
+import bbmri.dao.BiobankDao;
 import bbmri.dao.RoleDao;
 import bbmri.dao.UserDao;
+import bbmri.entities.Biobank;
 import bbmri.entities.Role;
 import bbmri.entities.RoleType;
 import bbmri.entities.User;
@@ -33,7 +35,10 @@ public class UserServiceImpl implements UserService {
         private UserDao userDao;
 
     @Autowired
-    private RoleDao roleDao;
+        private RoleDao roleDao;
+
+    @Autowired
+        private BiobankDao biobankDao;
 
     public User create(User user) {
         try {
@@ -44,6 +49,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /*
     public void remove(User user) {
         try {
             userDao.remove(user);
@@ -51,11 +57,18 @@ public class UserServiceImpl implements UserService {
             throw ex;
         }
     }
+    */
 
     public void remove(Long id) {
         try {
             User userDB = userDao.get(id);
             if (userDB != null) {
+                Biobank biobankDB = biobankDao.get(userDB.getBiobank().getId());
+                if(biobankDB != null){
+                    biobankDB.getAdministrators().remove(userDB);
+                    biobankDao.update(biobankDB);
+                    userDB.setBiobank(null);
+                }
                 userDao.remove(userDB);
             }
         } catch (DataAccessException ex) {

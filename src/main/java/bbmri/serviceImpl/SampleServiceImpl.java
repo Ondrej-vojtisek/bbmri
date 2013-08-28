@@ -48,7 +48,6 @@ public class SampleServiceImpl implements SampleService {
                     Biobank biobank = biobankDao.get(biobankId);
                     if (biobank != null) {
                         sample.setBiobank(biobank);
-
                     }
                     return sample;
                 } catch (DataAccessException ex) {
@@ -67,6 +66,7 @@ public class SampleServiceImpl implements SampleService {
         }
     }
 
+    /*
     public void remove(Sample sample) {
           try {
             sampleDao.remove(sample);
@@ -74,6 +74,7 @@ public class SampleServiceImpl implements SampleService {
               throw ex;
           }
       }
+      */
 
     public Sample update(Sample sample) {
         try {

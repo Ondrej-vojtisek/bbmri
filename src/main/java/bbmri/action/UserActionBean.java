@@ -82,8 +82,7 @@ public class UserActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution delete() {
-        User user = userService.get(id);
-        userService.remove(user);
+        userService.remove(id);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)
         );

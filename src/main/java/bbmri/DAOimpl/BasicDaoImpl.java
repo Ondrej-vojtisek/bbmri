@@ -66,8 +66,7 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
 
     public static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
-            throw new IllegalArgumentException("Object to create can "
-                    + "not be a null object");
+            throw new IllegalArgumentException("Object can't be a null object");
         }
     }
 

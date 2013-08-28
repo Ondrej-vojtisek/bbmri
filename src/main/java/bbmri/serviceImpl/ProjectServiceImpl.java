@@ -36,12 +36,13 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private RequestGroupDao requestGroupDao;
 
-
+    /*
     public Project create(Project project) {
            project.setProjectState(ProjectState.NEW);
            projectDao.create(project);
            return project;
        }
+    */
 
     public Project create(Project project, User user) {
         project.setProjectState(ProjectState.NEW);
@@ -58,10 +59,11 @@ public class ProjectServiceImpl implements ProjectService {
             projectDao.remove(project);
         }
     }
-
+    /*
     public void remove(Project project) {
              projectDao.remove(project);
      }
+     */
 
     public Project update(Project project) {
         Project projectDB = projectDao.get(project.getId());

@@ -80,9 +80,12 @@ public class BiobankServiceTest extends AbstractServiceTest {
             /* ********* THEN ********** */
 
            assertEquals(result.getBiobank(), null);
-           assertEquals(null, biobankService.removeAdministratorFromBiobank(null, biobank.getId()));
-           assertEquals(null, biobankService.removeAdministratorFromBiobank(user.getId(), null));
        }
+
+    @Test(expected=IllegalArgumentException.class)
+    public void exceptionTest(){
+            biobankService.create(null,null);
+    }
 
 
 }

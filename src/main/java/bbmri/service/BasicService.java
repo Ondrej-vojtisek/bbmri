@@ -10,13 +10,14 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface BasicService<T> {
-         List<T> all();
+
+        List<T> all();
 
          T get(Long id);
 
-         T create(T t);
+       //  T create(T t);
 
-         void remove(T t);
+       //  void remove(T t);
 
          void remove(Long id);
 

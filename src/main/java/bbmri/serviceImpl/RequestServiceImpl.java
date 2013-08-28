@@ -37,7 +37,7 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     private BiobankDao biobankDao;
 
-
+   /*
     public Request create(Request request) {
           try {
               requestDao.create(request);
@@ -46,6 +46,7 @@ public class RequestServiceImpl implements RequestService {
               throw ex;
           }
       }
+      */
 
 
     public Request create(Long sampleId, Integer numOfRequested) {
@@ -85,6 +86,7 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    /*
     public void remove(Request request) {
         try {
             requestDao.remove(request);
@@ -92,6 +94,7 @@ public class RequestServiceImpl implements RequestService {
             throw ex;
         }
     }
+    */
 
     public void remove(Long id) {
         try {

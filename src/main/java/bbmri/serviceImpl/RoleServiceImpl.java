@@ -32,7 +32,8 @@ public class RoleServiceImpl implements RoleService {
                throw ex;
            }
        }
-   
+
+    /*
        public void remove(Role role) {
            try {
                roleDao.remove(role);
@@ -40,6 +41,7 @@ public class RoleServiceImpl implements RoleService {
                throw ex;
            }
        }
+       */
    
        public void remove(Long id) {
            try {

@@ -28,7 +28,10 @@ public class Biobank implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
-    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="biobank_administrators",
+               joinColumns = @JoinColumn( name="biobank_id"),
+               inverseJoinColumns = @JoinColumn( name="user_id"))
     private List<User> administrators = new ArrayList<User>();
 
     @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)

@@ -45,7 +45,7 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Project> projects = new ArrayList<Project>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Biobank biobank;
 
     @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
