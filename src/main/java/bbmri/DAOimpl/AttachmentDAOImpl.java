@@ -47,7 +47,8 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
         if (!rootDir.exists()) {
             rootDir.mkdir();
         }
-        File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
+        File dir = new File(Attachment.ROOT_DIR_PATH
+                + attachment.getProject().getId().toString());
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -55,6 +56,10 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
 
     public String getPath(Attachment attachment) {
         notNull(attachment);
-        return (Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString() + "\\" + attachment.getId() + attachment.getAttachmentType().toString());
+        return (Attachment.ROOT_DIR_PATH
+                + attachment.getProject().getId().toString()
+                + File.separator
+                + attachment.getProject().getId().toString()
+                + attachment.getAttachmentType().toString());
     }
 }

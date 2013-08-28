@@ -173,8 +173,8 @@ public class ProjectActionBean extends BasicActionBean {
                     projectService.saveAttachment(getContext().getProject().getId(), attachment);
                     try {
 
-                        attachmentFileBean.save(new File(Attachment.ROOT_DIR_PATH + projectDB.getId().toString() + "\\"
-                                + attachment.getId().toString() + attachment.getAttachmentType().toString()));
+                        attachmentFileBean.save(new File(Attachment.ROOT_DIR_PATH + projectDB.getId().toString() + File.separator
+                                + projectDB.getId().toString() + attachment.getAttachmentType().toString()));
                         getContext().getMessages().add(
                                 new SimpleMessage("File was uploaded")
                         );

@@ -1,6 +1,7 @@
 package bbmri.entities;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -15,7 +16,7 @@ import java.io.Serializable;
 public class Attachment implements Serializable {
 
     public final static String ROOT_DIR = "bbmri_data";
-    public final static String ROOT_DIR_PATH = ROOT_DIR + "\\";
+    public final static String ROOT_DIR_PATH = ROOT_DIR + File.separator; //+ "\\";
 
     private static final long serialVersionUID = 1L;
 

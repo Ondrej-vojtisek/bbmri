@@ -111,9 +111,12 @@ public class BiobankServiceImpl implements BiobankService {
 
     public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
         try {
+            if(userId == null || biobankId == null){
+                return null;
+            }
             User userDB = userDao.get(userId);
             Biobank biobankDB = biobankDao.get(biobankId);
-            if (userDB.getBiobank().equals(biobankDB)) {
+            if (biobankDB.getAdministrators().contains(userDB)) {
                 userDB.setBiobank(null);
                 userDao.update(userDB);
             }
@@ -126,16 +129,19 @@ public class BiobankServiceImpl implements BiobankService {
     public List<User> getAllAdministrators(Long biobankId) {
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
-            List<User> users = userDao.all();
+            /*List<User> users = userDao.all();
             List<User> results = new ArrayList<User>();
+
+
             for (User user : users) {
                 if (user.getBiobank() != null) {
                     if (user.getBiobank().equals(biobankDB)) {
                         results.add(user);
                     }
                 }
-            }
-            return results;
+            }        */
+            // results;
+            return biobankDB.getAdministrators();
         } catch (DataAccessException ex) {
             throw ex;
         }
