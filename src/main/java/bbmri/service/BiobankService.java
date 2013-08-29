@@ -17,11 +17,11 @@ public interface BiobankService  extends BasicService<Biobank> {
 
    Biobank create(Biobank biobank, Long administratorId);
 
-   List<Sample> getAllSamples(Long biobankId);
+   //List<Sample> getAllSamples(Long biobankId);
 
    User removeAdministratorFromBiobank(Long userId, Long biobankId);
 
-   List<User> getAllAdministrators(Long biobankId);
+  // List<User> getAllAdministrators(Long biobankId);
 
    Biobank changeOwnership(Long biobankId, Long newOwnerId);
 

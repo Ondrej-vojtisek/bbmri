@@ -29,34 +29,20 @@ public class ProjectDaoTest extends AbstractTest {
     @Autowired
     UserDao userDao;
 
-
-    private User createUser(int i){
-        User user = new User();
-        user.setName("Pokusny" + i);
-        user.setSurname("Uzivatel" + i);
-        userDao.create(user);
-        return user;
-    }
-
     private List<Project> prepareTestedEnvironment(User user) {
-        Project project1 = new Project();
-        project1.setName("P1");
-        project1.setProjectState(ProjectState.NEW);
+        Project project1 = createTestProject(1);
         projectDao.create(project1);
 
         project1.getUsers().add(user);
         projectDao.update(project1);
 
-        Project project2 = new Project();
-        project2.setName("P2");
-        project2.setProjectState(ProjectState.NEW);
+        Project project2 = createTestProject(2);
         projectDao.create(project2);
 
         project2.getUsers().add(user);
         projectDao.update(project2);
 
-        Project project3 = new Project();
-        project3.setName("P3");
+        Project project3 = createTestProject(3);
         project3.setProjectState(ProjectState.APPROVED);
         projectDao.create(project3);
 
@@ -73,7 +59,8 @@ public class ProjectDaoTest extends AbstractTest {
 
     @Test
     public void getAllByProjectStateTest() {
-        User user = createUser(1);
+        User user = createTestUser(1);
+        userDao.create(user);
         List<Project> results = prepareTestedEnvironment(user);
         List<Project> approved = projectDao.getAllByProjectState(ProjectState.APPROVED);
         assertEquals(1, approved.size());

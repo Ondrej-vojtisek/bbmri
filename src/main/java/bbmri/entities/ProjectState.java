@@ -13,6 +13,7 @@ public enum ProjectState {
     APPROVED("approved"),
     STARTED("started"),
     CANCELED("canceled"),
+    DENIED("denied"),
     FINISHED("finished");
     private String state;
 

@@ -7,6 +7,8 @@ import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.io.FileInputStream;
@@ -24,6 +26,8 @@ import java.util.List;
 public class EditProjectActionBean extends BasicActionBean {
 
     private static final String EDIT = "/project_edit.jsp";
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @ValidateNestedProperties(value = {
                 @Validate(on = {"update"},
@@ -87,7 +91,8 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public List<User> getUsers() {
-        this.users = projectService.getAllAssignedUsers(project.getId());
+       // this.users = projectService.getAllAssignedUsers(project.getId());
+        users = projectService.get(project.getId()).getUsers();
         return users;
     }
 
@@ -140,7 +145,8 @@ public class EditProjectActionBean extends BasicActionBean {
         getContext().getMessages().add(
                                  new SimpleMessage("{0} users removed", removed)
                          );
-        users = projectService.getAllAssignedUsers(getProject().getId());
+        users = getProject().getUsers();
+      //  users = projectService.get(getProject().getId()).getUsers();
         return new RedirectResolution(ProjectActionBean.class);
     }
 
@@ -156,7 +162,8 @@ public class EditProjectActionBean extends BasicActionBean {
         getContext().getMessages().add(
                        new SimpleMessage("{0} users assigned", assigned)
                );
-        users = projectService.getAllAssignedUsers(getProject().getId());
+        users = getProject().getUsers();
+      //  users = projectService.get(getProject().getId()).getUsers();
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -170,15 +177,18 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public List<Attachment> getAttachments() {
-              return projectService.getAttachmentsByProject(getProject().getId());
+              //return getProject().getAttachments();
+        /* Nemuze zde byt pouze getProject().getAttachment kvuli org.hibernate.LazyInitializationException */
+
+              return attachmentService.getAttachmentsByProject(getProject().getId());
           }
 
     @DontValidate
     public Resolution download() throws Exception {
                System.err.println("Attachment ID : " + attachment.getId());
-               attachment = projectService.getAttachmentById(attachment.getId());
+               attachment = attachmentService.get(attachment.getId());
                String fileName = attachment.getFileName();
-               String filePath = projectService.getAttachmentPath(attachment);
+               String filePath = attachmentService.getAttachmentPath(attachment);
                return new StreamingResolution(attachment.getContentType(),
                        new FileInputStream(filePath)).setFilename(fileName);
            }

@@ -24,23 +24,9 @@ public class BasicDaoTest extends AbstractTest {
     @Autowired
     UserDao userDao;
 
-    private User createTestUser() {
-        User user = new User();
-        user.setName("Pokusny");
-        user.setSurname("Uzivatel");
-        return user;
-    }
-
-    private User createTestUser2() {
-        User user = new User();
-        user.setName("Pokusny2");
-        user.setSurname("Uzivatel2");
-        return user;
-    }
-
     @Test
     public void create() {
-        User user = createTestUser();
+        User user = createTestUser(1);
         userDao.create(user);
         userDao.get(user.getId());
         assertEquals(user, userDao.get(user.getId()));
@@ -48,7 +34,7 @@ public class BasicDaoTest extends AbstractTest {
 
     @Test
     public void remove() {
-        User user = createTestUser();
+        User user = createTestUser(1);
         userDao.create(user);
         userDao.remove(user);
         assertEquals(null, userDao.get(user.getId()));
@@ -57,10 +43,10 @@ public class BasicDaoTest extends AbstractTest {
     @Test
     public void count() {
         assertEquals(new Integer(0), userDao.count());
-        User user = createTestUser();
+        User user = createTestUser(1);
         userDao.create(user);
         assertEquals(new Integer(1), userDao.count());
-        userDao.create(createTestUser2());
+        userDao.create(createTestUser(2));
         assertEquals(new Integer(2), userDao.count());
         userDao.remove(user);
         assertEquals(new Integer(1), userDao.count());
@@ -69,7 +55,7 @@ public class BasicDaoTest extends AbstractTest {
     @Test
     public void all() {
         assertEquals(new ArrayList<User>(), userDao.all());
-        User user = createTestUser();
+        User user = createTestUser(1);
         userDao.create(user);
         assertEquals(user, userDao.all().get(0));
         userDao.remove(user);

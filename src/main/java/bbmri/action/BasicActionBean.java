@@ -45,6 +45,9 @@ public class BasicActionBean implements ActionBean {
     @SpringBean
     protected SampleQuestionService sampleQuestionService;
 
+    @SpringBean
+    protected AttachmentService attachmentService;
+
 
     private static final String MY_PROJECTS = "/project_my_projects.jsp";
 

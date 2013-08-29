@@ -13,17 +13,17 @@ import java.util.List;
  */
 public interface ProjectService  extends BasicService<Project> {
 
-    Project create(Project project, User user);
+     Project create(Project project, Long userId);
 
-     List<Project> getAllByUser(Long id);
+//     List<Project> getAllByUser(Long id);
 
      User assignUser(Long userId, Long projectId);
 
      User removeUserFromProject(Long userId, Long projectId);
 
-     List<User> getAllAssignedUsers(Long projectId);
+    // List<User> getAllAssignedUsers(Long projectId);
 
-     void approve(Long id);
+    // void approve(Long id);
 
      void approve(Long projectId, Long userId);
 
@@ -31,23 +31,13 @@ public interface ProjectService  extends BasicService<Project> {
 
      List<Project> getAllByProjectState(ProjectState projectState);
 
-     List<Project> getAllApprovedByUser(User user);
+    // List<Project> getAllApprovedByUser(Long userId);
 
-     List<Project> getAllWhichUserAdministrate(Long id);
+     List<Project> getAllWhichUserAdministrate(Long userId);
 
-     List<User> getAllNotAssignedUsers(Long id);
+     List<User> getAllNotAssignedUsers(Long projectId);
 
      Project changeOwnership(Long projectId, Long newOwnerId);
 
-     void saveAttachment(Long id, Attachment attachment);
-
-     Attachment getAttachmentByProject(Long id, AttachmentType attachmentType);
-
-    String getAttachmentPath(Attachment attachment);
-
-    List<Attachment> getAttachmentsByProject(Long id);
-
-    Attachment getAttachmentById(Long id);
-
-    List<Project> getAllByUserWithRequests(Long id);
+    List<Project> getAllByUserWithRequests(Long userId);
 }

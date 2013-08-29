@@ -34,13 +34,24 @@ public class Biobank implements Serializable {
                inverseJoinColumns = @JoinColumn( name="user_id"))
     private List<User> administrators = new ArrayList<User>();
 
-    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="biobank_samples",
+               joinColumns = @JoinColumn( name="biobank_id"),
+               inverseJoinColumns = @JoinColumn( name="sample_id"))
     private List<Sample> samples = new ArrayList<Sample>();
 
-    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="biobank_requestGroups",
+               joinColumns = @JoinColumn( name="biobank_id"),
+               inverseJoinColumns = @JoinColumn( name="requestGroup_id"))
+   // @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="biobank_sampleQuestions",
+                   joinColumns = @JoinColumn( name="biobank_id"),
+                   inverseJoinColumns = @JoinColumn( name="sampleQuestion_id"))
+  //  @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
     private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
 
     public Long getId() {

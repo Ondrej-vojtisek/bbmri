@@ -48,6 +48,9 @@ public class SampleServiceImpl implements SampleService {
                     Biobank biobank = biobankDao.get(biobankId);
                     if (biobank != null) {
                         sample.setBiobank(biobank);
+                        biobank.getSamples().add(sample);
+                        biobankDao.update(biobank);
+
                     }
                     return sample;
                 } catch (DataAccessException ex) {
@@ -57,9 +60,15 @@ public class SampleServiceImpl implements SampleService {
 
     public void remove(Long id) {
         try {
-            Sample sample = sampleDao.get(id);
-            if (sample != null) {
-                sampleDao.remove(sample);
+            Sample sampleDB = sampleDao.get(id);
+            if (sampleDB != null) {
+                Biobank biobankDB = biobankDao.get(sampleDB.getBiobank().getId());
+                if(biobankDB != null){
+                    biobankDB.getSamples().remove(sampleDB);
+                    biobankDao.update(biobankDB);
+                    sampleDB.setBiobank(null);
+                }
+                sampleDao.remove(sampleDB);
             }
         } catch (DataAccessException ex) {
             throw ex;

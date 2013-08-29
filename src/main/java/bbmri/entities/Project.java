@@ -33,7 +33,7 @@ public class Project implements Serializable {
 
     private String fundingOrganization;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "project_users", joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<User>();
@@ -41,13 +41,21 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.ALL)
     private User judgedByUser;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="project_requestGroups",
+                  joinColumns = @JoinColumn( name="project_id"),
+                  inverseJoinColumns = @JoinColumn( name="requestGroup_id"))
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="project_attachments",
+               joinColumns = @JoinColumn( name="project_id"),
+               inverseJoinColumns = @JoinColumn( name="attachment_id"))
+    //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)

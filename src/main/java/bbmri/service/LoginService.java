@@ -13,6 +13,6 @@ public interface LoginService {
 
     User login(Long id, String password);
 
-    void logout(User user);
+   // void logout(User user);
 
 }

@@ -22,13 +22,13 @@ public class SampleQuestion {
       private Long id;
 
     @Column(name="SPECIFICATION", columnDefinition="TEXT")
-      private String specification;
+    private String specification;
+
+    @ManyToOne //(cascade = CascadeType.ALL)
+    private Biobank biobank;
 
     @ManyToOne(cascade = CascadeType.ALL)
-        private Biobank biobank;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-        private Project project;
+    private Project project;
 
     @Enumerated(EnumType.STRING)
     private RequestState requestState;

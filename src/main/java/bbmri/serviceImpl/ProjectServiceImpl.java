@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectServiceImpl extends BasicServiceImpl implements ProjectService {
 
     @Autowired
     private UserDao userDao;
@@ -36,46 +36,134 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private RequestGroupDao requestGroupDao;
 
-    /*
-    public Project create(Project project) {
-           project.setProjectState(ProjectState.NEW);
-           projectDao.create(project);
-           return project;
-       }
-    */
+    public Project create(Project project, Long userId) {
+        notNull(project);
+        notNull(userId);
 
-    public Project create(Project project, User user) {
-        project.setProjectState(ProjectState.NEW);
-        projectDao.create(project);
-        User userDB = userDao.get(user.getId());
-        project.getUsers().add(userDB);
-        projectDao.update(project);
+        User userDB = userDao.get(userId);
+        if (userDB != null) {
+            project.setProjectState(ProjectState.NEW);
+            projectDao.create(project);
+            assignUserToProject(userDB, project, true);
+        }
         return project;
     }
 
+
+    private void assignUserToProject(User userDB, Project projectDB, boolean beginning) {
+        notNull(userDB);
+        notNull(projectDB);
+
+        userDB.getProjects().add(projectDB);
+        userDao.update(userDB);
+
+        if (beginning) {
+            projectDB.getUsers().add(0, userDB);
+        } else {
+            projectDB.getUsers().add(userDB);
+        }
+
+
+        projectDao.update(projectDB);
+    }
+
+    private void removeUserFromProject(User userDB, Project projectDB) {
+        notNull(userDB);
+        notNull(projectDB);
+        userDB.getProjects().remove(projectDB);
+        userDao.update(userDB);
+        projectDB.getUsers().remove(userDB);
+        projectDao.update(projectDB);
+    }
+
     public void remove(Long id) {
-        Project project = projectDao.get(id);
-        if (project != null) {
-            projectDao.remove(project);
+        notNull(id);
+
+        Project projectDB = projectDao.get(id);
+        if (projectDB != null) {
+            List<User> users = projectDB.getUsers();
+            if (users != null) {
+                for (User user : users) {
+                    user.getProjects().remove(projectDB);
+                    userDao.update(user);
+                }
+            }
+
+            User judge = projectDB.getJudgedByUser();
+            if (judge != null) {
+                judge.getJudgedProjects().remove(projectDB);
+                userDao.update(judge);
+            }   //  projectDB.setJudgedByUser();
+
+            List<RequestGroup> requestGroups = projectDB.getRequestGroups();
+            if (requestGroups != null) {
+                for (RequestGroup requestGroup : requestGroups) {
+                    requestGroupDao.remove(requestGroup);
+                }
+            }
+
+            List<Attachment> attachments = projectDB.getAttachments();
+            if (attachments != null) {
+                for (Attachment attachment : attachments) {
+                    attachmentDao.remove(attachment);
+                }
+            }
+
+            projectDao.remove(projectDB);
         }
     }
-    /*
-    public void remove(Project project) {
-             projectDao.remove(project);
-     }
-     */
 
     public Project update(Project project) {
-        Project projectDB = projectDao.get(project.getId());
+        notNull(project);
 
-        if (projectDB.getProjectState() != ProjectState.NEW &&
-                project.getProjectState() != ProjectState.NEW &&
-                project.getProjectState() != ProjectState.APPROVED) {
+        Project projectDB = projectDao.get(project.getId());
+        if (projectDB == null) {
+            // TODO: exception
+            return null;
+        }
+
+        /* This method should not be used to approve or deny project. It should be used as a way to edit project by its administrators. So it can't be changed to DENY, NEW or APPROVED*/
+        if (projectDB.getProjectState() != ProjectState.NEW
+                && projectDB.getProjectState() != ProjectState.DENIED
+                && (project.getProjectState() == ProjectState.STARTED
+                || project.getProjectState() == ProjectState.FINISHED
+                || project.getProjectState() == ProjectState.CANCELED)) {
             projectDB.setProjectState(project.getProjectState());
         }
-        projectDB.setAnnotation(project.getAnnotation());
-        projectDB.setFundingOrganization(project.getFundingOrganization());
-        projectDB.setName(project.getName());
+        if (project.getAnnotation() != null) {
+            projectDB.setAnnotation(project.getAnnotation());
+        }
+
+        if (project.getName() != null) {
+            projectDB.setName(project.getName());
+        }
+     /*
+        I am not sure if these attributes can be changed during project lifetime.
+
+        if (project.getApprovalDate() != null) {
+            projectDB.setApprovalDate(project.getApprovalDate());
+        }
+
+        if (project.getApprovalStorage() != null) {
+            projectDB.setApprovalStorage(project.getApprovalStorage());
+        }
+
+        if (project.getApprovedBy() != null) {
+            projectDB.setApprovedBy(project.getApprovedBy());
+        }
+
+        if (project.getFundingOrganization() != null) {
+            projectDB.setFundingOrganization(project.getFundingOrganization());
+        }
+
+        if (project.getHomeInstitution() != null) {
+            projectDB.setHomeInstitution(project.getHomeInstitution());
+        }
+
+        if (project.getMainInvestigator() != null) {
+            projectDB.setMainInvestigator(project.getMainInvestigator());
+        }
+        */
 
         projectDao.update(projectDB);
         return project;
@@ -86,33 +174,40 @@ public class ProjectServiceImpl implements ProjectService {
         return projects;
     }
 
-    public List<Project> getAllByUser(Long id) {
-            User userDB = userDao.get(id);
-          //  List<Project> projects = projectDao.getAllByUser(userDB);
-            return userDB.getProjects();
+   /* public List<Project> getAllByUser(Long id) {
+        User userDB = userDao.get(id);
+        //  List<Project> projects = projectDao.getAllByUser(userDB);
+        return userDB.getProjects();
+    }  */
+
+    /* TODO: Tohle neni pekne a jiste to pujde lepe. Jen je potreba prvne projit upravu modelu u RequestGroup a Request  */
+    public List<Project> getAllByUserWithRequests(Long userId) {
+        notNull(userId);
+
+        User userDB = userDao.get(userId);
+        //   List<Project> projects = projectDao.getAllByUser(userDB);
+        List<Project> projects = userDB.getProjects();
+        if (projects != null) {
+            for (int i = 0; i < projects.size(); i++) {
+                projects.get(i).setRequestGroups(requestGroupDao.getAllByProject(projects.get(i)));
+            }
+        }
+        return projects;
     }
 
-    public List<Project> getAllByUserWithRequests(Long id) {
-           User userDB = userDao.get(id);
-        //   List<Project> projects = projectDao.getAllByUser(userDB);
-           List<Project> projects = userDB.getProjects();
-           if(projects != null){
-               for(int i = 0; i < projects.size(); i++){
-                  projects.get(i).setRequestGroups(requestGroupDao.getAllByProject(projects.get(i)));
-               }
-           }
-           return projects;
-       }
-
-    public List<Project> getAllWhichUserAdministrate(Long id) {
-        User userDB = userDao.get(id);
-//        List<Project> projects = projectDao.getAllByUser(userDB);
+    public List<Project> getAllWhichUserAdministrate(Long userId) {
+        notNull(userId);
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            return null;
+            // TODO: exception
+        }
         List<Project> projects = userDB.getProjects();
 
         List<Project> result = new ArrayList<Project>();
         if (projects != null) {
             for (Project project : projects) {
-                if (project.getUsers().get(0).equals(userDB)) {
+                if (project.getOwner().equals(userDB)) {
                     result.add(project);
                 }
             }
@@ -122,13 +217,14 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
+        notNull(projectState);
         List<Project> projects = projectDao.getAllByProjectState(projectState);
         return projects;
     }
+    /*
+    public List<Project> getAllApprovedByUser(Long userId) {
+        User userDB = userDao.get(userId);
 
-    public List<Project> getAllApprovedByUser(User user) {
-        User userDB = userDao.get(user.getId());
-//        List<Project> projects = projectDao.getAllByUser(user);
         List<Project> projects = userDB.getProjects();
 
         List<Project> result = new ArrayList<Project>();
@@ -142,74 +238,125 @@ public class ProjectServiceImpl implements ProjectService {
         }
         return result;
     }
+    */
 
 
     public User assignUser(Long userId, Long projectId) {
-        User userDB = userDao.get(userId);
-        Project projectDB = projectDao.get(projectId);
+        notNull(userId);
+        notNull(projectId);
 
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            return null;
+            //TODO: exception
+        }
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return null;
+            //TODO: exception
+        }
         if (!projectDB.getUsers().contains(userDB)) {
-            projectDB.getUsers().add(userDB);
-            projectDao.update(projectDB);
+            assignUserToProject(userDB, projectDB, false);
         }
         return userDB;
     }
 
     public User removeUserFromProject(Long userId, Long projectId) {
+        notNull(userId);
+        notNull(projectId);
+
         User userDB = userDao.get(userId);
+        if (userDB == null) {
+            return null;
+            //TODO: exception
+        }
         Project projectDB = projectDao.get(projectId);
-        if (projectDB.getUsers().contains(userDB) == true) {
-            projectDB.getUsers().remove(userDB);
-            projectDao.update(projectDB);
+        if (projectDB == null) {
+            return null;
+            //TODO: exception
+        }
+        if (projectDB.getUsers().contains(userDB)) {
+            removeUserFromProject(userDB, projectDB);
         }
         return userDB;
     }
 
-    public List<User> getAllAssignedUsers(Long projectId) {
+  /*  public List<User> getAllAssignedUsers(Long projectId) {
         Project projectDB = projectDao.get(projectId);
-       // List<User> users = projectDao.getAllUsersByProject(projectDB);
+        // List<User> users = projectDao.getAllUsersByProject(projectDB);
         return projectDB.getUsers();
-    }
+    }  */
 
-    public void approve(Long id) {
+  /*  public void approve(Long id) {
         Project projectDB = projectDao.get(id);
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
             projectDao.update(projectDB);
         }
 
-    }
+    } */
 
     public void approve(Long projectId, Long userId) {
+        notNull(projectId);
+        notNull(userId);
+
         Project projectDB = projectDao.get(projectId);
+
+        if (projectDB == null) {
+            return;
+            //TODO: exception
+        }
         User userDB = userDao.get(userId);
+        if (userDB == null) {
+            return;
+            //TODO: exception
+        }
+
         if (projectDB.getProjectState() == ProjectState.NEW) {
             projectDB.setProjectState(ProjectState.APPROVED);
             projectDB.setJudgedByUser(userDB);
             projectDao.update(projectDB);
+            userDB.getJudgedProjects().add(projectDB);
+            userDao.update(userDB);
         }
+        //TODO: exception
     }
 
     public void deny(Long projectId, Long userId) {
-           Project projectDB = projectDao.get(projectId);
-           User userDB = userDao.get(userId);
-           if (projectDB.getProjectState() == ProjectState.NEW) {
-               projectDB.setProjectState(ProjectState.CANCELED);
-               projectDB.setJudgedByUser(userDB);
-               projectDao.update(projectDB);
-           }
-       }
+        notNull(projectId);
+        notNull(userId);
 
-    public Project get(Long id) {
-        Project project;
-        project = projectDao.get(id);
-        return project;
+        Project projectDB = projectDao.get(projectId);
+
+        if (projectDB == null) {
+            return;
+            //TODO: exception
+        }
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            return;
+            //TODO: exception
+        }
+
+        if (projectDB.getProjectState() == ProjectState.NEW) {
+            projectDB.setProjectState(ProjectState.DENIED);
+            projectDB.setJudgedByUser(userDB);
+            projectDao.update(projectDB);
+            userDB.getJudgedProjects().add(projectDB);
+            userDao.update(userDB);
+        }
+        //TODO: exception
     }
 
-    public List<User> getAllNotAssignedUsers(Long id) {
+    public Project get(Long id) {
+        notNull(id);
+        return projectDao.get(id);
+    }
+
+    public List<User> getAllNotAssignedUsers(Long projectId) {
+        notNull(projectId);
         List<User> result = new ArrayList<User>();
-        Project project;
-        project = projectDao.get(id);
+        Project project = projectDao.get(projectId);
         List<User> allUsers = userDao.all();
         if (allUsers != null) {
             for (User user : allUsers) {
@@ -222,64 +369,41 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     public Project changeOwnership(Long projectId, Long newOwnerId) {
-        Project project = projectDao.get(projectId);
+        notNull(projectId);
+        notNull(newOwnerId);
+
+        Project projectDB = projectDao.get(projectId);
+
+        if (projectDB == null) {
+            return null;
+            //TODO exception
+        }
+
         User newOwner = userDao.get(newOwnerId);
 
-        User oldOwner = userDao.get(project.getOwner().getId());
-
-        if (project.getUsers().contains(newOwner)) {
-            project.getUsers().remove(oldOwner);
-            project.getUsers().remove(newOwner);
-            projectDao.update(project);
-            project.getUsers().add(0, newOwner);
-            project.getUsers().add(oldOwner);
-            projectDao.update(project);
+        if (newOwner == null) {
+            return null;
+            //TODO exception
         }
-        return project;
+
+
+        User oldOwner = userDao.get(projectDB.getOwner().getId());
+
+        if (oldOwner == null) {
+            return null;
+            //TODO exception
+        }
+
+        if (projectDB.getUsers().contains(newOwner)) {
+            //   removeUserFromProject(oldOwner, projectDB);
+            assignUserToProject(newOwner, projectDB, true);
+            //   assignUserToProject(oldOwner, projectDB, false);
+        }
+        return projectDB;
     }
 
     public Integer count() {
         return projectDao.count();
     }
 
-    public void saveAttachment(Long id, Attachment attachment) {
-        Project projectDB = projectDao.get(id);
-        attachment.setProject(projectDB);
-        attachmentDao.create(attachment);
-        projectDB.getAttachments().add(attachment);
-        projectDao.update(projectDB);
-    }
-
-    public Attachment getAttachmentByProject(Long id, AttachmentType attachmentType) {
-        Project projectDB = projectDao.get(id);
-        List<Attachment> attachments = projectDB.getAttachments();
-        if(attachments != null){
-            for(int i = 0; i < attachments.size(); i++){
-                if(attachments.get(i).getAttachmentType().equals(attachmentType)){
-                    return  attachments.get(i);
-                }
-            }
-        }
-        return null;
-    }
-
-    public String getAttachmentPath(Attachment attachment) {
-        return attachmentDao.getPath(attachment);
-    }
-
-    public List<Attachment> getAttachmentsByProject(Long id){
-        Project projectDB = projectDao.get(id);
-        List<Attachment> attachments = attachmentDao.all();
-        List<Attachment> results = new ArrayList<Attachment>();
-        for(int i = 0; i < attachments.size(); i++){
-            if(attachments.get(i).getProject().equals(projectDB)){
-                results.add(attachments.get(i));
-            }
-        }
-        return results;
-    }
-
-    public Attachment getAttachmentById(Long id){
-        return attachmentDao.get(id);
-    }
 }

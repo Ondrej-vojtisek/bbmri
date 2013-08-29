@@ -115,7 +115,11 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public List<User> getAdministrators() {
-        return biobankService.getAllAdministrators(getLoggedUser().getBiobank().getId());
+        if(getLoggedUser().getBiobank() != null){
+            Biobank biobankDB = biobankService.get(getLoggedUser().getBiobank().getId());
+            return biobankDB.getAdministrators();
+        }
+        return null;
     }
 
     /* Methods */

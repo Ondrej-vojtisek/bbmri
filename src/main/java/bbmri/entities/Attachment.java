@@ -24,18 +24,18 @@ public class Attachment implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID", nullable = false)
     private Long id;
-    private String fileName;
-    private Long size;
-    private String contentType;
+
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
 
-   /* @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PROJECT_ID")
-    Project project;   */
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.ALL)
     private Project project;
+
+    private String fileName;
+    private Long size;
+    private String contentType;
+
+
 
     public Long getId() {
         return id;

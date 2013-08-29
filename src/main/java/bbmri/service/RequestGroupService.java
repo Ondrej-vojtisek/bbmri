@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface RequestGroupService  extends BasicService<RequestGroup>{
 
-    RequestGroup create(List<Request> requests, Long projectId);
+    void create(List<Request> requests, Long projectId);
 
     List<RequestGroup> getByProject(Long projectId);
 
@@ -25,5 +25,5 @@ public interface RequestGroupService  extends BasicService<RequestGroup>{
 
     void changeRequestState(Long requestGroupId, RequestState requestState);
 
-    List<Request> getRequestsByRequestGroup(Long id);
+    List<Request> getRequestsByRequestGroup(Long requestGroupId);
 }

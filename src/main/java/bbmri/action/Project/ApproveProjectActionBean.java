@@ -4,6 +4,8 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectState;
 import net.sourceforge.stripes.action.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -15,6 +17,8 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     private static final String APPROVE = "/project_approve.jsp";
     private static final String DETAIL = "/project_detail.jsp";
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private List<Project> projects;
 

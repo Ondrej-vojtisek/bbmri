@@ -202,7 +202,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
                 Request request = requestService.create(sampleId, 1);
                 requests.add(request);
             }
-            RequestGroup requestGroup = requestGroupService.create(requests, sampleQuestion.getProject().getId());
+            requestGroupService.create(requests, sampleQuestion.getProject().getId());
             getContext().getMessages().add(
                     new SimpleMessage("Requests were created")
             );
@@ -217,7 +217,12 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public List<Project> getMyProjects() {
+        /* There can't be only loggedUser.getProjects() bcs here we want to reach RequestGroups
+        *  Simple getProjects() throws org.hibernate.LazyInitializationException
+        * */
         return projectService.getAllByUserWithRequests(getContext().getIdentifier());
+       // return getLoggedUser().getProjects();
+
     }
 
     @DontValidate
@@ -244,11 +249,14 @@ public class SampleQuestionActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Query for samples was rejected")
         );
+        //TODO: finish ...
+        /*
         RequestGroup requestGroup = requestGroupService.create(null, sampleQuestion.getProject().getId());
         requestGroup.setRequestState(RequestState.DENIED);
         requestGroup.setBiobank(getLoggedUser().getBiobank());
         requestGroup.setProject(sampleQuestion.getProject());
         requestGroupService.update(requestGroup);
+        */
 
         return new RedirectResolution(APPROVE_REQUEST);
 

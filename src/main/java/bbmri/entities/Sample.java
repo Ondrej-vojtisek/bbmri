@@ -65,7 +65,7 @@ public class Sample implements Serializable {
     @Enumerated(EnumType.STRING)
     private SampleRetrieval retrieved;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Biobank biobank;
 
     @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL)

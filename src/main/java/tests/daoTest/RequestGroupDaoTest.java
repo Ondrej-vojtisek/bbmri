@@ -31,28 +31,18 @@ public class RequestGroupDaoTest extends AbstractTest {
     @Autowired
     ProjectDao projectDao;
 
-
-    private Project createProject(int i) {
-        Project project = new Project();
-        project.setName("P" + i);
-        project.setProjectState(ProjectState.NEW);
-        projectDao.create(project);
-        return project;
-    }
-
-    private RequestGroup createRequestGroup(int i) {
-        RequestGroup requestGroup = new RequestGroup();
-        requestGroupDao.create(requestGroup);
-        return requestGroup;
-    }
-
     @Test
     public void getAllByProjectTest() {
-        Project project1 = createProject(1);
-        Project project2 = createProject(2);
+        Project project1 = createTestProject(1);
+        projectDao.create(project1);
+        Project project2 = createTestProject(2);
+        projectDao.create(project2);
         RequestGroup rq1 = createRequestGroup(1);
+        requestGroupDao.create(rq1);
         RequestGroup rq2 = createRequestGroup(2);
+        requestGroupDao.create(rq2);
         RequestGroup rq3 = createRequestGroup(3);
+        requestGroupDao.create(rq3);
 
         rq1.setProject(project1);
         rq2.setProject(project1);

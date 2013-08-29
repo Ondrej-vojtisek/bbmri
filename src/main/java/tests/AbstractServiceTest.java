@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(MockitoJUnitRunner.class)
 @Ignore
-public class AbstractServiceTest {
+public class AbstractServiceTest extends TestUtils {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

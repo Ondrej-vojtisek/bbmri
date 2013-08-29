@@ -19,7 +19,7 @@ import java.util.*;
  */
 @Transactional
 @Service
-public class RequestGroupServiceImpl implements RequestGroupService {
+public class RequestGroupServiceImpl extends BasicServiceImpl implements RequestGroupService {
 
     @Autowired
     private RequestDao requestDao;
@@ -36,123 +36,149 @@ public class RequestGroupServiceImpl implements RequestGroupService {
     @Autowired
     private RequestGroupDao requestGroupDao;
 
-    public RequestGroup create(RequestGroup requestGroup) {
-        try {
-            requestGroupDao.create(requestGroup);
-            return requestGroup;
-
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    }
-
-    public RequestGroup create(List<Request> requests, Long projectId) {
-        try {
+    public RequestGroup createTEST(Long projectId) {
+        RequestGroup requestGroup = null;
+        if (projectId == null) {
+            requestGroup = initiate(null);
+        } else {
             Project projectDB = projectDao.get(projectId);
-            if (projectDB == null) {
-                return null;
-            }
-            Date created = new Date();
-            RequestGroup requestGroup = new RequestGroup();
-            requestGroup.setCreated(created);
-            requestGroup.setLastModification(created);
-            requestGroup.setRequestState(RequestState.NEW);
-
-            if (requests == null) {
-                requestGroupDao.create(requestGroup);
-                return requestGroup;
-            }
-            if (requests.isEmpty()) {
-                requestGroupDao.create(requestGroup);
-                return requestGroup;
-            }
-
-
-            Request firstRequestDB = requestDao.get(requests.get(0).getId());
-            Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
-
-            requestGroup.getRequests().add(firstRequestDB);
-            requestGroup.setProject(projectDB);
-            requestGroup.setBiobank(biobankDB);
-            requestGroup.setCreated(created);
-            requestGroup.setLastModification(created);
-            requestGroup.setRequestState(RequestState.NEW);
-            requestGroupDao.create(requestGroup);
-
-
-
-            /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
-            biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
-            */
-            Map<Long, RequestGroup> rgMap = new HashMap<Long, RequestGroup>();
-
-            rgMap.put(requestGroup.getBiobank().getId(), requestGroup);
-
-            for (int i = 1; i < requests.size(); i++) {
-                Request actualRequest = requests.get(i);
-
-                if (rgMap.containsKey(actualRequest.getSample().getBiobank().getId())) {
-                    rgMap.get(actualRequest.getSample().getBiobank().getId()).getRequests().add(requests.get(i));
-                } else {
-                    RequestGroup requestGroupNew = new RequestGroup();
-                    requestGroupNew.setProject(projectDB);
-                    Biobank biobankDBnew = biobankDao.get(actualRequest.getSample().getBiobank().getId());
-                    requestGroupNew.setBiobank(biobankDBnew);
-                    requestGroupNew.setCreated(created);
-                    requestGroupNew.setLastModification(created);
-                    requestGroupNew.setRequestState(RequestState.NEW);
-
-                    Request requestDBnew = requestDao.get(actualRequest.getId());
-                    requestGroupNew.getRequests().add(requestDBnew);
-
-                    requestGroupDao.create(requestGroupNew);
-                    rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
-                }
-            }
-
-            Iterator it = rgMap.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry entry = (Map.Entry) it.next();
-                RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
-
-                RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
-                for (int i = 0; i < requestGroupItem.getRequests().size(); i++) {
-                    Request request = requestGroupItem.getRequests().get(i);
-                    request.setRequestGroup(requestGroupDB);
-                    requestDao.update(request);
-                }
-                requestGroupDao.update(requestGroupDB);
-                it.remove(); // avoids a ConcurrentModificationException
-                return requestGroup;
-            }
-
-        } catch (DataAccessException ex) {
-            throw ex;
         }
-        return null;
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return null;
+            // TODO: exception
+        }
+        requestGroupDao.create(requestGroup);
+        return requestGroup;
     }
 
-    public void remove(RequestGroup requestGroup) {
-        try {
-            requestGroupDao.remove(requestGroup);
-        } catch (DataAccessException ex) {
-            throw ex;
+    private RequestGroup initiate(Date created) {
+        RequestGroup requestGroup = new RequestGroup();
+        if (created == null) {
+            created = new Date();
         }
+        requestGroup.setCreated(created);
+        requestGroup.setLastModification(created);
+        requestGroup.setRequestState(RequestState.NEW);
+        return requestGroup;
+    }
+
+    public void create(List<Request> requests, Long projectId) {
+        notNull(projectId);
+        notNull(requests);
+
+        if (requests.isEmpty()) {
+            return;
+            // TODO: exception
+        }
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return;
+            // TODO: exception
+        }
+        RequestGroup requestGroup = initiate(null);
+
+        Request firstRequestDB = requestDao.get(requests.get(0).getId());
+        Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
+
+        requestGroup.getRequests().add(firstRequestDB);
+        requestGroup.setProject(projectDB);
+        requestGroup.setBiobank(biobankDB);
+        requestGroupDao.create(requestGroup);
+
+         /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
+            biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
+         */
+
+        Map<Long, RequestGroup> rgMap = new HashMap<Long, RequestGroup>();
+
+        rgMap.put(requestGroup.getBiobank().getId(), requestGroup);
+
+        List<Request> subList = requests.subList(1, requests.size());
+
+        for (Request request : subList) {
+
+            /* The biobank exists in map so we can easily add this actual request to requestGroup */
+            if (rgMap.containsKey(request.getSample().getBiobank().getId())) {
+                rgMap.get(request.getSample().getBiobank().getId()).getRequests().add(request);
+            } else {
+                RequestGroup requestGroupNew = initiate(requestGroup.getCreated());
+                requestGroupNew.setProject(projectDB);
+
+                Biobank biobankDBnew = biobankDao.get(request.getSample().getBiobank().getId());
+                requestGroupNew.setBiobank(biobankDBnew);
+
+                Request requestDBnew = requestDao.get(request.getId());
+                requestGroupNew.getRequests().add(requestDBnew);
+
+                requestGroupDao.create(requestGroupNew);
+                rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
+            }
+        }
+
+        /* Now we have requestGroup for each biobank */
+        Iterator it = rgMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
+
+            /*Now we must set that request belongs to requestGroup - the second side of relationship*/
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
+            for (Request request : requestGroupItem.getRequests()) {
+                request.setRequestGroup(requestGroupDB);
+                requestDao.update(request);
+            }
+            requestGroupDao.update(requestGroupDB);
+
+        }
+        it.remove(); // avoids a ConcurrentModificationException
     }
 
     public void remove(Long id) {
-        try {
-            RequestGroup requestGroupDB = requestGroupDao.get(id);
-            if (requestGroupDB != null) {
-                requestGroupDao.remove(requestGroupDB);
-            }
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(id);
+
+        RequestGroup requestGroupDB = requestGroupDao.get(id);
+        if (requestGroupDB == null) {
+            return;
+            //TODO: exception
         }
+
+        Biobank biobankDB = biobankDao.get(requestGroupDB.getBiobank().getId());
+        if(biobankDB == null){
+                    return;
+                    // TODO: exception
+                }
+
+            biobankDB.getRequestGroups().remove(requestGroupDB);
+            biobankDao.update(biobankDB);
+            requestGroupDB.setBiobank(null);
+
+        List<Request> requests = requestGroupDB.getRequests();
+
+        if(requests == null){
+            return;
+            // TODO: exception
+        }
+        for(Request request : requests){
+            requestDao.remove(request);
+        }
+
+        Project projectDB = projectDao.get(requestGroupDB.getProject().getId());
+        if(projectDB == null){
+            return;
+            // TODO: exception
+        }
+        projectDB.getRequestGroups().remove(requestGroupDB);
+
+        requestGroupDao.remove(requestGroupDB);
+
+
     }
 
     public RequestGroup update(RequestGroup requestGroup) {
-        try {
+    notNull(requestGroup);
             RequestGroup requestGroupDB = requestGroupDao.get(requestGroup.getId());
             if (requestGroupDB == null) {
                 return null;
@@ -177,112 +203,86 @@ public class RequestGroupServiceImpl implements RequestGroupService {
             }
             requestGroupDao.update(requestGroupDB);
             return requestGroupDB;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public List<RequestGroup> all() {
-        try {
             return requestGroupDao.all();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+
     }
 
     public RequestGroup get(Long id) {
-        try {
+        notNull(id);
             return requestGroupDao.get(id);
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public Integer count() {
-        try {
             return requestGroupDao.count();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public List<RequestGroup> getByProject(Long projectId) {
-        try {
+            notNull(projectId);
             Project projectDB = projectDao.get(projectId);
             if (projectDB == null) {
                 return null;
+                //TODO: exception
             }
 
             List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
-            for (int i = 0; i < allRequestGroups.size(); i++) {
-                if (allRequestGroups.get(i).getProject().equals(projectDB)) {
-                    results.add(allRequestGroups.get(i));
+            for (RequestGroup requestGroup : allRequestGroups) {
+                if (requestGroup.getProject().equals(projectDB)) {
+                    results.add(requestGroup);
                 }
             }
             return results;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public List<RequestGroup> getByBiobank(Long biobankId) {
-        try {
-            if(biobankId == null){
-                return null;
-            }
+        notNull(biobankId);
+
             Biobank biobankDB = biobankDao.get(biobankId);
             if (biobankDB == null) {
                 return null;
+                // TODO: exception
             }
 
             List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
 
-
             for (RequestGroup requestGroup : allRequestGroups) {
-                if (requestGroup.getBiobank() == null) {
-                    continue;
-                } else if (requestGroup.getBiobank().equals(biobankDB)) {
+               if (requestGroup.getBiobank().equals(biobankDB)) {
                     results.add(requestGroup);
                 }
             }
 
             return results;
-
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
-        try {
             List<RequestGroup> allRequestGroups = requestGroupDao.all();
             List<RequestGroup> results = new ArrayList<RequestGroup>();
-            for (int i = 0; i < allRequestGroups.size(); i++) {
-                if (allRequestGroups.get(i).getBiobank().getId().equals(biobankId) &&
-                        allRequestGroups.get(i).getRequestState().equals(requestState)) {
-                    results.add(allRequestGroups.get(i));
+            for (RequestGroup requestGroup : allRequestGroups) {
+                if (requestGroup.getBiobank().getId().equals(biobankId) &&
+                        requestGroup.getRequestState().equals(requestState)) {
+                    results.add(requestGroup);
                 }
             }
             return results;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
     public void changeRequestState(Long requestGroupId, RequestState requestState) {
-        try {
+        notNull(requestGroupId);
+        notNull(requestState);
+
             RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
             requestGroupDB.setRequestState(requestState);
             requestGroupDao.update(requestGroupDB);
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
     }
 
-    public List<Request> getRequestsByRequestGroup(Long id) {
-        RequestGroup requestGroupDB = requestGroupDao.get(id);
+    public List<Request> getRequestsByRequestGroup(Long requestGroupId) {
+        notNull(requestGroupId);
+
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
         if (requestGroupDB == null) {
             return null;
         }

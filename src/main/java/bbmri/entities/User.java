@@ -48,7 +48,11 @@ public class User implements Serializable {
     @ManyToOne
     private Biobank biobank;
 
-    @OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
+    @OneToMany
+    @JoinTable(name="user_judgedProjects",
+               joinColumns = @JoinColumn( name="project_id"),
+               inverseJoinColumns = @JoinColumn( name="user_id"))
     private List<Project> judgedProjects = new ArrayList<Project>();
 
     @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

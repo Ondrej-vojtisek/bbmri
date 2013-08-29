@@ -75,7 +75,8 @@ public class ProjectActionBean extends BasicActionBean {
         }
 
         public List<Project> getMyProjects() {
-            return projectService.getAllByUser(getContext().getIdentifier());
+            return getLoggedUser().getProjects();
+            //return projectService.getAllByUser(getContext().getIdentifier());
         }
 
           public FileBean getAttachmentFileBean() {
@@ -120,7 +121,7 @@ public class ProjectActionBean extends BasicActionBean {
          }
 
         public Resolution create() {
-            Project projectNew = projectService.create(project, getLoggedUser());
+            Project projectNew = projectService.create(project, getLoggedUser().getId());
             getContext().setProject(projectNew);
             return new ForwardResolution(CREATE_MTA);
         }
@@ -170,7 +171,8 @@ public class ProjectActionBean extends BasicActionBean {
                     attachment.setSize(attachmentFileBean.getSize());
                     attachment.setAttachmentType(AttachmentType.MATERIAL_TRANSFER_AGREEMENT);
                     Project projectDB = projectService.get(getContext().getProject().getId());
-                    projectService.saveAttachment(getContext().getProject().getId(), attachment);
+                    attachmentService.create(getContext().getProject().getId(), attachment);
+                    //projectService.saveAttachment(getContext().getProject().getId(), attachment);
                     try {
 
                         attachmentFileBean.save(new File(Attachment.ROOT_DIR_PATH + projectDB.getId().toString() + File.separator

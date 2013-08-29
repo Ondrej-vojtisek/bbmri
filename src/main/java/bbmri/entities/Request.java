@@ -26,7 +26,7 @@ public class Request {
 
     private Integer numOfRequested;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private RequestGroup requestGroup;
 
     public Request() {

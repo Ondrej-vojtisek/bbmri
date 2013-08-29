@@ -1,5 +1,8 @@
 package bbmri.serviceImpl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -8,6 +11,8 @@ package bbmri.serviceImpl;
  * To change this template use File | Settings | File Templates.
  */
 public class BasicServiceImpl {
+
+    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {

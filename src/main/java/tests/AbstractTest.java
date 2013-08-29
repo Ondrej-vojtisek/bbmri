@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 @ContextConfiguration(locations = {"classpath:test-applicationContext.xml"})
 @Transactional
 @Ignore
-public class AbstractTest {
+public class AbstractTest extends TestUtils{
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

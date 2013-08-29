@@ -1,17 +1,12 @@
 package bbmri.serviceImpl;
 
-import bbmri.dao.BiobankDao;
-import bbmri.dao.UserDao;
-import bbmri.entities.Biobank;
-import bbmri.entities.Sample;
-import bbmri.entities.User;
+import bbmri.dao.*;
+import bbmri.entities.*;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,40 +26,63 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private SampleDao sampleDao;
+
+    @Autowired
+    private SampleQuestionDao sampleQuestionDao;
+
+    @Autowired
+    private RequestGroupDao requestGroupDao;
+
+
     public Biobank create(Biobank biobank, Long administratorId) {
         notNull(biobank);
         notNull(administratorId);
 
-        try {
-            User adminDB = userDao.get(administratorId);
-            if (adminDB != null) {
-                biobankDao.create(biobank);
-                adminDB.setBiobank(biobank);
-                biobank.getAdministrators().add(adminDB);
-                biobankDao.update(biobank);
-            }
-            return biobank;
-        } catch (DataAccessException ex) {
-            throw ex;
+        User adminDB = userDao.get(administratorId);
+        if (adminDB != null) {
+            biobankDao.create(biobank);
+            assignAdministrator(adminDB.getId(), biobank.getId());
         }
+        return biobank;
     }
 
     public void remove(Long id) {
         notNull(id);
-        try {
-            Biobank biobank = biobankDao.get(id);
-            if (biobank != null) {
-                List<User> administrators = biobank.getAdministrators();
-                for(User user : administrators){
+
+        Biobank biobank = biobankDao.get(id);
+        if (biobank != null) {
+            List<User> administrators = biobank.getAdministrators();
+            if (administrators != null) {
+                for (User user : administrators) {
                     user.setBiobank(null);
                     userDao.update(user);
                 }
-                biobank.setAdministrators(null);
-                biobankDao.update(biobank);
-                biobankDao.remove(biobank);
             }
-        } catch (DataAccessException ex) {
-            throw ex;
+            List<Sample> samples = biobank.getSamples();
+            if (samples != null) {
+                for (Sample sample : samples) {
+                    sampleDao.remove(sample);
+                }
+            }
+            List<SampleQuestion> sampleQuestions = biobank.getSampleQuestions();
+            if (sampleQuestions != null) {
+                for (SampleQuestion sampleQuestion : sampleQuestions) {
+                    sampleQuestionDao.remove(sampleQuestion);
+                }
+            }
+
+            List<RequestGroup> requestGroups = biobank.getRequestGroups();
+            if (requestGroups != null) {
+                for (RequestGroup requestGroup : requestGroups) {
+                    requestGroupDao.remove(requestGroup);
+                }
+            }
+
+            biobank.setAdministrators(null);
+            biobankDao.update(biobank);
+            biobankDao.remove(biobank);
         }
     }
 
@@ -81,39 +99,39 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     public Biobank update(Biobank biobank) {
         notNull(biobank);
 
-        try {
-            Biobank biobankDB = biobankDao.get(biobank.getId());
-            if(biobank.getAddress() != null){
+        Biobank biobankDB = biobankDao.get(biobank.getId());
+        if (biobankDB != null) {
+            if (biobank.getAddress() != null) {
                 biobankDB.setAddress(biobank.getAddress());
             }
-            if(biobank.getName() != null){
-                            biobankDB.setName(biobank.getName());
+            if (biobank.getName() != null) {
+                biobankDB.setName(biobank.getName());
             }
             biobankDao.update(biobankDB);
-            return biobankDB;
-        } catch (DataAccessException ex) {
-            throw ex;
         }
+
+        return biobankDB;
     }
 
     public List<Biobank> all() {
-            return biobankDao.all();
+        return biobankDao.all();
     }
 
+    /*
     public List<Sample> getAllSamples(Long biobankId) {
         notNull(biobankId);
-
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB == null) {
-                return null;
+            if (biobankDB != null) {
+                return biobankDB.getSamples();
             }
-            return biobankDB.getSamples();
+            return null;
         } catch (DataAccessException ex) {
             throw ex;
         }
 
     }
+    */
 
     public Integer count() {
         return biobankDao.count();
@@ -122,41 +140,46 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     public User removeAdministratorFromBiobank(Long userId, Long biobankId) {
         notNull(userId);
         notNull(biobankId);
-        try {
-            User userDB = userDao.get(userId);
-            Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB.getAdministrators().contains(userDB)) {
-                userDB.setBiobank(null);
-                userDao.update(userDB);
-            }
-            return userDB;
-        } catch (DataAccessException ex) {
-            throw ex;
+
+        User userDB = userDao.get(userId);
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB.getAdministrators().contains(userDB)) {
+            userDB.setBiobank(null);
+            userDao.update(userDB);
+            biobankDB.getAdministrators().remove(userDB);
+            biobankDao.update(biobankDB);
         }
+        return userDB;
     }
 
+    public User assignAdministrator(Long userId, Long biobankId) {
+        notNull(userId);
+        notNull(biobankId);
+        User userDB = userDao.get(userId);
+        Biobank biobankDB = biobankDao.get(biobankId);
+
+        if (userDB != null && biobankDB != null) {
+
+            if (userDB.getBiobank() == null) {
+                userDB.setBiobank(biobankDB);
+                biobankDB.getAdministrators().add(userDB);
+                biobankDao.update(biobankDB);
+            }
+        }
+        return userDB;
+    }
+
+    /*
     public List<User> getAllAdministrators(Long biobankId) {
         notNull(biobankId);
 
         try {
             Biobank biobankDB = biobankDao.get(biobankId);
-            /*List<User> users = userDao.all();
-            List<User> results = new ArrayList<User>();
-
-
-            for (User user : users) {
-                if (user.getBiobank() != null) {
-                    if (user.getBiobank().equals(biobankDB)) {
-                        results.add(user);
-                    }
-                }
-            }        */
-            // results;
             return biobankDB.getAdministrators();
         } catch (DataAccessException ex) {
             throw ex;
         }
-    }
+    } */
 
     public Biobank changeOwnership(Long biobankId, Long newOwnerId) {
         notNull(biobankId);
@@ -166,31 +189,19 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         User newOwner = userDao.get(newOwnerId);
         User oldOwner = userDao.get(biobank.getOwner().getId());
 
-        if (biobank.getAdministrators().contains(oldOwner)) {
-            biobank.getAdministrators().remove(oldOwner);
-            if (biobank.getAdministrators().contains(newOwner)) {
-                biobank.getAdministrators().remove(newOwner);
-            }
-            biobankDao.update(biobank);
-            biobank.getAdministrators().add(0, newOwner);
-            biobank.getAdministrators().add(oldOwner);
-            biobankDao.update(biobank);
+        if (!biobank.getAdministrators().contains(oldOwner) || !biobank.getAdministrators().contains(newOwner)) {
+            return null;
         }
+
+        biobank.getAdministrators().remove(oldOwner);
+        biobank.getAdministrators().remove(newOwner);
+        biobankDao.update(biobank);
+        biobank.getAdministrators().add(0, newOwner);
+        biobank.getAdministrators().add(oldOwner);
+        biobankDao.update(biobank);
         return biobank;
     }
 
-    public User assignAdministrator(Long userId, Long biobankId) {
-        notNull(userId);
-        notNull(biobankId);
-
-        User userDB = userDao.get(userId);
-        Biobank biobankDB = biobankDao.get(biobankId);
-        if (userDB.getBiobank() == null) {
-            userDB.setBiobank(biobankDB);
-            userDao.update(userDB);
-        }
-        return userDB;
-    }
 
     public Biobank get(Long id) {
         notNull(id);
