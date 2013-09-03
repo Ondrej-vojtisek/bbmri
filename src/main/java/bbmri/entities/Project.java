@@ -44,11 +44,11 @@ public class Project implements Serializable {
     @ManyToOne//(cascade = CascadeType.ALL)
     private User judgedByUser;
 
-    //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     @OneToMany
     @JoinTable(name="project_requestGroups",
                   joinColumns = @JoinColumn( name="project_id"),
                   inverseJoinColumns = @JoinColumn( name="requestGroup_id"))
+     //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     @OneToMany

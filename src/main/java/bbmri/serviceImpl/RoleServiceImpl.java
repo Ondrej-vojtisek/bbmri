@@ -4,7 +4,6 @@ import bbmri.dao.RoleDao;
 import bbmri.entities.Role;
 import bbmri.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,80 +18,50 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class RoleServiceImpl implements RoleService {
-    
+public class RoleServiceImpl extends BasicServiceImpl implements RoleService {
+
     @Autowired
-       private RoleDao roleDao;
-   
-       public Role create(Role role) {
-           try {
-               roleDao.create(role);
-               return role;
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
+    private RoleDao roleDao;
 
-    /*
-       public void remove(Role role) {
-           try {
-               roleDao.remove(role);
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-       */
-   
-       public void remove(Long id) {
-           try {
-               Role roleDB = roleDao.get(id);
-               if (roleDB != null) {
-                   roleDao.remove(roleDB);
-               }
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-   
-       public Role update(Role role) {
-           try {
-               Role roleDB = roleDao.get(role.getId());
-               if (roleDB == null) {
-                   return null;
-               }
-               if (role.getName() != null) roleDB.setName(role.getName());
+    public Role create(Role role) {
+        notNull(role);
+        roleDao.create(role);
+        return role;
+    }
 
-               roleDao.update(roleDB);
-               return role;
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-   
-       public List<Role> all() {
-           try {
-               List<Role> roles = roleDao.all();
-               return roles;
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-   
-       public Role get(Long id) {
-           try {
-               Role roleDB = roleDao.get(id);
-               return roleDB;
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
+    public void remove(Long id) {
+        notNull(id);
+        Role roleDB = roleDao.get(id);
+        if (roleDB != null) {
+            roleDao.remove(roleDB);
+        }
+    }
+
+    public Role update(Role role) {
+        notNull(role);
+
+        Role roleDB = roleDao.get(role.getId());
+        if(roleDB == null){
+            return null;
+            // TODO: exception
+        }
+        if (role.getName() != null) roleDB.setName(role.getName());
+
+        roleDao.update(roleDB);
+        return role;
+    }
+
+    public List<Role> all() {
+        return roleDao.all();
+    }
+
+    public Role get(Long id) {
+        notNull(id);
+        return roleDao.get(id);
+    }
 
     public Integer count() {
-           try {
-               return roleDao.count();
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-    
+        return roleDao.count();
+    }
+
 }

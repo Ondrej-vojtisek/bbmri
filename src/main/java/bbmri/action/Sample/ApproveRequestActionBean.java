@@ -56,7 +56,9 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public List<Request> getRequests(){
-        return requestGroupService.getRequestsByRequestGroup(getContext().getRequestGroupId());
+        RequestGroup rqg = requestGroupService.get(getContext().getRequestGroupId());
+        return rqg.getRequests();
+       // return requestGroupService.getRequestsByRequestGroup(getContext().getRequestGroupId());
     }
     @DontValidate
     @DefaultHandler
@@ -66,7 +68,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution approve() {
-        requestGroupService.changeRequestState(requestGroup.getId(), RequestState.APPROVED);
+        requestGroupService.approveRequestState(requestGroup.getId());
         getContext().getMessages().add(
                 new SimpleMessage("Request group with id = {0} was APPROVED", requestGroup.getId())
         );
@@ -74,7 +76,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution reject() {
-        requestGroupService.changeRequestState(requestGroup.getId(), RequestState.DENIED);
+        requestGroupService.denyRequestState(requestGroup.getId());
         getContext().getMessages().add(
                        new SimpleMessage("Request group with id = {0} was DENIED", requestGroup.getId())
                );

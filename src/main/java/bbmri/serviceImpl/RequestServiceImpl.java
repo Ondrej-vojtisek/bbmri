@@ -8,7 +8,6 @@ import bbmri.entities.Request;
 import bbmri.entities.Sample;
 import bbmri.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class RequestServiceImpl implements RequestService {
+public class RequestServiceImpl extends BasicServiceImpl implements RequestService {
 
     @Autowired
     private RequestDao requestDao;
@@ -37,115 +36,78 @@ public class RequestServiceImpl implements RequestService {
     @Autowired
     private BiobankDao biobankDao;
 
-   /*
-    public Request create(Request request) {
-          try {
-              requestDao.create(request);
-              return request;
-          } catch (DataAccessException ex) {
-              throw ex;
-          }
-      }
-      */
-
 
     public Request create(Long sampleId, Integer numOfRequested) {
-        try {
-            Request request = new Request();
-            Sample sampleDB = sampleDao.get(sampleId);
+        notNull(sampleId);
+        notNull(numOfRequested);
 
-            if (sampleDB != null) {
-                request.setSample(sampleDB);
-            }
-            if (numOfRequested > 0) {
-                request.setNumOfRequested(numOfRequested);
-            }
-            requestDao.create(request);
-
-            //requestDao.update(request);
-            return request;
-        } catch (DataAccessException ex) {
-            throw ex;
+        Sample sampleDB = sampleDao.get(sampleId);
+        if (sampleDB == null) {
+            return null;
+            //TODO: exception
         }
+        if (numOfRequested <= 0) {
+            return null;
+            // TODO: exception
+        }
+
+        Request request = new Request();
+        request.setSample(sampleDB);
+        request.setNumOfRequested(numOfRequested);
+        requestDao.create(request);
+
+        return request;
     }
 
     public Request create(Long sampleId) {
-        try {
-            Request request = new Request();
-
-            Sample sampleDB = sampleDao.get(sampleId);
-
-            if (sampleDB != null) {
-                request.setSample(sampleDB);
-            }
-            requestDao.create(request);
-            //update
-            return request;
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(sampleId);
+        Request request = new Request();
+        Sample sampleDB = sampleDao.get(sampleId);
+        if (sampleDB == null) {
+            return null;
+            //TODO: exception
         }
-    }
 
-    /*
-    public void remove(Request request) {
-        try {
-            requestDao.remove(request);
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        request.setSample(sampleDB);
+        requestDao.create(request);
+        return request;
     }
-    */
 
     public void remove(Long id) {
-        try {
-            Request requestDB = requestDao.get(id);
-            if (requestDB != null) {
-                requestDao.remove(requestDB);
-            }
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(id);
+        Request requestDB = requestDao.get(id);
+        if (requestDB != null) {
+            requestDao.remove(requestDB);
         }
     }
 
     public Request update(Request request) {
-        try {
-            Request requestDB = requestDao.get(request.getId());
-            if (requestDB == null) {
-                return null;
-            }
-            if(request.getNumOfRequested() != null){
-                requestDB.setNumOfRequested(request.getNumOfRequested());
-            }
-            requestDao.update(requestDB);
-            return requestDB;
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(request);
+        Request requestDB = requestDao.get(request.getId());
+        if (requestDB == null) {
+            return null;
+            //TODO: exception
         }
+        if (request.getNumOfRequested() != null) {
+               /* if(request.getNumOfRequested() < 0){
+                TODO: exception
+                }  */
+            requestDB.setNumOfRequested(request.getNumOfRequested());
+        }
+        requestDao.update(requestDB);
+        return requestDB;
     }
 
     public List<Request> all() {
-        try {
-            List<Request> requests = requestDao.all();
-            return requests;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return requestDao.all();
     }
 
     public Request get(Long id) {
-        try {
-            Request request = requestDao.get(id);
-            return request;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        notNull(id);
+        return requestDao.get(id);
     }
 
     public Integer count() {
-        try {
-            return requestDao.count();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return requestDao.count();
     }
 }

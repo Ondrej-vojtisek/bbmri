@@ -8,7 +8,6 @@ import bbmri.entities.Project;
 import bbmri.entities.SampleQuestion;
 import bbmri.service.SampleQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,7 @@ import java.util.List;
  */
 @Transactional
 @Service
-public class SampleQuestionServiceImpl implements SampleQuestionService {
+public class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuestionService {
 
     @Autowired
     private SampleQuestionDao sampleQuestionDao;
@@ -35,145 +34,90 @@ public class SampleQuestionServiceImpl implements SampleQuestionService {
     private ProjectDao projectDao;
 
     public SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId) {
-        try {
-            sampleQuestionDao.create(sampleQuestion);
-            Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB != null) {
-                sampleQuestion.setBiobank(biobankDB);
-            }
-            sampleQuestion.setProject(null);
-            sampleQuestionDao.update(sampleQuestion);
-            return sampleQuestion;
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(sampleQuestion);
+        notNull(biobankId);
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            return null;
+            // TODO: exception
         }
+
+        sampleQuestionDao.create(sampleQuestion);
+        sampleQuestion.setBiobank(biobankDB);
+        sampleQuestion.setProject(null);
+        sampleQuestionDao.update(sampleQuestion);
+        return sampleQuestion;
     }
 
-    /*
-    public SampleQuestion create(SampleQuestion sampleQuestion) {
-            try {
-                sampleQuestionDao.create(sampleQuestion);
-                return sampleQuestion;
-            } catch (DataAccessException ex) {
-                throw ex;
-            }
-        }
-        */
-
     public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId) {
-        try {
-            sampleQuestionDao.create(sampleQuestion);
-            Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB != null) {
-                sampleQuestion.setBiobank(biobankDB);
-                biobankDB.getSampleQuestions().add(sampleQuestion);
-                biobankDao.update(biobankDB);
-
-            }
-            if (projectId == null) {
-                sampleQuestion.setProject(null);
-                sampleQuestionDao.update(sampleQuestion);
-                return sampleQuestion;
-            }
-            Project projectDB = projectDao.get(projectId);
-            if (projectDB != null) {
-                sampleQuestion.setProject(projectDB);
-            }
-            sampleQuestionDao.update(sampleQuestion);
-            return sampleQuestion;
-        } catch (DataAccessException ex) {
-            throw ex;
+        notNull(sampleQuestion);
+        notNull(biobankId);
+        notNull(projectId);
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            return null;
+            // TODO: exception
         }
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return null;
+            //TODO: exception
+        }
+        sampleQuestionDao.create(sampleQuestion);
+
+        sampleQuestion.setBiobank(biobankDB);
+        biobankDB.getSampleQuestions().add(sampleQuestion);
+        biobankDao.update(biobankDB);
+
+        sampleQuestion.setProject(projectDB);
+        sampleQuestionDao.update(sampleQuestion);
+        return sampleQuestion;
     }
 
     public void remove(Long id) {
-        try {
-            SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
-            if (sampleQuestionDB != null) {
-                Biobank biobankDB = biobankDao.get(sampleQuestionDB.getBiobank().getId());
-                if (biobankDB != null) {
-                    biobankDB.getSampleQuestions().remove(sampleQuestionDB);
-                    biobankDao.update(biobankDB);
-                    sampleQuestionDB.setBiobank(null);
-                }
-                sampleQuestionDao.remove(sampleQuestionDB);
+        notNull(id);
+        SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
+        if (sampleQuestionDB != null) {
+            Biobank biobankDB = biobankDao.get(sampleQuestionDB.getBiobank().getId());
+            if (biobankDB != null) {
+                biobankDB.getSampleQuestions().remove(sampleQuestionDB);
+                biobankDao.update(biobankDB);
+                sampleQuestionDB.setBiobank(null);
             }
-        } catch (DataAccessException ex) {
-            throw ex;
+            sampleQuestionDao.remove(sampleQuestionDB);
         }
     }
 
-    /*
-    public void remove(SampleQuestion sampleQuestion) {
-           try {
-                   sampleQuestionDao.remove(sampleQuestion);
-           } catch (DataAccessException ex) {
-               throw ex;
-           }
-       }
-       */
-
     public SampleQuestion update(SampleQuestion sampleQuestion) {
-        try {
-            sampleQuestionDao.update(sampleQuestion);
-            return sampleQuestion;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        sampleQuestionDao.update(sampleQuestion);
+        return sampleQuestion;
     }
 
     public List<SampleQuestion> all() {
-        try {
-            List<SampleQuestion> sampleQuestions = sampleQuestionDao.all();
-            return sampleQuestions;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return sampleQuestionDao.all();
     }
 
     public List<SampleQuestion> getAllByProject(Project project) {
-        try {
-            if (project == null) {
-                return null;
-            }
-            String query = "WHERE";
-            query = query + " p.project.id ='" + project.getId().toString() + "'";
-            List<SampleQuestion> sampleQuestions = sampleQuestionDao.getSelected(query);
-            return sampleQuestions;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        notNull(project);
+        String query = "WHERE";
+        query = query + " p.project.id ='" + project.getId().toString() + "'";
+        return sampleQuestionDao.getSelected(query);
     }
 
     public List<SampleQuestion> getAllByBiobank(Biobank biobank) {
-        try {
-            if (biobank == null) {
-                return null;
-            }
-            String query = "WHERE";
-            query = query + " p.biobank.id ='" + biobank.getId().toString() + "' AND " +
-                    "p.processed = 'f'";
-            List<SampleQuestion> sampleQuestions = sampleQuestionDao.getSelected(query);
-            return sampleQuestions;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        notNull(biobank);
+        String query = "WHERE";
+        query = query + " p.biobank.id ='" + biobank.getId().toString() + "' AND " +
+                "p.processed = 'f'";
+        return sampleQuestionDao.getSelected(query);
     }
 
     public SampleQuestion get(Long id) {
-        try {
-            SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
-            return sampleQuestionDB;
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return sampleQuestionDao.get(id);
     }
 
     public Integer count() {
-        try {
-            return sampleQuestionDao.count();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
+        return sampleQuestionDao.count();
     }
 }

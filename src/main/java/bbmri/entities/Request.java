@@ -21,7 +21,7 @@ public class Request {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Sample sample;
 
     private Integer numOfRequested;

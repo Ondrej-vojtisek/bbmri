@@ -16,18 +16,18 @@ public class SampleQuestion {
 
     private static final long serialVersionUID = 1L;
 
-      @Id
-      @GeneratedValue(strategy = GenerationType.TABLE)
-      @Column(name = "ID", nullable = false)
-      private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
+    private Long id;
 
-    @Column(name="SPECIFICATION", columnDefinition="TEXT")
+    @Column(name = "SPECIFICATION", columnDefinition = "TEXT")
     private String specification;
 
-    @ManyToOne //(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.MERGE)
     private Biobank biobank;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne//(cascade = CascadeType.MERGE)
     private Project project;
 
     @Enumerated(EnumType.STRING)

@@ -4,7 +4,6 @@ import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.service.RequestGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -146,31 +145,32 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         }
 
         Biobank biobankDB = biobankDao.get(requestGroupDB.getBiobank().getId());
-        if(biobankDB == null){
-                    return;
-                    // TODO: exception
-                }
-
-            biobankDB.getRequestGroups().remove(requestGroupDB);
-            biobankDao.update(biobankDB);
-            requestGroupDB.setBiobank(null);
-
-        List<Request> requests = requestGroupDB.getRequests();
-
-        if(requests == null){
+        if (biobankDB == null) {
             return;
             // TODO: exception
         }
-        for(Request request : requests){
+
+        biobankDB.getRequestGroups().remove(requestGroupDB);
+        biobankDao.update(biobankDB);
+        requestGroupDB.setBiobank(null);
+
+        List<Request> requests = requestGroupDB.getRequests();
+
+        if (requests == null) {
+            return;
+            // TODO: exception
+        }
+        for (Request request : requests) {
             requestDao.remove(request);
         }
 
         Project projectDB = projectDao.get(requestGroupDB.getProject().getId());
-        if(projectDB == null){
+        if (projectDB == null) {
             return;
             // TODO: exception
         }
         projectDB.getRequestGroups().remove(requestGroupDB);
+        projectDao.update(projectDB);
 
         requestGroupDao.remove(requestGroupDB);
 
@@ -178,106 +178,129 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
     }
 
     public RequestGroup update(RequestGroup requestGroup) {
-    notNull(requestGroup);
-            RequestGroup requestGroupDB = requestGroupDao.get(requestGroup.getId());
-            if (requestGroupDB == null) {
-                return null;
-            }
-            if (requestGroup.getBiobank() != null) {
-                requestGroupDB.setBiobank(requestGroup.getBiobank());
-            }
-            if (requestGroup.getCreated() != null) {
-                requestGroupDB.setCreated(requestGroup.getCreated());
-            }
-            if (requestGroup.getLastModification() != null) {
-                requestGroupDB.setLastModification(requestGroup.getLastModification());
-            }
-            if (requestGroup.getProject() != null) {
-                requestGroupDB.setProject(requestGroup.getProject());
-            }
-            if (requestGroup.getRequests() != null) {
-                requestGroupDB.setRequests(requestGroup.getRequests());
-            }
-            if (requestGroup.getRequestState() != null) {
-                requestGroupDB.setRequestState(requestGroup.getRequestState());
-            }
-            requestGroupDao.update(requestGroupDB);
-            return requestGroupDB;
+        notNull(requestGroup);
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroup.getId());
+        if (requestGroupDB == null) {
+            return null;
+        }
+
+        if (requestGroup.getLastModification() != null) {
+                 requestGroupDB.setLastModification(requestGroup.getLastModification());
+        }
+
+        if (requestGroup.getRequestState() != null) {
+                 requestGroupDB.setRequestState(requestGroup.getRequestState());
+        }
+
+   /* Not sure if this can legally happen
+   if (requestGroup.getCreated() != null) {
+            requestGroupDB.setCreated(requestGroup.getCreated());
+        }
+   if (requestGroup.getProject() != null) {
+               requestGroupDB.setProject(requestGroup.getProject());
+           }
+   if (requestGroup.getRequests() != null) {
+            requestGroupDB.setRequests(requestGroup.getRequests());
+   }
+
+   if (requestGroup.getBiobank() != null) {
+            requestGroupDB.setBiobank(requestGroup.getBiobank());
+   }
+
+        */
+
+        requestGroupDao.update(requestGroupDB);
+        return requestGroupDB;
     }
 
     public List<RequestGroup> all() {
-            return requestGroupDao.all();
-
+        return requestGroupDao.all();
     }
 
     public RequestGroup get(Long id) {
         notNull(id);
-            return requestGroupDao.get(id);
+        return requestGroupDao.get(id);
     }
 
     public Integer count() {
-            return requestGroupDao.count();
+        return requestGroupDao.count();
     }
 
     public List<RequestGroup> getByProject(Long projectId) {
-            notNull(projectId);
-            Project projectDB = projectDao.get(projectId);
-            if (projectDB == null) {
-                return null;
-                //TODO: exception
-            }
+        notNull(projectId);
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return null;
+            //TODO: exception
+        }
 
-            List<RequestGroup> allRequestGroups = requestGroupDao.all();
-            List<RequestGroup> results = new ArrayList<RequestGroup>();
-            for (RequestGroup requestGroup : allRequestGroups) {
-                if (requestGroup.getProject().equals(projectDB)) {
-                    results.add(requestGroup);
-                }
+        List<RequestGroup> allRequestGroups = requestGroupDao.all();
+        List<RequestGroup> results = new ArrayList<RequestGroup>();
+        for (RequestGroup requestGroup : allRequestGroups) {
+            if (requestGroup.getProject().equals(projectDB)) {
+                results.add(requestGroup);
             }
-            return results;
+        }
+        return results;
     }
 
     public List<RequestGroup> getByBiobank(Long biobankId) {
         notNull(biobankId);
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            return null;
+            // TODO: exception
+        }
 
-            Biobank biobankDB = biobankDao.get(biobankId);
-            if (biobankDB == null) {
-                return null;
-                // TODO: exception
+        List<RequestGroup> allRequestGroups = requestGroupDao.all();
+        List<RequestGroup> results = new ArrayList<RequestGroup>();
+        for (RequestGroup requestGroup : allRequestGroups) {
+            if(requestGroup.getBiobank() == null){
+                continue;
             }
-
-            List<RequestGroup> allRequestGroups = requestGroupDao.all();
-            List<RequestGroup> results = new ArrayList<RequestGroup>();
-
-            for (RequestGroup requestGroup : allRequestGroups) {
-               if (requestGroup.getBiobank().equals(biobankDB)) {
-                    results.add(requestGroup);
-                }
+            if (requestGroup.getBiobank().equals(biobankDB)) {
+                results.add(requestGroup);
             }
-
-            return results;
+        }
+        return results;
     }
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
-            List<RequestGroup> allRequestGroups = requestGroupDao.all();
-            List<RequestGroup> results = new ArrayList<RequestGroup>();
-            for (RequestGroup requestGroup : allRequestGroups) {
-                if (requestGroup.getBiobank().getId().equals(biobankId) &&
-                        requestGroup.getRequestState().equals(requestState)) {
-                    results.add(requestGroup);
-                }
+        List<RequestGroup> allRequestGroups = requestGroupDao.all();
+        List<RequestGroup> results = new ArrayList<RequestGroup>();
+        for (RequestGroup requestGroup : allRequestGroups) {
+            if (requestGroup.getBiobank().getId().equals(biobankId) &&
+                    requestGroup.getRequestState().equals(requestState)) {
+                results.add(requestGroup);
             }
-            return results;
+        }
+        return results;
     }
 
-    public void changeRequestState(Long requestGroupId, RequestState requestState) {
+    private void changeRequestState(RequestGroup requestGroupDB, RequestState requestState) {
+        requestGroupDB.setRequestState(requestState);
+        requestGroupDao.update(requestGroupDB);
+    }
+
+    public void approveRequestState(Long requestGroupId){
         notNull(requestGroupId);
-        notNull(requestState);
-
-            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
-            requestGroupDB.setRequestState(requestState);
-            requestGroupDao.update(requestGroupDB);
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
+        if(requestGroupDB == null){
+            return;
+            //TODO: exception
+        }
+        changeRequestState(requestGroupDB, RequestState.APPROVED);
     }
+
+    public void denyRequestState(Long requestGroupId){
+            notNull(requestGroupId);
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
+            if(requestGroupDB == null){
+                return;
+                //TODO: exception
+            }
+            changeRequestState(requestGroupDB, RequestState.DENIED);
+        }
 
     public List<Request> getRequestsByRequestGroup(Long requestGroupId) {
         notNull(requestGroupId);

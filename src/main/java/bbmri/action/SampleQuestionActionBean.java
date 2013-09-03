@@ -234,6 +234,11 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public List<RequestGroup> getAllRequestGroups() {
+        Biobank biobank = biobankService.get(getLoggedUser().getBiobank().getId());
+
+        logger.debug("BiobankDEBUG: " + biobank);
+
+        logger.debug("RequestGroups: " + requestGroupService.getByBiobank(biobank.getId()));
         return requestGroupService.getByBiobank(getLoggedUser().getBiobank().getId());
 
     }
