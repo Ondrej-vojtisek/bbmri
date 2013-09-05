@@ -123,3 +123,11 @@ background-color: #0088cc;
 .header_width_100{
     width: 100px;
 }
+
+.justify{
+    text-align: justify;
+}
+
+.small_legend{
+    font-size: 18px;
+}
