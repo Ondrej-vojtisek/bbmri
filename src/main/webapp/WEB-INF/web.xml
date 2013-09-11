@@ -23,10 +23,6 @@
         <param-value>/WEB-INF/spring-context2.xml</param-value>
     </context-param>
 
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-
     <!-- ERROR pages -->
     <error-page>
         <error-code>401</error-code>

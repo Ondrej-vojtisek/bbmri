@@ -21,13 +21,13 @@ import javax.annotation.security.PermitAll;
  */
 
 //@UrlBinding("/login/{$event}")
-@HttpCache(allow=false)
+//@HttpCache(allow=false)
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean implements ValidationErrorHandler {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String INDEX = "/login.jsp";
+    private static final String INDEX = "/index.jsp";
 
     @SpringBean
     private LoginService loginService;
