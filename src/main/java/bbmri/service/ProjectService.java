@@ -40,4 +40,6 @@ public interface ProjectService  extends BasicService<Project> {
      Project changeOwnership(Long projectId, Long newOwnerId);
 
     List<Project> getAllByUserWithRequests(Long userId);
+
+    Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleQuestions);
 }

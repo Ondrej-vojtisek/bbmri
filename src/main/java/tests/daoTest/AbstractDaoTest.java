@@ -1,4 +1,4 @@
-package tests;
+package tests.daoTest;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -7,6 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tests.testUtils.TestUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,14 +21,10 @@ import org.slf4j.LoggerFactory;
 @ContextConfiguration(locations = {"classpath:test-applicationContext.xml"})
 @Transactional
 @Ignore
-public class AbstractTest extends TestUtils{
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
-    public void log(String msg){
-        logger.debug(msg);
-
-    }
-
+public class AbstractDaoTest extends TestUtils {
 
 }
+
+
+
+

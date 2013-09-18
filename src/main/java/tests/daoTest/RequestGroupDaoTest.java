@@ -3,12 +3,9 @@ package tests.daoTest;
 import bbmri.dao.ProjectDao;
 import bbmri.dao.RequestGroupDao;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
 import bbmri.entities.RequestGroup;
-import bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 22:53
  * To change this template use File | Settings | File Templates.
  */
-public class RequestGroupDaoTest extends AbstractTest {
+public class RequestGroupDaoTest extends AbstractDaoTest {
 
     // List<RequestGroup> getAllByProject(Project project);
 

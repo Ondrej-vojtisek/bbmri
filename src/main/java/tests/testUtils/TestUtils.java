@@ -1,6 +1,8 @@
-package tests;
+package tests.testUtils;
 
 import bbmri.entities.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +12,13 @@ import bbmri.entities.*;
  * To change this template use File | Settings | File Templates.
  */
 public class TestUtils {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    public void log(String msg){
+           logger.debug(msg);
+
+    }
 
     protected User createTestUser(int i) {
         User user = new User();

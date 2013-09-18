@@ -8,7 +8,7 @@
     <name>bbmri</name>
 
     <properties>
-        <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+        <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.libs>${project.basedir}/src/lib</project.libs>
@@ -19,29 +19,29 @@
         <!-- Testing - junit, hsqldb driver for in memory testing -->
 
         <dependency>
-        	<groupId>junit</groupId>
-        	<artifactId>junit</artifactId>
-        	<version>4.11</version>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.3.0</version>
         </dependency>
 
         <dependency>
-        	<groupId>org.hsqldb</groupId>
-        	<artifactId>hsqldb</artifactId>
-        	<version>2.3.0</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>2.5.6</version>
         </dependency>
 
         <dependency>
-        	<groupId>org.springframework</groupId>
-        	<artifactId>spring-test</artifactId>
-        	<version>2.5</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
         </dependency>
 
         <!-- Testing of service layer -->
 
         <dependency>
-        	<groupId>org.mockito</groupId>
-        	<artifactId>mockito-core</artifactId>
-        	<version>1.9.5</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
         </dependency>
 
         <!-- servlet, JSP, JSTL -->
@@ -111,6 +111,8 @@
         <!--
         JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
 	    -->
+
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -136,15 +138,21 @@
         </dependency>
 
         <dependency>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-entitymanager</artifactId>
-                    <version>3.6.10.Final</version>
-                </dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>3.6.10.Final</version>
+        </dependency>
 
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
 
         <dependency>

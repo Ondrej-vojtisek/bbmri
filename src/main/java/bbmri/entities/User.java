@@ -42,10 +42,10 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
     private List<Project> projects = new ArrayList<Project>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Biobank biobank;
 
     //@OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
@@ -55,7 +55,7 @@ public class User implements Serializable {
                inverseJoinColumns = @JoinColumn( name="user_id"))
     private List<Project> judgedProjects = new ArrayList<Project>();
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<Role>();
 
     public User() {

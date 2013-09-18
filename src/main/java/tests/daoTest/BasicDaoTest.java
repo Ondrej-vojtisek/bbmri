@@ -3,10 +3,7 @@ package tests.daoTest;
 import bbmri.dao.UserDao;
 import bbmri.entities.User;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import java.util.ArrayList;
 
@@ -19,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 16:02
  * To change this template use File | Settings | File Templates.
  */
-public class BasicDaoTest extends AbstractTest {
+public class BasicDaoTest extends AbstractDaoTest {
 
     @Autowired
     UserDao userDao;

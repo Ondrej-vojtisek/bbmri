@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import tests.AbstractServiceTest;
 
 import static org.mockito.Mockito.*;
 
@@ -54,33 +53,6 @@ public class BiobankServiceTest extends AbstractServiceTest {
         assertEquals(result.getName(), biobank2.getName());
         assertEquals(result.getAddress(), biobank.getAddress());
     }
-
-    @Test
-       public void removeAdministratorTest() {
-           /* ********* GIVEN ********** */
-           User user = new User();
-           user.setName("Tester");
-           user.setId(new Long(1));
-
-           Biobank biobank = new Biobank();
-           biobank.setName("Biobank");
-           biobank.setAddress("Address");
-           biobank.setId(new Long(1));
-           biobank.getAdministrators().add(user);
-           user.setBiobank(biobank);
-
-           when(biobankDao.get(new Long(1)))
-                          .thenReturn(biobank);
-           when(userDao.get(new Long(1)))
-                                 .thenReturn(user);
-            /* ********* WHEN ********** */
-
-             User result = biobankService.removeAdministratorFromBiobank(user.getId(), biobank.getId());
-
-            /* ********* THEN ********** */
-
-           assertEquals(result.getBiobank(), null);
-       }
 
     @Test(expected=IllegalArgumentException.class)
     public void exceptionTest(){

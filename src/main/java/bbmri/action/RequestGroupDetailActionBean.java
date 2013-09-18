@@ -34,7 +34,7 @@ public class RequestGroupDetailActionBean extends BasicActionBean {
     }
 
     public List<Request> getRequests() {
-        return requestGroupService.getRequestsByRequestGroup(getRequestGroup().getId());
+        return requestGroupService.eagerGet(getRequestGroup().getId(), true).getRequests();
     }
 
     @ValidateNestedProperties(value = {

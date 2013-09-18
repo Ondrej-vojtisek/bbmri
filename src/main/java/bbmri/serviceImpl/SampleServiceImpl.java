@@ -1,8 +1,10 @@
 package bbmri.serviceImpl;
 
 import bbmri.dao.BiobankDao;
+import bbmri.dao.RequestDao;
 import bbmri.dao.SampleDao;
 import bbmri.entities.Biobank;
+import bbmri.entities.Request;
 import bbmri.entities.Sample;
 import bbmri.service.SampleService;
 import org.slf4j.Logger;
@@ -30,17 +32,23 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     @Autowired
     private BiobankDao biobankDao;
 
+    @Autowired
+    private RequestDao requestDao;
+
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    /*
     public Sample create(Sample sample) {
         notNull(sample);
         sampleDao.create(sample);
         return sample;
     }
+    */
 
     public Sample create(Sample sample, Long biobankId) {
         notNull(sample);
         notNull(biobankId);
+
 
         Biobank biobankDB = biobankDao.get(biobankId);
         if (biobankDB == null) {
@@ -51,8 +59,10 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         sampleDao.create(sample);
 
         sample.setBiobank(biobankDB);
+        sampleDao.update(sample);
         biobankDB.getSamples().add(sample);
         biobankDao.update(biobankDB);
+
 
         return sample;
     }
@@ -67,6 +77,13 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
                 biobankDB.getSamples().remove(sampleDB);
                 biobankDao.update(biobankDB);
                 sampleDB.setBiobank(null);
+            }
+
+            List<Request> requests = sampleDB.getRequests();
+            if(requests != null){
+                for(Request request : requests){
+                    requestDao.remove(request);
+                }
             }
             sampleDao.remove(sampleDB);
         }
@@ -95,12 +112,17 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         Integer available = sampleDB.getNumOfAvailable();
         Integer numOfSamples = sampleDB.getNumOfSamples();
 
-        if ((available - requested) > 0) {
+        if ((available - requested) >= 0) {
             sampleDB.setNumOfAvailable(available - requested);
             sampleDB.setNumOfSamples(numOfSamples - requested);
+
+
         } else {
+            //TODO: exception
+
             return sampleDB;
         }
+
         sampleDao.update(sampleDB);
         return sampleDB;
     }
@@ -119,6 +141,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             available = 0;
             numOfSamples -= requested;
         } else {
+            // TODO: exception
             return sample;
         }
         if (numOfSamples == 0) {
@@ -133,102 +156,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
     public List<Sample> getSamplesByQuery(Sample sample) {
         notNull(sample);
-
-        String query = "WHERE";
-        /*
-            Queries temporal without %
-        * */
-
-        if (sample.getDiagnosis() != null) {
-            //query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
-            query = query + " p.diagnosis ='" + sample.getDiagnosis().toString() + "'";
-            query = query + " AND";
-        }
-        if (sample.getGrading() != null) {
-            query = query + " p.grading ='" + sample.getGrading() + "'";
-            query = query + " AND";
-        }
-        if (sample.getpTNM() != null) {
-            //query = query + " p.pTNM like'" + sample.getpTNM() + "'";
-            query = query + " p.pTNM ='" + sample.getpTNM() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getTNM() != null) {
-            //query = query + " p.TNM like'" + sample.getTNM() + "'";
-            query = query + " p.TNM ='" + sample.getTNM() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getTissueType() != null) {
-            //query = query + " p.tissueType like'" + sample.getTissueType() + "'";
-            query = query + " p.tissueType ='" + sample.getTissueType() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getNumOfAvailable() != null) {
-            query = query + " p.numOfAvailable ='" + sample.getNumOfAvailable() + "'";
-        }
-
-        if (query.endsWith("AND")) {
-            query = query.substring(0, query.length() - 3);
-        }
-
-        return sampleDao.getSelected(query);
-
-    }
-
-    public List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank) {
-        notNull(sample);
-        notNull(biobank);
-
-        String query = "WHERE";
-          /*
-              Queries temporal without %
-          * */
-
-        if (biobank == null) {
-            return null;
-        }
-
-        query = query + " p.biobank.id ='" + biobank.getId() + "'";
-        query = query + " AND";
-
-        if (sample.getDiagnosis() != null) {
-            //query = query + " p.diagnosis like'" + sample.getDiagnosis().toString() + "'";
-            query = query + " p.diagnosis ='" + sample.getDiagnosis().toString() + "'";
-            query = query + " AND";
-        }
-        if (sample.getGrading() != null) {
-            query = query + " p.grading ='" + sample.getGrading() + "'";
-            query = query + " AND";
-        }
-        if (sample.getpTNM() != null) {
-            //query = query + " p.pTNM like'" + sample.getpTNM() + "'";
-            query = query + " p.pTNM ='" + sample.getpTNM() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getTNM() != null) {
-            //query = query + " p.TNM like'" + sample.getTNM() + "'";
-            query = query + " p.TNM ='" + sample.getTNM() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getTissueType() != null) {
-            //query = query + " p.tissueType like'" + sample.getTissueType() + "'";
-            query = query + " p.tissueType ='" + sample.getTissueType() + "'";
-            query = query + " AND";
-        }
-
-        if (sample.getNumOfAvailable() != null) {
-            query = query + " p.numOfAvailable ='" + sample.getNumOfAvailable() + "'";
-        }
-
-        if (query.endsWith("AND")) {
-            query = query.substring(0, query.length() - 3);
-        }
-        return sampleDao.getSelected(query);
+        return sampleDao.getSelected(sample);
     }
 
     public Integer count() {
@@ -242,16 +170,33 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         if (biobankDB == null) {
             return null;
         }
-        String query = "WHERE";
-        query = query + " p.biobank.id ='" + biobankId.toString() + "'";
-        List<Sample> samples = sampleDao.getSelected(query);
-
-        return samples;
+        List<Sample> results = biobankDB.getSamples();
+        /*DONT DELETE THIS COMMENT*/
+        logger.debug(" DONT DELETE" + results);
+        return results;
     }
 
     public Sample get(Long id) {
         notNull(id);
         return sampleDao.get(id);
     }
+
+    public Sample eagerGet(Long id, boolean biobank, boolean request){
+          notNull(id);
+          Sample sampleDB = sampleDao.get(id);
+
+
+          /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+          if(biobank){
+              logger.debug("" + sampleDB.getBiobank());
+          }
+          if(request){
+              logger.debug("" + sampleDB.getRequests());
+          }
+
+          return sampleDB;
+
+      }
 
 }

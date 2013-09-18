@@ -28,10 +28,12 @@ public class Biobank implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
-    @OneToMany
+    /* There won't be many administrators for one biobank*/
+   /* @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name="biobank_administrators",
                joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="user_id"))
+               inverseJoinColumns = @JoinColumn( name="user_id"))  */
+    @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<User> administrators = new ArrayList<User>();
 
     @OneToMany
@@ -109,6 +111,7 @@ public class Biobank implements Serializable {
     public void setSampleQuestions(List<SampleQuestion> sampleQuestions) {
         this.sampleQuestions = sampleQuestions;
     }
+
 
     public User getOwner() {
           if (!administrators.isEmpty()) {

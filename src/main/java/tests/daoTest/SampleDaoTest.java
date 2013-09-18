@@ -3,7 +3,8 @@ package tests.daoTest;
 import bbmri.dao.SampleDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +13,7 @@ import tests.AbstractTest;
  * Time: 22:54
  * To change this template use File | Settings | File Templates.
  */
-public class SampleDaoTest extends AbstractTest {
+public class SampleDaoTest extends AbstractDaoTest {
 
 
     @Autowired
@@ -22,4 +23,9 @@ public class SampleDaoTest extends AbstractTest {
     @Test
     public void getSelectedTest(){
     }  */
+
+    @Test
+       public void notImplementedYet(){
+           assertEquals(1,1);
+       }
 }

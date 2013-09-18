@@ -33,6 +33,14 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     @Autowired
     private ProjectDao projectDao;
 
+
+    /**
+     * Way how to withdraw sample without process of creating project. This should be enabled only for employee of biobank.
+     *
+     * @param sampleQuestion
+     * @param biobankId
+     * @return
+     */
     public SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId) {
         notNull(sampleQuestion);
         notNull(biobankId);
@@ -42,9 +50,11 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             return null;
             // TODO: exception
         }
-
+        sampleQuestion.setProcessed(false);
         sampleQuestionDao.create(sampleQuestion);
         sampleQuestion.setBiobank(biobankDB);
+        biobankDB.getSampleQuestions().add(sampleQuestion);
+        biobankDao.update(biobankDB);
         sampleQuestion.setProject(null);
         sampleQuestionDao.update(sampleQuestion);
         return sampleQuestion;
@@ -64,13 +74,15 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             return null;
             //TODO: exception
         }
+        sampleQuestion.setProcessed(false);
         sampleQuestionDao.create(sampleQuestion);
-
         sampleQuestion.setBiobank(biobankDB);
         biobankDB.getSampleQuestions().add(sampleQuestion);
         biobankDao.update(biobankDB);
 
         sampleQuestion.setProject(projectDB);
+        projectDB.getSampleQuestions().add(sampleQuestion);
+        projectDao.update(projectDB);
         sampleQuestionDao.update(sampleQuestion);
         return sampleQuestion;
     }
@@ -85,6 +97,13 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
                 biobankDao.update(biobankDB);
                 sampleQuestionDB.setBiobank(null);
             }
+            Project projectDB = projectDao.get(sampleQuestionDB.getProject().getId());
+            if (projectDB != null) {
+                projectDB.getSampleQuestions().remove(sampleQuestionDB);
+                projectDao.update(projectDB);
+                sampleQuestionDB.setProject(null);
+            }
+
             sampleQuestionDao.remove(sampleQuestionDB);
         }
     }
@@ -98,19 +117,15 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestionDao.all();
     }
 
+
     public List<SampleQuestion> getAllByProject(Project project) {
         notNull(project);
-        String query = "WHERE";
-        query = query + " p.project.id ='" + project.getId().toString() + "'";
-        return sampleQuestionDao.getSelected(query);
+        return sampleQuestionDao.getByProject(project);
     }
 
     public List<SampleQuestion> getAllByBiobank(Biobank biobank) {
         notNull(biobank);
-        String query = "WHERE";
-        query = query + " p.biobank.id ='" + biobank.getId().toString() + "' AND " +
-                "p.processed = 'f'";
-        return sampleQuestionDao.getSelected(query);
+        return sampleQuestionDao.getByBiobank(biobank);
     }
 
     public SampleQuestion get(Long id) {
@@ -120,4 +135,5 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     public Integer count() {
         return sampleQuestionDao.count();
     }
+
 }

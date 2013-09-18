@@ -16,4 +16,6 @@ public interface RequestService extends BasicService<Request>{
      Request create(Long sampleId);
 
      Request create(Long sampleId, Integer numOfRequested);
+
+     Request eagerGet(Long id, boolean requestGroup, boolean sample);
 }

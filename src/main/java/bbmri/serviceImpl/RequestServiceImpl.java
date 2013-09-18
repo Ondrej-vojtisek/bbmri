@@ -110,4 +110,21 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
     public Integer count() {
         return requestDao.count();
     }
+
+    public Request eagerGet(Long id, boolean requestGroup, boolean sample) {
+           notNull(id);
+           Request requestDB = requestDao.get(id);
+
+           /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+           if (requestGroup) {
+               logger.debug("" + requestDB.getRequestGroup());
+           }
+
+           if (sample) {
+               logger.debug("" + requestDB.getSample());
+           }
+           return requestDB;
+
+       }
 }

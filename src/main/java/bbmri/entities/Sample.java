@@ -267,7 +267,8 @@ public class Sample implements Serializable {
                 ", tissueType='" + tissueType + '\'' +
                 ", TNM='" + TNM + '\'' +
                 ", pTNM='" + pTNM + '\'' +
-                ", grading=" + grading +
+                ", grading=" + grading + '\'' +
+                ", morphology='" + morphology +
                 /*            ", removalTime=" + removalTime +
        ", freezingTime=" + freezingTime +     */
                 ", diagnosis='" + diagnosis + '\'' +

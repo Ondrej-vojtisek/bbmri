@@ -45,6 +45,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             project.setProjectState(ProjectState.NEW);
             projectDao.create(project);
             assignUserToProject(userDB, project, true);
+            projectDao.update(project);
         }
         return project;
     }
@@ -62,7 +63,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         } else {
             projectDB.getUsers().add(userDB);
         }
-
 
         projectDao.update(projectDB);
     }
@@ -195,6 +195,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projects;
     }
 
+    // TODO: Must be refactored bcs it can't be done simply be owner=get[0]
     public List<Project> getAllWhichUserAdministrate(Long userId) {
         notNull(userId);
         User userDB = userDao.get(userId);
@@ -218,27 +219,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
-        List<Project> projects = projectDao.getAllByProjectState(projectState);
-        return projects;
+        return projectDao.getAllByProjectState(projectState);
     }
-    /*
-    public List<Project> getAllApprovedByUser(Long userId) {
-        User userDB = userDao.get(userId);
-
-        List<Project> projects = userDB.getProjects();
-
-        List<Project> result = new ArrayList<Project>();
-        if (projects != null) {
-            for (Project project : projects) {
-                if (project.getProjectState() == ProjectState.APPROVED ||
-                        project.getProjectState() == ProjectState.STARTED) {
-                    result.add(project);
-                }
-            }
-        }
-        return result;
-    }
-    */
 
 
     public User assignUser(Long userId, Long projectId) {
@@ -280,21 +262,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
         return userDB;
     }
-
-  /*  public List<User> getAllAssignedUsers(Long projectId) {
-        Project projectDB = projectDao.get(projectId);
-        // List<User> users = projectDao.getAllUsersByProject(projectDB);
-        return projectDB.getUsers();
-    }  */
-
-  /*  public void approve(Long id) {
-        Project projectDB = projectDao.get(id);
-        if (projectDB.getProjectState() == ProjectState.NEW) {
-            projectDB.setProjectState(ProjectState.APPROVED);
-            projectDao.update(projectDB);
-        }
-
-    } */
 
     public void approve(Long projectId, Long userId) {
         notNull(projectId);
@@ -404,6 +371,31 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
     public Integer count() {
         return projectDao.count();
+    }
+
+    public Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleQuestions) {
+        notNull(id);
+        Project projectDB = projectDao.get(id);
+
+           /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+        if (users) {
+            logger.debug("" + projectDB.getUsers());
+        }
+
+        if (requestGroups) {
+            logger.debug("" + projectDB.getRequestGroups());
+        }
+
+        if (attachments) {
+            logger.debug("" + projectDB.getAttachments());
+        }
+
+        if (sampleQuestions) {
+            logger.debug("" + projectDB.getSampleQuestions());
+        }
+        return projectDB;
+
     }
 
 }

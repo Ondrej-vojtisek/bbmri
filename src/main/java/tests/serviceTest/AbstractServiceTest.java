@@ -1,10 +1,11 @@
-package tests;
+package tests.serviceTest;
 
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tests.testUtils.TestUtils;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,11 +18,4 @@ import org.slf4j.LoggerFactory;
 @RunWith(MockitoJUnitRunner.class)
 @Ignore
 public class AbstractServiceTest extends TestUtils {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
-    public void log(String msg){
-           logger.debug(msg);
-
-    }
 }

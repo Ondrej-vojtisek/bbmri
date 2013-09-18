@@ -4,11 +4,8 @@ import bbmri.dao.SampleQuestionDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.SampleQuestion;
-import bbmri.entities.User;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -27,6 +24,27 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implemen
         String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
         Query queryDB = em.createQuery(preparedQuery);
         return queryDB.getResultList();
+    }
+
+    public List<SampleQuestion> getByBiobank(Biobank biobank) {
+        Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.biobank = :param and " +
+                "p.processed = false");
+        query.setParameter("param", biobank);
+        return query.getResultList();
+    }
+
+    public List<SampleQuestion> getByBiobankAndProcessed(Biobank biobank, boolean processed) {
+        Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.biobank = :bioParam and " +
+                "p.processed = : boolParam");
+        query.setParameter("bioParam", biobank);
+        query.setParameter("boolParam", processed);
+        return query.getResultList();
+    }
+
+    public List<SampleQuestion> getByProject(Project project) {
+        Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.project = :param");
+        query.setParameter("param", project);
+        return query.getResultList();
     }
 
 }

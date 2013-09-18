@@ -24,4 +24,6 @@ public interface UserService extends BasicService<User>{
 
     User removeRole(Long userId, RoleType roleType);
 
+    User eagerGet(Long id, boolean judgedProjects, boolean project);
+
 }

@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface SampleDao extends BasicDao<Sample>{
 
-    List<Sample> getSelected(String query);
+    List<Sample> getSelected(Sample question);
 
 }

@@ -4,7 +4,6 @@ import bbmri.entities.*;
 import bbmri.service.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 11:56
  * To change this template use File | Settings | File Templates.
  */
-public class RequestComplexTest extends AbstractTest {
+public class RequestComplexTest extends AbstractDaoAndServiceTest {
 
     @Autowired
     private UserService userService;
@@ -34,7 +33,7 @@ public class RequestComplexTest extends AbstractTest {
     @Autowired
     private RequestService requestService;
 
-     /* ********* GIVEN ********** */
+    /* ********* GIVEN ********** */
     /* ********* WHEN ********** */
     /* ********* THEN ********** */
 
@@ -55,13 +54,11 @@ public class RequestComplexTest extends AbstractTest {
 
         /* ********* WHEN ********** */
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
+        Request request = requestService.create(sample.getId(), 1);
 
         /* ********* THEN ********** */
 
-        List<Request> all = requestService.all();
-        assertEquals(1, all.size());
-        assertEquals(request, all.get(0));
+        assertEquals(true, requestService.get(request.getId()) != null);
 
     }
 
@@ -83,24 +80,21 @@ public class RequestComplexTest extends AbstractTest {
         Sample sample = createTestSample(1);
         sampleService.create(sample, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
+        Request request = requestService.create(sample.getId(), 1);
 
-            /* ********* WHEN ********** */
+        /* ********* WHEN ********** */
 
         requestService.remove(request.getId());
 
-            /* ********* THEN ********** */
+        /* ********* THEN ********** */
 
-        List<Sample> all = sampleService.all();
-        assertEquals(1, all.size());
-        assertEquals(sample, all.get(0));
-
+        assertEquals(true, requestService.get(request.getId()) == null);
     }
 
     @Test
     public void updateRequestTest() {
 
-            /* ********* GIVEN ********** */
+        /* ********* GIVEN ********** */
 
         User user = createTestUser(1);
         userService.create(user);
@@ -114,18 +108,17 @@ public class RequestComplexTest extends AbstractTest {
         Sample sample = createTestSample(1);
         sampleService.create(sample, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
+        Request request = requestService.create(sample.getId(), 1);
 
-                /* ********* WHEN ********** */
+        /* ********* WHEN ********** */
 
-        request.setNumOfRequested(new Integer(2));
+        request.setNumOfRequested(2);
         requestService.update(request);
 
-                /* ********* THEN ********** */
+        /* ********* THEN ********** */
 
-        List<Request> all = requestService.all();
-        assertEquals(1, all.size());
-        assertEquals(new Integer(2), all.get(0).getNumOfRequested());
+        request = requestService.get(request.getId());
+        assertEquals(true, request.getNumOfRequested().equals(2));
 
     }
 }

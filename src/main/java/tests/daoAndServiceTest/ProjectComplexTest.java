@@ -8,7 +8,6 @@ import bbmri.service.RequestGroupService;
 import bbmri.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 13:17
  * To change this template use File | Settings | File Templates.
  */
-public class ProjectComplexTest extends AbstractTest {
+public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
 
     @Autowired
@@ -49,11 +48,14 @@ public class ProjectComplexTest extends AbstractTest {
 
         /* ********* THEN ********** */
 
+        user = userService.eagerGet(user.getId(),false, true);
+        project = projectService.eagerGet(project.getId(), true, false, false, false);
+
         assertEquals(1, project.getUsers().size());
-        assertEquals(project.getOwner(), user);
-        assertEquals(user.getProjects().contains(project), true);
-        assertEquals(user.getProjects().size(), 1);
-        assertEquals(1, projectService.all().size());
+        assertEquals(user, project.getOwner());
+        assertEquals(true, project.getUsers().contains(user));
+        assertEquals(true, user.getProjects().contains(project));
+        assertEquals(1, user.getProjects().size());
     }
 
     @Test
@@ -82,10 +84,10 @@ public class ProjectComplexTest extends AbstractTest {
 
         assertEquals(null, projectService.get(project.getId()));
         assertEquals(user, userService.get(user.getId()));
-        assertEquals(user.getProjects().isEmpty(), true);
+        assertEquals(true, user.getProjects().isEmpty());
 
         assertEquals(user2, userService.get(user2.getId()));
-        assertEquals(user2.getJudgedProjects().isEmpty(), true);
+        assertEquals(true, user2.getJudgedProjects().isEmpty());
     }
 
     @Test
@@ -105,9 +107,12 @@ public class ProjectComplexTest extends AbstractTest {
 
         /* ********* THEN ********** */
 
-        assertEquals(project.getProjectState(), ProjectState.APPROVED);
-        assertEquals(user2.getJudgedProjects().contains(project), true);
-        assertEquals(project.getJudgedByUser(), user2);
+        user2 = userService.eagerGet(user2.getId(), true, false);
+        project = projectService.get(project.getId());
+
+       assertEquals(ProjectState.APPROVED, project.getProjectState());
+       assertEquals(true, user2.getJudgedProjects().contains(project));
+       assertEquals(user2, project.getJudgedByUser());
     }
 
     @Test
@@ -127,9 +132,12 @@ public class ProjectComplexTest extends AbstractTest {
 
            /* ********* THEN ********** */
 
-        assertEquals(project.getProjectState(), ProjectState.DENIED);
-        assertEquals(user2.getJudgedProjects().contains(project), true);
-        assertEquals(project.getJudgedByUser(), user2);
+        user2 = userService.eagerGet(user2.getId(), true, false);
+        project = projectService.get(project.getId());
+
+        assertEquals(ProjectState.DENIED, project.getProjectState());
+        assertEquals(true, user2.getJudgedProjects().contains(project));
+        assertEquals(user2, project.getJudgedByUser());
     }
 
     @Test
@@ -155,18 +163,21 @@ public class ProjectComplexTest extends AbstractTest {
 
         /* ********* THEN ********** */
 
+        user = userService.eagerGet(user.getId(), false, true);
+        user2 = userService.eagerGet(user2.getId(), false, true);
+
         assertEquals(user.getProjects().size(), 3);
         assertEquals(user2.getProjects().size(), 1);
-        assertEquals(user.getProjects().contains(project), true);
-        assertEquals(user.getProjects().contains(project2), true);
-        assertEquals(user.getProjects().contains(project3), true);
-        assertEquals(user2.getProjects().contains(project3), true);
-        assertEquals(user2.getProjects().contains(project), false);
-        assertEquals(user2.getProjects().contains(project2), false);
+        assertEquals(true, user.getProjects().contains(project));
+        assertEquals(true, user.getProjects().contains(project2));
+        assertEquals(true, user.getProjects().contains(project3));
+        assertEquals(true, user2.getProjects().contains(project3));
+        assertEquals(false, user2.getProjects().contains(project));
+        assertEquals(false, user2.getProjects().contains(project2));
     }
 
     @Test
-    public void removeUserFromTest() {
+    public void removeUserFromProjectTest() {
             /* ********* GIVEN ********** */
         Project project = createTestProject(1);
         User user = createTestUser(1);
@@ -190,11 +201,14 @@ public class ProjectComplexTest extends AbstractTest {
 
             /* ********* THEN ********** */
 
-        assertEquals(user.getProjects().size(), 3);
-        assertEquals(user2.getProjects().isEmpty(), true);
-        assertEquals(user.getProjects().contains(project), true);
-        assertEquals(user.getProjects().contains(project2), true);
-        assertEquals(user.getProjects().contains(project3), true);
+        user = userService.eagerGet(user.getId(), false, true);
+        user2 = userService.eagerGet(user2.getId(), false, true);
+
+        assertEquals(3, user.getProjects().size());
+        assertEquals(true, user2.getProjects().isEmpty());
+        assertEquals(true, user.getProjects().contains(project));
+        assertEquals(true, user.getProjects().contains(project2));
+        assertEquals(true, user.getProjects().contains(project3));
     }
 
     @Test
@@ -219,10 +233,13 @@ public class ProjectComplexTest extends AbstractTest {
 
            /* ********* THEN ********** */
 
-        assertEquals(user.getProjects().size(), 3);
-        assertEquals(user2.getProjects().size(), 1);
-        assertEquals(projectService.getAllWhichUserAdministrate(user.getId()).size(), 2);
-        assertEquals(projectService.getAllWhichUserAdministrate(user2.getId()).size(), 1);
+        user = userService.eagerGet(user.getId(), false, true);
+        user2 = userService.eagerGet(user2.getId(), false, true);
+
+        assertEquals(3, user.getProjects().size());
+        assertEquals(1, user2.getProjects().size());
+        assertEquals(2, projectService.getAllWhichUserAdministrate(user.getId()).size());
+        assertEquals(1, projectService.getAllWhichUserAdministrate(user2.getId()).size());
     }
 
     @Test
@@ -246,15 +263,15 @@ public class ProjectComplexTest extends AbstractTest {
 
         /* ********* THEN ********** */
 
-        assertEquals(projectService.getAllNotAssignedUsers(project.getId()).contains(user2), true);
-        assertEquals(projectService.getAllNotAssignedUsers(project.getId()).contains(user), false);
-        assertEquals(projectService.getAllNotAssignedUsers(project2.getId()).contains(user2), true);
-        assertEquals(projectService.getAllNotAssignedUsers(project2.getId()).contains(user), false);
-        assertEquals(projectService.getAllNotAssignedUsers(project3.getId()).contains(user2), false);
-        assertEquals(projectService.getAllNotAssignedUsers(project3.getId()).contains(user), true);
+        assertEquals(true, projectService.getAllNotAssignedUsers(project.getId()).contains(user2));
+        assertEquals(false, projectService.getAllNotAssignedUsers(project.getId()).contains(user));
+        assertEquals(true, projectService.getAllNotAssignedUsers(project2.getId()).contains(user2));
+        assertEquals(false, projectService.getAllNotAssignedUsers(project2.getId()).contains(user));
+        assertEquals(false, projectService.getAllNotAssignedUsers(project3.getId()).contains(user2));
+        assertEquals(true, projectService.getAllNotAssignedUsers(project3.getId()).contains(user));
     }
 
-    @Test
+    /*TODO - this must be refactored after update of class structure*/
     public void changeOwnershipTest() {
         /* ********* GIVEN ********** */
         Project project = createTestProject(1);

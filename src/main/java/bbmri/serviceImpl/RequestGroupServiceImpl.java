@@ -251,7 +251,6 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
             return null;
             // TODO: exception
         }
-
         List<RequestGroup> allRequestGroups = requestGroupDao.all();
         List<RequestGroup> results = new ArrayList<RequestGroup>();
         for (RequestGroup requestGroup : allRequestGroups) {
@@ -262,10 +261,15 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
                 results.add(requestGroup);
             }
         }
+        /*This debug is important. Don't delete it! otherwise actionBean will throw hibernateLazyFetch ..*/
+        logger.debug("DONT DELETE THIS: " + results);
+
         return results;
     }
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
+       /*TODO: This must be rafctored. Shifted to lower layer without two "for cycles"*/
+
         List<RequestGroup> allRequestGroups = requestGroupDao.all();
         List<RequestGroup> results = new ArrayList<RequestGroup>();
         for (RequestGroup requestGroup : allRequestGroups) {
@@ -274,6 +278,9 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
                 results.add(requestGroup);
             }
         }
+        /*This debug is important. Don't delete it! otherwise actionBean will throw hibernateLazyFetch ..*/
+        logger.debug("DONT DELETE THIS: " + results);
+
         return results;
     }
 
@@ -302,24 +309,16 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
             changeRequestState(requestGroupDB, RequestState.DENIED);
         }
 
-    public List<Request> getRequestsByRequestGroup(Long requestGroupId) {
-        notNull(requestGroupId);
+    public RequestGroup eagerGet(Long id, boolean requests) {
+             notNull(id);
+             RequestGroup requestGroupDB = requestGroupDao.get(id);
 
-        RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
-        if (requestGroupDB == null) {
-            return null;
-        }
-        List<Request> results = new ArrayList<Request>();
-        List<Request> requests = requestDao.all();
+             /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
+             if (requests) {
+                         logger.debug("" + requestGroupDB.getRequests());
+             }
+             return requestGroupDB;
 
-        for (int i = 0; i < requests.size(); i++) {
-            if (requests.get(i).getRequestGroup() != null) {
-                if (requests.get(i).getRequestGroup().equals(requestGroupDB)) {
-                    results.add(requests.get(i));
-                }
-            }
-        }
-        return results;
-    }
+         }
 }

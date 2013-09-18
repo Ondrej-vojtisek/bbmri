@@ -16,5 +16,13 @@ import java.util.List;
 public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
 
     List<SampleQuestion> getSelected(String query);
+
+    List<SampleQuestion> getByBiobank(Biobank biobank);
+
+    // TODO: napsat test
+    List<SampleQuestion> getByBiobankAndProcessed(Biobank biobank, boolean processed);
+
+    // TODO: napsat test
+    public List<SampleQuestion> getByProject(Project project);
     
 }

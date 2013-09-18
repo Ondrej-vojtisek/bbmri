@@ -2,6 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
+import bbmri.entities.User;
 
 import java.util.List;
 
@@ -22,8 +23,8 @@ public interface SampleService extends BasicService<Sample>{
 
      List<Sample> getSamplesByQuery(Sample sample);
 
-     List<Sample> getSamplesByQueryAndBiobank(Sample sample, Biobank biobank);
-
      List<Sample> getAllByBiobank(Long biobankId);
+
+    public Sample eagerGet(Long id, boolean biobank, boolean request);
 
 }

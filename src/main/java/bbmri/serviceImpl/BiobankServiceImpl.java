@@ -86,16 +86,6 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
     }
 
-    /*
-    public void remove(Biobank biobank) {
-          try {
-            biobankDao.remove(biobank);
-          } catch (DataAccessException ex) {
-              throw ex;
-          }
-      }
-      */
-
     public Biobank update(Biobank biobank) {
         notNull(biobank);
 
@@ -143,7 +133,14 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
         User userDB = userDao.get(userId);
         Biobank biobankDB = biobankDao.get(biobankId);
+
         if (biobankDB.getAdministrators().contains(userDB)) {
+            if(biobankDB.getAdministrators().size() == 1){
+                /*There is only one administrator. He can't be removed*/
+                // TODO: exception
+                return null;
+            }
+
             userDB.setBiobank(null);
             userDao.update(userDB);
             biobankDB.getAdministrators().remove(userDB);
@@ -162,6 +159,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
             if (userDB.getBiobank() == null) {
                 userDB.setBiobank(biobankDB);
+                userDao.update(userDB);
                 biobankDB.getAdministrators().add(userDB);
                 biobankDao.update(biobankDB);
             }
@@ -169,18 +167,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return userDB;
     }
 
-    /*
-    public List<User> getAllAdministrators(Long biobankId) {
-        notNull(biobankId);
-
-        try {
-            Biobank biobankDB = biobankDao.get(biobankId);
-            return biobankDB.getAdministrators();
-        } catch (DataAccessException ex) {
-            throw ex;
-        }
-    } */
-
+    // NOT WORKING  - need to fix
     public Biobank changeOwnership(Long biobankId, Long newOwnerId) {
         notNull(biobankId);
         notNull(newOwnerId);
@@ -189,16 +176,34 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         User newOwner = userDao.get(newOwnerId);
         User oldOwner = userDao.get(biobank.getOwner().getId());
 
-        if (!biobank.getAdministrators().contains(oldOwner) || !biobank.getAdministrators().contains(newOwner)) {
+        if(oldOwner == null){
             return null;
+            //TODO exception
         }
 
-        biobank.getAdministrators().remove(oldOwner);
-        biobank.getAdministrators().remove(newOwner);
-        biobankDao.update(biobank);
-        biobank.getAdministrators().add(0, newOwner);
-        biobank.getAdministrators().add(oldOwner);
-        biobankDao.update(biobank);
+        /* We want only to switch who is in charge so the newOwner must be already administrator */
+        if (biobank.getAdministrators().contains(newOwner) == false) {
+            return null;
+            // TODO exception
+        }
+
+        /* We need to switch position of oldOwner. NewOwner must be first in the list of administrators.
+        *  It is necessary to make it as two transactions.*/
+
+
+       /*
+        removeAdministratorFromBiobank(oldOwner.getId(), biobankId);
+        logger.debug("Owner" + biobank.getAdministrators());
+
+        User user3 = new User();
+        userDao.create(user3);
+        user3.setBiobank(biobank);
+        userDao.update(user3);
+
+        assignAdministrator(oldOwner.getId(), biobankId);
+        logger.debug("Owner" + biobank.getAdministrators());
+        */
+
         return biobank;
     }
 
@@ -206,6 +211,28 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     public Biobank get(Long id) {
         notNull(id);
         return biobankDao.get(id);
+    }
+
+    public Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions) {
+        notNull(id);
+        Biobank biobankDB = biobankDao.get(id);
+
+              /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+        if (samples) {
+            logger.debug("" + biobankDB.getSamples());
+        }
+
+        if (requestGroups) {
+            logger.debug("" + biobankDB.getRequestGroups());
+        }
+
+        if (sampleQuestions) {
+            logger.debug("" + biobankDB.getSampleQuestions());
+        }
+
+        return biobankDB;
+
     }
 
 }

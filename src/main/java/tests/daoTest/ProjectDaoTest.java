@@ -7,7 +7,6 @@ import bbmri.entities.ProjectState;
 import bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 22:52
  * To change this template use File | Settings | File Templates.
  */
-public class ProjectDaoTest extends AbstractTest {
+public class ProjectDaoTest extends AbstractDaoTest {
 
     @Autowired
     ProjectDao projectDao;

@@ -4,7 +4,6 @@ import bbmri.entities.*;
 import bbmri.service.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import tests.AbstractTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertEquals;
  * Time: 16:19
  * To change this template use File | Settings | File Templates.
  */
-public class RequestGroupComplexTest extends AbstractTest {
+public class RequestGroupComplexTest extends AbstractDaoAndServiceTest {
 
     @Autowired
     private UserService userService;
@@ -59,9 +58,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -74,11 +73,10 @@ public class RequestGroupComplexTest extends AbstractTest {
 
         /* ********* THEN ********** */
 
-        List<RequestGroup> rqgList = requestGroupService.all();
-        assertEquals(1, rqgList.size());
-        RequestGroup rqg = rqgList.get(0);
+        request = requestService.get(request.getId());
+        RequestGroup rqg = requestGroupService.eagerGet(request.getRequestGroup().getId(), true);
+
         assertEquals(true, rqg.getProject().equals(project));
-        assertEquals(true, rqg.getBiobank().equals(biobank));
         assertEquals(true, rqg.getRequestState().equals(RequestState.NEW));
         assertEquals(true, rqg.getRequests().contains(request));
         assertEquals(true, rqg.getRequests().contains(request2));
@@ -113,9 +111,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank2.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -128,9 +126,9 @@ public class RequestGroupComplexTest extends AbstractTest {
 
            /* ********* THEN ********** */
 
-        List<RequestGroup> rqgList = requestGroupService.all();
-        assertEquals(2, rqgList.size());
-        RequestGroup rqg = rqgList.get(0);
+        request = requestService.get(request.getId());
+        RequestGroup rqg = requestGroupService.eagerGet(request.getRequestGroup().getId(), true);
+
         assertEquals(true, rqg.getProject().equals(project));
         assertEquals(true, rqg.getBiobank().equals(biobank));
         assertEquals(true, rqg.getRequestState().equals(RequestState.NEW));
@@ -139,7 +137,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         assertEquals(false, rqg.getRequests().contains(request3));
         assertEquals(2, rqg.getRequests().size());
 
-        RequestGroup rqg2 = rqgList.get(1);
+        request3 = requestService.get(request3.getId());
+        RequestGroup rqg2 = requestGroupService.eagerGet(request3.getRequestGroup().getId(), true);
+
         assertEquals(true, rqg2.getProject().equals(project));
         assertEquals(true, rqg2.getBiobank().equals(biobank2));
         assertEquals(true, rqg2.getRequestState().equals(RequestState.NEW));
@@ -174,9 +174,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank2.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -190,8 +190,9 @@ public class RequestGroupComplexTest extends AbstractTest {
            /* ********* THEN ********** */
 
 
-        List<RequestGroup> rqgList = requestGroupService.getByBiobank(biobank.getId());
-        RequestGroup rqg = rqgList.get(0);
+        request = requestService.get(request.getId());
+        RequestGroup rqg = requestGroupService.eagerGet(request.getRequestGroup().getId(), true);
+
         assertEquals(true, rqg.getProject().equals(project));
         assertEquals(true, rqg.getBiobank().equals(biobank));
         assertEquals(true, rqg.getRequestState().equals(RequestState.NEW));
@@ -200,8 +201,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         assertEquals(false, rqg.getRequests().contains(request3));
         assertEquals(2, rqg.getRequests().size());
 
-        List<RequestGroup> rqgList2 = requestGroupService.getByBiobank(biobank2.getId());
-        RequestGroup rqg2 = rqgList2.get(0);
+        request3 = requestService.get(request3.getId());
+        RequestGroup rqg2 = requestGroupService.eagerGet(request3.getRequestGroup().getId(), true);
+
         assertEquals(true, rqg2.getProject().equals(project));
         assertEquals(true, rqg2.getBiobank().equals(biobank2));
         assertEquals(true, rqg2.getRequestState().equals(RequestState.NEW));
@@ -236,9 +238,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank2.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -248,10 +250,12 @@ public class RequestGroupComplexTest extends AbstractTest {
         List<RequestGroup> rqgList = requestGroupService.getByBiobank(biobank.getId());
         RequestGroup rqg = rqgList.get(0);
         rqg.setRequestState(RequestState.APPROVED);
+        requestGroupService.update(rqg);
 
         List<Request> requestList2 = new ArrayList<Request>();
         requestList2.add(request2);
         requestGroupService.create(requestList2, project.getId());
+
 
         /* ********* WHEN ********** */
 
@@ -260,6 +264,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         List<RequestGroup> rqgList2 = requestGroupService.getByBiobankAndState(biobank.getId(), RequestState.APPROVED);
         assertEquals(1, rqgList2.size());
         RequestGroup rqg2 = rqgList2.get(0);
+
+        rqg2 = requestGroupService.eagerGet(rqg2.getId(), true);
+
         assertEquals(true, rqg2.getProject().equals(project));
         assertEquals(true, rqg2.getBiobank().equals(biobank));
         assertEquals(true, rqg2.getRequestState().equals(RequestState.APPROVED));
@@ -271,6 +278,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         List<RequestGroup> rqgList3 = requestGroupService.getByBiobankAndState(biobank.getId(), RequestState.NEW);
         assertEquals(1, rqgList3.size());
         RequestGroup rqg3 = rqgList3.get(0);
+
+        rqg3 = requestGroupService.eagerGet(rqg3.getId(), true);
+
         assertEquals(true, rqg3.getProject().equals(project));
         assertEquals(true, rqg3.getBiobank().equals(biobank));
         assertEquals(true, rqg3.getRequestState().equals(RequestState.NEW));
@@ -282,6 +292,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         List<RequestGroup> rqgList4 = requestGroupService.getByBiobankAndState(biobank2.getId(), RequestState.NEW);
         assertEquals(1, rqgList4.size());
         RequestGroup rqg4 = rqgList4.get(0);
+
+        rqg4 = requestGroupService.eagerGet(rqg4.getId(), true);
+
         assertEquals(true, rqg4.getProject().equals(project));
         assertEquals(true, rqg4.getBiobank().equals(biobank2));
         assertEquals(true, rqg4.getRequestState().equals(RequestState.NEW));
@@ -306,9 +319,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -328,7 +341,7 @@ public class RequestGroupComplexTest extends AbstractTest {
         assertEquals(RequestState.APPROVED, rqg.getRequestState());
     }
 
-    @Test
+   @Test
     public void denyRequestStateStateTest() {
         User user = createTestUser(1);
         userService.create(user);
@@ -343,9 +356,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -364,9 +377,7 @@ public class RequestGroupComplexTest extends AbstractTest {
         rqg = requestGroupService.get(rqg.getId());
         assertEquals(RequestState.DENIED, rqg.getRequestState());
     }
-
     @Test
-    //public List<Request> getRequestsByRequestGroup(Long requestGroupId)
     public void getRequestByRequestGroupTest() {
         User user = createTestUser(1);
         userService.create(user);
@@ -381,9 +392,9 @@ public class RequestGroupComplexTest extends AbstractTest {
         Sample sample3 = createTestSample(3);
         sampleService.create(sample3, biobank.getId());
 
-        Request request = requestService.create(sample.getId(), new Integer(1));
-        Request request2 = requestService.create(sample2.getId(), new Integer(2));
-        Request request3 = requestService.create(sample3.getId(), new Integer(3));
+        Request request = requestService.create(sample.getId(), 1);
+        Request request2 = requestService.create(sample2.getId(), 2);
+        Request request3 = requestService.create(sample3.getId(), 3);
 
         List<Request> requestList = new ArrayList<Request>();
         requestList.add(request);
@@ -393,15 +404,15 @@ public class RequestGroupComplexTest extends AbstractTest {
         List<RequestGroup> rqgList = requestGroupService.all();
         RequestGroup rqg = rqgList.get(0);
 
-                  /* ********* WHEN ********** */
+        /* ********* WHEN ********** */
 
-                  /* ********* THEN ********** */
+        /* ********* THEN ********** */
 
-        List<Request> requests = requestGroupService.getRequestsByRequestGroup(rqg.getId());
-        assertEquals(3, requests.size());
-        assertEquals(true, requests.contains(request));
-        assertEquals(true, requests.contains(request2));
-        assertEquals(true, requests.contains(request3));
+        RequestGroup requestGroup = requestGroupService.eagerGet(rqg.getId(), true);
+        assertEquals(3, requestGroup.getRequests().size());
+        assertEquals(true, requestGroup.getRequests().contains(request));
+        assertEquals(true, requestGroup.getRequests().contains(request2));
+        assertEquals(true, requestGroup.getRequests().contains(request3));
     }
 
 }

@@ -27,5 +27,7 @@ public interface BiobankService  extends BasicService<Biobank> {
 
    User assignAdministrator(Long userId, Long biobankId);
 
+   Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions);
+
 
 }

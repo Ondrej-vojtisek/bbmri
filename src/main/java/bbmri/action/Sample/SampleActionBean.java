@@ -85,7 +85,8 @@ public class SampleActionBean extends BasicActionBean {
         if(sample == null){
            results = sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
         }else{
-            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
+            sample.setBiobank(getLoggedUser().getBiobank());
+            results = sampleService.getSamplesByQuery(sample);
         }
         return results;
     }

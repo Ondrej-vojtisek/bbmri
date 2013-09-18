@@ -168,7 +168,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
         if (sample == null) {
             results = sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
         } else {
-            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
+            sample.setBiobank(getLoggedUser().getBiobank());
+            results = sampleService.getSamplesByQuery(sample);
         }
         return results;
     }
@@ -185,7 +186,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
 
         if (sample != null) {
-            results = sampleService.getSamplesByQueryAndBiobank(sample, getLoggedUser().getBiobank());
+            sample.setBiobank(getLoggedUser().getBiobank());
+            results = sampleService.getSamplesByQuery(sample);
             getContext().setSampleQuestion(sampleQuestion);
             getContext().setSample(sample);
         }
@@ -235,12 +237,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     @DontValidate
     public List<RequestGroup> getAllRequestGroups() {
         Biobank biobank = biobankService.get(getLoggedUser().getBiobank().getId());
-
-        logger.debug("BiobankDEBUG: " + biobank);
-
-        logger.debug("RequestGroups: " + requestGroupService.getByBiobank(biobank.getId()));
         return requestGroupService.getByBiobank(getLoggedUser().getBiobank().getId());
-
     }
 
     @DontValidate
