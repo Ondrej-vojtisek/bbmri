@@ -1,9 +1,6 @@
 package bbmri.action;
 
-import bbmri.entities.Biobank;
-import bbmri.entities.RequestGroup;
-import bbmri.entities.RequestState;
-import bbmri.entities.Sample;
+import bbmri.entities.*;
 import bbmri.service.RequestGroupService;
 import bbmri.service.RequestService;
 import bbmri.service.SampleService;
@@ -39,7 +36,9 @@ public class ReleaseSampleActionBean extends BasicActionBean {
 
     public Biobank getBiobank() {
         if (biobank == null) {
-            biobank = getLoggedUser().getBiobank();
+            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            biobank = biobankService.get(ba.getBiobank().getId());
+
         }
         return biobank;
     }

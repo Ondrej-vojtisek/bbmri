@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.AdministratorRole;
 import bbmri.entities.Biobank;
 import bbmri.entities.Sample;
 import bbmri.entities.User;
@@ -23,11 +24,13 @@ public interface BiobankService  extends BasicService<Biobank> {
 
   // List<User> getAllAdministrators(Long biobankId);
 
-   Biobank changeOwnership(Long biobankId, Long newOwnerId);
-
-   User assignAdministrator(Long userId, Long biobankId);
+   User assignAdministrator(Long userId, Long biobankId, AdministratorRole administratorRole);
 
    Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions);
+
+   void removeAdministrator(Long loggedUserId, Long userId, Long biobankId, AdministratorRole administratorRole);
+
+   void changeAdministratorPermission(Long loggedUserId, Long userId, Long biobankId, AdministratorRole administratorRole);
 
 
 }

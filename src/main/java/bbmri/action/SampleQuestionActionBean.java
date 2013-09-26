@@ -31,7 +31,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
 
     public List<SampleQuestion> getSampleQuestions() {
-        return sampleQuestionService.getAllByBiobank(getLoggedUser().getBiobank());
+        Biobank biobank = getLoggedUser().getBiobankAdministrator().getBiobank();
+        return sampleQuestionService.getAllByBiobank(biobank);
     }
 
     private Biobank biobank;
@@ -166,9 +167,11 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     public List<Sample> getResults() {
         if (sample == null) {
-            results = sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
+            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            results = sampleService.getAllByBiobank(ba.getBiobank().getId());
         } else {
-            sample.setBiobank(getLoggedUser().getBiobank());
+            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            sample.setBiobank(ba.getBiobank());
             results = sampleService.getSamplesByQuery(sample);
         }
         return results;
@@ -186,7 +189,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
 
         if (sample != null) {
-            sample.setBiobank(getLoggedUser().getBiobank());
+            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            sample.setBiobank(ba.getBiobank());
             results = sampleService.getSamplesByQuery(sample);
             getContext().setSampleQuestion(sampleQuestion);
             getContext().setSample(sample);
@@ -236,8 +240,9 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public List<RequestGroup> getAllRequestGroups() {
-        Biobank biobank = biobankService.get(getLoggedUser().getBiobank().getId());
-        return requestGroupService.getByBiobank(getLoggedUser().getBiobank().getId());
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        Biobank biobank = biobankService.get(ba.getBiobank().getId());
+        return requestGroupService.getByBiobank(ba.getBiobank().getId());
     }
 
     @DontValidate

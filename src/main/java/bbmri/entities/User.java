@@ -42,17 +42,23 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @ManyToMany(mappedBy = "users", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<Project>();
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Biobank biobank;
+ //   @ManyToOne
+ //   private Biobank biobank;
 
-    //@OneToMany(mappedBy = "judgedByUser", cascade = CascadeType.ALL)
-    @OneToMany
+    @OneToOne
+    private BiobankAdministrator biobankAdministrator;
+
+//    @OneToOne(mappedBy="user")
+//    private BiobankAdministrator biobankAdministrator;
+
+   /* @OneToMany
     @JoinTable(name="user_judgedProjects",
                joinColumns = @JoinColumn( name="project_id"),
-               inverseJoinColumns = @JoinColumn( name="user_id"))
+               inverseJoinColumns = @JoinColumn( name="user_id"))*/
+    @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
@@ -73,7 +79,7 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
+   /*
     public Biobank getBiobank() {
         return biobank;
     }
@@ -81,6 +87,7 @@ public class User implements Serializable {
     public void setBiobank(Biobank biobank) {
         this.biobank = biobank;
     }
+    */
 
     public String getSurname() {
         return surname;
@@ -149,6 +156,15 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public BiobankAdministrator getBiobankAdministrator() {
+        return biobankAdministrator;
+    }
+
+    public void setBiobankAdministrator(BiobankAdministrator biobankAdministrator) {
+        this.biobankAdministrator = biobankAdministrator;
+    }
+
 
     @Override
     public int hashCode() {

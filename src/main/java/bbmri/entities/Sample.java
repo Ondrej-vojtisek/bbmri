@@ -68,7 +68,7 @@ public class Sample implements Serializable {
     @ManyToOne
     private Biobank biobank;
 
-    @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sample")
     List<Request> requests = new ArrayList<Request>();
 
     public Biobank getBiobank() {

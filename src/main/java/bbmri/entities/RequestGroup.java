@@ -33,16 +33,17 @@ public class RequestGroup {
 
     private Date lastModification;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private Project project;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     private Biobank biobank;
 
-    @OneToMany
+   /* @OneToMany
     @JoinTable(name="requestGroup_requests",
                   joinColumns = @JoinColumn( name="requestGroup_id"),
-                  inverseJoinColumns = @JoinColumn( name="request_id"))
+                  inverseJoinColumns = @JoinColumn( name="request_id")) */
+    @OneToMany(mappedBy = "requestGroup")
     private List<Request> requests = new ArrayList<Request>();
 
     public RequestGroup() {

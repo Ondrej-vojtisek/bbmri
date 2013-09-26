@@ -33,7 +33,7 @@ public class Project implements Serializable {
 
     private String fundingOrganization;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(name = "project_users", joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<User>();
@@ -44,21 +44,21 @@ public class Project implements Serializable {
     @ManyToOne//(cascade = CascadeType.ALL)
     private User judgedByUser;
 
-    @OneToMany
+    /*@OneToMany
     @JoinTable(name="project_requestGroups",
                   joinColumns = @JoinColumn( name="project_id"),
-                  inverseJoinColumns = @JoinColumn( name="requestGroup_id"))
-     //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+                  inverseJoinColumns = @JoinColumn( name="requestGroup_id"))*/
+    @OneToMany(mappedBy = "project")
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    @OneToMany
+  /*  @OneToMany
     @JoinTable(name="project_attachments",
                joinColumns = @JoinColumn( name="project_id"),
-               inverseJoinColumns = @JoinColumn( name="attachment_id"))
-    //@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+               inverseJoinColumns = @JoinColumn( name="attachment_id")) */
+    @OneToMany(mappedBy = "project")
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project")
     private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
 
     /*Which member of ethical committee approved project*/

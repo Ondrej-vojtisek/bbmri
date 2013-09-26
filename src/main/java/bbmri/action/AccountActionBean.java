@@ -1,8 +1,6 @@
 package bbmri.action;
 
-import bbmri.entities.Project;
-import bbmri.entities.Role;
-import bbmri.entities.User;
+import bbmri.entities.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.validation.Validate;
@@ -64,8 +62,12 @@ public class AccountActionBean extends BasicActionBean {
             roles.add(role.getName());
         }
         /*TODO - tohle bude muset byt udelano jinak*/
-        if (getLoggedUser().getBiobank() != null) {
-            roles.add("Biobank operator of " + getLoggedUser().getBiobank().getName());
+
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        Biobank biobank = biobankService.get(ba.getBiobank().getId());
+
+        if (biobank != null) {
+            roles.add("Biobank operator of " + biobank.getName());
         }
         if (getLoggedUser().getProjects() != null) {
             for (Project project : getLoggedUser().getProjects()) {

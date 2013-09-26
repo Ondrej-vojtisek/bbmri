@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class Attachment implements Serializable {
 
     public final static String ROOT_DIR = "bbmri_data";
-    public final static String ROOT_DIR_PATH = ROOT_DIR + File.separator; //+ "\\";
+    public final static String ROOT_DIR_PATH = ROOT_DIR + File.separator;
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class Attachment implements Serializable {
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne
     private Project project;
 
     private String fileName;

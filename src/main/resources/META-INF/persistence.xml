@@ -15,6 +15,7 @@
         <class>bbmri.entities.Attachment</class>
         <class>bbmri.entities.SampleQuestion</class>
         <class>bbmri.entities.Role</class>
+        <class>bbmri.entities.BiobankAdministrator</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -42,6 +43,7 @@
         <class>bbmri.entities.Attachment</class>
         <class>bbmri.entities.SampleQuestion</class>
         <class>bbmri.entities.Role</class>
+        <class>bbmri.entities.BiobankAdministrator</class>
 
         <properties>
 

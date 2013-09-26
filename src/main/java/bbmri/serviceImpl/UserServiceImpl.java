@@ -1,17 +1,14 @@
 package bbmri.serviceImpl;
 
+import bbmri.dao.BiobankAdministratorDao;
 import bbmri.dao.BiobankDao;
 import bbmri.dao.RoleDao;
 import bbmri.dao.UserDao;
-import bbmri.entities.Biobank;
-import bbmri.entities.Role;
-import bbmri.entities.RoleType;
-import bbmri.entities.User;
+import bbmri.entities.*;
 import bbmri.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,125 +29,123 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
-        private UserDao userDao;
+    private UserDao userDao;
 
     @Autowired
-        private RoleDao roleDao;
+    private RoleDao roleDao;
 
     @Autowired
-        private BiobankDao biobankDao;
+    private BiobankDao biobankDao;
+
+    @Autowired
+    private BiobankAdministratorDao biobankAdministratorDao;
+
 
     public User create(User user) {
-            userDao.create(user);
-            return user;
+        userDao.create(user);
+        return user;
     }
 
     public void remove(Long id) {
-            User userDB = userDao.get(id);
-            if (userDB != null) {
-                Biobank biobankDB = biobankDao.get(userDB.getBiobank().getId());
-                if(biobankDB != null){
-                    biobankDB.getAdministrators().remove(userDB);
-                    biobankDao.update(biobankDB);
-                    userDB.setBiobank(null);
-                }
-                userDao.remove(userDB);
+        User userDB = userDao.get(id);
+        if (userDB == null) {
+            return;
+            // TODO: exception
+        }
+
+        if (userDB.getBiobankAdministrator() != null) {
+            BiobankAdministrator ba = biobankAdministratorDao.get(userDB.getBiobankAdministrator().getId());
+            if (ba != null) {
+                userDB.setBiobankAdministrator(null);
+                userDao.update(userDB);
+                biobankAdministratorDao.remove(ba);
+
             }
+        }
+        userDao.remove(userDB);
     }
 
     public User update(User user) {
-            User userDB = userDao.get(user.getId());
-            if (userDB == null) {
-                return null;
-            }
-            if (user.getName() != null) userDB.setName(user.getName());
-            if (user.getSurname() != null) userDB.setSurname(user.getSurname());
-            if (user.getPassword() != null) userDB.setPassword(user.getPassword());
+        User userDB = userDao.get(user.getId());
+        if (userDB == null) {
+            return null;
+        }
+        if (user.getName() != null) userDB.setName(user.getName());
+        if (user.getSurname() != null) userDB.setSurname(user.getSurname());
+        if (user.getPassword() != null) userDB.setPassword(user.getPassword());
 
-            userDao.update(userDB);
-            return user;
+        userDao.update(userDB);
+        return user;
     }
 
     public List<User> all() {
-            List<User> users = userDao.all();
-            return users;
+        List<User> users = userDao.all();
+        return users;
     }
 
     public User get(Long id) {
-            User userDB = userDao.get(id);
-            return userDB;
+        User userDB = userDao.get(id);
+        return userDB;
     }
 
-    public User removeRole(Long userId, RoleType roleType){
-              User userDB = userDao.get(userId);
-              Role role = new Role(roleType.toString());
-              if(userDB.getRoles().contains(role)){
-                  Role roleDB = roleDao.get(new Long(2));
-                  roleDB.getUser().remove(userDB);
-                  roleDao.update(roleDB);
-              }
+    public User removeRole(Long userId, RoleType roleType) {
+        User userDB = userDao.get(userId);
+        Role role = new Role(roleType.toString());
+        if (userDB.getRoles().contains(role)) {
+            Role roleDB = roleDao.get(new Long(2));
+            roleDB.getUser().remove(userDB);
+            roleDao.update(roleDB);
+        }
 
-              userDao.update(userDB);
-              return userDB;
-      }
+        userDao.update(userDB);
+        return userDB;
+    }
 
-    public User setRole(Long userId, RoleType roleType){
-            User userDB = userDao.get(userId);
-            Role role = new Role(roleType.toString());
-            if(!userDB.getRoles().contains(role)){
-                Role roleDB = roleDao.get(new Long(2));
-                roleDB.getUser().add(userDB);
-                roleDao.update(roleDB);
-            }
-            userDao.update(userDB);
-            return userDB;
+    public User setRole(Long userId, RoleType roleType) {
+        User userDB = userDao.get(userId);
+        Role role = new Role(roleType.toString());
+        if (!userDB.getRoles().contains(role)) {
+            Role roleDB = roleDao.get(new Long(2));
+            roleDB.getUser().add(userDB);
+            roleDao.update(roleDB);
+        }
+        userDao.update(userDB);
+        return userDB;
     }
 
     public User changeAdministrator(Long oldAdminId, Long newAdminId) {
-            setRole(newAdminId, RoleType.ADMINISTRATOR);
-            removeRole(oldAdminId, RoleType.ADMINISTRATOR);
-            return userDao.get(oldAdminId);
+        setRole(newAdminId, RoleType.ADMINISTRATOR);
+        removeRole(oldAdminId, RoleType.ADMINISTRATOR);
+        return userDao.get(oldAdminId);
     }
 
     public Integer count() {
-            return userDao.count();
+        return userDao.count();
     }
 
     public List<User> getNonAdministratorUsers() {
-            List<User> users = userDao.all();
-            List<User> results = new ArrayList<User>();
-            for(User user : users){
-                if(user.getBiobank() == null){
-                    results.add(user);
-                }
+        List<User> users = userDao.all();
+        List<User> results = new ArrayList<User>();
+        for (User user : users) {
+            if (user.getBiobankAdministrator() == null) {
+                results.add(user);
             }
-
-            return results;
-    }
-
-    public List<User> getAdministratorsOfBiobank(Long biobankId) {
-                List<User> users = userDao.all();
-                List<User> results = new ArrayList<User>();
-                for(User user : users){
-                    if(user.getBiobank().getId() == biobankId){
-                        results.add(user);
-                    }
-                }
-
-                return results;
         }
 
-    public User eagerGet(Long id, boolean judgedProjects, boolean project){
+        return results;
+    }
+
+    public User eagerGet(Long id, boolean judgedProjects, boolean project) {
         notNull(id);
         User userDB = userDao.get(id);
 
         /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-        if(judgedProjects){
+        if (judgedProjects) {
             logger.debug("" + userDB.getJudgedProjects());
         }
 
-        if(project){
+        if (project) {
             logger.debug("" + userDB.getProjects());
         }
         return userDB;

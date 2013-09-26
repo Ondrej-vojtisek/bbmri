@@ -2,6 +2,7 @@ package bbmri.action.biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
+import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
@@ -56,8 +57,12 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public Biobank getBiobank() {
+
+
         if (biobank == null) {
-            biobank = getLoggedUser().getBiobank();
+
+            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            biobank = biobankService.get(ba.getBiobank().getId());
         }
         return biobank;
     }
@@ -115,10 +120,17 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public List<User> getAdministrators() {
-        if(getLoggedUser().getBiobank() != null){
+      /*
+        // TODO
+
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        Biobank biobank = biobankService.get(ba.getBiobank().getId());
+
+        if(biobank != null){
             Biobank biobankDB = biobankService.get(getLoggedUser().getBiobank().getId());
             return biobankDB.getAdministrators();
         }
+        */
         return null;
     }
 
@@ -136,14 +148,19 @@ public class BiobankActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution edit() {
-        biobank = getLoggedUser().getBiobank();
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        biobank = biobankService.get(ba.getBiobank().getId());
         getContext().setBiobank(biobank);
         return new ForwardResolution(EDIT);
     }
     @DontValidate
     public Resolution create() {
         User resDB = userService.get(administrator.getId());
-        if (resDB.getBiobank() != null) {
+
+        BiobankAdministrator ba = resDB.getBiobankAdministrator();
+        Biobank biobankDB = biobankService.get(ba.getBiobank().getId());
+
+        if (biobankDB != null) {
             getContext().getMessages().add(
                          new SimpleMessage("Selected user is already an administrator of a biobank")
                  );
@@ -179,7 +196,10 @@ public class BiobankActionBean extends BasicActionBean {
     public Resolution changeOwnership() {
 
         logger.debug("New user = " + user);
-        biobankService.changeOwnership(getLoggedUser().getBiobank().getId(), user.getId());
+
+       // biobankService.changeOwnership(getLoggedUser().getBiobank().getId(), user.getId());
+        //TODO
+
         getContext().getMessages().add(
                 new SimpleMessage("Ownership of biobank was changed")
         );
@@ -190,7 +210,8 @@ public class BiobankActionBean extends BasicActionBean {
         Integer assigned = 0;
         if (selectedApprove != null) {
             for (Long userId : selectedApprove) {
-                biobankService.assignAdministrator(userId, getBiobank().getId());
+                // TODO: fix
+                //biobankService.assignAdministrator(userId, getBiobank().getId());
                 assigned++;
             }
         }

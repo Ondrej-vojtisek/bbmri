@@ -1,8 +1,7 @@
 package tests.daoAndServiceTest;
 
-import bbmri.entities.Biobank;
-import bbmri.entities.Sample;
-import bbmri.entities.User;
+import bbmri.entities.*;
+import bbmri.service.BiobankAdministratorService;
 import bbmri.service.BiobankService;
 import bbmri.service.SampleService;
 import bbmri.service.UserService;
@@ -31,7 +30,10 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
     @Autowired
     private SampleService sampleService;
 
-    @Test
+    @Autowired
+    private BiobankAdministratorService biobankAdministratorService;
+
+    //@Test
     public void createBiobankTest() {
         /* Relationship is usable from both sides */
 
@@ -47,13 +49,16 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
-        user = userService.get(user.getId());
 
-        assertEquals(biobank, user.getBiobank());
-        assertEquals(user, biobank.getAdministrators().get(0));
+        user = userService.eagerGet(user.getId(), false, false);
+        biobank = biobankService.eagerGet(biobank.getId(), false, false, false);
+        BiobankAdministrator ba = biobankAdministratorService.get(user.getBiobankAdministrator().getId());
+
+        assertEquals(true, ba.getBiobank().equals(biobank));
+        assertEquals(AdministratorRole.MANAGER, ba.getAdministratorRole());
     }
 
-    @Test
+    //@Test
     public void createBiobankTest2() {
         /* User not present in DB */
 
@@ -69,11 +74,10 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
          /* ********* THEN ********** */
 
-        assertEquals(null, user.getBiobank());
-        assertEquals(true, biobank.getAdministrators().isEmpty());
+        assertEquals(true, biobankService.all().isEmpty());
     }
 
-    @Test
+    //@Test
     public void removeBiobankTest() {
         /* Test if remove method involves second side of relationship */
 
@@ -95,11 +99,11 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(null, biobankService.get(biobank.getId()));
         assertEquals(user, userService.get(user.getId()));
         user = userService.get(user.getId());
-        assertEquals(null, user.getBiobank());
+        assertEquals(null, user.getBiobankAdministrator());
         assertEquals(null, sampleService.get(sample1.getId()));
     }
 
-    @Test
+    //@Test
     public void removeBiobankTest2() {
          /* Test if remove involves second side of relationship */
 
@@ -124,7 +128,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(null, userService.get(user.getId()));
         assertEquals(null, sampleService.get(sample1.getId()));
         biobank = biobankService.eagerGet(biobank.getId(), true, false, false);
-        assertEquals(true, biobank.getAdministrators().isEmpty());
+        assertEquals(true, biobank.getBiobankAdministrators().isEmpty());
         assertEquals(true, biobank.getSamples().isEmpty());
     }
 
@@ -230,8 +234,10 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
         // TODO it should throw exception
-        assertEquals(user, biobank.getOwner());
-        assertEquals(false, biobank.getAdministrators().isEmpty());
+
+        user = userService.get(user.getId());
+        assertEquals(biobank, user.getBiobankAdministrator().getBiobank());
+        assertEquals(false, biobank.getBiobankAdministrators().isEmpty());
     }
 
     @Test
@@ -250,15 +256,15 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
            /* ********* WHEN ********** */
 
-        biobankService.assignAdministrator(user2.getId(), biobank.getId());
+        biobankService.assignAdministrator(user2.getId(), biobank.getId(), AdministratorRole.EDITOR);
 
            /* ********* THEN ********** */
         user2 = userService.get(user2.getId());
         biobank = biobankService.get(biobank.getId());
 
-        assertEquals(user, biobank.getOwner());
-        assertEquals(biobank, user2.getBiobank());
-        assertEquals(2, biobank.getAdministrators().size());
+        assertEquals(biobank, user2.getBiobankAdministrator().getBiobank());
+        assertEquals(2, biobank.getBiobankAdministrators().size());
+        assertEquals(AdministratorRole.EDITOR, user2.getBiobankAdministrator().getAdministratorRole());
     }
 
     @Test
@@ -275,7 +281,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         Biobank biobank = createTestBiobank(1);
         biobankService.create(biobank, user.getId());
 
-        biobankService.assignAdministrator(user2.getId(), biobank.getId());
+        biobankService.assignAdministrator(user2.getId(), biobank.getId(), AdministratorRole.EDITOR);
 
         /* ********* WHEN ********** */
 
@@ -287,45 +293,9 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         user2 = userService.get(user2.getId());
         biobank = biobankService.get(biobank.getId());
 
-        assertEquals(user2, biobank.getOwner());
-        assertEquals(1, biobank.getAdministrators().size());
-        assertEquals(null, user.getBiobank());
-    }
-
-
-    // TODO
-    public void changeOwnershipTest() {
-        /* ********* GIVEN ********** */
-
-        User user = createTestUser(1);
-        userService.create(user);
-
-        User user2 = createTestUser(2);
-        userService.create(user2);
-
-
-        Biobank biobank = createTestBiobank(1);
-        biobankService.create(biobank, user2.getId());
-
-        biobankService.assignAdministrator(user.getId(), biobank.getId());
-
-        /* ********* WHEN ********** */
-
-        biobankService.changeOwnership(biobank.getId(), user.getId());
-
-        /* ********* THEN ********** */
-
-        user = userService.get(user.getId());
-        user2 = userService.get(user2.getId());
-        biobank = biobankService.get(biobank.getId());
-
-//        assertEquals(biobank, user2.getBiobank());
-//        assertEquals(biobank, user.getBiobank());
-        log("Administrators: " + biobank.getAdministrators());
-        log("Administrators[0]: " + biobank.getAdministrators().get(0));
-//        assertEquals(2, biobank.getAdministrators().size());
-//        assertEquals(user2, biobank.getAdministrators().get(0));
-
+        assertEquals(biobank, user2.getBiobankAdministrator().getBiobank());
+        assertEquals(1, biobank.getBiobankAdministrators().size());
+        assertEquals(null, user.getBiobankAdministrator());
     }
 
 }

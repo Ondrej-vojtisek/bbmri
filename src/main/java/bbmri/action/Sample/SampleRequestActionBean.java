@@ -78,10 +78,13 @@ public class SampleRequestActionBean extends BasicActionBean {
         }
 
     public List<Sample> getAllSamplesByBiobank() {
-        if (getLoggedUser().getBiobank() == null) {
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        Biobank biobank = biobankService.get(ba.getBiobank().getId());
+
+        if (biobank == null) {
             return null;
         }
-        return sampleService.getAllByBiobank(getLoggedUser().getBiobank().getId());
+        return sampleService.getAllByBiobank(biobank.getId());
     }
 
 

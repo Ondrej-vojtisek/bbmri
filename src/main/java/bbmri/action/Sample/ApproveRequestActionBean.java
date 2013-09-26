@@ -1,10 +1,7 @@
 package bbmri.action.sample;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.Biobank;
-import bbmri.entities.Request;
-import bbmri.entities.RequestGroup;
-import bbmri.entities.RequestState;
+import bbmri.entities.*;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +31,8 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private RequestGroup requestGroup;
 
     public List<RequestGroup> getRequestGroups() {
-        Biobank biobank = getLoggedUser().getBiobank();
+        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+        Biobank biobank = biobankService.get(ba.getBiobank().getId());
         if (biobank == null) {
             return null;
         }

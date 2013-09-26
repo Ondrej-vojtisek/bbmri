@@ -28,32 +28,41 @@ public class Biobank implements Serializable {
     @Column(name = "ADDRESS")
     private String address;
 
+    @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
+    private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
+
+
+ /*
+    @OneToMany(mappedBy = "biobank")
+    private List<BiobankAdministrator> biobankAdministratorList = new ArrayList<BiobankAdministrator>();
+ */
     /* There won't be many administrators for one biobank*/
    /* @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name="biobank_administrators",
                joinColumns = @JoinColumn( name="biobank_id"),
                inverseJoinColumns = @JoinColumn( name="user_id"))  */
-    @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private List<User> administrators = new ArrayList<User>();
+    //@OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
+    //private List<User> administrators = new ArrayList<User>();
 
-    @OneToMany
+    /*@OneToMany
     @JoinTable(name="biobank_samples",
                joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="sample_id"))
+               inverseJoinColumns = @JoinColumn( name="sample_id"))*/
+    @OneToMany(mappedBy = "biobank")
     private List<Sample> samples = new ArrayList<Sample>();
 
-    @OneToMany
+   /* @OneToMany
     @JoinTable(name="biobank_requestGroups",
                joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="requestGroup_id"))
-   // @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+               inverseJoinColumns = @JoinColumn( name="requestGroup_id"))*/
+    @OneToMany(mappedBy = "biobank")
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    @OneToMany
+    /*@OneToMany
     @JoinTable(name="biobank_sampleQuestions",
                    joinColumns = @JoinColumn( name="biobank_id"),
-                   inverseJoinColumns = @JoinColumn( name="sampleQuestion_id"))
-  //  @OneToMany(mappedBy = "biobank", cascade = CascadeType.ALL)
+                   inverseJoinColumns = @JoinColumn( name="sampleQuestion_id"))*/
+    @OneToMany(mappedBy = "biobank")
     private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
 
     public Long getId() {
@@ -87,14 +96,16 @@ public class Biobank implements Serializable {
     public void setSamples(List<Sample> samples) {
         this.samples = samples;
     }
-
+  /*
     public List<User> getAdministrators() {
         return administrators;
     }
-
+    */
+   /*
     public void setAdministrators(List<User> administrators) {
         this.administrators = administrators;
     }
+    */
 
     public List<RequestGroup> getRequestGroups() {
         return requestGroups;
@@ -112,15 +123,16 @@ public class Biobank implements Serializable {
         this.sampleQuestions = sampleQuestions;
     }
 
+    public List<BiobankAdministrator> getBiobankAdministrators() {
+        return biobankAdministrators;
+    }
 
-    public User getOwner() {
-          if (!administrators.isEmpty()) {
-              return administrators.get(0);
-          }
-          return null;
-      }
+    public void setBiobankAdministrators(List<BiobankAdministrator> biobankAdministrators) {
+        this.biobankAdministrators = biobankAdministrators;
+    }
 
-    @Override
+
+       @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
