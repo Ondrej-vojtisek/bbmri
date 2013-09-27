@@ -24,7 +24,7 @@ public class BiobankAdministrator implements Serializable {
      private Long id;
 
     @Enumerated(EnumType.STRING)
-    private AdministratorRole administratorRole;
+    private Permission permission;
 
     @ManyToOne
     private Biobank biobank;
@@ -60,12 +60,12 @@ public class BiobankAdministrator implements Serializable {
         this.id = id;
     }
 
-    public AdministratorRole getAdministratorRole() {
-        return administratorRole;
+    public Permission getPermission() {
+        return permission;
     }
 
-    public void setAdministratorRole(AdministratorRole administratorRole) {
-        this.administratorRole = administratorRole;
+    public void setPermission(Permission permission) {
+        this.permission = permission;
     }
 
     @Override
@@ -75,9 +75,7 @@ public class BiobankAdministrator implements Serializable {
 
         BiobankAdministrator that = (BiobankAdministrator) o;
 
-        if (!id.equals(that.id)) return false;
-
-        return true;
+        return id.equals(that.id);
     }
 
     @Override
@@ -88,7 +86,7 @@ public class BiobankAdministrator implements Serializable {
     @Override
     public String toString() {
         return "BiobankAdministrator{" +
-                "administratorRole=" + administratorRole +
+                "permission=" + permission +
                 ", biobank=" + biobank +
                 ", user=" + user +
                 '}';

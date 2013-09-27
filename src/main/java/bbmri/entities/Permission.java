@@ -7,7 +7,7 @@ package bbmri.entities;
  * Time: 15:40
  * To change this template use File | Settings | File Templates.
  */
-public enum AdministratorRole {
+public enum Permission {
 
     /*
     * MANAGER - can do everything including changing permissions of other administrators. If user creates biobank he is MANAGER by default.
@@ -23,7 +23,7 @@ public enum AdministratorRole {
 
     private String state;
 
-    private AdministratorRole(String state) {
+    private Permission(String state) {
         this.state = state;
     }
 

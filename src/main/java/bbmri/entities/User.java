@@ -42,6 +42,9 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
+
     @ManyToMany(mappedBy = "users")
     private List<Project> projects = new ArrayList<Project>();
 

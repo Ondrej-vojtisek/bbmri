@@ -55,7 +55,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         BiobankAdministrator ba = biobankAdministratorService.get(user.getBiobankAdministrator().getId());
 
         assertEquals(true, ba.getBiobank().equals(biobank));
-        assertEquals(AdministratorRole.MANAGER, ba.getAdministratorRole());
+        assertEquals(Permission.MANAGER, ba.getPermission());
     }
 
     //@Test
@@ -256,7 +256,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
            /* ********* WHEN ********** */
 
-        biobankService.assignAdministrator(user2.getId(), biobank.getId(), AdministratorRole.EDITOR);
+        biobankService.assignAdministrator(user2.getId(), biobank.getId(), Permission.EDITOR);
 
            /* ********* THEN ********** */
         user2 = userService.get(user2.getId());
@@ -264,7 +264,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(biobank, user2.getBiobankAdministrator().getBiobank());
         assertEquals(2, biobank.getBiobankAdministrators().size());
-        assertEquals(AdministratorRole.EDITOR, user2.getBiobankAdministrator().getAdministratorRole());
+        assertEquals(Permission.EDITOR, user2.getBiobankAdministrator().getPermission());
     }
 
     @Test
@@ -281,7 +281,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         Biobank biobank = createTestBiobank(1);
         biobankService.create(biobank, user.getId());
 
-        biobankService.assignAdministrator(user2.getId(), biobank.getId(), AdministratorRole.EDITOR);
+        biobankService.assignAdministrator(user2.getId(), biobank.getId(), Permission.EDITOR);
 
         /* ********* WHEN ********** */
 

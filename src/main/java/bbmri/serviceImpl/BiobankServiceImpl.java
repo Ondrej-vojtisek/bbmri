@@ -50,7 +50,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         biobankDao.create(biobank);
-        assignAdministrator(adminDB.getId(), biobank.getId(), AdministratorRole.MANAGER);
+        assignAdministrator(adminDB.getId(), biobank.getId(), Permission.MANAGER);
         return biobank;
     }
 
@@ -150,10 +150,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return userDB;
     }
 
-    public User assignAdministrator(Long userId, Long biobankId, AdministratorRole administratorRole) {
+    public User assignAdministrator(Long userId, Long biobankId, Permission permission) {
         notNull(userId);
         notNull(biobankId);
-        notNull(administratorRole);
+        notNull(permission);
         User userDB = userDao.get(userId);
         Biobank biobankDB = biobankDao.get(biobankId);
 
@@ -163,7 +163,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         BiobankAdministrator ba = new BiobankAdministrator();
-        ba.setAdministratorRole(administratorRole);
+        ba.setPermission(permission);
         ba.setBiobank(biobankDB);
 
         biobankAdministratorDao.create(ba);
@@ -180,7 +180,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         notNull(biobank);
         int count = 0;
         for(BiobankAdministrator ba : biobank.getBiobankAdministrators()){
-            if(ba.getAdministratorRole().equals(AdministratorRole.MANAGER)){
+            if(ba.getPermission().equals(Permission.MANAGER)){
                 count++;
             }
         }
@@ -188,11 +188,11 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     }
 
 
-    public void changeAdministratorPermission(Long loggedUserId, Long userId, Long biobankId, AdministratorRole administratorRole){
+    public void changeAdministratorPermission(Long loggedUserId, Long userId, Long biobankId, Permission permission){
         notNull(userId);
         notNull(biobankId);
         notNull(loggedUserId);
-        notNull(administratorRole);
+        notNull(permission);
 
         User userDB = userDao.get(userId);
         User loggedUser = userDao.get(loggedUserId);
@@ -208,7 +208,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             // TODO: exception - You are not administrator of this biobank
         }
 
-        if(!loggedUser.getBiobankAdministrator().getAdministratorRole().equals(AdministratorRole.MANAGER)){
+        if(!loggedUser.getBiobankAdministrator().getPermission().equals(Permission.MANAGER)){
                     return;
                     // TODO: exception - You don't have sufficient rights
         }
@@ -216,15 +216,15 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             return;
             // TODO: exception - You are last admin so you can't lower your permissions
         }
-        assignAdministrator(userId, biobankId, administratorRole);
+        assignAdministrator(userId, biobankId, permission);
 
     }
 
-    public void removeAdministrator(Long loggedUserId, Long userId, Long biobankId, AdministratorRole administratorRole){
+    public void removeAdministrator(Long loggedUserId, Long userId, Long biobankId, Permission permission){
         notNull(userId);
         notNull(biobankId);
         notNull(loggedUserId);
-        notNull(administratorRole);
+        notNull(permission);
 
         User userDB = userDao.get(userId);
         User loggedUser = userDao.get(loggedUserId);
@@ -240,7 +240,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             // TODO: exception - You are not administrator of this biobank
         }
 
-        if(!loggedUser.getBiobankAdministrator().getAdministratorRole().equals(AdministratorRole.MANAGER)){
+        if(!loggedUser.getBiobankAdministrator().getPermission().equals(Permission.MANAGER)){
                     return;
                     // TODO: exception - You don't have sufficient rights
         }

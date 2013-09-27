@@ -33,6 +33,10 @@ public class Project implements Serializable {
 
     private String fundingOrganization;
 
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
+
     @ManyToMany
     @JoinTable(name = "project_users", joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -41,20 +45,12 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @ManyToOne
     private User judgedByUser;
 
-    /*@OneToMany
-    @JoinTable(name="project_requestGroups",
-                  joinColumns = @JoinColumn( name="project_id"),
-                  inverseJoinColumns = @JoinColumn( name="requestGroup_id"))*/
     @OneToMany(mappedBy = "project")
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-  /*  @OneToMany
-    @JoinTable(name="project_attachments",
-               joinColumns = @JoinColumn( name="project_id"),
-               inverseJoinColumns = @JoinColumn( name="attachment_id")) */
     @OneToMany(mappedBy = "project")
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
