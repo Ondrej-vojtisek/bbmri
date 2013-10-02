@@ -2,6 +2,7 @@ package bbmri.serviceImpl;
 
 import bbmri.dao.*;
 import bbmri.entities.*;
+import bbmri.entities.enumeration.Permission;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

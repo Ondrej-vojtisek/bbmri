@@ -1,6 +1,7 @@
 package tests.daoAndServiceTest;
 
 import bbmri.entities.*;
+import bbmri.entities.enumeration.Permission;
 import bbmri.service.BiobankAdministratorService;
 import bbmri.service.BiobankService;
 import bbmri.service.SampleService;

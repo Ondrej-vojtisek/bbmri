@@ -1,8 +1,7 @@
 package bbmri.dao;
 
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.User;
+import bbmri.entities.enumeration.ProjectState;
 
 import java.util.List;
 

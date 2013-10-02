@@ -26,7 +26,7 @@ import java.util.Random;
 @UrlBinding("/SampleCreate")
 public class CreateSampleActionBean extends BasicActionBean {
 
-    private static final String CREATE = "/sample_create.jsp";
+    private static final String CREATE = "/webpages/sample/sample_create.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

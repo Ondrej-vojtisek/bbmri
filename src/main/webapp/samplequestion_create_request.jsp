@@ -3,10 +3,8 @@
 
 <f:message key="sample.request" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
-<s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
-                 primarymenu="biobank"
-                 biobank="${null}"
-                 administrator="${ab.loggedUser.administrator}">
+<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+                 primarymenu="biobank">
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">

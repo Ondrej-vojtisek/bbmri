@@ -1,7 +1,6 @@
 package bbmri.entities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import bbmri.entities.enumeration.RoleType;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,6 +1,7 @@
 package bbmri.action;
 
 import bbmri.entities.*;
+import bbmri.entities.enumeration.RequestState;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,12 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String REQUEST = "/sample_request.jsp";
-    private static final String MY_REQUESTS = "/samples_my_requests.jsp";
+    private static final String REQUEST = "/webpages/sample/sample_request.jsp";
+    private static final String MY_REQUESTS = "/webpages/sample/samples_my_requests.jsp";
     private static final String REQUESTGROUP_DETAIL = "/requestGroup_detail.jsp";
     private static final String REQUESTGROUP_ALL = "/requestGroup_all.jsp";
-    private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
-    private static final String QUESTION_DETAIL = "/sample_question_detail.jsp";
+    private static final String APPROVE_REQUEST = "/webpages/sample/sample_approve_request.jsp";
+    private static final String QUESTION_DETAIL = "/webpages/sample/sample_question_detail.jsp";
 
 
     public List<SampleQuestion> getSampleQuestions() {

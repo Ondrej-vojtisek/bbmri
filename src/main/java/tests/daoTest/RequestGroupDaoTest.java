@@ -1,12 +1,10 @@
 package tests.daoTest;
 
 import bbmri.dao.BiobankDao;
-import bbmri.dao.ProjectDao;
 import bbmri.dao.RequestGroupDao;
 import bbmri.entities.Biobank;
-import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
-import bbmri.entities.RequestState;
+import bbmri.entities.enumeration.RequestState;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,10 +1,11 @@
 package tests.daoAndServiceTest;
 
 import bbmri.entities.*;
+import bbmri.entities.enumeration.Permission;
+import bbmri.entities.enumeration.ProjectState;
 import bbmri.service.ProjectService;
 import bbmri.service.RequestGroupService;
 import bbmri.service.UserService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;

@@ -1,6 +1,6 @@
 package bbmri.service;
 
-import bbmri.entities.RoleType;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.User;
 
 import java.util.List;

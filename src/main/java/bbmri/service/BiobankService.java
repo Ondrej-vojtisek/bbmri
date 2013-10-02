@@ -1,6 +1,6 @@
 package bbmri.service;
 
-import bbmri.entities.Permission;
+import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 

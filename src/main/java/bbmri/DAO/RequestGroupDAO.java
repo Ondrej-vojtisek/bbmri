@@ -1,9 +1,8 @@
 package bbmri.dao;
 
 import bbmri.entities.Biobank;
-import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
-import bbmri.entities.RequestState;
+import bbmri.entities.enumeration.RequestState;
 
 import java.util.List;
 

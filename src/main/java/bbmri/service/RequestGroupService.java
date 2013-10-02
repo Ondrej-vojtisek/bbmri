@@ -2,7 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Request;
 import bbmri.entities.RequestGroup;
-import bbmri.entities.RequestState;
+import bbmri.entities.enumeration.RequestState;
 
 import java.util.List;
 

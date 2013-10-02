@@ -21,8 +21,8 @@ public class EditSampleActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String EDIT = "/sample_edit.jsp";
-    private static final String ALL = "/sample_all.jsp";
+    private static final String EDIT = "/webpages/sample/sample_edit.jsp";
+    private static final String ALL = "/webpages/sample/sample_all.jsp";
 
     private Sample sample;
 

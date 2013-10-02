@@ -3,7 +3,7 @@ package tests.daoTest;
 import bbmri.dao.ProjectAdministratorDao;
 import bbmri.dao.ProjectDao;
 import bbmri.dao.UserDao;
-import bbmri.entities.Permission;
+import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectAdministrator;
 import bbmri.entities.User;

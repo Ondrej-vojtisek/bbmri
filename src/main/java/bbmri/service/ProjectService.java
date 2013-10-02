@@ -1,9 +1,8 @@
 package bbmri.service;
 
-import bbmri.entities.Permission;
+import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.User;
+import bbmri.entities.enumeration.ProjectState;
 
 import java.util.List;
 

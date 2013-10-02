@@ -1,14 +1,8 @@
 package bbmri.action;
 
 import bbmri.entities.*;
-import bbmri.service.RequestGroupService;
-import bbmri.service.RequestService;
-import bbmri.service.SampleService;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SimpleMessage;
+import bbmri.entities.enumeration.RequestState;
 import net.sourceforge.stripes.action.UrlBinding;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

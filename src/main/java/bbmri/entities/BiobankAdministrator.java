@@ -1,5 +1,7 @@
 package bbmri.entities;
 
+import bbmri.entities.enumeration.Permission;
+
 import javax.persistence.*;
 import java.io.Serializable;
 

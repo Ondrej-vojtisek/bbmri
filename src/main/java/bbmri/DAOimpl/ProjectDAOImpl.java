@@ -2,12 +2,9 @@ package bbmri.daoImpl;
 
 import bbmri.dao.ProjectDao;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
-import bbmri.entities.User;
+import bbmri.entities.enumeration.ProjectState;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 

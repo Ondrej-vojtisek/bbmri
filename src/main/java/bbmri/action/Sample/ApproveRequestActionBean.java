@@ -20,8 +20,8 @@ import java.util.List;
 @UrlBinding("/approveSampleRequest")
 public class ApproveRequestActionBean extends BasicActionBean {
 
-    private static final String DETAIL = "/requestGroup_detail.jsp";
-    private static final String APPROVE_REQUEST = "/sample_approve_request.jsp";
+    private static final String DETAIL = "/webpages/sample/requestGroup_detail.jsp";
+    private static final String APPROVE_REQUEST = "/webpages/sample/sample_approve_request.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

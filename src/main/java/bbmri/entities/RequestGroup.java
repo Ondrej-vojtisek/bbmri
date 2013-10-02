@@ -1,5 +1,7 @@
 package bbmri.entities;
 
+import bbmri.entities.enumeration.RequestState;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;

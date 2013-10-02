@@ -24,6 +24,17 @@ public class BasicActionBean implements ActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    /*************************************
+    * LINKS
+    **************************************/
+    // ACCOUNT
+    protected static final String ACCOUNT_PERSONAL_DATA = "/webpages/account/personal_data.jsp";
+    protected static final String ACCOUNT_CHANGE_PASSWORD = "/webpages/account/password.jsp";
+    protected static final String ACCOUNT_ROLES = "/webpages/account/roles.jsp";
+
+
+
+
     @SpringBean
     protected UserService userService;
 
@@ -49,7 +60,7 @@ public class BasicActionBean implements ActionBean {
     protected AttachmentService attachmentService;
 
 
-    private static final String MY_PROJECTS = "/project_my_projects.jsp";
+    private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
 
     private TheActionBeanContext ctx;
 
@@ -91,6 +102,24 @@ public class BasicActionBean implements ActionBean {
                return requestService.get(id);
            }
 
+    public String getPrimaryMenu(){
+       String s = getContext().getRequest().getServletPath();
+        /* for example: ServletPath: /webpages/account/personal_data.jsp*/
+        s = s.substring(10);
+        /* for example: ServletPath: account/personal_data.jsp*/
+       /* return for example: ServletPath: account*/
+        return s.substring(0, s.indexOf("/"));
+    }
 
+    public String getSecondaryMenu(){
+           String s = getContext().getRequest().getServletPath();
+            /* for example: ServletPath: /webpages/account/personal_data.jsp*/
+            s = s.substring(10);
+            /* for example: account/personal_data.jsp*/
+            s = s.substring(s.indexOf("/") + 1);
+            /* for example: personal_data.jsp*/
+           /* return for example: ServletPath: my_account*/
+            return s.substring(0, s.indexOf("."));
+        }
 
 }

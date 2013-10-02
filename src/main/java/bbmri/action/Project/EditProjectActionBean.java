@@ -2,7 +2,7 @@ package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Attachment;
-import bbmri.entities.Permission;
+import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
@@ -26,7 +26,7 @@ import java.util.List;
 @UrlBinding("/editproject")
 public class EditProjectActionBean extends BasicActionBean {
 
-    private static final String EDIT = "/project_edit.jsp";
+    private static final String EDIT = "/webpages/project/project_edit.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

@@ -2,10 +2,9 @@ package bbmri.daoImpl;
 
 import bbmri.dao.RequestGroupDao;
 import bbmri.entities.*;
+import bbmri.entities.enumeration.RequestState;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 

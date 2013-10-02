@@ -1,5 +1,7 @@
 package bbmri.entities;
 
+import bbmri.entities.enumeration.SampleRetrieval;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;

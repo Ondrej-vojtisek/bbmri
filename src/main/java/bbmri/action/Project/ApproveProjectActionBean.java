@@ -2,7 +2,7 @@ package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
+import bbmri.entities.enumeration.ProjectState;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ import java.util.List;
 @UrlBinding("/approveproject")
 public class ApproveProjectActionBean extends BasicActionBean {
 
-    private static final String APPROVE = "/project_approve.jsp";
-    private static final String DETAIL = "/project_detail.jsp";
+    private static final String APPROVE = "/webpages/project/project_approve.jsp";
+    private static final String DETAIL = "/webpages/project/project_detail.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

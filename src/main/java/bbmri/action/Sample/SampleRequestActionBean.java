@@ -2,6 +2,7 @@ package bbmri.action.sample;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;
+import bbmri.entities.enumeration.ProjectState;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -23,8 +24,8 @@ import java.util.List;
 @UrlBinding("/sampleRequests")
 public class SampleRequestActionBean extends BasicActionBean {
 
-    private static final String WITHDRAW = "/sample_withdraw.jsp";
-    private static final String MY_PROJECTS = " /project_my_projects.jsp";
+    private static final String WITHDRAW = "/webpages/sample/sample_withdraw.jsp";
+    private static final String MY_PROJECTS = " /webpages/project/project_my_projects.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

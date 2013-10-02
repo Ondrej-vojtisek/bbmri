@@ -1,6 +1,7 @@
 package tests.daoAndServiceTest;
 
 import bbmri.entities.*;
+import bbmri.entities.enumeration.RequestState;
 import bbmri.service.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

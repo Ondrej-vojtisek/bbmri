@@ -22,8 +22,8 @@ import java.util.List;
 @UrlBinding("/Sample")
 public class SampleActionBean extends BasicActionBean {
 
-    private static final String WITHDRAW = "/sample_withdraw.jsp";
-    private static final String ALL = "/sample_all.jsp";
+    private static final String WITHDRAW = "/webpages/sample/sample_withdraw.jsp";
+    private static final String ALL = "/webpages/sample/sample_all.jsp";
     private static final String REQUESTGROUP_DETAIL = "/requestGroup_detail.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());

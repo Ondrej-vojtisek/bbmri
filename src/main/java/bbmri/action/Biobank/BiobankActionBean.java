@@ -25,9 +25,9 @@ import java.util.List;
 @UrlBinding("/Biobank")
 public class BiobankActionBean extends BasicActionBean {
 
-    private static final String ALL = "/biobank_all.jsp";
-    private static final String CREATE = "/biobank_create.jsp";
-    private static final String EDIT = "/biobank_edit.jsp";
+    private static final String ALL = "/webpages/biobank/all.jsp";
+    private static final String CREATE = "/webpages/biobank/create.jsp";
+    private static final String EDIT = "/webpages/biobank/edit.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

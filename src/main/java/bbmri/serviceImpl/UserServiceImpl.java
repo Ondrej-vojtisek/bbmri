@@ -5,6 +5,7 @@ import bbmri.dao.BiobankDao;
 import bbmri.dao.RoleDao;
 import bbmri.dao.UserDao;
 import bbmri.entities.*;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

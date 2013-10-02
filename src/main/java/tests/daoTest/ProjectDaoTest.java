@@ -3,7 +3,7 @@ package tests.daoTest;
 import bbmri.dao.ProjectDao;
 import bbmri.dao.UserDao;
 import bbmri.entities.Project;
-import bbmri.entities.ProjectState;
+import bbmri.entities.enumeration.ProjectState;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

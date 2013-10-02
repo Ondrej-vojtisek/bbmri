@@ -5,7 +5,7 @@ import bbmri.dao.BiobankDao;
 import bbmri.dao.UserDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
-import bbmri.entities.Permission;
+import bbmri.entities.enumeration.Permission;
 import bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

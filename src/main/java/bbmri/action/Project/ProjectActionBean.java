@@ -2,6 +2,8 @@ package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.*;
+import bbmri.entities.enumeration.AttachmentType;
+import bbmri.entities.enumeration.ProjectState;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -11,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,13 +27,13 @@ import java.util.List;
 @UrlBinding("/Project")
 public class ProjectActionBean extends BasicActionBean {
 
-    private static final String ALL = "/project_all.jsp";
-    private static final String MY_PROJECTS = "/project_my_projects.jsp";
-    private static final String CREATE = "/project_create.jsp";
-    private static final String CREATE_INFORMATION = "/project_create_information.jsp";
-    private static final String CREATE_MTA = "/project_create_mta.jsp";
-    private static final String EDIT = "/project_edit.jsp";
-    private static final String SAMPLE_REQUEST = "/sample_request.jsp";
+    private static final String ALL = "/webpages/project/project_all.jsp";
+    private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
+    private static final String CREATE = "/webpages/project/project_create.jsp";
+    private static final String CREATE_INFORMATION = "/webpages/project/project_create_information.jsp";
+    private static final String CREATE_MTA = "/webpages/project/project_create_mta.jsp";
+    private static final String EDIT = "/webpages/project/project_edit.jsp";
+    private static final String SAMPLE_REQUEST = "/webpages/project/sample_request.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

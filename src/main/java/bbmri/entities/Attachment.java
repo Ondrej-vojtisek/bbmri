@@ -1,5 +1,7 @@
 package bbmri.entities;
 
+import bbmri.entities.enumeration.AttachmentType;
+
 import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;

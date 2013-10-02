@@ -3,7 +3,7 @@
 
 <f:message key="signin" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.LoginActionBean"/>
-<s:layout-render name="/layout_login.jsp" title="${title}">
+<s:layout-render name="/layouts/layout_login.jsp" title="${title}">
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.LoginActionBean">
             <fieldset>
