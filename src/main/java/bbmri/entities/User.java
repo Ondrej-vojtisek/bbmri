@@ -45,30 +45,19 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
 
-    @ManyToMany(mappedBy = "users")
-    private List<Project> projects = new ArrayList<Project>();
+ //   @OneToOne
+ //   private BiobankAdministrator biobankAdministrator;
 
- //   @ManyToOne
- //   private Biobank biobank;
+    @OneToMany(mappedBy = "user")
+    private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
 
-    @OneToOne
-    private BiobankAdministrator biobankAdministrator;
-
-//    @OneToOne(mappedBy="user")
-//    private BiobankAdministrator biobankAdministrator;
-
-   /* @OneToMany
-    @JoinTable(name="user_judgedProjects",
-               joinColumns = @JoinColumn( name="project_id"),
-               inverseJoinColumns = @JoinColumn( name="user_id"))*/
     @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<Role>();
 
-    public User() {
-    }
+    public User() {}
 
     public User(String name, String surname) {
         this.name = name;
@@ -82,15 +71,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-   /*
-    public Biobank getBiobank() {
-        return biobank;
-    }
-
-    public void setBiobank(Biobank biobank) {
-        this.biobank = biobank;
-    }
-    */
 
     public String getSurname() {
         return surname;
@@ -106,14 +86,6 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
     }
 
     public Long getId() {
@@ -160,14 +132,21 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public BiobankAdministrator getBiobankAdministrator() {
-        return biobankAdministrator;
+    public List<BiobankAdministrator> getBiobankAdministrators() {
+        return biobankAdministrators;
     }
 
-    public void setBiobankAdministrator(BiobankAdministrator biobankAdministrator) {
-        this.biobankAdministrator = biobankAdministrator;
+    public void setBiobankAdministrators(List<BiobankAdministrator> biobankAdministrators) {
+        this.biobankAdministrators = biobankAdministrators;
     }
 
+    public List<ProjectAdministrator> getProjectAdministrators() {
+        return projectAdministrators;
+    }
+
+    public void setProjectAdministrators(List<ProjectAdministrator> projectAdministrators) {
+        this.projectAdministrators = projectAdministrators;
+    }
 
     @Override
     public int hashCode() {

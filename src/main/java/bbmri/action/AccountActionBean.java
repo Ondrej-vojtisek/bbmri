@@ -63,22 +63,19 @@ public class AccountActionBean extends BasicActionBean {
         }
         /*TODO - tohle bude muset byt udelano jinak*/
 
+        /*
         BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
 
         if (biobank != null) {
             roles.add("Biobank operator of " + biobank.getName());
         }
-        if (getLoggedUser().getProjects() != null) {
-            for (Project project : getLoggedUser().getProjects()) {
-                if (project.getMainInvestigator().equals(getLoggedUser())) {
-                    roles.add("Main investigation of project: " + project.getName());
-                } else {
-                    roles.add("Working on a project: " + project.getName());
-                }
-            }
+        if (getLoggedUser().getProjectAdministrators() != null) {
+            roles.add("Working on a project: ");
 
+            //TODO
         }
+        */
         return roles;
     }
 

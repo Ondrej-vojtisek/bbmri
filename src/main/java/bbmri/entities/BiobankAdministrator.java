@@ -12,7 +12,7 @@ import java.io.Serializable;
  * Time: 15:35
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "biobankAdministrator")
+@Table(name = "BiobankAdministrator")
 @Entity
 public class BiobankAdministrator implements Serializable {
 
@@ -29,7 +29,7 @@ public class BiobankAdministrator implements Serializable {
     @ManyToOne
     private Biobank biobank;
 
-    @OneToOne(mappedBy = "biobankAdministrator")
+    @ManyToOne
     private User user;
 
     public BiobankAdministrator(){}

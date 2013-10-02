@@ -14,4 +14,9 @@ import java.util.List;
  */
 public interface UserDao extends BasicDao<User>{
 
+   /*
+    List<User> findUserByEmail(String email);
+
+    List<User> findUser(String firstname, String surname);
+   */
 }

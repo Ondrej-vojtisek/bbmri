@@ -81,11 +81,12 @@ public class CreateSampleActionBean extends BasicActionBean {
     }
 
     public Resolution create() {
+
+
+        /*
+        TODO
         BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
-
-        logger.debug("Sample: " + sample);
-
 
         if (biobank != null) {
             sampleService.create(sample, biobank.getId());
@@ -93,11 +94,15 @@ public class CreateSampleActionBean extends BasicActionBean {
                     new SimpleMessage("Added 1 sample")
             );
         }
+        */
         return new ForwardResolution(this.getClass(), "display");
     }
 
     @DontValidate
     public Resolution generateRandomSample() {
+        /*
+        TODO
+
         BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
         Integer added = 0;
@@ -111,6 +116,7 @@ public class CreateSampleActionBean extends BasicActionBean {
         getContext().getMessages().add(
                 new SimpleMessage("Added {0} sample(s)", added)
         );
+        */
         return new ForwardResolution(this.getClass(), "display");
     }
 

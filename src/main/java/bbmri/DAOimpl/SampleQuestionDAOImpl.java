@@ -19,31 +19,11 @@ import java.util.List;
 @Repository
 public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
 
-    public List<SampleQuestion> getSelected(String query) {
-        notNull(query);
-        String preparedQuery = "SELECT p FROM SampleQuestion p " + query;
-        Query queryDB = em.createQuery(preparedQuery);
-        return queryDB.getResultList();
-    }
-
-    public List<SampleQuestion> getByBiobank(Biobank biobank) {
-        Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.biobank = :param and " +
-                "p.processed = false");
-        query.setParameter("param", biobank);
-        return query.getResultList();
-    }
-
     public List<SampleQuestion> getByBiobankAndProcessed(Biobank biobank, boolean processed) {
         Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.biobank = :bioParam and " +
-                "p.processed = : boolParam");
+                "p.processed = :boolParam");
         query.setParameter("bioParam", biobank);
         query.setParameter("boolParam", processed);
-        return query.getResultList();
-    }
-
-    public List<SampleQuestion> getByProject(Project project) {
-        Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.project = :param");
-        query.setParameter("param", project);
         return query.getResultList();
     }
 

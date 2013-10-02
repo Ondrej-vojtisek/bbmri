@@ -1,7 +1,11 @@
 package bbmri.serviceImpl;
 
 import bbmri.dao.BiobankAdministratorDao;
+import bbmri.dao.BiobankDao;
+import bbmri.dao.UserDao;
+import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.User;
 import bbmri.service.BiobankAdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,11 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
     @Autowired
     private BiobankAdministratorDao biobankAdministratorDao;
 
+    @Autowired
+    private BiobankDao biobankDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public List<BiobankAdministrator> all() {
         return biobankAdministratorDao.all();
@@ -49,6 +58,27 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         notNull(id);
 
         // TODO
+    }
+
+    public BiobankAdministrator get(Long biobankId, Long userId) {
+        notNull(biobankId);
+        notNull(userId);
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        User userDB = userDao.get(userId);
+
+        return biobankAdministratorDao.get(biobankDB, userDB);
+    }
+
+
+    public boolean contains(Long biobankId, Long userId) {
+        notNull(biobankId);
+        notNull(userId);
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        User userDB = userDao.get(userId);
+
+        return !(biobankDB == null || userDB == null) && biobankAdministratorDao.contains(biobankDB, userDB);
     }
 
 

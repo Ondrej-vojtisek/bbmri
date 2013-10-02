@@ -23,10 +23,8 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
         notNull(question);
         Query query = null;
 
-        logger.debug("Get selected" );
-
         if (question.getBiobank() == null && question.getGrading() == null) {
-            logger.debug("Biobank null grading null" );
+            //logger.debug("Biobank null grading null" );
             query = em.createQuery("SELECT p FROM Sample p where " +
                     "p.diagnosis like :diagnosisParam " +
                     "and p.morphology like :morphologyParam " +
@@ -35,7 +33,7 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
                     "and p.TNM like :TNMParam ");
         }
         if (question.getBiobank() == null && question.getGrading() != null) {
-            logger.debug("Biobank null grading not null" );
+            //logger.debug("Biobank null grading not null" );
             query = em.createQuery("SELECT p FROM Sample p where " +
                     "p.diagnosis like :diagnosisParam " +
                     "and p.morphology like :morphologyParam " +
@@ -46,7 +44,7 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
         }
 
         if (question.getBiobank() != null && question.getGrading() == null) {
-            logger.debug("Biobank not null grading null" );
+            //logger.debug("Biobank not null grading null" );
             query = em.createQuery("SELECT p FROM Sample p where " +
                     "p.diagnosis like :diagnosisParam " +
                     "and p.biobank = :biobankParam " +
@@ -57,7 +55,7 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
         }
 
         if (question.getBiobank() != null && question.getGrading() != null) {
-            logger.debug("Biobank not null grading not null" );
+            //logger.debug("Biobank not null grading not null" );
             query = em.createQuery("SELECT p FROM Sample p where " +
                     "p.diagnosis like :diagnosisParam " +
                     "and p.biobank = :biobankParam " +

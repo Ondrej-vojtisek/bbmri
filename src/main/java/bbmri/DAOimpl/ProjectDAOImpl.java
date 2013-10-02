@@ -27,5 +27,5 @@ public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao 
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState = :param");
         query.setParameter("param", projectState);
         return query.getResultList();
-        }
+    }
 }

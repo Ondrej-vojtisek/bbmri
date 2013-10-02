@@ -1,13 +1,14 @@
 package tests.daoTest;
 
+import bbmri.dao.BiobankDao;
 import bbmri.dao.ProjectDao;
 import bbmri.dao.RequestGroupDao;
+import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
+import bbmri.entities.RequestState;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,40 +21,36 @@ import static org.junit.Assert.assertEquals;
  */
 public class RequestGroupDaoTest extends AbstractDaoTest {
 
-    // List<RequestGroup> getAllByProject(Project project);
-
     @Autowired
     RequestGroupDao requestGroupDao;
 
+
     @Autowired
-    ProjectDao projectDao;
+    BiobankDao biobankDao;
+
 
     @Test
-    public void getAllByProjectTest() {
-        Project project1 = createTestProject(1);
-        projectDao.create(project1);
-        Project project2 = createTestProject(2);
-        projectDao.create(project2);
-        RequestGroup rq1 = createRequestGroup(1);
-        requestGroupDao.create(rq1);
-        RequestGroup rq2 = createRequestGroup(2);
-        requestGroupDao.create(rq2);
-        RequestGroup rq3 = createRequestGroup(3);
-        requestGroupDao.create(rq3);
+    public void getAllByBiobankAndState() {
+        Biobank biobank1 = createTestBiobank(1);
+        biobankDao.create(biobank1);
 
-        rq1.setProject(project1);
-        rq2.setProject(project1);
-        rq3.setProject(project2);
+        Biobank biobank2 = createTestBiobank(2);
+        biobankDao.create(biobank2);
 
-        List<RequestGroup> results = requestGroupDao.getAllByProject(project1);
-        log("*** " + results);
+        RequestGroup rqg1 = createRequestGroup(1);
+        rqg1.setBiobank(biobank1);
+        requestGroupDao.create(rqg1);
 
-        assertEquals(true, results.contains(rq1));
-        assertEquals(true, results.contains(rq2));
-        assertEquals(false, results.contains(rq3));
-        results = requestGroupDao.getAllByProject(project2);
-        assertEquals(false, results.contains(rq1));
-        assertEquals(false, results.contains(rq2));
-        assertEquals(true, results.contains(rq3));
+        RequestGroup rqg2 = createRequestGroup(2);
+        rqg2.setBiobank(biobank2);
+        requestGroupDao.create(rqg2);
+
+        rqg1.setRequestState(RequestState.APPROVED);
+
+        assertEquals(true, requestGroupDao.getByBiobankAndState(biobank1, RequestState.NEW).isEmpty());
+        assertEquals(false, requestGroupDao.getByBiobankAndState(biobank1, RequestState.APPROVED).isEmpty());
+        assertEquals(1, requestGroupDao.getByBiobankAndState(biobank1, RequestState.APPROVED).size());
+        assertEquals(1, requestGroupDao.getByBiobankAndState(biobank2, RequestState.NEW).size());
+
     }
 }

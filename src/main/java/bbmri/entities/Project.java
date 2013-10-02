@@ -33,14 +33,8 @@ public class Project implements Serializable {
 
     private String fundingOrganization;
 
-
     @OneToMany(mappedBy = "project")
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
-
-    @ManyToMany
-    @JoinTable(name = "project_users", joinColumns = @JoinColumn(name = "project_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users = new ArrayList<User>();
 
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
@@ -141,27 +135,12 @@ public class Project implements Serializable {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getOwner() {
-        if (!users.isEmpty()) {
-            return users.get(0);
-        }
-        return null;
     }
 
     public User getJudgedByUser() {
@@ -180,15 +159,13 @@ public class Project implements Serializable {
         this.sampleQuestions = sampleQuestions;
     }
 
-    /*
-    public Attachment getAgreement() {
-        return agreement;
+    public List<ProjectAdministrator> getProjectAdministrators() {
+        return projectAdministrators;
     }
 
-    public void setAgreement(Attachment agreement) {
-        this.agreement = agreement;
+    public void setProjectAdministrators(List<ProjectAdministrator> projectAdministrators) {
+        this.projectAdministrators = projectAdministrators;
     }
-*/
 
     public List<RequestGroup> getRequestGroups() {
         return requestGroups;

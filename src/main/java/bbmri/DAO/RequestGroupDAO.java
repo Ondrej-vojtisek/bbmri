@@ -1,7 +1,9 @@
 package bbmri.dao;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.Project;
 import bbmri.entities.RequestGroup;
+import bbmri.entities.RequestState;
 
 import java.util.List;
 
@@ -14,6 +16,6 @@ import java.util.List;
  */
 public interface RequestGroupDao extends BasicDao<RequestGroup> {
 
-    List<RequestGroup> getAllByProject(Project project);
+    List<RequestGroup> getByBiobankAndState(Biobank biobank, RequestState requestState);
 
 }

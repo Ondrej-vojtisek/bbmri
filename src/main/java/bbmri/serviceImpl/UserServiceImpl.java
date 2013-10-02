@@ -53,15 +53,16 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             // TODO: exception
         }
 
-        if (userDB.getBiobankAdministrator() != null) {
-            BiobankAdministrator ba = biobankAdministratorDao.get(userDB.getBiobankAdministrator().getId());
-            if (ba != null) {
-                userDB.setBiobankAdministrator(null);
-                userDao.update(userDB);
-                biobankAdministratorDao.remove(ba);
 
-            }
-        }
+        List<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
+              if (biobankAdministrators != null) {
+                  for (BiobankAdministrator ba : biobankAdministrators) {
+                      ba.setUser(null);
+                      ba.setBiobank(null);
+                      biobankAdministratorDao.remove(ba);
+                  }
+              }
+
         userDao.remove(userDB);
     }
 
@@ -127,7 +128,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         List<User> users = userDao.all();
         List<User> results = new ArrayList<User>();
         for (User user : users) {
-            if (user.getBiobankAdministrator() == null) {
+            if (user.getBiobankAdministrators().isEmpty()) {
                 results.add(user);
             }
         }
@@ -135,18 +136,22 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return results;
     }
 
-    public User eagerGet(Long id, boolean judgedProjects, boolean project) {
+    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank) {
         notNull(id);
         User userDB = userDao.get(id);
 
         /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+        if(biobank){
+            logger.debug("" + userDB.getBiobankAdministrators());
+        }
 
         if (judgedProjects) {
             logger.debug("" + userDB.getJudgedProjects());
         }
 
         if (project) {
-            logger.debug("" + userDB.getProjects());
+            logger.debug("" + userDB.getProjectAdministrators());
         }
         return userDB;
 

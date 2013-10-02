@@ -52,11 +52,12 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     public List<Sample> getSamples(){
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+       /* BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
         if(biobank != null){
             return sampleService.getAllByBiobank(biobank.getId());
         }
+        */
         return null;
     }
 
@@ -83,6 +84,8 @@ public class SampleActionBean extends BasicActionBean {
     }
 
     public List<Sample> getResults() {
+        /*
+        TODO
         BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
 
@@ -92,7 +95,10 @@ public class SampleActionBean extends BasicActionBean {
             sample.setBiobank(biobank);
             results = sampleService.getSamplesByQuery(sample);
         }
+
         return results;
+        */
+        return null;
     }
 
     public Integer getResultCount() {

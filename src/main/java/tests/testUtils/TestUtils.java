@@ -17,7 +17,6 @@ public class TestUtils {
 
     public void log(String msg){
            logger.debug(msg);
-
     }
 
     protected User createTestUser(int i) {
@@ -42,14 +41,15 @@ public class TestUtils {
     }
 
     protected RequestGroup createRequestGroup(int i) {
-        RequestGroup requestGroup = new RequestGroup();
-        return requestGroup;
+        RequestGroup rqg = new RequestGroup();
+        rqg.setRequestState(RequestState.NEW);
+        return rqg;
     }
 
     protected Sample createTestSample(int i){
         Sample sample = new Sample();
         sample.setDiagnosis("a" + i);
-        sample.setGrading(new Integer(i));
+        sample.setGrading(i);
         sample.setMorphology("a" + i);
         sample.setpTNM("a" + i);
         sample.setTissueType("a" + i);
@@ -60,12 +60,22 @@ public class TestUtils {
     protected SampleQuestion createTestSampleQuestion(int i){
         SampleQuestion sampleQuestion = new SampleQuestion();
         sampleQuestion.setSpecification("Specification" + i);
+        sampleQuestion.setProcessed(false);
+        sampleQuestion.setRequestState(RequestState.NEW);
         return sampleQuestion;
     }
 
     protected Request createTestRequest(int i){
            Request request = new Request();
-           request.setNumOfRequested(new Integer(4));
+           request.setNumOfRequested(4);
            return request;
        }
+
+    protected ProjectAdministrator createTestProjectAdministrator(){
+            return new ProjectAdministrator();
+        }
+
+    protected BiobankAdministrator createTestBiobankAdministrator(){
+                return new BiobankAdministrator();
+            }
 }

@@ -27,11 +27,14 @@ public class Function {
         User usr = (User) user;
         Project proj = (Project) project;
 
-        if (proj.getOwner() == null) {
+      /*  if (proj.getOwner() == null) {
             return false;
         }
 
         return usr.equals(proj.getOwner());
+        */
+        //TODO
+        return false;
     }
 
 }

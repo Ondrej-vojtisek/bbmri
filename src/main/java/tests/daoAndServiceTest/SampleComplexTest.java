@@ -373,43 +373,43 @@ public class SampleComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(false, samples.contains(sample2));
     }
 
-    @Test
-    public void getAllByBiobankTest() {
-
-        /* ********* GIVEN ********** */
-
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-        Sample sample = createTestSample(1);
-        sampleService.create(sample, biobank.getId());
-
-        Sample sample2 = createTestSample(2);
-        sampleService.create(sample2, biobank.getId());
-
-        Biobank biobank2 = createTestBiobank(2);
-        User user2 = createTestUser(2);
-        userService.create(user2);
-        biobankService.create(biobank2, user2.getId());
-
-        Sample sample3 = createTestSample(3);
-        sampleService.create(sample3, biobank2.getId());
-
-
-           /* ********* WHEN ********** */
-
-        List<Sample> samples = sampleService.getAllByBiobank(biobank.getId());
-        List<Sample> samplesBiobank2 = sampleService.getAllByBiobank(biobank2.getId());
-
-           /* ********* THEN ********** */
-
-        assertEquals(true, samples.contains(sample));
-        assertEquals(true, samples.contains(sample2));
-        assertEquals(false, samples.contains(sample3));
-        assertEquals(false, samplesBiobank2.contains(sample));
-        assertEquals(false, samplesBiobank2.contains(sample2));
-        assertEquals(true, samplesBiobank2.contains(sample3));
-    }
+//    @Test
+//    public void getAllByBiobankTest() {
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//        Sample sample = createTestSample(1);
+//        sampleService.create(sample, biobank.getId());
+//
+//        Sample sample2 = createTestSample(2);
+//        sampleService.create(sample2, biobank.getId());
+//
+//        Biobank biobank2 = createTestBiobank(2);
+//        User user2 = createTestUser(2);
+//        userService.create(user2);
+//        biobankService.create(biobank2, user2.getId());
+//
+//        Sample sample3 = createTestSample(3);
+//        sampleService.create(sample3, biobank2.getId());
+//
+//
+//           /* ********* WHEN ********** */
+//
+//        List<Sample> samples = sampleService.getAllByBiobank(biobank.getId());
+//        List<Sample> samplesBiobank2 = sampleService.getAllByBiobank(biobank2.getId());
+//
+//           /* ********* THEN ********** */
+//
+//        assertEquals(true, samples.contains(sample));
+//        assertEquals(true, samples.contains(sample2));
+//        assertEquals(false, samples.contains(sample3));
+//        assertEquals(false, samplesBiobank2.contains(sample));
+//        assertEquals(false, samplesBiobank2.contains(sample2));
+//        assertEquals(true, samplesBiobank2.contains(sample3));
+//    }
 
 }

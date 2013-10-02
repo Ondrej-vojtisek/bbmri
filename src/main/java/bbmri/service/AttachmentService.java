@@ -13,12 +13,9 @@ import java.util.List;
  */
 public interface AttachmentService extends BasicService<Attachment> {
 
-
     String getAttachmentPath(Attachment attachment);
 
     void create(Long projectId, Attachment attachment);
-
-        // Attachment getAttachmentByProject(Long projectId, AttachmentType attachmentType);
 
     List<Attachment> getAttachmentsByProject(Long projectId);
 }

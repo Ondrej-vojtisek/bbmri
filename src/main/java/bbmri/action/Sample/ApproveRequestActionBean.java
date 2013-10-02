@@ -31,7 +31,9 @@ public class ApproveRequestActionBean extends BasicActionBean {
     private RequestGroup requestGroup;
 
     public List<RequestGroup> getRequestGroups() {
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+       /*
+       TODO
+       BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
         if (biobank == null) {
             return null;
@@ -39,6 +41,8 @@ public class ApproveRequestActionBean extends BasicActionBean {
 
         requestGroups = requestGroupService.getByBiobankAndState(biobank.getId(), RequestState.NEW);
         return requestGroups;
+        */
+        return null;
     }
 
     public void setRequestGroup(RequestGroup requestGroup) {

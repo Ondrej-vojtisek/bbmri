@@ -11,4 +11,8 @@ import bbmri.entities.BiobankAdministrator;
  */
 public interface BiobankAdministratorService extends BasicService<BiobankAdministrator> {
 
+    BiobankAdministrator get(Long biobankId, Long userId);
+
+    boolean contains(Long biobankId, Long userId);
+
 }

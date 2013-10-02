@@ -35,23 +35,6 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
     @Autowired
     private RequestGroupDao requestGroupDao;
 
-    public RequestGroup createTEST(Long projectId) {
-        RequestGroup requestGroup = null;
-        if (projectId == null) {
-            requestGroup = initiate(null);
-        } else {
-            Project projectDB = projectDao.get(projectId);
-        }
-
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            return null;
-            // TODO: exception
-        }
-        requestGroupDao.create(requestGroup);
-        return requestGroup;
-    }
-
     private RequestGroup initiate(Date created) {
         RequestGroup requestGroup = new RequestGroup();
         if (created == null) {
@@ -192,7 +175,9 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
                  requestGroupDB.setRequestState(requestGroup.getRequestState());
         }
 
-   /* Not sure if this can legally happen
+   /*
+   Not sure if this can legally happen
+
    if (requestGroup.getCreated() != null) {
             requestGroupDB.setCreated(requestGroup.getCreated());
         }
@@ -226,24 +211,6 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         return requestGroupDao.count();
     }
 
-    public List<RequestGroup> getByProject(Long projectId) {
-        notNull(projectId);
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            return null;
-            //TODO: exception
-        }
-
-        List<RequestGroup> allRequestGroups = requestGroupDao.all();
-        List<RequestGroup> results = new ArrayList<RequestGroup>();
-        for (RequestGroup requestGroup : allRequestGroups) {
-            if (requestGroup.getProject().equals(projectDB)) {
-                results.add(requestGroup);
-            }
-        }
-        return results;
-    }
-
     public List<RequestGroup> getByBiobank(Long biobankId) {
         notNull(biobankId);
         Biobank biobankDB = biobankDao.get(biobankId);
@@ -251,37 +218,23 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
             return null;
             // TODO: exception
         }
-        List<RequestGroup> allRequestGroups = requestGroupDao.all();
-        List<RequestGroup> results = new ArrayList<RequestGroup>();
-        for (RequestGroup requestGroup : allRequestGroups) {
-            if(requestGroup.getBiobank() == null){
-                continue;
-            }
-            if (requestGroup.getBiobank().equals(biobankDB)) {
-                results.add(requestGroup);
-            }
-        }
         /*This debug is important. Don't delete it! otherwise actionBean will throw hibernateLazyFetch ..*/
-        logger.debug("DONT DELETE THIS: " + results);
+        logger.debug("DONT DELETE THIS: " + biobankDB.getRequestGroups());
 
-        return results;
+        return biobankDB.getRequestGroups();
     }
 
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
-       /*TODO: This must be rafctored. Shifted to lower layer without two "for cycles"*/
+        notNull(biobankId);
+        notNull(requestState);
 
-        List<RequestGroup> allRequestGroups = requestGroupDao.all();
-        List<RequestGroup> results = new ArrayList<RequestGroup>();
-        for (RequestGroup requestGroup : allRequestGroups) {
-            if (requestGroup.getBiobank().getId().equals(biobankId) &&
-                    requestGroup.getRequestState().equals(requestState)) {
-                results.add(requestGroup);
-            }
+        Biobank biobankDB = biobankDao.get(biobankId);
+
+        if(biobankDB == null){
+            return null;
+            // TODO: exception
         }
-        /*This debug is important. Don't delete it! otherwise actionBean will throw hibernateLazyFetch ..*/
-        logger.debug("DONT DELETE THIS: " + results);
-
-        return results;
+        return requestGroupDao.getByBiobankAndState(biobankDB,  requestState);
     }
 
     private void changeRequestState(RequestGroup requestGroupDB, RequestState requestState) {

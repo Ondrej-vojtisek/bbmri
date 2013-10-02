@@ -59,11 +59,14 @@ public class BiobankActionBean extends BasicActionBean {
     public Biobank getBiobank() {
 
 
+       /*
+        TODO
         if (biobank == null) {
 
             BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
             biobank = biobankService.get(ba.getBiobank().getId());
         }
+        */
         return biobank;
     }
 
@@ -148,13 +151,19 @@ public class BiobankActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution edit() {
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+       /*
+        TODO
+       BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         biobank = biobankService.get(ba.getBiobank().getId());
         getContext().setBiobank(biobank);
+        */
         return new ForwardResolution(EDIT);
     }
     @DontValidate
     public Resolution create() {
+        /*
+        TODO
+
         User resDB = userService.get(administrator.getId());
 
         BiobankAdministrator ba = resDB.getBiobankAdministrator();
@@ -167,6 +176,7 @@ public class BiobankActionBean extends BasicActionBean {
             return new ForwardResolution(this.getClass(), "display");
         }
         biobankService.create(newBiobank, administrator.getId());
+        */
         return new ForwardResolution(this.getClass(), "display");
     }
     @DontValidate

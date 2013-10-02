@@ -11,17 +11,13 @@ import java.util.List;
  */
 public interface BasicService<T> {
 
-        List<T> all();
+    List<T> all();
 
-         T get(Long id);
+    T get(Long id);
 
-       //  T create(T t);
+    void remove(Long id);
 
-       //  void remove(T t);
+    T update(T t);
 
-         void remove(Long id);
-
-         T update(T t);
-
-         Integer count();
+    Integer count();
 }

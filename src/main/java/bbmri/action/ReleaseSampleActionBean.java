@@ -35,12 +35,15 @@ public class ReleaseSampleActionBean extends BasicActionBean {
     private Biobank biobank;
 
     public Biobank getBiobank() {
-        if (biobank == null) {
+       //TODO
+       /* if (biobank == null) {
             BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
             biobank = biobankService.get(ba.getBiobank().getId());
 
         }
-        return biobank;
+
+        return biobank; */
+        return null;
     }
 
 

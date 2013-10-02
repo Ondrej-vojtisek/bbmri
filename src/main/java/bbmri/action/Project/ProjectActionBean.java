@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,8 +76,14 @@ public class ProjectActionBean extends BasicActionBean {
         }
 
         public List<Project> getMyProjects() {
-            return getLoggedUser().getProjects();
-            //return projectService.getAllByUser(getContext().getIdentifier());
+//            List<Project> projects = new ArrayList<Project>();
+//            for(ProjectAdministrator pa : getLoggedUser().getProjectAdministrators()){
+//                projects.add(pa.getProject());
+//            }
+//            return projects;
+            return null;
+
+        //    return getLoggedUser().getProjects();
         }
 
           public FileBean getAttachmentFileBean() {
@@ -152,13 +159,14 @@ public class ProjectActionBean extends BasicActionBean {
                 return new RedirectResolution(this.getClass(), "display");
             }
             Project projectDB = projectService.get(project.getId());
-            User user = projectService.removeUserFromProject(getContext().getIdentifier(), project.getId());
-            if (user != null) {
+            projectService.removeAdministrator(project.getId(), getLoggedUser().getId(), getContext().getIdentifier());
+          //  User user = projectService.removeUserFromProject(getContext().getIdentifier(), project.getId());
+          /*  if (user != null) {
                 getContext().setLoggedUser(user);
                 getContext().getMessages().add(
                         new SimpleMessage("You have left project {0}", projectDB.getName())
                 );
-            }
+            } */
             return new ForwardResolution(this.getClass(), "display");
         }
 

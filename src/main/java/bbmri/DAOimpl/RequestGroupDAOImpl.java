@@ -1,9 +1,7 @@
 package bbmri.daoImpl;
 
 import bbmri.dao.RequestGroupDao;
-import bbmri.entities.Project;
-import bbmri.entities.RequestGroup;
-import bbmri.entities.SampleQuestion;
+import bbmri.entities.*;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,10 +19,14 @@ import java.util.List;
 @Repository
 public class RequestGroupDaoImpl extends BasicDaoImpl<RequestGroup> implements RequestGroupDao {
 
-    public List<RequestGroup> getAllByProject(Project project) {
-         notNull(project);
-        Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.project = :param");
-        query.setParameter("param", project);
-         return query.getResultList();
-     }
+    //@SuppressWarnings("unchecked")
+    public List<RequestGroup> getByBiobankAndState(Biobank biobank, RequestState requestState){
+        notNull(biobank);
+        notNull(requestState);
+        Query query = em.createQuery("SELECT p FROM RequestGroup p WHERE p.biobank = :biobankParam " +
+                "and p.requestState = :requestStateParam");
+        query.setParameter("biobankParam", biobank);
+        query.setParameter("requestStateParam", requestState);
+        return query.getResultList();
+    }
 }

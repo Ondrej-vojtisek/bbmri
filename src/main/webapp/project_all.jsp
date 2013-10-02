@@ -5,7 +5,7 @@
 <s:useActionBean var="ab" beanclass="bbmri.action.project.ProjectActionBean"/>
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
-                 biobank="${ab.loggedUser.biobank}"
+                 biobank="${null}"
                  administrator="${ab.loggedUser.administrator}"
                  secondarymenu="project_all">
 

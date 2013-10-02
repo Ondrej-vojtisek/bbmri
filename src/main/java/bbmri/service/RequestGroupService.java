@@ -17,8 +17,6 @@ public interface RequestGroupService  extends BasicService<RequestGroup>{
 
     void create(List<Request> requests, Long projectId);
 
-    List<RequestGroup> getByProject(Long projectId);
-
     List<RequestGroup> getByBiobank(Long biobankId);
 
     List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState);

@@ -31,37 +31,12 @@ public class Biobank implements Serializable {
     @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
     private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
 
-
- /*
-    @OneToMany(mappedBy = "biobank")
-    private List<BiobankAdministrator> biobankAdministratorList = new ArrayList<BiobankAdministrator>();
- */
-    /* There won't be many administrators for one biobank*/
-   /* @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="biobank_administrators",
-               joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="user_id"))  */
-    //@OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
-    //private List<User> administrators = new ArrayList<User>();
-
-    /*@OneToMany
-    @JoinTable(name="biobank_samples",
-               joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="sample_id"))*/
     @OneToMany(mappedBy = "biobank")
     private List<Sample> samples = new ArrayList<Sample>();
 
-   /* @OneToMany
-    @JoinTable(name="biobank_requestGroups",
-               joinColumns = @JoinColumn( name="biobank_id"),
-               inverseJoinColumns = @JoinColumn( name="requestGroup_id"))*/
     @OneToMany(mappedBy = "biobank")
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
-    /*@OneToMany
-    @JoinTable(name="biobank_sampleQuestions",
-                   joinColumns = @JoinColumn( name="biobank_id"),
-                   inverseJoinColumns = @JoinColumn( name="sampleQuestion_id"))*/
     @OneToMany(mappedBy = "biobank")
     private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
 
@@ -96,16 +71,6 @@ public class Biobank implements Serializable {
     public void setSamples(List<Sample> samples) {
         this.samples = samples;
     }
-  /*
-    public List<User> getAdministrators() {
-        return administrators;
-    }
-    */
-   /*
-    public void setAdministrators(List<User> administrators) {
-        this.administrators = administrators;
-    }
-    */
 
     public List<RequestGroup> getRequestGroups() {
         return requestGroups;

@@ -31,8 +31,16 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
 
     public List<SampleQuestion> getSampleQuestions() {
-        Biobank biobank = getLoggedUser().getBiobankAdministrator().getBiobank();
-        return sampleQuestionService.getAllByBiobank(biobank);
+        //TODO
+        //Biobank biobank = getLoggedUser().getBiobankAdministrator().getBiobank();
+        biobank = getContext().getBiobank();
+        if(biobank != null){
+            biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
+            return biobank.getSampleQuestions();
+        }
+        return null;
+
+      //  return sampleQuestionService.getAllByBiobank(biobank);
     }
 
     private Biobank biobank;
@@ -166,14 +174,15 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public List<Sample> getResults() {
-        if (sample == null) {
+        //TODO
+        /*if (sample == null) {
             BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
             results = sampleService.getAllByBiobank(ba.getBiobank().getId());
         } else {
             BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
             sample.setBiobank(ba.getBiobank());
             results = sampleService.getSamplesByQuery(sample);
-        }
+        } */
         return results;
     }
 
@@ -188,12 +197,15 @@ public class SampleQuestionActionBean extends BasicActionBean {
         logger.debug("Find sample- " + sample);
 
 
+
         if (sample != null) {
-            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+            //TODO
+
+            /*BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
             sample.setBiobank(ba.getBiobank());
             results = sampleService.getSamplesByQuery(sample);
             getContext().setSampleQuestion(sampleQuestion);
-            getContext().setSample(sample);
+            getContext().setSample(sample); */
         }
         return new ForwardResolution(QUESTION_DETAIL);
     }
@@ -226,7 +238,8 @@ public class SampleQuestionActionBean extends BasicActionBean {
         /* There can't be only loggedUser.getProjects() bcs here we want to reach RequestGroups
         *  Simple getProjects() throws org.hibernate.LazyInitializationException
         * */
-        return projectService.getAllByUserWithRequests(getContext().getIdentifier());
+         return projectService.getEagerByUserWithRequests(getContext().getIdentifier());
+
        // return getLoggedUser().getProjects();
 
     }
@@ -240,9 +253,11 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     @DontValidate
     public List<RequestGroup> getAllRequestGroups() {
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
+      /* BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
         Biobank biobank = biobankService.get(ba.getBiobank().getId());
         return requestGroupService.getByBiobank(ba.getBiobank().getId());
+        */
+        return null;
     }
 
     @DontValidate

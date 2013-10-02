@@ -1,9 +1,6 @@
 package bbmri.serviceImpl;
 
-import bbmri.dao.AttachmentDao;
-import bbmri.dao.ProjectDao;
-import bbmri.dao.RequestGroupDao;
-import bbmri.dao.UserDao;
+import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,12 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     @Autowired
     private RequestGroupDao requestGroupDao;
 
+    @Autowired
+    private BiobankDao biobankDao;
+
+    @Autowired
+    private ProjectAdministratorDao projectAdministratorDao;
+
     public Project create(Project project, Long userId) {
         notNull(project);
         notNull(userId);
@@ -44,36 +47,10 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         if (userDB != null) {
             project.setProjectState(ProjectState.NEW);
             projectDao.create(project);
-            assignUserToProject(userDB, project, true);
+            assignUserToProject(userDB, project, Permission.MANAGER);
             projectDao.update(project);
         }
         return project;
-    }
-
-
-    private void assignUserToProject(User userDB, Project projectDB, boolean beginning) {
-        notNull(userDB);
-        notNull(projectDB);
-
-        userDB.getProjects().add(projectDB);
-        userDao.update(userDB);
-
-        if (beginning) {
-            projectDB.getUsers().add(0, userDB);
-        } else {
-            projectDB.getUsers().add(userDB);
-        }
-
-        projectDao.update(projectDB);
-    }
-
-    private void removeUserFromProject(User userDB, Project projectDB) {
-        notNull(userDB);
-        notNull(projectDB);
-        userDB.getProjects().remove(projectDB);
-        userDao.update(userDB);
-        projectDB.getUsers().remove(userDB);
-        projectDao.update(projectDB);
     }
 
     public void remove(Long id) {
@@ -81,13 +58,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         Project projectDB = projectDao.get(id);
         if (projectDB != null) {
-            List<User> users = projectDB.getUsers();
-            if (users != null) {
-                for (User user : users) {
-                    user.getProjects().remove(projectDB);
-                    userDao.update(user);
-                }
-            }
 
             User judge = projectDB.getJudgedByUser();
             if (judge != null) {
@@ -106,6 +76,15 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             if (attachments != null) {
                 for (Attachment attachment : attachments) {
                     attachmentDao.remove(attachment);
+                }
+            }
+
+            List<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
+            if (projectAdministrators != null) {
+                for (ProjectAdministrator pa : projectAdministrators) {
+                    pa.setUser(null);
+                    pa.setProject(null);
+                    projectAdministratorDao.remove(pa);
                 }
             }
 
@@ -170,97 +149,26 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
     public List<Project> all() {
-        List<Project> projects = projectDao.all();
-        return projects;
+        return projectDao.all();
     }
 
-   /* public List<Project> getAllByUser(Long id) {
-        User userDB = userDao.get(id);
-        //  List<Project> projects = projectDao.getAllByUser(userDB);
-        return userDB.getProjects();
-    }  */
 
-    /* TODO: Tohle neni pekne a jiste to pujde lepe. Jen je potreba prvne projit upravu modelu u RequestGroup a Request  */
-    public List<Project> getAllByUserWithRequests(Long userId) {
-        notNull(userId);
 
-        User userDB = userDao.get(userId);
-        //   List<Project> projects = projectDao.getAllByUser(userDB);
-        List<Project> projects = userDB.getProjects();
-        if (projects != null) {
-            for (int i = 0; i < projects.size(); i++) {
-                projects.get(i).setRequestGroups(requestGroupDao.getAllByProject(projects.get(i)));
-            }
-        }
-        return projects;
-    }
-
-    // TODO: Must be refactored bcs it can't be done simply be owner=get[0]
-    public List<Project> getAllWhichUserAdministrate(Long userId) {
+    public List<Project> getEagerByUserWithRequests(Long userId) {
         notNull(userId);
         User userDB = userDao.get(userId);
-        if (userDB == null) {
-            return null;
-            // TODO: exception
+        List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
+        List<Project> projects = new ArrayList<Project>();
+        for(ProjectAdministrator pa : paList){
+            projects.add(pa.getProject());
         }
-        List<Project> projects = userDB.getProjects();
 
-        List<Project> result = new ArrayList<Project>();
-        if (projects != null) {
-            for (Project project : projects) {
-                if (project.getOwner().equals(userDB)) {
-                    result.add(project);
-                }
-            }
-        }
-        return result;
+        return projects;
     }
-
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
         return projectDao.getAllByProjectState(projectState);
-    }
-
-
-    public User assignUser(Long userId, Long projectId) {
-        notNull(userId);
-        notNull(projectId);
-
-        User userDB = userDao.get(userId);
-        if (userDB == null) {
-            return null;
-            //TODO: exception
-        }
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            return null;
-            //TODO: exception
-        }
-        if (!projectDB.getUsers().contains(userDB)) {
-            assignUserToProject(userDB, projectDB, false);
-        }
-        return userDB;
-    }
-
-    public User removeUserFromProject(Long userId, Long projectId) {
-        notNull(userId);
-        notNull(projectId);
-
-        User userDB = userDao.get(userId);
-        if (userDB == null) {
-            return null;
-            //TODO: exception
-        }
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            return null;
-            //TODO: exception
-        }
-        if (projectDB.getUsers().contains(userDB)) {
-            removeUserFromProject(userDB, projectDB);
-        }
-        return userDB;
     }
 
     public void approve(Long projectId, Long userId) {
@@ -320,55 +228,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.get(id);
     }
 
-    public List<User> getAllNotAssignedUsers(Long projectId) {
-        notNull(projectId);
-        List<User> result = new ArrayList<User>();
-        Project project = projectDao.get(projectId);
-        List<User> allUsers = userDao.all();
-        if (allUsers != null) {
-            for (User user : allUsers) {
-                if (!user.getProjects().contains(project)) {
-                    result.add(user);
-                }
-            }
-        }
-        return result;
-    }
-
-    public Project changeOwnership(Long projectId, Long newOwnerId) {
-        notNull(projectId);
-        notNull(newOwnerId);
-
-        Project projectDB = projectDao.get(projectId);
-
-        if (projectDB == null) {
-            return null;
-            //TODO exception
-        }
-
-        User newOwner = userDao.get(newOwnerId);
-
-        if (newOwner == null) {
-            return null;
-            //TODO exception
-        }
-
-
-        User oldOwner = userDao.get(projectDB.getOwner().getId());
-
-        if (oldOwner == null) {
-            return null;
-            //TODO exception
-        }
-
-        if (projectDB.getUsers().contains(newOwner)) {
-            //   removeUserFromProject(oldOwner, projectDB);
-            assignUserToProject(newOwner, projectDB, true);
-            //   assignUserToProject(oldOwner, projectDB, false);
-        }
-        return projectDB;
-    }
-
     public Integer count() {
         return projectDao.count();
     }
@@ -380,7 +239,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
            /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
         if (users) {
-            logger.debug("" + projectDB.getUsers());
+            logger.debug("" + projectDB.getProjectAdministrators());
         }
 
         if (requestGroups) {
@@ -398,4 +257,132 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
     }
 
+    public void assignUserToProject(User userDB, Project projectDB, Permission permission) {
+        notNull(userDB);
+        notNull(projectDB);
+        notNull(permission);
+
+        ProjectAdministrator pa = new ProjectAdministrator();
+        pa.setPermission(permission);
+        pa.setProject(projectDB);
+        pa.setUser(userDB);
+
+        projectAdministratorDao.create(pa);
+
+        projectDB.getProjectAdministrators().add(pa);
+        projectDao.update(projectDB);
+
+        userDB.getProjectAdministrators().add(pa);
+        userDao.update(userDB);
+    }
+
+    public void removeUserFromProject(User userDB, Project projectDB) {
+        notNull(userDB);
+        notNull(projectDB);
+
+        for (ProjectAdministrator pa : userDB.getProjectAdministrators()) {
+            if (pa.getProject().equals(projectDB)) {
+                pa.setUser(null);
+                pa.setProject(null);
+                projectAdministratorDao.remove(pa);
+            }
+        }
+    }
+
+    public void removeAdministrator(Long projectId, Long loggedUserId, Long userId){
+        notNull(userId);
+        notNull(projectId);
+        notNull(loggedUserId);
+
+        User userDB = userDao.get(userId);
+        User loggedUser = userDao.get(loggedUserId);
+        Project projectDB = projectDao.get(projectId);
+
+
+        if(userDB == null  || loggedUser == null || projectDB == null){
+            return;
+            // TODO: exception
+        }
+        ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
+
+        if(pa == null){
+                   return;
+        // TODO: exception - You can't remove user which is not administrator
+        }
+
+        ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
+
+        if(loggedPa == null){
+            return;
+            // TODO: exception - You are not administrator of this project
+        }
+
+        if(!loggedPa.getPermission().equals(Permission.MANAGER)){
+            return;
+            // TODO: exception - You don't have sufficient rights
+        }
+
+        if(userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1){
+            return;
+            // TODO: exception - You are last admin so you can't lower your permissions
+        }
+
+        removeUserFromProject(userDB, projectDB);
+    }
+
+    public void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission){
+            notNull(userId);
+            notNull(projectId);
+            notNull(loggedUserId);
+            notNull(permission);
+
+            User userDB = userDao.get(userId);
+            User loggedUser = userDao.get(loggedUserId);
+            Project projectDB = projectDao.get(projectId);
+
+
+            if(userDB == null  || loggedUser == null || projectDB == null){
+                return;
+                // TODO: exception
+            }
+
+            ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
+
+            if(loggedPa == null){
+                return;
+                // TODO: exception - You are not administrator of this project
+            }
+
+            if(!loggedPa.getPermission().equals(Permission.MANAGER)){
+                return;
+                // TODO: exception - You don't have sufficient rights
+            }
+
+            if(userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1){
+                return;
+                // TODO: exception - You are last admin so you can't lower your permissions
+            }
+
+        ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
+
+        if(pa == null){
+            assignUserToProject(userDB, projectDB, permission);
+        }else{
+            pa.setPermission(permission);
+            projectAdministratorDao.update(pa);
+        }
+
+    }
+
+
+    private int projectManagerCount(Project project){
+            notNull(project);
+            int count = 0;
+            for(ProjectAdministrator pa : project.getProjectAdministrators()){
+                if(pa.getPermission().equals(Permission.MANAGER)){
+                    count++;
+                }
+            }
+            return count;
+        }
 }

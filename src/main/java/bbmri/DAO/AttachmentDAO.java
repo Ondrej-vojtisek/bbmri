@@ -15,6 +15,4 @@ import java.util.List;
  */
 public interface AttachmentDao extends BasicDao<Attachment> {
 
-    String getPath(Attachment attachment);
-
 }

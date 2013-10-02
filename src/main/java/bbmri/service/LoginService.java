@@ -13,6 +13,4 @@ public interface LoginService {
 
     User login(Long id, String password);
 
-   // void logout(User user);
-
 }

@@ -6,7 +6,7 @@
 
 <s:layout-render name="/layout_content.jsp" title="${title}" logged="${ab.loggedUser.wholeName}"
                  primarymenu="project"
-                 biobank="${ab.loggedUser.biobank}"
+                 biobank="${null}"
                  administrator="${ab.loggedUser.administrator}">
 
     <s:layout-component name="body">

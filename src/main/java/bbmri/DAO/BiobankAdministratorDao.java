@@ -1,6 +1,8 @@
 package bbmri.dao;
 
+import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.User;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,4 +12,8 @@ import bbmri.entities.BiobankAdministrator;
  * To change this template use File | Settings | File Templates.
  */
 public interface BiobankAdministratorDao extends BasicDao<BiobankAdministrator> {
+
+    boolean contains(Biobank biobank, User user);
+
+    BiobankAdministrator get(Biobank biobank, User user);
 }

@@ -117,17 +117,17 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestionDao.all();
     }
 
-
+    /*
     public List<SampleQuestion> getAllByProject(Project project) {
         notNull(project);
         return sampleQuestionDao.getByProject(project);
     }
 
-    public List<SampleQuestion> getAllByBiobank(Biobank biobank) {
+  public List<SampleQuestion> getAllByBiobank(Biobank biobank) {
         notNull(biobank);
         return sampleQuestionDao.getByBiobank(biobank);
     }
-
+  */
     public SampleQuestion get(Long id) {
         return sampleQuestionDao.get(id);
     }

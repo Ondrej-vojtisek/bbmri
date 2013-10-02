@@ -1,6 +1,9 @@
 package bbmri.service;
 
-import bbmri.entities.*;
+import bbmri.entities.Permission;
+import bbmri.entities.Project;
+import bbmri.entities.ProjectState;
+import bbmri.entities.User;
 
 import java.util.List;
 
@@ -11,35 +14,27 @@ import java.util.List;
  * Time: 18:15
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectService  extends BasicService<Project> {
+public interface ProjectService extends BasicService<Project> {
 
-     Project create(Project project, Long userId);
+    Project create(Project project, Long userId);
 
-//     List<Project> getAllByUser(Long id);
+    void approve(Long projectId, Long userId);
 
-     User assignUser(Long userId, Long projectId);
+    void deny(Long projectId, Long userId);
 
-     User removeUserFromProject(Long userId, Long projectId);
+    List<Project> getAllByProjectState(ProjectState projectState);
 
-    // List<User> getAllAssignedUsers(Long projectId);
-
-    // void approve(Long id);
-
-     void approve(Long projectId, Long userId);
-
-     void deny(Long projectId, Long userId);
-
-     List<Project> getAllByProjectState(ProjectState projectState);
-
-    // List<Project> getAllApprovedByUser(Long userId);
-
-     List<Project> getAllWhichUserAdministrate(Long userId);
-
-     List<User> getAllNotAssignedUsers(Long projectId);
-
-     Project changeOwnership(Long projectId, Long newOwnerId);
-
-    List<Project> getAllByUserWithRequests(Long userId);
+    List<Project> getEagerByUserWithRequests(Long userId);
 
     Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleQuestions);
+
+    // For tests only
+    // void assignUserToProject(User userDB, Project projectDB, Permission permission);
+
+    // For tests only
+    // void removeUserFromProject(User userDB, Project projectDB);
+
+    void removeAdministrator(Long projectId, Long loggedUserId, Long userId);
+
+    void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission);
 }

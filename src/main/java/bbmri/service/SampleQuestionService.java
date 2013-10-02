@@ -17,10 +17,6 @@ public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId, Long projectId);
 
-    List<SampleQuestion> getAllByProject(Project project);
-
-    List<SampleQuestion> getAllByBiobank(Biobank biobank);
-
     SampleQuestion withdraw(SampleQuestion sampleQuestion, Long biobankId);
 
 }

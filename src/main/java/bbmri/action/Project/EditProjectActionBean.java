@@ -2,6 +2,7 @@ package bbmri.action.project;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Attachment;
+import bbmri.entities.Permission;
 import bbmri.entities.Project;
 import bbmri.entities.User;
 import net.sourceforge.stripes.action.*;
@@ -58,8 +59,13 @@ public class EditProjectActionBean extends BasicActionBean {
     private Attachment attachment;
 
     public List<User> getFreeUsers() {
+        /*
+        TODO - udelat na zaklade vyhledavani uzivatelu
+
         this.freeUsers = projectService.getAllNotAssignedUsers(getProject().getId());
-        return freeUsers;
+        return freeUsers;  */
+
+        return null;
     }
 
     public void setFreeUsers(List<User> freeUsers) {
@@ -91,9 +97,10 @@ public class EditProjectActionBean extends BasicActionBean {
     }
 
     public List<User> getUsers() {
-       // this.users = projectService.getAllAssignedUsers(project.getId());
-        users = projectService.get(project.getId()).getUsers();
-        return users;
+        //TODO
+        //users = projectService.get(project.getId()).getUsers();
+        //return users;
+        return null;
     }
 
     public void setUsers(List<User> users) {
@@ -138,15 +145,16 @@ public class EditProjectActionBean extends BasicActionBean {
                     /*you can't remove yourself*/
                     return new ForwardResolution(ProjectActionBean.class);
                 }
-                projectService.removeUserFromProject(id, getProject().getId());
+                projectService.removeAdministrator(getProject().getId(), getLoggedUser().getId(), id);
                 removed++;
             }
         }
         getContext().getMessages().add(
                                  new SimpleMessage("{0} users removed", removed)
                          );
-        users = getProject().getUsers();
-      //  users = projectService.get(getProject().getId()).getUsers();
+        //TODO
+        //users = getProject().getUsers();
+
         return new RedirectResolution(ProjectActionBean.class);
     }
 
@@ -155,24 +163,28 @@ public class EditProjectActionBean extends BasicActionBean {
         Integer assigned = 0;
         if (selectedApprove != null) {
             for (Long resProject : selectedApprove) {
-                projectService.assignUser(resProject, getProject().getId());
+                // TODO: Manager can't be default
+                projectService.changeAdministratorPermission(getProject().getId(), getLoggedUser().getId(), resProject, Permission.MANAGER);
                 assigned++;
             }
         }
         getContext().getMessages().add(
                        new SimpleMessage("{0} users assigned", assigned)
                );
-        users = getProject().getUsers();
-      //  users = projectService.get(getProject().getId()).getUsers();
+        //TODO
+        //users = getProject().getUsers();
         return new RedirectResolution(this.getClass(), "display");
     }
 
     @DontValidate
     public Resolution changeOwnership() {
-        projectService.changeOwnership(getContext().getProject().getId(), user.getId());
+        /*projectService.changeOwnership(getContext().getProject().getId(), user.getId());
         getContext().getMessages().add(
                               new SimpleMessage("Ownership of project was changed")
                       );
+                      */
+        getContext().getMessages().add(
+                                     new SimpleMessage("Ownership of project was not changed - TODO this in code"));
         return new RedirectResolution(ProjectActionBean.class);
     }
 

@@ -9,19 +9,19 @@ import javax.persistence.*;
  * Time: 14:31
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "projectAdministrator")
+@Table(name = "ProjectAdministrator")
 @Entity
 public class ProjectAdministrator {
 
     private static final long serialVersionUID = 1L;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.TABLE)
-        @Column(name = "ID", nullable = false)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
+    private Long id;
 
-       @Enumerated(EnumType.STRING)
-       private Permission permission;
+    @Enumerated(EnumType.STRING)
+    private Permission permission;
 
     @ManyToOne
     private User user;
@@ -39,12 +39,12 @@ public class ProjectAdministrator {
     }
 
     public Long getId() {
-            return id;
-        }
+        return id;
+    }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public User getUser() {
         return user;

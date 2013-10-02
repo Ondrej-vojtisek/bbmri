@@ -39,10 +39,6 @@ public class RequestGroup {
     @ManyToOne
     private Biobank biobank;
 
-   /* @OneToMany
-    @JoinTable(name="requestGroup_requests",
-                  joinColumns = @JoinColumn( name="requestGroup_id"),
-                  inverseJoinColumns = @JoinColumn( name="request_id")) */
     @OneToMany(mappedBy = "requestGroup")
     private List<Request> requests = new ArrayList<Request>();
 
