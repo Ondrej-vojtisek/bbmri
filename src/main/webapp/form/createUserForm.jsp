@@ -10,6 +10,5 @@
         <th><s:label for="z3" name="user.surname"/></th>
         <td><s:text id="z3" name="user.surname"/></td>
     </tr>
-
 </table>
 

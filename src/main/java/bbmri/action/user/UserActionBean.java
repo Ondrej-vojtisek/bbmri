@@ -2,9 +2,12 @@ package bbmri.action.user;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.User;
+import bbmri.entities.webEntities.RoleDTO;
+import bbmri.facade.UserFacade;
 import bbmri.io.ExcelImport;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -18,13 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @PermitAll
-@UrlBinding("/user")
+@UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String ALL = "/webpages/user/all.jsp";
-    private static final String CREATE = "/webpages/user/create.jsp";
+    @SpringBean
+    private UserFacade userFacade;
 
     @ValidateNestedProperties(value = {
                     @Validate(on = {"create"},
@@ -36,14 +39,14 @@ public class UserActionBean extends BasicActionBean {
                     @Validate(on = {"create"},
                             field = "password",
                             required = true)
-            })
+    })
     private User user;
     private Long id;
 
     private List<User> users;
 
     public List<User> getUsers() {
-        return userService.all();
+        return userFacade.all();
     }
 
     public User getUser() {
@@ -61,83 +64,58 @@ public class UserActionBean extends BasicActionBean {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public List<RoleDTO> getUserRoles() {
+        return userFacade.getRoles(user.getId());
+    }
+
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        users = userService.all();
-        return new ForwardResolution(ALL);
+        return new ForwardResolution(USER_ALL);
     }
     @DontValidate
     @HandlesEvent("createUser")
     public Resolution createUser(){
-        return new ForwardResolution(CREATE);
+        return new ForwardResolution(USER_CREATE);
     }
+
     public Resolution create() {
-        logger.debug("User: " + user);
-
-        userService.create(user);
-        getContext().getMessages().add(
-                new SimpleMessage("User {0} was created", user)
-        );
-        return new RedirectResolution(this.getClass(), "display");
-    }
-    @DontValidate
-    public Resolution delete() {
-        userService.remove(id);
+        userFacade.create(user);
         getContext().getMessages().add(
                 new SimpleMessage("User {0} was created", user)
         );
         return new RedirectResolution(this.getClass(), "display");
     }
 
-    private FileBean excelFileBean;
-
-    public FileBean getExcelFileBean() {
-        return excelFileBean;
-    }
-
-    public void setExcelFileBean(FileBean excelFileBean) {
-        this.excelFileBean = excelFileBean;
-    }
     @DontValidate
-    public Resolution uploadExcel() {
-        String filePath = "temp\\" + excelFileBean.getFileName();
-        if (excelFileBean == null) {
-            getContext().getMessages().add(
-                    new SimpleMessage("ExcelFileBean null")
-            );
-            return new ForwardResolution(this.getClass(), "display");
-        }
-        File file = new File(filePath);
-
-        try {
-            excelFileBean.save(file);
-
-        } catch (IOException e) {
-            getContext().getMessages().add(
-                    new SimpleMessage("Exception: " + e)
-            );
-        }
-
-        List<User> users = new ArrayList<User>();
-
-        try {
-            ExcelImport excelImport = new ExcelImport();
-            users = excelImport.parseExcelUserTable(filePath);
-
-            for(User user : users){
-                userService.create(user);
-            }
-
-        } catch (Exception e) {
-            getContext().getMessages().add(
-                    new SimpleMessage("Exception: " + e)
-            );
-        }
-        file.delete();
-
-        return new ForwardResolution(this.getClass(), "display");
+    @HandlesEvent("remove")
+    public Resolution remove() {
+        userFacade.remove(id);
+        // TODO confirm window
+        getContext().getMessages().add(
+                new SimpleMessage("User {0} was created", user)
+        );
+        return new RedirectResolution(this.getClass(), "display");
     }
+
+    @DontValidate
+    @HandlesEvent("detail")
+    public Resolution detail() {
+        if(id.equals(getContext().getMyId())){
+            return new ForwardResolution(AccountActionBean.class, "display");
+        }
+        user = userFacade.get(id);
+        return new ForwardResolution(USER_PERSONAL_DATA);
+    }
+
+    @DontValidate
+       @HandlesEvent("rolesView")
+       public Resolution rolesView() {
+           logger.debug("getId : " + id);
+           user = userFacade.get(id);
+           return new ForwardResolution(USER_ROLES);
+       }
 }
 
 

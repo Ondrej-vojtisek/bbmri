@@ -4,7 +4,8 @@
 <f:message key="users.title" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.user.UserActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}" primarymenu="users"
+<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+                 primarymenu="user"
                  secondarymenu="user_all">
 
     <s:layout-component name="body">
@@ -31,6 +32,12 @@
                         <td><c:out value="${user.id}"/></td>
                         <td><c:out value="${user.name}"/></td>
                         <td><c:out value="${user.surname}"/></td>
+                        <td><s:link beanclass="bbmri.action.user.UserActionBean"
+                            event="remove"><s:param name="id" value="${user.id}"/>
+                            <f:message key="remove"/></s:link></td>
+                        <td><s:link beanclass="bbmri.action.user.UserActionBean"
+                                                   event="detail"><s:param name="id" value="${user.id}"/>
+                        <f:message key="detail"/></s:link></td>
                     </tr>
                 </c:forEach>
                 </tbody>

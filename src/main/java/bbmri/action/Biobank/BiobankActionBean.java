@@ -189,7 +189,7 @@ public class BiobankActionBean extends BasicActionBean {
         Integer removed = 0;
         if (selected != null) {
             for (Long id : selected) {
-                if (id.equals(getContext().getIdentifier())) {
+                if (id.equals(getContext().getMyId())) {
                            /*you can't remove yourself*/
                     return new ForwardResolution(this.getClass(), "display");
                 }

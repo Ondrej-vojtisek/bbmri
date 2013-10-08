@@ -239,7 +239,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
         /* There can't be only loggedUser.getProjects() bcs here we want to reach RequestGroups
         *  Simple getProjects() throws org.hibernate.LazyInitializationException
         * */
-         return projectService.getEagerByUserWithRequests(getContext().getIdentifier());
+         return projectService.getEagerByUserWithRequests(getContext().getMyId());
 
        // return getLoggedUser().getProjects();
 

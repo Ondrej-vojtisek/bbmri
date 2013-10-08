@@ -160,8 +160,8 @@ public class ProjectActionBean extends BasicActionBean {
                 return new RedirectResolution(this.getClass(), "display");
             }
             Project projectDB = projectService.get(project.getId());
-            projectService.removeAdministrator(project.getId(), getLoggedUser().getId(), getContext().getIdentifier());
-          //  User user = projectService.removeUserFromProject(getContext().getIdentifier(), project.getId());
+            projectService.removeAdministrator(project.getId(), getLoggedUser().getId(), getContext().getMyId());
+          //  User user = projectService.removeUserFromProject(getContext().getMyId(), project.getId());
           /*  if (user != null) {
                 getContext().setLoggedUser(user);
                 getContext().getMessages().add(

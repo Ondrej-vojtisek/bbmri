@@ -4,7 +4,7 @@
 <f:message key="user.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.user.UserActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
-                 primarymenu="users"
+                 primarymenu="user"
                  secondarymenu="user_create">
 
     <s:layout-component name="body">

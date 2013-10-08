@@ -28,7 +28,7 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
         BasicActionBean basicBean = (BasicActionBean) bean;
 
         // Compare the identifier of given authenticated user
-        Boolean set = null != basicBean.getContext().getIdentifier();
+        Boolean set = null != basicBean.getContext().getMyId();
 
         // In case the identifier set
         // and no instance is assigned

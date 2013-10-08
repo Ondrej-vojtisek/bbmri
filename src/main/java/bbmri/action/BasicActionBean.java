@@ -27,13 +27,24 @@ public class BasicActionBean implements ActionBean {
     /*************************************
     * LINKS
     **************************************/
-    // ACCOUNT
-    protected static final String ACCOUNT_PERSONAL_DATA = "/webpages/account/personal_data.jsp";
-    protected static final String ACCOUNT_CHANGE_PASSWORD = "/webpages/account/password.jsp";
-    protected static final String ACCOUNT_ROLES = "/webpages/account/roles.jsp";
+    // MY ACCOUNT
+    protected static final String ACCOUNT_PERSONAL_DATA = "/webpages/user/account_personal_data.jsp";
+    protected static final String ACCOUNT_PASSWORD = "/webpages/user/account_password.jsp";
+    protected static final String ACCOUNT_ROLES = "/webpages/user/account_roles.jsp";
+
+    // USER
+    protected static final String USER_CHANGE_ADMINISTRATOR = "/webpages/user/changeAdministrator.jsp";
+    protected static final String USER_ALL = "/webpages/user/all.jsp";
+    protected static final String USER_CREATE = "/webpages/user/create.jsp";
+    protected static final String USER_PERSONAL_DATA = "/webpages/user/personal_data.jsp";
+    protected static final String USER_ROLES = "/webpages/user/roles.jsp";
 
 
 
+
+
+    // PROJECTS
+    protected static final String PROJECT_MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
 
     @SpringBean
     protected UserService userService;
@@ -79,13 +90,12 @@ public class BasicActionBean implements ActionBean {
     }
 
     public User getLoggedUser(){
-
-        Long id = ctx.getIdentifier();
+        Long id = ctx.getMyId();
         return userService.get(id);
     }
 
     public Set<Role> getRoles(){
-        Long id = ctx.getIdentifier();
+        Long id = ctx.getMyId();
         return userService.get(id).getRoles();
 
     }

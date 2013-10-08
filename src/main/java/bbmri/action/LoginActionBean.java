@@ -61,7 +61,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @DefaultHandler
     public Resolution display() {
 
-       // logger.debug("Display - Context: " + getContext().getIdentifier() );
+       // logger.debug("Display - Context: " + getContext().getMyId() );
 
         getContext().dropUser();
         return new ForwardResolution(INDEX);

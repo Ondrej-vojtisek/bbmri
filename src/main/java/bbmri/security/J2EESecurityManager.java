@@ -1,11 +1,6 @@
 package bbmri.security;
 
-import bbmri.action.BasicActionBean;
-import bbmri.action.TheActionBeanContext;
-import bbmri.entities.Role;
-import bbmri.entities.User;
 import bbmri.service.UserService;
-import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.config.DontAutoLoad;
 import net.sourceforge.stripes.integration.spring.SpringBean;

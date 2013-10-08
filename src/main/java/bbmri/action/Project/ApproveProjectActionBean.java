@@ -46,7 +46,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
      }
     @DontValidate
     public Resolution approve() {
-        projectService.approve(project.getId(), getContext().getIdentifier());
+        projectService.approve(project.getId(), getContext().getMyId());
         getContext().getMessages().add(
                               new SimpleMessage("Project {0} was approved", project.getName())
                       );
@@ -55,7 +55,7 @@ public class ApproveProjectActionBean extends BasicActionBean {
 
     @DontValidate
        public Resolution deny() {
-          // projectService.(project.getId(), getContext().getIdentifier());
+          // projectService.(project.getId(), getContext().getMyId());
            getContext().getMessages().add(
                                  new SimpleMessage("Project {0} was denied", project.getName())
                          );

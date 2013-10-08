@@ -44,9 +44,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
 
- //   @OneToOne
- //   private BiobankAdministrator biobankAdministrator;
-
     @OneToMany(mappedBy = "user")
     private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
 

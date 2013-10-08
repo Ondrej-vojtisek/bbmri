@@ -1,15 +1,9 @@
 package bbmri.action;
 
 import bbmri.entities.*;
-import bbmri.service.LoginService;
-import bbmri.service.UserService;
-import bbmri.serviceImpl.UserServiceImpl;
 import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.action.FileBean;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,12 +19,14 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String IDENTIFIER = "id";
+    private static final String MY_ID = "myId";
     private static final String SAMPLE_ID = "sample";
     private static final String PROJECT_ID = "project";
     private static final String BIOBANK_ID = "biobank";
     private static final String REQUEST_GROUP_ID = "requestGroup";
     private static final String REQUEST_ID = "request";
+
+    private static final String USER_ID = "userId";
 
 
     /**
@@ -70,7 +66,7 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public void dropUser() {
         // Forget the value
-        dropIdentifier();
+        dropMyId();
         // When logged
         // Retrieve the session instance
         HttpSession session = getRequest().getSession();
@@ -81,66 +77,88 @@ public class TheActionBeanContext extends ActionBeanContext {
         }
     }
 
-    public void setIdentifier(Long id) {
-          setCurrent(IDENTIFIER, id);
-      }
-      public Long getIdentifier() {
-          return getCurrent(IDENTIFIER, null);
-      }
-      public void dropIdentifier() {
-          setCurrent(IDENTIFIER, null);
-      }
+    public void setMyId(Long id) {
+        setCurrent(MY_ID, id);
+    }
+
+    public Long getMyId() {
+        return getCurrent(MY_ID, null);
+    }
+
+    public void dropMyId() {
+        setCurrent(MY_ID, null);
+    }
 
     public void setLoggedUser(User user) {
-              // Forget the value
-              dropIdentifier();
+        // Forget the value
+        dropMyId();
 
-              // When user is given
-              if (user != null) {
-                  // Update the identifier
-                  setIdentifier(user.getId());
-              }
-          }
+        // When user is given
+        if (user != null) {
+            // Update the identifier
+            setMyId(user.getId());
+        }
+    }
 
     public void setRequestId(Long id) {
-           setCurrent(REQUEST_ID, id);
-       }
-       public Long getRequestId() {
-           return getCurrent(REQUEST_ID, null);
-       }
-       public void dropRequestId() {
-           setCurrent(REQUEST_ID, null);
-       }
-       public void setRequestId(Request request) {
-           // Forget the value
-           dropRequestId();
+        setCurrent(REQUEST_ID, id);
+    }
 
-           // When user is given
-           if (request != null) {
-               // Update the identifier
-               setRequestId(request.getId());
-           }
-       }
+    public Long getRequestId() {
+        return getCurrent(REQUEST_ID, null);
+    }
+
+    public void dropRequestId() {
+        setCurrent(REQUEST_ID, null);
+    }
+
+    public void setRequestId(Request request) {
+        // Forget the value
+        dropRequestId();
+
+        // When user is given
+        if (request != null) {
+            // Update the identifier
+            setRequestId(request.getId());
+        }
+    }
+
+
+    public void setUserId(Long id) {
+        setCurrent(USER_ID, id);
+    }
+
+    public Long getUserId() {
+        return getCurrent(USER_ID, null);
+    }
+
+    public void dropUserId() {
+        setCurrent(USER_ID, null);
+    }
+
 
     public void setRequestGroupId(Long id) {
-               setCurrent(REQUEST_GROUP_ID, id);
-           }
-           public Long getRequestGroupId() {
-               return getCurrent(REQUEST_GROUP_ID, null);
-           }
-           public void dropRequestGroupId() {
-               setCurrent(REQUEST_GROUP_ID, null);
-           }
-           public void setRequestGroupId(RequestGroup requestGroup) {
-               // Forget the value
-               dropRequestGroupId();
+        setCurrent(REQUEST_GROUP_ID, id);
+    }
 
-               // When user is given
-               if (requestGroup != null) {
-                   // Update the identifier
-                   setRequestGroupId(requestGroup.getId());
-               }
-           }
+    public Long getRequestGroupId() {
+        return getCurrent(REQUEST_GROUP_ID, null);
+    }
+
+    public void dropRequestGroupId() {
+        setCurrent(REQUEST_GROUP_ID, null);
+    }
+
+    public void setRequestGroupId(RequestGroup requestGroup) {
+        // Forget the value
+        dropRequestGroupId();
+
+        // When user is given
+        if (requestGroup != null) {
+            // Update the identifier
+            setRequestGroupId(requestGroup.getId());
+        }
+    }
 
 
     public Project getProject() {

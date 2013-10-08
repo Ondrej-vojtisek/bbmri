@@ -24,9 +24,6 @@ public class ChangeAdministrator extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String CHANGE_ADMINISTRATOR = "/webpages/user/changeAdministrator.jsp";
-    private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
-
     private List<User> users;
     private User user;
 
@@ -47,18 +44,18 @@ public class ChangeAdministrator extends BasicActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution(CHANGE_ADMINISTRATOR);
+        return new ForwardResolution(USER_CHANGE_ADMINISTRATOR);
     }
 
     @DontValidate
     public Resolution changeAdministrator() {
         logger.debug("Roles: " + getRoles());
 
-        userService.changeAdministrator(getContext().getIdentifier(), user.getId());
+        userService.changeAdministrator(getContext().getMyId(), user.getId());
         logger.debug("Roles: " + getRoles());
         getContext().getMessages().add(
                 new SimpleMessage("Administrator was changed")
         );
-        return new RedirectResolution(MY_PROJECTS);
+        return new RedirectResolution(PROJECT_MY_PROJECTS);
     }
 }

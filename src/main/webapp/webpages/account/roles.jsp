@@ -2,10 +2,10 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="credentials.myRoles" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.account.AccountActionBean"/>
+<s:useActionBean var="ab" beanclass="bbmri.action.user.AccountActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="account"
-                 secondary="roles">
+                 secondarymenu="roles">
 
     <s:layout-component name="body">
 
@@ -15,6 +15,8 @@
                 <thead>
                 <tr>
                     <th><s:label name="role"/></th>
+                    <th><s:label name="permission"/></th>
+                    <th><s:label name="reference"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,9 +25,11 @@
                         <td><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${ab.myRoles}" var="role">
+                <c:forEach items="${ab.myRoles}" var="roleDTO">
                     <tr>
-                        <td><c:out value="${role}"/></td>
+                        <td><c:out value="${roleDTO.subject}"/></td>
+                        <td><c:out value="${roleDTO.permission}"/></td>
+                        <td><c:out value="${roleDTO.referenceId}"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>
