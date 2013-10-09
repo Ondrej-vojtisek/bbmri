@@ -57,7 +57,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(Permission.MANAGER, pa.getPermission());
         assertEquals(user, pa.getUser());
         assertEquals(project, pa.getProject());
-       // assertEquals(true, user.getRoleTypes().contains(RoleType.PROJECT_LEADER));
+       // assertEquals(true, user.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER));
 
     }
 
@@ -91,7 +91,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(user2, userService.get(user2.getId()));
         assertEquals(true, user2.getJudgedProjects().isEmpty());
-        assertEquals(false, user.getRoleTypes().contains(RoleType.PROJECT_LEADER));
+        assertEquals(false, user.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER));
 
     }
 

@@ -120,7 +120,6 @@ public class J2EESecurityManager implements SecurityManager
             RolesAllowed rolesAllowed = element.getAnnotation(RolesAllowed.class);
             if(rolesAllowed != null)
             {
-                logger.debug("Roles Allowed not null: " + rolesAllowed);
                 // Still need to check if the users is authorized
                 allowed = isUserAuthenticated(bean, handler);
 
@@ -135,14 +134,7 @@ public class J2EESecurityManager implements SecurityManager
 
                     for(String role : rolesAllowed.value())
                     {
-                        logger.debug("Tested role: " + role);
                         Boolean hasRole = hasRole(bean, handler, role);
-
-                       if(hasRole == null){
-                           logger.debug("HasRole je null");
-                       }
-
-                        logger.debug("HasRole je: " + hasRole);
 
                         if(hasRole != null && hasRole)
                         {

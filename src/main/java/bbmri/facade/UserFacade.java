@@ -32,7 +32,9 @@ public interface UserFacade {
 
     void setAsAdministrator(Long userId);
 
-    void removeSystemRole(Long userId, RoleType roleType);
+    void removeAdministratorRole(Long userId);
+
+    void removeDeveloperRole(Long userId);
 
     List<User> getAdministrators();
 

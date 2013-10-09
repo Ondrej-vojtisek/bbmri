@@ -7,14 +7,43 @@
     <s:layout-component name="body">
 
         <fieldset>
-        <s:form beanclass="bbmri.action.DashboardActionBean">
-                        DASHBOARD
+            <s:form beanclass="bbmri.action.DashboardActionBean">
+                DASHBOARD
 
-            <security:allowed bean="ab" event="iamsecure" >
-                Something you want to do here.
-            </security:allowed>
+                <security:allowed bean="ab" event="iamsecure">
+                    USER
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure2">
+                    Administrator
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure3">
+                    1 == 1
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure4">
+                    1 == 2
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure5">
+                    cisloA == cisloB tj. 1==2
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure6">
+                    getCisloA == getCisloB
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure7">
+                    cisloAA == cisloBB
+                </security:allowed>
+                ////
+                <security:allowed bean="ab" event="iamsecure8">
+                    myId == 2
+                </security:allowed>
 
-        </s:form>
+
+            </s:form>
         </fieldset>
 
     </s:layout-component>

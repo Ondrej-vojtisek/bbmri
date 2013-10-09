@@ -11,7 +11,7 @@ public enum RoleType {
       USER("user"),
       ADMINISTRATOR("administrator"),
       BIOBANK_OPERATOR("biobank_operator"),
-      PROJECT_LEADER("project_leader"),
+      PROJECT_TEAM_MEMBER("project_team_member"),
       DEVELOPER("developer");
 
       private String state;

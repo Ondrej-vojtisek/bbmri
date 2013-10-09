@@ -5,24 +5,18 @@ import bbmri.entities.User;
 import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
-import bbmri.io.ExcelImport;
-import bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-//import javax.annotation.security.RolesAllowed;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+//import javax.annotation.security.RolesAllowed;
 
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
@@ -30,18 +24,18 @@ public class UserActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    protected UserFacade userFacade;
+    private UserFacade userFacade;
 
     @ValidateNestedProperties(value = {
-                    @Validate(on = {"create"},
-                            field = "name",
-                            required = true),
-                    @Validate(on = {"create"},
-                            field = "surname",
-                            required = true),
-                    @Validate(on = {"create"},
-                            field = "password",
-                            required = true)
+            @Validate(on = {"create"},
+                    field = "name",
+                    required = true),
+            @Validate(on = {"create"},
+                    field = "surname",
+                    required = true),
+            @Validate(on = {"create"},
+                    field = "password",
+                    required = true)
     })
     private User user;
     private Long id;
@@ -72,9 +66,16 @@ public class UserActionBean extends BasicActionBean {
         return userFacade.getRoles(user.getId());
     }
 
-    public Set<RoleType> getRoleTypes(){
+    public Set<RoleType> getRoleTypes() {
         return userFacade.getRoleTypes(user.getId());
     }
+
+    public int getCislo() {
+        return 1;
+    }
+
+    private int cisloA = 1;
+    private int cisloB = 2;
 
     @DontValidate
     @DefaultHandler
@@ -86,7 +87,7 @@ public class UserActionBean extends BasicActionBean {
 
     @HandlesEvent("createUser")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution createUser(){
+    public Resolution createUser() {
         return new ForwardResolution(USER_CREATE);
     }
 
@@ -112,9 +113,9 @@ public class UserActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"administrator", "developer"})
+    @RolesAllowed({"developer", "administrator", "user if ${context.myId == id}"})
     public Resolution detail() {
-        if(id.equals(getContext().getMyId())){
+        if (id.equals(getContext().getMyId())) {
             return new ForwardResolution(AccountActionBean.class, "display");
         }
         user = userFacade.get(id);
@@ -124,11 +125,46 @@ public class UserActionBean extends BasicActionBean {
     @HandlesEvent("rolesView")
     @RolesAllowed({"administrator", "developer"})
     public Resolution rolesView() {
-           user = userFacade.get(id);
-           return new ForwardResolution(USER_ROLES);
+        user = userFacade.get(id);
+        return new ForwardResolution(USER_ROLES);
     }
 
+    @HandlesEvent("removeAdministratorRole")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution removeAdministratorRole() {
+        userFacade.removeAdministratorRole(id);
+        user = userFacade.get(id);
+        // TODO exception message
 
+        return new ForwardResolution(USER_ROLES);
+    }
+
+    @HandlesEvent("removeDeveloperRole")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution removeDeveloperRole() {
+        userFacade.removeDeveloperRole(id);
+        user = userFacade.get(id);
+        // TODO exception message
+        return new ForwardResolution(USER_ROLES);
+    }
+
+    @HandlesEvent("setAdministratorRole")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution setAdministratorRole() {
+        userFacade.setAsAdministrator(id);
+        user = userFacade.get(id);
+        // TODO exception message
+        return new ForwardResolution(USER_ROLES);
+    }
+
+    @HandlesEvent("setDeveloperRole")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution setDeveloperRole() {
+        userFacade.setAsDeveloper(id);
+        user = userFacade.get(id);
+        // TODO exception message
+        return new ForwardResolution(USER_ROLES);
+    }
 
 }
 

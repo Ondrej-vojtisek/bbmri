@@ -217,15 +217,8 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
         else
         {
             ActionBean actionBean = executionContext.getActionBean();
-            if(actionBean == null){
-                logger.debug("ActionBean Null");
-            }
+
             Method handler = executionContext.getHandler();
-
-            if(handler == null){
-                          logger.debug("Handler Null");
-
-            }
 
             accessAllowed = securityManager.getAccessAllowed(actionBean, handler);
             logger.debug("Security manager returned access allowed: " + accessAllowed);

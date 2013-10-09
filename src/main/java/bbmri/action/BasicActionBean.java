@@ -132,6 +132,11 @@ public class BasicActionBean implements ActionBean {
             return s.substring(0, s.indexOf("."));
         }
 
+    public String getLastUrl(){
+        // TODO
+        return "LastURL - not implemented yet";
+    }
+
 
 
 }

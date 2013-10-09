@@ -40,6 +40,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
 
     public User create(User user) {
+        user.getRoleTypes().add(RoleType.USER);
         userDao.create(user);
         return user;
     }

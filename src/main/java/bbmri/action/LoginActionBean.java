@@ -57,6 +57,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         this.id = id;
     }
 
+
     @DontValidate
     @DefaultHandler
     public Resolution display() {
@@ -74,7 +75,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
 
-//        return new RedirectResolution("/dashboard.jsp");
+//        return new RedirectResolution(DashboardActionBean.class);
         return new RedirectResolution(ProjectActionBean.class);
     }
 

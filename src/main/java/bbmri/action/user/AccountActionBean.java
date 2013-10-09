@@ -30,9 +30,9 @@ public class AccountActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    protected UserFacade userFacade;
+    private UserFacade userFacade;
 
-    protected User user;
+    private User user;
 
     public User getUser() {
            return user;
@@ -64,11 +64,11 @@ public class AccountActionBean extends BasicActionBean {
     }
 
     public List<RoleDTO> getUserRoles() {
-        return userFacade.getRoles(user.getId());
+        return userFacade.getRoles(getContext().getMyId());
     }
 
     public Set<RoleType> getRoleTypes(){
-        return userFacade.getRoleTypes(user.getId());
+        return userFacade.getRoleTypes(getContext().getMyId());
     }
 
 
@@ -117,5 +117,28 @@ public class AccountActionBean extends BasicActionBean {
             // TODO message
         }
         return new RedirectResolution(this.getClass(), "display");
+    }
+
+    public Resolution refuseAdministratorRole(){
+        userFacade.removeAdministratorRole(getContext().getMyId());
+        // TODO exception message
+
+        return new ForwardResolution(ACCOUNT_ROLES);
+    }
+
+    public Resolution refuseDeveloperRole(){
+           userFacade.removeDeveloperRole(getContext().getMyId());
+        // TODO exception message
+           return new ForwardResolution(ACCOUNT_ROLES);
+       }
+
+    public Resolution setAdministratorRole() {
+        userFacade.setAsAdministrator(getContext().getMyId());
+        return new ForwardResolution(ACCOUNT_ROLES);
+    }
+
+    public Resolution setDeveloperRole() {
+        userFacade.setAsDeveloper(getContext().getMyId());
+        return new ForwardResolution(ACCOUNT_ROLES);
     }
 }

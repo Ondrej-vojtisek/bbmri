@@ -10,20 +10,19 @@ import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.stripesstuff.plugin.security.SecurityHandler;
+import org.stripesstuff.plugin.security.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-public class AssociatedSecurityManager extends J2EESecurityManager implements SecurityHandler
+public class AssociatedSecurityManager extends InstanceBasedSecurityManager implements SecurityHandler
 {
     private User user;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    protected User getUser(ActionBean bean){
-
+    private User getUser(ActionBean bean){
 
         BasicActionBean basicBean = (BasicActionBean) bean;
 
@@ -46,7 +45,7 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
         return user;
     }
 
-    protected Set<RoleType> getRoles(ActionBean bean){
+    private Set<RoleType> getRoles(ActionBean bean){
         return ((BasicActionBean) bean).getRoles();
     }
 
@@ -55,9 +54,9 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
         return null != getUser(bean);
     }
 
+
     @Override
-    protected Boolean hasRole(ActionBean bean, Method handler, String role){
-        /* Get all roles of logged user and compares them with requirements*/
+    protected Boolean hasRoleName(ActionBean bean, Method handler, String role){
 
         for(RoleType roleType : getRoles(bean)){
             if(roleType.toString().equals(role)){
@@ -67,6 +66,8 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
 
         return Boolean.FALSE;
     }
+
+
 
     @Override
     public Resolution handleAccessDenied(ActionBean bean, Method handler)

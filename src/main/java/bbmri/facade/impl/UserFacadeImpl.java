@@ -107,24 +107,55 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         userService.setSystemRole(userId, RoleType.DEVELOPER);
     }
 
-    public void removeSystemRole(Long userId, RoleType roleType){
+    public void removeSystemRole(Long userId, RoleType roleType) {
         notNull(userId);
         notNull(roleType);
         userService.removeSystemRole(userId, roleType);
     }
 
-    public List<User> getAdministrators(){
-       return userService.getAllByRole(RoleType.ADMINISTRATOR);
+    public void removeAdministratorRole(Long userId) {
+        notNull(userId);
+        User userDB = userService.get(userId);
+        if (userDB == null) {
+            return;
+            // TODO: exception
+        }
+        if(getAdministrators().size() == 1){
+            // TODO Exception
+            // can't remove last administrator
+            return;
+        }
+        userService.removeSystemRole(userId, RoleType.ADMINISTRATOR);
     }
 
-    public List<User> getDevelopers(){
+    public void removeDeveloperRole(Long userId) {
+            notNull(userId);
+            User userDB = userService.get(userId);
+            if (userDB == null) {
+                return;
+                // TODO: exception
+            }
+            if(getDevelopers().size() == 1){
+                // TODO Exception
+                // can't remove last administrator
+                return;
+            }
+            userService.removeSystemRole(userId, RoleType.DEVELOPER);
+        }
+
+
+    public List<User> getAdministrators() {
+        return userService.getAllByRole(RoleType.ADMINISTRATOR);
+    }
+
+    public List<User> getDevelopers() {
         return userService.getAllByRole(RoleType.DEVELOPER);
     }
 
-    public Set<RoleType> getRoleTypes(Long userId){
+    public Set<RoleType> getRoleTypes(Long userId) {
         notNull(userId);
         User userDB = userService.get(userId);
-        if(userDB == null){
+        if (userDB == null) {
             return null;
             // TODO: exception
         }

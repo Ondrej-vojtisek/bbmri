@@ -1,3 +1,4 @@
+<%@ page import="bbmri.entities.enumeration.RoleType" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
@@ -27,12 +28,70 @@
                 <c:forEach items="${ab.roleTypes}" var="roleType">
                     <tr>
                         <td><c:out value="${roleType}"/></td>
+                        <security:allowed bean="ab" event="removeAdministratorRole">
+                            <c:if test="${roleType == 'ADMINISTRATOR'}">
+                                <td>
+                                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                                            event="removeAdministratorRole">
+                                        <f:message key="remove"/></s:link>
+                                </td>
+                            </c:if>
+                        </security:allowed>
+
+                        <security:allowed bean="ab" event="removeDeveloperRole">
+                            <c:if test="${roleType == 'DEVELOPER'}">
+                                <td>
+                                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                                            event="removeDeveloperRole">
+                                        <f:message key="remove"/></s:link>
+                                </td>
+                            </c:if>
+                        </security:allowed>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
 
         </fieldset>
+
+
+        <%
+            if (!ab.getRoleTypes().contains(RoleType.DEVELOPER)) {
+        %>
+        <fieldset>
+            <legend><f:message key="RoleType"/></legend>
+            <security:allowed bean="ab" event="setDeveloperRole">
+
+                <td>
+                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                            event="setDeveloperRole">
+                        <f:message key="set"/></s:link>
+                </td>
+
+            </security:allowed>
+        </fieldset>
+        <%
+            }
+        %>
+
+        <%
+            if (!ab.getRoleTypes().contains(RoleType.ADMINISTRATOR)) {
+        %>
+        <fieldset>
+            <legend><f:message key="RoleType"/></legend>
+            <security:allowed bean="ab" event="setAdministratorRole">
+                <td>
+                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                            event="setAdministratorRole">
+                        <f:message key="set"/></s:link>
+                </td>
+
+            </security:allowed>
+        </fieldset>
+        <%
+            }
+        %>
+
 
         <fieldset>
             <legend><f:message key="credentials.roles"/></legend>

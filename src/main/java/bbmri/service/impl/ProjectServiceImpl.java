@@ -88,9 +88,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
                     User userDB = pa.getUser();
                     if (userDB.getProjectAdministrators().size() == 1 &&
-                            userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER)) {
+                            userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER)) {
 
-                        userDB.getRoleTypes().remove(RoleType.PROJECT_LEADER);
+                        userDB.getRoleTypes().remove(RoleType.PROJECT_TEAM_MEMBER);
                         userDao.update(userDB);
                     }
 
@@ -286,8 +286,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         userDB.getProjectAdministrators().add(pa);
 
-        if (!userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER)) {
-            userDB.getRoleTypes().add(RoleType.PROJECT_LEADER);
+        if (!userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER)) {
+            userDB.getRoleTypes().add(RoleType.PROJECT_TEAM_MEMBER);
         }
 
         userDao.update(userDB);
@@ -300,9 +300,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         for (ProjectAdministrator pa : userDB.getProjectAdministrators()) {
             if (pa.getProject().equals(projectDB)) {
 
-                if (userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER) &&
+                if (userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER) &&
                         userDB.getProjectAdministrators().size() == 1) {
-                    userDB.getRoleTypes().remove(RoleType.PROJECT_LEADER);
+                    userDB.getRoleTypes().remove(RoleType.PROJECT_TEAM_MEMBER);
                     userDao.update(userDB);
                 }
 

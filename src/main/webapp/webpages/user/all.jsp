@@ -35,9 +35,12 @@
                         <td><s:link beanclass="bbmri.action.user.UserActionBean"
                             event="remove"><s:param name="id" value="${user.id}"/>
                             <f:message key="remove"/></s:link></td>
-                        <td><s:link beanclass="bbmri.action.user.UserActionBean"
+                        <td>
+                            <s:link beanclass="bbmri.action.user.UserActionBean"
                                                    event="detail"><s:param name="id" value="${user.id}"/>
-                        <f:message key="detail"/></s:link></td>
+                            <f:message key="detail"/></s:link>
+
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
