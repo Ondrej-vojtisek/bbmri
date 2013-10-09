@@ -1,8 +1,8 @@
 package bbmri.action.user;
 
 import bbmri.action.BasicActionBean;
-import bbmri.entities.Role;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
@@ -11,11 +11,10 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.security.PermitAll;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,13 +30,22 @@ public class AccountActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    protected UserFacade userFacade;
+
+    protected User user;
+
+    public User getUser() {
+           return user;
+       }
+
+    public void setUser(User user) {
+           this.user = user;
+       }
 
     @Validate(on = {"changePassword"}, required = true)
     private String password;
     @Validate(on = {"changePassword"}, required = true)
     private String password2;
-    private User user;
 
     public String getPassword() {
         return password;
@@ -55,19 +63,14 @@ public class AccountActionBean extends BasicActionBean {
         this.password2 = password2;
     }
 
-
-    public User getUser() {
-        return user;
+    public List<RoleDTO> getUserRoles() {
+        return userFacade.getRoles(user.getId());
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Set<RoleType> getRoleTypes(){
+        return userFacade.getRoleTypes(user.getId());
     }
 
-
-    public List<RoleDTO> getMyRoles() {
-        return userFacade.getRoles(getLoggedUser().getId());
-    }
 
     @DontValidate
     @DefaultHandler

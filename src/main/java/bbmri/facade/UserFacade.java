@@ -1,10 +1,11 @@
 package bbmri.facade;
 
-import bbmri.entities.Role;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.webEntities.RoleDTO;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,11 +28,18 @@ public interface UserFacade {
 
     List<User> all();
 
-/*
+    void setAsDeveloper(Long userId);
+
+    void setAsAdministrator(Long userId);
+
+    void removeSystemRole(Long userId, RoleType roleType);
+
     List<User> getAdministrators();
 
     List<User> getDevelopers();
-*/
+
+    Set<RoleType> getRoleTypes(Long userId);
+
 
     /*
     with permission check

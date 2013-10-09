@@ -3,9 +3,11 @@ package tests.daoAndServiceTest;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.service.ProjectService;
 import bbmri.service.RequestGroupService;
 import bbmri.service.UserService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +35,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         /* ********* WHEN ********** */
         /* ********* THEN ********** */
 
-    //@Test
+    @Test
     public void createProjectTest() {
         /* ********* GIVEN ********** */
         Project project = createTestProject(1);
@@ -55,10 +57,11 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(Permission.MANAGER, pa.getPermission());
         assertEquals(user, pa.getUser());
         assertEquals(project, pa.getProject());
+       // assertEquals(true, user.getRoleTypes().contains(RoleType.PROJECT_LEADER));
 
     }
 
-    //@Test
+    @Test
     public void removeProjectTest() {
         /* ********* GIVEN ********** */
         Project project = createTestProject(1);
@@ -81,16 +84,18 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
+        user = userService.eagerGet(user.getId(), false, true, false);
+
         assertEquals(null, projectService.get(project.getId()));
-        assertEquals(user, userService.get(user.getId()));
         assertEquals(true, user.getProjectAdministrators().isEmpty());
 
         assertEquals(user2, userService.get(user2.getId()));
         assertEquals(true, user2.getJudgedProjects().isEmpty());
+        assertEquals(false, user.getRoleTypes().contains(RoleType.PROJECT_LEADER));
 
     }
 
-    //@Test
+    @Test
     public void approveProjectTest() {
         /* ********* GIVEN ********** */
         Project project = createTestProject(1);
@@ -115,7 +120,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
        assertEquals(user2, project.getJudgedByUser());
     }
 
-    //@Test
+    @Test
     public void denyProjectTest() {
            /* ********* GIVEN ********** */
         Project project = createTestProject(1);
@@ -140,7 +145,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(user2, project.getJudgedByUser());
     }
 
-    //@Test
+    @Test
     public void assignUserTest() {
         /* ********* GIVEN ********** */
         Project project = createTestProject(1);
@@ -159,7 +164,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* WHEN ********** */
 
-        //projectService.assignUserToProject(user, project3, Permission.MANAGER);
+       // projectService.changeAdministratorPermission(project3.getId(), user.getId(), Permission.MANAGER);
        // projectService.assignUser(user.getId(), project3.getId());
 
         /* ********* THEN ********** */
@@ -169,6 +174,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(user.getProjectAdministrators().size(), 3);
         assertEquals(user2.getProjectAdministrators().size(), 1);
+
     }
 
     //@Test

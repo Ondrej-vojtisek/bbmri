@@ -2,6 +2,7 @@ package bbmri.action.user;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import bbmri.io.ExcelImport;
@@ -15,19 +16,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+//import javax.annotation.security.RolesAllowed;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-@PermitAll
 @UrlBinding("/user/{$event}/{user.id}")
 public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    protected UserFacade userFacade;
 
     @ValidateNestedProperties(value = {
                     @Validate(on = {"create"},
@@ -69,17 +72,25 @@ public class UserActionBean extends BasicActionBean {
         return userFacade.getRoles(user.getId());
     }
 
+    public Set<RoleType> getRoleTypes(){
+        return userFacade.getRoleTypes(user.getId());
+    }
+
     @DontValidate
     @DefaultHandler
+    @HandlesEvent("allUsers") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
         return new ForwardResolution(USER_ALL);
     }
-    @DontValidate
+
     @HandlesEvent("createUser")
+    @RolesAllowed({"administrator", "developer"})
     public Resolution createUser(){
         return new ForwardResolution(USER_CREATE);
     }
 
+    @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
         userFacade.create(user);
         getContext().getMessages().add(
@@ -90,17 +101,18 @@ public class UserActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("remove")
+    @RolesAllowed({"administrator", "developer"})
     public Resolution remove() {
         userFacade.remove(id);
         // TODO confirm window
         getContext().getMessages().add(
-                new SimpleMessage("User {0} was created", user)
+                new SimpleMessage("User was removed")
         );
         return new RedirectResolution(this.getClass(), "display");
     }
 
-    @DontValidate
     @HandlesEvent("detail")
+    @RolesAllowed({"administrator", "developer"})
     public Resolution detail() {
         if(id.equals(getContext().getMyId())){
             return new ForwardResolution(AccountActionBean.class, "display");
@@ -109,13 +121,15 @@ public class UserActionBean extends BasicActionBean {
         return new ForwardResolution(USER_PERSONAL_DATA);
     }
 
-    @DontValidate
-       @HandlesEvent("rolesView")
-       public Resolution rolesView() {
-           logger.debug("getId : " + id);
+    @HandlesEvent("rolesView")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution rolesView() {
            user = userFacade.get(id);
            return new ForwardResolution(USER_ROLES);
-       }
+    }
+
+
+
 }
 
 

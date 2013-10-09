@@ -219,7 +219,6 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
             ActionBean actionBean = executionContext.getActionBean();
             if(actionBean == null){
                 logger.debug("ActionBean Null");
-
             }
             Method handler = executionContext.getHandler();
 
@@ -232,7 +231,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
             logger.debug("Security manager returned access allowed: " + accessAllowed);
         }
 
-        return accessAllowed;
+       return accessAllowed;
     }
 
     /**

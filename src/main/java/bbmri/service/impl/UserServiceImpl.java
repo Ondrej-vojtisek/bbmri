@@ -2,9 +2,9 @@ package bbmri.service.impl;
 
 import bbmri.dao.BiobankAdministratorDao;
 import bbmri.dao.BiobankDao;
-import bbmri.dao.RoleDao;
 import bbmri.dao.UserDao;
-import bbmri.entities.*;
+import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.User;
 import bbmri.entities.enumeration.RoleType;
 import bbmri.service.UserService;
 import org.slf4j.Logger;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,9 +31,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private RoleDao roleDao;
 
     @Autowired
     private BiobankDao biobankDao;
@@ -56,22 +52,13 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         }
 
         List<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
-              if (biobankAdministrators != null) {
-                  for (BiobankAdministrator ba : biobankAdministrators) {
-                      ba.setUser(null);
-                      ba.setBiobank(null);
-                      biobankAdministratorDao.remove(ba);
-                  }
-              }
-
-        Set<Role> roles = userDB.getRoles();
-                      if (roles != null) {
-                          for (Role role : roles) {
-                              role.getUser().remove(userDB);
-                              roleDao.update(role);
-                          }
-                      }
-
+        if (biobankAdministrators != null) {
+            for (BiobankAdministrator ba : biobankAdministrators) {
+                ba.setUser(null);
+                ba.setBiobank(null);
+                biobankAdministratorDao.remove(ba);
+            }
+        }
         userDao.remove(userDB);
     }
 
@@ -93,36 +80,34 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     public List<User> all() {
-        List<User> users = userDao.all();
-        return users;
+        return userDao.all();
     }
 
     public User get(Long id) {
-        User userDB = userDao.get(id);
-        return userDB;
+        return userDao.get(id);
     }
 
     public User removeRole(Long userId, RoleType roleType) {
         User userDB = userDao.get(userId);
-        Role role = new Role(roleType.toString());
-        if (userDB.getRoles().contains(role)) {
-            Role roleDB = roleDao.get(new Long(2));
-            roleDB.getUser().remove(userDB);
-            roleDao.update(roleDB);
-        }
 
+        if (userDB.getRoleTypes().contains(roleType)) {
+            userDB.getRoleTypes().remove(roleType);
+        } else {
+            // TODO: exception
+        }
         userDao.update(userDB);
         return userDB;
     }
 
     public User setRole(Long userId, RoleType roleType) {
         User userDB = userDao.get(userId);
-        Role role = new Role(roleType.toString());
-        if (!userDB.getRoles().contains(role)) {
-            Role roleDB = roleDao.get(new Long(2));
-            roleDB.getUser().add(userDB);
-            roleDao.update(roleDB);
+
+        if (!userDB.getRoleTypes().contains(roleType)) {
+            userDB.getRoleTypes().add(roleType);
+        } else {
+            // TODO exception
         }
+
         userDao.update(userDB);
         return userDB;
     }
@@ -155,7 +140,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
         /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-        if(biobank){
+        if (biobank) {
             logger.debug("" + userDB.getBiobankAdministrators());
         }
 
@@ -168,5 +153,54 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         }
         return userDB;
 
+    }
+
+    public void setSystemRole(Long userId, RoleType roleType) {
+        notNull(userId);
+        notNull(roleType);
+
+        User userDB = userDao.get(userId);
+
+        if (userDB == null) {
+            return;
+            // TODO: exception
+        }
+
+        if (userDB.getRoleTypes().contains(roleType)) {
+            return;
+            // TODO: exception
+        }
+        userDB.getRoleTypes().add(roleType);
+        userDao.update(userDB);
+    }
+
+    public void removeSystemRole(Long userId, RoleType roleType) {
+        notNull(userId);
+        notNull(roleType);
+
+        User userDB = userDao.get(userId);
+
+        if (userDB == null) {
+            return;
+            // TODO: exception
+        }
+
+        if (!userDB.getRoleTypes().contains(roleType)) {
+            return;
+            // TODO: exception
+        }
+        userDB.getRoleTypes().remove(roleType);
+        userDao.update(userDB);
+    }
+
+    public List<User> getAllByRole(RoleType roleType){
+        notNull(roleType);
+        List<User> results = new ArrayList<User>();
+        for(User user : userDao.all()){
+            if(user.getRoleTypes().contains(roleType)){
+                results.add(user);
+            }
+        }
+        return results;
     }
 }

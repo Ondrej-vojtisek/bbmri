@@ -2,8 +2,8 @@ package bbmri.security;
 
 import bbmri.action.BasicActionBean;
 import bbmri.action.LoginActionBean;
-import bbmri.entities.Role;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.RoleType;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
@@ -46,9 +46,8 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
         return user;
     }
 
-    protected Set<Role> getRoles(ActionBean bean){
+    protected Set<RoleType> getRoles(ActionBean bean){
         return ((BasicActionBean) bean).getRoles();
-        //return getUser(bean).getRoles();
     }
 
     @Override
@@ -58,10 +57,15 @@ public class AssociatedSecurityManager extends J2EESecurityManager implements Se
 
     @Override
     protected Boolean hasRole(ActionBean bean, Method handler, String role){
-        logger.debug("Testing if user has role: " + role + " User has: " +  getRoles(bean));
+        /* Get all roles of logged user and compares them with requirements*/
 
-        // Search for the given role in the set
-        return getRoles(bean).contains(new Role(role));
+        for(RoleType roleType : getRoles(bean)){
+            if(roleType.toString().equals(role)){
+                return Boolean.TRUE;
+            }
+        }
+
+        return Boolean.FALSE;
     }
 
     @Override

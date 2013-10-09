@@ -1,6 +1,5 @@
 package tests.daoAndServiceTest;
 
-import bbmri.service.ProjectService;
 import bbmri.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,9 @@ public class UserComplexTest extends AbstractDaoAndServiceTest {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ProjectService projectService;
-
           /* ********* GIVEN ********** */
           /* ********* WHEN ********** */
           /* ********* THEN ********** */
-
-    //TODO
 
     @Test
     public void notImplementedYet(){

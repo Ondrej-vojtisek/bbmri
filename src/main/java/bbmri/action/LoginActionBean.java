@@ -73,6 +73,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().setLoggedUser(user);
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
+
+//        return new RedirectResolution("/dashboard.jsp");
         return new RedirectResolution(ProjectActionBean.class);
     }
 

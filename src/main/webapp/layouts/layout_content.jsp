@@ -42,7 +42,7 @@
 <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
 
-<c:set var="administrator" scope="session" value="${bean.loggedUser.administrator}"/>
+<c:set var="administrator" scope="session" value="${bean.loggedUser.isAdministrator}"/>
 <c:set var="biobank" scope="session" value="${null}"/>
 <c:set var="logged" scope="session" value="${bean.loggedUser.wholeName}"/>
 
@@ -73,23 +73,19 @@
                 </p>
                 <ul class="nav">
 
-
                     <li <c:if test="${primarymenu == 'project'}"> class="active" </c:if> ><s:link
                             beanclass="bbmri.action.project.ProjectActionBean"><f:message
                             key="projects"/></s:link></li>
                     <li <c:if test="${primarymenu == 'biobank'}"> class="active" </c:if> ><s:link
                             beanclass="bbmri.action.biobank.BiobankActionBean"><f:message
                             key="biobanks"/></s:link></li>
-                    <c:if test="${administrator}">
-                        <li <c:if test="${primarymenu == 'user'}"> class="active" </c:if> ><s:link
-                                beanclass="bbmri.action.user.UserActionBean"><f:message
-                                key="users"/></s:link></li>
-                    </c:if>
-                    <c:if test="${administrator}">
-                        <li <c:if test="${primarymenu == 'changeadministrator'}"> class="active" </c:if> ><s:link
-                                beanclass="bbmri.action.user.ChangeAdministrator"><f:message
-                                key="change_administrator"/></s:link></li>
-                    </c:if>
+
+                    <security:allowed bean="userBean" event="allUsers">
+                    <li <c:if test="${primarymenu == 'user'}"> class="active" </c:if> ><s:link
+                            beanclass="bbmri.action.user.UserActionBean"><f:message
+                            key="users"/></s:link></li>
+                    </security:allowed>
+
                 </ul>
             </div>
         </div>
@@ -156,14 +152,7 @@
                     </c:if>
 
                     <c:if test="${primarymenu == 'user'}">
-                        <c:if test="${administrator}">
-                            <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if> ><s:link
-                                    beanclass="bbmri.action.user.UserActionBean"><f:message
-                                    key="all"/></s:link></li>
-                            <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>><s:link
-                                    beanclass="bbmri.action.user.UserActionBean" event="createUser"><f:message
-                                    key="user.create"/></s:link></li>
-                        </c:if>
+                        <%@include file="secondaryMenu/user_sec_menu.jsp" %>
                     </c:if>
 
                 </ul>
@@ -197,7 +186,7 @@
                                 beanclass="bbmri.action.user.UserActionBean" event="detail">
                             <s:param name="id" value="${userBean.user.id}"/>
                             <f:message
-                                key="credentials.change_title"/>
+                                    key="credentials.change_title"/>
                         </s:link></li>
                         <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
                                 beanclass="bbmri.action.user.UserActionBean"

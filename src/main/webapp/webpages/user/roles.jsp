@@ -11,6 +11,30 @@
     <s:layout-component name="body">
 
         <fieldset>
+            <legend><f:message key="RoleType"/></legend>
+            <table cellspacing="0" class="tablesorter">
+                <thead>
+                <tr>
+                    <th><s:label name="roleType"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty ab.roleTypes}">
+                    <tr>
+                        <td><f:message key="empty"/></td>
+                    </tr>
+                </c:if>
+                <c:forEach items="${ab.roleTypes}" var="roleType">
+                    <tr>
+                        <td><c:out value="${roleType}"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+        </fieldset>
+
+        <fieldset>
             <legend><f:message key="credentials.roles"/></legend>
             <table cellspacing="0" class="tablesorter">
                 <thead>
@@ -37,6 +61,7 @@
             </table>
 
         </fieldset>
+
 
     </s:layout-component>
 </s:layout-render>

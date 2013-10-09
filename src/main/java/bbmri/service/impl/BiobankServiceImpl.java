@@ -3,6 +3,7 @@ package bbmri.service.impl;
 import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,16 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         List<BiobankAdministrator> biobankAdministrators = biobank.getBiobankAdministrators();
         if (biobankAdministrators != null) {
             for (BiobankAdministrator ba : biobankAdministrators) {
+
+                /* Remove system role biobank operator */
+                User userDB = ba.getUser();
+                if(userDB.getBiobankAdministrators().size() == 1 &&
+                        userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
+
+                          userDB.getRoleTypes().remove(RoleType.BIOBANK_OPERATOR);
+                        userDao.update(userDB);
+                }
+
                 ba.setUser(null);
                 ba.setBiobank(null);
                 biobankAdministratorDao.remove(ba);
@@ -145,7 +156,18 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             return;
             // TODO: exception
         }
+
+        if(userDB.getBiobankAdministrators().size() == 1 &&
+                userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
+
+                  userDB.getRoleTypes().remove(RoleType.BIOBANK_OPERATOR);
+                userDao.update(userDB);
+        }
+
         biobankAdministratorDao.remove(ba);
+
+
+
     }
 
     public User assignAdministrator(Long userId, Long biobankId, Permission permission) {
@@ -172,6 +194,11 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         biobankDao.update(biobankDB);
 
         userDB.getBiobankAdministrators().add(ba);
+
+        if(!userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
+            userDB.getRoleTypes().add(RoleType.BIOBANK_OPERATOR);
+        }
+
         userDao.update(userDB);
         return userDB;
     }

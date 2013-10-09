@@ -2,19 +2,18 @@ package bbmri.facade.impl;
 
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.ProjectAdministrator;
-import bbmri.entities.Role;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import bbmri.service.BiobankAdministratorService;
-import bbmri.service.RoleService;
 import bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,9 +30,6 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     private UserService userService;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
     //@Autowired
@@ -48,16 +44,6 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         if (userDB == null) {
             return null;
             //TODO exception
-        }
-        /* Add general roles of user */
-        for (Role role : userDB.getRoles()) {
-            RoleDTO newRole = new RoleDTO();
-            newRole.setSubject(role.getName());
-            newRole.setType(role.getClass());
-            newRole.setPermission(null);
-            newRole.setReferenceId(null);
-
-            results.add(newRole);
         }
 
         /* Add all biobanks of user */
@@ -92,22 +78,69 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         userService.update(user);
     }
 
-    public List<User> all(){
+    public List<User> all() {
         return userService.all();
     }
 
-    public void create(User user){
+    public void create(User user) {
         notNull(user);
         userService.create(user);
     }
 
-    public void remove(Long userId){
+    public void remove(Long userId) {
         notNull(userId);
         userService.remove(userId);
     }
 
-    public User get(Long userId){
-            notNull(userId);
-            return userService.get(userId);
+    public User get(Long userId) {
+        notNull(userId);
+        return userService.get(userId);
+    }
+
+    public void setAsDeveloper(Long userId) {
+        notNull(userId);
+        userService.setSystemRole(userId, RoleType.DEVELOPER);
+    }
+
+    public void setAsAdministrator(Long userId) {
+        notNull(userId);
+        userService.setSystemRole(userId, RoleType.DEVELOPER);
+    }
+
+    public void removeSystemRole(Long userId, RoleType roleType){
+        notNull(userId);
+        notNull(roleType);
+        userService.removeSystemRole(userId, roleType);
+    }
+
+    public List<User> getAdministrators(){
+       return userService.getAllByRole(RoleType.ADMINISTRATOR);
+    }
+
+    public List<User> getDevelopers(){
+        return userService.getAllByRole(RoleType.DEVELOPER);
+    }
+
+    public Set<RoleType> getRoleTypes(Long userId){
+        notNull(userId);
+        User userDB = userService.get(userId);
+        if(userDB == null){
+            return null;
+            // TODO: exception
         }
+        return userDB.getRoleTypes();
+
+                /* Add general roles of user */
+
+   /*
+           for (RoleType role : userDB.getRoleTypes()) {
+            RoleDTO newRole = new RoleDTO();
+            newRole.setSubject(role.toString());
+            newRole.setType(role.getClass());
+            newRole.setPermission(null);
+            newRole.setReferenceId(null);
+            results.add(newRole);
+        }
+        */
+    }
 }

@@ -10,7 +10,31 @@
     <s:layout-component name="body">
 
         <fieldset>
-            <legend><f:message key="credentials.myRoles"/></legend>
+            <legend><f:message key="RoleType"/></legend>
+            <table cellspacing="0" class="tablesorter">
+                <thead>
+                <tr>
+                    <th><s:label name="roleType"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="${empty ab.roleTypes}">
+                    <tr>
+                        <td><f:message key="empty"/></td>
+                    </tr>
+                </c:if>
+                <c:forEach items="${ab.roleTypes}" var="roleType">
+                    <tr>
+                        <td><c:out value="${roleType}"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+        </fieldset>
+
+        <fieldset>
+            <legend><f:message key="credentials.roles"/></legend>
             <table cellspacing="0" class="tablesorter">
                 <thead>
                 <tr>
@@ -20,12 +44,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${empty ab.myRoles}">
+                <c:if test="${empty ab.userRoles}">
                     <tr>
                         <td><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${ab.myRoles}" var="roleDTO">
+                <c:forEach items="${ab.userRoles}" var="roleDTO">
                     <tr>
                         <td><c:out value="${roleDTO.subject}"/></td>
                         <td><c:out value="${roleDTO.permission}"/></td>

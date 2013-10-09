@@ -27,6 +27,11 @@ public interface UserService extends BasicService<User>{
     /* Dummy - tohle musi byt udelano jinym zpusobem. Kontrolou zda dany uzivatel muze byt administrator */
     List<User> getNonAdministratorUsers();
 
+    void setSystemRole(Long userId, RoleType roleType);
+
+    void removeSystemRole(Long userId, RoleType roleType);
+
+    List<User> getAllByRole(RoleType roleType);
 
    /*
     To implement:

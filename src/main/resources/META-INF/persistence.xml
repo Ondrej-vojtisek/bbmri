@@ -13,7 +13,6 @@
         <class>bbmri.entities.ProjectAdministrator</class>
         <class>bbmri.entities.Request</class>
         <class>bbmri.entities.RequestGroup</class>
-        <class>bbmri.entities.Role</class>
         <class>bbmri.entities.Sample</class>
         <class>bbmri.entities.SampleQuestion</class>
         <class>bbmri.entities.User</class>
@@ -42,7 +41,6 @@
         <class>bbmri.entities.ProjectAdministrator</class>
         <class>bbmri.entities.Request</class>
         <class>bbmri.entities.RequestGroup</class>
-        <class>bbmri.entities.Role</class>
         <class>bbmri.entities.Sample</class>
         <class>bbmri.entities.SampleQuestion</class>
         <class>bbmri.entities.User</class>

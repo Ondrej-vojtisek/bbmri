@@ -4,10 +4,7 @@ import bbmri.entities.enumeration.RoleType;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,8 +47,11 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<Role>();
+    @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
+    @Column(name = "Role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    Set<RoleType> roleTypes;
 
     public User() {}
 
@@ -92,12 +92,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public boolean isOperator() {
-        return roles.contains(new Role(RoleType.BIOBANK_OPERATOR.toString()));
+    public boolean getIsOperator() {
+        return roleTypes.contains(RoleType.BIOBANK_OPERATOR);
     }
 
-    public boolean isAdministrator() {
-         return roles.contains(new Role(RoleType.ADMINISTRATOR.toString()));
+    public boolean getIsAdministrator() {
+         return roleTypes.contains(RoleType.ADMINISTRATOR);
     }
 
     public List<Project> getJudgedProjects() {
@@ -110,14 +110,6 @@ public class User implements Serializable {
 
     public String getWholeName() {
         return name + " " + surname;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     public String getEmail() {
@@ -142,6 +134,14 @@ public class User implements Serializable {
 
     public void setProjectAdministrators(List<ProjectAdministrator> projectAdministrators) {
         this.projectAdministrators = projectAdministrators;
+    }
+
+    public Set<RoleType> getRoleTypes() {
+        return roleTypes;
+    }
+
+    public void setRoleTypes(Set<RoleType> roleTypes) {
+        this.roleTypes = roleTypes;
     }
 
     @Override

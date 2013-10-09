@@ -1,6 +1,7 @@
 package bbmri.action;
 
 import bbmri.entities.*;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.LifecycleStage;
@@ -33,7 +34,6 @@ public class BasicActionBean implements ActionBean {
     protected static final String ACCOUNT_ROLES = "/webpages/user/account_roles.jsp";
 
     // USER
-    protected static final String USER_CHANGE_ADMINISTRATOR = "/webpages/user/changeAdministrator.jsp";
     protected static final String USER_ALL = "/webpages/user/all.jsp";
     protected static final String USER_CREATE = "/webpages/user/create.jsp";
     protected static final String USER_PERSONAL_DATA = "/webpages/user/personal_data.jsp";
@@ -94,9 +94,9 @@ public class BasicActionBean implements ActionBean {
         return userService.get(id);
     }
 
-    public Set<Role> getRoles(){
+    public Set<RoleType> getRoles(){
         Long id = ctx.getMyId();
-        return userService.get(id).getRoles();
+        return userService.get(id).getRoleTypes();
 
     }
 
@@ -131,5 +131,7 @@ public class BasicActionBean implements ActionBean {
            /* return for example: ServletPath: my_account*/
             return s.substring(0, s.indexOf("."));
         }
+
+
 
 }

@@ -137,6 +137,13 @@ public class J2EESecurityManager implements SecurityManager
                     {
                         logger.debug("Tested role: " + role);
                         Boolean hasRole = hasRole(bean, handler, role);
+
+                       if(hasRole == null){
+                           logger.debug("HasRole je null");
+                       }
+
+                        logger.debug("HasRole je: " + hasRole);
+
                         if(hasRole != null && hasRole)
                         {
                             allowed = true;

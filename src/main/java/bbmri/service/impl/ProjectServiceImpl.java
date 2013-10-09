@@ -4,6 +4,7 @@ import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
+import bbmri.entities.enumeration.RoleType;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,6 +85,16 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             List<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
             if (projectAdministrators != null) {
                 for (ProjectAdministrator pa : projectAdministrators) {
+
+                    User userDB = pa.getUser();
+                    if (userDB.getProjectAdministrators().size() == 1 &&
+                            userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER)) {
+
+                        userDB.getRoleTypes().remove(RoleType.PROJECT_LEADER);
+                        userDao.update(userDB);
+                    }
+
+
                     pa.setUser(null);
                     pa.setProject(null);
                     projectAdministratorDao.remove(pa);
@@ -155,13 +166,12 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
 
-
     public List<Project> getEagerByUserWithRequests(Long userId) {
         notNull(userId);
         User userDB = userDao.get(userId);
         List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
-        for(ProjectAdministrator pa : paList){
+        for (ProjectAdministrator pa : paList) {
             projects.add(pa.getProject());
         }
 
@@ -275,6 +285,11 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         projectDao.update(projectDB);
 
         userDB.getProjectAdministrators().add(pa);
+
+        if (!userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER)) {
+            userDB.getRoleTypes().add(RoleType.PROJECT_LEADER);
+        }
+
         userDao.update(userDB);
     }
 
@@ -284,6 +299,13 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         for (ProjectAdministrator pa : userDB.getProjectAdministrators()) {
             if (pa.getProject().equals(projectDB)) {
+
+                if (userDB.getRoleTypes().contains(RoleType.PROJECT_LEADER) &&
+                        userDB.getProjectAdministrators().size() == 1) {
+                    userDB.getRoleTypes().remove(RoleType.PROJECT_LEADER);
+                    userDao.update(userDB);
+                }
+
                 pa.setUser(null);
                 pa.setProject(null);
                 projectAdministratorDao.remove(pa);
@@ -291,7 +313,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
     }
 
-    public void removeAdministrator(Long projectId, Long loggedUserId, Long userId){
+    public void removeAdministrator(Long projectId, Long loggedUserId, Long userId) {
         notNull(userId);
         notNull(projectId);
         notNull(loggedUserId);
@@ -301,30 +323,30 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         Project projectDB = projectDao.get(projectId);
 
 
-        if(userDB == null  || loggedUser == null || projectDB == null){
+        if (userDB == null || loggedUser == null || projectDB == null) {
             return;
             // TODO: exception
         }
         ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
 
-        if(pa == null){
-                   return;
-        // TODO: exception - You can't remove user which is not administrator
+        if (pa == null) {
+            return;
+            // TODO: exception - You can't remove user which is not administrator
         }
 
         ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
 
-        if(loggedPa == null){
+        if (loggedPa == null) {
             return;
             // TODO: exception - You are not administrator of this project
         }
 
-        if(!loggedPa.getPermission().equals(Permission.MANAGER)){
+        if (!loggedPa.getPermission().equals(Permission.MANAGER)) {
             return;
             // TODO: exception - You don't have sufficient rights
         }
 
-        if(userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1){
+        if (userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1) {
             return;
             // TODO: exception - You are last admin so you can't lower your permissions
         }
@@ -332,44 +354,44 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         removeUserFromProject(userDB, projectDB);
     }
 
-    public void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission){
-            notNull(userId);
-            notNull(projectId);
-            notNull(loggedUserId);
-            notNull(permission);
+    public void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission) {
+        notNull(userId);
+        notNull(projectId);
+        notNull(loggedUserId);
+        notNull(permission);
 
-            User userDB = userDao.get(userId);
-            User loggedUser = userDao.get(loggedUserId);
-            Project projectDB = projectDao.get(projectId);
+        User userDB = userDao.get(userId);
+        User loggedUser = userDao.get(loggedUserId);
+        Project projectDB = projectDao.get(projectId);
 
 
-            if(userDB == null  || loggedUser == null || projectDB == null){
-                return;
-                // TODO: exception
-            }
+        if (userDB == null || loggedUser == null || projectDB == null) {
+            return;
+            // TODO: exception
+        }
 
-            ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
+        ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
 
-            if(loggedPa == null){
-                return;
-                // TODO: exception - You are not administrator of this project
-            }
+        if (loggedPa == null) {
+            return;
+            // TODO: exception - You are not administrator of this project
+        }
 
-            if(!loggedPa.getPermission().equals(Permission.MANAGER)){
-                return;
-                // TODO: exception - You don't have sufficient rights
-            }
+        if (!loggedPa.getPermission().equals(Permission.MANAGER)) {
+            return;
+            // TODO: exception - You don't have sufficient rights
+        }
 
-            if(userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1){
-                return;
-                // TODO: exception - You are last admin so you can't lower your permissions
-            }
+        if (userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1) {
+            return;
+            // TODO: exception - You are last admin so you can't lower your permissions
+        }
 
         ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
 
-        if(pa == null){
+        if (pa == null) {
             assignUserToProject(userDB, projectDB, permission);
-        }else{
+        } else {
             pa.setPermission(permission);
             projectAdministratorDao.update(pa);
         }
@@ -377,14 +399,14 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
 
-    private int projectManagerCount(Project project){
-            notNull(project);
-            int count = 0;
-            for(ProjectAdministrator pa : project.getProjectAdministrators()){
-                if(pa.getPermission().equals(Permission.MANAGER)){
-                    count++;
-                }
+    private int projectManagerCount(Project project) {
+        notNull(project);
+        int count = 0;
+        for (ProjectAdministrator pa : project.getProjectAdministrators()) {
+            if (pa.getPermission().equals(Permission.MANAGER)) {
+                count++;
             }
-            return count;
         }
+        return count;
+    }
 }
