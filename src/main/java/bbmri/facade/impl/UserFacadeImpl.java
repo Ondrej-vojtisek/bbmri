@@ -3,15 +3,18 @@ package bbmri.facade.impl;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.ProjectAdministrator;
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import bbmri.service.BiobankAdministratorService;
+import bbmri.service.LoginService;
 import bbmri.service.UserService;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -31,6 +34,9 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
+
+    @Autowired
+    private LoginService loginService;
 
     //@Autowired
     //private ProjectAdministrator biobankAdministrator;
@@ -99,18 +105,18 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     public void setAsDeveloper(Long userId) {
         notNull(userId);
-        userService.setSystemRole(userId, RoleType.DEVELOPER);
+        userService.setSystemRole(userId, SystemRole.DEVELOPER);
     }
 
     public void setAsAdministrator(Long userId) {
         notNull(userId);
-        userService.setSystemRole(userId, RoleType.DEVELOPER);
+        userService.setSystemRole(userId, SystemRole.DEVELOPER);
     }
 
-    public void removeSystemRole(Long userId, RoleType roleType) {
+    public void removeSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
-        notNull(roleType);
-        userService.removeSystemRole(userId, roleType);
+        notNull(systemRole);
+        userService.removeSystemRole(userId, systemRole);
     }
 
     public void removeAdministratorRole(Long userId) {
@@ -125,7 +131,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             // can't remove last administrator
             return;
         }
-        userService.removeSystemRole(userId, RoleType.ADMINISTRATOR);
+        userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR);
     }
 
     public void removeDeveloperRole(Long userId) {
@@ -140,38 +146,37 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
                 // can't remove last administrator
                 return;
             }
-            userService.removeSystemRole(userId, RoleType.DEVELOPER);
+            userService.removeSystemRole(userId, SystemRole.DEVELOPER);
         }
 
 
     public List<User> getAdministrators() {
-        return userService.getAllByRole(RoleType.ADMINISTRATOR);
+        return userService.getAllByRole(SystemRole.ADMINISTRATOR);
     }
 
     public List<User> getDevelopers() {
-        return userService.getAllByRole(RoleType.DEVELOPER);
+        return userService.getAllByRole(SystemRole.DEVELOPER);
     }
 
-    public Set<RoleType> getRoleTypes(Long userId) {
+    public Set<SystemRole> getSystemRoles(Long userId) {
         notNull(userId);
         User userDB = userService.get(userId);
         if (userDB == null) {
             return null;
             // TODO: exception
         }
-        return userDB.getRoleTypes();
+        return userDB.getSystemRoles();
+    }
 
-                /* Add general roles of user */
-
-   /*
-           for (RoleType role : userDB.getRoleTypes()) {
-            RoleDTO newRole = new RoleDTO();
-            newRole.setSubject(role.toString());
-            newRole.setType(role.getClass());
-            newRole.setPermission(null);
-            newRole.setReferenceId(null);
-            results.add(newRole);
+    public User login(Long id, String password){
+        notNull(id);
+        notNull(password);
+        User user = loginService.login(id, password);
+        if(user != null){
+            logger.debug("SetDate");
+            user.setLastLogin(new Date());
+            userService.update(user);
         }
-        */
+        return user;
     }
 }

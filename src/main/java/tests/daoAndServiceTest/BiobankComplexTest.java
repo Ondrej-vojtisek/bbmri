@@ -2,7 +2,7 @@ package tests.daoAndServiceTest;
 
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.BiobankAdministratorService;
 import bbmri.service.BiobankService;
 import bbmri.service.SampleService;
@@ -58,7 +58,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(true, ba.getBiobank().equals(biobank));
         assertEquals(Permission.MANAGER, ba.getPermission());
-        assertEquals(true, user.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR));
+        assertEquals(true, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
         user = userService.eagerGet(user.getId(), false, false, true);
         assertEquals(true, user.getBiobankAdministrators().isEmpty());
         assertEquals(null, sampleService.get(sample1.getId()));
-        assertEquals(false, user.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR));
+        assertEquals(false, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
     }
 
     @Test
@@ -245,7 +245,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(biobank, ba.getBiobank());
         assertEquals(false, biobank.getBiobankAdministrators().isEmpty());
-        assertEquals(true, user.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR));
+        assertEquals(true, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
     }
 
     @Test
@@ -274,7 +274,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(2, biobank.getBiobankAdministrators().size());
         assertEquals(Permission.EDITOR, ba.getPermission());
-        assertEquals(true, user2.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR));
+        assertEquals(true, user2.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
     }
 
     @Test
@@ -309,7 +309,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(1, biobank.getBiobankAdministrators().size());
         assertEquals(true, user.getBiobankAdministrators().isEmpty());
-        assertEquals(false, user.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR));
+        assertEquals(false, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
     }
 
 }

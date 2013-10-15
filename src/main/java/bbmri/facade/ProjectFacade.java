@@ -43,4 +43,8 @@ public interface ProjectFacade {
     void updateAttachment(Attachment attachment);
 
     void uploadAttachment(Attachment attachment);
+
+    List<Attachment> getAttachments(Long projectId);
+
+    String getAttachmentPath(Long attachmentId);
 }

@@ -1,4 +1,4 @@
-<%@ page import="bbmri.entities.enumeration.RoleType" %>
+<%@ page import="bbmri.entities.enumeration.SystemRole" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
@@ -12,40 +12,44 @@
     <s:layout-component name="body">
 
         <fieldset>
-            <legend><f:message key="RoleType"/></legend>
-            <table cellspacing="0" class="tablesorter">
+            <legend><f:message key="bbmri.entities.enumeration.SystemRoles"/></legend>
+            <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th><s:label name="roleType"/></th>
+                    <th><s:label name="bbmri.entities.enumeration.SystemRoles"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${empty ab.roleTypes}">
+                <c:if test="${empty ab.systemRoles}">
                     <tr>
                         <td><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${ab.roleTypes}" var="roleType">
+                <c:forEach items="${ab.systemRoles}" var="systemRole">
                     <tr>
-                        <td><c:out value="${roleType}"/></td>
+                        <td><c:out value="${systemRole}"/></td>
                         <security:allowed bean="ab" event="removeAdministratorRole">
-                            <c:if test="${roleType == 'ADMINISTRATOR'}">
-                                <td>
+                            <td>
+                            <c:if test="${systemRole == 'ADMINISTRATOR'}">
+
                                     <s:link beanclass="bbmri.action.user.UserActionBean"
                                             event="removeAdministratorRole">
                                         <f:message key="remove"/></s:link>
-                                </td>
+
                             </c:if>
+                            </td>
                         </security:allowed>
 
                         <security:allowed bean="ab" event="removeDeveloperRole">
-                            <c:if test="${roleType == 'DEVELOPER'}">
-                                <td>
+                            <td>
+                            <c:if test="${systemRole == 'DEVELOPER'}">
+
                                     <s:link beanclass="bbmri.action.user.UserActionBean"
                                             event="removeDeveloperRole">
                                         <f:message key="remove"/></s:link>
-                                </td>
+
                             </c:if>
+                            </td>
                         </security:allowed>
                     </tr>
                 </c:forEach>
@@ -56,18 +60,16 @@
 
 
         <%
-            if (!ab.getRoleTypes().contains(RoleType.DEVELOPER)) {
+            if (!ab.getSystemRoles().contains(SystemRole.DEVELOPER)) {
         %>
         <fieldset>
-            <legend><f:message key="RoleType"/></legend>
+            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
+                    <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
+            </legend>
             <security:allowed bean="ab" event="setDeveloperRole">
-
-                <td>
                     <s:link beanclass="bbmri.action.user.UserActionBean"
                             event="setDeveloperRole">
                         <f:message key="set"/></s:link>
-                </td>
-
             </security:allowed>
         </fieldset>
         <%
@@ -75,17 +77,16 @@
         %>
 
         <%
-            if (!ab.getRoleTypes().contains(RoleType.ADMINISTRATOR)) {
+            if (!ab.getSystemRoles().contains(SystemRole.ADMINISTRATOR)) {
         %>
         <fieldset>
-            <legend><f:message key="RoleType"/></legend>
+            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
+                    <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
+            </legend>
             <security:allowed bean="ab" event="setAdministratorRole">
-                <td>
                     <s:link beanclass="bbmri.action.user.UserActionBean"
                             event="setAdministratorRole">
-                        <f:message key="set"/></s:link>
-                </td>
-
+                    <f:message key="set"/></s:link>
             </security:allowed>
         </fieldset>
         <%
@@ -95,18 +96,18 @@
 
         <fieldset>
             <legend><f:message key="credentials.roles"/></legend>
-            <table cellspacing="0" class="tablesorter">
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th><s:label name="role"/></th>
-                    <th><s:label name="permission"/></th>
-                    <th><s:label name="reference"/></th>
+                    <th><s:label name="bbmri.entities.webEntities.RoleDTO.subject"/></th>
+                    <th><s:label name="bbmri.entities.webEntities.RoleDTO.permission"/></th>
+                    <th><s:label name="bbmri.entities.webEntities.RoleDTO.referenceId"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:if test="${empty ab.userRoles}">
                     <tr>
-                        <td><f:message key="empty"/></td>
+                        <td colspan="3"><f:message key="empty"/></td>
                     </tr>
                 </c:if>
                 <c:forEach items="${ab.userRoles}" var="roleDTO">

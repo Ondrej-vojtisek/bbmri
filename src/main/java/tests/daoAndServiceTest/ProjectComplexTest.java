@@ -3,7 +3,7 @@ package tests.daoAndServiceTest;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.ProjectService;
 import bbmri.service.RequestGroupService;
 import bbmri.service.UserService;
@@ -57,7 +57,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         assertEquals(Permission.MANAGER, pa.getPermission());
         assertEquals(user, pa.getUser());
         assertEquals(project, pa.getProject());
-       // assertEquals(true, user.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER));
+       // assertEquals(true, user.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER));
 
     }
 
@@ -91,7 +91,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(user2, userService.get(user2.getId()));
         assertEquals(true, user2.getJudgedProjects().isEmpty());
-        assertEquals(false, user.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER));
+        assertEquals(false, user.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER));
 
     }
 

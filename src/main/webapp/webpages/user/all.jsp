@@ -9,8 +9,11 @@
                  secondarymenu="user_all">
 
     <s:layout-component name="body">
+
+
         <fieldset>
             <legend><f:message key="all_users"/></legend>
+
             <table id="sortable" cellspacing="0" class="tablesorter">
                 <thead>
                 <tr>
@@ -33,13 +36,12 @@
                         <td><c:out value="${user.name}"/></td>
                         <td><c:out value="${user.surname}"/></td>
                         <td><s:link beanclass="bbmri.action.user.UserActionBean"
-                            event="remove"><s:param name="id" value="${user.id}"/>
+                                    event="remove"><s:param name="id" value="${user.id}"/>
                             <f:message key="remove"/></s:link></td>
                         <td>
                             <s:link beanclass="bbmri.action.user.UserActionBean"
-                                                   event="detail"><s:param name="id" value="${user.id}"/>
-                            <f:message key="detail"/></s:link>
-
+                                    event="detail"><s:param name="id" value="${user.id}"/>
+                                <f:message key="detail"/></s:link>
                         </td>
                     </tr>
                 </c:forEach>

@@ -2,6 +2,7 @@ package bbmri.action;
 
 import bbmri.action.project.ProjectActionBean;
 import bbmri.entities.User;
+import bbmri.facade.UserFacade;
 import bbmri.service.LoginService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -30,7 +31,9 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     private static final String INDEX = "/index.jsp";
 
     @SpringBean
-    private LoginService loginService;
+    private UserFacade userFacade;
+
+
 
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1)
@@ -75,7 +78,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
 
-//        return new RedirectResolution(DashboardActionBean.class);
+//      return new RedirectResolution(DashboardActionBean.class);
+
         return new RedirectResolution(ProjectActionBean.class);
     }
 
@@ -90,7 +94,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @ValidationMethod
       public void validateUser(ValidationErrors errors){
           if(id != null && password != null){
-              user = loginService.login(id, password);
+              user = userFacade.login(id, password);
           }
           if(user == null){
               getContext().getMessages().add(

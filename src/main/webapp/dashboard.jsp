@@ -41,7 +41,10 @@
                 <security:allowed bean="ab" event="iamsecure8">
                     myId == 2
                 </security:allowed>
-
+                ////
+                <security:allowed bean="ab" event="iamsecure10">
+                    pravda
+                </security:allowed>
 
             </s:form>
         </fieldset>

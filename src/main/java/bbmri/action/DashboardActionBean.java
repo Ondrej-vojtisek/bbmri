@@ -1,6 +1,8 @@
 package bbmri.action;
 
+import bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,8 @@ public class DashboardActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    @SpringBean
+    BiobankFacade biobankFacade;
 
     public int cisloA = 1;
     public int cisloB = 2;
@@ -31,7 +35,12 @@ public class DashboardActionBean extends BasicActionBean {
         return cisloB;
     }
 
+    private BiobankFacade getFacade(){
+        return biobankFacade;
+    }
+
     private static final String DEFAULT = "/dashboard.jsp";
+
 
     @DontValidate
     @DefaultHandler
@@ -46,26 +55,28 @@ public class DashboardActionBean extends BasicActionBean {
         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
     }
 
-      //OK
+    //OK
     @HandlesEvent("iamsecure2")
     @RolesAllowed({"administrator"})
     public Resolution iamsecure2() {
         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
     }
-      //OK
+
+    //OK
     @HandlesEvent("iamsecure3")
     @RolesAllowed({"user if ${1 == 1}"})
     public Resolution iamsecure3() {
         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
     }
 
-      //OK
+    //OK
     @HandlesEvent("iamsecure4")
     @RolesAllowed({"user if ${1 == 2}"})
     public Resolution iamsecure4() {
         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
     }
-      //OK
+
+    //OK
     @HandlesEvent("iamsecure5")
     @RolesAllowed({"user if ${cisloA == cisloB}"})
     public Resolution iamsecure5() {
@@ -79,7 +90,7 @@ public class DashboardActionBean extends BasicActionBean {
         return new ForwardResolution("/WEB-INF/jsp/some.jsp");
     }
 
-     //OK
+    //OK
     @HandlesEvent("iamsecure7")
     @RolesAllowed({"user if ${cisloAA == cisloBB}"})
     public Resolution iamsecure7() {
@@ -87,10 +98,17 @@ public class DashboardActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("iamsecure8")
-        @RolesAllowed({"user if ${context.myId == 2}"})
-        public Resolution iamsecure8() {
-            return new ForwardResolution("/WEB-INF/jsp/some.jsp");
-        }
+    @RolesAllowed({"user if ${context.myId == 2}"})
+    public Resolution iamsecure8() {
+        return new ForwardResolution("/WEB-INF/jsp/some.jsp");
+    }
+
+    @HandlesEvent("iamsecure10")
+    @RolesAllowed({"user if ${facade.true}"})
+    public Resolution iamsecure10() {
+        return new ForwardResolution("/WEB-INF/jsp/some.jsp");
+    }
+
 
 
 }

@@ -2,7 +2,7 @@ package bbmri.action.user;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
@@ -67,8 +67,8 @@ public class AccountActionBean extends BasicActionBean {
         return userFacade.getRoles(getContext().getMyId());
     }
 
-    public Set<RoleType> getRoleTypes(){
-        return userFacade.getRoleTypes(getContext().getMyId());
+    public Set<SystemRole> getSystemRoles(){
+        return userFacade.getSystemRoles(getContext().getMyId());
     }
 
 

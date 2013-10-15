@@ -2,15 +2,17 @@ package bbmri.action.biobank;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
-import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.Permission;
+import bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -21,17 +23,15 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@PermitAll
-@UrlBinding("/Biobank")
+@UrlBinding("/Biobank/{$event}/{biobank.id}")
 public class BiobankActionBean extends BasicActionBean {
-
-    private static final String ALL = "/webpages/biobank/all.jsp";
-    private static final String CREATE = "/webpages/biobank/create.jsp";
-    private static final String EDIT = "/webpages/biobank/edit.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 /* Variables */
+
+    @SpringBean
+    private BiobankFacade biobankFacade;
 
 
     @ValidateNestedProperties(value = {
@@ -39,34 +39,18 @@ public class BiobankActionBean extends BasicActionBean {
             @Validate(on = {"update"}, field = "address", required = true),
     })
     private Biobank biobank;
-    private List<Biobank> biobanks;
-    private User administrator;
-    private List<Long> selected;
-    private User user;
-    private List<Long> selectedApprove;
-    @ValidateNestedProperties(value = {
-               @Validate(on = {"create"}, field = "name", required = true),
-               @Validate(on = {"create"}, field = "address", required = true),
-       })
-    private Biobank newBiobank;
+
 
     /* Setter / Getter */
 
     public List<Biobank> getBiobanks() {
-        return biobankService.all();
+        return biobankFacade.all();
     }
 
     public Biobank getBiobank() {
-
-
-       /*
-        TODO
         if (biobank == null) {
-
-            BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
-            biobank = biobankService.get(ba.getBiobank().getId());
+            biobank = biobankFacade.get(id);
         }
-        */
         return biobank;
     }
 
@@ -74,95 +58,76 @@ public class BiobankActionBean extends BasicActionBean {
         this.biobank = biobank;
     }
 
-    public Biobank getNewBiobank() {
-           return newBiobank;
-       }
+    private Long id;
 
-       public void setNewBiobank(Biobank newBiobank) {
-           this.newBiobank = newBiobank;
-       }
-
-    public User getAdministrator() {
-        return administrator;
+    public Long getId() {
+        return id;
     }
 
-    public void setAdministrator(User administrator) {
-        this.administrator = administrator;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public boolean getAllowedManager() {
+        return biobankFacade.hasPermission(Permission.MANAGER, id, getContext().getMyId());
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public boolean getAllowedEditor() {
+
+        return biobankFacade.hasPermission(Permission.EDITOR, id, getContext().getMyId());
     }
 
-    public List<Long> getSelected() {
-        return selected;
+    public boolean getAllowedExecutor() {
+        return biobankFacade.hasPermission(Permission.EXECUTOR, id, getContext().getMyId());
     }
 
-    public void setSelected(List<Long> selected) {
-        this.selected = selected;
-    }
-
-    public List<User> getUsers() {
-        return userService.all();
-    }
-
-    public List<User> getNonAdministrators() {
-        return userService.getNonAdministratorUsers();
-    }
-
-    public List<Long> getSelectedApprove() {
-        return selectedApprove;
-    }
-
-    public void setSelectedApprove(List<Long> selectedApprove) {
-        this.selectedApprove = selectedApprove;
-    }
-
-    public List<User> getAdministrators() {
-      /*
-        // TODO
-
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
-        Biobank biobank = biobankService.get(ba.getBiobank().getId());
-
-        if(biobank != null){
-            Biobank biobankDB = biobankService.get(getLoggedUser().getBiobank().getId());
-            return biobankDB.getAdministrators();
-        }
-        */
-        return null;
+    public boolean getAllowedVisitor() {
+        return biobankFacade.hasPermission(Permission.VISITOR, id, getContext().getMyId());
     }
 
     /* Methods */
     @DontValidate
     @DefaultHandler
+    @HandlesEvent("allBiobanks") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
-        biobanks = biobankService.all();
-        return new ForwardResolution(ALL);
+        return new ForwardResolution(BIOBANK_ALL);
     }
+
     @DontValidate
     @HandlesEvent("createBiobank")
-    public Resolution createBiobank(){
-        return new ForwardResolution(CREATE);
+    public Resolution createBiobank() {
+        return new ForwardResolution(BIOBANK_CREATE);
     }
+
+
     @DontValidate
+    @HandlesEvent("edit")
+    @RolesAllowed({"biobank_operator if ${allowedEditor}"})
     public Resolution edit() {
-       /*
-        TODO
-       BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
-        biobank = biobankService.get(ba.getBiobank().getId());
-        getContext().setBiobank(biobank);
-        */
-        return new ForwardResolution(EDIT);
+        return new ForwardResolution(BIOBANK_EDIT);
     }
+
     @DontValidate
+    @HandlesEvent("detail")
+    @RolesAllowed({"biobank_operator if ${allowedVisitor}"})
+    public Resolution detail() {
+        return new ForwardResolution(BIOBANK_DETAIL);
+    }
+
+    @DontValidate
+    @HandlesEvent("administrators")
+    @RolesAllowed({"biobank_operator if ${allowedVisitor}"})
+    public Resolution administrators() {
+        return new ForwardResolution(BIOBANK_ADMINISTRATORS);
+    }
+
+
+    @DontValidate
+    @HandlesEvent("create")
+    @RolesAllowed({"developer", "administrator"})
     public Resolution create() {
         /*
-        TODO
 
         User resDB = userService.get(administrator.getId());
 
@@ -179,55 +144,56 @@ public class BiobankActionBean extends BasicActionBean {
         */
         return new ForwardResolution(this.getClass(), "display");
     }
-    @DontValidate
-    public Resolution update() {
-        biobankService.update(biobank);
-        return new ForwardResolution(this.getClass(), "display");
-    }
-    @DontValidate
-    public Resolution removeAll() {
-        Integer removed = 0;
-        if (selected != null) {
-            for (Long id : selected) {
-                if (id.equals(getContext().getMyId())) {
-                           /*you can't remove yourself*/
-                    return new ForwardResolution(this.getClass(), "display");
-                }
-                biobankService.removeAdministratorFromBiobank(id, getBiobank().getId());
-                removed++;
-            }
-        }
-        getContext().getMessages().add(
-                new SimpleMessage("{0} administrators removed", removed)
-        );
-        return new RedirectResolution(this.getClass(), "display");
-    }
-    @DontValidate
-    public Resolution changeOwnership() {
 
-        logger.debug("New user = " + user);
+//    @DontValidate
+//    public Resolution update() {
+//        biobankService.update(biobank);
+//        return new ForwardResolution(this.getClass(), "display");
+//    }
 
-       // biobankService.changeOwnership(getLoggedUser().getBiobank().getId(), user.getId());
-        //TODO
+//    @DontValidate
+//    public Resolution removeAll() {
+//        Integer removed = 0;
+//        if (selected != null) {
+//            for (Long id : selected) {
+//                if (id.equals(getContext().getMyId())) {
+//                           /*you can't remove yourself*/
+//                    return new ForwardResolution(this.getClass(), "display");
+//                }
+//                biobankService.removeAdministratorFromBiobank(id, getBiobank().getId());
+//                removed++;
+//            }
+//        }
+//        getContext().getMessages().add(
+//                new SimpleMessage("{0} administrators removed", removed)
+//        );
+//        return new RedirectResolution(this.getClass(), "display");
+//    }
 
-        getContext().getMessages().add(
-                new SimpleMessage("Ownership of biobank was changed")
-        );
-        return new RedirectResolution(this.getClass(), "display");
-    }
-    @DontValidate
-    public Resolution assignAll() {
-        Integer assigned = 0;
-        if (selectedApprove != null) {
-            for (Long userId : selectedApprove) {
-                // TODO: fix
-                //biobankService.assignAdministrator(userId, getBiobank().getId());
-                assigned++;
-            }
-        }
-        getContext().getMessages().add(
-                new SimpleMessage("{0} users assigned", assigned)
-        );
-        return new RedirectResolution(this.getClass(), "display");
-    }
+//    @DontValidate
+//    public Resolution changeOwnership() {
+//
+//        logger.debug("New user = " + user);
+//
+//        getContext().getMessages().add(
+//                new SimpleMessage("Ownership of biobank was changed")
+//        );
+//        return new RedirectResolution(this.getClass(), "display");
+//    }
+
+//    @DontValidate
+//    public Resolution assignAll() {
+//        Integer assigned = 0;
+//        if (selectedApprove != null) {
+//            for (Long userId : selectedApprove) {
+//                // TODO: fix
+//                //biobankService.assignAdministrator(userId, getBiobank().getId());
+//                assigned++;
+//            }
+//        }
+//        getContext().getMessages().add(
+//                new SimpleMessage("{0} users assigned", assigned)
+//        );
+//        return new RedirectResolution(this.getClass(), "display");
+//    }
 }

@@ -70,7 +70,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution approve() {
-        requestGroupService.approveRequestState(requestGroup.getId());
+        requestGroupService.approveRequestGroup(requestGroup.getId());
         getContext().getMessages().add(
                 new SimpleMessage("Request group with id = {0} was APPROVED", requestGroup.getId())
         );
@@ -78,7 +78,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
     @DontValidate
     public Resolution reject() {
-        requestGroupService.denyRequestState(requestGroup.getId());
+        requestGroupService.denyRequestGroup(requestGroup.getId());
         getContext().getMessages().add(
                        new SimpleMessage("Request group with id = {0} was DENIED", requestGroup.getId())
                );

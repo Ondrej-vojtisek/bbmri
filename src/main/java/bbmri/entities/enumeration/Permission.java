@@ -18,7 +18,7 @@ public enum Permission {
 
     MANAGER("manager"),
     EDITOR("editor"),
-    CONFIRM("administrator"),
+    EXECUTOR("executor"),
     VISITOR("visitor");
 
     private String state;
@@ -30,5 +30,25 @@ public enum Permission {
     @Override
     public String toString() {
         return this.state;
+    }
+
+
+    /*
+    * Checks if this includes permission of _permission_. Manager include all, visitor include only visitor etc.
+    * */
+    public boolean include(Permission permission){
+
+        switch (permission){
+            case VISITOR: return true;
+
+            case EXECUTOR: return !this.equals(Permission.VISITOR);
+
+            case EDITOR: return !this.equals(Permission.VISITOR)
+                    && !this.equals(Permission.EXECUTOR);
+
+            case MANAGER: return this.equals(Permission.MANAGER);
+        }
+        /* This could not happen*/
+        return false;
     }
 }

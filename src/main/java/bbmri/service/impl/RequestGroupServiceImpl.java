@@ -243,7 +243,7 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         requestGroupDao.update(requestGroupDB);
     }
 
-    public void approveRequestState(Long requestGroupId){
+    public void approveRequestGroup(Long requestGroupId){
         notNull(requestGroupId);
         RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
         if(requestGroupDB == null){
@@ -253,7 +253,7 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         changeRequestState(requestGroupDB, RequestState.APPROVED);
     }
 
-    public void denyRequestState(Long requestGroupId){
+    public void denyRequestGroup(Long requestGroupId){
             notNull(requestGroupId);
             RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
             if(requestGroupDB == null){

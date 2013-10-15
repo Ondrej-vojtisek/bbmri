@@ -3,14 +3,13 @@ package bbmri.security;
 import bbmri.action.BasicActionBean;
 import bbmri.action.LoginActionBean;
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.stripesstuff.plugin.security.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
@@ -45,7 +44,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         return user;
     }
 
-    private Set<RoleType> getRoles(ActionBean bean){
+    private Set<SystemRole> getRoles(ActionBean bean){
         return ((BasicActionBean) bean).getRoles();
     }
 
@@ -58,8 +57,8 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     @Override
     protected Boolean hasRoleName(ActionBean bean, Method handler, String role){
 
-        for(RoleType roleType : getRoles(bean)){
-            if(roleType.toString().equals(role)){
+        for(SystemRole systemRole : getRoles(bean)){
+            if(systemRole.toString().equals(role)){
                 return Boolean.TRUE;
             }
         }

@@ -7,7 +7,7 @@ package bbmri.entities.enumeration;
  * Time: 9:45
  * To change this template use File | Settings | File Templates.
  */
-public enum RoleType {
+public enum SystemRole {
       USER("user"),
       ADMINISTRATOR("administrator"),
       BIOBANK_OPERATOR("biobank_operator"),
@@ -16,7 +16,7 @@ public enum RoleType {
 
       private String state;
 
-      private RoleType(String state) {
+      private SystemRole(String state) {
           this.state = state;
       }
 

@@ -10,7 +10,7 @@
     <s:layout-component name="body">
         <fieldset>
             <legend><f:message key="biobanks.listOfBanks"/></legend>
-            <table cellspacing="0" class="tablesorter">
+            <table class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th><s:label name="biobank.name"/></th>
@@ -21,23 +21,30 @@
                 <tbody>
 
                 <c:if test="${empty ab.biobanks}">
-                    <tr><td colspan="3"><f:message key="empty"/></td></tr>
+                    <tr>
+                        <td colspan="3"><f:message key="empty"/></td>
+                    </tr>
                 </c:if>
                 <c:forEach items="${ab.biobanks}" var="biobank">
                     <tr>
                         <td><c:out value="${biobank.name}"/></td>
                         <td><c:out value="${biobank.address}"/></td>
                         <td>
-                            <c:choose>
-                                <c:when test="${biobank.id == ab.loggedUser.biobank.id}">
-                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
-                                        <s:param name="biobank.id" value="${biobank.id}"/><f:message
-                                            key="edit"/></s:link>
-                                </c:when>
-                                <c:otherwise>
-                                    &nbsp
-                                </c:otherwise>
-                            </c:choose>
+
+                            <c:set target="${ab}" property="id" value="${biobank.id}"/>
+
+                            <security:allowed bean="ab" event="edit">
+                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
+                                    <s:param name="id" value="${biobank.id}"/><f:message
+                                        key="edit"/></s:link>
+                            </security:allowed>
+                            <security:notAllowed bean="ab" event="edit">
+                                <security:allowed bean="ab" event="detail">
+                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+                                        <s:param name="id" value="${biobank.id}"/><f:message
+                                            key="detail"/></s:link>
+                                </security:allowed>
+                            </security:notAllowed>
                         </td>
                     </tr>
                 </c:forEach>

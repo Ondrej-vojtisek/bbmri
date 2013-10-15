@@ -21,9 +21,9 @@ public interface BiobankService  extends BasicService<Biobank> {
 
    Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions);
 
-   void removeAdministrator(Long loggedUserId, Long userId, Long biobankId, Permission permission);
+   void removeAdministrator(Long userId, Long biobankId, Permission permission);
 
-   void changeAdministratorPermission(Long loggedUserId, Long userId, Long biobankId, Permission permission);
+   void changeAdministratorPermission(Long userId, Long biobankId, Permission permission);
 
 
 }

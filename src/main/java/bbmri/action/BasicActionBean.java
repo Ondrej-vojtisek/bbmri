@@ -1,17 +1,13 @@
 package bbmri.action;
 
 import bbmri.entities.*;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.LifecycleStage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 /**
@@ -39,6 +35,12 @@ public class BasicActionBean implements ActionBean {
     protected static final String USER_PERSONAL_DATA = "/webpages/user/personal_data.jsp";
     protected static final String USER_ROLES = "/webpages/user/roles.jsp";
 
+    // BIOBANK
+    protected static final String BIOBANK_ALL = "/webpages/biobank/all.jsp";
+    protected static final String BIOBANK_CREATE = "/webpages/biobank/create.jsp";
+    protected static final String BIOBANK_EDIT = "/webpages/biobank/edit.jsp";
+    protected static final String BIOBANK_DETAIL = "/webpages/biobank/detail.jsp";
+    protected static final String BIOBANK_ADMINISTRATORS = "/webpages/biobank/administrators.jsp";
 
 
 
@@ -94,9 +96,9 @@ public class BasicActionBean implements ActionBean {
         return userService.get(id);
     }
 
-    public Set<RoleType> getRoles(){
+    public Set<SystemRole> getRoles(){
         Long id = ctx.getMyId();
-        return userService.get(id).getRoleTypes();
+        return userService.get(id).getSystemRoles();
 
     }
 

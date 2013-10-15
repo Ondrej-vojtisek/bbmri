@@ -4,7 +4,7 @@ import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,9 +88,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
                     User userDB = pa.getUser();
                     if (userDB.getProjectAdministrators().size() == 1 &&
-                            userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER)) {
+                            userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
 
-                        userDB.getRoleTypes().remove(RoleType.PROJECT_TEAM_MEMBER);
+                        userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
                         userDao.update(userDB);
                     }
 
@@ -286,8 +286,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         userDB.getProjectAdministrators().add(pa);
 
-        if (!userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER)) {
-            userDB.getRoleTypes().add(RoleType.PROJECT_TEAM_MEMBER);
+        if (!userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
+            userDB.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
         }
 
         userDao.update(userDB);
@@ -300,9 +300,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         for (ProjectAdministrator pa : userDB.getProjectAdministrators()) {
             if (pa.getProject().equals(projectDB)) {
 
-                if (userDB.getRoleTypes().contains(RoleType.PROJECT_TEAM_MEMBER) &&
+                if (userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER) &&
                         userDB.getProjectAdministrators().size() == 1) {
-                    userDB.getRoleTypes().remove(RoleType.PROJECT_TEAM_MEMBER);
+                    userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
                     userDao.update(userDB);
                 }
 

@@ -3,7 +3,7 @@ package bbmri.service.impl;
 import bbmri.dao.*;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.BiobankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,9 +94,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 /* Remove system role biobank operator */
                 User userDB = ba.getUser();
                 if(userDB.getBiobankAdministrators().size() == 1 &&
-                        userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
+                        userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
 
-                          userDB.getRoleTypes().remove(RoleType.BIOBANK_OPERATOR);
+                          userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
                         userDao.update(userDB);
                 }
 
@@ -158,9 +158,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         if(userDB.getBiobankAdministrators().size() == 1 &&
-                userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
+                userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
 
-                  userDB.getRoleTypes().remove(RoleType.BIOBANK_OPERATOR);
+                  userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
                 userDao.update(userDB);
         }
 
@@ -195,8 +195,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
         userDB.getBiobankAdministrators().add(ba);
 
-        if(!userDB.getRoleTypes().contains(RoleType.BIOBANK_OPERATOR)){
-            userDB.getRoleTypes().add(RoleType.BIOBANK_OPERATOR);
+        if(!userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
+            userDB.getSystemRoles().add(SystemRole.BIOBANK_OPERATOR);
         }
 
         userDao.update(userDB);
@@ -215,65 +215,36 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     }
 
 
-    public void changeAdministratorPermission(Long loggedUserId, Long userId, Long biobankId, Permission permission) {
+    public void changeAdministratorPermission(Long userId, Long biobankId, Permission permission) {
         notNull(userId);
         notNull(biobankId);
-        notNull(loggedUserId);
         notNull(permission);
 
         User userDB = userDao.get(userId);
-        User loggedUser = userDao.get(loggedUserId);
         Biobank biobankDB = biobankDao.get(biobankId);
 
-        if (userDB == null || loggedUser == null || biobankDB == null) {
+        if (userDB == null || biobankDB == null) {
             return;
             // TODO: exception
         }
 
-        if(!biobankAdministratorDao.contains(biobankDB, loggedUser)){
-            return;
-            // TODO: exception - You are not administrator of this biobank
-        }
-        if(!biobankAdministratorDao.get(biobankDB, loggedUser).getPermission().equals(Permission.MANAGER)){
-            return;
-            // TODO: exception - You don't have sufficient rights
-        }
-        if (userDB.equals(loggedUser) && biobankManagerCount(biobankDB) == 1) {
-            return;
-            // TODO: exception - You are last admin so you can't lower your permissions
-        }
         assignAdministrator(userId, biobankId, permission);
 
     }
 
-    public void removeAdministrator(Long loggedUserId, Long userId, Long biobankId, Permission permission) {
+    public void removeAdministrator(Long userId, Long biobankId, Permission permission) {
         notNull(userId);
         notNull(biobankId);
-        notNull(loggedUserId);
         notNull(permission);
 
         User userDB = userDao.get(userId);
-        User loggedUser = userDao.get(loggedUserId);
         Biobank biobankDB = biobankDao.get(biobankId);
 
-        if (userDB == null || loggedUser == null || biobankDB == null) {
+        if (userDB == null || biobankDB == null) {
             return;
             // TODO: exception
         }
 
-        if(!biobankAdministratorDao.contains(biobankDB, loggedUser)){
-            return;
-            // TODO: exception - You are not administrator of this biobank
-        }
-
-        if(!biobankAdministratorDao.get(biobankDB, loggedUser).getPermission().equals(Permission.MANAGER)){
-            return;
-            // TODO: exception - You don't have sufficient rights
-        }
-        if (userDB.equals(loggedUser) && biobankManagerCount(biobankDB) == 1) {
-            return;
-            // TODO: exception - You are last admin so you can't lower your permissions
-        }
         removeAdministratorFromBiobank(userId, biobankId);
     }
 

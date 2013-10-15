@@ -1,6 +1,7 @@
 package bbmri.entities;
 
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,11 +48,17 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
 
-    @ElementCollection(targetClass = RoleType.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = SystemRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
     @Column(name = "Role", nullable = false)
     @Enumerated(EnumType.STRING)
-    Set<RoleType> roleTypes;
+    private Set<SystemRole> systemRoles;
+
+    @Type(type = "timestamp")
+    private Date created;
+
+    @Type(type = "timestamp")
+    private Date lastLogin;
 
     public User() {}
 
@@ -93,11 +100,11 @@ public class User implements Serializable {
     }
 
     public boolean getIsOperator() {
-        return roleTypes.contains(RoleType.BIOBANK_OPERATOR);
+        return systemRoles.contains(SystemRole.BIOBANK_OPERATOR);
     }
 
     public boolean getIsAdministrator() {
-         return roleTypes.contains(RoleType.ADMINISTRATOR);
+         return systemRoles.contains(SystemRole.ADMINISTRATOR);
     }
 
     public List<Project> getJudgedProjects() {
@@ -136,12 +143,28 @@ public class User implements Serializable {
         this.projectAdministrators = projectAdministrators;
     }
 
-    public Set<RoleType> getRoleTypes() {
-        return roleTypes;
+    public Set<SystemRole> getSystemRoles() {
+        return systemRoles;
     }
 
-    public void setRoleTypes(Set<RoleType> roleTypes) {
-        this.roleTypes = roleTypes;
+    public void setSystemRoles(Set<SystemRole> systemRoles) {
+        this.systemRoles = systemRoles;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @Override

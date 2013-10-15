@@ -1,6 +1,6 @@
 package bbmri.service;
 
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.User;
 
 import java.util.List;
@@ -18,20 +18,20 @@ public interface UserService extends BasicService<User>{
 
     User changeAdministrator(Long oldAdminId, Long newAdminId);
 
-    User setRole(Long userId, RoleType roleType);
+    User setRole(Long userId, SystemRole systemRole);
 
-    User removeRole(Long userId, RoleType roleType);
+    User removeRole(Long userId, SystemRole systemRole);
 
     User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank);
 
     /* Dummy - tohle musi byt udelano jinym zpusobem. Kontrolou zda dany uzivatel muze byt administrator */
     List<User> getNonAdministratorUsers();
 
-    void setSystemRole(Long userId, RoleType roleType);
+    void setSystemRole(Long userId, SystemRole systemRole);
 
-    void removeSystemRole(Long userId, RoleType roleType);
+    void removeSystemRole(Long userId, SystemRole systemRole);
 
-    List<User> getAllByRole(RoleType roleType);
+    List<User> getAllByRole(SystemRole systemRole);
 
    /*
     To implement:

@@ -1,50 +1,28 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
+<c:set var="request" value="${pageContext.request}"/>
+<c:set var="context" value="${request.contextPath}"/>
+
 <s:layout-definition>
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
-    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/contentPage.css"/>
+    <link rel="stylesheet" type="text/css" href="${context}/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
     <title><c:out value="${title}"/></title>
     <s:layout-component name="hlavicka"/>
 </head>
-<script type="text/javascript" src="../libs/jquery-latest.js"></script>
-<script type="text/javascript" src="../libs/jquery.tablesorter.js"></script>
-<script type="text/javascript">
 
-    $(document).ready(function () {
-
-        // Get Headers with Class noSort //
-        var theHeaders = {}
-        $(this).find('th.noSort').each(function (i, el) {
-            theHeaders[$(this).index()] = { sorter: false };
-        });
-
-        // Initialize Table Sorter //
-        $("table").tablesorter({
-            headers: theHeaders,
-            widgets: ["zebra"],
-            // change the default striping class names
-            // updated in v2.1 to use widgetOptions.zebra = ["even", "odd"]
-            // widgetZebra: { css: [ "normal-row", "alt-row" ] } still works
-            widgetOptions: {
-                zebra: [ "normal-row", "alt-row" ]
-            }
-        });
-    });
-
-
-</script>
 <body>
 <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
 <c:set var="administrator" scope="session" value="${bean.loggedUser.isAdministrator}"/>
 <c:set var="biobank" scope="session" value="${null}"/>
 <c:set var="logged" scope="session" value="${bean.loggedUser.wholeName}"/>
+
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -64,7 +42,6 @@
                     <f:message key="logged_user"/>:
                     <s:link beanclass="bbmri.action.user.AccountActionBean">
                         <c:out value="${logged}"/>
-
                     </s:link>
                 </p>
 
@@ -76,14 +53,17 @@
                     <li <c:if test="${primarymenu == 'project'}"> class="active" </c:if> ><s:link
                             beanclass="bbmri.action.project.ProjectActionBean"><f:message
                             key="projects"/></s:link></li>
+
+                    <security:allowed bean="biobankBean" event="allBiobanks">
                     <li <c:if test="${primarymenu == 'biobank'}"> class="active" </c:if> ><s:link
                             beanclass="bbmri.action.biobank.BiobankActionBean"><f:message
                             key="biobanks"/></s:link></li>
+                    </security:allowed>
 
                     <security:allowed bean="userBean" event="allUsers">
-                    <li <c:if test="${primarymenu == 'user'}"> class="active" </c:if> ><s:link
-                            beanclass="bbmri.action.user.UserActionBean"><f:message
-                            key="users"/></s:link></li>
+                        <li <c:if test="${primarymenu == 'user'}"> class="active" </c:if> ><s:link
+                                beanclass="bbmri.action.user.UserActionBean"><f:message
+                                key="users"/></s:link></li>
                     </security:allowed>
 
                 </ul>
@@ -159,46 +139,100 @@
             </div>
         </div>
         <div class="span9">
-            <div class="hero-unit">
-                <div class="action_message">
-                    <s:messages/>
-                </div>
 
 
-                <c:if test="${primarymenu == 'account'}">
-                    <ul class="nav nav-tabs">
-                        <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
-                                beanclass="bbmri.action.user.AccountActionBean"><f:message
-                                key="credentials.change_title"/></s:link></li>
-                        <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>><s:link
-                                beanclass="bbmri.action.user.AccountActionBean"
-                                event="changePasswordView"><f:message
-                                key="credentials.change_password"/></s:link></li>
-                        <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
-                                beanclass="bbmri.action.user.AccountActionBean" event="rolesView"><f:message
-                                key="credentials.myRoles"/></s:link></li>
-                    </ul>
-                </c:if>
+            <%--<div class="page-header">--%>
+                <%--<h1>${title}</h1>--%>
+            <%--</div>--%>
 
-                <c:if test="${primarymenu == 'user' and not empty ternarymenu}">
-                    <ul class="nav nav-tabs">
-                        <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
-                                beanclass="bbmri.action.user.UserActionBean" event="detail">
-                            <s:param name="id" value="${userBean.user.id}"/>
-                            <f:message
-                                    key="credentials.change_title"/>
-                        </s:link></li>
-                        <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
-                                beanclass="bbmri.action.user.UserActionBean"
-                                event="rolesView">
-                            <s:param name="id" value="${userBean.user.id}"/>
-                            <f:message
-                                    key="credentials.roles"/></s:link></li>
-                    </ul>
-                </c:if>
-
-                <s:layout-component name="body"/>
+            <div class="action_message">
+                <s:messages/>
             </div>
+
+
+            <c:if test="${primarymenu == 'account'}">
+                <ul class="nav nav-tabs">
+                    <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
+                            beanclass="bbmri.action.user.AccountActionBean"><f:message
+                            key="credentials.change_title"/></s:link></li>
+                    <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>><s:link
+                            beanclass="bbmri.action.user.AccountActionBean"
+                            event="changePasswordView"><f:message
+                            key="credentials.change_password"/></s:link></li>
+                    <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
+                            beanclass="bbmri.action.user.AccountActionBean" event="rolesView"><f:message
+                            key="credentials.myRoles"/></s:link></li>
+                </ul>
+            </c:if>
+
+            <c:if test="${primarymenu == 'user' and not empty ternarymenu}">
+                <ul class="nav nav-tabs">
+                    <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
+                            beanclass="bbmri.action.user.UserActionBean" event="detail">
+                        <s:param name="id" value="${userBean.user.id}"/>
+                        <f:message
+                                key="credentials.change_title"/>
+                    </s:link></li>
+                    <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
+                            beanclass="bbmri.action.user.UserActionBean"
+                            event="rolesView">
+                        <s:param name="id" value="${userBean.user.id}"/>
+                        <f:message
+                                key="credentials.roles"/></s:link></li>
+                </ul>
+            </c:if>
+
+                <c:if test="${primarymenu == 'biobank' and not empty ternarymenu}">
+                   <ul class="nav nav-tabs">
+                       <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> ><s:link
+                               beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+                           <s:param name="id" value="${biobankBean.biobank.id}"/>
+                           <f:message
+                                   key="biobank.basic.data"/>
+                       </s:link></li>
+                       <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>><s:link
+                               beanclass="bbmri.action.biobank.BiobankActionBean"
+                               event="administrators">
+                           <s:param name="id" value="${biobankBean.biobank.id}"/>
+                           <f:message
+                                   key="biobank.administrators"/></s:link></li>
+                   </ul>
+               </c:if>
+
+            <s:layout-component name="body"/>
+
+
+            <script type="text/javascript" src="${context}/libs/jquery-latest.js"></script>
+            <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
+            <script type="text/javascript" src="${context}/libs/jquery.tablesorter.js"></script>
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+
+                    // Get Headers with Class noSort //
+                    var theHeaders = {}
+                    $(this).find('th.noSort').each(function (i, el) {
+                        theHeaders[$(this).index()] = { sorter: false };
+                    });
+
+                    // Initialize Table Sorter //
+                    $("table").tablesorter({
+                        headers: theHeaders,
+                        widgets: ["zebra"],
+                        // change the default striping class names
+                        // updated in v2.1 to use widgetOptions.zebra = ["even", "odd"]
+                        // widgetZebra: { css: [ "normal-row", "alt-row" ] } still works
+                        widgetOptions: {
+                            zebra: [ "normal-row", "alt-row" ]
+                        }
+                    });
+
+                });
+
+            </script>
+
         </div>
     </div>
 </div>

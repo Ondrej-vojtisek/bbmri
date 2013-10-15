@@ -1,7 +1,7 @@
 package bbmri.facade;
 
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 
 import java.util.List;
@@ -40,7 +40,9 @@ public interface UserFacade {
 
     List<User> getDevelopers();
 
-    Set<RoleType> getRoleTypes(Long userId);
+    Set<SystemRole> getSystemRoles(Long userId);
+
+    User login(Long id, String password);
 
 
     /*

@@ -2,7 +2,7 @@ package bbmri.action.user;
 
 import bbmri.action.BasicActionBean;
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
@@ -66,8 +66,8 @@ public class UserActionBean extends BasicActionBean {
         return userFacade.getRoles(user.getId());
     }
 
-    public Set<RoleType> getRoleTypes() {
-        return userFacade.getRoleTypes(user.getId());
+    public Set<SystemRole> getSystemRoles() {
+        return userFacade.getSystemRoles(user.getId());
     }
 
     public int getCislo() {
@@ -112,8 +112,13 @@ public class UserActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "display");
     }
 
+    /*
+    *  Example of instanceBasedSecurityManager
+    *  @RolesAllowed({"developer", "administrator", "user if ${context.myId == id}"})
+    * */
+
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "administrator", "user if ${context.myId == id}"})
+    @RolesAllowed({"developer", "administrator"})
     public Resolution detail() {
         if (id.equals(getContext().getMyId())) {
             return new ForwardResolution(AccountActionBean.class, "display");
@@ -153,7 +158,6 @@ public class UserActionBean extends BasicActionBean {
     public Resolution setAdministratorRole() {
         userFacade.setAsAdministrator(id);
         user = userFacade.get(id);
-        // TODO exception message
         return new ForwardResolution(USER_ROLES);
     }
 
@@ -162,7 +166,6 @@ public class UserActionBean extends BasicActionBean {
     public Resolution setDeveloperRole() {
         userFacade.setAsDeveloper(id);
         user = userFacade.get(id);
-        // TODO exception message
         return new ForwardResolution(USER_ROLES);
     }
 

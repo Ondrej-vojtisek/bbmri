@@ -21,9 +21,9 @@ public interface RequestGroupService  extends BasicService<RequestGroup>{
 
     List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState);
 
-    void approveRequestState(Long requestGroupId);
+    void approveRequestGroup(Long requestGroupId);
 
-    void denyRequestState(Long requestGroupId);
+    void denyRequestGroup(Long requestGroupId);
 
     RequestGroup eagerGet(Long id, boolean requests);
 }

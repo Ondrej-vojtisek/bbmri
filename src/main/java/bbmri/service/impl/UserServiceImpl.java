@@ -5,7 +5,7 @@ import bbmri.dao.BiobankDao;
 import bbmri.dao.UserDao;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.User;
-import bbmri.entities.enumeration.RoleType;
+import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,7 +41,8 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
 
     public User create(User user) {
-        user.getRoleTypes().add(RoleType.USER);
+        user.getSystemRoles().add(SystemRole.USER);
+        user.setCreated(new Date());
         userDao.create(user);
         return user;
     }
@@ -75,6 +77,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (user.getName() != null) userDB.setName(user.getName());
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
         if (user.getPassword() != null) userDB.setPassword(user.getPassword());
+        if (user.getLastLogin() != null) userDB.setLastLogin(user.getLastLogin());
 
         userDao.update(userDB);
         return user;
@@ -88,23 +91,24 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.get(id);
     }
 
-    public User removeRole(Long userId, RoleType roleType) {
+    public User removeRole(Long userId, SystemRole systemRole) {
         User userDB = userDao.get(userId);
 
-        if (userDB.getRoleTypes().contains(roleType)) {
-            userDB.getRoleTypes().remove(roleType);
+        if (userDB.getSystemRoles().contains(systemRole)) {
+            userDB.getSystemRoles().remove(systemRole);
         } else {
             // TODO: exception
         }
+
         userDao.update(userDB);
         return userDB;
     }
 
-    public User setRole(Long userId, RoleType roleType) {
+    public User setRole(Long userId, SystemRole systemRole) {
         User userDB = userDao.get(userId);
 
-        if (!userDB.getRoleTypes().contains(roleType)) {
-            userDB.getRoleTypes().add(roleType);
+        if (!userDB.getSystemRoles().contains(systemRole)) {
+            userDB.getSystemRoles().add(systemRole);
         } else {
             // TODO exception
         }
@@ -114,8 +118,8 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     public User changeAdministrator(Long oldAdminId, Long newAdminId) {
-        setRole(newAdminId, RoleType.ADMINISTRATOR);
-        removeRole(oldAdminId, RoleType.ADMINISTRATOR);
+        setRole(newAdminId, SystemRole.ADMINISTRATOR);
+        removeRole(oldAdminId, SystemRole.ADMINISTRATOR);
         return userDao.get(oldAdminId);
     }
 
@@ -156,9 +160,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     }
 
-    public void setSystemRole(Long userId, RoleType roleType) {
+    public void setSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
-        notNull(roleType);
+        notNull(systemRole);
 
         User userDB = userDao.get(userId);
 
@@ -167,17 +171,17 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             // TODO: exception
         }
 
-        if (userDB.getRoleTypes().contains(roleType)) {
+        if (userDB.getSystemRoles().contains(systemRole)) {
             return;
             // TODO: exception
         }
-        userDB.getRoleTypes().add(roleType);
+        userDB.getSystemRoles().add(systemRole);
         userDao.update(userDB);
     }
 
-    public void removeSystemRole(Long userId, RoleType roleType) {
+    public void removeSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
-        notNull(roleType);
+        notNull(systemRole);
 
         User userDB = userDao.get(userId);
 
@@ -186,19 +190,19 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             // TODO: exception
         }
 
-        if (!userDB.getRoleTypes().contains(roleType)) {
+        if (!userDB.getSystemRoles().contains(systemRole)) {
             return;
             // TODO: exception
         }
-        userDB.getRoleTypes().remove(roleType);
+        userDB.getSystemRoles().remove(systemRole);
         userDao.update(userDB);
     }
 
-    public List<User> getAllByRole(RoleType roleType){
-        notNull(roleType);
+    public List<User> getAllByRole(SystemRole systemRole){
+        notNull(systemRole);
         List<User> results = new ArrayList<User>();
         for(User user : userDao.all()){
-            if(user.getRoleTypes().contains(roleType)){
+            if(user.getSystemRoles().contains(systemRole)){
                 results.add(user);
             }
         }

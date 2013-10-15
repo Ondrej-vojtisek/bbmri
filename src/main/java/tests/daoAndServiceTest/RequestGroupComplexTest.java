@@ -334,7 +334,7 @@ public class RequestGroupComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* WHEN ********** */
 
-        requestGroupService.approveRequestState(rqg.getId());
+        requestGroupService.approveRequestGroup(rqg.getId());
 
         /* ********* THEN ********** */
 
@@ -371,7 +371,7 @@ public class RequestGroupComplexTest extends AbstractDaoAndServiceTest {
 
            /* ********* WHEN ********** */
 
-        requestGroupService.denyRequestState(rqg.getId());
+        requestGroupService.denyRequestGroup(rqg.getId());
 
            /* ********* THEN ********** */
 

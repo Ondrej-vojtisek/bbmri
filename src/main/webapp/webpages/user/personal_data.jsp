@@ -7,9 +7,13 @@
                  primarymenu="user"
                  secondarymenu="user_all"
                  ternarymenu="personal_data">
+    <s:layout-component name="script">
+
+    </s:layout-component>
+
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.user.UserActionBean"  >
+        <s:form beanclass="bbmri.action.user.UserActionBean">
             <s:hidden name="user.id"/>
             <s:hidden name="user.password"/>
             <fieldset>
@@ -23,6 +27,15 @@
                         <th><s:label for="z3" name="user.surname"/></th>
                         <td><s:text id="z3" name="user.surname" readonly="true"/></td>
                     </tr>
+                    <tr>
+                        <th><s:label for="z4" name="user.created"/></th>
+                        <td><s:text id="z4" name="user.created" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <th><s:label for="z5" name="user.lastLogin"/></th>
+                        <td><s:text id="z5" name="user.lastLogin" readonly="true"/></td>
+                    </tr>
+
                 </table>
             </fieldset>
         </s:form>
