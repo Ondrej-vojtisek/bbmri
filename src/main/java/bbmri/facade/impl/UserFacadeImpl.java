@@ -29,6 +29,8 @@ import java.util.Set;
 @Controller
 public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
+    private static final int MAXIMUM_FIND_RESULTS = 5;
+
     @Autowired
     private UserService userService;
 
@@ -53,7 +55,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         }
 
         /* Add all biobanks of user */
-        List<BiobankAdministrator> baList = userDB.getBiobankAdministrators();
+        Set<BiobankAdministrator> baList = userDB.getBiobankAdministrators();
         for (BiobankAdministrator ba : baList) {
             RoleDTO newRole = new RoleDTO();
             newRole.setSubject(ba.getBiobank().getName());
@@ -173,10 +175,21 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         notNull(password);
         User user = loginService.login(id, password);
         if(user != null){
-            logger.debug("SetDate");
             user.setLastLogin(new Date());
             userService.update(user);
         }
         return user;
+    }
+
+    public List<User> find(User user, int requiredResults){
+        if(user == null){
+            return null;
+        }
+        if(requiredResults < 1){
+            requiredResults = MAXIMUM_FIND_RESULTS;
+        }
+
+        return userService.find(user, requiredResults);
+
     }
 }

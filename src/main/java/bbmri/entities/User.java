@@ -43,7 +43,8 @@ public class User implements Serializable {
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
 
     @OneToMany(mappedBy = "user")
-    private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
+   // private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
+    private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
@@ -52,7 +53,7 @@ public class User implements Serializable {
     @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
     @Column(name = "Role", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Set<SystemRole> systemRoles;
+    private Set<SystemRole> systemRoles = new HashSet<SystemRole>();
 
     @Type(type = "timestamp")
     private Date created;
@@ -127,11 +128,11 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public List<BiobankAdministrator> getBiobankAdministrators() {
+    public Set<BiobankAdministrator> getBiobankAdministrators() {
         return biobankAdministrators;
     }
 
-    public void setBiobankAdministrators(List<BiobankAdministrator> biobankAdministrators) {
+    public void setBiobankAdministrators(Set<BiobankAdministrator> biobankAdministrators) {
         this.biobankAdministrators = biobankAdministrators;
     }
 

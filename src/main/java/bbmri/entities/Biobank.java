@@ -1,9 +1,13 @@
 package bbmri.entities;
 
+import bbmri.entities.enumeration.SystemRole;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +33,8 @@ public class Biobank implements Serializable {
     private String address;
 
     @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
-    private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
+    //private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
+    private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "biobank")
     private List<Sample> samples = new ArrayList<Sample>();
@@ -88,11 +93,11 @@ public class Biobank implements Serializable {
         this.sampleQuestions = sampleQuestions;
     }
 
-    public List<BiobankAdministrator> getBiobankAdministrators() {
+    public Set<BiobankAdministrator> getBiobankAdministrators() {
         return biobankAdministrators;
     }
 
-    public void setBiobankAdministrators(List<BiobankAdministrator> biobankAdministrators) {
+    public void setBiobankAdministrators(Set<BiobankAdministrator> biobankAdministrators) {
         this.biobankAdministrators = biobankAdministrators;
     }
 

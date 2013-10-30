@@ -20,6 +20,8 @@
                 </thead>
                 <tbody>
 
+
+
                 <c:if test="${empty ab.biobanks}">
                     <tr>
                         <td colspan="3"><f:message key="empty"/></td>
@@ -31,6 +33,7 @@
                         <td><c:out value="${biobank.address}"/></td>
                         <td>
 
+                            <%--This is important for the instance based ACL--%>
                             <c:set target="${ab}" property="id" value="${biobank.id}"/>
 
                             <security:allowed bean="ab" event="edit">

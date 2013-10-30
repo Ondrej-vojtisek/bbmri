@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,18 +42,18 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     private BiobankAdministratorDao biobankAdministratorDao;
 
 
-    public Biobank create(Biobank biobank, Long administratorId) {
+    public Biobank create(Biobank biobank, Long newAdministratorId) {
         notNull(biobank);
-        notNull(administratorId);
+        notNull(newAdministratorId);
 
-        User adminDB = userDao.get(administratorId);
+        User adminDB = userDao.get(newAdministratorId);
         if (adminDB == null) {
             return null;
             // TODO: exception
         }
 
         biobankDao.create(biobank);
-        assignAdministrator(adminDB.getId(), biobank.getId(), Permission.MANAGER);
+        assignAdministrator(newAdministratorId, biobank.getId(), Permission.MANAGER);
         return biobank;
     }
 
@@ -87,7 +88,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             }
         }
 
-        List<BiobankAdministrator> biobankAdministrators = biobank.getBiobankAdministrators();
+        Set<BiobankAdministrator> biobankAdministrators = biobank.getBiobankAdministrators();
         if (biobankAdministrators != null) {
             for (BiobankAdministrator ba : biobankAdministrators) {
 
@@ -190,11 +191,11 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         biobankAdministratorDao.create(ba);
 
         /* TODO: check if this is necessary */
-        biobankDB.getBiobankAdministrators().add(ba);
-        biobankDao.update(biobankDB);
-
-        userDB.getBiobankAdministrators().add(ba);
-
+//        biobankDB.getBiobankAdministrators().add(ba);
+//        biobankDao.update(biobankDB);
+//
+//        userDB.getBiobankAdministrators().add(ba);
+//
         if(!userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
             userDB.getSystemRoles().add(SystemRole.BIOBANK_OPERATOR);
         }

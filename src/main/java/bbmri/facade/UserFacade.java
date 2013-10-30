@@ -4,6 +4,7 @@ import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 
+import javax.transaction.UserTransaction;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,8 @@ public interface UserFacade {
     Set<SystemRole> getSystemRoles(Long userId);
 
     User login(Long id, String password);
+
+    List<User> find(User user, int requiredResults);
 
 
     /*

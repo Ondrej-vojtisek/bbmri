@@ -33,6 +33,8 @@ public interface UserService extends BasicService<User>{
 
     List<User> getAllByRole(SystemRole systemRole);
 
+    List<User> find(User user, int requiredResults);
+
    /*
     To implement:
 

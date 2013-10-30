@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,7 +42,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
 
     public User create(User user) {
-        user.getSystemRoles().add(SystemRole.USER);
         user.setCreated(new Date());
         userDao.create(user);
         return user;
@@ -54,7 +54,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             // TODO: exception
         }
 
-        List<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
+        Set<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
         if (biobankAdministrators != null) {
             for (BiobankAdministrator ba : biobankAdministrators) {
                 ba.setUser(null);
@@ -198,14 +198,27 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         userDao.update(userDB);
     }
 
-    public List<User> getAllByRole(SystemRole systemRole){
+    public List<User> getAllByRole(SystemRole systemRole) {
         notNull(systemRole);
         List<User> results = new ArrayList<User>();
-        for(User user : userDao.all()){
-            if(user.getSystemRoles().contains(systemRole)){
+        for (User user : userDao.all()) {
+            if (user.getSystemRoles().contains(systemRole)) {
                 results.add(user);
             }
         }
         return results;
+    }
+
+    public List<User> find(User user, int requiredResults) {
+        logger.debug("FIND_SERVICE");
+
+        List<User> users = userDao.findUser(user);
+        if (users == null) {
+            return null;
+        }
+        if (requiredResults > users.size()) {
+            return users;
+        }
+        return userDao.findUser(user).subList(0, requiredResults);
     }
 }

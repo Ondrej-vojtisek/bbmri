@@ -4,6 +4,7 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,9 +17,9 @@ public interface BiobankFacade {
 
     List<User> getBiobankAdministrators(Long biobankId);
 
-    List<BiobankAdministrator> getBiobankAdministrators2(Long biobankId);
+    Set<BiobankAdministrator> getBiobankAdministrators2(Long biobankId);
 
-    void createBiobank(Biobank biobank, Long loggedUserId);
+    void createBiobank(Biobank biobank, Long newAdministratorId);
 
     void updateBiobank(Biobank biobank);
 
@@ -29,6 +30,10 @@ public interface BiobankFacade {
     void removeAdministratorFromBiobank(Long biobank, Long loggedUser, Long newAdministrator);
 
     void changePermissionOfAdministrator(Long biobank, Long loggedUser, Long newAdministrator, Permission permission);
+
+    void changeBiobankAdministratorPermission(Long biobankAdministrator, Permission permission, Long loggedUser);
+
+    void removeBiobankAdministrator(Long biobankAdministrator, Long loggedUser);
 
     List<RequestGroup> getNewRequestGroups(Long biobankId);
 
@@ -43,5 +48,7 @@ public interface BiobankFacade {
     boolean hasPermission(Permission permission, Long biobankId, Long userId);
 
     Biobank get(Long biobankId);
+
+    BiobankAdministrator getBiobankAdministrator(Long id);
 
 }

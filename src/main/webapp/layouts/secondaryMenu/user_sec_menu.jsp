@@ -18,3 +18,9 @@
             beanclass="bbmri.action.user.UserActionBean" event="createUser"><f:message
             key="user.create"/></s:link></li>
 </security:allowed>
+
+<security:allowed bean="userBean" event="findResolution">
+    <li <c:if test="${secondarymenu == 'user_find'}"> class="active" </c:if>><s:link
+            beanclass="bbmri.action.user.UserActionBean" event="findResolution"><f:message
+            key="user.find"/></s:link></li>
+</security:allowed>

@@ -4,6 +4,7 @@
 
 <f:message key="credentials.myRoles" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.user.AccountActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="account"
                  ternarymenu="roles">
@@ -103,11 +104,29 @@
                     <tr>
                         <td><c:out value="${roleDTO.subject}"/></td>
                         <td><c:out value="${roleDTO.permission}"/></td>
-                        <td><c:if test="${roleDTO.type.name == 'bbmri.entities.BiobankAdministrator'}">
-                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
-                                        event="detail"><s:param name="id" value="${roleDTO.referenceId}"/>
-                                    <f:message key="detail"/></s:link>
+                        <td>
+
+                            <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
+                            <c:if test="${roleDTO.type.name == 'bbmri.entities.BiobankAdministrator'}">
+
+                                <%--Need to set id for each row of a table to set properly ACL--%>
+                                <c:set target="${biobankBean}" property="id" value="${roleDTO.referenceId}"/>
+
+                                <security:allowed bean="biobankBean" event="edit">
+                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
+                                        <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                            key="edit"/></s:link>
+                                </security:allowed>
+                                <security:notAllowed bean="biobankBean" event="edit">
+                                    <security:allowed bean="biobankBean" event="detail">
+                                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+                                            <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                                key="detail"/></s:link>
+                                    </security:allowed>
+                                </security:notAllowed>
                             </c:if>
+                            <%--TODO: Project edit vs. detail--%>
+
                         </td>
                     </tr>
                 </c:forEach>

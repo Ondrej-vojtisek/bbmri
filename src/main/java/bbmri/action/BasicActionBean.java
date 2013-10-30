@@ -24,24 +24,35 @@ public class BasicActionBean implements ActionBean {
     /*************************************
     * LINKS
     **************************************/
+    private static final String BASIC_PATH = "/webpages";
+    /*************************************/
+
     // MY ACCOUNT
-    protected static final String ACCOUNT_PERSONAL_DATA = "/webpages/user/account_personal_data.jsp";
-    protected static final String ACCOUNT_PASSWORD = "/webpages/user/account_password.jsp";
-    protected static final String ACCOUNT_ROLES = "/webpages/user/account_roles.jsp";
+    private static final String USER = BASIC_PATH + "/user/";
+    /*************************************/
+    protected static final String ACCOUNT_PERSONAL_DATA = USER + "account_personal_data.jsp";
+    protected static final String ACCOUNT_PASSWORD = USER + "account_password.jsp";
+    protected static final String ACCOUNT_ROLES = USER + "account_roles.jsp";
 
     // USER
-    protected static final String USER_ALL = "/webpages/user/all.jsp";
-    protected static final String USER_CREATE = "/webpages/user/create.jsp";
-    protected static final String USER_PERSONAL_DATA = "/webpages/user/personal_data.jsp";
-    protected static final String USER_ROLES = "/webpages/user/roles.jsp";
+    protected static final String USER_ALL = USER + "all.jsp";
+    protected static final String USER_CREATE = USER + "create.jsp";
+    protected static final String USER_PERSONAL_DATA = USER + "personal_data.jsp";
+    protected static final String USER_ROLES = USER + "roles.jsp";
+    protected static final String USER_FIND = USER + "find.jsp";
 
     // BIOBANK
-    protected static final String BIOBANK_ALL = "/webpages/biobank/all.jsp";
-    protected static final String BIOBANK_CREATE = "/webpages/biobank/create.jsp";
-    protected static final String BIOBANK_EDIT = "/webpages/biobank/edit.jsp";
-    protected static final String BIOBANK_DETAIL = "/webpages/biobank/detail.jsp";
-    protected static final String BIOBANK_ADMINISTRATORS = "/webpages/biobank/administrators.jsp";
-
+    private static final String BIOBANK = BASIC_PATH + "/biobank/";
+    /*************************************/
+    protected static final String BIOBANK_ALL = BIOBANK + "all.jsp";
+    protected static final String BIOBANK_CREATE = BIOBANK + "create.jsp";
+    protected static final String BIOBANK_EDIT = BIOBANK + "detail_W.jsp";
+    protected static final String BIOBANK_DETAIL = BIOBANK + "detail_R.jsp";
+    protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators_R.jsp";
+    protected static final String BIOBANK_ADMINISTRATORS_WRITE = BIOBANK + "administrators_W.jsp";
+    protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK + "create_administrators.jsp";
+    protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK + "confirm.jsp";
+    protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
 
 
 
@@ -137,6 +148,10 @@ public class BasicActionBean implements ActionBean {
     public String getLastUrl(){
         // TODO
         return "LastURL - not implemented yet";
+    }
+
+    public String getName(){
+       return this.getClass().getName();
     }
 
 

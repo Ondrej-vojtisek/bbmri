@@ -49,15 +49,28 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
     public BiobankAdministrator update(BiobankAdministrator biobankAdministrator) {
         notNull(biobankAdministrator);
 
-        // TODO
+        BiobankAdministrator ba = biobankAdministratorDao.get(biobankAdministrator.getId());
+        if (ba == null) {
+            return null;
+        }
 
-        return null;
+        // Only persmission can be updated
+
+        if (biobankAdministrator.getPermission() != null) ba.setPermission(biobankAdministrator.getPermission());
+
+        biobankAdministratorDao.update(ba);
+
+        return ba;
     }
 
     public void remove(Long id) {
         notNull(id);
 
-        // TODO
+        BiobankAdministrator ba = biobankAdministratorDao.get(id);
+        if (ba == null) {
+            return;
+        }
+        biobankAdministratorDao.remove(ba);
     }
 
     public BiobankAdministrator get(Long biobankId, Long userId) {

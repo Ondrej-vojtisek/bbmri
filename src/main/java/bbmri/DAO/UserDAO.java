@@ -19,4 +19,6 @@ public interface UserDao extends BasicDao<User>{
 
     List<User> findUser(String firstname, String surname);
    */
+
+    List<User> findUser(User user);
 }

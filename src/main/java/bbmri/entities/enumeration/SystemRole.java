@@ -8,7 +8,6 @@ package bbmri.entities.enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public enum SystemRole {
-      USER("user"),
       ADMINISTRATOR("administrator"),
       BIOBANK_OPERATOR("biobank_operator"),
       PROJECT_TEAM_MEMBER("project_team_member"),

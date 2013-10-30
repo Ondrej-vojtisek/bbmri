@@ -51,12 +51,6 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
             notNull(id);
             return em.find(entityClass, id);
         }
-    /*
-    public boolean contains(Long id) {
-               notNull(id);
-               return em.find(entityClass, id) != null;
-           }
-           */
 
     public List<T> all() {
         String stringQuery = "SELECT p FROM " + entityClass.getSimpleName() + " p";

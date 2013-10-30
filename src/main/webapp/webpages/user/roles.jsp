@@ -4,6 +4,7 @@
 
 <f:message key="credentials.myRoles" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
                  secondarymenu="user_all"
@@ -30,25 +31,21 @@
                         <td><c:out value="${systemRole}"/></td>
                         <security:allowed bean="ab" event="removeAdministratorRole">
                             <td>
-                            <c:if test="${systemRole == 'ADMINISTRATOR'}">
-
+                                <c:if test="${systemRole == 'ADMINISTRATOR'}">
                                     <s:link beanclass="bbmri.action.user.UserActionBean"
                                             event="removeAdministratorRole">
                                         <f:message key="remove"/></s:link>
-
-                            </c:if>
+                                </c:if>
                             </td>
                         </security:allowed>
 
                         <security:allowed bean="ab" event="removeDeveloperRole">
                             <td>
-                            <c:if test="${systemRole == 'DEVELOPER'}">
-
+                                <c:if test="${systemRole == 'DEVELOPER'}">
                                     <s:link beanclass="bbmri.action.user.UserActionBean"
                                             event="removeDeveloperRole">
                                         <f:message key="remove"/></s:link>
-
-                            </c:if>
+                                </c:if>
                             </td>
                         </security:allowed>
                     </tr>
@@ -64,12 +61,12 @@
         %>
         <fieldset>
             <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                    <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
+                <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
             </legend>
             <security:allowed bean="ab" event="setDeveloperRole">
-                    <s:link beanclass="bbmri.action.user.UserActionBean"
-                            event="setDeveloperRole">
-                        <f:message key="set"/></s:link>
+                <s:link beanclass="bbmri.action.user.UserActionBean"
+                        event="setDeveloperRole">
+                    <f:message key="set"/></s:link>
             </security:allowed>
         </fieldset>
         <%
@@ -81,11 +78,11 @@
         %>
         <fieldset>
             <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                    <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
+                <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
             </legend>
             <security:allowed bean="ab" event="setAdministratorRole">
-                    <s:link beanclass="bbmri.action.user.UserActionBean"
-                            event="setAdministratorRole">
+                <s:link beanclass="bbmri.action.user.UserActionBean"
+                        event="setAdministratorRole">
                     <f:message key="set"/></s:link>
             </security:allowed>
         </fieldset>
@@ -114,7 +111,30 @@
                     <tr>
                         <td><c:out value="${roleDTO.subject}"/></td>
                         <td><c:out value="${roleDTO.permission}"/></td>
-                        <td><c:out value="${roleDTO.referenceId}"/></td>
+                        <td>
+                                <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
+                            <c:if test="${roleDTO.type.name == 'bbmri.entities.BiobankAdministrator'}">
+
+                                <%--Need to set id for each row of a table to set properly ACL--%>
+                                <c:set target="${biobankBean}" property="id" value="${roleDTO.referenceId}"/>
+
+                                <security:allowed bean="biobankBean" event="edit">
+                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
+                                        <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                            key="edit"/></s:link>
+                                </security:allowed>
+                                <security:notAllowed bean="biobankBean" event="edit">
+                                    <security:allowed bean="biobankBean" event="detail">
+                                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+                                            <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                                key="detail"/></s:link>
+                                    </security:allowed>
+                                </security:notAllowed>
+
+                            </c:if>
+
+                                <%--TODO: Project edit vs. detail--%>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

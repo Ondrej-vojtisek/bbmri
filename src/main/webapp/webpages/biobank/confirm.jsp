@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="biobank.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.biobank.CreateActionBean"/>
@@ -13,21 +13,25 @@
 
                 CREATE
 
-                 <s:hidden name="project.id"/>
+                <s:hidden name="project.id"/>
                 <legend><f:message key="biobank.create"/></legend>
                 <s:errors/>
                 <table>
                     <tr>
-                        <th><s:label for="z1" name="biobank.name"/></th>
-                        <td><s:text id="z1" name="newBiobank.name"/></td>
+                        <th><s:label name="biobank.name"/></th>
+                        <td><s:text name="newBiobank.name" readonly="true"/></td>
                     </tr>
                     <tr>
-                        <th><s:label for="z2" name="biobank.address"/></th>
-                        <td><s:text id="z2" name="newBiobank.address"/></td>
+                        <th><s:label name="biobank.address"/></th>
+                        <td><s:text name="newBiobank.address" readonly="true"/></td>
+                    </tr>
+                    <tr>
+                        <th><s:label name="user"/></th>
+                        <td><s:text name="newAdministrator.wholeName" readonly="true"/></td>
                     </tr>
                 </table>
 
-                <s:submit name="administrators">SUBMIT</s:submit>
+                <s:submit name="done">SUBMIT</s:submit>
 
             </fieldset>
         </s:form>

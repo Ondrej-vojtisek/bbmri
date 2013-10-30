@@ -1,7 +1,8 @@
 package bbmri.action.biobank;
 
-import bbmri.action.BasicActionBean;
+import bbmri.action.user.FindActionBean;
 import bbmri.entities.Biobank;
+import bbmri.entities.User;
 import bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -19,9 +20,9 @@ import javax.annotation.security.RolesAllowed;
  * Time: 16:25
  * To change this template use File | Settings | File Templates.
  */
-@Wizard
-//@UrlBinding("/Biobank/Create/{$event}/{biobank.id}")
-public class CreateActionBean extends BasicActionBean {
+@Wizard(startEvents = {"display", "done"})
+@UrlBinding("/Biobank/Create/{$event}")
+public class CreateActionBean extends FindActionBean {
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -31,17 +32,81 @@ public class CreateActionBean extends BasicActionBean {
     @SpringBean
     private BiobankFacade biobankFacade;
 
+    private Long id;
+
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true),
-            @Validate(on = {"create"}, field = "address", required = true),
+            @Validate(on = {"create"}, field = "address", required = true)
     })
     private Biobank newBiobank;
 
+    public Biobank getNewBiobank() {
+        return newBiobank;
+    }
+
+    public void setNewBiobank(Biobank newBiobank) {
+        this.newBiobank = newBiobank;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getNewAdministrator() {
+        if (id != null) {
+            return userFacade.get(id);
+        }
+        return null;
+    }
+
     @DontValidate
     @DefaultHandler
-    @HandlesEvent("create") /* Necessary for stripes security tag*/
+    @HandlesEvent("display") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
         return new ForwardResolution(BIOBANK_CREATE);
     }
+
+    @DontValidate
+    @HandlesEvent("administrators") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution administrators() {
+        return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS);
+    }
+
+    @DontValidate
+    @HandlesEvent("done") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution done() {
+        biobankFacade.createBiobank(newBiobank, id);
+//        getContext().getMessages().add(
+//                new SimpleMessage("Biobank was succesfully created.")
+//        );
+        return new ForwardResolution(BiobankActionBean.class, "allBiobanks");
+    }
+
+    @HandlesEvent("create") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution create() {
+        return new ForwardResolution(CreateActionBean.class, "administrators");
+    }
+
+    @DontValidate
+    @HandlesEvent("selectAdministrator")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution selectAdministrator() {
+        return new ForwardResolution(BIOBANK_CREATE_CONFIRM);
+    }
+
+    @HandlesEvent("find")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution find() {
+        return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS).addParameter("UserFind", getUserFind());
+    }
+
+
 }

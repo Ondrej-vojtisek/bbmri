@@ -44,7 +44,6 @@ public class BiobankAdministrator implements Serializable {
         this.biobank = biobank;
     }
 
-
     public User getUser() {
         return user;
     }
@@ -73,16 +72,21 @@ public class BiobankAdministrator implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof BiobankAdministrator)) return false;
 
         BiobankAdministrator that = (BiobankAdministrator) o;
 
-        return id.equals(that.id);
+        if (!biobank.equals(that.biobank)) return false;
+        if (!user.equals(that.user)) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = biobank.hashCode();
+        result = 31 * result + user.hashCode();
+        return result;
     }
 
     @Override

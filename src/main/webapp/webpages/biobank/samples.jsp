@@ -6,11 +6,11 @@
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
-                 ternarymenu="administrators">
+                 ternarymenu="samples">
 
     <s:layout-component name="body">
 
-        ADMINISTRATORS
+        SAMPLES
 
     </s:layout-component>
 </s:layout-render>
