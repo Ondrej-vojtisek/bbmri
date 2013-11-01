@@ -15,7 +15,7 @@
             <takingDate>2013-03-30T09:00:00</takingDate>
         </blood>
 
-        <genome year="2013" number="112">
+        <genome year="2013" number="111">
             <samplesNo>3</samplesNo>
             <availableSamplesNo>2</availableSamplesNo>
             <tissueType>gD</tissueType>

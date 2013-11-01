@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="biobank.edit" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
@@ -10,7 +10,7 @@
 
     <s:layout-component name="body">
 
-            <s:layout-render name="/webpages/biobank/component/detail.jsp" editable="true"/>
+        <s:layout-render name="/webpages/biobank/component/detail.jsp" bean="${biobankBean}" editable="true"/>
 
     </s:layout-component>
 </s:layout-render>

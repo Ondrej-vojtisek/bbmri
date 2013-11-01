@@ -2,33 +2,48 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:layout-definition>
-    <s:form beanclass="bbmri.action.biobank.BiobankActionBean">
 
-        <c:if test="${editable}">
-            <s:hidden name="biobank.id"/>
-            <fieldset>
-                <legend><f:message key="project.edit"/></legend>
-                <%@include file="/form/createBiobankForm.jsp" %>
-                <s:submit name="update"><f:message key="save"/></s:submit>
-            </fieldset>
-        </c:if>
+    <c:if test="${editable}">
 
-        <c:if test="${not editable}">
+        <s:form beanclass="${bean.name}">
             <fieldset>
-                <legend><f:message key="biobank.detail"/></legend>
+                <legend>Edit</legend>
+                <s:hidden name="biobank.id"/>
                 <table>
+
                     <tr>
                         <th><s:label name="biobank.name"/></th>
-                        <td><s:text name="biobank.name" readonly="true"/></td>
+                        <td><s:text id="name" name="biobank.name"/></td>
                     </tr>
+
                     <tr>
                         <th><s:label name="biobank.address"/></th>
-                        <td><s:text name="biobank.address" readonly="true"/></td>
+                        <td><s:text id="address" name="biobank.address"/></td>
                     </tr>
-                </table>
-            </fieldset>
-        </c:if>
 
-    </s:form>
+                </table>
+                <s:submit name="update">
+                    <s:param name="id" value="${bean.id}"/>
+                    <f:message key="save"/></s:submit>
+            </fieldset>
+        </s:form>
+    </c:if>
+
+    <c:if test="${not editable}">
+        <fieldset>
+            <legend><f:message key="biobank.detail"/></legend>
+            <table>
+                <tr>
+                    <th><s:label name="biobank.name"/></th>
+                    <td>${biobank.name}</td>
+                </tr>
+                <tr>
+                    <th><s:label name="biobank.address"/></th>
+                    <td>${biobank.address}</td>
+                </tr>
+            </table>
+        </fieldset>
+    </c:if>
+
 
 </s:layout-definition>

@@ -101,8 +101,7 @@ public class Biobank implements Serializable {
         this.biobankAdministrators = biobankAdministrators;
     }
 
-
-       @Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

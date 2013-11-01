@@ -12,8 +12,6 @@
             <fieldset>
 
                 CREATE
-
-                 <s:hidden name="project.id"/>
                 <legend><f:message key="biobank.create"/></legend>
                 <s:errors/>
                 <table>

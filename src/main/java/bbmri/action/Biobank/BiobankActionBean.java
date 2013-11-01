@@ -1,6 +1,7 @@
 package bbmri.action.biobank;
 
 import bbmri.action.BasicActionBean;
+import bbmri.action.user.FindActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.enumeration.Permission;
@@ -25,7 +26,7 @@ import java.util.Set;
  */
 
 @UrlBinding("/Biobank/{$event}/{id}")
-public class BiobankActionBean extends BasicActionBean {
+public class BiobankActionBean extends FindActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -36,9 +37,10 @@ public class BiobankActionBean extends BasicActionBean {
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"update"}, field = "name", required = true),
-            @Validate(on = {"update"}, field = "address", required = true),
+            @Validate(on = {"update"}, field = "address", required = true)
     })
     private Biobank biobank;
+
 
     private Long biobankAdministratorId;
 
@@ -50,11 +52,16 @@ public class BiobankActionBean extends BasicActionBean {
         return biobankFacade.all();
     }
 
+    /*
+    * This is weird - if the first if is missing then only address is set during edit from .jsp
+    * */
     public Biobank getBiobank() {
-        if (id != null) {
-            return biobankFacade.get(id);
+        if (biobank == null) {
+            if (id != null) {
+                biobank = biobankFacade.get(id);
+            }
         }
-        return null;
+        return biobank;
     }
 
     public void setBiobank(Biobank biobank) {
@@ -73,8 +80,6 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     public boolean getAllowedManager() {
-        logger.debug("HasPermissionManager: " + biobankFacade.hasPermission(Permission.MANAGER, id, getContext().getMyId()));
-
         return biobankFacade.hasPermission(Permission.MANAGER, id, getContext().getMyId());
     }
 
@@ -134,6 +139,12 @@ public class BiobankActionBean extends BasicActionBean {
         return new ForwardResolution(BIOBANK_CREATE);
     }
 
+    @DontValidate
+    @HandlesEvent("detail")
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    public Resolution detail() {
+        return new ForwardResolution(BIOBANK_DETAIL);
+    }
 
     @DontValidate
     @HandlesEvent("edit")
@@ -142,12 +153,6 @@ public class BiobankActionBean extends BasicActionBean {
         return new ForwardResolution(BIOBANK_EDIT);
     }
 
-    @DontValidate
-    @HandlesEvent("detail")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
-    public Resolution detail() {
-        return new ForwardResolution(BIOBANK_DETAIL);
-    }
 
     @DontValidate
     @HandlesEvent("administrators")
@@ -185,6 +190,13 @@ public class BiobankActionBean extends BasicActionBean {
         return new RedirectResolution(BiobankActionBean.class, "administrators").addParameter("id", id);
     }
 
+    @DontValidate
+    @HandlesEvent("update")
+    @RolesAllowed({"biobank_operator if ${allowedEditor}"})
+    public Resolution update() {
+        biobankFacade.updateBiobank(biobank);
+        return new RedirectResolution(BiobankActionBean.class, "edit").addParameter("id", id);
+    }
 
     @DontValidate
     @HandlesEvent("samples")
@@ -193,26 +205,25 @@ public class BiobankActionBean extends BasicActionBean {
         return new ForwardResolution(BIOBANK_SAMPLES);
     }
 
-
     @DontValidate
-    @HandlesEvent("create")
-    @RolesAllowed({"developer", "administrator"})
-    public Resolution create() {
-        /*
-
-        User resDB = userService.get(administrator.getId());
-
-        BiobankAdministrator ba = resDB.getBiobankAdministrator();
-        Biobank biobankDB = biobankService.get(ba.getBiobank().getId());
-
-        if (biobankDB != null) {
-            getContext().getMessages().add(
-                         new SimpleMessage("Selected user is already an administrator of a biobank")
-                 );
-            return new ForwardResolution(this.getClass(), "display");
-        }
-        biobankService.create(newBiobank, administrator.getId());
-        */
-        return new ForwardResolution(this.getClass(), "display");
+    @HandlesEvent("delete")
+    @RolesAllowed({"developer"})
+    public Resolution delete() {
+        biobankFacade.removeBiobank(id);
+        return new RedirectResolution(BIOBANK_ALL);
     }
+
+//     @DontValidate
+//     @HandlesEvent("selectAdministrator")
+//     @RolesAllowed({"administrator", "developer"})
+//     public Resolution selectAdministrator() {
+//         return new RedirectResolution(BIOBANK_ADMINISTRATORS_WRITE);
+//     }
+//
+//    @HandlesEvent("find")
+//    @RolesAllowed({"administrator", "developer"})
+//    public Resolution find() {
+//        return new ForwardResolution(BIOBANK_ADMINISTRATORS_WRITE).addParameter("UserFind", getUserFind()).addParameter("id", id);
+//    }
+
 }
