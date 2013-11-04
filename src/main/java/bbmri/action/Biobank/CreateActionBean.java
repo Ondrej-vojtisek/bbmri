@@ -1,9 +1,10 @@
 package bbmri.action.biobank;
 
-import bbmri.action.user.FindActionBean;
+import bbmri.action.user.FindUserActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.facade.BiobankFacade;
+import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -22,12 +23,16 @@ import javax.annotation.security.RolesAllowed;
  */
 @Wizard(startEvents = {"display", "done"})
 @UrlBinding("/Biobank/Create/{$event}")
-public class CreateActionBean extends FindActionBean {
+public class CreateActionBean extends FindUserActionBean {
 
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
    /* Variables */
+
+    @SpringBean
+    private UserFacade userFacade;
+
 
     @SpringBean
     private BiobankFacade biobankFacade;

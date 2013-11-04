@@ -2,6 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="users.title" var="title"/>
+<s:useActionBean var="userFindBean" beanclass="bbmri.action.user.FindUserActionBean"/>
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
@@ -10,7 +11,9 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/findUser.jsp" bean="${userBean}" eventName="detail"/>
+        <s:layout-render name="/webpages/component/findUser.jsp"
+                         context="user"
+                         findBean="${userFindBean}"/>
 
     </s:layout-component>
 </s:layout-render>

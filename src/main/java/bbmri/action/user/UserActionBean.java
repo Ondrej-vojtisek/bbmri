@@ -1,9 +1,12 @@
 package bbmri.action.user;
 
+import bbmri.action.BasicActionBean;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
+import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
@@ -16,9 +19,12 @@ import java.util.Set;
 //import javax.annotation.security.RolesAllowed;
 
 @UrlBinding("/user/{$event}/{user.id}")
-public class UserActionBean extends FindActionBean {
+public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @SpringBean
+    private UserFacade userFacade;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"},
@@ -154,12 +160,12 @@ public class UserActionBean extends FindActionBean {
         return new ForwardResolution(USER_ROLES);
     }
 
-    @HandlesEvent("submitFind")
-    @RolesAllowed({"administrator", "developer"})
-    public Resolution submitFind() {
-        logger.debug("findUser: " + getUserFind());
-        return new ForwardResolution(USER_ALL);
-    }
+//    @HandlesEvent("submitFind")
+//    @RolesAllowed({"administrator", "developer"})
+//    public Resolution submitFind() {
+//        logger.debug("findUser: " + getUserFind());
+//        return new ForwardResolution(USER_ALL);
+//    }
 
 }
 

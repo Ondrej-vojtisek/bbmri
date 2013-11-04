@@ -19,8 +19,8 @@
             key="user.create"/></s:link></li>
 </security:allowed>
 
-<security:allowed bean="userBean" event="findResolution">
+<security:allowed bean="userFindBean" event="find">
     <li <c:if test="${secondarymenu == 'user_find'}"> class="active" </c:if>><s:link
-            beanclass="bbmri.action.user.UserActionBean" event="findResolution"><f:message
+            beanclass="bbmri.action.user.FindUserActionBean" event="find"><f:message
             key="user.find"/></s:link></li>
 </security:allowed>

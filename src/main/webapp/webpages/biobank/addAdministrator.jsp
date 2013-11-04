@@ -7,13 +7,13 @@
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
-                 ternarymenu="administrators">
+                 ternarymenu="addAdministrator">
 
     <s:layout-component name="body">
 
-        WRITE
-
-        <s:layout-render name="/webpages/biobank/component/administrators.jsp" editable="true"/>
+        <s:layout-render name="/webpages/component/findUser.jsp"
+                         findBean="${adminFindBean}"
+                         context="biobank"/>
 
     </s:layout-component>
 </s:layout-render>

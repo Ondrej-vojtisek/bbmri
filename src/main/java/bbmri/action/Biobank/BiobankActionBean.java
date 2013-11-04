@@ -1,7 +1,6 @@
 package bbmri.action.biobank;
 
-import bbmri.action.BasicActionBean;
-import bbmri.action.user.FindActionBean;
+import bbmri.action.user.FindUserActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.enumeration.Permission;
@@ -26,7 +25,7 @@ import java.util.Set;
  */
 
 @UrlBinding("/Biobank/{$event}/{id}")
-public class BiobankActionBean extends FindActionBean {
+public class BiobankActionBean extends FindUserActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -45,6 +44,10 @@ public class BiobankActionBean extends FindActionBean {
     private Long biobankAdministratorId;
 
     private Permission permission;
+
+    private Long adminId;
+
+
 
     /* Setter / Getter */
 
@@ -124,6 +127,14 @@ public class BiobankActionBean extends FindActionBean {
         this.permission = permission;
     }
 
+    public Long getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
+    }
+
     /* Methods */
     @DontValidate
     @DefaultHandler
@@ -166,9 +177,9 @@ public class BiobankActionBean extends FindActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("administratorsEdit")
+    @HandlesEvent("editAdministrators")
     @RolesAllowed({"biobank_operator if ${allowedManager}"})
-    public Resolution administratorsEdit() {
+    public Resolution editAdministrators() {
         return new ForwardResolution(BIOBANK_ADMINISTRATORS_WRITE);
     }
 
@@ -213,17 +224,28 @@ public class BiobankActionBean extends FindActionBean {
         return new RedirectResolution(BIOBANK_ALL);
     }
 
-//     @DontValidate
-//     @HandlesEvent("selectAdministrator")
-//     @RolesAllowed({"administrator", "developer"})
-//     public Resolution selectAdministrator() {
-//         return new RedirectResolution(BIOBANK_ADMINISTRATORS_WRITE);
-//     }
-//
-//    @HandlesEvent("find")
-//    @RolesAllowed({"administrator", "developer"})
-//    public Resolution find() {
-//        return new ForwardResolution(BIOBANK_ADMINISTRATORS_WRITE).addParameter("UserFind", getUserFind()).addParameter("id", id);
+//    @DontValidate
+//    @HandlesEvent("addAdministratorResolution")
+//    @RolesAllowed({"biobank_operator if ${allowedManager}"})
+//    public Resolution addAdministratorResolution() {
+//        return new ForwardResolution(FindAdminActionBean.class).addParameter("id", id);
 //    }
+
+
+    @DontValidate
+    @HandlesEvent("addAdministrator")
+    @RolesAllowed({"biobank_operator if ${allowedManager}"})
+    public Resolution addAdministrator() {
+        // akce
+
+        logger.debug("Akce pridani administratora");
+        logger.debug("ID: " + id);
+        logger.debug("adminID: " + adminId);
+        logger.debug("Permission: " + permission);
+
+        biobankFacade.assignAdministratorToBiobank(id, getContext().getMyId(), adminId,permission);
+
+        return new RedirectResolution(BiobankActionBean.class, "administrators").addParameter("id", id);
+    }
 
 }

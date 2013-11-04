@@ -81,6 +81,31 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     public void assignAdministratorToBiobank(Long biobank, Long loggedUser, Long newAdministrator, Permission permission) {
+        notNull(biobank);
+        notNull(loggedUser);
+        notNull(newAdministrator);
+        notNull(permission);
+
+        Biobank biobankDB = biobankService.get(biobank);
+        User logged = userService.get(loggedUser);
+        User newAdmin = userService.get(newAdministrator);
+
+        if(biobankDB == null || logged == null || newAdmin == null){
+            return;
+            // TODO: Exception
+        }
+
+        if(logged.equals(newAdmin)){
+            return;
+            // TODO: exception - can assign yourself again
+        }
+
+        if(biobankAdministratorService.get(biobank, newAdministrator) != null){
+            //TODO: exception - he is already admin
+            return;
+        }
+
+        biobankService.assignAdministrator(newAdministrator, biobank, permission);
 
     }
 

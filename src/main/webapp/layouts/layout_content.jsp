@@ -17,6 +17,7 @@
 <body>
 <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="userFindBean" beanclass="bbmri.action.user.FindUserActionBean"/>
 <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
 <c:set var="administrator" scope="session" value="${bean.loggedUser.isAdministrator}"/>
@@ -200,15 +201,25 @@
                 </security:notAllowed>
             </li>
 
+            <%--Event from biobankBean is here only because security check--%>
+            <security:allowed bean="biobankBean" event="editAdministrators">
+                <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
+                    <s:link beanclass="bbmri.action.biobank.FindAdminActionBean">
+                        <s:param name="id" value="${biobankBean.id}"/><f:message
+                            key="add.administrator"/></s:link>
+                </li>
+            </security:allowed>
+
+
             <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
 
-                <security:allowed bean="biobankBean" event="administratorsEdit">
-                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administratorsEdit">
+                <security:allowed bean="biobankBean" event="editAdministrators">
+                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="editAdministrators">
                         <s:param name="id" value="${biobankBean.id}"/><f:message
                             key="biobank.administrators"/></s:link>
                 </security:allowed>
 
-                <security:notAllowed bean="biobankBean" event="administratorsEdit">
+                <security:notAllowed bean="biobankBean" event="editAdministrators">
                     <security:allowed bean="biobankBean" event="administrators">
                         <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administrators">
                             <s:param name="id" value="${biobankBean.id}"/><f:message

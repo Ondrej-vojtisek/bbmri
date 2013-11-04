@@ -50,6 +50,7 @@ public class BasicActionBean implements ActionBean {
     protected static final String BIOBANK_DETAIL = BIOBANK + "detail_R.jsp";
     protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators_R.jsp";
     protected static final String BIOBANK_ADMINISTRATORS_WRITE = BIOBANK + "administrators_W.jsp";
+    protected static final String BIOBANK_ADD_ADMINISTRATOR = BIOBANK + "addAdministrator.jsp";
     protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK + "create_administrators.jsp";
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK + "confirm.jsp";
     protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
