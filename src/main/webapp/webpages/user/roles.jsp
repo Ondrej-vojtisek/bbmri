@@ -1,4 +1,3 @@
-<%@ page import="bbmri.entities.enumeration.SystemRole" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
@@ -56,39 +55,34 @@
         </fieldset>
 
 
-        <%
-            if (!ab.getSystemRoles().contains(SystemRole.DEVELOPER)) {
-        %>
-        <fieldset>
-            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
-            </legend>
+        <c:if test="${not ab.isDeveloper}">
             <security:allowed bean="ab" event="setDeveloperRole">
-                <s:link beanclass="bbmri.action.user.UserActionBean"
-                        event="setDeveloperRole">
-                    <f:message key="set"/></s:link>
-            </security:allowed>
-        </fieldset>
-        <%
-            }
-        %>
+                <fieldset>
+                    <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
+                        <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
+                    </legend>
 
-        <%
-            if (!ab.getSystemRoles().contains(SystemRole.ADMINISTRATOR)) {
-        %>
-        <fieldset>
-            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
-            </legend>
-            <security:allowed bean="ab" event="setAdministratorRole">
-                <s:link beanclass="bbmri.action.user.UserActionBean"
-                        event="setAdministratorRole">
-                    <f:message key="set"/></s:link>
+                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                            event="setDeveloperRole">
+                        <f:message key="set"/></s:link>
+
+                </fieldset>
             </security:allowed>
-        </fieldset>
-        <%
-            }
-        %>
+        </c:if>
+
+        <c:if test="${not ab.isAdministrator}">
+            <security:allowed bean="ab" event="setAdministratorRole">
+                <fieldset>
+                    <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
+                        <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
+                    </legend>
+
+                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                            event="setAdministratorRole">
+                        <f:message key="set"/></s:link>
+                </fieldset>
+            </security:allowed>
+        </c:if>
 
 
         <fieldset>

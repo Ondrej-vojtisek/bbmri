@@ -30,9 +30,6 @@ public class BasicActionBean implements ActionBean {
     // MY ACCOUNT
     private static final String USER = BASIC_PATH + "/user/";
     /*************************************/
-    protected static final String ACCOUNT_PERSONAL_DATA = USER + "account_personal_data.jsp";
-    protected static final String ACCOUNT_PASSWORD = USER + "account_password.jsp";
-    protected static final String ACCOUNT_ROLES = USER + "account_roles.jsp";
 
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
@@ -40,6 +37,7 @@ public class BasicActionBean implements ActionBean {
     protected static final String USER_PERSONAL_DATA = USER + "personal_data.jsp";
     protected static final String USER_ROLES = USER + "roles.jsp";
     protected static final String USER_FIND = USER + "find.jsp";
+    protected static final String USER_PASSWORD = USER + "password.jsp";
 
     // BIOBANK
     private static final String BIOBANK = BASIC_PATH + "/biobank/";

@@ -40,7 +40,8 @@
                 <p class="navbar-text pull-right" style="margin-right: 30px;">
 
                     <f:message key="logged_user"/>:
-                    <s:link beanclass="bbmri.action.user.AccountActionBean">
+                    <s:link beanclass="bbmri.action.user.UserActionBean" event="detail">
+                        <s:param name="id" value="${bean.context.myId}"/>
                         <c:out value="${logged}"/>
                     </s:link>
                 </p>
@@ -150,36 +151,35 @@
         <s:messages/>
     </div>
 
-
-    <c:if test="${primarymenu == 'account'}">
-        <ul class="nav nav-tabs">
-            <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
-                    beanclass="bbmri.action.user.AccountActionBean"><f:message
-                    key="credentials.change_title"/></s:link></li>
-            <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>><s:link
-                    beanclass="bbmri.action.user.AccountActionBean"
-                    event="changePasswordView"><f:message
-                    key="credentials.change_password"/></s:link></li>
-            <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
-                    beanclass="bbmri.action.user.AccountActionBean" event="rolesView"><f:message
-                    key="credentials.myRoles"/></s:link></li>
-        </ul>
-    </c:if>
-
     <c:if test="${primarymenu == 'user' and not empty ternarymenu}">
         <ul class="nav nav-tabs">
+
+            <security:allowed bean="userBean" event="detail">
             <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
                     beanclass="bbmri.action.user.UserActionBean" event="detail">
-                <s:param name="id" value="${userBean.user.id}"/>
+                <s:param name="id" value="${userBean.id}"/>
                 <f:message
                         key="credentials.change_title"/>
             </s:link></li>
+            </security:allowed>
+
+            <security:allowed bean="userBean" event="changePasswordView">
+            <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>><s:link
+                    beanclass="bbmri.action.user.UserActionBean"
+                    event="changePasswordView">
+                <s:param name="id" value="${userBean.id}"/>
+                <f:message
+                    key="credentials.change_password"/></s:link></li>
+            </security:allowed>
+
+            <security:allowed bean="userBean" event="rolesView">
             <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
                     beanclass="bbmri.action.user.UserActionBean"
                     event="rolesView">
-                <s:param name="id" value="${userBean.user.id}"/>
+                <s:param name="id" value="${userBean.id}"/>
                 <f:message
                         key="credentials.roles"/></s:link></li>
+            </security:allowed>
         </ul>
     </c:if>
 
@@ -201,7 +201,7 @@
                 </security:notAllowed>
             </li>
 
-            <%--Event from biobankBean is here only because security check--%>
+                <%--Event from biobankBean is here only because security check--%>
             <security:allowed bean="biobankBean" event="editAdministrators">
                 <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
                     <s:link beanclass="bbmri.action.biobank.FindAdminActionBean">

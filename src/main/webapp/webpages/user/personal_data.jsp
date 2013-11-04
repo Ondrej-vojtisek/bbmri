@@ -21,22 +21,48 @@
                 <table>
                     <tr>
                         <th><s:label for="z2" name="user.name"/></th>
-                        <td><s:text id="z2" name="user.name" readonly="true"/></td>
+
+                        <td>
+                            <security:allowed bean="ab" event="update">
+                                <s:text name="user.name"/>
+                            </security:allowed>
+
+                            <security:notAllowed bean="ab" event="update">
+                            <s:text id="z2" name="user.name" readonly="true"/>
+                            </security:notAllowed>
+                        </td>
                     </tr>
                     <tr>
                         <th><s:label for="z3" name="user.surname"/></th>
-                        <td><s:text id="z3" name="user.surname" readonly="true"/></td>
+                        <td>
+                            <security:allowed bean="ab" event="update">
+                                <s:text name="user.surname"/>
+                            </security:allowed>
+
+                            <security:notAllowed bean="ab" event="update">
+                            <s:text id="z3" name="user.surname" readonly="true"/>
+                            </security:notAllowed>
+                        </td>
                     </tr>
                     <tr>
                         <th><s:label for="z4" name="user.created"/></th>
-                        <td><s:text id="z4" name="user.created" readonly="true"/></td>
+                        <td>
+                            <s:text id="z4" name="user.created" readonly="true"/>
+                        </td>
                     </tr>
                     <tr>
                         <th><s:label for="z5" name="user.lastLogin"/></th>
-                        <td><s:text id="z5" name="user.lastLogin" readonly="true"/></td>
+                        <td>
+                        <s:text id="z5" name="user.lastLogin" readonly="true"/>
+                        </td>
                     </tr>
 
                 </table>
+
+                <security:allowed bean="ab" event="update">
+                    <s:submit name="update"><f:message key="save"/></s:submit>
+                </security:allowed>
+
             </fieldset>
         </s:form>
 

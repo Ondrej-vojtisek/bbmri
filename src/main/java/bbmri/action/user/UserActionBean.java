@@ -18,7 +18,8 @@ import java.util.Set;
 
 //import javax.annotation.security.RolesAllowed;
 
-@UrlBinding("/user/{$event}/{user.id}")
+
+@UrlBinding("/user/{$event}/{id}")
 public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -40,11 +41,21 @@ public class UserActionBean extends BasicActionBean {
     private User user;
     private Long id;
 
+    @Validate(on = {"changePassword"}, required = true)
+    private String password;
+    @Validate(on = {"changePassword"}, required = true)
+    private String password2;
+
     public List<User> getUsers() {
         return userFacade.all();
     }
 
     public User getUser() {
+        if (user == null) {
+            if (id != null) {
+                user = userFacade.get(id);
+            }
+        }
         return user;
     }
 
@@ -61,12 +72,41 @@ public class UserActionBean extends BasicActionBean {
     }
 
     public List<RoleDTO> getUserRoles() {
-        return userFacade.getRoles(user.getId());
+        return userFacade.getRoles(id);
     }
 
     public Set<SystemRole> getSystemRoles() {
-        return userFacade.getSystemRoles(user.getId());
+        return userFacade.getSystemRoles(id);
     }
+
+    public boolean getIsMyAccount() {
+        return getContext().getMyId().equals(id);
+    }
+
+    public String getPassword() {
+           return password;
+       }
+
+       public void setPassword(String password) {
+           this.password = password;
+       }
+
+       public String getPassword2() {
+           return password2;
+       }
+
+       public void setPassword2(String password2) {
+           this.password2 = password2;
+       }
+
+    public boolean getIsDeveloper(){
+            return getSystemRoles().contains(SystemRole.DEVELOPER);
+        }
+
+    public boolean getIsAdministrator(){
+           return getSystemRoles().contains(SystemRole.ADMINISTRATOR);
+       }
+
 
     @DontValidate
     @DefaultHandler
@@ -109,63 +149,93 @@ public class UserActionBean extends BasicActionBean {
     * */
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "administrator"})
+    @RolesAllowed({"developer", "administrator", "user if ${isMyAccount}"})
     public Resolution detail() {
-        if (id.equals(getContext().getMyId())) {
-            return new ForwardResolution(AccountActionBean.class, "display");
-        }
-        user = userFacade.get(id);
-        return new ForwardResolution(USER_PERSONAL_DATA);
+        return new ForwardResolution(USER_PERSONAL_DATA).addParameter("id", id);
     }
 
     @HandlesEvent("rolesView")
-    @RolesAllowed({"administrator", "developer"})
+    @RolesAllowed({"administrator", "developer", "user if ${isMyAccount}"})
     public Resolution rolesView() {
-        user = userFacade.get(id);
-        return new ForwardResolution(USER_ROLES);
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
     @HandlesEvent("removeAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
         userFacade.removeAdministratorRole(id);
-        user = userFacade.get(id);
         // TODO exception message
-
-        return new ForwardResolution(USER_ROLES);
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
         userFacade.removeDeveloperRole(id);
-        user = userFacade.get(id);
         // TODO exception message
-        return new ForwardResolution(USER_ROLES);
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
         userFacade.setAsAdministrator(id);
-        user = userFacade.get(id);
-        return new ForwardResolution(USER_ROLES);
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
         userFacade.setAsDeveloper(id);
-        user = userFacade.get(id);
-        return new ForwardResolution(USER_ROLES);
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
-//    @HandlesEvent("submitFind")
-//    @RolesAllowed({"administrator", "developer"})
-//    public Resolution submitFind() {
-//        logger.debug("findUser: " + getUserFind());
-//        return new ForwardResolution(USER_ALL);
-//    }
+    @HandlesEvent("refuseAdministratorRole")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution refuseAdministratorRole() {
+        userFacade.removeAdministratorRole(id);
+        // TODO exception message
+
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
+    }
+
+    @HandlesEvent("refuseDeveloperRole")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution refuseDeveloperRole() {
+        userFacade.removeDeveloperRole(id);
+        // TODO exception message
+        return new ForwardResolution(USER_ROLES).addParameter("id", id);
+    }
+
+    @DontValidate
+    @HandlesEvent("update")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution update() {
+        userFacade.update(user);
+        return new RedirectResolution(UserActionBean.class, "detail");
+    }
+
+    @HandlesEvent("changePassword")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution changePassword() {
+        if (password != null && password2 != null && password.equals(password2)) {
+            user.setPassword(password);
+            userFacade.update(user);
+            getContext().getMessages().add(
+                    new SimpleMessage("Password was changed")
+            );
+        } else {
+            // TODO message
+        }
+        return new RedirectResolution(UserActionBean.class, "detail");
+    }
+
+    @DontValidate
+    @HandlesEvent("changePasswordView")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution changePasswordView() {
+        return new ForwardResolution(USER_PASSWORD);
+    }
 
 }
 
