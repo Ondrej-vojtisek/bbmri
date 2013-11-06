@@ -4,6 +4,7 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
 import bbmri.entities.enumeration.SystemRole;
+import bbmri.service.ProjectAdministratorService;
 import bbmri.service.ProjectService;
 import bbmri.service.RequestGroupService;
 import bbmri.service.UserService;
@@ -31,6 +32,9 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
     @Autowired
     private RequestGroupService requestGroupService;
 
+    @Autowired
+    private ProjectAdministratorService projectAdministratorService;
+
         /* ********* GIVEN ********** */
         /* ********* WHEN ********** */
         /* ********* THEN ********** */
@@ -53,7 +57,8 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         assertEquals(1, project.getProjectAdministrators().size());
         assertEquals(1, user.getProjectAdministrators().size());
-        ProjectAdministrator pa = project.getProjectAdministrators().get(0);
+       // ProjectAdministrator pa = project.getProjectAdministrators().get(0);
+        ProjectAdministrator pa = projectAdministratorService.get(project.getId(), user.getId());
         assertEquals(Permission.MANAGER, pa.getPermission());
         assertEquals(user, pa.getUser());
         assertEquals(project, pa.getProject());

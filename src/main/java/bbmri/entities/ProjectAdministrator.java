@@ -67,18 +67,21 @@ public class ProjectAdministrator {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ProjectAdministrator)) return false;
 
         ProjectAdministrator that = (ProjectAdministrator) o;
 
-        if (!id.equals(that.id)) return false;
+        if (!project.equals(that.project)) return false;
+        if (!user.equals(that.user)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = project.hashCode();
+        result = 31 * result + user.hashCode();
+        return result;
     }
 
     @Override

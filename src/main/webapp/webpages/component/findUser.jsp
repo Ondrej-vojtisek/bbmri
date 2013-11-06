@@ -3,6 +3,7 @@
 
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
 <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
 
 <s:layout-definition>
     <fieldset>
@@ -75,6 +76,21 @@
                                     </s:submit>
                                 </s:form>
                             </c:when>
+
+                            <c:when test="${context == 'project'}">
+                                <s:form beanclass="${projectBean.name}">
+                                    <s:select name="permission">
+                                        <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
+                                    </s:select>
+
+                                    <s:submit name="addAdministrator">
+                                        <s:param name="id" value="${findBean.id}"/>
+                                        <s:param name="adminId" value="${user.id}"/>
+                                        <f:message key="addAdministrator"/>
+                                    </s:submit>
+                                </s:form>
+                            </c:when>
+
                             <c:otherwise>
                             </c:otherwise>
                         </c:choose>

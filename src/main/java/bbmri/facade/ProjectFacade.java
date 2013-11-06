@@ -3,7 +3,10 @@ package bbmri.facade;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.AttachmentType;
 import bbmri.entities.enumeration.Permission;
+import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.StreamingResolution;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -22,29 +25,35 @@ public interface ProjectFacade {
     List<User> getProjectAdministrators(Long projectId);
 
     //List<ProjectAdministrator> getProjectAdministrators(Long biobankId);
-    void createProject(Project project, Long loggedUserId);
+    Project createProject(Project project, Long loggedUserId);
 
     void updateProject(Project project);
 
-    void removeProject(Long projectId, Long loggedUserId);
+    void removeProject(Long projectId);
 
     void assignAdministratorToProject(Long project, Long loggedUser, Long newAdministrator, Permission permission);
 
-    void removeAdministratorFromProject(Long project, Long loggedUser, Long newAdministrator);
-
-    void changePermissionOfAdministrator(Long biobank, Long loggedUser, Long newAdministrator, Permission permission);
-
     boolean isApproved(Long projectId);
 
-    void createAttachment(String fileName, String contentType, Long size, AttachmentType attachmentType, Long projectId);
+    void createAttachment(FileBean fileBean, AttachmentType attachmentType, Long projectId);
 
-    void deleteAttachment(Attachment attachment);
+    StreamingResolution downloadFile(Long attachmentId) throws FileNotFoundException;
+
+    void deleteAttachment(Long attachmentId);
 
     void updateAttachment(Attachment attachment);
 
-    void uploadAttachment(Attachment attachment);
-
     List<Attachment> getAttachments(Long projectId);
 
-    String getAttachmentPath(Long attachmentId);
+    List<Project> all();
+
+    Project get(Long id);
+
+    boolean hasPermission(Permission permission, Long projectId, Long userId);
+
+    void changeProjectAdministratorPermission(Long projectAdministrator, Permission permission, Long loggedUser);
+
+    void removeProjectAdministrator(Long projectAdministrator, Long loggedUser);
+
+    List<Project> getProjects(Long userId);
 }

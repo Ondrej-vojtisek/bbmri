@@ -54,7 +54,7 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
             return null;
         }
 
-        // Only persmission can be updated
+        // Only permission can be updated
 
         if (biobankAdministrator.getPermission() != null) ba.setPermission(biobankAdministrator.getPermission());
 

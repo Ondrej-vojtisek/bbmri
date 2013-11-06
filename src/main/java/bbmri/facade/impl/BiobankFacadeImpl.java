@@ -25,19 +25,19 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
 
     @Autowired
-    BiobankService biobankService;
+    private BiobankService biobankService;
 
     @Autowired
-    RequestGroupService requestGroupService;
+    private RequestGroupService requestGroupService;
 
     @Autowired
-    RequestService requestService;
+    private RequestService requestService;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    BiobankAdministratorService biobankAdministratorService;
+    private BiobankAdministratorService biobankAdministratorService;
 
     public List<User> getBiobankAdministrators(Long biobankId) {
         notNull(biobankId);
@@ -65,7 +65,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         notNull(biobank);
         notNull(newAdministratorId);
 
-//        logger.debug("Facade: Biobank: " + biobank + " id: " + newAdministratorId );
         biobankService.create(biobank, newAdministratorId);
 
     }
@@ -106,15 +105,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         }
 
         biobankService.assignAdministrator(newAdministrator, biobank, permission);
-
-    }
-
-    public void removeAdministratorFromBiobank(Long biobank, Long loggedUser, Long newAdministrator) {
-
-    }
-
-    public void changePermissionOfAdministrator(Long biobank, Long loggedUser, Long newAdministrator, Permission permission) {
-
     }
 
     public void changeBiobankAdministratorPermission(Long biobankAdministrator, Permission permission, Long loggedUser) {

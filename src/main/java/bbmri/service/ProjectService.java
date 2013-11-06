@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.User;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Project;
 import bbmri.entities.enumeration.ProjectState;
@@ -36,4 +37,6 @@ public interface ProjectService extends BasicService<Project> {
     void removeAdministrator(Long projectId, Long loggedUserId, Long userId);
 
     void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission);
+
+    User assignAdministrator(Long userId, Long projectId, Permission permission);
 }

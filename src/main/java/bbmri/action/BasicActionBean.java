@@ -33,7 +33,7 @@ public class BasicActionBean implements ActionBean {
 
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
-    protected static final String USER_CREATE = USER + "create.jsp";
+    protected static final String USER_CREATE = USER + "initial.jsp";
     protected static final String USER_PERSONAL_DATA = USER + "personal_data.jsp";
     protected static final String USER_ROLES = USER + "roles.jsp";
     protected static final String USER_FIND = USER + "find.jsp";
@@ -43,20 +43,53 @@ public class BasicActionBean implements ActionBean {
     private static final String BIOBANK = BASIC_PATH + "/biobank/";
     /*************************************/
     protected static final String BIOBANK_ALL = BIOBANK + "all.jsp";
-    protected static final String BIOBANK_CREATE = BIOBANK + "create.jsp";
     protected static final String BIOBANK_EDIT = BIOBANK + "detail_W.jsp";
     protected static final String BIOBANK_DETAIL = BIOBANK + "detail_R.jsp";
     protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators_R.jsp";
     protected static final String BIOBANK_ADMINISTRATORS_WRITE = BIOBANK + "administrators_W.jsp";
     protected static final String BIOBANK_ADD_ADMINISTRATOR = BIOBANK + "addAdministrator.jsp";
-    protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK + "create_administrators.jsp";
-    protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK + "confirm.jsp";
+
+    // BIOBANK/CREATE
+    private static final String BIOBANK_CREATE = BIOBANK + "create/";
+    /*************************************/
+    protected static final String BIOBANK_CREATE_GENERAL = BIOBANK_CREATE + "initial.jsp";
+    protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "administrators_R.jsp";
+    protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "confirm.jsp";
+
+
+
+
     protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
 
-
-
     // PROJECTS
-    protected static final String PROJECT_MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
+    private static final String PROJECT = BASIC_PATH + "/project/";
+    /*************************************/
+    protected static final String PROJECT_ALL = PROJECT + "all.jsp";
+    protected static final String PROJECT_MY = PROJECT + "all_my.jsp";
+
+
+    // PROJECTS/CREATE
+    private static final String PROJECT_DETAIL = PROJECT + "detail/";
+    /*************************************/
+    protected static final String PROJECT_DETAIL_READ = PROJECT_DETAIL + "detail_R.jsp";
+    protected static final String PROJECT_DETAIL_WRITE = PROJECT_DETAIL + "detail_W.jsp";
+    protected static final String PROJECT_DETAIL_ATTACHMENTS = PROJECT_DETAIL + "attachments.jsp";
+    protected static final String PROJECT_DETAIL_ADMINISTRATORS_READ = PROJECT_DETAIL + "administrators_R.jsp";
+    protected static final String PROJECT_DETAIL_ADMINISTRATORS_WRITE = PROJECT_DETAIL + "administrators_W.jsp";
+    protected static final String PROJECT_DETAIL_ADMINISTRATORS_ADD = PROJECT_DETAIL + "addAdministrator.jsp";
+    protected static final String PROJECT_DETAIL_ATTACHMENT_ADD = PROJECT_DETAIL + "addAttachment.jsp";
+
+    // PROJECTS/CREATE
+    private static final String PROJECT_CREATE = PROJECT + "create/";
+    /*************************************/
+    protected static final String PROJECT_CREATE_INIT = PROJECT_CREATE + "initial.jsp";
+    protected static final String PROJECT_CREATE_GENERAL = PROJECT_CREATE + "general.jsp";
+    protected static final String PROJECT_CREATE_FINANCED = PROJECT_CREATE + "financed.jsp";
+    protected static final String PROJECT_CREATE_ANNOTATION = PROJECT_CREATE + "annotation.jsp";
+    protected static final String PROJECT_CREATE_MTA = PROJECT_CREATE + "mta.jsp";
+    protected static final String PROJECT_CREATE_CONFIRM = PROJECT_CREATE + "confirm.jsp";
+
+    protected static final String SAMPLE_REQUEST = "/webpages/project/sample_request.jsp";
 
     @SpringBean
     protected UserService userService;

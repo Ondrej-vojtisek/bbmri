@@ -2,10 +2,9 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:layout-definition>
-    <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
-
     <fieldset>
-        <legend><f:message key="biobank.roles"/></legend>
+        <legend>
+           <f:message key="biobank.roles"/></legend>
         <table class="table table-hover table-striped">
             <thead>
             <tr>
@@ -16,46 +15,46 @@
             <tbody>
 
             <c:if test="${not editable}">
-                <c:if test="${empty biobankBean.biobankRoles}">
+                <c:if test="${empty bean.administrators}">
                     <tr>
                         <td colspan="2"><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${biobankBean.biobankRoles}" var="biobankAdministrator">
+                <c:forEach items="${bean.administrators}" var="administrator">
                     <tr>
-                        <td><c:out value="${biobankAdministrator.user.wholeName}"/></td>
-                        <td><c:out value="${biobankAdministrator.permission}"/></td>
+                        <td><c:out value="${administrator.user.wholeName}"/></td>
+                        <td><c:out value="${administrator.permission}"/></td>
                     </tr>
                 </c:forEach>
             </c:if>
 
             <c:if test="${editable}">
 
-                <c:if test="${empty biobankBean.biobankRoles}">
+                <c:if test="${empty bean.administrators}">
                     <tr>
                         <td colspan="2"><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${biobankBean.biobankRoles}" var="biobankAdministrator">
+                <c:forEach items="${bean.administrators}" var="administrator">
                     <tr>
-                        <td><c:out value="${biobankAdministrator.user.wholeName}"/></td>
-                        <td><s:form beanclass="bbmri.action.biobank.BiobankActionBean">
-                            <s:select name="permission" value="${biobankAdministrator.permission}">
+                        <td><c:out value="${administrator.user.wholeName}"/></td>
+                        <td><s:form beanclass="${bean.name}">
+                            <s:select name="permission" value="${administrator.permission}">
                                 <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
                             </s:select>
 
                             <s:submit name="setPermission" onclick="return confirm('Change permissions?')">
-                                <s:param name="biobankAdministratorId" value="${biobankAdministrator.id}"/>
-                                <s:param name="id" value="${biobankBean.id}"/>
+                                <s:param name="administratorId" value="${administrator.id}"/>
+                                <s:param name="id" value="${bean.id}"/>
                                 Nastav
                             </s:submit>
                         </s:form>
                         </td>
                         <td>
-                            <s:form beanclass="bbmri.action.biobank.BiobankActionBean">
+                            <s:form beanclass="${bean.name}">
                                 <s:submit name="removeAdministrator" onclick="return confirm('Delete?')">
-                                    <s:param name="biobankAdministratorId" value="${biobankAdministrator.id}"/>
-                                    <s:param name="id" value="${biobankBean.id}"/>
+                                    <s:param name="administratorId" value="${administrator.id}"/>
+                                    <s:param name="id" value="${bean.id}"/>
                                     Odstran
                                 </s:submit>
                             </s:form>

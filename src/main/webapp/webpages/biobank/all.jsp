@@ -32,7 +32,7 @@
                         <td><c:out value="${biobank.address}"/></td>
                         <td>
 
-                                <%--This is important for the instance based ACL--%>
+                            <%--This is important for the instance based ACL--%>
                             <c:set target="${biobankBean}" property="id" value="${biobank.id}"/>
 
                             <security:allowed bean="biobankBean" event="edit">

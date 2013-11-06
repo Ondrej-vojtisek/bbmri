@@ -44,21 +44,24 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         return attachmentDao.get(id);
     }
 
-    public void create(Long projectId, Attachment attachment) {
+    public Attachment create(Long projectId, Attachment attachment) {
            notNull(projectId);
            notNull(attachment);
 
            Project projectDB = projectDao.get(projectId);
            if(projectDB == null){
-               return;
+               return null;
                // TODO: exception
            }
 
-           createFolder(attachment);
+
            attachment.setProject(projectDB);
            attachmentDao.create(attachment);
            projectDB.getAttachments().add(attachment);
            projectDao.update(projectDB);
+           createFolder(attachment);
+
+           return attachment;
        }
 
     public List<Attachment> all(){

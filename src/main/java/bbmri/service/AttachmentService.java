@@ -15,7 +15,7 @@ public interface AttachmentService extends BasicService<Attachment> {
 
     String getAttachmentPath(Attachment attachment);
 
-    void create(Long projectId, Attachment attachment);
+    Attachment create(Long projectId, Attachment attachment);
 
     List<Attachment> getAttachmentsByProject(Long projectId);
 }

@@ -21,8 +21,8 @@ import javax.annotation.security.RolesAllowed;
  * Time: 16:25
  * To change this template use File | Settings | File Templates.
  */
-@Wizard(startEvents = {"display", "done"})
-@UrlBinding("/Biobank/Create/{$event}")
+@Wizard(startEvents = {"display"})
+@UrlBinding("/biobank/create/{$event}")
 public class CreateActionBean extends FindUserActionBean {
 
 
@@ -73,7 +73,7 @@ public class CreateActionBean extends FindUserActionBean {
     @HandlesEvent("display") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
-        return new ForwardResolution(BIOBANK_CREATE);
+        return new ForwardResolution(BIOBANK_CREATE_GENERAL);
     }
 
     @DontValidate

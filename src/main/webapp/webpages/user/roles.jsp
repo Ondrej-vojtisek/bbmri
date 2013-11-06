@@ -4,6 +4,8 @@
 <f:message key="credentials.myRoles" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.user.UserActionBean"/>
 <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
+
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
                  secondarymenu="user_all"
@@ -120,6 +122,26 @@
                                 <security:notAllowed bean="biobankBean" event="edit">
                                     <security:allowed bean="biobankBean" event="detail">
                                         <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+                                            <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                                key="detail"/></s:link>
+                                    </security:allowed>
+                                </security:notAllowed>
+
+                            </c:if>
+
+                            <c:if test="${roleDTO.type.name == 'bbmri.entities.ProjectAdministrator'}">
+
+                                <%--Need to set id for each row of a table to set properly ACL--%>
+                                <c:set target="${projectBean}" property="id" value="${roleDTO.referenceId}"/>
+
+                                <security:allowed bean="projectBean" event="edit">
+                                    <s:link beanclass="bbmri.action.project.ProjectActionBean" event="edit">
+                                        <s:param name="id" value="${roleDTO.referenceId}"/><f:message
+                                            key="edit"/></s:link>
+                                </security:allowed>
+                                <security:notAllowed bean="projectBean" event="edit">
+                                    <security:allowed bean="projectBean" event="detail">
+                                        <s:link beanclass="bbmri.action.project.ProjectActionBean" event="detail">
                                             <s:param name="id" value="${roleDTO.referenceId}"/><f:message
                                                 key="detail"/></s:link>
                                     </security:allowed>

@@ -14,8 +14,8 @@ import javax.annotation.security.RolesAllowed;
  * Time: 10:08
  * To change this template use File | Settings | File Templates.
  */
-@UrlBinding("/Biobank/addAdministrator/{$event}/{id}")
-public class FindAdminActionBean extends FindActionBean {
+@UrlBinding("/biobank/addAdministrator/{$event}/{id}")
+public class FindBiobankAdminActionBean extends FindActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

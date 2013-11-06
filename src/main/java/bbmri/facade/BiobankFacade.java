@@ -27,10 +27,6 @@ public interface BiobankFacade {
 
     void assignAdministratorToBiobank(Long biobank, Long loggedUser, Long newAdministrator, Permission permission);
 
-    void removeAdministratorFromBiobank(Long biobank, Long loggedUser, Long newAdministrator);
-
-    void changePermissionOfAdministrator(Long biobank, Long loggedUser, Long newAdministrator, Permission permission);
-
     void changeBiobankAdministratorPermission(Long biobankAdministrator, Permission permission, Long loggedUser);
 
     void removeBiobankAdministrator(Long biobankAdministrator, Long loggedUser);

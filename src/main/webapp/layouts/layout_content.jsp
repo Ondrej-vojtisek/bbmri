@@ -84,9 +84,11 @@
                 <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if> ><s:link
                         beanclass="bbmri.action.project.ProjectActionBean"><f:message
                         key="my_projects"/></s:link></li>
+
                 <li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if> >
-                    <s:link beanclass="bbmri.action.project.ProjectActionBean"
-                            event="createInitial"><f:message key="projects.createProject"/></s:link></li>
+                    <s:link beanclass="bbmri.action.project.CreateProjectActionBean"
+                            event="initial"><f:message key="projects.createProject"/></s:link></li>
+
                 <c:if test="${not empty biobank}">
                     <li <c:if test="${secondarymenu == 'project_approve'}"> class="active" </c:if> ><s:link
                             beanclass="bbmri.action.project.ApproveProjectActionBean"><f:message
@@ -151,89 +153,30 @@
         <s:messages/>
     </div>
 
-    <c:if test="${primarymenu == 'user' and not empty ternarymenu}">
+    <c:if test="${not empty ternarymenu}">
         <ul class="nav nav-tabs">
 
-            <security:allowed bean="userBean" event="detail">
-            <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> ><s:link
-                    beanclass="bbmri.action.user.UserActionBean" event="detail">
-                <s:param name="id" value="${userBean.id}"/>
-                <f:message
-                        key="credentials.change_title"/>
-            </s:link></li>
-            </security:allowed>
+            <c:if test="${primarymenu == 'biobank'}">
+                <%@include file="ternaryMenu/biobank_ter_menu.jsp" %>
+            </c:if>
 
-            <security:allowed bean="userBean" event="changePasswordView">
-            <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>><s:link
-                    beanclass="bbmri.action.user.UserActionBean"
-                    event="changePasswordView">
-                <s:param name="id" value="${userBean.id}"/>
-                <f:message
-                    key="credentials.change_password"/></s:link></li>
-            </security:allowed>
+            <c:if test="${primarymenu == 'user'}">
+                <%@include file="ternaryMenu/user_ter_menu.jsp" %>
+            </c:if>
 
-            <security:allowed bean="userBean" event="rolesView">
-            <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>><s:link
-                    beanclass="bbmri.action.user.UserActionBean"
-                    event="rolesView">
-                <s:param name="id" value="${userBean.id}"/>
-                <f:message
-                        key="credentials.roles"/></s:link></li>
-            </security:allowed>
+            <c:if test="${primarymenu == 'project'}">
+                <%@include file="ternaryMenu/project_ter_menu.jsp" %>
+            </c:if>
+
         </ul>
     </c:if>
 
+
     <c:if test="${primarymenu == 'biobank' and not empty ternarymenu}">
         <ul class="nav nav-tabs">
-            <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-
-                <security:allowed bean="biobankBean" event="edit">
-                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
-                        <s:param name="id" value="${biobankBean.id}"/><f:message
-                            key="biobank.basic.data"/></s:link>
-                </security:allowed>
-                <security:notAllowed bean="biobankBean" event="edit">
-                    <security:allowed bean="biobankBean" event="detail">
-                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
-                            <s:param name="id" value="${biobankBean.id}"/><f:message
-                                key="biobank.basic.data"/></s:link>
-                    </security:allowed>
-                </security:notAllowed>
-            </li>
-
-                <%--Event from biobankBean is here only because security check--%>
-            <security:allowed bean="biobankBean" event="editAdministrators">
-                <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
-                    <s:link beanclass="bbmri.action.biobank.FindAdminActionBean">
-                        <s:param name="id" value="${biobankBean.id}"/><f:message
-                            key="add.administrator"/></s:link>
-                </li>
-            </security:allowed>
 
 
-            <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
 
-                <security:allowed bean="biobankBean" event="editAdministrators">
-                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="editAdministrators">
-                        <s:param name="id" value="${biobankBean.id}"/><f:message
-                            key="biobank.administrators"/></s:link>
-                </security:allowed>
-
-                <security:notAllowed bean="biobankBean" event="editAdministrators">
-                    <security:allowed bean="biobankBean" event="administrators">
-                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administrators">
-                            <s:param name="id" value="${biobankBean.id}"/><f:message
-                                key="biobank.administrators"/></s:link>
-                    </security:allowed>
-                </security:notAllowed>
-            </li>
-
-            <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>><s:link
-                    beanclass="bbmri.action.biobank.BiobankActionBean"
-                    event="samples">
-                <s:param name="id" value="${biobankBean.id}"/>
-                <f:message
-                        key="biobank.samples"/></s:link></li>
         </ul>
     </c:if>
 

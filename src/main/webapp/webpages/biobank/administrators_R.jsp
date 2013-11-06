@@ -3,6 +3,8 @@
 
 <f:message key="biobank.detail" var="title"/>
 
+<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  ternarymenu="administrators">
@@ -11,7 +13,7 @@
 
         READ
 
-        <s:layout-render name="/webpages/biobank/component/administrators.jsp" editable="false"/>
+        <s:layout-render name="/webpages/component/administrators.jsp" editable="false" bean="${biobankBean}"/>
 
     </s:layout-component>
 </s:layout-render>

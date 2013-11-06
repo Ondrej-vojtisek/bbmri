@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,12 +49,17 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         notNull(userId);
 
         User userDB = userDao.get(userId);
-        if (userDB != null) {
+
+        if(userDB == null){
+            return null;
+            // TODO: exception
+        }
             project.setProjectState(ProjectState.NEW);
+            project.setCreated(new Date());
             projectDao.create(project);
             assignUserToProject(userDB, project, Permission.MANAGER);
             projectDao.update(project);
-        }
+
         return project;
     }
 
@@ -82,7 +89,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
                 }
             }
 
-            List<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
+            Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
             if (projectAdministrators != null) {
                 for (ProjectAdministrator pa : projectAdministrators) {
 
@@ -129,6 +136,11 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         if (project.getName() != null) {
             projectDB.setName(project.getName());
         }
+
+        if (project.getMainInvestigator() != null) {
+                  projectDB.setMainInvestigator(project.getMainInvestigator());
+        }
+
      /*
         I am not sure if these attributes can be changed during project lifetime.
 
@@ -152,9 +164,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             projectDB.setHomeInstitution(project.getHomeInstitution());
         }
 
-        if (project.getMainInvestigator() != null) {
-            projectDB.setMainInvestigator(project.getMainInvestigator());
-        }
         */
 
         projectDao.update(projectDB);
@@ -395,9 +404,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             pa.setPermission(permission);
             projectAdministratorDao.update(pa);
         }
-
     }
-
 
     private int projectManagerCount(Project project) {
         notNull(project);
@@ -409,4 +416,32 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
         return count;
     }
+
+    public User assignAdministrator(Long userId, Long projectId, Permission permission) {
+        notNull(userId);
+        notNull(projectId);
+        notNull(permission);
+        User userDB = userDao.get(userId);
+        Project projectDB = projectDao.get(projectId);
+
+        if (userDB == null || projectDB == null) {
+            return null;
+            // TODO: exception
+        }
+
+        ProjectAdministrator pa = new ProjectAdministrator();
+        pa.setPermission(permission);
+        pa.setProject(projectDB);
+        pa.setUser(userDB);
+
+        projectAdministratorDao.create(pa);
+
+        if(!userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)){
+            userDB.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
+        }
+
+        userDao.update(userDB);
+        return userDB;
+    }
+
 }

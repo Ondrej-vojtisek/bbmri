@@ -3,12 +3,11 @@ package bbmri.entities;
 import bbmri.entities.enumeration.ProjectState;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,8 +33,8 @@ public class Project implements Serializable {
 
     private String fundingOrganization;
 
-    @OneToMany(mappedBy = "project")
-    private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
+    private Set<ProjectAdministrator> projectAdministrators = new HashSet<ProjectAdministrator>();
 
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
@@ -63,6 +62,9 @@ public class Project implements Serializable {
 
     /*Where the approval is stored - in which institution*/
     private String approvalStorage;
+
+    @Type(type = "timestamp")
+    private Date created;
 
     public String getApprovalStorage() {
         return approvalStorage;
@@ -160,11 +162,11 @@ public class Project implements Serializable {
         this.sampleQuestions = sampleQuestions;
     }
 
-    public List<ProjectAdministrator> getProjectAdministrators() {
+    public Set<ProjectAdministrator> getProjectAdministrators() {
         return projectAdministrators;
     }
 
-    public void setProjectAdministrators(List<ProjectAdministrator> projectAdministrators) {
+    public void setProjectAdministrators(Set<ProjectAdministrator> projectAdministrators) {
         this.projectAdministrators = projectAdministrators;
     }
 
@@ -175,13 +177,21 @@ public class Project implements Serializable {
     public void setRequestGroups(List<RequestGroup> requestGroups) {
         this.requestGroups = requestGroups;
     }
-    @Fetch(value= FetchMode.SELECT)
+    @Fetch(value = FetchMode.SELECT)
     public List<Attachment> getAttachments() {
         return attachments;
     }
 
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     @Override

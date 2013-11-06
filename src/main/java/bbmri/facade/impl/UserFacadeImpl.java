@@ -40,9 +40,6 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     @Autowired
     private LoginService loginService;
 
-    //@Autowired
-    //private ProjectAdministrator biobankAdministrator;
-
     public List<RoleDTO> getRoles(Long userId) {
         notNull(userId);
         List<RoleDTO> results = new ArrayList<RoleDTO>();
@@ -92,7 +89,8 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     public void create(User user) {
         notNull(user);
-        userService.create(user);
+        user = userService.create(user);
+        userService.setSystemRole(user.getId(), SystemRole.USER);
     }
 
     public void remove(Long userId) {

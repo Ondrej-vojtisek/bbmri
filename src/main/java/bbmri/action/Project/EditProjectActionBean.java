@@ -195,14 +195,14 @@ public class EditProjectActionBean extends BasicActionBean {
               return attachmentService.getAttachmentsByProject(getProject().getId());
           }
 
-    @DontValidate
-    public Resolution download() throws Exception {
-               System.err.println("Attachment ID : " + attachment.getId());
-               attachment = attachmentService.get(attachment.getId());
-               String fileName = attachment.getFileName();
-               String filePath = attachmentService.getAttachmentPath(attachment);
-               return new StreamingResolution(attachment.getContentType(),
-                       new FileInputStream(filePath)).setFilename(fileName);
-           }
+//    @DontValidate
+//    public Resolution download() throws Exception {
+//               System.err.println("Attachment ID : " + attachment.getId());
+//               attachment = attachmentService.get(attachment.getId());
+//               String fileName = attachment.getFileName();
+//               String filePath = attachmentService.getAttachmentPath(attachment);
+//               return new StreamingResolution(attachment.getContentType(),
+//                       new FileInputStream(filePath)).setFilename(fileName);
+//           }
 
 }
