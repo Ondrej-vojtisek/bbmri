@@ -115,7 +115,6 @@ public class BasicActionBean implements ActionBean {
     @SpringBean
     protected AttachmentService attachmentService;
 
-
     private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
 
     private TheActionBeanContext ctx;
