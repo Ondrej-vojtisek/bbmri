@@ -8,7 +8,6 @@
         <s:form beanclass="bbmri.action.LoginActionBean">
             <fieldset>
                 <legend><f:message key="signin"/></legend>
-                <s:errors/>
                 <table>
                     <tr>
                         <th><label for="z1"><f:message key="identifier"/></label></th>

@@ -8,7 +8,6 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
-            <s:errors/>
             <table cellspacing="0" class="tablesorter">
                 <thead>
                 <tr>

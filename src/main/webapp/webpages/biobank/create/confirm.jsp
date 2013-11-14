@@ -20,7 +20,7 @@
 
                 <s:hidden name="project.id"/>
                 <legend><f:message key="bbmri.action.biobank.CreateActionBean.thirdStep"/></legend>
-                <s:errors/>
+
                 <table>
                     <tr>
                         <th><s:label name="biobank.name"/></th>

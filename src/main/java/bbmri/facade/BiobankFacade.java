@@ -47,4 +47,6 @@ public interface BiobankFacade {
 
     BiobankAdministrator getBiobankAdministrator(Long id);
 
+    List<Biobank> getBiobanksByUser(Long userId);
+
 }

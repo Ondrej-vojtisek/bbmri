@@ -64,7 +64,6 @@
                                     <s:param name="id" value="${user.id}"/>
                                 </s:submit>
                             </s:form>
-
                         </security:allowed>
                     </td>
                 </tr>

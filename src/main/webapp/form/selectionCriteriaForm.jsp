@@ -1,6 +1,6 @@
 <%@ taglib prefix="s" uri="http://stripes.sourceforge.net/stripes.tld" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<s:errors/>
+
 <table>
     <tr>
         <th><label for="z1"><s:label name="samples.tissue_type"/></label></th>

@@ -129,6 +129,10 @@ public class BiobankActionBean extends BasicActionBean {
         this.adminId = adminId;
     }
 
+    public List<Biobank> getMyBiobanks(){
+        return biobankFacade.getBiobanksByUser(getContext().getMyId());
+    }
+
     /* Methods */
     @DontValidate
     @DefaultHandler

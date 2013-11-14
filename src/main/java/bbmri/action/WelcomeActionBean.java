@@ -19,7 +19,7 @@ public class WelcomeActionBean extends BasicActionBean {
 
     @PermitAll
     @DefaultHandler
-    public Resolution find() {
+    public Resolution display() {
         return new ForwardResolution(WELCOME);
     }
 }

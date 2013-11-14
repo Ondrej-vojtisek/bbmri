@@ -35,20 +35,22 @@
 
                         <security:allowed bean="biobankBean" event="edit">
                             <div class="tableAction">
-                            <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit"
-                                    class="btn btn-primary btnMargin">
-                                <s:param name="id" value="${biobank.id}"/>
+                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit"
+                                        class="btn btn-primary btnMargin">
+                                    <s:param name="id" value="${biobank.id}"/>
                                     <f:message key="edit"/>
                                 </s:link>
+                            </div>
                         </security:allowed>
                         <security:notAllowed bean="biobankBean" event="edit">
                             <security:allowed bean="biobankBean" event="detail">
                                 <div class="tableAction">
-                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail"
-                                        class="btn btn-info btnMargin">
-                                    <s:param name="id" value="${biobank.id}"/>
+                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail"
+                                            class="btn btn-info btnMargin">
+                                        <s:param name="id" value="${biobank.id}"/>
                                         <f:message key="detail"/>
                                     </s:link>
+                                </div>
                             </security:allowed>
                         </security:notAllowed>
 

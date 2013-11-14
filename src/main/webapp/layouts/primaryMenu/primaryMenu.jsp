@@ -81,7 +81,40 @@
                 </li>
             </security:allowed>
 
-                <%------------------------------------------------------------------------%>
+            <%------------------------------------------------------------------------%>
+
+            <%--List all "my" biobanks in menu. If I can edit that the link leads to editable form --%>
+
+            <c:if test="${not empty biobankBean.myBiobanks}">
+              <li class="divider"></li>
+              <li class="nav-header">
+                  <f:message key="bbmri.action.biobank.BiobankActionBean.myBiobanks"/>
+              </li>
+
+            <c:forEach var="biobank" items="${biobankBean.myBiobanks}">
+                <li>
+                    <security:allowed bean="biobankBean" event="edit">
+                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
+                                event="edit">
+                            <s:param name="id" value="${biobank.id}"/>
+                            ${biobank.name}
+                        </s:link>
+                    </security:allowed>
+                    <security:notAllowed bean="biobankBean" event="edit">
+                        <security:allowed bean="biobankBean" event="detail">
+                            <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
+                                    event="detail">
+                                <s:param name="id" value="${biobank.id}"/>
+                                ${biobank.name}
+                            </s:link>
+                        </security:allowed>
+                    </security:notAllowed>
+                </li>
+
+            </c:forEach>
+            </c:if>
+
+             <%------------------------------------------------------------------------%>
 
         </ul>
     </li>

@@ -119,7 +119,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
               // Display a global error message
              // errors.addGlobalError(new LocalizableError("allFieldsRequired"));
               getContext().getMessages().add(
-                             /*new SimpleMessage("allFieldsRequired")*/
               new LocalizableError("allFieldsRequired")
                            );
           }

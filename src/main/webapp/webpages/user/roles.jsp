@@ -33,8 +33,12 @@
                             <security:allowed bean="userBean" event="removeAdministratorRole">
                             <c:if test="${systemRole == 'ADMINISTRATOR'}">
 
+                                    <f:message var="questionAdministrator" key="bbmri.action.user.UserActionBean.questionRemoveAdministratorRole"/>
+
                             <s:form beanclass="bbmri.action.user.UserActionBean">
-                                <s:submit name="removeAdministratorRole" class="btn btn-danger"/>
+                                <s:submit name="removeAdministratorRole"
+                                          class="btn btn-danger"
+                                          onclick="return confirm('${questionAdministrator}')"/>
                             </s:form>
                                 <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
                                 <%--event="removeAdministratorRole">--%>
@@ -44,9 +48,12 @@
 
                             <security:allowed bean="userBean" event="removeDeveloperRole">
                             <c:if test="${systemRole == 'DEVELOPER'}">
+                                    <f:message var="questionDeveloper" key="bbmri.action.user.UserActionBean.questionRemoveDeveloperRole"/>
 
                             <s:form beanclass="bbmri.action.user.UserActionBean">
-                                <s:submit name="removeDeveloperRole" class="btn btn-danger"/>
+                                <s:submit name="removeDeveloperRole"
+                                          class="btn btn-danger"
+                                          onclick="return confirm('${questionDeveloper}')"/>
                             </s:form>
 
                                 <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>

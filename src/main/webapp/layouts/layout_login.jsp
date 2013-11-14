@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <c:set var="request" value="${pageContext.request}"/>
 <c:set var="context" value="${request.contextPath}"/>
@@ -18,13 +18,19 @@
         <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
     </div>
 
-    <div class="login_screen">
-        <div class="form-signin">
-            <div class="action_message">
-                <s:messages/>
+    <div class="container-fluid">
+
+        <s:messages/>
+
+        <s:errors/>
+
+        <div class="login_screen">
+
+            <div class="form-signin">
+                <s:layout-component name="body"/>
             </div>
-            <s:layout-component name="body"/>
         </div>
+
     </div>
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">
@@ -32,6 +38,19 @@
             <img src="../images/bbmri_logo.gif" alt="bbmri" style="margin-left: 30px;">
         </div>
     </a>
+
+    <script type="text/javascript" src="${context}/libs/jquery-latest.js"></script>
+    <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
+
+    <s:layout-component name="jsLibrary"/>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".alert").alert();
+        });
+    </script>
+
+
     </body>
     </html>
 

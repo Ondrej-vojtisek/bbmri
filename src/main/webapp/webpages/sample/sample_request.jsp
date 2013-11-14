@@ -8,7 +8,7 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.SampleQuestionActionBean">
-            <s:errors/>
+
             <fieldset>
                 <legend><f:message key="sample_request_create"/></legend>
                 <p>

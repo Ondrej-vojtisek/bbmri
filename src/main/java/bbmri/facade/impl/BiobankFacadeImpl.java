@@ -207,4 +207,18 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return biobankAdministratorService.get(id);
     }
 
+    public List<Biobank> getBiobanksByUser(Long userId){
+        notNull(userId);
+        User userDB = userService.eagerGet(userId, false, false, true);
+        if(userDB == null){
+            return null;
+            //TODO: Exception
+        }
+        List<Biobank> biobanks = new ArrayList<Biobank>();
+        for(BiobankAdministrator ba : userDB.getBiobankAdministrators()){
+            biobanks.add(ba.getBiobank());
+        }
+        return biobanks;
+    }
+
 }

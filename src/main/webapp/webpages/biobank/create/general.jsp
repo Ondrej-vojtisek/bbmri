@@ -13,7 +13,7 @@
             <fieldset>
 
                 <legend><f:message key="bbmri.action.biobank.CreateActionBean.firstStep"/></legend>
-                <s:errors/>
+
                 <table>
                     <tr>
                         <th><s:label for="z1" name="biobank.name"/></th>

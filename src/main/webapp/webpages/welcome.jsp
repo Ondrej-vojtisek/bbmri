@@ -9,5 +9,7 @@
 
     <s:layout-component name="body">
 
+
+
     </s:layout-component>
 </s:layout-render>

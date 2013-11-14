@@ -36,27 +36,28 @@
     <div class="container-fluid">
         <div class="row-fluid">
 
-            <div class="action_message">
-                <s:messages/>
-            </div>
-                  <h1>${title}</h1>
-                  <%--<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>--%>
+            <s:messages/>
 
-                <c:if test="${not empty ternarymenu}">
-                  <ul class="nav nav-tabs">
-                      <c:if test="${primarymenu == 'biobank'}">
-                          <%@include file="ternaryMenu/biobank_ter_menu.jsp" %>
-                      </c:if>
-                      <c:if test="${primarymenu == 'user'}">
-                          <%@include file="ternaryMenu/user_ter_menu.jsp" %>
-                      </c:if>
-                      <c:if test="${primarymenu == 'project'}">
-                          <%@include file="ternaryMenu/project_ter_menu.jsp" %>
-                      </c:if>
-                  </ul>
-              </c:if>
+            <s:errors/>
 
-              <s:layout-component name="body"/>
+            <h1>${title}</h1>
+                <%--<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>--%>
+
+            <c:if test="${not empty ternarymenu}">
+                <ul class="nav nav-tabs">
+                    <c:if test="${primarymenu == 'biobank'}">
+                        <%@include file="ternaryMenu/biobank_ter_menu.jsp" %>
+                    </c:if>
+                    <c:if test="${primarymenu == 'user'}">
+                        <%@include file="ternaryMenu/user_ter_menu.jsp" %>
+                    </c:if>
+                    <c:if test="${primarymenu == 'project'}">
+                        <%@include file="ternaryMenu/project_ter_menu.jsp" %>
+                    </c:if>
+                </ul>
+            </c:if>
+
+            <s:layout-component name="body"/>
 
 
         </div>
@@ -76,6 +77,11 @@
         $(function () {
             $('.fileupload').fileupload();
         });
+
+        $(function () {
+            $(".alert").alert();
+        });
+
 
     </script>
     <s:layout-component name="script"/>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
-<s:errors/>
+
 <table>
     <tr>
         <th><label for="z1"><s:label name="sample.sampleID"/></label></th>

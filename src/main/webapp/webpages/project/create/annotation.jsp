@@ -8,7 +8,7 @@
                  secondarymenu="project_create_project">
 
     <s:layout-component name="body">
-        <s:errors/>
+
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean" method="GET">
             <s:submit name="financed" class="btn btn-inverse"/>
         </s:form>
