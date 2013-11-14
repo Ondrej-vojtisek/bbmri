@@ -20,7 +20,7 @@ public class FindActionBean extends BasicActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    protected UserFacade userFacade;
 
     private User userFind;
 

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
-<f:message key="projects.createProject" var="title"/>
+<f:message key="bbmri.action.project.ProjectActionBean.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.project.CreateProjectActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
@@ -10,19 +10,17 @@
     <s:layout-component name="body">
         <s:errors/>
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean" method="GET">
-        <s:submit name="financed">
-            <f:message key="back"/>
-        </s:submit>
+            <s:submit name="financed" class="btn btn-inverse"/>
         </s:form>
 
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean">
             <fieldset>
-                <legend><f:message key="project_upload_new"/> - <f:message key="first_step"/></legend>
+                <legend><f:message key="bbmri.action.project.CreateProjectActionBean.fourthStep"/></legend>
 
                 <s:label for="z7" name="project.annotation"/>
                 <s:textarea id="z7" name="project.annotation"></s:textarea>
 
-                <s:submit name="annotationConfirm"><f:message key="confirm"/></s:submit>
+                <s:submit name="annotationConfirm" class="btn btn-primary"/>
             </fieldset>
         </s:form>
     </s:layout-component>

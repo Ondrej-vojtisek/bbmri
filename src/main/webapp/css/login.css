@@ -49,3 +49,7 @@ input.error {
 .action_message li{
     list-style-type: none;
 }
+
+.btnMargin{
+    margin-right: 5px;
+}

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="projects.createProject" var="title"/>
+<f:message key="bbmri.action.project.ProjectActionBean.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.project.CreateProjectActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
@@ -11,10 +11,10 @@
         <s:errors/>
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean">
             <fieldset>
-                <s:link beanclass="bbmri.action.project.CreateProjectActionBean" event="initial">
+                <s:link beanclass="bbmri.action.project.CreateProjectActionBean" event="initial" class="btn btn-inverse">
                     <f:message key="back"/>
                 </s:link>
-                <legend><f:message key="project_upload_new"/> - <f:message key="first_step"/></legend>
+                <legend><f:message key="bbmri.action.project.CreateProjectActionBean.secondStep"/></legend>
                 <table>
                     <tr>
                         <th><s:label for="z1" name="project.name"/></th>
@@ -29,7 +29,7 @@
                         <td><s:text id="z5" name="project.homeInstitution"/></td>
                     </tr>
                 </table>
-                <s:submit name="confirmGeneral"><f:message key="confirm"/></s:submit>
+                <s:submit name="confirmGeneral" class="btn btn-primary"/>
             </fieldset>
         </s:form>
     </s:layout-component>

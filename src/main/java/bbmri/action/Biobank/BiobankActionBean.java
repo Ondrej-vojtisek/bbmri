@@ -1,6 +1,6 @@
 package bbmri.action.biobank;
 
-import bbmri.action.user.FindUserActionBean;
+import bbmri.action.BasicActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.enumeration.Permission;
@@ -25,7 +25,7 @@ import java.util.Set;
  */
 
 @UrlBinding("/biobank/{$event}/{id}")
-public class BiobankActionBean extends FindUserActionBean {
+public class BiobankActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -134,14 +134,20 @@ public class BiobankActionBean extends FindUserActionBean {
     @DefaultHandler
     @HandlesEvent("allBiobanks") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
-    public Resolution display() {
+    public Resolution allBiobanks() {
         return new ForwardResolution(BIOBANK_ALL);
     }
 
+
+    /*
+   Access rules here are used to check permission in biobank_sec_menuj.jsp.
+   It can't check directly CreateActionBean because it is set as Wizard.
+  */
     @DontValidate
     @HandlesEvent("createBiobank")
+    @RolesAllowed({"administrator", "developer"})
     public Resolution createBiobank() {
-        return new ForwardResolution(BIOBANK_CREATE_GENERAL);
+        return new ForwardResolution(CreateActionBean.class);
     }
 
     @DontValidate
@@ -234,6 +240,14 @@ public class BiobankActionBean extends FindUserActionBean {
     public Resolution addAdministrator() {
         biobankFacade.assignAdministratorToBiobank(id, getContext().getMyId(), adminId, permission);
         return administratorsResolution(false);
+    }
+
+    /* Only for permission check of primary menu */
+    @HandlesEvent("viewBiobanks")
+    @RolesAllowed({"administrator", "developer", "biobank_operator"})
+    public Resolution viewBiobanks() {
+        // This should never happen
+        return null;
     }
 
 }

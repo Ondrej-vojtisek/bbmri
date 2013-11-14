@@ -6,43 +6,36 @@
     <c:if test="${editable}">
 
         <s:form beanclass="${bean.name}">
-            <fieldset>
-                <legend>Edit</legend>
-                <s:hidden name="biobank.id"/>
-                <table>
+            <s:hidden name="biobank.id"/>
+            <table>
+                <tr>
+                    <th><s:label name="biobank.name"/></th>
+                    <td><s:text id="name" name="biobank.name"/></td>
+                </tr>
 
-                    <tr>
-                        <th><s:label name="biobank.name"/></th>
-                        <td><s:text id="name" name="biobank.name"/></td>
-                    </tr>
+                <tr>
+                    <th><s:label name="biobank.address"/></th>
+                    <td><s:text id="address" name="biobank.address"/></td>
+                </tr>
 
-                    <tr>
-                        <th><s:label name="biobank.address"/></th>
-                        <td><s:text id="address" name="biobank.address"/></td>
-                    </tr>
-
-                </table>
-                <s:submit name="update">
-                    <s:param name="id" value="${bean.id}"/>
-                    <f:message key="save"/></s:submit>
-            </fieldset>
+            </table>
+            <s:submit name="update" class="btn btn-primary">
+                <s:param name="id" value="${bean.id}"/></s:submit>
         </s:form>
     </c:if>
 
     <c:if test="${not editable}">
-        <fieldset>
-            <legend><f:message key="biobank.detail"/></legend>
-            <table>
-                <tr>
-                    <th><s:label name="biobank.name"/></th>
-                    <td>${biobank.name}</td>
-                </tr>
-                <tr>
-                    <th><s:label name="biobank.address"/></th>
-                    <td>${biobank.address}</td>
-                </tr>
-            </table>
-        </fieldset>
+        <legend><f:message key="biobank.detail"/></legend>
+        <table>
+            <tr>
+                <th><s:label name="biobank.name"/></th>
+                <td>${biobank.name}</td>
+            </tr>
+            <tr>
+                <th><s:label name="biobank.address"/></th>
+                <td>${biobank.address}</td>
+            </tr>
+        </table>
     </c:if>
 
 

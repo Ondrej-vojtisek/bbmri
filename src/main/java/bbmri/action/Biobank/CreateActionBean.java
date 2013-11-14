@@ -1,10 +1,9 @@
 package bbmri.action.biobank;
 
-import bbmri.action.user.FindUserActionBean;
+import bbmri.action.FindActionBean;
 import bbmri.entities.Biobank;
 import bbmri.entities.User;
 import bbmri.facade.BiobankFacade;
-import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -23,21 +22,19 @@ import javax.annotation.security.RolesAllowed;
  */
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
-public class CreateActionBean extends FindUserActionBean {
-
+public class CreateActionBean extends FindActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
    /* Variables */
 
-    @SpringBean
-    private UserFacade userFacade;
-
+//    @SpringBean
+//    private UserFacade userFacade;
 
     @SpringBean
     private BiobankFacade biobankFacade;
 
-    private Long id;
+    private Long adminId;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create"}, field = "name", required = true),
@@ -53,17 +50,17 @@ public class CreateActionBean extends FindUserActionBean {
         this.newBiobank = newBiobank;
     }
 
-    public Long getId() {
-        return id;
+    public Long getAdminId() {
+        return adminId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 
     public User getNewAdministrator() {
-        if (id != null) {
-            return userFacade.get(id);
+        if (adminId != null) {
+            return userFacade.get(adminId);
         }
         return null;
     }
@@ -77,6 +74,13 @@ public class CreateActionBean extends FindUserActionBean {
     }
 
     @DontValidate
+    @HandlesEvent("generalBack")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution generalBack() {
+        return new ForwardResolution(BIOBANK_CREATE_GENERAL);
+    }
+
+    @DontValidate
     @HandlesEvent("administrators") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution administrators() {
@@ -84,33 +88,44 @@ public class CreateActionBean extends FindUserActionBean {
     }
 
     @DontValidate
+    @HandlesEvent("administratorsBack")
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution administratorsBack() {
+        return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS);
+    }
+
+
+    @DontValidate
     @HandlesEvent("done") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution done() {
-        biobankFacade.createBiobank(newBiobank, id);
+        biobankFacade.createBiobank(newBiobank, adminId);
 //        getContext().getMessages().add(
 //                new SimpleMessage("Biobank was succesfully created.")
 //        );
-        return new ForwardResolution(BiobankActionBean.class, "allBiobanks");
+        return new RedirectResolution(BiobankActionBean.class, "allBiobanks");
     }
 
     @HandlesEvent("create") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
-        return new ForwardResolution(CreateActionBean.class, "administrators");
+        return new ForwardResolution(this.getClass(), "administrators");
     }
 
     @DontValidate
-    @HandlesEvent("selectAdministrator")
+    @HandlesEvent("addAdministrator")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution selectAdministrator() {
+    public Resolution addAdministrator() {
         return new ForwardResolution(BIOBANK_CREATE_CONFIRM);
     }
 
     @HandlesEvent("find")
     @RolesAllowed({"administrator", "developer"})
     public Resolution find() {
-        return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS).addParameter("UserFind", getUserFind());
+        logger.debug("UserFind: " + getUserFind());
+
+        return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS)
+                .addParameter("UserFind", getUserFind());
     }
 
 

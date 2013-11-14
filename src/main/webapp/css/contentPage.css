@@ -6,6 +6,7 @@ body {
 .sidebar-nav {
     padding: 9px 0;
 }
+
 /*
 table {
     width: 100%;
@@ -53,81 +54,164 @@ input.error {
     background-color: #FFCC33;
 }
 
-.action_message{
+.action_message {
     font-style: italic;
     color: #43e9ff;
 }
 
-.action_message li{
+.action_message li {
     list-style-type: none;
 }
 
-.not_filled td{
+.not_filled td {
     background-color: #ff5b52;
 }
 
-/* tables */
-table.tablesorter {
-	font-family:arial;
-	background-color: #CDCDCD;
-	margin:10px 0pt 15px;
-	font-size: 8pt;
-	width: 100%;
-	text-align: left;
-}
-table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #1b1b1b;
-	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px 12px 4px 4px;
-    color: #0088cc;
-}
-table.tablesorter thead tr .header {
-	background-image: url(../images/ice-unsorted.gif);
-	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;
-}
-table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 4px;
-	background-color: #FFF;
-	vertical-align: top;
-}
-table.tablesorter tbody tr.odd td {
-	background-color: #aae2ff;
-}
-table.tablesorter thead tr .headerSortUp {
-	background-image: url(../images/ice-asc.gif);
-}
-table.tablesorter thead tr .headerSortDown {
-	background-image: url(../images/ice-desc.gif);
-}
-table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #0088cc;
-    color: #FFF;
-}
-
-.narrow thead label{
+.narrow thead label {
     width: 40px;
 }
 
-.header_width_50{
+.header_width_50 {
     width: 50px;
 }
 
-.header_width_750{
+.header_width_750 {
     width: 75px;
 }
 
-.header_width_100{
+.header_width_100 {
     width: 100px;
 }
 
-.justify{
+.justify {
     text-align: justify;
 }
 
-.small_legend{
+.small_legend {
     font-size: 18px;
 }
+
+form {
+    margin: 0;
+}
+
+.tableAction {
+    float: left;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.btnMargin {
+    margin-right: 5px;
+}
+
+table td.action .pull-right {
+    margin-right: -3px;
+}
+
+table td.action .btn,
+table td.action input {
+    margin-top: -8px;
+    margin-bottom: -6px;
+}
+
+table td.action select {
+    margin-top: -6px;
+    margin-bottom: -4px;
+    margin-right: 5px;
+}
+
+table td.narrow25 {
+    width: 25%;
+}
+
+table td.narrow20 {
+    width: 25%;
+}
+
+/*
+    table td.action .btn-group {
+        margin-top: -4px;
+        margin-bottom: -4px;
+    }
+
+    table td.action .dropdown-menu {
+        margin-top: 5px;
+    }
+*/
+table td.action input {
+    /*padding: 2px 7px;
+    font-size: 12px;
+    line-height: 18px;*/
+    vertical-align: middle;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.btn-file > input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    font-size: 23px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    transform: translate(-300px, 0) scale(4);
+    direction: ltr;
+}
+
+.fileupload {
+    margin-bottom: 9px;
+}
+
+.fileupload .uneditable-input {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+    cursor: text;
+}
+
+.fileupload .thumbnail {
+    display: inline-block;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.fileupload .thumbnail > img {
+    display: inline-block;
+    max-height: 100%;
+    vertical-align: middle;
+}
+
+.fileupload .btn {
+    vertical-align: middle;
+}
+
+.fileupload-exists .fileupload-new,
+.fileupload-new .fileupload-exists {
+    display: none;
+}
+
+.fileupload-inline .fileupload-controls {
+    display: inline;
+}
+
+.fileupload-new .input-append .btn-file {
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.nav-tabs {
+    font-weight: bold;
+}
+

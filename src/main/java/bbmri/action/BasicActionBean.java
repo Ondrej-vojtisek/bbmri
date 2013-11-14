@@ -27,13 +27,15 @@ public class BasicActionBean implements ActionBean {
     private static final String BASIC_PATH = "/webpages";
     /*************************************/
 
+    protected static final String WELCOME = BASIC_PATH + "/welcome.jsp";
+
     // MY ACCOUNT
     private static final String USER = BASIC_PATH + "/user/";
     /*************************************/
 
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
-    protected static final String USER_CREATE = USER + "initial.jsp";
+    protected static final String USER_CREATE = USER + "create.jsp";
     protected static final String USER_PERSONAL_DATA = USER + "personal_data.jsp";
     protected static final String USER_ROLES = USER + "roles.jsp";
     protected static final String USER_FIND = USER + "find.jsp";
@@ -52,12 +54,9 @@ public class BasicActionBean implements ActionBean {
     // BIOBANK/CREATE
     private static final String BIOBANK_CREATE = BIOBANK + "create/";
     /*************************************/
-    protected static final String BIOBANK_CREATE_GENERAL = BIOBANK_CREATE + "initial.jsp";
-    protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "administrators_R.jsp";
+    protected static final String BIOBANK_CREATE_GENERAL = BIOBANK_CREATE + "general.jsp";
+    protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "administrators.jsp";
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "confirm.jsp";
-
-
-
 
     protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
 

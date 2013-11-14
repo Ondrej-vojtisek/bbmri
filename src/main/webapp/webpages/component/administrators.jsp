@@ -2,9 +2,6 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:layout-definition>
-    <fieldset>
-        <legend>
-           <f:message key="biobank.roles"/></legend>
         <table class="table table-hover table-striped">
             <thead>
             <tr>
@@ -38,24 +35,30 @@
                 <c:forEach items="${bean.administrators}" var="administrator">
                     <tr>
                         <td><c:out value="${administrator.user.wholeName}"/></td>
-                        <td><s:form beanclass="${bean.name}">
-                            <s:select name="permission" value="${administrator.permission}">
-                                <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
-                            </s:select>
-
-                            <s:submit name="setPermission" onclick="return confirm('Change permissions?')">
-                                <s:param name="administratorId" value="${administrator.id}"/>
-                                <s:param name="id" value="${bean.id}"/>
-                                Nastav
-                            </s:submit>
-                        </s:form>
-                        </td>
-                        <td>
+                        <td class="action">
                             <s:form beanclass="${bean.name}">
-                                <s:submit name="removeAdministrator" onclick="return confirm('Delete?')">
+                                    <s:select name="permission" value="${administrator.permission}">
+                                        <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
+                                    </s:select>
+
+                                <f:message var="questionSet" key="${bean.name}.questionSetPermission"/>
+
+                                <s:submit name="setPermission" onclick="return confirm('${questionSet}')"
+                                          class="btn btn-primary">
                                     <s:param name="administratorId" value="${administrator.id}"/>
                                     <s:param name="id" value="${bean.id}"/>
-                                    Odstran
+                                </s:submit>
+                            </s:form>
+                        </td>
+                        <td class="action">
+                            <s:form beanclass="${bean.name}">
+
+                                <f:message var="question" key="${bean.name}.questionRemoveAdministrator"/>
+
+                                <s:submit name="removeAdministrator" onclick="return confirm('${question}')"
+                                          class="btn btn-danger">
+                                    <s:param name="administratorId" value="${administrator.id}"/>
+                                    <s:param name="id" value="${bean.id}"/>
                                 </s:submit>
                             </s:form>
                         </td>
@@ -64,7 +67,6 @@
             </c:if>
             </tbody>
         </table>
-    </fieldset>
 
 
 </s:layout-definition>

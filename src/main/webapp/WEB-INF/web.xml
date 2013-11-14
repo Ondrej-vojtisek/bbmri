@@ -12,6 +12,7 @@
       <param-value>texts</param-value>
     </context-param>
 
+
     <!-- spring -->
     <listener>
         <description>initialize spring framework when application is started</description>
@@ -66,11 +67,9 @@
             </param-value>
         </init-param>
 
-
-
         <init-param>
            <param-name>ResourceBundles.BaseNames</param-name>
-           <param-value>texts,errors</param-value>
+           <param-value>fields, texts, errors</param-value>
          </init-param>
 
         <init-param>
@@ -78,7 +77,6 @@
             <param-name>LocalePicker.Locales</param-name>
             <param-value>cs:utf-8, en:utf-8</param-value>
         </init-param>
-
 
     </filter>
     <filter-mapping>

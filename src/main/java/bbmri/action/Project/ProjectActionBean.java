@@ -4,6 +4,7 @@ import bbmri.action.BasicActionBean;
 import bbmri.entities.Attachment;
 import bbmri.entities.Project;
 import bbmri.entities.ProjectAdministrator;
+import bbmri.entities.enumeration.AttachmentType;
 import bbmri.entities.enumeration.Permission;
 import bbmri.facade.ProjectFacade;
 import net.sourceforge.stripes.action.*;
@@ -45,6 +46,14 @@ public class ProjectActionBean extends BasicActionBean {
     private Long adminId;
 
     private Long attachmentId;
+
+    /* Attachment upload in project detail/edit view */
+    private FileBean attachmentFileBean;
+
+    /* Attachment upload in project detail/edit view
+     * Important to specify what is the purpose of uploaded file
+      * */
+    private AttachmentType attachmentType;
 
     public List<Project> getAll() {
         return projectFacade.all();
@@ -121,14 +130,9 @@ public class ProjectActionBean extends BasicActionBean {
 
     public Set<ProjectAdministrator> getAdministrators() {
 
-        logger.debug("ID: " + id);
-
         if (id == null) {
             return null;
         }
-
-        logger.debug("ADMINISTRATORS: " + getProject().getProjectAdministrators());
-
         return getProject().getProjectAdministrators();
     }
 
@@ -157,6 +161,21 @@ public class ProjectActionBean extends BasicActionBean {
         return projectFacade.hasPermission(Permission.VISITOR, id, getContext().getMyId());
     }
 
+    public FileBean getAttachmentFileBean() {
+        return attachmentFileBean;
+    }
+
+    public void setAttachmentFileBean(FileBean attachmentFileBean) {
+        this.attachmentFileBean = attachmentFileBean;
+    }
+
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
+    }
+
+    public void setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
+    }
 
     private Resolution administratorsResolution(boolean forward) {
         if (forward) {
@@ -254,7 +273,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("deleteAttachment")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution deleteAttachment() {
-        projectFacade.deleteAttachment(attachment.getId());
+        projectFacade.deleteAttachment(attachmentId);
         return new RedirectResolution(this.getClass(), "attachments").addParameter("id", id);
     }
 
@@ -299,7 +318,13 @@ public class ProjectActionBean extends BasicActionBean {
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENT_ADD);
     }
 
-
+    @HandlesEvent("mtaUpload")
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedEditor}"})
+    public Resolution mtaUpload() {
+        // TODO: obalit try catch, pridat confirm hlasky
+        projectFacade.createAttachment(attachmentFileBean, attachmentType, id);
+        return new RedirectResolution(this.getClass(), "attachments").addParameter("id", id);
+    }
 
 
 //    @DontValidate

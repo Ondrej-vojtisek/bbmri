@@ -143,11 +143,6 @@ public class UserActionBean extends BasicActionBean {
         return new RedirectResolution(this.getClass(), "display");
     }
 
-    /*
-    *  Example of instanceBasedSecurityManager
-    *  @RolesAllowed({"developer", "administrator", "user if ${context.myId == id}"})
-    * */
-
     @HandlesEvent("detail")
     @RolesAllowed({"developer", "administrator", "user if ${isMyAccount}"})
     public Resolution detail() {

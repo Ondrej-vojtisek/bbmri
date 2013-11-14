@@ -45,8 +45,8 @@ public class CreateProjectActionBean extends BasicActionBean {
                     required = true),
             @Validate(on = {"financedConfirm"}, field = "approvalStorage",
                     required = true),
-         /*  @Validate(on = {"financedConfirm"}, field = "created",
-                    required = true), */
+           @Validate(on = {"financedConfirm"}, field = "approvalDate",
+                    required = true),
             @Validate(on = {"annotationConfirm"}, field = "annotation",
                     required = true)
 
@@ -108,6 +108,12 @@ public class CreateProjectActionBean extends BasicActionBean {
         return new ForwardResolution(PROJECT_CREATE_GENERAL);
     }
 
+    /* Second step. */
+    @HandlesEvent("generalBack")
+    public Resolution generalBack() {
+        return new ForwardResolution(PROJECT_CREATE_GENERAL);
+    }
+
     /* Confirm second step. */
     @HandlesEvent("confirmGeneral")
     public Resolution confirmGeneral() {
@@ -124,7 +130,6 @@ public class CreateProjectActionBean extends BasicActionBean {
     /* Confirm third step. */
     @HandlesEvent("financedConfirm")
     public Resolution financedConfirm() {
-        logger.debug("Project: " + project);
         return new ForwardResolution(PROJECT_CREATE_ANNOTATION);
     }
 
@@ -140,8 +145,6 @@ public class CreateProjectActionBean extends BasicActionBean {
         logger.debug("Project: " + project);
         return new ForwardResolution(PROJECT_CREATE_CONFIRM);
     }
-
-
 
     /* 5th step. */
     @HandlesEvent("confirm")

@@ -9,7 +9,7 @@
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
     <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
         <s:param name="id" value="${biobankBean.id}"/><f:message
-            key="biobank.basic.data"/></s:link>
+            key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
 </security:allowed>
 </li>
 
@@ -18,21 +18,10 @@
         <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
             <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
                 <s:param name="id" value="${biobankBean.id}"/><f:message
-                    key="biobank.basic.data"/></s:link>
+                    key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
         </li>
     </security:allowed>
 </security:notAllowed>
-
-<%------------------------------------------------------------------------%>
-
-<%--Event from biobankBean is here only because security check--%>
-<security:allowed bean="biobankBean" event="editAdministrators">
-    <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
-        <s:link beanclass="bbmri.action.biobank.FindBiobankAdminActionBean">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
-                key="add.administrator"/></s:link>
-    </li>
-</security:allowed>
 
 <%------------------------------------------------------------------------%>
 
@@ -40,7 +29,7 @@
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
         <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="editAdministrators">
             <s:param name="id" value="${biobankBean.id}"/><f:message
-                key="biobank.administrators"/></s:link>
+                key="bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
     </li>
 </security:allowed>
 
@@ -49,9 +38,21 @@
         <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
             <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administrators">
                 <s:param name="id" value="${biobankBean.id}"/><f:message
-                    key="biobank.administrators"/></s:link>
+                    key="bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
         </li>
     </security:allowed>
 </security:notAllowed>
+
+<%------------------------------------------------------------------------%>
+
+<%--Event from biobankBean is here only because security check--%>
+
+<security:allowed bean="biobankBean" event="editAdministrators">
+    <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
+        <s:link beanclass="bbmri.action.biobank.FindBiobankAdminActionBean">
+            <s:param name="id" value="${biobankBean.id}"/><f:message
+                key="bbmri.action.biobank.BiobankActionBean.addAdministrator"/></s:link>
+    </li>
+</security:allowed>
 
 <%------------------------------------------------------------------------%>

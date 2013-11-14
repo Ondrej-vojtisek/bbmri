@@ -25,18 +25,19 @@ import java.util.List;
 public class AttachmentServiceImpl extends BasicServiceImpl implements AttachmentService {
 
     @Autowired
-       private ProjectDao projectDao;
+    private ProjectDao projectDao;
 
-       @Autowired
-       private AttachmentDao attachmentDao;
+    @Autowired
+    private AttachmentDao attachmentDao;
 
     public String getAttachmentPath(Attachment attachment) {
-            notNull(attachment);
-            return (Attachment.ROOT_DIR_PATH
-                    + attachment.getProject().getId().toString()
-                    + File.separator
-                    + attachment.getProject().getId().toString()
-                    + attachment.getAttachmentType().toString());
+        notNull(attachment);
+        return (Attachment.ROOT_DIR_PATH
+                           + attachment.getProject().getId().toString()
+                           + File.separator
+                           + attachment.getProject().getId().toString()
+                           + attachment.getAttachmentType().toString()
+                           + attachment.getId() );
     }
 
     public Attachment get(Long id) {
@@ -45,81 +46,80 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     }
 
     public Attachment create(Long projectId, Attachment attachment) {
-           notNull(projectId);
-           notNull(attachment);
+        notNull(projectId);
+        notNull(attachment);
 
-           Project projectDB = projectDao.get(projectId);
-           if(projectDB == null){
-               return null;
-               // TODO: exception
-           }
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return null;
+            // TODO: exception
+        }
 
+        attachment.setProject(projectDB);
+        attachmentDao.create(attachment);
+        projectDB.getAttachments().add(attachment);
+        projectDao.update(projectDB);
+        createFolder(attachment);
 
-           attachment.setProject(projectDB);
-           attachmentDao.create(attachment);
-           projectDB.getAttachments().add(attachment);
-           projectDao.update(projectDB);
-           createFolder(attachment);
+        return attachment;
+    }
 
-           return attachment;
-       }
-
-    public List<Attachment> all(){
+    public List<Attachment> all() {
         return attachmentDao.all();
     }
 
-    public void remove(Long id){
+    public void remove(Long id) {
         notNull(id);
         Attachment attachment = attachmentDao.get(id);
 
         File file = new File(getAttachmentPath(attachment));
 
-        if(attachment == null){
+        if (attachment == null) {
             return;
             // TODO: exception
         }
-               // Exists?
-               if (!file.exists()) {
-                   throw new IllegalArgumentException(
-                           "Delete: no such attachment: " + getAttachmentPath(attachment));
-               }
-               boolean success = file.delete();
+        // Exists?
+        if (!file.exists()) {
+            throw new IllegalArgumentException(
+                    "Delete: no such attachment: " + getAttachmentPath(attachment));
+        }
+        boolean success = file.delete();
 
-               // Truly deleted?
-               if (!success) {
-                   throw new IllegalArgumentException("Delete: deletion failed: " + file);
-               }
+        // Truly deleted?
+        if (!success) {
+            throw new IllegalArgumentException("Delete: deletion failed: " + file);
+        }
 
-               File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
+        File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
 
-               // Correct path to parent directory?
-               if (!dir.exists()) {
-                   throw new IllegalArgumentException(
-                           "Delete: no such folder: " + dir);
-               }
-               // It is truly a directory?
-               if (!dir.isDirectory()) {
-                   throw new IllegalArgumentException(
-                           "Delete: not a directory: " + dir);
-               }
+        // Correct path to parent directory?
+        if (!dir.exists()) {
+            throw new IllegalArgumentException(
+                    "Delete: no such folder: " + dir);
+        }
+        // It is truly a directory?
+        if (!dir.isDirectory()) {
+            throw new IllegalArgumentException(
+                    "Delete: not a directory: " + dir);
+        }
 
-               // If empty - delete it!
-               if (dir.list().length < 1) {
-                   success = dir.delete();
-                   if (!success) {
-                       throw new IllegalArgumentException("Delete: deletion failed: " + dir);
-                   }
-               }
+        // If empty - delete it!
+        if (dir.list().length < 1) {
+            success = dir.delete();
+            if (!success) {
+                throw new IllegalArgumentException("Delete: deletion failed: " + dir);
+            }
+        }
         attachmentDao.remove(attachment);
 
     }
 
-    public Attachment update(Attachment attachment){
+    public Attachment update(Attachment attachment) {
         // TODO
         return null;
     }
 
-    public Integer count(){
+    public Integer count() {
         return attachmentDao.count();
     }
 
@@ -137,22 +137,22 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     }
 
     private void createFolder(Attachment attachment) {
-            notNull(attachment);
-            File rootDir = new File(Attachment.ROOT_DIR);
-            if (!rootDir.exists()) {
-                boolean success = rootDir.mkdir();
-                if (!success) {
-                    throw new IllegalArgumentException("Create folder: failed: " + rootDir);
-                }
-            }
-            File dir = new File(Attachment.ROOT_DIR_PATH
-                    + attachment.getProject().getId().toString());
-            if (!dir.exists()) {
-                boolean success =  dir.mkdir();
-                if (!success) {
-                    throw new IllegalArgumentException("Create folder: failed: " + dir);
-                }
+        notNull(attachment);
+        File rootDir = new File(Attachment.ROOT_DIR);
+        if (!rootDir.exists()) {
+            boolean success = rootDir.mkdir();
+            if (!success) {
+                throw new IllegalArgumentException("Create folder: failed: " + rootDir);
             }
         }
+        File dir = new File(Attachment.ROOT_DIR_PATH
+                + attachment.getProject().getId().toString());
+        if (!dir.exists()) {
+            boolean success = dir.mkdir();
+            if (!success) {
+                throw new IllegalArgumentException("Create folder: failed: " + dir);
+            }
+        }
+    }
 
 }

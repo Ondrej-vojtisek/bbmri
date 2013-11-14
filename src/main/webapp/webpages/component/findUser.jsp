@@ -16,16 +16,23 @@
             <s:text name="userFind.surname"/>
             <s:label name="user.email"/>
             <s:text name="userFind.email"/>
-            <s:submit name="find">
-                <%--<s:param name="id" value="${findBean.id}"/>--%>
-                <f:message key="find"/>
-            </s:submit>
+            <br>
+            <s:submit name="find" class="btn btn-primary"/>
         </s:form>
     </fieldset>
 
-    <fieldset>
+    </br>
 
-        <legend><f:message key="results"/></legend>
+    <fieldset>
+    <c:if test="${empty findBean.results}">
+            <p><f:message key="bbmri.action.FindActionBean.noResults"/></p>
+    </c:if>
+
+
+    <c:if test="${not empty findBean.results}">
+
+
+        <legend><f:message key="bbmri.action.FindActionBean.results"/></legend>
         <table class="table table-hover table-striped">
             <thead>
             <tr>
@@ -40,11 +47,6 @@
             </thead>
             <tbody>
 
-            <c:if test="${empty findBean.results}">
-                <tr>
-                    <td colspan="3"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
 
             <c:forEach var="user" items="${findBean.results}">
                 <tr>
@@ -54,52 +56,58 @@
                     </td>
                     <td><c:out value="${user.name}"/></td>
                     <td><c:out value="${user.surname}"/></td>
-                    <td>
-
-
+                    <td class="action">
                         <c:choose>
                             <c:when test="${context == 'user'}">
-                                <s:link beanclass="${userBean.name}" event="detail">
+                                <s:link beanclass="${userBean.name}" event="detail" class="btn btn-primary">
                                     <s:param name="id" value="${user.id}"/><f:message key="detail"/>
                                 </s:link>
                             </c:when>
+
+                            <c:when test="${context == 'biobankCreate'}">
+                                <s:form beanclass="${findBean.name}">
+
+                                    <s:submit name="addAdministrator" class="btn btn-primary">
+                                        <%-- Set id of new administrator --%>
+                                        <s:param name="adminId" value="${user.id}"/>
+                                    </s:submit>
+                                </s:form>
+                            </c:when>
+
                             <c:when test="${context == 'biobank'}">
                                 <s:form beanclass="${biobankBean.name}">
+
                                     <s:select name="permission">
                                         <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
                                     </s:select>
 
-                                    <s:submit name="addAdministrator">
+                                    <s:submit name="addAdministrator" class="btn btn-primary">
                                         <s:param name="id" value="${findBean.id}"/>
                                         <s:param name="adminId" value="${user.id}"/>
-                                        <f:message key="addAdministrator"/>
                                     </s:submit>
                                 </s:form>
                             </c:when>
 
                             <c:when test="${context == 'project'}">
                                 <s:form beanclass="${projectBean.name}">
+
                                     <s:select name="permission">
                                         <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
                                     </s:select>
 
-                                    <s:submit name="addAdministrator">
+                                    <s:submit name="addAdministrator" class="btn btn-primary">
                                         <s:param name="id" value="${findBean.id}"/>
                                         <s:param name="adminId" value="${user.id}"/>
-                                        <f:message key="addAdministrator"/>
                                     </s:submit>
                                 </s:form>
                             </c:when>
-
-                            <c:otherwise>
-                            </c:otherwise>
                         </c:choose>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-
+    </c:if>
     </fieldset>
 
 </s:layout-definition>

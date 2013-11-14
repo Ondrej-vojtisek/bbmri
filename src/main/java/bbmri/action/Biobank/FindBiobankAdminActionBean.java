@@ -31,13 +31,11 @@ public class FindBiobankAdminActionBean extends FindActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        logger.debug("IDa: " + id);
         return new ForwardResolution(BIOBANK_ADD_ADMINISTRATOR);
     }
 
     @HandlesEvent("find")
     public Resolution find() {
-        logger.debug("IDb: " + id);
         return new ForwardResolution(BIOBANK_ADD_ADMINISTRATOR)
                 .addParameter("UserFind", getUserFind())
                 .addParameter("id", id);

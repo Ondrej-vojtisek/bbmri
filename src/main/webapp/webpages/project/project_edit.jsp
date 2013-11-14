@@ -12,7 +12,6 @@
             <s:hidden name="project.id"/>
             <s:hidden name="project.users"/>
             <fieldset>
-                <legend><f:message key="project.edit"/></legend>
                 <%@include file="/form/createProjectForm.jsp" %>
                 <s:select id="b4" name="project.projectState">
                     <s:options-enumeration enum="bbmri.entities.enumeration.ProjectState"/>

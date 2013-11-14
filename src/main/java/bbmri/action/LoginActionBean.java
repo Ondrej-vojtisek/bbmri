@@ -78,7 +78,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
 
-        return new RedirectResolution(ProjectActionBean.class);
+        return new RedirectResolution(WelcomeActionBean.class);
+//        return new RedirectResolution(ProjectActionBean.class);
     }
 
     @PermitAll
@@ -106,7 +107,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
     @DontValidate
     public Resolution cancel(){
-          return new RedirectResolution(INDEX);
+          return new ForwardResolution(INDEX);
     }
 
     @Override

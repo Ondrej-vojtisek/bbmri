@@ -1,13 +1,16 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
+<c:set var="request" value="${pageContext.request}"/>
+<c:set var="context" value="${request.contextPath}"/>
+
 <s:layout-definition>
     <!DOCTYPE html>
     <head>
-        <title><c:out value="${title}"/></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.css"/>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css"/>
+        <link rel="stylesheet" type="text/css" href="${context}/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="${context}/css/login.css"/>
+        <title>BBMRI CZ</title>
         <s:layout-component name="hlavicka"/>
     </head>
     <body>

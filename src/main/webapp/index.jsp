@@ -20,8 +20,8 @@
                     </tr>
                 </table>
                 <div style="float: right;">
-                    <s:submit name="login"><f:message key="signin"/></s:submit>
-                    <s:submit name="cancel"><f:message key="cancel"/></s:submit>
+                    <s:submit name="login" class="btn btn-primary btnMargin"><f:message key="signin"/></s:submit>
+                    <s:submit name="cancel" class="btn"><f:message key="cancel"/></s:submit>
                 </div>
             </fieldset>
         </s:form>

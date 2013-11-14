@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="projects.createProject" var="title"/>
+<f:message key="bbmri.action.project.ProjectActionBean.create" var="title"/>
 <s:useActionBean var="ab" beanclass="bbmri.action.project.CreateProjectActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
@@ -9,17 +9,14 @@
 
     <s:layout-component name="body">
 
+
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean" method="GET">
-               <s:submit name="annotation">
-                   <f:message key="back"/>
-               </s:submit>
-               </s:form>
+            <s:submit name="annotation" class="btn btn-inverse"/>
+        </s:form>
 
         <s:form beanclass="bbmri.action.project.CreateProjectActionBean">
             <fieldset>
-
-                <legend><f:message key="project_upload_new"/> - <f:message key="first_step"/></legend>
-
+                <legend><f:message key="bbmri.action.project.CreateProjectActionBean.fifthStep"/></legend>
                 <table>
                     <tr>
                         <th><s:label for="z1" name="project.name"/></th>
@@ -48,16 +45,16 @@
                     </tr>
 
                     <tr>
-                    <th>
-                        <p><s:label for="z7" name="project.annotation"/></p>
-                    </th>
+                        <th>
+                            <p><s:label for="z7" name="project.annotation"/></p>
+                        </th>
                     </tr>
 
                 </table>
 
                 <s:textarea id="z7" name="project.annotation" readonly="true"></s:textarea>
 
-                <s:submit name="confirm"><f:message key="confirm"/></s:submit>
+                <s:submit name="confirm" class="btn btn-primary"/>
             </fieldset>
         </s:form>
     </s:layout-component>

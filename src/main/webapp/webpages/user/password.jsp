@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="credentials.change_password" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.user.UserActionBean"/>
+<f:message key="bbmri.action.user.UserActionBean.detail" var="title"/>
+<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
+
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
                  secondarymenu="user_all"
@@ -12,11 +13,8 @@
 
         <fieldset>
             <s:form beanclass="bbmri.action.user.UserActionBean">
-                <fieldset>
-                    <legend><f:message key="credentials.change_password"/></legend>
                     <%@include file="/form/changePasswordForm.jsp" %>
-                    <s:submit name="changePassword"><f:message key="save"/></s:submit>
-                </fieldset>
+                    <s:submit name="changePassword" class="btn btn-primary"/>
             </s:form>
 
         </fieldset>
