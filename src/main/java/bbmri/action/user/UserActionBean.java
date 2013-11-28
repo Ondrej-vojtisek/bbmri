@@ -16,9 +16,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 import java.util.Set;
 
-//import javax.annotation.security.RolesAllowed;
-
-
 @UrlBinding("/user/{$event}/{id}")
 public class UserActionBean extends BasicActionBean {
 
@@ -28,10 +25,10 @@ public class UserActionBean extends BasicActionBean {
     private UserFacade userFacade;
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"},
+            @Validate(on = {"create", "update"},
                     field = "name",
                     required = true),
-            @Validate(on = {"create"},
+            @Validate(on = {"create", "update"},
                     field = "surname",
                     required = true),
             @Validate(on = {"create"},
@@ -202,12 +199,11 @@ public class UserActionBean extends BasicActionBean {
         return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
-    @DontValidate
     @HandlesEvent("update")
     @RolesAllowed({"user if ${isMyAccount}"})
     public Resolution update() {
         userFacade.update(user);
-        return new RedirectResolution(UserActionBean.class, "detail");
+        return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", id);
     }
 
     @HandlesEvent("changePassword")

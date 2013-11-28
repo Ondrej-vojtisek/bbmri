@@ -1,6 +1,8 @@
 package bbmri.action;
 
-import bbmri.entities.*;
+import bbmri.entities.Request;
+import bbmri.entities.RequestGroup;
+import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.*;
 import net.sourceforge.stripes.action.*;
@@ -8,6 +10,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -21,17 +24,28 @@ public class BasicActionBean implements ActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    /*************************************
-    * LINKS
-    **************************************/
-    private static final String BASIC_PATH = "/webpages";
-    /*************************************/
+        /* Shibboleth headers*/
+    private static final String SHIB_EPPN = "eppn";
 
+
+    /**
+     * **********************************
+     * LINKS
+     * ************************************
+     */
+    protected static final String INDEX = "/index.jsp";
+    private static final String BASIC_PATH = "/webpages";
+    /**
+     * *********************************
+     */
+    protected static final String DASHBOARD = "/dashboard.jsp";
     protected static final String WELCOME = BASIC_PATH + "/welcome.jsp";
 
     // MY ACCOUNT
     private static final String USER = BASIC_PATH + "/user/";
-    /*************************************/
+    /**
+     * *********************************
+     */
 
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
@@ -43,17 +57,20 @@ public class BasicActionBean implements ActionBean {
 
     // BIOBANK
     private static final String BIOBANK = BASIC_PATH + "/biobank/";
-    /*************************************/
+    /**
+     * *********************************
+     */
     protected static final String BIOBANK_ALL = BIOBANK + "all.jsp";
-    protected static final String BIOBANK_EDIT = BIOBANK + "detail_W.jsp";
-    protected static final String BIOBANK_DETAIL = BIOBANK + "detail_R.jsp";
+    protected static final String BIOBANK_DETAIL = BIOBANK + "detail.jsp";
     protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators_R.jsp";
     protected static final String BIOBANK_ADMINISTRATORS_WRITE = BIOBANK + "administrators_W.jsp";
     protected static final String BIOBANK_ADD_ADMINISTRATOR = BIOBANK + "addAdministrator.jsp";
 
     // BIOBANK/CREATE
     private static final String BIOBANK_CREATE = BIOBANK + "create/";
-    /*************************************/
+    /**
+     * *********************************
+     */
     protected static final String BIOBANK_CREATE_GENERAL = BIOBANK_CREATE + "general.jsp";
     protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "administrators.jsp";
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "confirm.jsp";
@@ -62,16 +79,19 @@ public class BasicActionBean implements ActionBean {
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";
-    /*************************************/
+    /**
+     * *********************************
+     */
     protected static final String PROJECT_ALL = PROJECT + "all.jsp";
     protected static final String PROJECT_MY = PROJECT + "all_my.jsp";
 
 
     // PROJECTS/CREATE
     private static final String PROJECT_DETAIL = PROJECT + "detail/";
-    /*************************************/
-    protected static final String PROJECT_DETAIL_READ = PROJECT_DETAIL + "detail_R.jsp";
-    protected static final String PROJECT_DETAIL_WRITE = PROJECT_DETAIL + "detail_W.jsp";
+    /**
+     * *********************************
+     */
+    protected static final String PROJECT_DETAIL_GENERAL = PROJECT_DETAIL + "detail.jsp";
     protected static final String PROJECT_DETAIL_ATTACHMENTS = PROJECT_DETAIL + "attachments.jsp";
     protected static final String PROJECT_DETAIL_ADMINISTRATORS_READ = PROJECT_DETAIL + "administrators_R.jsp";
     protected static final String PROJECT_DETAIL_ADMINISTRATORS_WRITE = PROJECT_DETAIL + "administrators_W.jsp";
@@ -80,7 +100,9 @@ public class BasicActionBean implements ActionBean {
 
     // PROJECTS/CREATE
     private static final String PROJECT_CREATE = PROJECT + "create/";
-    /*************************************/
+    /**
+     * *********************************
+     */
     protected static final String PROJECT_CREATE_INIT = PROJECT_CREATE + "initial.jsp";
     protected static final String PROJECT_CREATE_GENERAL = PROJECT_CREATE + "general.jsp";
     protected static final String PROJECT_CREATE_FINANCED = PROJECT_CREATE + "financed.jsp";
@@ -128,35 +150,35 @@ public class BasicActionBean implements ActionBean {
         return ctx;
     }
 
-    public Resolution primary_menu_project(){
+    public Resolution primary_menu_project() {
         return new ForwardResolution(MY_PROJECTS);
     }
 
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         Long id = ctx.getMyId();
         return userService.get(id);
     }
 
-    public Set<SystemRole> getRoles(){
+    public Set<SystemRole> getRoles() {
         Long id = ctx.getMyId();
         return userService.get(id).getSystemRoles();
 
     }
 
-    public RequestGroup getRequestGroupBSC(){
+    public RequestGroup getRequestGroupBSC() {
 
-            Long id = ctx.getRequestGroupId();
-            return requestGroupService.get(id);
-        }
+        Long id = ctx.getRequestGroupId();
+        return requestGroupService.get(id);
+    }
 
-    public Request getRequestBSC(){
+    public Request getRequestBSC() {
 
-               Long id = ctx.getRequestId();
-               return requestService.get(id);
-           }
+        Long id = ctx.getRequestId();
+        return requestService.get(id);
+    }
 
-    public String getPrimaryMenu(){
-       String s = getContext().getRequest().getServletPath();
+    public String getPrimaryMenu() {
+        String s = getContext().getRequest().getServletPath();
         /* for example: ServletPath: /webpages/account/personal_data.jsp*/
         s = s.substring(10);
         /* for example: ServletPath: account/personal_data.jsp*/
@@ -164,26 +186,34 @@ public class BasicActionBean implements ActionBean {
         return s.substring(0, s.indexOf("/"));
     }
 
-    public String getSecondaryMenu(){
-           String s = getContext().getRequest().getServletPath();
+    public String getSecondaryMenu() {
+        String s = getContext().getRequest().getServletPath();
             /* for example: ServletPath: /webpages/account/personal_data.jsp*/
-            s = s.substring(10);
+        s = s.substring(10);
             /* for example: account/personal_data.jsp*/
-            s = s.substring(s.indexOf("/") + 1);
+        s = s.substring(s.indexOf("/") + 1);
             /* for example: personal_data.jsp*/
            /* return for example: ServletPath: my_account*/
-            return s.substring(0, s.indexOf("."));
-        }
+        return s.substring(0, s.indexOf("."));
+    }
 
-    public String getLastUrl(){
+    public String getLastUrl() {
         // TODO
         return "LastURL - not implemented yet";
     }
 
-    public String getName(){
-       return this.getClass().getName();
+    public String getName() {
+        return this.getClass().getName();
     }
 
 
+    protected void successMsg(String msg) {
+        if (msg == null) {
+            getContext().getMessages().add(
+                    new LocalizableMessage("bbmri.action.BasicActionBean.success"));
+            return;
+        }
+        getContext().getMessages().add(new LocalizableMessage("msg"));
+    }
 
 }

@@ -9,6 +9,8 @@ import bbmri.entities.enumeration.Permission;
 import bbmri.facade.ProjectFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +36,15 @@ public class ProjectActionBean extends BasicActionBean {
     @SpringBean
     private ProjectFacade projectFacade;
 
+
+    @ValidateNestedProperties(value = {
+            @Validate(field = "name",
+                    required = true, on = "update"),
+            @Validate(field = "mainInvestigator",
+                    required = true, on = "update"),
+            @Validate(field = "annotation",
+                    required = true, on = "update")
+    })
     private Project project;
 
     /* Project identifier */
@@ -218,7 +229,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
     public Resolution detail() {
-        return new ForwardResolution(PROJECT_DETAIL_READ);
+        return new ForwardResolution(PROJECT_DETAIL_GENERAL);
     }
 
     @DontValidate
@@ -242,18 +253,19 @@ public class ProjectActionBean extends BasicActionBean {
         return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS_WRITE);
     }
 
+    /*Here only bcs of permission definition*/
     @DontValidate
     @HandlesEvent("edit")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution edit() {
-        return new ForwardResolution(PROJECT_DETAIL_WRITE).addParameter("id", id);
+        return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("id", id);
     }
 
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution update() {
         projectFacade.updateProject(project);
-        return new RedirectResolution(PROJECT_DETAIL_WRITE).addParameter("id", id);
+        return new RedirectResolution(PROJECT_DETAIL_GENERAL).addParameter("id", id);
     }
 
     @HandlesEvent("downloadAttachment")
@@ -282,7 +294,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution setPermission() {
-        // projectFacade.changeBiobankAdministratorPermission(administratorId, permission, getContext().getMyId());
+         projectFacade.changeProjectAdministratorPermission(adminId, permission, getContext().getMyId());
         // It changes data - redirect necessary
         return administratorsResolution(false);
     }
@@ -291,7 +303,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("removeAdministrator")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution removeAdministrator() {
-        // projectFacade.removeBiobankAdministrator(administratorId, getContext().getMyId());
+        projectFacade.removeProjectAdministrator(adminId, getContext().getMyId());
         return administratorsResolution(false);
     }
 

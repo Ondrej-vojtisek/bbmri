@@ -190,4 +190,30 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return userService.find(user, requiredResults);
 
     }
+
+    public User get(String eppn){
+        notNull(eppn);
+        return userService.get(eppn);
+    }
+
+    public Long loginShibbolethUser(User user){
+
+        if (user == null) {
+            throw new IllegalArgumentException("Object can't be a null object> User: " + user);
+        }
+
+        User userDB = userService.get(user.getEppn());
+        if(userDB == null){
+            userDB = userService.create(user);
+            user.setId(userDB.getId());
+        }else{
+            /* If user changed its credentials in system of IdentityProvider then we want to
+            * make local user stored in database up-to-date. */
+            user.setId(userDB.getId());
+        }
+
+        user.setLastLogin(new Date());
+        userService.update(userDB);
+        return userDB.getId();
+    }
 }

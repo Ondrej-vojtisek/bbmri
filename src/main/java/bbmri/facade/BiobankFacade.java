@@ -2,6 +2,9 @@ package bbmri.facade;
 
 import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
+import net.sourceforge.stripes.action.Message;
+import net.sourceforge.stripes.validation.ValidationError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 import java.util.Set;
@@ -15,29 +18,27 @@ import java.util.Set;
  */
 public interface BiobankFacade {
 
-    List<User> getBiobankAdministrators(Long biobankId);
+//    List<User> getBiobankAdministrators(Long biobankId);
 
-    Set<BiobankAdministrator> getBiobankAdministrators2(Long biobankId);
+//    Set<BiobankAdministrator> getBiobankAdministrators2(Long biobankId, ValidationErrors errors);
 
-    void createBiobank(Biobank biobank, Long newAdministratorId);
+    boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors);
 
-    void updateBiobank(Biobank biobank);
+    boolean updateBiobank(Biobank biobank, ValidationErrors errors);
 
-    void removeBiobank(Long biobankId);
+    boolean removeBiobank(Long biobankId, ValidationErrors errors);
 
-    void assignAdministratorToBiobank(Long biobank, Long loggedUser, Long newAdministrator, Permission permission);
+    boolean assignAdministratorToBiobank(Long biobank, Long loggedUser,
+                                      Long newAdministrator,
+                                      Permission permission,
+                                      ValidationErrors errors);
 
-    void changeBiobankAdministratorPermission(Long biobankAdministrator, Permission permission, Long loggedUser);
 
-    void removeBiobankAdministrator(Long biobankAdministrator, Long loggedUser);
+    boolean changeBiobankAdministratorPermission(Long biobankAdministratorId,
+                                                 Permission permission,
+                                                 ValidationErrors errors);
 
-    List<RequestGroup> getNewRequestGroups(Long biobankId);
-
-    List<Request> getRequests(Long requestGroupId);
-
-    void approveRequestGroup(Long requestGroupId);
-
-    void rejectRequestGroup(Long requestGroupId);
+    boolean removeBiobankAdministrator(Long biobankAdministrator, ValidationErrors errors);
 
     List<Biobank> all();
 
@@ -48,5 +49,15 @@ public interface BiobankFacade {
     BiobankAdministrator getBiobankAdministrator(Long id);
 
     List<Biobank> getBiobanksByUser(Long userId);
+
+    // List<RequestGroup> getNewRequestGroups(Long biobankId);
+
+    // List<Request> getRequests(Long requestGroupId);
+
+    // void approveRequestGroup(Long requestGroupId);
+
+    // void rejectRequestGroup(Long requestGroupId);
+
+
 
 }

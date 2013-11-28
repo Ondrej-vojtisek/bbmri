@@ -4,6 +4,7 @@
 <c:set var="request" value="${pageContext.request}"/>
 <c:set var="context" value="${request.contextPath}"/>
 
+
 <s:layout-definition>
     <!DOCTYPE html>
     <head>
@@ -29,8 +30,8 @@
             <div class="form-signin">
                 <s:layout-component name="body"/>
             </div>
-        </div>
 
+        </div>
     </div>
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">
@@ -41,8 +42,6 @@
 
     <script type="text/javascript" src="${context}/libs/jquery-latest.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
-
-    <s:layout-component name="jsLibrary"/>
 
     <script type="text/javascript">
         $(function () {

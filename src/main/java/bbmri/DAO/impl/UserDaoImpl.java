@@ -7,6 +7,7 @@ import org.jcp.xml.dsig.internal.dom.ApacheNodeSetData;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.xpath.XPathResult;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -24,26 +25,41 @@ public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
         notNull(user);
 
+/*
+NOT case sensitive user search with priority match. If complete match on mail then higher priority than complete match on name
+*/
         Query query = em.createQuery("" +
                 "SELECT p " +
                 "FROM User p WHERE " +
-                    "p.name LIKE :nameParam " +
-                    "OR p.surname LIKE :surnameParam " +
-                    "OR p.email LIKE :emailParam " +
+                    "LOWER(p.name) LIKE :nameParam " +
+                    "OR LOWER(p.surname) LIKE :surnameParam " +
+                    "OR LOWER(p.email) LIKE :emailParam " +
                     "ORDER BY " +
                         "CASE " +
-                            "WHEN (p.email = :emailParam) THEN 100 " +
-                            "WHEN (p.surname = :surnameParam) THEN 50 " +
-                            "WHEN (p.name = :nameParam) THEN 30 " +
+                            "WHEN (LOWER(p.email) = :emailParam) THEN 100 " +
+                            "WHEN (LOWER(p.surname) = :surnameParam) THEN 50 " +
+                            "WHEN (LOWER(p.name) = :nameParam) THEN 30 " +
                             "ELSE 0 " +
                         "END " +
                     "DESC");
 
-        query.setParameter("nameParam", (user.getName() != null ? "%" + user.getName() + "%"  : " "));
-        query.setParameter("surnameParam", (user.getName() != null ? "%" + user.getSurname() + "%" : " "));
-        query.setParameter("emailParam", (user.getName() != null ? "%" + user.getEmail() + "%" : " "));
+        query.setParameter("nameParam", (user.getName() != null ? "%" + user.getName().toLowerCase() + "%"  : " "));
+        query.setParameter("surnameParam", (user.getSurname() != null ? "%" + user.getSurname().toLowerCase() + "%" : " "));
+        query.setParameter("emailParam", (user.getEmail() != null ? "%" + user.getEmail().toLowerCase() + "%" : " "));
 
         return query.getResultList();
+    }
+
+    public User get(String eppn){
+        notNull(eppn);
+        Query query = em.createQuery("SELECT p FROM User p WHERE p.eppn = :eppnParam");
+        query.setParameter("eppnParam", eppn);
+
+        try{
+            return (User) query.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }
     }
 }
 

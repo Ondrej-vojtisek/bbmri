@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,6 +19,19 @@ import javax.servlet.http.HttpSession;
 public class TheActionBeanContext extends ActionBeanContext {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    /* Shibboleth attributes */
+
+    private static final String SHIB_SESSION_ID = "Shib-Session-ID";
+    private static final String SHIB_EPPN = "eppn";
+    private static final String SHIB_AFFILIATION = "affiliation";
+    private static final String SHIB_CN = "cn";
+    private static final String SHIB_SN = "sn";
+    private static final String SHIB_GIVEN_NAME = "givenName";
+    private static final String SHIB_ORGANIZATION = "o";
+    private static final String SHIB_MAIL = "mail";
+    private static final String SHIB_DISPLAY_NAME = "displayName";
+    private static final String SHIB_MEFAPERSON = "mefaperson";
 
     private static final String MY_ID = "myId";
     private static final String SAMPLE_ID = "sample";
@@ -191,6 +205,67 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public void setSampleQuestion(SampleQuestion sampleQuestion) {
         getRequest().getSession().setAttribute("sampleQuestion", sampleQuestion);
+    }
+
+
+    public String getHeaderParam(String param){
+        String paramText = getRequest().getHeader(param);
+        if(paramText != null)
+            try {
+                paramText = new String(paramText.getBytes("iso-8859-1"),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        return paramText;
+    }
+
+    public String getShibbolethSession(){
+        /* No need for utf conversion*/
+        return getRequest().getHeader(SHIB_SESSION_ID);
+    }
+
+    public boolean getIsShibbolethSession(){
+        if(getShibbolethSession() == null) return false;
+
+        return true;
+    }
+
+    public String getShibbolethEppn(){
+        return getHeaderParam(SHIB_EPPN);
+    }
+
+    public String getShibbolethCn(){
+        return getHeaderParam(SHIB_CN);
+    }
+
+    public String getShibbolethAffiliation(){
+        return getHeaderParam(SHIB_AFFILIATION);
+    }
+
+    public String getShibbolethDisplayName(){
+        return getHeaderParam(SHIB_DISPLAY_NAME);
+    }
+
+    public String getShibbolethGivenName(){
+        return getHeaderParam(SHIB_GIVEN_NAME);
+    }
+
+    public String getShibbolethMail(){
+        return getHeaderParam(SHIB_MAIL);
+    }
+
+    /*TODO: String -> Boolean or boolean*/
+    public String getShibbolethMefaPerson(){
+        return getHeaderParam(SHIB_MEFAPERSON);
+    }
+
+    public String getShibbolethOrganization(){
+        return getHeaderParam(SHIB_ORGANIZATION);
+    }
+
+    public String getShibbolethSn(){
+        return getHeaderParam(SHIB_SN);
     }
 
 }

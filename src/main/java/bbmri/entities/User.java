@@ -23,21 +23,37 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "NAME")
+    /* eppn in Shibboleth*/
+    private String eppn;
+
+    /* GivenName in Shibboleth*/
     private String name;
 
-    @Column(name = "SURNAME")
+    /* sn in Shibboleth */
     private String surname;
 
-    @Column(name = "EMAIL")
+    /* mail in Shibboleth*/
     private String email;
 
+    /* o in Shibboleth*/
+    private String organization;
+
+    /* displayName in Shibboleth*/
+    private String displayName;
+
+    /* mefaPerson in Shibboleth*/
+    private boolean mefaPerson;
+
+    /* affiliation in Shibboleth*/
+    private String affiliation;
+
     //naive temporal prosthesis
-    @Column(name = "PASSWORD")
     private String password;
+
+
 
     @OneToMany(mappedBy = "user")
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
@@ -51,7 +67,7 @@ public class User implements Serializable {
 
     @ElementCollection(targetClass = SystemRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
-    @Column(name = "Role", nullable = false)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<SystemRole> systemRoles = new HashSet<SystemRole>();
 
@@ -99,6 +115,8 @@ public class User implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 
     public boolean getIsOperator() {
         return systemRoles.contains(SystemRole.BIOBANK_OPERATOR);
@@ -168,6 +186,46 @@ public class User implements Serializable {
         this.lastLogin = lastLogin;
     }
 
+    public String getEppn() {
+        return eppn;
+    }
+
+    public void setEppn(String eppn) {
+        this.eppn = eppn;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public boolean isMefaPerson() {
+        return mefaPerson;
+    }
+
+    public void setMefaPerson(boolean mefaPerson) {
+        this.mefaPerson = mefaPerson;
+    }
+
+    public String getAffiliation() {
+        return affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -189,10 +247,18 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "" + id + " " + name + " " + surname;
+        return "User{" +
+                "id=" + id +
+                ", eppn='" + eppn + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", organization='" + organization + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", mefaPerson=" + mefaPerson +
+                ", affiliation='" + affiliation + '\'' +
+                '}';
     }
-
-
 }
 
 

@@ -5,25 +5,14 @@
 
 <%------------------------------------------------------------------------%>
 
-<security:allowed bean="projectBean" event="edit">
+<security:allowed bean="projectBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-    <s:link beanclass="bbmri.action.project.ProjectActionBean" event="edit">
-        <s:param name="id" value="${projectBean.id}"/>
-        <f:message key="bbmri.action.project.ProjectActionBean.basicData"/>
-    </s:link>
+        <s:link beanclass="bbmri.action.project.ProjectActionBean" event="detail">
+            <s:param name="id" value="${projectBean.id}"/>
+            <f:message key="bbmri.action.project.ProjectActionBean.basicData"/>
+        </s:link>
+    </li>
 </security:allowed>
-</li>
-
-<security:notAllowed bean="projectBean" event="edit">
-    <security:allowed bean="projectBean" event="detail">
-        <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-            <s:link beanclass="bbmri.action.project.ProjectActionBean" event="detail">
-                <s:param name="id" value="${projectBean.id}"/>
-                <f:message key="bbmri.action.project.ProjectActionBean.basicData"/>
-            </s:link>
-        </li>
-    </security:allowed>
-</security:notAllowed>
 
 <%------------------------------------------------------------------------%>
 

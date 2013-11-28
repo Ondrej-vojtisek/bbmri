@@ -11,7 +11,6 @@
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.biobank.CreateActionBean">
             <fieldset>
-
                 <legend><f:message key="bbmri.action.biobank.CreateActionBean.firstStep"/></legend>
 
                 <table>
@@ -25,7 +24,7 @@
                     </tr>
                 </table>
 
-                <s:submit name="administrators" class="btn btn-primary"/>
+                <s:submit name="create" class="btn btn-primary"/>
 
             </fieldset>
         </s:form>

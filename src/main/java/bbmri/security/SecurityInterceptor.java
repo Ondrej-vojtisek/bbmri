@@ -93,6 +93,18 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
         {
             switch(executionContext.getLifecycleStage())
             {
+//                case ActionBeanResolution:
+//                    logger.debug("INTERCEPT ActionBeanResolution");
+//                    resolution = interceptBindingAndValidation(executionContext);
+//                break;
+//
+//
+//                case HandlerResolution:
+//                    logger.debug("INTERCEPT HandlerResolution");
+//                    resolution = interceptBindingAndValidation(executionContext);
+//
+//                break;
+
                 case BindingAndValidation:
                 case CustomValidation:
                     resolution = interceptBindingAndValidation(executionContext);
@@ -132,6 +144,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      */
     protected Resolution interceptBindingAndValidation(ExecutionContext executionContext) throws Exception
     {
+
         Resolution resolution = executionContext.proceed();
 
         // If there are errors and a resolution to display them, check if access is allowed
@@ -188,6 +201,12 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      */
     protected Resolution interceptResolutionExecution(ExecutionContext executionContext) throws Exception
     {
+
+
+        logger.debug("INTERCEPT: interceptResolutionExecution");
+
+        logger.debug("ExecutionContext: " + executionContext);
+
         // Before processing the resolution, add the security manager to the request, used (for example) by the security tag
         executionContext.getActionBeanContext().getRequest().setAttribute(SecurityInterceptor.MANAGER, securityManager);
 
@@ -240,6 +259,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
         Resolution resolution;
         if (securityManager instanceof SecurityHandler)
         {
+            logger.debug("HandleAccessDenied");
             resolution = ((SecurityHandler)securityManager).handleAccessDenied(bean, handler);
         }
         else

@@ -1,8 +1,7 @@
 package bbmri.service;
 
-import bbmri.entities.enumeration.Permission;
 import bbmri.entities.Biobank;
-import bbmri.entities.User;
+import bbmri.entities.BiobankAdministrator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,19 +10,17 @@ import bbmri.entities.User;
  * Time: 20:02
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankService  extends BasicService<Biobank> {
+public interface BiobankService  extends BasicService<Biobank>, PermissionService<Biobank, BiobankAdministrator> {
 
    Biobank create(Biobank biobank, Long administratorId);
 
-   public void removeAdministratorFromBiobank(Long biobankId, Long userId);
+ //  void removeAdministratorFromBiobank(Long biobankId, Long userId) throws LastManagerException;
 
-   User assignAdministrator(Long userId, Long biobankId, Permission permission);
+ //  User assignAdministrator(Long userId, Long biobankId, Permission permission);
 
    Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions);
 
-   void removeAdministrator(Long userId, Long biobankId, Permission permission);
-
-   void changeAdministratorPermission(Long userId, Long biobankId, Permission permission);
+  // void changeAdministratorPermission(Long userId, Long biobankId, Permission permission) throws LastManagerException;
 
 
 }

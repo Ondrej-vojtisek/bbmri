@@ -47,6 +47,10 @@ public interface UserFacade {
 
     List<User> find(User user, int requiredResults);
 
+    User get(String eppn);
+
+    Long loginShibbolethUser(User user);
+
 
     /*
     with permission check

@@ -75,7 +75,7 @@
         <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.7</version>
         </dependency>
         <dependency>
             <groupId>servlets.com</groupId>
@@ -178,6 +178,9 @@
             <artifactId>commons-io</artifactId>
             <version>1.0</version>
         </dependency>
+
+
+
 
         <!-- Stripes security
 

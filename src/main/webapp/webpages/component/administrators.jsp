@@ -45,7 +45,7 @@
 
                                 <s:submit name="setPermission" onclick="return confirm('${questionSet}')"
                                           class="btn btn-primary">
-                                    <s:param name="administratorId" value="${administrator.id}"/>
+                                    <s:param name="adminId" value="${administrator.id}"/>
                                     <s:param name="id" value="${bean.id}"/>
                                 </s:submit>
                             </s:form>
@@ -57,7 +57,7 @@
 
                                 <s:submit name="removeAdministrator" onclick="return confirm('${question}')"
                                           class="btn btn-danger">
-                                    <s:param name="administratorId" value="${administrator.id}"/>
+                                    <s:param name="adminId" value="${administrator.id}"/>
                                     <s:param name="id" value="${bean.id}"/>
                                 </s:submit>
                             </s:form>

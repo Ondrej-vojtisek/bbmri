@@ -5,6 +5,7 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
 import bbmri.entities.enumeration.SystemRole;
+import bbmri.service.BiobankService;
 import bbmri.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -34,7 +34,7 @@ public class BiobankAdministrator implements Serializable {
     @ManyToOne
     private User user;
 
-    public BiobankAdministrator(){}
+   // public BiobankAdministrator(){}
 
     public Biobank getBiobank() {
         return biobank;

@@ -93,14 +93,6 @@
 
             <c:forEach var="biobank" items="${biobankBean.myBiobanks}">
                 <li>
-                    <security:allowed bean="biobankBean" event="edit">
-                        <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
-                                event="edit">
-                            <s:param name="id" value="${biobank.id}"/>
-                            ${biobank.name}
-                        </s:link>
-                    </security:allowed>
-                    <security:notAllowed bean="biobankBean" event="edit">
                         <security:allowed bean="biobankBean" event="detail">
                             <s:link beanclass="bbmri.action.biobank.BiobankActionBean"
                                     event="detail">
@@ -108,7 +100,6 @@
                                 ${biobank.name}
                             </s:link>
                         </security:allowed>
-                    </security:notAllowed>
                 </li>
 
             </c:forEach>

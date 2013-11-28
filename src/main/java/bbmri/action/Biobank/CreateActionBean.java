@@ -8,6 +8,7 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,11 +35,12 @@ public class CreateActionBean extends FindActionBean {
     @SpringBean
     private BiobankFacade biobankFacade;
 
+    @Validate(on = {"addAdministrator", "done"}, required = true)
     private Long adminId;
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create"}, field = "name", required = true),
-            @Validate(on = {"create"}, field = "address", required = true)
+            @Validate(on = {"create", "done"}, field = "name", required = true),
+            @Validate(on = {"create", "done"}, field = "address", required = true)
     })
     private Biobank newBiobank;
 
@@ -67,7 +69,7 @@ public class CreateActionBean extends FindActionBean {
 
     @DontValidate
     @DefaultHandler
-    @HandlesEvent("display") /* Necessary for stripes security tag*/
+    @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
         return new ForwardResolution(BIOBANK_CREATE_GENERAL);
@@ -81,7 +83,7 @@ public class CreateActionBean extends FindActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("administrators") /* Necessary for stripes security tag*/
+    @HandlesEvent("administrators")
     @RolesAllowed({"administrator", "developer"})
     public Resolution administrators() {
         return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS);
@@ -95,30 +97,34 @@ public class CreateActionBean extends FindActionBean {
     }
 
 
-    @DontValidate
-    @HandlesEvent("done") /* Necessary for stripes security tag*/
+    @HandlesEvent("done")
     @RolesAllowed({"administrator", "developer"})
     public Resolution done() {
-        biobankFacade.createBiobank(newBiobank, adminId);
-//        getContext().getMessages().add(
-//                new SimpleMessage("Biobank was succesfully created.")
-//        );
-        return new RedirectResolution(BiobankActionBean.class, "allBiobanks");
+        ValidationErrors errors = new ValidationErrors();
+        biobankFacade.createBiobank(newBiobank, adminId, errors);
+
+        if(biobankFacade.createBiobank(newBiobank, adminId, errors)){
+            successMsg(null);
+            return new RedirectResolution(BiobankActionBean.class, "allBiobanks");
+        }
+
+        getContext().setValidationErrors(errors);
+        return new ForwardResolution(BiobankActionBean.class, "allBiobanks");
     }
 
-    @HandlesEvent("create") /* Necessary for stripes security tag*/
+    @HandlesEvent("create")
     @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
         return new ForwardResolution(this.getClass(), "administrators");
     }
 
-    @DontValidate
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"administrator", "developer"})
     public Resolution addAdministrator() {
         return new ForwardResolution(BIOBANK_CREATE_CONFIRM);
     }
 
+    @DontValidate
     @HandlesEvent("find")
     @RolesAllowed({"administrator", "developer"})
     public Resolution find() {

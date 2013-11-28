@@ -21,4 +21,6 @@ public interface UserDao extends BasicDao<User>{
    */
 
     List<User> findUser(User user);
+
+    User get(String eppn);
 }

@@ -15,7 +15,7 @@
             <tr>
                 <th><s:label name="attachment.name"/></th>
                 <th><s:label name="attachment.type"/></th>
-                <th><s:label name="attachment.size"/></th>
+                <th><s:label name="bbmri.entities.Attachment.unit"/></th>
                 <th><s:label name="attachment.importance"/></th>
             </tr>
             </thead>

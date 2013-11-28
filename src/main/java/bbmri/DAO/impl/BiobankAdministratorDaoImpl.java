@@ -4,6 +4,7 @@ import bbmri.dao.BiobankAdministratorDao;
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.User;
+import bbmri.entities.enumeration.Permission;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -40,5 +41,15 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
              return (BiobankAdministrator) query.getSingleResult();
          }
          return null;
+     }
+
+    public List<BiobankAdministrator> get(Biobank biobank, Permission permission) {
+         Query query = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
+                 "p.biobank = :biobankParam " +
+                 "and p.permission = :permissionParam ");
+         query.setParameter("biobankParam", biobank);
+         query.setParameter("permissionParam", permission);
+
+         return query.getResultList();
      }
 }

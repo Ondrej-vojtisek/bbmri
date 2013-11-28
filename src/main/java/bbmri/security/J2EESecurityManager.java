@@ -112,6 +112,7 @@ public class J2EESecurityManager implements SecurityManager
         {
             // The element allows access to all security roles (i.e. any authenticated user)
             allowed = isUserAuthenticated(bean, handler);
+            logger.debug("User: Result:" + allowed);
             logger.debug("PermitAll");
         }
         else

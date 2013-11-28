@@ -4,10 +4,7 @@ import bbmri.action.BasicActionBean;
 import bbmri.action.LoginActionBean;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ErrorResolution;
-import net.sourceforge.stripes.action.RedirectResolution;
-import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,6 +47,8 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     @Override
     protected Boolean isUserAuthenticated(ActionBean bean, Method handler){
+        logger.debug("User: " + getUser(bean));
+
         return null != getUser(bean);
     }
 
@@ -71,11 +70,13 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     @Override
     public Resolution handleAccessDenied(ActionBean bean, Method handler)
     {
+        logger.debug("HandleAccessDenied");
         // If not authenticated user
         if(!isUserAuthenticated(bean, handler))
         {
+            logger.debug("Return to login form");
             // Redirect to the login form
-            return new RedirectResolution(LoginActionBean.class);
+            return new ForwardResolution(LoginActionBean.class);
         }
 
         // Display the error message

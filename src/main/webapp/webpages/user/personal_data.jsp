@@ -8,9 +8,6 @@
                  primarymenu="user"
                  secondarymenu="user_all"
                  ternarymenu="personal_data">
-    <s:layout-component name="script">
-
-    </s:layout-component>
 
     <s:layout-component name="body">
 
@@ -60,6 +57,7 @@
 
                 <security:allowed bean="userBean" event="update">
                     <s:submit name="update" class="btn btn-primary"/>
+                    <s:param name="id" value="${userBean.id}"/>
                 </security:allowed>
         </s:form>
 

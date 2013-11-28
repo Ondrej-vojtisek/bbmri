@@ -124,11 +124,11 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
 
             ExpressionValidator.evaluate(bean, name, values, metadata, errors);
 
-            logger.debug("Bean: '" + bean + '\'');
-            logger.debug("Name: '" + name + '\'');
-            logger.debug("Values: '" + values + '\'');
-            logger.debug("Metadata: '" + metadata + '\'');
-            logger.debug("Errors: '" + errors + '\'');
+//            logger.debug("Bean: '" + bean + '\'');
+//            logger.debug("Name: '" + name + '\'');
+//            logger.debug("Values: '" + values + '\'');
+//            logger.debug("Metadata: '" + metadata + '\'');
+//            logger.debug("Errors: '" + errors + '\'');
 
             return errors.isEmpty();
         } catch (Exception exc) {

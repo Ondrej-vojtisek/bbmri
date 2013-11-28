@@ -5,6 +5,7 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.BiobankService;
+import bbmri.service.exceptions.LastManagerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,13 @@ import java.util.Set;
 @Transactional
 @Service
 public class BiobankServiceImpl extends BasicServiceImpl implements BiobankService {
+
+    /*
+    Dodat:
+    @Override
+    @Transactional(readOnly = true)
+     */
+
 
     @Autowired
     private BiobankDao biobankDao;
@@ -53,7 +61,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         biobankDao.create(biobank);
-        assignAdministrator(newAdministratorId, biobank.getId(), Permission.MANAGER);
+        assignAdministrator(biobank, newAdministratorId, Permission.MANAGER);
         return biobank;
     }
 
@@ -94,11 +102,11 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
                 /* Remove system role biobank operator */
                 User userDB = ba.getUser();
-                if(userDB.getBiobankAdministrators().size() == 1 &&
-                        userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
+                if (userDB.getBiobankAdministrators().size() == 1 &&
+                        userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)) {
 
-                          userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
-                        userDao.update(userDB);
+                    userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
+                    userDao.update(userDB);
                 }
 
                 ba.setUser(null);
@@ -136,118 +144,102 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return biobankDao.count();
     }
 
-    public void removeAdministratorFromBiobank(Long biobankId, Long userId) {
-        notNull(biobankId);
-        notNull(userId);
+    public void removeAdministrator(BiobankAdministrator objectAdministrator) throws LastManagerException {
+        notNull(objectAdministrator);
 
-        Biobank biobankDB = biobankDao.get(biobankId);
-        User userDB = userDao.get(userId);
+        User userDB = objectAdministrator.getUser();
+        Biobank biobankDB = objectAdministrator.getBiobank();
 
-        if(biobankDB == null || userDB == null){
+        if(userDB == null || biobankDB == null){
             return;
-            // TODO: Exception
-        }
-        BiobankAdministrator ba = biobankAdministratorDao.get(biobankDB, userDB);
-
-        if (ba == null) {
-            return;
-            // TODO: exception
-        }
-        if (biobankDB.getBiobankAdministrators().size() == 1) {
-            return;
-            // TODO: exception
+            // TODO: EXCEPTION
         }
 
-        if(userDB.getBiobankAdministrators().size() == 1 &&
-                userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
-
-                  userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
-                userDao.update(userDB);
+        /* Situation when we want to remove last manager. */
+        if (isLastManager(objectAdministrator)) {
+            throw new LastManagerException("User: " + userDB.getWholeName()
+                    + " is the only administrator with MANAGER permission associated to biobank: "
+                    + biobankDB.getName() + ". He can't be removed!");
         }
 
-        biobankAdministratorDao.remove(ba);
+        if (userDB.getBiobankAdministrators().size() == 1 &&
+                userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)) {
+            userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
+            userDao.update(userDB);
+        }
 
-
-
+        biobankAdministratorDao.remove(objectAdministrator);
     }
 
-    public User assignAdministrator(Long userId, Long biobankId, Permission permission) {
+    public void assignAdministrator(Biobank object, Long userId, Permission permission){
+        notNull(object);
         notNull(userId);
-        notNull(biobankId);
         notNull(permission);
-        User userDB = userDao.get(userId);
-        Biobank biobankDB = biobankDao.get(biobankId);
 
-        if (userDB == null || biobankDB == null) {
-            return null;
-            // TODO: exception
+        User userDB = userDao.get(userId);
+        if(userDB == null){
+             return;
+             // TODO: exception
         }
 
         BiobankAdministrator ba = new BiobankAdministrator();
         ba.setPermission(permission);
-        ba.setBiobank(biobankDB);
+        ba.setBiobank(object);
         ba.setUser(userDB);
 
         biobankAdministratorDao.create(ba);
 
-        /* TODO: check if this is necessary */
-//        biobankDB.getBiobankAdministrators().add(ba);
-//        biobankDao.update(biobankDB);
-//
-//        userDB.getBiobankAdministrators().add(ba);
-//
-        if(!userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)){
+        if (!userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)) {
             userDB.getSystemRoles().add(SystemRole.BIOBANK_OPERATOR);
         }
 
         userDao.update(userDB);
-        return userDB;
     }
 
-    private int biobankManagerCount(Biobank biobank) {
-        notNull(biobank);
-        int count = 0;
-        for (BiobankAdministrator ba : biobank.getBiobankAdministrators()) {
-            if (ba.getPermission().equals(Permission.MANAGER)) {
-                count++;
-            }
+
+    private boolean isLastManager(BiobankAdministrator ba){
+        if(!ba.getPermission().equals(Permission.MANAGER)){
+            return false;
         }
-        return count;
+
+        if(biobankAdministratorDao.get(ba.getBiobank(), Permission.MANAGER).size() > 1){
+            return false;
+        }
+
+        return true;
     }
 
-
-    public void changeAdministratorPermission(Long userId, Long biobankId, Permission permission) {
-        notNull(userId);
-        notNull(biobankId);
+    public void changeAdministratorPermission(BiobankAdministrator ba, Permission permission) throws LastManagerException {
+        notNull(ba);
         notNull(permission);
 
-        User userDB = userDao.get(userId);
-        Biobank biobankDB = biobankDao.get(biobankId);
+        /* Situation when we want to remove last manager. */
 
-        if (userDB == null || biobankDB == null) {
-            return;
-            // TODO: exception
+        if (! permission.equals(Permission.MANAGER) && isLastManager(ba) ) {
+            throw new LastManagerException("User: " + ba.getUser().getWholeName()
+                    + " is the only administrator with MANAGER permission associated to biobank: "
+                    + ba.getBiobank().getName() + ". He can't be removed!");
         }
 
-        assignAdministrator(userId, biobankId, permission);
-
+        ba.setPermission(permission);
+        biobankAdministratorDao.update(ba);
     }
 
-    public void removeAdministrator(Long userId, Long biobankId, Permission permission) {
-        notNull(userId);
-        notNull(biobankId);
-        notNull(permission);
-
-        User userDB = userDao.get(userId);
-        Biobank biobankDB = biobankDao.get(biobankId);
-
-        if (userDB == null || biobankDB == null) {
-            return;
-            // TODO: exception
-        }
-
-        removeAdministratorFromBiobank(userId, biobankId);
-    }
+//    public void removeAdministrator(Long userId, Long biobankId, Permission permission) {
+//        notNull(userId);
+//        notNull(biobankId);
+//        notNull(permission);
+//
+//        User userDB = userDao.get(userId);
+//        Biobank biobankDB = biobankDao.get(biobankId);
+//
+//        if (userDB == null || biobankDB == null) {
+//            return;
+//            // TODO: exception
+//        }
+//
+//        removeAdministratorFromBiobank(userId, biobankId);
+//    }
 
     public Biobank get(Long id) {
         notNull(id);

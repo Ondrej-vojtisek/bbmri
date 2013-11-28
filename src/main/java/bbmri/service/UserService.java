@@ -35,6 +35,8 @@ public interface UserService extends BasicService<User>{
 
     List<User> find(User user, int requiredResults);
 
+    User get(String eppn);
+
    /*
     To implement:
 

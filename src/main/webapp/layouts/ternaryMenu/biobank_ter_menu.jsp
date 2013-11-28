@@ -5,23 +5,13 @@
 
 <%------------------------------------------------------------------------%>
 
-<security:allowed bean="biobankBean" event="edit">
+<security:allowed bean="biobankBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit">
-        <s:param name="id" value="${biobankBean.id}"/><f:message
-            key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
+        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+            <s:param name="id" value="${biobankBean.id}"/><f:message
+                key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
+    </li>
 </security:allowed>
-</li>
-
-<security:notAllowed bean="biobankBean" event="edit">
-    <security:allowed bean="biobankBean" event="detail">
-        <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-            <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
-                <s:param name="id" value="${biobankBean.id}"/><f:message
-                    key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
-        </li>
-    </security:allowed>
-</security:notAllowed>
 
 <%------------------------------------------------------------------------%>
 

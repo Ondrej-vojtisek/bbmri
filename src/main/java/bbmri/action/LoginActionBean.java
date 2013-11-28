@@ -3,7 +3,6 @@ package bbmri.action;
 import bbmri.action.project.ProjectActionBean;
 import bbmri.entities.User;
 import bbmri.facade.UserFacade;
-import bbmri.service.LoginService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.*;
@@ -28,12 +27,11 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private static final String INDEX = "/index.jsp";
+    private static final String INDEX = "/login.jsp";
+    private static final String TOUCH = "/touch.jsp";
 
     @SpringBean
     private UserFacade userFacade;
-
-
 
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1)
@@ -64,8 +62,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-
-       // logger.debug("Display - Context: " + getContext().getMyId() );
+        logger.debug("Login display");
 
         getContext().dropUser();
         return new ForwardResolution(INDEX);
@@ -78,8 +75,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             getContext().getMessages().add(new SimpleMessage("Succesfull login"));
         }
 
-        return new RedirectResolution(WelcomeActionBean.class);
-//        return new RedirectResolution(ProjectActionBean.class);
+        return new RedirectResolution(DashboardActionBean.class);
     }
 
     @PermitAll
@@ -91,42 +87,39 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     }
 
     @ValidationMethod
-      public void validateUser(ValidationErrors errors){
-          if(id != null && password != null){
-              user = userFacade.login(id, password);
-          }
-          if(user == null){
-              getContext().getMessages().add(
+    public void validateUser(ValidationErrors errors) {
+        if (id != null && password != null) {
+            user = userFacade.login(id, password);
+        }
+        if (user == null) {
+            getContext().getMessages().add(
                       /*new LocalizableError("pokus") */
-                      new SimpleMessage("Login incorrect")
+                    new SimpleMessage("Login incorrect")
 
-              );
-              //            new SimpleMessage("Login incorrect")
-          }
-      }
+            );
+        }
+    }
 
     @DontValidate
-    public Resolution cancel(){
-          return new ForwardResolution(INDEX);
+    public Resolution cancel() {
+        return new ForwardResolution(INDEX);
     }
 
     @Override
-      public Resolution handleValidationErrors(ValidationErrors errors)
-      {
-          // When field erros occured
-          if(errors.hasFieldErrors())
-          {
-              // Display a global error message
-             // errors.addGlobalError(new LocalizableError("allFieldsRequired"));
-              getContext().getMessages().add(
-              new LocalizableError("allFieldsRequired")
-                           );
-          }
+    public Resolution handleValidationErrors(ValidationErrors errors) {
+        // When field erros occured
+        if (errors.hasFieldErrors()) {
+            // Display a global error message
+            // errors.addGlobalError(new LocalizableError("allFieldsRequired"));
+            getContext().getMessages().add(
+                    new LocalizableError("allFieldsRequired")
+            );
+        }
 
-          // Implicit
-          return null;
-      }
 
+        // Implicit
+        return null;
+    }
 
 
 }

@@ -221,4 +221,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         }
         return userDao.findUser(user).subList(0, requiredResults);
     }
+
+    public User get(String eppn){
+        notNull(eppn);
+        return userDao.get(eppn);
+    }
 }
