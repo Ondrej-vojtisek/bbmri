@@ -34,7 +34,7 @@
 
     <function>
             <name>isAdministrator</name>
-            <function-class>bbmri.action.BasicActionBean</function-class>
+            <function-class>bbmri.action.base.BasicActionBean</function-class>
             <function-signature>boolean isAdministrator()</function-signature>
         </function>
 

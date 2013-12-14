@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("attachmentService")
 public class AttachmentServiceImpl extends BasicServiceImpl implements AttachmentService {
 
     @Autowired
@@ -29,16 +28,6 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
     @Autowired
     private AttachmentDao attachmentDao;
-
-    public String getAttachmentPath(Attachment attachment) {
-        notNull(attachment);
-        return (Attachment.ROOT_DIR_PATH
-                           + attachment.getProject().getId().toString()
-                           + File.separator
-                           + attachment.getProject().getId().toString()
-                           + attachment.getAttachmentType().toString()
-                           + attachment.getId() );
-    }
 
     public Attachment get(Long id) {
         notNull(id);
@@ -59,100 +48,48 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         attachmentDao.create(attachment);
         projectDB.getAttachments().add(attachment);
         projectDao.update(projectDB);
-        createFolder(attachment);
-
         return attachment;
     }
 
+    @Transactional(readOnly = true)
     public List<Attachment> all() {
         return attachmentDao.all();
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
         Attachment attachment = attachmentDao.get(id);
 
-        File file = new File(getAttachmentPath(attachment));
-
         if (attachment == null) {
-            return;
-            // TODO: exception
-        }
-        // Exists?
-        if (!file.exists()) {
-            throw new IllegalArgumentException(
-                    "Delete: no such attachment: " + getAttachmentPath(attachment));
-        }
-        boolean success = file.delete();
-
-        // Truly deleted?
-        if (!success) {
-            throw new IllegalArgumentException("Delete: deletion failed: " + file);
-        }
-
-        File dir = new File(Attachment.ROOT_DIR_PATH + attachment.getProject().getId().toString());
-
-        // Correct path to parent directory?
-        if (!dir.exists()) {
-            throw new IllegalArgumentException(
-                    "Delete: no such folder: " + dir);
-        }
-        // It is truly a directory?
-        if (!dir.isDirectory()) {
-            throw new IllegalArgumentException(
-                    "Delete: not a directory: " + dir);
-        }
-
-        // If empty - delete it!
-        if (dir.list().length < 1) {
-            success = dir.delete();
-            if (!success) {
-                throw new IllegalArgumentException("Delete: deletion failed: " + dir);
-            }
+            return false;
         }
         attachmentDao.remove(attachment);
-
+        return true;
     }
 
     public Attachment update(Attachment attachment) {
-        // TODO
-        return null;
+        notNull(attachment);
+        Attachment attachmentDB = attachmentDao.getAttachmentByPath(attachment.getAbsolutePath());
+        if(attachmentDB == null){
+            return null;
+        }
+        attachmentDB.setAttachmentType(attachment.getAttachmentType());
+        attachmentDB.setContentType(attachment.getContentType());
+        attachmentDB.setFileName(attachment.getFileName());
+        attachmentDB.setSize(attachment.getSize());
+        attachmentDao.update(attachmentDB);
+        return attachmentDB;
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return attachmentDao.count();
     }
 
-
+    @Transactional(readOnly = true)
     public List<Attachment> getAttachmentsByProject(Long projectId) {
         Project projectDB = projectDao.get(projectId);
-        List<Attachment> attachments = attachmentDao.all();
-        List<Attachment> results = new ArrayList<Attachment>();
-        for (int i = 0; i < attachments.size(); i++) {
-            if (attachments.get(i).getProject().equals(projectDB)) {
-                results.add(attachments.get(i));
-            }
-        }
-        return results;
+        notNull(projectDB);
+        return attachmentDao.getAttachmentsByProject(projectDB);
     }
-
-    private void createFolder(Attachment attachment) {
-        notNull(attachment);
-        File rootDir = new File(Attachment.ROOT_DIR);
-        if (!rootDir.exists()) {
-            boolean success = rootDir.mkdir();
-            if (!success) {
-                throw new IllegalArgumentException("Create folder: failed: " + rootDir);
-            }
-        }
-        File dir = new File(Attachment.ROOT_DIR_PATH
-                + attachment.getProject().getId().toString());
-        if (!dir.exists()) {
-            boolean success = dir.mkdir();
-            if (!success) {
-                throw new IllegalArgumentException("Create folder: failed: " + dir);
-            }
-        }
-    }
-
 }

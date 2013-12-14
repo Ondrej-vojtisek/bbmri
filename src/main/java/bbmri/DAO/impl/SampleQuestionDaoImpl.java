@@ -18,6 +18,7 @@ import java.util.List;
 @Repository
 public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
 
+    @SuppressWarnings("unchecked")
     public List<SampleQuestion> getByBiobankAndProcessed(Biobank biobank, boolean processed) {
         Query query = em.createQuery("SELECT p FROM SampleQuestion p where p.biobank = :bioParam and " +
                 "p.processed = :boolParam");

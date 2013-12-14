@@ -17,8 +17,8 @@ import java.io.Serializable;
 @Entity
 public class Attachment implements Serializable {
 
-    public final static String ROOT_DIR = "bbmri_data";
-    public final static String ROOT_DIR_PATH = ROOT_DIR + File.separator;
+    public final static String PROJECT_FOLDER = File.separator + "project_files";
+    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
 
     private static final long serialVersionUID = 1L;
 
@@ -36,6 +36,7 @@ public class Attachment implements Serializable {
     private String fileName;
     private Long size;
     private String contentType;
+    private String absolutePath;
 
 
 
@@ -85,6 +86,22 @@ public class Attachment implements Serializable {
 
     public void setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
+    }
+
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
+
+    public void setAbsolutePath(String absolutePath) {
+        this.absolutePath = absolutePath;
+    }
+
+    public String getParentFolder(){
+        if(absolutePath == null || fileName == null){
+            return null;
+        }
+        String s = absolutePath;
+        return s.substring(0, s.lastIndexOf(fileName));
     }
 
     @Override

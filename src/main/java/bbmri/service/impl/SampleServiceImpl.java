@@ -23,7 +23,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("sampleService")
 public class SampleServiceImpl extends BasicServiceImpl implements SampleService {
 
     @Autowired
@@ -67,26 +67,31 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sample;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
 
         notNull(id);
         Sample sampleDB = sampleDao.get(id);
-        if (sampleDB != null) {
-            Biobank biobankDB = biobankDao.get(sampleDB.getBiobank().getId());
-            if (biobankDB != null) {
-                biobankDB.getSamples().remove(sampleDB);
-                biobankDao.update(biobankDB);
-                sampleDB.setBiobank(null);
-            }
 
-            List<Request> requests = sampleDB.getRequests();
-            if(requests != null){
-                for(Request request : requests){
-                    requestDao.remove(request);
-                }
-            }
-            sampleDao.remove(sampleDB);
+        if (sampleDB == null) {
+            return false;
         }
+
+        Biobank biobankDB = biobankDao.get(sampleDB.getBiobank().getId());
+        if (biobankDB != null) {
+            biobankDB.getSamples().remove(sampleDB);
+            biobankDao.update(biobankDB);
+            sampleDB.setBiobank(null);
+        }
+
+        List<Request> requests = sampleDB.getRequests();
+        if (requests != null) {
+            for (Request request : requests) {
+                requestDao.remove(request);
+            }
+        }
+        sampleDao.remove(sampleDB);
+
+        return true;
     }
 
     public Sample update(Sample sample) {
@@ -95,6 +100,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sample;
     }
 
+    @Transactional(readOnly = true)
     public List<Sample> all() {
         return sampleDao.all();
     }
@@ -104,7 +110,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         notNull(requested);
 
         Sample sampleDB = sampleDao.get(sampleId);
-        if(sampleDB == null){
+        if (sampleDB == null) {
             return null;
             // TODO: exception
         }
@@ -154,15 +160,18 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sample;
     }
 
+    @Transactional(readOnly = true)
     public List<Sample> getSamplesByQuery(Sample sample) {
         notNull(sample);
         return sampleDao.getSelected(sample);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return sampleDao.count();
     }
 
+    @Transactional(readOnly = true)
     public List<Sample> getAllByBiobank(Long biobankId) {
         notNull(biobankId);
 
@@ -176,27 +185,29 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return results;
     }
 
+    @Transactional(readOnly = true)
     public Sample get(Long id) {
         notNull(id);
         return sampleDao.get(id);
     }
 
-    public Sample eagerGet(Long id, boolean biobank, boolean request){
-          notNull(id);
-          Sample sampleDB = sampleDao.get(id);
+    @Transactional(readOnly = true)
+    public Sample eagerGet(Long id, boolean biobank, boolean request) {
+        notNull(id);
+        Sample sampleDB = sampleDao.get(id);
 
 
           /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-          if(biobank){
-              logger.debug("" + sampleDB.getBiobank());
-          }
-          if(request){
-              logger.debug("" + sampleDB.getRequests());
-          }
+        if (biobank) {
+            logger.debug("" + sampleDB.getBiobank());
+        }
+        if (request) {
+            logger.debug("" + sampleDB.getRequests());
+        }
 
-          return sampleDB;
+        return sampleDB;
 
-      }
+    }
 
 }

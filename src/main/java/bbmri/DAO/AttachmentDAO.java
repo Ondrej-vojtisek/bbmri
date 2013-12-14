@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ *
  * User: Ori
  * Date: 25.2.13
  * Time: 21:51
@@ -15,4 +15,7 @@ import java.util.List;
  */
 public interface AttachmentDao extends BasicDao<Attachment> {
 
+    List<Attachment> getAttachmentsByProject(Project project);
+
+    Attachment getAttachmentByPath(String path);
 }

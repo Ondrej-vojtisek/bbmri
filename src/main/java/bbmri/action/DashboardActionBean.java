@@ -1,13 +1,11 @@
 package bbmri.action;
 
-import bbmri.facade.BiobankFacade;
+import bbmri.action.base.BasicActionBean;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 
 /**
  * Created with IntelliJ IDEA.

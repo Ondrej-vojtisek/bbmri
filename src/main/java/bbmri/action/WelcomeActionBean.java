@@ -1,10 +1,13 @@
 package bbmri.action;
 
-import bbmri.action.project.ProjectActionBean;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.User;
 import bbmri.facade.UserFacade;
+import bbmri.facade.exceptions.AuthorizationException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,16 +29,19 @@ public class WelcomeActionBean extends BasicActionBean {
         return name;
     }
 
-//    private void initializeUser() {
-//        user = new User();
-//        user.setDisplayName(getContext().getShibbolethDisplayName());
-//        user.setEmail(getContext().getShibbolethMail());
-//        user.setEppn(getContext().getShibbolethEppn());
-//        user.setOrganization(getContext().getShibbolethOrganization());
-//        user.setAffiliation(getContext().getShibbolethAffiliation());
-//        user.setName(getContext().getShibbolethGivenName());
-//        user.setSurname(getContext().getShibbolethSn());
-//    }
+    private User initializeUser() {
+        User user = new User();
+        user = new User();
+        user.setDisplayName(getContext().getShibbolethDisplayName());
+        user.setEmail(getContext().getShibbolethMail());
+        user.setEppn(getContext().getShibbolethEppn());
+        user.setOrganization(getContext().getShibbolethOrganization());
+        user.setAffiliation(getContext().getShibbolethAffiliation());
+        user.setName(getContext().getShibbolethGivenName());
+        user.setSurname(getContext().getShibbolethSn());
+        user.setShibbolethUser(true);
+        return user;
+    }
 
     @DontValidate
     @DefaultHandler
@@ -43,30 +49,25 @@ public class WelcomeActionBean extends BasicActionBean {
 
         if (getContext().getIsShibbolethSession()) {
 
-            User user1 = new User();
-            user1.setDisplayName(getContext().getShibbolethDisplayName());
-            user1.setEmail(getContext().getShibbolethMail());
-            user1.setEppn(getContext().getShibbolethEppn());
-            user1.setOrganization(getContext().getShibbolethOrganization());
-            user1.setAffiliation(getContext().getShibbolethAffiliation());
-            user1.setName(getContext().getShibbolethGivenName());
-            user1.setSurname(getContext().getShibbolethSn());
+            User user = initializeUser();
+            Long id = null;
+            try{
+                id = userFacade.loginShibbolethUser(user);
+            }catch(AuthorizationException ex){
+                return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
+            }
 
-            Long id = userFacade.loginShibbolethUser(user1);
-//
-            user1 = userFacade.get(id);
+            user = userFacade.get(id);
 
-            if (user1 != null) {
-                getContext().setLoggedUser(user1);
+            if (user != null) {
+                getContext().setLoggedUser(user);
                 getContext().getMessages().add(new SimpleMessage("Succesfull login"));
             }
 
-            return new RedirectResolution(DashboardActionBean.class);
+            return new ForwardResolution(DashboardActionBean.class);
         }
 
-        logger.debug("WELCOME SCREEN");
-
-        return new ForwardResolution(WELCOME);
+        return new ForwardResolution(LoginActionBean.class);
     }
 
 }

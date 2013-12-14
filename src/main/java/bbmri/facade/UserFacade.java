@@ -3,6 +3,7 @@ package bbmri.facade;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
+import bbmri.facade.exceptions.AuthorizationException;
 
 import javax.transaction.UserTransaction;
 import java.util.List;
@@ -49,7 +50,7 @@ public interface UserFacade {
 
     User get(String eppn);
 
-    Long loginShibbolethUser(User user);
+    Long loginShibbolethUser(User user) throws AuthorizationException;
 
 
     /*

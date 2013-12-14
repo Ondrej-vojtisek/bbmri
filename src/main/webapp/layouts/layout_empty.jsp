@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-    <s:useActionBean var="bean" beanclass="bbmri.action.BasicActionBean"/>
+    <s:useActionBean var="bean" beanclass="bbmri.action.base.BasicActionBean"/>
 
     <s:layout-component name="body"/>
 

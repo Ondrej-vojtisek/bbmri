@@ -21,8 +21,10 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/spring-context2.xml</param-value>
+        <param-value>/WEB-INF/spring-context.xml</param-value>
     </context-param>
+
+
 
     <!-- ERROR pages -->
     <error-page>
@@ -75,7 +77,7 @@
 
         <init-param>
             <param-name>ActionBeanContext.Class</param-name>
-            <param-value>bbmri.action.TheActionBeanContext</param-value>
+            <param-value>bbmri.extension.context.TheActionBeanContext</param-value>
         </init-param>
 
         <init-param>

@@ -35,106 +35,106 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
-    @Test
-    public void createBiobankTest() {
-        /* Relationship is usable from both sides */
+//    @Test
+//    public void createBiobankTest() {
+//        /* Relationship is usable from both sides */
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//
+//        /* ********* WHEN ********** */
+//
+//        biobankService.create(biobank, user.getId());
+//
+//        /* ********* THEN ********** */
+//
+//
+//        user = userService.get(user.getId());
+//        biobank = biobankService.eagerGet(biobank.getId(), false, false, false);
+//        BiobankAdministrator ba = biobankAdministratorService.get(biobank.getId(), user.getId());
+//
+//        assertEquals(true, ba.getBiobank().equals(biobank));
+//        assertEquals(Permission.MANAGER, ba.getPermission());
+//        assertEquals(true, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
+//    }
 
-        /* ********* GIVEN ********** */
+//    @Test
+//    public void createBiobankTest2() {
+//        /* User not present in DB */
+//
+//        /* ********* GIVEN ********** */
+//
+//        User user = createTestUser(1);
+//        Biobank biobank = createTestBiobank(1);
+//        userService.create(user);
+//
+//        /* ********* WHEN ********** */
+//
+//        biobankService.create(biobank, new Long(5));
+//
+//         /* ********* THEN ********** */
+//
+//        assertEquals(true, biobankService.all().isEmpty());
+//    }
 
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
+//    @Test
+//    public void removeBiobankTest() {
+//        /* Test if remove method involves second side of relationship */
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//        Sample sample1 = createTestSample(1);
+//        sampleService.create(sample1, biobank.getId());
+//
+//        /* ********* WHEN ********** */
+//
+//        biobankService.remove(biobank.getId());
+//
+//        /* ********* THEN ********** */
+//
+//        assertEquals(null, biobankService.get(biobank.getId()));
+//        assertEquals(user, userService.get(user.getId()));
+//        user = userService.eagerGet(user.getId(), false, false, true);
+//        assertEquals(true, user.getBiobankAdministrators().isEmpty());
+//        assertEquals(null, sampleService.get(sample1.getId()));
+//        assertEquals(false, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
+//    }
 
-        /* ********* WHEN ********** */
-
-        biobankService.create(biobank, user.getId());
-
-        /* ********* THEN ********** */
-
-
-        user = userService.get(user.getId());
-        biobank = biobankService.eagerGet(biobank.getId(), false, false, false);
-        BiobankAdministrator ba = biobankAdministratorService.get(biobank.getId(), user.getId());
-
-        assertEquals(true, ba.getBiobank().equals(biobank));
-        assertEquals(Permission.MANAGER, ba.getPermission());
-        assertEquals(true, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
-    }
-
-    @Test
-    public void createBiobankTest2() {
-        /* User not present in DB */
-
-        /* ********* GIVEN ********** */
-
-        User user = createTestUser(1);
-        Biobank biobank = createTestBiobank(1);
-        userService.create(user);
-
-        /* ********* WHEN ********** */
-
-        biobankService.create(biobank, new Long(5));
-
-         /* ********* THEN ********** */
-
-        assertEquals(true, biobankService.all().isEmpty());
-    }
-
-    @Test
-    public void removeBiobankTest() {
-        /* Test if remove method involves second side of relationship */
-
-        /* ********* GIVEN ********** */
-
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-        Sample sample1 = createTestSample(1);
-        sampleService.create(sample1, biobank.getId());
-
-        /* ********* WHEN ********** */
-
-        biobankService.remove(biobank.getId());
-
-        /* ********* THEN ********** */
-
-        assertEquals(null, biobankService.get(biobank.getId()));
-        assertEquals(user, userService.get(user.getId()));
-        user = userService.eagerGet(user.getId(), false, false, true);
-        assertEquals(true, user.getBiobankAdministrators().isEmpty());
-        assertEquals(null, sampleService.get(sample1.getId()));
-        assertEquals(false, user.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR));
-    }
-
-    @Test
-    public void removeBiobankTest2() {
-         /* Test if remove involves second side of relationship */
-
-        /* ********* GIVEN ********** */
-
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-
-        Sample sample1 = createTestSample(1);
-        sampleService.create(sample1, biobank.getId());
-
-        /* ********* WHEN ********** */
-
-        userService.remove(user.getId());
-        sampleService.remove(sample1.getId());
-
-        /* ********* THEN ********** */
-
-        assertEquals(biobank, biobankService.get(biobank.getId()));
-        assertEquals(null, userService.get(user.getId()));
-        assertEquals(null, sampleService.get(sample1.getId()));
-        biobank = biobankService.eagerGet(biobank.getId(), true, false, false);
-        assertEquals(true, biobank.getBiobankAdministrators().isEmpty());
-        assertEquals(true, biobank.getSamples().isEmpty());
-    }
+//    @Test
+//    public void removeBiobankTest2() {
+//         /* Test if remove involves second side of relationship */
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//
+//        Sample sample1 = createTestSample(1);
+//        sampleService.create(sample1, biobank.getId());
+//
+//        /* ********* WHEN ********** */
+//
+//        userService.remove(user.getId());
+//        sampleService.remove(sample1.getId());
+//
+//        /* ********* THEN ********** */
+//
+//        assertEquals(biobank, biobankService.get(biobank.getId()));
+//        assertEquals(null, userService.get(user.getId()));
+//        assertEquals(null, sampleService.get(sample1.getId()));
+//        biobank = biobankService.eagerGet(biobank.getId(), true, false, false);
+//        assertEquals(true, biobank.getBiobankAdministrators().isEmpty());
+//        assertEquals(true, biobank.getSamples().isEmpty());
+//    }
 
 
     public void removeBiobankTest3() {
@@ -161,46 +161,46 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
     }
 
-    @Test
-    public void getEagerGetTest() {
-         /* ********* GIVEN ********** */
-        User user = createTestUser(1);
-        userService.create(user);
-
-        User user2 = createTestUser(2);
-        userService.create(user2);
-
-        Biobank biobank = createTestBiobank(1);
-        biobankService.create(biobank, user.getId());
-
-        Biobank biobank2 = createTestBiobank(2);
-        biobankService.create(biobank2, user2.getId());
-
-        Sample sample1 = createTestSample(1);
-        sampleService.create(sample1, biobank.getId());
-        Sample sample2 = createTestSample(2);
-        sampleService.create(sample2, biobank.getId());
-
-        Sample sample3 = createTestSample(3);
-        sampleService.create(sample3, biobank2.getId());
-
-        /* ********* WHEN ********** */
-
-        /* ********* THEN ********** */
-
-        biobank = biobankService.eagerGet(biobank.getId(), true, false, false);
-
-        List<Sample> results = biobank.getSamples();
-        assertEquals(true, results.contains(sample1));
-        assertEquals(true, results.contains(sample2));
-        assertEquals(2, results.size());
-
-        biobank2 = biobankService.eagerGet(biobank2.getId(), true, false, false);
-
-        assertEquals(true, biobank2.getSamples().contains(sample3));
-        assertEquals(1, biobank2.getSamples().size());
-
-    }
+//    @Test
+//    public void getEagerGetTest() {
+//         /* ********* GIVEN ********** */
+//        User user = createTestUser(1);
+//        userService.create(user);
+//
+//        User user2 = createTestUser(2);
+//        userService.create(user2);
+//
+//        Biobank biobank = createTestBiobank(1);
+//        biobankService.create(biobank, user.getId());
+//
+//        Biobank biobank2 = createTestBiobank(2);
+//        biobankService.create(biobank2, user2.getId());
+//
+//        Sample sample1 = createTestSample(1);
+//        sampleService.create(sample1, biobank.getId());
+//        Sample sample2 = createTestSample(2);
+//        sampleService.create(sample2, biobank.getId());
+//
+//        Sample sample3 = createTestSample(3);
+//        sampleService.create(sample3, biobank2.getId());
+//
+//        /* ********* WHEN ********** */
+//
+//        /* ********* THEN ********** */
+//
+//        biobank = biobankService.eagerGet(biobank.getId(), true, false, false);
+//
+//        List<Sample> results = biobank.getSamples();
+//        assertEquals(true, results.contains(sample1));
+//        assertEquals(true, results.contains(sample2));
+//        assertEquals(2, results.size());
+//
+//        biobank2 = biobankService.eagerGet(biobank2.getId(), true, false, false);
+//
+//        assertEquals(true, biobank2.getSamples().contains(sample3));
+//        assertEquals(1, biobank2.getSamples().size());
+//
+//    }
 
 
     public void getEagerGetTest2() {

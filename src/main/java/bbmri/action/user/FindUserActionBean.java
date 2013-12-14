@@ -1,19 +1,12 @@
 package bbmri.action.user;
 
-import bbmri.action.BasicActionBean;
 import bbmri.action.FindActionBean;
-import bbmri.entities.User;
-import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
-import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

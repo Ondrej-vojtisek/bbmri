@@ -5,6 +5,7 @@ import bbmri.entities.enumeration.AttachmentType;
 import bbmri.entities.enumeration.Permission;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -16,32 +17,34 @@ import java.util.List;
  * Time: 11:34
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectFacade {
+public interface ProjectFacade extends PermissionFacade{
 
-    void approveProject(Long projectId, Long loggedUserId);
+    boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors);
 
-    void denyProject(Long projectId, Long loggedUserId);
+    boolean denyProject(Long projectId, Long loggedUserId, ValidationErrors errors);
 
     List<User> getProjectAdministrators(Long projectId);
 
     //List<ProjectAdministrator> getProjectAdministrators(Long biobankId);
-    Project createProject(Project project, Long loggedUserId);
+    Project createProject(Project project,
+                          Long loggedUserId,
+                          String bbmriPath,
+                          ValidationErrors errors);
 
-    void updateProject(Project project);
+    boolean updateProject(Project project);
 
-    void removeProject(Long projectId);
-
-    void assignAdministratorToProject(Long project, Long loggedUser, Long newAdministrator, Permission permission);
+    boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors);
 
     boolean isApproved(Long projectId);
 
-    void createAttachment(FileBean fileBean, AttachmentType attachmentType, Long projectId);
+    int createAttachment(FileBean fileBean,
+                          AttachmentType attachmentType,
+                          Long projectId,
+                          String bbmriPath, ValidationErrors errors);
 
     StreamingResolution downloadFile(Long attachmentId) throws FileNotFoundException;
 
-    void deleteAttachment(Long attachmentId);
-
-    void updateAttachment(Attachment attachment);
+    boolean deleteAttachment(Long attachmentId, ValidationErrors errors);
 
     List<Attachment> getAttachments(Long projectId);
 
@@ -49,11 +52,12 @@ public interface ProjectFacade {
 
     Project get(Long id);
 
-    boolean hasPermission(Permission permission, Long projectId, Long userId);
-
-    void changeProjectAdministratorPermission(Long projectAdministrator, Permission permission, Long loggedUser);
-
-    void removeProjectAdministrator(Long projectAdministrator, Long loggedUser);
-
     List<Project> getProjects(Long userId);
+
+    boolean hasBiobankExecutePermission(Long userId);
+
+    boolean markAsFinished(Long projectId);
+
+    ProjectAdministrator getProjectAdministrator(Long projectAdministratorId);
+
 }

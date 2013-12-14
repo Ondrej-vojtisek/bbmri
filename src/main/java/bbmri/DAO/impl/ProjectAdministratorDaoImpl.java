@@ -1,9 +1,8 @@
 package bbmri.dao.impl;
 
 import bbmri.dao.ProjectAdministratorDao;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectAdministrator;
-import bbmri.entities.User;
+import bbmri.entities.*;
+import bbmri.entities.enumeration.Permission;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -25,6 +24,7 @@ public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrat
 
     }
 
+    @SuppressWarnings("unchecked")
     public ProjectAdministrator get(Project project, User user) {
         Query query = em.createQuery("SELECT p FROM ProjectAdministrator p where " +
                 "p.project = :projectParam " +
@@ -41,5 +41,16 @@ public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrat
         }
         return null;
     }
+
+    @SuppressWarnings("unchecked")
+     public List<ProjectAdministrator> get(Project project, Permission permission) {
+          Query query = em.createQuery("SELECT p FROM ProjectAdministrator p where " +
+                  "p.project = :projectParam " +
+                  "and p.permission = :permissionParam ");
+          query.setParameter("projectParam", project);
+          query.setParameter("permissionParam", permission);
+
+          return query.getResultList();
+      }
 
 }

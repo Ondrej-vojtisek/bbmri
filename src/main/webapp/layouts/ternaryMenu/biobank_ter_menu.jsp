@@ -3,7 +3,7 @@
 
 <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="biobankBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
@@ -13,27 +13,17 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="editAdministrators">
+<security:allowed bean="biobankBean" event="administratorsResolution">
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
-        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="editAdministrators">
+        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administratorsResolution">
             <s:param name="id" value="${biobankBean.id}"/><f:message
                 key="bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
     </li>
 </security:allowed>
 
-<security:notAllowed bean="biobankBean" event="editAdministrators">
-    <security:allowed bean="biobankBean" event="administrators">
-        <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
-            <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administrators">
-                <s:param name="id" value="${biobankBean.id}"/><f:message
-                    key="bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
-        </li>
-    </security:allowed>
-</security:notAllowed>
-
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <%--Event from biobankBean is here only because security check--%>
 
@@ -45,4 +35,4 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>

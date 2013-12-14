@@ -18,6 +18,9 @@ import java.util.List;
  */
 public class BasicFacade {
 
+    protected static final int SUCCESS = 0;
+    protected static final int NOT_SUCCESS = -1;
+
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public static void notNull(final Object o) throws IllegalArgumentException {

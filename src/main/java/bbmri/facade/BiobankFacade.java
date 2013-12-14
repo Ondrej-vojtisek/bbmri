@@ -16,33 +16,15 @@ import java.util.Set;
  * Time: 11:34
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankFacade {
+public interface BiobankFacade extends PermissionFacade {
 
-//    List<User> getBiobankAdministrators(Long biobankId);
-
-//    Set<BiobankAdministrator> getBiobankAdministrators2(Long biobankId, ValidationErrors errors);
-
-    boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors);
+    boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath);
 
     boolean updateBiobank(Biobank biobank, ValidationErrors errors);
 
-    boolean removeBiobank(Long biobankId, ValidationErrors errors);
-
-    boolean assignAdministratorToBiobank(Long biobank, Long loggedUser,
-                                      Long newAdministrator,
-                                      Permission permission,
-                                      ValidationErrors errors);
-
-
-    boolean changeBiobankAdministratorPermission(Long biobankAdministratorId,
-                                                 Permission permission,
-                                                 ValidationErrors errors);
-
-    boolean removeBiobankAdministrator(Long biobankAdministrator, ValidationErrors errors);
+    boolean removeBiobank(Long biobankId, ValidationErrors errors, String bbmriPath);
 
     List<Biobank> all();
-
-    boolean hasPermission(Permission permission, Long biobankId, Long userId);
 
     Biobank get(Long biobankId);
 
@@ -57,7 +39,5 @@ public interface BiobankFacade {
     // void approveRequestGroup(Long requestGroupId);
 
     // void rejectRequestGroup(Long requestGroupId);
-
-
 
 }

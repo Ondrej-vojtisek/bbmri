@@ -40,87 +40,87 @@ public class SampleQuestionComplexTest extends AbstractDaoAndServiceTest {
     @Autowired
     private SampleQuestionService sampleQuestionService;
 
-    @Test
-    public void createSampleQuestionTest() {
+//    @Test
+//    public void createSampleQuestionTest() {
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//        Project project = createTestProject(1);
+//        projectService.create(project, user.getId());
+//        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
+//
+//        /* ********* WHEN ********** */
+//
+//        sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
+//
+//        /* ********* THEN ********** */
+//
+//        biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
+//        project = projectService.eagerGet(project.getId(), false, false, false, true);
+//
+//        assertEquals(project, sampleQuestion.getProject());
+//        assertEquals(biobank, sampleQuestion.getBiobank());
+//        assertEquals(true, project.getSampleQuestions().contains(sampleQuestion));
+//        assertEquals(true, biobank.getSampleQuestions().contains(sampleQuestion));
+//        assertEquals(false, sampleQuestion.isProcessed());
+//    }
 
-        /* ********* GIVEN ********** */
+//    @Test
+//    public void withdrawSampleQuestionTest() {
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
+//
+//        /* ********* WHEN ********** */
+//
+//        sampleQuestionService.withdraw(sampleQuestion, biobank.getId());
+//
+//        /* ********* THEN ********** */
+//
+//        biobank = biobankService.get(biobank.getId());
+//        assertEquals(null, sampleQuestion.getProject());
+//        assertEquals(biobank, sampleQuestion.getBiobank());
+//        assertEquals(false, sampleQuestion.isProcessed());
+//
+//        biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
+//
+//        assertEquals(true, biobank.getSampleQuestions().contains(sampleQuestion));
+//
+//    }
 
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-        Project project = createTestProject(1);
-        projectService.create(project, user.getId());
-        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
-
-        /* ********* WHEN ********** */
-
-        sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
-
-        /* ********* THEN ********** */
-
-        biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
-        project = projectService.eagerGet(project.getId(), false, false, false, true);
-
-        assertEquals(project, sampleQuestion.getProject());
-        assertEquals(biobank, sampleQuestion.getBiobank());
-        assertEquals(true, project.getSampleQuestions().contains(sampleQuestion));
-        assertEquals(true, biobank.getSampleQuestions().contains(sampleQuestion));
-        assertEquals(false, sampleQuestion.isProcessed());
-    }
-
-    @Test
-    public void withdrawSampleQuestionTest() {
-
-        /* ********* GIVEN ********** */
-
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
-
-        /* ********* WHEN ********** */
-
-        sampleQuestionService.withdraw(sampleQuestion, biobank.getId());
-
-        /* ********* THEN ********** */
-
-        biobank = biobankService.get(biobank.getId());
-        assertEquals(null, sampleQuestion.getProject());
-        assertEquals(biobank, sampleQuestion.getBiobank());
-        assertEquals(false, sampleQuestion.isProcessed());
-
-        biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
-
-        assertEquals(true, biobank.getSampleQuestions().contains(sampleQuestion));
-
-    }
-
-    @Test
-    public void removeSampleQuestionTest() {
-
-        /* ********* GIVEN ********** */
-
-        Biobank biobank = createTestBiobank(1);
-        User user = createTestUser(1);
-        userService.create(user);
-        biobankService.create(biobank, user.getId());
-        Project project = createTestProject(1);
-        projectService.create(project, user.getId());
-        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
-        sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
-
-        /* ********* WHEN ********** */
-
-        sampleQuestionService.remove(sampleQuestion.getId());
-
-        /* ********* THEN ********** */
-
-        assertEquals(true, project.getSampleQuestions().isEmpty());
-        assertEquals(true, biobank.getSampleQuestions().isEmpty());
-        assertEquals(null, sampleQuestionService.get(sampleQuestion.getId()));
-    }
+//    @Test
+//    public void removeSampleQuestionTest() {
+//
+//        /* ********* GIVEN ********** */
+//
+//        Biobank biobank = createTestBiobank(1);
+//        User user = createTestUser(1);
+//        userService.create(user);
+//        biobankService.create(biobank, user.getId());
+//        Project project = createTestProject(1);
+//        projectService.create(project, user.getId());
+//        SampleQuestion sampleQuestion = createTestSampleQuestion(1);
+//        sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
+//
+//        /* ********* WHEN ********** */
+//
+//        sampleQuestionService.remove(sampleQuestion.getId());
+//
+//        /* ********* THEN ********** */
+//
+//        assertEquals(true, project.getSampleQuestions().isEmpty());
+//        assertEquals(true, biobank.getSampleQuestions().isEmpty());
+//        assertEquals(null, sampleQuestionService.get(sampleQuestion.getId()));
+//    }
 
 //    @Test
 //    public void getAllByProjectTest() {

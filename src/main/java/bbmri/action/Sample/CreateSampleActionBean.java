@@ -1,8 +1,6 @@
 package bbmri.action.sample;
 
-import bbmri.action.BasicActionBean;
-import bbmri.entities.Biobank;
-import bbmri.entities.BiobankAdministrator;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.Sample;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;

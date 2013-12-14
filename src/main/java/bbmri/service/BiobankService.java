@@ -2,6 +2,7 @@ package bbmri.service;
 
 import bbmri.entities.Biobank;
 import bbmri.entities.BiobankAdministrator;
+import bbmri.service.exceptions.DuplicitBiobankException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,15 +13,8 @@ import bbmri.entities.BiobankAdministrator;
  */
 public interface BiobankService  extends BasicService<Biobank>, PermissionService<Biobank, BiobankAdministrator> {
 
-   Biobank create(Biobank biobank, Long administratorId);
-
- //  void removeAdministratorFromBiobank(Long biobankId, Long userId) throws LastManagerException;
-
- //  User assignAdministrator(Long userId, Long biobankId, Permission permission);
+   Biobank create(Biobank biobank, Long administratorId) throws DuplicitBiobankException;
 
    Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions);
-
-  // void changeAdministratorPermission(Long userId, Long biobankId, Permission permission) throws LastManagerException;
-
 
 }

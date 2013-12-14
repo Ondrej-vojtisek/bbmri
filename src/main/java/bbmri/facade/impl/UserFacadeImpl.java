@@ -6,8 +6,8 @@ import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
 import bbmri.facade.UserFacade;
+import bbmri.facade.exceptions.AuthorizationException;
 import bbmri.service.BiobankAdministratorService;
-import bbmri.service.LoginService;
 import bbmri.service.UserService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 
-@Controller
+@Controller("userFacade")
 public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     private static final int MAXIMUM_FIND_RESULTS = 5;
@@ -37,9 +37,6 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
-    @Autowired
-    private LoginService loginService;
-
     public List<RoleDTO> getRoles(Long userId) {
         notNull(userId);
         List<RoleDTO> results = new ArrayList<RoleDTO>();
@@ -48,7 +45,6 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         if (userDB == null) {
             return null;
-            //TODO exception
         }
 
         /* Add all biobanks of user */
@@ -89,6 +85,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     public void create(User user) {
         notNull(user);
+        user.setShibbolethUser(false);
         user = userService.create(user);
         userService.setSystemRole(user.getId(), SystemRole.USER);
     }
@@ -126,7 +123,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             return;
             // TODO: exception
         }
-        if(getAdministrators().size() == 1){
+        if (getAdministrators().size() == 1) {
             // TODO Exception
             // can't remove last administrator
             return;
@@ -135,19 +132,19 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     }
 
     public void removeDeveloperRole(Long userId) {
-            notNull(userId);
-            User userDB = userService.get(userId);
-            if (userDB == null) {
-                return;
-                // TODO: exception
-            }
-            if(getDevelopers().size() == 1){
-                // TODO Exception
-                // can't remove last administrator
-                return;
-            }
-            userService.removeSystemRole(userId, SystemRole.DEVELOPER);
+        notNull(userId);
+        User userDB = userService.get(userId);
+        if (userDB == null) {
+            return;
+            // TODO: exception
         }
+        if (getDevelopers().size() == 1) {
+            // TODO Exception
+            // can't remove last administrator
+            return;
+        }
+        userService.removeSystemRole(userId, SystemRole.DEVELOPER);
+    }
 
 
     public List<User> getAdministrators() {
@@ -168,22 +165,28 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return userDB.getSystemRoles();
     }
 
-    public User login(Long id, String password){
+    public User login(Long id, String password) {
         notNull(id);
         notNull(password);
-        User user = loginService.login(id, password);
-        if(user != null){
-            user.setLastLogin(new Date());
-            userService.update(user);
-        }
-        return user;
-    }
 
-    public List<User> find(User user, int requiredResults){
-        if(user == null){
+        User userDB = userService.get(id);
+        if (userDB == null) {
             return null;
         }
-        if(requiredResults < 1){
+        if (!userDB.getPassword().equals(password)) {
+           return null;
+        }
+
+        userDB.setLastLogin(new Date());
+        userService.update(userDB);
+        return userDB;
+    }
+
+    public List<User> find(User user, int requiredResults) {
+        if (user == null) {
+            return null;
+        }
+        if (requiredResults < 1) {
             requiredResults = MAXIMUM_FIND_RESULTS;
         }
 
@@ -191,22 +194,27 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     }
 
-    public User get(String eppn){
+    public User get(String eppn) {
         notNull(eppn);
         return userService.get(eppn);
     }
 
-    public Long loginShibbolethUser(User user){
+    public Long loginShibbolethUser(User user) throws AuthorizationException {
 
         if (user == null) {
             throw new IllegalArgumentException("Object can't be a null object> User: " + user);
         }
 
+        if (!user.isEmployee()) {
+            throw new AuthorizationException("Only employees are authorized to access");
+        }
+
         User userDB = userService.get(user.getEppn());
-        if(userDB == null){
+
+        if (userDB == null) {
             userDB = userService.create(user);
             user.setId(userDB.getId());
-        }else{
+        } else {
             /* If user changed its credentials in system of IdentityProvider then we want to
             * make local user stored in database up-to-date. */
             user.setId(userDB.getId());

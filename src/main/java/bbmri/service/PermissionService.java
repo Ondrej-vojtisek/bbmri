@@ -1,5 +1,6 @@
 package bbmri.service;
 
+import bbmri.entities.BiobankAdministrator;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.Permission;
 import bbmri.service.exceptions.LastManagerException;
@@ -13,9 +14,11 @@ import bbmri.service.exceptions.LastManagerException;
  */
 public interface PermissionService<O, P> {
 
-    void changeAdministratorPermission(P objectAdministrator, Permission permission) throws LastManagerException;
+    boolean changeAdministratorPermission(P objectAdministrator, Permission permission) throws LastManagerException;
 
-    void assignAdministrator(O object, Long userId, Permission permission);
+    boolean assignAdministrator(O object, Long userId, Permission permission);
 
-    void removeAdministrator(P objectAdministrator) throws LastManagerException;
+    boolean removeAdministrator(P objectAdministrator) throws LastManagerException;
+
+    boolean isLastManager(P objectAdministrator);
 }

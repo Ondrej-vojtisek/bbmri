@@ -1,5 +1,7 @@
 package bbmri.service;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -15,7 +17,7 @@ public interface BasicService<T> {
 
     T get(Long id);
 
-    void remove(Long id);
+    boolean remove(Long id);
 
     T update(T t);
 

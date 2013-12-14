@@ -12,9 +12,25 @@
     <s:layout-component name="body">
 
         <fieldset>
-            <s:form beanclass="bbmri.action.user.UserActionBean">
-                    <%@include file="/form/changePasswordForm.jsp" %>
+            <s:form beanclass="bbmri.action.user.UserActionBean" class="form-horizontal">
+
+                <div class="control-group">
+                    <s:label for="password" class="control-label"/>
+                    <div class="controls">
+                        <s:text id="password" name="password"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <s:label for="password" class="control-label"/>
+                    <div class="controls">
+                        <s:text id="password" name="password2"/>
+                    </div>
+                </div>
+
+                <div class="form-actions">
                     <s:submit name="changePassword" class="btn btn-primary"/>
+                </div>
             </s:form>
 
         </fieldset>

@@ -18,7 +18,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("requestGroupService")
 public class RequestGroupServiceImpl extends BasicServiceImpl implements RequestGroupService {
 
     @Autowired
@@ -119,19 +119,17 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         it.remove(); // avoids a ConcurrentModificationException
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
 
         RequestGroup requestGroupDB = requestGroupDao.get(id);
         if (requestGroupDB == null) {
-            return;
-            //TODO: exception
+            return false;
         }
 
         Biobank biobankDB = biobankDao.get(requestGroupDB.getBiobank().getId());
         if (biobankDB == null) {
-            return;
-            // TODO: exception
+            return false;
         }
 
         biobankDB.getRequestGroups().remove(requestGroupDB);
@@ -141,8 +139,7 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         List<Request> requests = requestGroupDB.getRequests();
 
         if (requests == null) {
-            return;
-            // TODO: exception
+            return false;
         }
         for (Request request : requests) {
             requestDao.remove(request);
@@ -150,15 +147,13 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
 
         Project projectDB = projectDao.get(requestGroupDB.getProject().getId());
         if (projectDB == null) {
-            return;
-            // TODO: exception
+            return false;
         }
         projectDB.getRequestGroups().remove(requestGroupDB);
         projectDao.update(projectDB);
 
         requestGroupDao.remove(requestGroupDB);
-
-
+        return true;
     }
 
     public RequestGroup update(RequestGroup requestGroup) {
@@ -199,19 +194,23 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         return requestGroupDB;
     }
 
+    @Transactional(readOnly = true)
     public List<RequestGroup> all() {
         return requestGroupDao.all();
     }
 
+    @Transactional(readOnly = true)
     public RequestGroup get(Long id) {
         notNull(id);
         return requestGroupDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return requestGroupDao.count();
     }
 
+    @Transactional(readOnly = true)
     public List<RequestGroup> getByBiobank(Long biobankId) {
         notNull(biobankId);
         Biobank biobankDB = biobankDao.get(biobankId);
@@ -225,6 +224,7 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         return biobankDB.getRequestGroups();
     }
 
+    @Transactional(readOnly = true)
     public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
         notNull(biobankId);
         notNull(requestState);
@@ -263,6 +263,7 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
             changeRequestState(requestGroupDB, RequestState.DENIED);
         }
 
+    @Transactional(readOnly = true)
     public RequestGroup eagerGet(Long id, boolean requests) {
              notNull(id);
              RequestGroup requestGroupDB = requestGroupDao.get(id);

@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.*;
 import bbmri.entities.enumeration.RequestState;
 import net.sourceforge.stripes.action.*;

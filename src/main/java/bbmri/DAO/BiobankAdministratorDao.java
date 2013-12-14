@@ -18,6 +18,8 @@ public interface BiobankAdministratorDao extends BasicDao<BiobankAdministrator> 
 
     boolean contains(Biobank biobank, User user);
 
+    Permission getHighestPermission(User user);
+
     BiobankAdministrator get(Biobank biobank, User user);
 
     List<BiobankAdministrator> get(Biobank biobank, Permission permission);

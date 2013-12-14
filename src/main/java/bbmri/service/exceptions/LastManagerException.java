@@ -7,7 +7,7 @@ package bbmri.service.exceptions;
  * Time: 11:48
  * To change this template use File | Settings | File Templates.
  */
-public class LastManagerException extends Exception {
+public class LastManagerException extends Exception  {
 
     private static final long serialVersionUID = -1787219534343026948L;
 

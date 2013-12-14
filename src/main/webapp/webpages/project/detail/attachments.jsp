@@ -10,60 +10,18 @@
 
     <s:layout-component name="body">
 
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th><s:label name="attachment.name"/></th>
-                <th><s:label name="attachment.type"/></th>
-                <th><s:label name="bbmri.entities.Attachment.unit"/></th>
-                <th><s:label name="attachment.importance"/></th>
-            </tr>
-            </thead>
+        <jsp:include page="/webpages/project/component/attachments.jsp"/>
 
-            <tbody>
+        <security:allowed bean="projectBean" event="addAttachment">
+            <div class="form-actions">
 
-            <c:if test="${empty projectBean.attachments}">
-                <tr>
-                    <td colspan="5"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+            <s:link beanclass="bbmri.action.project.ProjectActionBean" event="addAttachment" class="btn btn-primary">
+                <s:param name="id" value="${projectBean.id}"/>
+                <f:message key="bbmri.action.project.ProjectActionBean.addAttachment"/>
+            </s:link>
 
-            <c:forEach items="${projectBean.attachments}" var="attachment" varStatus="loop">
-                <tr>
-                    <td><c:out value="${attachment.fileName}"/></td>
-                    <td class="narrow20"><c:out value="${attachment.contentType}"/></td>
-                    <td><c:out value="${attachment.size}"/></td>
-                    <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
-                    <td class="action">
-                        <security:allowed bean="projectBean" event="downloadAttachment">
-                            <div class="tableAction">
-                                <s:link beanclass="bbmri.action.project.ProjectActionBean"
-                                        event="downloadAttachment"
-                                        class="btn btn-info btnMargin">
-                                    <s:param name="attachment.id" value="${attachment.id}"/>
-                                    <f:message key="download"/>
-                                </s:link>
-                            </div>
-                        </security:allowed>
-
-                        <f:message var="question" key="bbmri.action.project.ProjectActionBean.questionDeleteAttachment"/>
-
-                        <security:allowed bean="projectBean" event="deleteAttachment">
-                            <s:form beanclass="${projectBean.name}">
-                                <s:submit name="deleteAttachment"
-                                          class="btn btn-danger"
-                                          onclick="return confirm('${question}')">
-                                    <s:param name="attachmentId" value="${attachment.id}"/>
-                                    <s:param name="id" value="${projectBean.id}"/>
-                                </s:submit>
-                            </s:form>
-                        </security:allowed>
-
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+            </div>
+        </security:allowed>
 
     </s:layout-component>
 </s:layout-render>

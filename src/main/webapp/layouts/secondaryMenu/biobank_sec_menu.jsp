@@ -3,7 +3,7 @@
 
 <s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 
 <security:allowed bean="biobankBean" event="allBiobanks">
@@ -14,7 +14,7 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <%--There can't be used createActionBean because it is set as a wizard. Don't know why.--%>
 <security:allowed bean="biobankBean" event="createBiobank">
@@ -25,7 +25,7 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <%--<c:if test="${not empty biobank}">--%>
     <%--<li <c:if test="${secondarymenu == 'sample_approve_request'}"> class="active" </c:if> >--%>

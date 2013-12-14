@@ -14,4 +14,6 @@ import java.util.List;
  */
 public interface BiobankDao extends BasicDao<Biobank> {
 
+    Biobank getBiobankByName(String name);
+
 }

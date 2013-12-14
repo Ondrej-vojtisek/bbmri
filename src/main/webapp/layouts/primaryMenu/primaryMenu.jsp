@@ -6,7 +6,7 @@
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
 <s:useActionBean var="userFindBean" beanclass="bbmri.action.user.FindUserActionBean"/>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <li class="dropdown <c:if test="${primarymenu == 'project'}"> active </c:if>">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -14,7 +14,7 @@
         <b class="caret"></b></a>
     <ul class="dropdown-menu">
 
-        <%------------------------------------------------------------------------%>
+        <%-- -------------------------------------------------------------------- --%>
 
         <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if>>
             <s:link beanclass="${projectBean.name}">
@@ -22,7 +22,7 @@
             </s:link>
         </li>
 
-        <%------------------------------------------------------------------------%>
+        <%-- -------------------------------------------------------------------- --%>
 
         <li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if>>
             <s:link beanclass="bbmri.action.project.CreateProjectActionBean" event="initial">
@@ -30,7 +30,7 @@
             </s:link>
         </li>
 
-        <%------------------------------------------------------------------------%>
+        <%-- -------------------------------------------------------------------- --%>
 
         <security:allowed bean="projectBean" event="allProjects">
             <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if>>
@@ -40,7 +40,7 @@
             </li>
         </security:allowed>
 
-        <%------------------------------------------------------------------------%>
+        <%-- -------------------------------------------------------------------- --%>
 
         <%--<li class="divider"></li>--%>
         <%--<li class="nav-header">Nav header</li>--%>
@@ -48,7 +48,7 @@
 </li>
 
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="biobankBean" event="viewBiobanks">
     <li class="dropdown <c:if test="${primarymenu == 'biobank'}"> active </c:if>">
@@ -57,7 +57,7 @@
             <b class="caret"></b></a>
         <ul class="dropdown-menu">
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
             <security:allowed bean="biobankBean" event="allBiobanks">
                 <li
@@ -68,7 +68,7 @@
                 </li>
             </security:allowed>
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
                 <%--There can't be used createActionBean because it is set as a wizard. Don't know why.--%>
             <security:allowed bean="biobankBean" event="createBiobank">
@@ -81,7 +81,7 @@
                 </li>
             </security:allowed>
 
-            <%------------------------------------------------------------------------%>
+            <%-- -------------------------------------------------------------------- --%>
 
             <%--List all "my" biobanks in menu. If I can edit that the link leads to editable form --%>
 
@@ -105,13 +105,13 @@
             </c:forEach>
             </c:if>
 
-             <%------------------------------------------------------------------------%>
+             <%-- -------------------------------------------------------------------- --%>
 
         </ul>
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="userBean" event="allUsers">
     <li class="dropdown <c:if test="${primarymenu == 'user'}"> active </c:if>">
@@ -120,7 +120,7 @@
             <b class="caret"></b></a>
         <ul class="dropdown-menu">
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
             <security:allowed bean="userBean" event="allUsers">
                 <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>>
@@ -130,7 +130,7 @@
                 </li>
             </security:allowed>
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
             <security:allowed bean="userBean" event="createUser">
                 <li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>>
@@ -140,7 +140,7 @@
                 </li>
             </security:allowed>
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
             <security:allowed bean="userFindBean" event="find">
                 <li <c:if test="${secondarymenu == 'user_find'}"> class="active" </c:if>>
@@ -150,7 +150,7 @@
                 </li>
             </security:allowed>
 
-                <%------------------------------------------------------------------------%>
+                <%-- -------------------------------------------------------------------- --%>
 
         </ul>
     </li>

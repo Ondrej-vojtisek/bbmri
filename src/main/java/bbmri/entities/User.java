@@ -21,6 +21,8 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private static final String AFFILIATION_EMPLOYEE = "employee@";
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
@@ -59,7 +61,6 @@ public class User implements Serializable {
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
 
     @OneToMany(mappedBy = "user")
-   // private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "judgedByUser")
@@ -76,6 +77,8 @@ public class User implements Serializable {
 
     @Type(type = "timestamp")
     private Date lastLogin;
+
+    private boolean shibbolethUser;
 
     public User() {}
 
@@ -135,7 +138,19 @@ public class User implements Serializable {
     }
 
     public String getWholeName() {
+        if(displayName != null)
+            return displayName;
+
+        // Fallback for non-shibboleth access
+
         return name + " " + surname;
+    }
+
+    public boolean isEmployee(){
+        if(affiliation != null){
+           return affiliation.contains(AFFILIATION_EMPLOYEE);
+        }
+        return false;
     }
 
     public String getEmail() {
@@ -224,6 +239,14 @@ public class User implements Serializable {
 
     public void setAffiliation(String affiliation) {
         this.affiliation = affiliation;
+    }
+
+    public boolean isShibbolethUser() {
+        return shibbolethUser;
+    }
+
+    public void setShibbolethUser(boolean shibbolethUser) {
+        this.shibbolethUser = shibbolethUser;
     }
 
     @Override

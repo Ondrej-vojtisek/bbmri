@@ -1,6 +1,6 @@
 package bbmri.action;
 
-import bbmri.action.project.ProjectActionBean;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.User;
 import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
+import java.util.Properties;
 
 
 /**
@@ -83,6 +84,12 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     public Resolution logout() {
         logger.debug("LOGOUT");
         getContext().dropUser();
+        if(getContext().getIsShibbolethSession()){
+
+            // false means to not append address to current context
+
+            return new RedirectResolution("https://index.bbmri.cz/Shibboleth.sso/Logout", false);
+        }
         return new RedirectResolution(INDEX);
     }
 

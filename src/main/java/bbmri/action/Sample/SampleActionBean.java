@@ -1,6 +1,6 @@
 package bbmri.action.sample;
 
-import bbmri.action.BasicActionBean;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.validation.Validate;

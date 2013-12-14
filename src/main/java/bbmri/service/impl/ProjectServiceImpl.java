@@ -5,8 +5,8 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.ProjectState;
 import bbmri.entities.enumeration.SystemRole;
-import bbmri.service.BiobankService;
 import bbmri.service.ProjectService;
+import bbmri.service.exceptions.LastManagerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("projectService")
 public class ProjectServiceImpl extends BasicServiceImpl implements ProjectService {
 
     @Autowired
@@ -40,9 +40,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     private RequestGroupDao requestGroupDao;
 
     @Autowired
-    private BiobankDao biobankDao;
-
-    @Autowired
     private ProjectAdministratorDao projectAdministratorDao;
 
     public Project create(Project project, Long userId) {
@@ -51,66 +48,93 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         User userDB = userDao.get(userId);
 
-        if(userDB == null){
+        if (userDB == null) {
+            logger.debug("Object retrieved from database is null");
             return null;
-            // TODO: exception
+
         }
-            project.setProjectState(ProjectState.NEW);
-            project.setCreated(new Date());
-            projectDao.create(project);
-            assignUserToProject(userDB, project, Permission.MANAGER);
-            projectDao.update(project);
+        project.setProjectState(ProjectState.NEW);
+        project.setCreated(new Date());
+        projectDao.create(project);
+        assignAdministrator(project, userId, Permission.MANAGER);
+        projectDao.update(project);
 
         return project;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
 
         Project projectDB = projectDao.get(id);
-        if (projectDB != null) {
 
-            User judge = projectDB.getJudgedByUser();
-            if (judge != null) {
-                judge.getJudgedProjects().remove(projectDB);
-                userDao.update(judge);
-            }   //  projectDB.setJudgedByUser();
+        if (projectDB == null) {
+            logger.debug("Object retrieved from database is null");
+            return false;
+        }
 
-            List<RequestGroup> requestGroups = projectDB.getRequestGroups();
-            if (requestGroups != null) {
-                for (RequestGroup requestGroup : requestGroups) {
-                    requestGroupDao.remove(requestGroup);
-                }
+        User judge = projectDB.getJudgedByUser();
+        if (judge != null) {
+            judge.getJudgedProjects().remove(projectDB);
+            userDao.update(judge);
+        }
+
+        List<RequestGroup> requestGroups = projectDB.getRequestGroups();
+        if (requestGroups != null) {
+            for (RequestGroup requestGroup : requestGroups) {
+                requestGroupDao.remove(requestGroup);
             }
+        }
 
-            List<Attachment> attachments = projectDB.getAttachments();
-            if (attachments != null) {
-                for (Attachment attachment : attachments) {
-                    attachmentDao.remove(attachment);
-                }
+        List<Attachment> attachments = projectDB.getAttachments();
+        if (attachments != null) {
+            for (Attachment attachment : attachments) {
+                attachmentDao.remove(attachment);
             }
+        }
 
-            Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
-            if (projectAdministrators != null) {
-                for (ProjectAdministrator pa : projectAdministrators) {
+        Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
+        if (projectAdministrators != null) {
+            for (ProjectAdministrator pa : projectAdministrators) {
 
-                    User userDB = pa.getUser();
-                    if (userDB.getProjectAdministrators().size() == 1 &&
-                            userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
+                User userDB = pa.getUser();
+                if (userDB.getProjectAdministrators().size() == 1 &&
+                        userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
 
-                        userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
-                        userDao.update(userDB);
-                    }
-
-
-                    pa.setUser(null);
-                    pa.setProject(null);
-                    projectAdministratorDao.remove(pa);
+                    userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
+                    userDao.update(userDB);
                 }
+
+
+                pa.setUser(null);
+                pa.setProject(null);
+                projectAdministratorDao.remove(pa);
             }
 
             projectDao.remove(projectDB);
+
         }
+        return true;
+    }
+
+    public Project changeState(Long projectId, ProjectState projectState) {
+        notNull(projectId);
+        notNull(projectState);
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            logger.debug("Object retrieved from database is null");
+            return null;
+        }
+
+        if(projectState.equals(ProjectState.APPROVED) ||
+                projectState.equals(ProjectState.DENIED)){
+            logger.debug("This method purpose is not to approve or deny project");
+            return null;
+        }
+
+        projectDB.setProjectState(projectState);
+        projectDao.update(projectDB);
+        return projectDB;
     }
 
     public Project update(Project project) {
@@ -118,18 +142,10 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         Project projectDB = projectDao.get(project.getId());
         if (projectDB == null) {
-            // TODO: exception
+            logger.debug("Object retrieved from database is null");
             return null;
         }
 
-        /* This method should not be used to approve or deny project. It should be used as a way to edit project by its administrators. So it can't be changed to DENY, NEW or APPROVED*/
-        if (projectDB.getProjectState() != ProjectState.NEW
-                && projectDB.getProjectState() != ProjectState.DENIED
-                && (project.getProjectState() == ProjectState.STARTED
-                || project.getProjectState() == ProjectState.FINISHED
-                || project.getProjectState() == ProjectState.CANCELED)) {
-            projectDB.setProjectState(project.getProjectState());
-        }
         if (project.getAnnotation() != null) {
             projectDB.setAnnotation(project.getAnnotation());
         }
@@ -139,45 +155,26 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
 
         if (project.getMainInvestigator() != null) {
-                  projectDB.setMainInvestigator(project.getMainInvestigator());
+            projectDB.setMainInvestigator(project.getMainInvestigator());
         }
 
      /*
-        I am not sure if these attributes can be changed during project lifetime.
-
-        if (project.getApprovalDate() != null) {
-            projectDB.setApprovalDate(project.getApprovalDate());
-        }
-
-        if (project.getApprovalStorage() != null) {
-            projectDB.setApprovalStorage(project.getApprovalStorage());
-        }
-
-        if (project.getApprovedBy() != null) {
-            projectDB.setApprovedBy(project.getApprovedBy());
-        }
-
-        if (project.getFundingOrganization() != null) {
-            projectDB.setFundingOrganization(project.getFundingOrganization());
-        }
-
-        if (project.getHomeInstitution() != null) {
-            projectDB.setHomeInstitution(project.getHomeInstitution());
-        }
-
+        I am not sure if other attributes can be changed during project lifetime.
         */
 
         projectDao.update(projectDB);
         return project;
     }
 
+    @Transactional(readOnly = true)
     public List<Project> all() {
         return projectDao.all();
     }
 
-
+    @Transactional(readOnly = true)
     public List<Project> getEagerByUserWithRequests(Long userId) {
         notNull(userId);
+
         User userDB = userDao.get(userId);
         List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
@@ -188,72 +185,83 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projects;
     }
 
+    @Transactional(readOnly = true)
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
+
         return projectDao.getAllByProjectState(projectState);
     }
 
-    public void approve(Long projectId, Long userId) {
+    public boolean approve(Long projectId, Long userId) {
         notNull(projectId);
         notNull(userId);
 
         Project projectDB = projectDao.get(projectId);
 
         if (projectDB == null) {
-            return;
-            //TODO: exception
+            logger.debug("Object retrieved from database is null - projectDB");
+            return false;
         }
         User userDB = userDao.get(userId);
         if (userDB == null) {
-            return;
-            //TODO: exception
+            logger.debug("Object retrieved from database is null - userBD");
+            return false;
         }
 
-        if (projectDB.getProjectState() == ProjectState.NEW) {
-            projectDB.setProjectState(ProjectState.APPROVED);
-            projectDB.setJudgedByUser(userDB);
-            projectDao.update(projectDB);
-            userDB.getJudgedProjects().add(projectDB);
-            userDao.update(userDB);
+        if (!projectDB.getProjectState().equals(ProjectState.NEW)) {
+            logger.debug("Project is not NEW so it can't be approved");
+            return false;
         }
-        //TODO: exception
+
+        projectDB.setProjectState(ProjectState.APPROVED);
+        projectDB.setJudgedByUser(userDB);
+        projectDao.update(projectDB);
+        userDB.getJudgedProjects().add(projectDB);
+        userDao.update(userDB);
+        return true;
     }
 
-    public void deny(Long projectId, Long userId) {
+    public boolean deny(Long projectId, Long userId) {
         notNull(projectId);
         notNull(userId);
 
         Project projectDB = projectDao.get(projectId);
 
         if (projectDB == null) {
-            return;
-            //TODO: exception
+            logger.debug("Object retrieved from database is null - projectBD");
+            return false;
         }
         User userDB = userDao.get(userId);
         if (userDB == null) {
-            return;
-            //TODO: exception
+            logger.debug("Object retrieved from database is null - userBD");
+            return false;
         }
 
-        if (projectDB.getProjectState() == ProjectState.NEW) {
-            projectDB.setProjectState(ProjectState.DENIED);
-            projectDB.setJudgedByUser(userDB);
-            projectDao.update(projectDB);
-            userDB.getJudgedProjects().add(projectDB);
-            userDao.update(userDB);
+        if (!projectDB.getProjectState().equals(ProjectState.NEW)) {
+            logger.debug("Project is not NEW so it can't be denied");
+            return false;
         }
-        //TODO: exception
+
+        projectDB.setProjectState(ProjectState.DENIED);
+        projectDB.setJudgedByUser(userDB);
+        projectDao.update(projectDB);
+        userDB.getJudgedProjects().add(projectDB);
+        userDao.update(userDB);
+        return true;
     }
 
+    @Transactional(readOnly = true)
     public Project get(Long id) {
         notNull(id);
         return projectDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return projectDao.count();
     }
 
+    @Transactional(readOnly = true)
     public Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleQuestions) {
         notNull(id);
         Project projectDB = projectDao.get(id);
@@ -279,170 +287,88 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
     }
 
-    public void assignUserToProject(User userDB, Project projectDB, Permission permission) {
-        notNull(userDB);
-        notNull(projectDB);
+    public boolean removeAdministrator(ProjectAdministrator objectAdministrator) throws LastManagerException {
+        notNull(objectAdministrator);
+
+        User userDB = objectAdministrator.getUser();
+        Project projectDB = objectAdministrator.getProject();
+
+        if (userDB == null || projectDB == null) {
+            logger.debug("Object retrieved from database is null - userBD or projectDB");
+            return false;
+        }
+
+              /* Situation when we want to remove last manager. */
+        if (isLastManager(objectAdministrator)) {
+            throw new LastManagerException("User: " + userDB.getWholeName()
+                    + " is the only administrator with MANAGER permission associated to biobank: "
+                    + projectDB.getName() + ". He can't be removed!");
+        }
+
+        if (userDB.getProjectAdministrators().size() == 1 &&
+                userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
+            userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
+            userDao.update(userDB);
+        }
+
+        projectAdministratorDao.remove(objectAdministrator);
+        return true;
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isLastManager(ProjectAdministrator objectAdministrator) {
+        if (!objectAdministrator.getPermission().equals(Permission.MANAGER)) {
+            return false;
+        }
+
+        if (projectAdministratorDao.get(objectAdministrator.getProject(), Permission.MANAGER).size() > 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean changeAdministratorPermission(ProjectAdministrator objectAdministrator, Permission permission) throws LastManagerException {
+        notNull(objectAdministrator);
         notNull(permission);
+
+        /* Situation when we want to remove last manager. */
+
+        if (!permission.equals(Permission.MANAGER) && isLastManager(objectAdministrator)) {
+            throw new LastManagerException("User: " + objectAdministrator.getUser().getWholeName()
+                    + " is the only administrator with MANAGER permission associated to project: "
+                    + objectAdministrator.getProject().getName() + ". He can't be removed!");
+        }
+
+        objectAdministrator.setPermission(permission);
+        projectAdministratorDao.update(objectAdministrator);
+        return true;
+    }
+
+    public boolean assignAdministrator(Project object, Long userId, Permission permission) {
+        notNull(object);
+        notNull(userId);
+        notNull(permission);
+
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            logger.debug("Object retrieved from database is null - userBD");
+            return false;
+        }
 
         ProjectAdministrator pa = new ProjectAdministrator();
         pa.setPermission(permission);
-        pa.setProject(projectDB);
+        pa.setProject(object);
         pa.setUser(userDB);
 
         projectAdministratorDao.create(pa);
-
-        projectDB.getProjectAdministrators().add(pa);
-        projectDao.update(projectDB);
-
-        userDB.getProjectAdministrators().add(pa);
 
         if (!userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
             userDB.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
         }
 
         userDao.update(userDB);
-    }
-
-    public void removeUserFromProject(User userDB, Project projectDB) {
-        notNull(userDB);
-        notNull(projectDB);
-
-        for (ProjectAdministrator pa : userDB.getProjectAdministrators()) {
-            if (pa.getProject().equals(projectDB)) {
-
-                if (userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER) &&
-                        userDB.getProjectAdministrators().size() == 1) {
-                    userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
-                    userDao.update(userDB);
-                }
-
-                pa.setUser(null);
-                pa.setProject(null);
-                projectAdministratorDao.remove(pa);
-            }
-        }
-    }
-
-    public void removeAdministrator(Long projectId, Long loggedUserId, Long userId) {
-        notNull(userId);
-        notNull(projectId);
-        notNull(loggedUserId);
-
-        User userDB = userDao.get(userId);
-        User loggedUser = userDao.get(loggedUserId);
-        Project projectDB = projectDao.get(projectId);
-
-
-        if (userDB == null || loggedUser == null || projectDB == null) {
-            return;
-            // TODO: exception
-        }
-        ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
-
-        if (pa == null) {
-            return;
-            // TODO: exception - You can't remove user which is not administrator
-        }
-
-        ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
-
-        if (loggedPa == null) {
-            return;
-            // TODO: exception - You are not administrator of this project
-        }
-
-        if (!loggedPa.getPermission().equals(Permission.MANAGER)) {
-            return;
-            // TODO: exception - You don't have sufficient rights
-        }
-
-        if (userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1) {
-            return;
-            // TODO: exception - You are last admin so you can't lower your permissions
-        }
-
-        removeUserFromProject(userDB, projectDB);
-    }
-
-    public void changeAdministratorPermission(Long projectId, Long loggedUserId, Long userId, Permission permission) {
-        notNull(userId);
-        notNull(projectId);
-        notNull(loggedUserId);
-        notNull(permission);
-
-        User userDB = userDao.get(userId);
-        User loggedUser = userDao.get(loggedUserId);
-        Project projectDB = projectDao.get(projectId);
-
-
-        if (userDB == null || loggedUser == null || projectDB == null) {
-            return;
-            // TODO: exception
-        }
-
-        ProjectAdministrator loggedPa = projectAdministratorDao.get(projectDB, loggedUser);
-
-        if (loggedPa == null) {
-            return;
-            // TODO: exception - You are not administrator of this project
-        }
-
-        if (!loggedPa.getPermission().equals(Permission.MANAGER)) {
-            return;
-            // TODO: exception - You don't have sufficient rights
-        }
-
-        if (userDB.equals(loggedUser) && projectManagerCount(projectDB) == 1) {
-            return;
-            // TODO: exception - You are last admin so you can't lower your permissions
-        }
-
-        ProjectAdministrator pa = projectAdministratorDao.get(projectDB, userDB);
-
-        if (pa == null) {
-            assignUserToProject(userDB, projectDB, permission);
-        } else {
-            pa.setPermission(permission);
-            projectAdministratorDao.update(pa);
-        }
-    }
-
-    private int projectManagerCount(Project project) {
-        notNull(project);
-        int count = 0;
-        for (ProjectAdministrator pa : project.getProjectAdministrators()) {
-            if (pa.getPermission().equals(Permission.MANAGER)) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public User assignAdministrator(Long userId, Long projectId, Permission permission) {
-        notNull(userId);
-        notNull(projectId);
-        notNull(permission);
-        User userDB = userDao.get(userId);
-        Project projectDB = projectDao.get(projectId);
-
-        if (userDB == null || projectDB == null) {
-            return null;
-            // TODO: exception
-        }
-
-        ProjectAdministrator pa = new ProjectAdministrator();
-        pa.setPermission(permission);
-        pa.setProject(projectDB);
-        pa.setUser(userDB);
-
-        projectAdministratorDao.create(pa);
-
-        if(!userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)){
-            userDB.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
-        }
-
-        userDao.update(userDB);
-        return userDB;
+        return true;
     }
 
 }

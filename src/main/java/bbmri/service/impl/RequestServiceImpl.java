@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("requestService")
 public class RequestServiceImpl extends BasicServiceImpl implements RequestService {
 
     @Autowired
@@ -73,12 +73,14 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return request;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
         Request requestDB = requestDao.get(id);
-        if (requestDB != null) {
-            requestDao.remove(requestDB);
+        if (requestDB == null) {
+            return false;
         }
+        requestDao.remove(requestDB);
+        return true;
     }
 
     public Request update(Request request) {
@@ -98,19 +100,23 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return requestDB;
     }
 
+    @Transactional(readOnly = true)
     public List<Request> all() {
         return requestDao.all();
     }
 
+    @Transactional(readOnly = true)
     public Request get(Long id) {
         notNull(id);
         return requestDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return requestDao.count();
     }
 
+    @Transactional(readOnly = true)
     public Request eagerGet(Long id, boolean requestGroup, boolean sample) {
            notNull(id);
            Request requestDB = requestDao.get(id);

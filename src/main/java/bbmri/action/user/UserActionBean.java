@@ -1,6 +1,6 @@
 package bbmri.action.user;
 
-import bbmri.action.BasicActionBean;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.entities.webEntities.RoleDTO;
@@ -76,9 +76,14 @@ public class UserActionBean extends BasicActionBean {
         return userFacade.getSystemRoles(id);
     }
 
+
     public boolean getIsMyAccount() {
         return getContext().getMyId().equals(id);
     }
+
+    public boolean getIsShibbolethUser() {
+           return getLoggedUser().isShibbolethUser();
+       }
 
     public String getPassword() {
            return password;
@@ -199,15 +204,20 @@ public class UserActionBean extends BasicActionBean {
         return new ForwardResolution(USER_ROLES).addParameter("id", id);
     }
 
+
+    /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
+
     @HandlesEvent("update")
-    @RolesAllowed({"user if ${isMyAccount}"})
+    @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution update() {
         userFacade.update(user);
         return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", id);
     }
 
+    /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
+
     @HandlesEvent("changePassword")
-    @RolesAllowed({"user if ${isMyAccount}"})
+    @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution changePassword() {
         if (password != null && password2 != null && password.equals(password2)) {
             user.setPassword(password);
@@ -221,9 +231,11 @@ public class UserActionBean extends BasicActionBean {
         return new RedirectResolution(UserActionBean.class, "detail");
     }
 
+    /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
+
     @DontValidate
     @HandlesEvent("changePasswordView")
-    @RolesAllowed({"user if ${isMyAccount}"})
+    @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution changePasswordView() {
         return new ForwardResolution(USER_PASSWORD);
     }

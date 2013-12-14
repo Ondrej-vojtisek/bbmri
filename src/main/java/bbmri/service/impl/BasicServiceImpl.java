@@ -19,4 +19,5 @@ public class BasicServiceImpl {
             throw new IllegalArgumentException("Object can't be a null object");
         }
     }
+
 }

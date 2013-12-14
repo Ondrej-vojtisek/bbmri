@@ -53,10 +53,10 @@ public class BiobankServiceTest extends AbstractServiceTest {
         assertEquals(result.getAddress(), biobank.getAddress());
     }
 
-    @Test(expected=IllegalArgumentException.class)
-    public void exceptionTest(){
-            biobankService.create(null,null);
-    }
+//    @Test(expected=IllegalArgumentException.class)
+//    public void exceptionTest(){
+//            biobankService.create(null,null);
+//    }
 
 
 }

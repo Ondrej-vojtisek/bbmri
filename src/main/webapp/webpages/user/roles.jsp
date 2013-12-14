@@ -70,14 +70,19 @@
 </table>
 
 <c:if test="${not userBean.isDeveloper}">
-    <security:allowed bean="ab" event="setDeveloperRole">
+    <security:allowed bean="userBean" event="setDeveloperRole">
         <fieldset>
             <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
                 <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
             </legend>
 
             <s:form beanclass="bbmri.action.user.UserActionBean">
-                <s:submit name="setDeveloperRole" class="btn btn-primary"/>
+                <div class="form-actions">
+                    <s:submit name="setDeveloperRole" class="btn btn-primary">
+                        <s:param name="id" value="${userBean.id}"/>
+                    </s:submit>
+
+                </div>
             </s:form>
 
                 <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
@@ -89,14 +94,18 @@
 </c:if>
 
 <c:if test="${not userBean.isAdministrator}">
-    <security:allowed bean="ab" event="setAdministratorRole">
+    <security:allowed bean="userBean" event="setAdministratorRole">
         <fieldset>
             <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
                 <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
             </legend>
 
             <s:form beanclass="bbmri.action.user.UserActionBean">
-                <s:submit name="setAdministratorRole" class="btn btn-primary"/>
+                <div class="form-actions">
+                    <s:submit name="setAdministratorRole" class="btn btn-primary">
+                        <s:param name="id" value="${userBean.id}"/>
+                    </s:submit>
+                </div>
             </s:form>
 
                 <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
@@ -125,15 +134,14 @@
         </c:if>
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
             <c:if test="${roleDTO.type.name == 'bbmri.entities.BiobankAdministrator'}">
-            <tr>
-                <td><c:out value="${roleDTO.subject}"/></td>
-                <td><c:out value="${roleDTO.permission}"/></td>
+                <tr>
+                    <td><c:out value="${roleDTO.subject}"/></td>
+                    <td><c:out value="${roleDTO.permission}"/></td>
 
-                    <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
-                <td class="action">
+                        <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
+                    <td class="action">
 
-
-                        <%--Need to set id for each row of a table to set properly ACL--%>
+                            <%--Need to set id for each row of a table to set properly ACL--%>
 
                         <c:set target="${biobankBean}" property="id" value="${roleDTO.referenceId}"/>
 
@@ -155,8 +163,8 @@
                         </security:notAllowed>
 
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
             </c:if>
         </c:forEach>
         </tbody>
@@ -183,17 +191,16 @@
         </c:if>
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
             <c:if test="${roleDTO.type.name == 'bbmri.entities.ProjectAdministrator'}">
-            <tr>
-                <td><c:out value="${roleDTO.subject}"/></td>
-                <td><c:out value="${roleDTO.permission}"/></td>
+                <tr>
+                    <td><c:out value="${roleDTO.subject}"/></td>
+                    <td><c:out value="${roleDTO.permission}"/></td>
 
-                <td class="action">
+                    <td class="action">
 
-                        <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
+                            <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
 
 
-
-                        <%--Need to set id for each row of a table to set properly ACL--%>
+                            <%--Need to set id for each row of a table to set properly ACL--%>
 
                         <c:set target="${projectBean}" property="id" value="${roleDTO.referenceId}"/>
 
@@ -214,8 +221,8 @@
                             </security:allowed>
                         </security:notAllowed>
 
-                </td>
-            </tr>
+                    </td>
+                </tr>
             </c:if>
         </c:forEach>
         </tbody>

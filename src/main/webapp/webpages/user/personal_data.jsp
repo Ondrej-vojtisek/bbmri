@@ -11,54 +11,64 @@
 
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.user.UserActionBean">
+        <s:form beanclass="bbmri.action.user.UserActionBean" class="form-horizontal">
             <s:hidden name="user.id"/>
             <s:hidden name="user.password"/>
-                <table>
-                    <tr>
-                        <th><s:label for="z2" name="user.name"/></th>
 
-                        <td>
-                            <security:allowed bean="userBean" event="update">
-                                <s:text name="user.name"/>
-                            </security:allowed>
+            <c:set var="readonly" value="${true}"/>
 
-                            <security:notAllowed bean="userBean" event="update">
-                            <s:text id="z2" name="user.name" readonly="true"/>
-                            </security:notAllowed>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><s:label for="z3" name="user.surname"/></th>
-                        <td>
-                            <security:allowed bean="userBean" event="update">
-                                <s:text name="user.surname"/>
-                            </security:allowed>
+            <security:allowed bean="userBean" event="update">
+                <c:set var="readonly" value="${false}"/>
+            </security:allowed>
 
-                            <security:notAllowed bean="userBean" event="update">
-                            <s:text id="z3" name="user.surname" readonly="true"/>
-                            </security:notAllowed>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><s:label for="z4" name="user.created"/></th>
-                        <td>
-                            <s:text id="z4" name="user.created" readonly="true"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><s:label for="z5" name="user.lastLogin"/></th>
-                        <td>
-                        <s:text id="z5" name="user.lastLogin" readonly="true"/>
-                        </td>
-                    </tr>
+            <div class="control-group">
+                <s:label for="displayName" class="control-label"/>
+                <div class="controls">
+                    <s:text id="displayName" name="user.displayName" readonly="true"/>
+                </div>
+            </div>
 
-                </table>
+            <div class="control-group">
+                <s:label for="email" class="control-label"/>
+                <div class="controls">
+                    <s:text id="email" name="user.email" readonly="true"/>
+                </div>
+            </div>
 
-                <security:allowed bean="userBean" event="update">
+            <div class="control-group">
+                <s:label for="organization" class="control-label"/>
+                <div class="controls">
+                    <s:text id="organization" name="user.organization" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="affiliation" class="control-label"/>
+                <div class="controls">
+                    <s:text id="affiliation" name="user.affiliation" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="created" class="control-label"/>
+                <div class="controls">
+                    <s:text id="created" name="user.created" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="lastLogin" class="control-label"/>
+                <div class="controls">
+                    <s:text id="lastLogin" name="user.lastLogin" readonly="true"/>
+                </div>
+            </div>
+
+            <security:allowed bean="userBean" event="update">
+                <div class="form-actions">
                     <s:submit name="update" class="btn btn-primary"/>
                     <s:param name="id" value="${userBean.id}"/>
-                </security:allowed>
+                </div>
+            </security:allowed>
         </s:form>
 
     </s:layout-component>

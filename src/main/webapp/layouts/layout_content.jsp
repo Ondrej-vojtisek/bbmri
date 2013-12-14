@@ -4,6 +4,8 @@
 <c:set var="request" value="${pageContext.request}"/>
 <c:set var="context" value="${request.contextPath}"/>
 
+<%--<c:set var="locale" value="${actionBean.locale}"/>--%>
+
 <s:layout-definition>
     <!DOCTYPE html>
     <head>
@@ -66,6 +68,7 @@
     <script type="text/javascript" src="${context}/libs/jquery-latest.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
+    <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
 
     <s:layout-component name="jsLibrary"/>
 

@@ -1,8 +1,12 @@
 package bbmri.dao.impl;
 
 import bbmri.dao.BiobankDao;
+import bbmri.entities.Attachment;
 import bbmri.entities.Biobank;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,4 +19,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BiobankDaoImpl extends BasicDaoImpl<Biobank> implements BiobankDao {
 
-}
+    public Biobank getBiobankByName(String name) {
+        notNull(name);
+        Query query = em.createQuery("SELECT p FROM Biobank p where p.name = :nameParam");
+        query.setParameter("nameParam", name);
+
+        try {
+            return (Biobank) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+    }
+
+  }

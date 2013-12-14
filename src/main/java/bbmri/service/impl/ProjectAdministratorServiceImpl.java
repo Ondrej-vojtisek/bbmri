@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("projectAdministratorService")
 public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements ProjectAdministratorService {
 
     @Autowired
@@ -33,14 +33,17 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
     @Autowired
     private UserDao userDao;
 
+    @Transactional(readOnly = true)
     public List<ProjectAdministrator> all() {
         return projectAdministratorDao.all();
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return projectAdministratorDao.count();
     }
 
+    @Transactional(readOnly = true)
     public ProjectAdministrator get(Long id) {
         notNull(id);
         return projectAdministratorDao.get(id);
@@ -63,16 +66,18 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
         return ba;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
 
         ProjectAdministrator ba = projectAdministratorDao.get(id);
         if (ba == null) {
-            return;
+            return false;
         }
         projectAdministratorDao.remove(ba);
+        return true;
     }
 
+    @Transactional(readOnly = true)
     public ProjectAdministrator get(Long projectId, Long userId) {
         notNull(projectId);
         notNull(userId);
@@ -83,7 +88,7 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
         return projectAdministratorDao.get(projectDB, userDB);
     }
 
-
+    @Transactional(readOnly = true)
     public boolean contains(Long projectId, Long userId) {
         notNull(projectId);
         notNull(userId);

@@ -7,24 +7,16 @@
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
-                 ternarymenu="addAttachment">
+                 ternarymenu="attachments">
 
     <s:layout-component name="body">
 
-        <%--<s:form beanclass="bbmri.action.project.ProjectActionBean">--%>
-        <%--<fieldset>--%>
-        <%--<legend></legend>--%>
-        <%--<s:select name="attachmentType">--%>
-        <%--<s:options-enumeration enum="bbmri.entities.enumeration.AttachmentType"/>--%>
-        <%--</s:select>--%>
-        <%--<s:file name="attachmentFileBean"></s:file>--%>
-        <%--<s:submit name="mtaUpload">--%>
-        <%--<s:param name="id" value="${projectBean.id}"/>--%>
-        <%--<f:message key="upload"/></s:submit>--%>
-        <%--</fieldset>--%>
+        <jsp:include page="/webpages/project/component/attachments.jsp"/>
 
         <s:form beanclass="bbmri.action.project.ProjectActionBean" class="form-inline">
 
+
+            <div class="form-actions">
                 <div class="fileupload fileupload-new" data-provides="fileupload">
                     <div class="input-append">
                         <div class="uneditable-input span3">
@@ -45,10 +37,11 @@
                         <s:options-enumeration enum="bbmri.entities.enumeration.AttachmentType"/>
                     </s:select>
 
-                    <s:submit name="mtaUpload" class="btn btn-primary">
+                    <s:submit name="attachmentUpload" class="btn btn-primary">
                         <s:param name="id" value="${projectBean.id}"/>
                     </s:submit>
                 </div>
+            </div>
 
         </s:form>
 

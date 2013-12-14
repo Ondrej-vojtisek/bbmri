@@ -1,15 +1,19 @@
 package bbmri.facade.impl;
 
-import bbmri.entities.*;
+import bbmri.entities.Biobank;
+import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.User;
 import bbmri.entities.enumeration.Permission;
 import bbmri.facade.BiobankFacade;
 import bbmri.service.*;
+import bbmri.service.exceptions.DuplicitBiobankException;
 import bbmri.service.exceptions.LastManagerException;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +24,7 @@ import java.util.List;
  * Time: 10:16
  * To change this template use File | Settings | File Templates.
  */
-@Controller
+@Controller("biobankFacade")
 public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
 
@@ -39,34 +43,21 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
-//    public List<User> getBiobankAdministrators(Long biobankId) {
-//        notNull(biobankId);
-//        Biobank biobankDB = biobankService.get(biobankId);
-//        List<User> users = new ArrayList<User>();
-//        for (BiobankAdministrator ba : biobankDB.getBiobankAdministrators()) {
-//            users.add(ba.getUser());
-//        }
-//        return users;
-//    }
-
-
-//    public Set<BiobankAdministrator> getBiobankAdministrators2(Long biobankId, ValidationErrors errors) {
-//        notNull(biobankId);
-//        Biobank biobankDB = biobankService.get(biobankId);
-//        if (biobankDB == null) {
-//            errors.addGlobalError(new LocalizableError("bbmri.facade.impl.BasicFacade.dbg.null"));
-//            return null;
-//        }
-//        return biobankDB.getBiobankAdministrators();
-//    }
-
-
-    public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors) {
+    public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
         notNull(biobank);
         notNull(newAdministratorId);
+        notNull(errors);
+        notNull(bbmriPath);
+
         try {
-            biobankService.create(biobank, newAdministratorId);
-            return true;
+
+            biobank = biobankService.create(biobank, newAdministratorId);
+
+        } catch (DuplicitBiobankException ex) {
+
+            errors.addGlobalError(new LocalizableError("bbmri.facade.impl.BiobankFacadeImpl.duplicitBiobankException"));
+            return false;
+
         } catch (Exception ex) {
 
             // Return DBG info that something went wrong. In final version there should be logging instead.
@@ -74,13 +65,43 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             return false;
         }
 
+        // Base folder
+
+        if (!FacadeUtils.folderExists(bbmriPath)) {
+            if (FacadeUtils.createFolder(bbmriPath, errors) != SUCCESS) {
+                biobankService.remove(biobank.getId());
+                return false;
+            }
+        }
+
+        // Biobanks folder
+
+        if (!FacadeUtils.folderExists(bbmriPath + Biobank.BIOBANK_FOLDER)) {
+            if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER, errors) != SUCCESS) {
+                biobankService.remove(biobank.getId());
+                return false;
+            }
+        }
+
+        // Folder for the biobank
+
+        if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobank.getId().toString(), errors) < 0) {
+            biobankService.remove(biobank.getId());
+            return false;
+        }
+
+        return true;
     }
 
     public boolean updateBiobank(Biobank biobank, ValidationErrors errors) {
         notNull(biobank);
+        notNull(errors);
+
         try {
+
             biobankService.update(biobank);
             return true;
+
         } catch (Exception ex) {
 
             // Return DBG info that something went wrong. In final version there should be logging instead.
@@ -91,43 +112,54 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         }
     }
 
-    public boolean removeBiobank(Long biobankId, ValidationErrors errors) {
+    public boolean removeBiobank(Long biobankId, ValidationErrors errors, String bbmriPath) {
         notNull(biobankId);
+        notNull(errors);
+        notNull(bbmriPath);
+
         try {
-            biobankService.remove(biobankId);
-            return true;
+
+            if(biobankService.remove(biobankId)){
+                return FacadeUtils.recursiveDeleteFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobankId.toString(), errors) == SUCCESS;
+            }
+
+            return false;
+
         } catch (Exception ex) {
+
             // Return DBG info that something went wrong. In final version there should be logging instead.
             fatalError(errors);
             return false;
+
         }
+
+
     }
 
-    public boolean assignAdministratorToBiobank(Long biobank, Long loggedUser,
-                                                Long newAdministrator,
-                                                Permission permission,
-                                                ValidationErrors errors) {
-        notNull(biobank);
-        notNull(loggedUser);
-        notNull(newAdministrator);
+    public boolean assignAdministrator(Long objectId,
+                                       Long newAdministratorId,
+                                       Permission permission,
+                                       ValidationErrors errors) {
+        notNull(objectId);
+        notNull(newAdministratorId);
         notNull(permission);
+        notNull(errors);
 
-        Biobank biobankDB = biobankService.get(biobank);
-        User logged = userService.get(loggedUser);
-        User newAdmin = userService.get(newAdministrator);
+        Biobank biobankDB = biobankService.get(objectId);
+        User newAdmin = userService.get(newAdministratorId);
 
-        if (biobankDB == null || logged == null || newAdmin == null) {
+        if (biobankDB == null || newAdmin == null) {
             fatalError(errors);
             return false;
         }
 
-        if (biobankAdministratorService.get(biobank, newAdministrator) != null) {
+        if (biobankAdministratorService.get(objectId, newAdministratorId) != null) {
             errors.addGlobalError(new LocalizableError("bbmri.facade.impl.BiobankFacadeImpl.adminAlreadyExists"));
             return false;
         }
 
         try {
-            biobankService.assignAdministrator(biobankDB, newAdministrator, permission);
+            biobankService.assignAdministrator(biobankDB, newAdministratorId, permission);
             return true;
         } catch (Exception ex) {
             fatalError(errors);
@@ -136,15 +168,16 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     }
 
-    public boolean changeBiobankAdministratorPermission(Long biobankAdministratorId,
-                                                        Permission permission,
-                                                        ValidationErrors errors) {
-       notNull(biobankAdministratorId);
+    public boolean changeAdministratorPermission(Long objectAdministratorId,
+                                                 Permission permission,
+                                                 ValidationErrors errors) {
+        notNull(objectAdministratorId);
         notNull(permission);
+        notNull(errors);
 
-        BiobankAdministrator ba = biobankAdministratorService.get(biobankAdministratorId);
+        BiobankAdministrator ba = biobankAdministratorService.get(objectAdministratorId);
 
-        if(ba == null){
+        if (ba == null) {
             fatalError(errors);
             return false;
         }
@@ -154,17 +187,18 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             return true;
         } catch (LastManagerException ex) {
             errors.addGlobalError(new LocalizableError("bbmri.service.exceptions.LastBiobankManagerException"));
-            return true;
+            return false;
         } catch (Exception ex) {
             fatalError(errors);
             return false;
         }
     }
 
-    public boolean removeBiobankAdministrator(Long biobankAdministrator, ValidationErrors errors) {
-        notNull(biobankAdministrator);
+    public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors) {
+        notNull(objectAdministratorId);
+        notNull(errors);
 
-        BiobankAdministrator ba = biobankAdministratorService.get(biobankAdministrator);
+        BiobankAdministrator ba = biobankAdministratorService.get(objectAdministratorId);
         if (ba == null) {
             errors.addGlobalError(new LocalizableError("bbmri.facade.impl.BasicFacade.dbg.null"));
             return false;
@@ -182,12 +216,12 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return biobankService.all();
     }
 
-    public boolean hasPermission(Permission permission, Long biobankId, Long userId) {
+    public boolean hasPermission(Permission permission, Long objectId, Long userId) {
         notNull(permission);
-        notNull(biobankId);
+        notNull(objectId);
         notNull(userId);
 
-        BiobankAdministrator ba = biobankAdministratorService.get(biobankId, userId);
+        BiobankAdministrator ba = biobankAdministratorService.get(objectId, userId);
 
         if (ba == null) {
             return false;
@@ -198,17 +232,20 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public Biobank get(Long biobankId) {
         notNull(biobankId);
+
         return biobankService.get(biobankId);
     }
 
     public BiobankAdministrator getBiobankAdministrator(Long id) {
         notNull(id);
+
         return biobankAdministratorService.get(id);
     }
 
 
     public List<Biobank> getBiobanksByUser(Long userId) {
         notNull(userId);
+
         User userDB = userService.eagerGet(userId, false, false, true);
         if (userDB == null) {
             return null;
@@ -243,9 +280,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 //        notNull(requestGroupId);
 //        requestGroupService.denyRequestGroup(requestGroupId);
 //    }
-
-
-
 
 
 }

@@ -10,7 +10,7 @@
 
     <s:layout-component name="body">
 
-        <s:form beanclass="${projectBean.name}">
+        <s:form beanclass="${projectBean.name}" class="form-horizontal">
 
             <c:set var="readonly" value="${true}"/>
 
@@ -18,48 +18,102 @@
                 <c:set var="readonly" value="${false}"/>
             </security:allowed>
 
-            <table>
-                <tr>
-                    <th><s:label for="z1" name="project.name"/></th>
-                    <td><s:text id="z1" name="project.name" readonly="${readonly}"/></td>
-                </tr>
-                <tr>
-                    <th><s:label for="z2" name="project.fundingOrganization"/></th>
-                    <td><s:text id="z2" name="project.fundingOrganization" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <th><s:label for="z3" name="project.approvedBy"/></th>
-                    <td><s:text id="z3" name="project.approvedBy" readonly="true"/></td>
-                </tr>
-                <tr>
-                    <th><s:label for="z6" name="project.approvalStorage"/></th>
-                    <td><s:text id="z6" name="project.approvalStorage" readonly="true"/></td>
-                </tr>
+            <div class="control-group">
+                <s:label for="name" class="control-label"/>
+                <div class="controls">
+                    <s:text id="name" name="project.name" readonly="${readonly}"/>
+                </div>
+            </div>
 
-                <tr>
-                    <th><s:label for="z4" name="project.principalInvestigator"/></th>
-                    <td><s:text id="z4" name="project.mainInvestigator" readonly="${readonly}"/></td>
-                </tr>
+            <div class="control-group">
+                <s:label for="fundingOrganization" class="control-label"/>
+                <div class="controls">
+                    <s:text id="fundingOrganization" name="project.fundingOrganization" readonly="true"/>
+                </div>
+            </div>
 
-                <tr>
-                    <th><s:label for="z5" name="project.homeInstitution"/></th>
-                    <td><s:text id="z5" name="project.homeInstitution" readonly="true"/></td>
-                </tr>
+            <div class="control-group">
+                <s:label for="approvedBy" class="control-label"/>
+                <div class="controls">
+                    <s:text id="approvedBy" name="project.approvedBy" readonly="true"/>
+                </div>
+            </div>
 
-                <tr>
-                    <th>
-                        <p><s:label for="z7" name="project.annotation"/></p>
-                    </th>
-                </tr>
+            <div class="control-group">
+                <s:label for="approvalStorage" class="control-label"/>
+                <div class="controls">
+                    <s:text id="approvalStorage" name="project.approvalStorage" readonly="true"/>
+                </div>
+            </div>
 
-            </table>
+            <div class="control-group">
+                <s:label for="principalInvestigator" class="control-label"/>
+                <div class="controls">
+                    <s:text id="principalInvestigator" name="project.principalInvestigator" readonly="true"/>
+                </div>
+            </div>
 
-            <s:textarea id="z7" name="project.annotation" readonly="${readonly}"></s:textarea>
-            <security:allowed bean="projectBean" event="edit">
-                <s:submit name="update" class="btn btn-primary">
-                    <s:param name="id" value="${projectBean.id}"/>
-                </s:submit>
-            </security:allowed>
+            <div class="control-group">
+                <s:label for="homeInstitution" class="control-label"/>
+                <div class="controls">
+                    <s:text id="homeInstitution" name="project.homeInstitution" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="homeInstitution" class="control-label"/>
+                <div class="controls">
+                    <s:text id="homeInstitution" name="project.homeInstitution" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="projectState" class="control-label"/>
+                <div class="controls">
+                    <s:text id="projectState" name="project.projectState" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="annotation" class="control-label"/>
+                <div class="controls">
+                    <s:textarea id="annotation" name="project.annotation" readonly="${readonly}"/>
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <security:allowed bean="projectBean" event="edit">
+                    <s:submit name="update" class="btn btn-primary btnMargin">
+                        <s:param name="id" value="${projectBean.id}"/>
+                    </s:submit>
+                </security:allowed>
+
+                <c:if test="${projectBean.isStarted}">
+                    <security:allowed bean="projectBean" event="markAsFinished">
+                        <s:submit name="markAsFinished" class="btn btn-primary btnMargin">
+                            <s:param name="id" value="${projectBean.id}"/>
+                        </s:submit>
+                    </security:allowed>
+                </c:if>
+
+                <c:if test="${projectBean.isNew}">
+
+                    <security:allowed bean="projectBean" event="approve">
+                        <s:submit name="approve" class="btn btn-primary btnMargin">
+                            <s:param name="id" value="${projectBean.id}"/>
+                        </s:submit>
+                    </security:allowed>
+
+                    <security:allowed bean="projectBean" event="deny">
+                        <s:submit name="deny" class="btn btn-danger">
+                            <s:param name="id" value="${projectBean.id}"/>
+                        </s:submit>
+                    </security:allowed>
+
+                </c:if>
+
+            </div>
         </s:form>
 
     </s:layout-component>

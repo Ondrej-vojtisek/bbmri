@@ -1,6 +1,6 @@
 package bbmri.action.requestGroup;
 
-import bbmri.action.BasicActionBean;
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.Request;
 import bbmri.entities.RequestGroup;
 import bbmri.entities.Sample;

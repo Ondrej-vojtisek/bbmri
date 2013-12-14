@@ -2,11 +2,14 @@ package bbmri.service.impl;
 
 import bbmri.dao.BiobankAdministratorDao;
 import bbmri.dao.BiobankDao;
+import bbmri.dao.ProjectAdministratorDao;
 import bbmri.dao.UserDao;
 import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.ProjectAdministrator;
 import bbmri.entities.User;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.UserService;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("userService")
 public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -40,18 +43,21 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Autowired
     private BiobankAdministratorDao biobankAdministratorDao;
 
+    @Autowired
+    private ProjectAdministratorDao projectAdministratorDao;
 
     public User create(User user) {
         user.setCreated(new Date());
+        user.getSystemRoles().add(SystemRole.USER);
         userDao.create(user);
         return user;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         User userDB = userDao.get(id);
         if (userDB == null) {
-            return;
-            // TODO: exception
+            logger.debug("Object retrieved from database is null");
+            return false;
         }
 
         Set<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
@@ -62,7 +68,19 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
                 biobankAdministratorDao.remove(ba);
             }
         }
+
+        List<ProjectAdministrator> projectAdministrators = userDB.getProjectAdministrators();
+        if (projectAdministrators != null) {
+            for (ProjectAdministrator pa : projectAdministrators) {
+                pa.setUser(null);
+                pa.setProject(null);
+                projectAdministratorDao.remove(pa);
+            }
+        }
+
+
         userDao.remove(userDB);
+        return true;
     }
 
     public User update(User user) {
@@ -70,9 +88,11 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
         User userDB = userDao.get(user.getId());
         if (userDB == null) {
+            logger.debug("Object retrieved from database is null");
             return null;
         }
 
+        // TODO: pridat i Shibboleti pole
 
         if (user.getName() != null) userDB.setName(user.getName());
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
@@ -83,10 +103,12 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
     public List<User> all() {
         return userDao.all();
     }
 
+    @Transactional(readOnly = true)
     public User get(Long id) {
         return userDao.get(id);
     }
@@ -97,7 +119,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (userDB.getSystemRoles().contains(systemRole)) {
             userDB.getSystemRoles().remove(systemRole);
         } else {
-            // TODO: exception
+            // TODO: exception - user already has the permission
         }
 
         userDao.update(userDB);
@@ -110,7 +132,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (!userDB.getSystemRoles().contains(systemRole)) {
             userDB.getSystemRoles().add(systemRole);
         } else {
-            // TODO exception
+            // TODO exception - user already has the permission
         }
 
         userDao.update(userDB);
@@ -123,6 +145,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.get(oldAdminId);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return userDao.count();
     }
@@ -139,6 +162,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return results;
     }
 
+    @Transactional(readOnly = true)
     public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank) {
         notNull(id);
         User userDB = userDao.get(id);
@@ -198,6 +222,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         userDao.update(userDB);
     }
 
+    @Transactional(readOnly = true)
     public List<User> getAllByRole(SystemRole systemRole) {
         notNull(systemRole);
         List<User> results = new ArrayList<User>();
@@ -209,6 +234,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return results;
     }
 
+    @Transactional(readOnly = true)
     public List<User> find(User user, int requiredResults) {
         logger.debug("FIND_SERVICE");
 
@@ -222,6 +248,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.findUser(user).subList(0, requiredResults);
     }
 
+    @Transactional(readOnly = true)
     public User get(String eppn){
         notNull(eppn);
         return userDao.get(eppn);

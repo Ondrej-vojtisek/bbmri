@@ -5,7 +5,9 @@ import bbmri.entities.*;
 import bbmri.entities.enumeration.Permission;
 import bbmri.entities.enumeration.SystemRole;
 import bbmri.service.BiobankService;
+import bbmri.service.exceptions.DuplicitBiobankException;
 import bbmri.service.exceptions.LastManagerException;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,15 +23,18 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("biobankService")
 public class BiobankServiceImpl extends BasicServiceImpl implements BiobankService {
 
     /*
+    TODO
     Dodat:
     @Override
     @Transactional(readOnly = true)
-     */
 
+    @SpringBean zamenit misto @Autowired
+    Pokud se nelinkne tak @Repository(biobankDao)
+     */
 
     @Autowired
     private BiobankDao biobankDao;
@@ -50,53 +55,59 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     private BiobankAdministratorDao biobankAdministratorDao;
 
 
-    public Biobank create(Biobank biobank, Long newAdministratorId) {
+    public Biobank create(Biobank biobank, Long newAdministratorId) throws DuplicitBiobankException {
         notNull(biobank);
         notNull(newAdministratorId);
 
         User adminDB = userDao.get(newAdministratorId);
         if (adminDB == null) {
+            logger.debug("Object retrieved from database is null - adminBD");
             return null;
-            // TODO: exception
+        }
+
+        if (biobankDao.getBiobankByName(biobank.getName()) != null) {
+            throw new DuplicitBiobankException("Biobank with name: "
+                    + biobank.getName() + " already exists! Name must be unique.");
         }
 
         biobankDao.create(biobank);
         assignAdministrator(biobank, newAdministratorId, Permission.MANAGER);
+
         return biobank;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
 
         logger.debug("Debug " + id);
 
-        Biobank biobank = biobankDao.get(id);
-        if (biobank == null) {
-            return;
-            //TODO: exception
+        Biobank biobankDB = biobankDao.get(id);
+        if (biobankDB == null) {
+            logger.debug("Object retrieved from database is null - biobankDB");
+            return false;
         }
 
-        List<Sample> samples = biobank.getSamples();
+        List<Sample> samples = biobankDB.getSamples();
         if (samples != null) {
             for (Sample sample : samples) {
                 sampleDao.remove(sample);
             }
         }
-        List<SampleQuestion> sampleQuestions = biobank.getSampleQuestions();
+        List<SampleQuestion> sampleQuestions = biobankDB.getSampleQuestions();
         if (sampleQuestions != null) {
             for (SampleQuestion sampleQuestion : sampleQuestions) {
                 sampleQuestionDao.remove(sampleQuestion);
             }
         }
 
-        List<RequestGroup> requestGroups = biobank.getRequestGroups();
+        List<RequestGroup> requestGroups = biobankDB.getRequestGroups();
         if (requestGroups != null) {
             for (RequestGroup requestGroup : requestGroups) {
                 requestGroupDao.remove(requestGroup);
             }
         }
 
-        Set<BiobankAdministrator> biobankAdministrators = biobank.getBiobankAdministrators();
+        Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
         if (biobankAdministrators != null) {
             for (BiobankAdministrator ba : biobankAdministrators) {
 
@@ -115,44 +126,50 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             }
         }
 
-        biobankDao.remove(biobank);
-
+        biobankDao.remove(biobankDB);
+        return true;
     }
 
     public Biobank update(Biobank biobank) {
         notNull(biobank);
 
         Biobank biobankDB = biobankDao.get(biobank.getId());
-        if (biobankDB != null) {
-            if (biobank.getAddress() != null) {
-                biobankDB.setAddress(biobank.getAddress());
-            }
-            if (biobank.getName() != null) {
-                biobankDB.setName(biobank.getName());
-            }
-            biobankDao.update(biobankDB);
+
+        if (biobankDB == null) {
+            logger.debug("Object retrieved from database is null - biobankDB");
+            return null;
         }
+
+        if (biobank.getAddress() != null) {
+            biobankDB.setAddress(biobank.getAddress());
+        }
+        if (biobank.getName() != null) {
+            biobankDB.setName(biobank.getName());
+        }
+        biobankDao.update(biobankDB);
 
         return biobankDB;
     }
 
+    @Transactional(readOnly = true)
     public List<Biobank> all() {
         return biobankDao.all();
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return biobankDao.count();
     }
 
-    public void removeAdministrator(BiobankAdministrator objectAdministrator) throws LastManagerException {
+    public boolean removeAdministrator(BiobankAdministrator objectAdministrator) throws LastManagerException {
         notNull(objectAdministrator);
 
         User userDB = objectAdministrator.getUser();
         Biobank biobankDB = objectAdministrator.getBiobank();
 
-        if(userDB == null || biobankDB == null){
-            return;
-            // TODO: EXCEPTION
+        if (userDB == null || biobankDB == null) {
+            logger.debug("Object retrieved from database is null - userBD or biobankDB");
+            return false;
         }
 
         /* Situation when we want to remove last manager. */
@@ -169,17 +186,18 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         biobankAdministratorDao.remove(objectAdministrator);
+        return true;
     }
 
-    public void assignAdministrator(Biobank object, Long userId, Permission permission){
+    public boolean assignAdministrator(Biobank object, Long userId, Permission permission) {
         notNull(object);
         notNull(userId);
         notNull(permission);
 
         User userDB = userDao.get(userId);
-        if(userDB == null){
-             return;
-             // TODO: exception
+        if (userDB == null) {
+            logger.debug("Object retrieved from database is null - userBD");
+            return false;
         }
 
         BiobankAdministrator ba = new BiobankAdministrator();
@@ -194,28 +212,29 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         userDao.update(userDB);
+        return true;
     }
 
-
-    private boolean isLastManager(BiobankAdministrator ba){
-        if(!ba.getPermission().equals(Permission.MANAGER)){
+    @Transactional(readOnly = true)
+    public boolean isLastManager(BiobankAdministrator objectAdministrator) {
+        if (!objectAdministrator.getPermission().equals(Permission.MANAGER)) {
             return false;
         }
 
-        if(biobankAdministratorDao.get(ba.getBiobank(), Permission.MANAGER).size() > 1){
+        if (biobankAdministratorDao.get(objectAdministrator.getBiobank(), Permission.MANAGER).size() > 1) {
             return false;
         }
 
         return true;
     }
 
-    public void changeAdministratorPermission(BiobankAdministrator ba, Permission permission) throws LastManagerException {
+    public boolean changeAdministratorPermission(BiobankAdministrator ba, Permission permission) throws LastManagerException {
         notNull(ba);
         notNull(permission);
 
         /* Situation when we want to remove last manager. */
 
-        if (! permission.equals(Permission.MANAGER) && isLastManager(ba) ) {
+        if (!permission.equals(Permission.MANAGER) && isLastManager(ba)) {
             throw new LastManagerException("User: " + ba.getUser().getWholeName()
                     + " is the only administrator with MANAGER permission associated to biobank: "
                     + ba.getBiobank().getName() + ". He can't be removed!");
@@ -223,32 +242,24 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
         ba.setPermission(permission);
         biobankAdministratorDao.update(ba);
+        return true;
     }
 
-//    public void removeAdministrator(Long userId, Long biobankId, Permission permission) {
-//        notNull(userId);
-//        notNull(biobankId);
-//        notNull(permission);
-//
-//        User userDB = userDao.get(userId);
-//        Biobank biobankDB = biobankDao.get(biobankId);
-//
-//        if (userDB == null || biobankDB == null) {
-//            return;
-//            // TODO: exception
-//        }
-//
-//        removeAdministratorFromBiobank(userId, biobankId);
-//    }
-
+    @Transactional(readOnly = true)
     public Biobank get(Long id) {
         notNull(id);
         return biobankDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions) {
         notNull(id);
         Biobank biobankDB = biobankDao.get(id);
+
+        if (biobankDB == null) {
+            logger.debug("Object retrieved from database is null - biobankDB");
+            return null;
+        }
 
         /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 

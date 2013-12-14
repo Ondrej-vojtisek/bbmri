@@ -1,5 +1,6 @@
 package bbmri.action;
 
+import bbmri.action.base.BasicActionBean;
 import bbmri.entities.User;
 import bbmri.facade.UserFacade;
 import net.sourceforge.stripes.integration.spring.SpringBean;

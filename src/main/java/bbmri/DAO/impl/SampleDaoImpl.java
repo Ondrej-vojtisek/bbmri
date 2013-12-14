@@ -19,6 +19,7 @@ import java.util.List;
 public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
 
+    @SuppressWarnings("unchecked")
     public List<Sample> getSelected(Sample question) {
         notNull(question);
         Query query = null;

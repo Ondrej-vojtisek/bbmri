@@ -3,7 +3,7 @@
 
 <s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="userBean" event="detail">
     <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> >
@@ -13,7 +13,7 @@
         </s:link></li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="userBean" event="changePasswordView">
     <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>>
@@ -25,7 +25,7 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="userBean" event="rolesView">
     <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>>
@@ -37,4 +37,4 @@
     </li>
 </security:allowed>
 
-<%------------------------------------------------------------------------%>
+<%-- -------------------------------------------------------------------- --%>

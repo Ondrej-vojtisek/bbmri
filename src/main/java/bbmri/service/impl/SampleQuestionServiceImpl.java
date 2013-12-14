@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Transactional
-@Service
+@Service("sampleQuestionService")
 public class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuestionService {
 
     @Autowired
@@ -87,10 +87,13 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestion;
     }
 
-    public void remove(Long id) {
+    public boolean remove(Long id) {
         notNull(id);
         SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
-        if (sampleQuestionDB != null) {
+        if(sampleQuestionDB == null){
+            return false;
+        }
+
             Biobank biobankDB = biobankDao.get(sampleQuestionDB.getBiobank().getId());
             if (biobankDB != null) {
                 biobankDB.getSampleQuestions().remove(sampleQuestionDB);
@@ -105,7 +108,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             }
 
             sampleQuestionDao.remove(sampleQuestionDB);
-        }
+            return true;
     }
 
     public SampleQuestion update(SampleQuestion sampleQuestion) {
@@ -113,6 +116,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestion;
     }
 
+    @Transactional(readOnly = true)
     public List<SampleQuestion> all() {
         return sampleQuestionDao.all();
     }
@@ -128,10 +132,13 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestionDao.getByBiobank(biobank);
     }
   */
+
+    @Transactional(readOnly = true)
     public SampleQuestion get(Long id) {
         return sampleQuestionDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public Integer count() {
         return sampleQuestionDao.count();
     }

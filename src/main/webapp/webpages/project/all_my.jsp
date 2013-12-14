@@ -9,6 +9,7 @@
 
     <s:layout-component name="body">
         <s:form beanclass="bbmri.action.project.ProjectActionBean">
+
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>

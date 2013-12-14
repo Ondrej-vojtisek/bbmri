@@ -3,6 +3,7 @@ package bbmri.entities;
 import bbmri.entities.enumeration.SystemRole;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,6 +20,10 @@ import java.util.Set;
 @Table(name = "Biobank")
 @Entity
 public class Biobank implements Serializable {
+
+    public final static String BIOBANK_FOLDER = File.separator + "biobank_files";
+    public final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
+
     private static final long serialVersionUID = 1L;
 
     @Id

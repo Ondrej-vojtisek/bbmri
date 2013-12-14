@@ -10,7 +10,8 @@ package bbmri.entities.enumeration;
 public enum Permission {
 
     /*
-    * MANAGER - can do everything including changing permissions of other administrators. If user creates biobank he is MANAGER by default.
+    * MANAGER - can do everything including changing permissions of other administrators.
+    *           If user creates biobank he is MANAGER by default.
     * EDITOR - can change attributes of biobank e.g. name, address
     * CONFIRM - can confirm requests and projects
     * VISITOR - can't do anything, except the access of biobank administrators pages

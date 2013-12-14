@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class RequestGroupDaoImpl extends BasicDaoImpl<RequestGroup> implements RequestGroupDao {
 
-    //@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     public List<RequestGroup> getByBiobankAndState(Biobank biobank, RequestState requestState){
         notNull(biobank);
         notNull(requestState);

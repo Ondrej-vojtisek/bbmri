@@ -16,25 +16,29 @@
             <c:set var="readonly" value="${false}"/>
         </security:allowed>
 
-        <s:form beanclass="${biobankBean.name}">
-            <table>
-                <tr>
-                    <th><s:label name="biobank.name"/></th>
-                    <td><s:text id="name" name="biobank.name" readonly="${readonly}"/></td>
-                </tr>
+        <s:form beanclass="${biobankBean.name}" class="form-horizontal">
 
-                <tr>
-                    <th><s:label name="biobank.address"/></th>
-                    <td><s:text id="address" name="biobank.address" readonly="${readonly}" /></td>
-                </tr>
+            <div class="control-group">
+                <s:label for="name" class="control-label"/>
+                <div class="controls">
+                    <s:text id="name" name="biobank.name" readonly="${readonly}"/>
+                </div>
+            </div>
 
-            </table>
+            <div class="control-group">
+                <s:label for="address" class="control-label"/>
+                <div class="controls">
+                    <s:text id="address" name="biobank.address" readonly="${readonly}"/>
+                </div>
+            </div>
 
             <security:allowed bean="biobankBean" event="edit">
+                <div class="form-actions">
+                    <s:submit name="update" class="btn btn-primary">
 
-            <s:submit name="update" class="btn btn-primary">
-                <s:param name="id" value="${biobankBean.id}"/>
-            </s:submit>
+                        <s:param name="id" value="${biobankBean.id}"/>
+                    </s:submit>
+                </div>
             </security:allowed>
         </s:form>
 

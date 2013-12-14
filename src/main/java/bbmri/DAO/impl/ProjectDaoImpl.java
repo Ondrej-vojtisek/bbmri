@@ -19,6 +19,7 @@ import java.util.List;
 @Repository
 public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao {
 
+    @SuppressWarnings("unchecked")
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
         Query query = em.createQuery("SELECT p FROM Project p where p.projectState = :param");

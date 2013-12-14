@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,8 +40,8 @@ public class CreateActionBean extends FindActionBean {
     private Long adminId;
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create", "done"}, field = "name", required = true),
-            @Validate(on = {"create", "done"}, field = "address", required = true)
+            @Validate(on = {"confirmStep1", "done"}, field = "name", required = true),
+            @Validate(on = {"confirmStep1", "done"}, field = "address", required = true)
     })
     private Biobank newBiobank;
 
@@ -76,9 +77,9 @@ public class CreateActionBean extends FindActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("generalBack")
+    @HandlesEvent("backFromStep2")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution generalBack() {
+    public Resolution backFromStep2() {
         return new ForwardResolution(BIOBANK_CREATE_GENERAL);
     }
 
@@ -90,20 +91,20 @@ public class CreateActionBean extends FindActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("administratorsBack")
+    @HandlesEvent("backFromStep3")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution administratorsBack() {
+    public Resolution backFromStep3() {
         return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS);
     }
 
 
-    @HandlesEvent("done")
+    @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution done() {
+    public Resolution confirmStep3() {
         ValidationErrors errors = new ValidationErrors();
-        biobankFacade.createBiobank(newBiobank, adminId, errors);
+        biobankFacade.createBiobank(newBiobank, adminId, errors, getContext().getPropertiesStoragePath());
 
-        if(biobankFacade.createBiobank(newBiobank, adminId, errors)){
+        if(biobankFacade.createBiobank(newBiobank, adminId, errors, getContext().getPropertiesStoragePath())){
             successMsg(null);
             return new RedirectResolution(BiobankActionBean.class, "allBiobanks");
         }
@@ -112,15 +113,16 @@ public class CreateActionBean extends FindActionBean {
         return new ForwardResolution(BiobankActionBean.class, "allBiobanks");
     }
 
-    @HandlesEvent("create")
+    @HandlesEvent("confirmStep1")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution create() {
+    public Resolution confirmStep1() {
         return new ForwardResolution(this.getClass(), "administrators");
     }
 
-    @HandlesEvent("addAdministrator")
+    /* Add administrator */
+    @HandlesEvent("confirmStep2")
     @RolesAllowed({"administrator", "developer"})
-    public Resolution addAdministrator() {
+    public Resolution confirmStep2() {
         return new ForwardResolution(BIOBANK_CREATE_CONFIRM);
     }
 

@@ -1,6 +1,7 @@
 package bbmri.service;
 
 import bbmri.entities.BiobankAdministrator;
+import bbmri.entities.enumeration.Permission;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,5 +15,7 @@ public interface BiobankAdministratorService extends BasicService<BiobankAdminis
     BiobankAdministrator get(Long biobankId, Long userId);
 
     boolean contains(Long biobankId, Long userId);
+
+    boolean hasSameOrHigherPermission(Long userId, Permission permission);
 
 }
