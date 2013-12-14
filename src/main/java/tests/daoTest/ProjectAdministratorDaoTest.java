@@ -1,12 +1,12 @@
 package tests.daoTest;
 
-import bbmri.dao.ProjectAdministratorDao;
-import bbmri.dao.ProjectDao;
-import bbmri.dao.UserDao;
-import bbmri.entities.enumeration.Permission;
-import bbmri.entities.Project;
-import bbmri.entities.ProjectAdministrator;
-import bbmri.entities.User;
+import cz.bbmri.dao.ProjectAdministratorDao;
+import cz.bbmri.dao.ProjectDao;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.Project;
+import cz.bbmri.entities.ProjectAdministrator;
+import cz.bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

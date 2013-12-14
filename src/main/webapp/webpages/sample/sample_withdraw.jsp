@@ -2,13 +2,13 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <f:message key="sample.withdraw" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.sample.SampleActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.sample.SampleActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  secondarymenu="sample_withdraw">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.sample.SampleActionBean">
+        <s:form beanclass="cz.bbmri.action.sample.SampleActionBean">
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>

@@ -4,8 +4,8 @@
 <f:message key="signin" var="title"/>
 <s:layout-render name="/layouts/layout_login.jsp" title="${title}">
     <s:layout-component name="body">
-        <s:useActionBean var="ab" beanclass="bbmri.action.LoginActionBean"/>
-        <s:form beanclass="bbmri.action.LoginActionBean">
+        <s:useActionBean var="ab" beanclass="cz.bbmri.action.LoginActionBean"/>
+        <s:form beanclass="cz.bbmri.action.LoginActionBean">
 
             <fieldset>
                 <legend><f:message key="signin"/></legend>

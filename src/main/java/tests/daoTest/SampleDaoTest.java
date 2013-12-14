@@ -1,6 +1,6 @@
 package tests.daoTest;
 
-import bbmri.dao.SampleDao;
+import cz.bbmri.dao.SampleDao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.user.UserActionBean.detail" var="title"/>
+<f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
 
-<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
-<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
-<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
+<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
@@ -34,14 +34,14 @@
                 <c:if test="${systemRole == 'ADMINISTRATOR'}">
 
                     <f:message var="questionAdministrator"
-                               key="bbmri.action.user.UserActionBean.questionRemoveAdministratorRole"/>
+                               key="cz.bbmri.action.user.UserActionBean.questionRemoveAdministratorRole"/>
 
-                <s:form beanclass="bbmri.action.user.UserActionBean">
+                <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                     <s:submit name="removeAdministratorRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionAdministrator}')"/>
                 </s:form>
-                    <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
+                    <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                     <%--event="removeAdministratorRole">--%>
                     <%--<f:message key="remove"/></s:link>--%>
                 </c:if>
@@ -50,15 +50,15 @@
                 <security:allowed bean="userBean" event="removeDeveloperRole">
                 <c:if test="${systemRole == 'DEVELOPER'}">
                     <f:message var="questionDeveloper"
-                               key="bbmri.action.user.UserActionBean.questionRemoveDeveloperRole"/>
+                               key="cz.bbmri.action.user.UserActionBean.questionRemoveDeveloperRole"/>
 
-                <s:form beanclass="bbmri.action.user.UserActionBean">
+                <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                     <s:submit name="removeDeveloperRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionDeveloper}')"/>
                 </s:form>
 
-                    <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
+                    <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                     <%--event="removeDeveloperRole">--%>
                     <%--<f:message key="remove"/></s:link>--%>
                 </c:if>
@@ -72,11 +72,11 @@
 <c:if test="${not userBean.isDeveloper}">
     <security:allowed bean="userBean" event="setDeveloperRole">
         <fieldset>
-            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                <f:message key="bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
+            <legend><f:message key="cz.bbmri.action.user.UserActionBean.assign"/>
+                <f:message key="cz.bbmri.entities.enumeration.SystemRole.DEVELOPER"/>
             </legend>
 
-            <s:form beanclass="bbmri.action.user.UserActionBean">
+            <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                 <div class="form-actions">
                     <s:submit name="setDeveloperRole" class="btn btn-primary">
                         <s:param name="id" value="${userBean.id}"/>
@@ -85,7 +85,7 @@
                 </div>
             </s:form>
 
-                <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
+                <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                 <%--event="setDeveloperRole">--%>
                 <%--<f:message key="set"/></s:link>--%>
 
@@ -96,11 +96,11 @@
 <c:if test="${not userBean.isAdministrator}">
     <security:allowed bean="userBean" event="setAdministratorRole">
         <fieldset>
-            <legend><f:message key="bbmri.action.user.UserActionBean.assign"/>
-                <f:message key="bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
+            <legend><f:message key="cz.bbmri.action.user.UserActionBean.assign"/>
+                <f:message key="cz.bbmri.entities.enumeration.SystemRole.ADMINISTRATOR"/>
             </legend>
 
-            <s:form beanclass="bbmri.action.user.UserActionBean">
+            <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                 <div class="form-actions">
                     <s:submit name="setAdministratorRole" class="btn btn-primary">
                         <s:param name="id" value="${userBean.id}"/>
@@ -108,7 +108,7 @@
                 </div>
             </s:form>
 
-                <%--<s:link beanclass="bbmri.action.user.UserActionBean"--%>
+                <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                 <%--event="setAdministratorRole">--%>
                 <%--<f:message key="set"/></s:link>--%>
         </fieldset>
@@ -117,7 +117,7 @@
 
 
 <fieldset>
-    <legend><f:message key="bbmri.action.user.UserActionBean.myBiobanks"/></legend>
+    <legend><f:message key="cz.bbmri.action.user.UserActionBean.myBiobanks"/></legend>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -146,7 +146,7 @@
                         <c:set target="${biobankBean}" property="id" value="${roleDTO.referenceId}"/>
 
                         <security:allowed bean="biobankBean" event="edit">
-                            <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit"
+                            <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="edit"
                                     class="btn btn-primary">
                                 <s:param name="id" value="${roleDTO.referenceId}"/>
                                 <f:message key="edit"/>
@@ -154,7 +154,7 @@
                         </security:allowed>
                         <security:notAllowed bean="biobankBean" event="edit">
                             <security:allowed bean="biobankBean" event="detail">
-                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail"
+                                <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                         class="btn btn-infor">
                                     <s:param name="id" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
@@ -174,7 +174,7 @@
 
 
 <fieldset>
-    <legend><f:message key="bbmri.action.user.UserActionBean.myProjects"/></legend>
+    <legend><f:message key="cz.bbmri.action.user.UserActionBean.myProjects"/></legend>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -205,7 +205,7 @@
                         <c:set target="${projectBean}" property="id" value="${roleDTO.referenceId}"/>
 
                         <security:allowed bean="projectBean" event="edit">
-                            <s:link beanclass="bbmri.action.project.ProjectActionBean" event="edit"
+                            <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="edit"
                                     class="btn btn-primary">
                                 <s:param name="id" value="${roleDTO.referenceId}"/>
                                 <f:message key="edit"/>
@@ -213,7 +213,7 @@
                         </security:allowed>
                         <security:notAllowed bean="projectBean" event="edit">
                             <security:allowed bean="projectBean" event="detail">
-                                <s:link beanclass="bbmri.action.project.ProjectActionBean" event="detail"
+                                <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                         class="btn btn-info">
                                     <s:param name="id" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>

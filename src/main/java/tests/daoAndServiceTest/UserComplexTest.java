@@ -1,6 +1,6 @@
 package tests.daoAndServiceTest;
 
-import bbmri.service.UserService;
+import cz.bbmri.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

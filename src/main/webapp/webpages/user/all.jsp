@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.user.UserActionBean.all" var="title"/>
-<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
+<f:message key="cz.bbmri.action.user.UserActionBean.all" var="title"/>
+<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
@@ -35,7 +35,7 @@
                         <c:set target="${userBean}" property="id" value="${user.id}"/>
                         <security:allowed bean="userBean" event="update">
                             <div class="tableAction">
-                                <s:link beanclass="bbmri.action.user.UserActionBean" event="detail"
+                                <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail"
                                         class="btn btn-primary btnMargin">
                                     <s:param name="id" value="${user.id}"/>
                                     <f:message key="edit"/>
@@ -46,7 +46,7 @@
                         <security:notAllowed bean="userBean" event="update">
                             <security:allowed bean="userBean" event="detail">
                                 <div class="tableAction">
-                                    <s:link beanclass="bbmri.action.user.UserActionBean"
+                                    <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                                             class="btn btn-info  btnMargin"
                                             event="detail">
                                         <s:param name="id" value="${user.id}"/>
@@ -56,9 +56,9 @@
                         </security:notAllowed>
 
                         <security:allowed bean="userBean" event="remove">
-                            <s:form beanclass="bbmri.action.user.UserActionBean">
+                            <s:form beanclass="cz.bbmri.action.user.UserActionBean">
 
-                                <f:message var="question" key="bbmri.action.user.UserActionBean.questionDelete"/>
+                                <f:message var="question" key="cz.bbmri.action.user.UserActionBean.questionDelete"/>
 
                                 <s:submit name="remove" class="btn btn-danger" onclick="return confirm('${question}')">
                                     <s:param name="id" value="${user.id}"/>

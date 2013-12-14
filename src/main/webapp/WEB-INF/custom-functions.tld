@@ -16,25 +16,25 @@
 
     <function>
         <name>contains</name>
-        <function-class>bbmri.action.Function</function-class>
+        <function-class>cz.bbmri.action.Function</function-class>
         <function-signature>boolean contains(java.util.List,java.lang.Object)</function-signature>
     </function>
 
     <function>
         <name>ownProject</name>
-        <function-class>bbmri.action.Function</function-class>
+        <function-class>cz.bbmri.action.Function</function-class>
         <function-signature>boolean ownProject(java.lang.Object,java.lang.Object)</function-signature>
     </function>
 
     <function>
         <name>isAdmin</name>
-        <function-class>bbmri.action.Function</function-class>
+        <function-class>cz.bbmri.action.Function</function-class>
         <function-signature>boolean isAdmin(java.lang.Object,java.lang.Object)</function-signature>
     </function>
 
     <function>
             <name>isAdministrator</name>
-            <function-class>bbmri.action.base.BasicActionBean</function-class>
+            <function-class>cz.bbmri.action.base.BasicActionBean</function-class>
             <function-signature>boolean isAdministrator()</function-signature>
         </function>
 

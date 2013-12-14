@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="biobankBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
-        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail">
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail">
             <s:param name="id" value="${biobankBean.id}"/><f:message
-                key="bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
+                key="cz.bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
     </li>
 </security:allowed>
 
@@ -17,9 +17,9 @@
 
 <security:allowed bean="biobankBean" event="administratorsResolution">
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
-        <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="administratorsResolution">
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="administratorsResolution">
             <s:param name="id" value="${biobankBean.id}"/><f:message
-                key="bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
+                key="cz.bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
     </li>
 </security:allowed>
 
@@ -29,9 +29,9 @@
 
 <security:allowed bean="biobankBean" event="editAdministrators">
     <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
-        <s:link beanclass="bbmri.action.biobank.FindBiobankAdminActionBean">
+        <s:link beanclass="cz.bbmri.action.biobank.FindBiobankAdminActionBean">
             <s:param name="id" value="${biobankBean.id}"/><f:message
-                key="bbmri.action.biobank.BiobankActionBean.addAdministrator"/></s:link>
+                key="cz.bbmri.action.biobank.BiobankActionBean.addAdministrator"/></s:link>
     </li>
 </security:allowed>
 

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.user.UserActionBean.detail" var="title"/>
-<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
+<f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
+<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
@@ -11,7 +11,7 @@
 
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.user.UserActionBean" class="form-horizontal">
+        <s:form beanclass="cz.bbmri.action.user.UserActionBean" class="form-horizontal">
             <s:hidden name="user.id"/>
             <s:hidden name="user.password"/>
 

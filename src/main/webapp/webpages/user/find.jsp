@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.user.UserActionBean.findUser" var="title"/>
-<s:useActionBean var="userFindBean" beanclass="bbmri.action.user.FindUserActionBean"/>
+<f:message key="cz.bbmri.action.user.UserActionBean.findUser" var="title"/>
+<s:useActionBean var="userFindBean" beanclass="cz.bbmri.action.user.FindUserActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"

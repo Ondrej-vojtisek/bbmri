@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
+<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
 
 <table class="table table-hover table-striped">
            <thead>
            <tr>
                <th><s:label name="attachment.name"/></th>
                <th><s:label name="attachment.type"/></th>
-               <th><s:label name="bbmri.entities.Attachment.unit"/></th>
+               <th><s:label name="cz.bbmri.entities.Attachment.unit"/></th>
                <th><s:label name="attachment.importance"/></th>
            </tr>
            </thead>
@@ -30,7 +30,7 @@
                    <td class="action">
                        <security:allowed bean="projectBean" event="downloadAttachment">
                            <div class="tableAction">
-                               <s:link beanclass="bbmri.action.project.ProjectActionBean"
+                               <s:link beanclass="cz.bbmri.action.project.ProjectActionBean"
                                        event="downloadAttachment"
                                        class="btn btn-info btnMargin">
                                    <s:param name="attachment.id" value="${attachment.id}"/>
@@ -39,7 +39,7 @@
                            </div>
                        </security:allowed>
 
-                       <f:message var="question" key="bbmri.action.project.ProjectActionBean.questionDeleteAttachment"/>
+                       <f:message var="question" key="cz.bbmri.action.project.ProjectActionBean.questionDeleteAttachment"/>
 
                        <security:allowed bean="projectBean" event="deleteAttachment">
                            <s:form beanclass="${projectBean.name}">

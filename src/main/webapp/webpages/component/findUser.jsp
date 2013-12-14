@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
-<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
-<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
+<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
 
 <s:layout-definition>
     <fieldset>
@@ -48,14 +48,14 @@
 
     <fieldset>
         <c:if test="${empty findBean.results}">
-            <p><f:message key="bbmri.action.FindActionBean.noResults"/></p>
+            <p><f:message key="cz.bbmri.action.FindActionBean.noResults"/></p>
         </c:if>
 
 
         <c:if test="${not empty findBean.results}">
 
 
-            <legend><f:message key="bbmri.action.FindActionBean.results"/></legend>
+            <legend><f:message key="cz.bbmri.action.FindActionBean.results"/></legend>
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
@@ -100,7 +100,7 @@
                                     <s:form beanclass="${biobankBean.name}">
 
                                         <s:select name="permission">
-                                            <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
+                                            <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                                         </s:select>
 
                                         <s:submit name="addAdministrator" class="btn btn-primary">
@@ -114,7 +114,7 @@
                                     <s:form beanclass="${projectBean.name}">
 
                                         <s:select name="permission">
-                                            <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
+                                            <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                                         </s:select>
 
                                         <s:submit name="addAdministrator" class="btn btn-primary">

@@ -1,10 +1,10 @@
 package tests.serviceTest;
 
-import bbmri.dao.BiobankDao;
-import bbmri.dao.UserDao;
-import bbmri.entities.Biobank;
-import bbmri.service.BiobankService;
-import bbmri.service.impl.BiobankServiceImpl;
+import cz.bbmri.dao.BiobankDao;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.impl.BiobankServiceImpl;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.mockito.InjectMocks;

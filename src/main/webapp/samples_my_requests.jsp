@@ -2,13 +2,13 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
 
 <f:message key="sample.request" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.SampleQuestionActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
                  secondarymenu="samples_my_requests">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+        <s:form beanclass="cz.bbmri.action.SampleQuestionActionBean">
             <c:forEach items="${ab.myProjects}" var="project">
                 <fieldset>
                     <legend><f:message key="project.name"/>: <c:out value="${project.name}"/></legend>

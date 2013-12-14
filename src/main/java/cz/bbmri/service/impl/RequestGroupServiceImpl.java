@@ -1,0 +1,279 @@
+package cz.bbmri.service.impl;
+
+import cz.bbmri.dao.*;
+import cz.bbmri.entities.*;
+import cz.bbmri.entities.enumeration.RequestState;
+import cz.bbmri.service.RequestGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: Ori
+ * Date: 6.2.13
+ * Time: 12:03
+ * To change this template use File | Settings | File Templates.
+ */
+@Transactional
+@Service("requestGroupService")
+public class RequestGroupServiceImpl extends BasicServiceImpl implements RequestGroupService {
+
+    @Autowired
+    private RequestDao requestDao;
+
+    @Autowired
+    private ProjectDao projectDao;
+
+    @Autowired
+    private SampleDao sampleDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
+
+    @Autowired
+    private RequestGroupDao requestGroupDao;
+
+    private RequestGroup initiate(Date created) {
+        RequestGroup requestGroup = new RequestGroup();
+        if (created == null) {
+            created = new Date();
+        }
+        requestGroup.setCreated(created);
+        requestGroup.setLastModification(created);
+        requestGroup.setRequestState(RequestState.NEW);
+        return requestGroup;
+    }
+
+    public void create(List<Request> requests, Long projectId) {
+        notNull(projectId);
+        notNull(requests);
+
+        if (requests.isEmpty()) {
+            return;
+            // TODO: exception
+        }
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            return;
+            // TODO: exception
+        }
+        RequestGroup requestGroup = initiate(null);
+
+        Request firstRequestDB = requestDao.get(requests.get(0).getId());
+        Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
+
+        requestGroup.getRequests().add(firstRequestDB);
+        requestGroup.setProject(projectDB);
+        requestGroup.setBiobank(biobankDB);
+        requestGroupDao.create(requestGroup);
+
+         /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
+            biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
+         */
+
+        Map<Long, RequestGroup> rgMap = new HashMap<Long, RequestGroup>();
+
+        rgMap.put(requestGroup.getBiobank().getId(), requestGroup);
+
+        List<Request> subList = requests.subList(1, requests.size());
+
+        for (Request request : subList) {
+
+            /* The biobank exists in map so we can easily add this actual request to requestGroup */
+            if (rgMap.containsKey(request.getSample().getBiobank().getId())) {
+                rgMap.get(request.getSample().getBiobank().getId()).getRequests().add(request);
+            } else {
+                RequestGroup requestGroupNew = initiate(requestGroup.getCreated());
+                requestGroupNew.setProject(projectDB);
+
+                Biobank biobankDBnew = biobankDao.get(request.getSample().getBiobank().getId());
+                requestGroupNew.setBiobank(biobankDBnew);
+
+                Request requestDBnew = requestDao.get(request.getId());
+                requestGroupNew.getRequests().add(requestDBnew);
+
+                requestGroupDao.create(requestGroupNew);
+                rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
+            }
+        }
+
+        /* Now we have requestGroup for each biobank */
+        Iterator it = rgMap.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry entry = (Map.Entry) it.next();
+            RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
+
+            /*Now we must set that request belongs to requestGroup - the second side of relationship*/
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
+            for (Request request : requestGroupItem.getRequests()) {
+                request.setRequestGroup(requestGroupDB);
+                requestDao.update(request);
+            }
+            requestGroupDao.update(requestGroupDB);
+
+        }
+        it.remove(); // avoids a ConcurrentModificationException
+    }
+
+    public boolean remove(Long id) {
+        notNull(id);
+
+        RequestGroup requestGroupDB = requestGroupDao.get(id);
+        if (requestGroupDB == null) {
+            return false;
+        }
+
+        Biobank biobankDB = biobankDao.get(requestGroupDB.getBiobank().getId());
+        if (biobankDB == null) {
+            return false;
+        }
+
+        biobankDB.getRequestGroups().remove(requestGroupDB);
+        biobankDao.update(biobankDB);
+        requestGroupDB.setBiobank(null);
+
+        List<Request> requests = requestGroupDB.getRequests();
+
+        if (requests == null) {
+            return false;
+        }
+        for (Request request : requests) {
+            requestDao.remove(request);
+        }
+
+        Project projectDB = projectDao.get(requestGroupDB.getProject().getId());
+        if (projectDB == null) {
+            return false;
+        }
+        projectDB.getRequestGroups().remove(requestGroupDB);
+        projectDao.update(projectDB);
+
+        requestGroupDao.remove(requestGroupDB);
+        return true;
+    }
+
+    public RequestGroup update(RequestGroup requestGroup) {
+        notNull(requestGroup);
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroup.getId());
+        if (requestGroupDB == null) {
+            return null;
+        }
+
+        if (requestGroup.getLastModification() != null) {
+                 requestGroupDB.setLastModification(requestGroup.getLastModification());
+        }
+
+        if (requestGroup.getRequestState() != null) {
+                 requestGroupDB.setRequestState(requestGroup.getRequestState());
+        }
+
+   /*
+   Not sure if this can legally happen
+
+   if (requestGroup.getCreated() != null) {
+            requestGroupDB.setCreated(requestGroup.getCreated());
+        }
+   if (requestGroup.getProject() != null) {
+               requestGroupDB.setProject(requestGroup.getProject());
+           }
+   if (requestGroup.getRequests() != null) {
+            requestGroupDB.setRequests(requestGroup.getRequests());
+   }
+
+   if (requestGroup.getBiobank() != null) {
+            requestGroupDB.setBiobank(requestGroup.getBiobank());
+   }
+
+        */
+
+        requestGroupDao.update(requestGroupDB);
+        return requestGroupDB;
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestGroup> all() {
+        return requestGroupDao.all();
+    }
+
+    @Transactional(readOnly = true)
+    public RequestGroup get(Long id) {
+        notNull(id);
+        return requestGroupDao.get(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Integer count() {
+        return requestGroupDao.count();
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestGroup> getByBiobank(Long biobankId) {
+        notNull(biobankId);
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            return null;
+            // TODO: exception
+        }
+        /*This debug is important. Don't delete it! otherwise actionBean will throw hibernateLazyFetch ..*/
+        logger.debug("DONT DELETE THIS: " + biobankDB.getRequestGroups());
+
+        return biobankDB.getRequestGroups();
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState) {
+        notNull(biobankId);
+        notNull(requestState);
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+
+        if(biobankDB == null){
+            return null;
+            // TODO: exception
+        }
+        return requestGroupDao.getByBiobankAndState(biobankDB,  requestState);
+    }
+
+    private void changeRequestState(RequestGroup requestGroupDB, RequestState requestState) {
+        requestGroupDB.setRequestState(requestState);
+        requestGroupDao.update(requestGroupDB);
+    }
+
+    public void approveRequestGroup(Long requestGroupId){
+        notNull(requestGroupId);
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
+        if(requestGroupDB == null){
+            return;
+            //TODO: exception
+        }
+        changeRequestState(requestGroupDB, RequestState.APPROVED);
+    }
+
+    public void denyRequestGroup(Long requestGroupId){
+            notNull(requestGroupId);
+            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
+            if(requestGroupDB == null){
+                return;
+                //TODO: exception
+            }
+            changeRequestState(requestGroupDB, RequestState.DENIED);
+        }
+
+    @Transactional(readOnly = true)
+    public RequestGroup eagerGet(Long id, boolean requests) {
+             notNull(id);
+             RequestGroup requestGroupDB = requestGroupDao.get(id);
+
+             /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
+
+             if (requests) {
+                         logger.debug("" + requestGroupDB.getRequests());
+             }
+             return requestGroupDB;
+
+         }
+}

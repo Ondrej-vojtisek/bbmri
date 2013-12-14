@@ -1,12 +1,12 @@
 package tests.daoTest;
 
-import bbmri.dao.BiobankAdministratorDao;
-import bbmri.dao.BiobankDao;
-import bbmri.dao.UserDao;
-import bbmri.entities.Biobank;
-import bbmri.entities.BiobankAdministrator;
-import bbmri.entities.enumeration.Permission;
-import bbmri.entities.User;
+import cz.bbmri.dao.BiobankAdministratorDao;
+import cz.bbmri.dao.BiobankDao;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.BiobankAdministrator;
+import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

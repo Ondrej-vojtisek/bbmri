@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.project.ProjectActionBean.myProjects" var="title"/>
-<s:useActionBean var="projectBean" beanclass="bbmri.action.project.ProjectActionBean"/>
+<f:message key="cz.bbmri.action.project.ProjectActionBean.myProjects" var="title"/>
+<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
                  secondarymenu="project_my_projects">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.project.ProjectActionBean">
+        <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">
 
             <table class="table table-hover table-striped">
                 <thead>
@@ -36,7 +36,7 @@
 
                             <security:allowed bean="projectBean" event="edit">
                                 <div class="tableAction">
-                                    <s:link beanclass="bbmri.action.project.ProjectActionBean" event="edit"
+                                    <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="edit"
                                             class="btn btn-primary btnMargin">
                                         <s:param name="id" value="${project.id}"/>
                                         <f:message key="edit"/>
@@ -46,7 +46,7 @@
                             <security:notAllowed bean="projectBean" event="edit">
                                 <security:allowed bean="projectBean" event="detail">
                                     <div class="tableAction">
-                                        <s:link beanclass="bbmri.action.project.ProjectActionBean" event="detail"
+                                        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                                 class="btn btn-info btnMargin">
                                             <s:param name="id" value="${project.id}"/>
                                             <f:message key="detail"/>
@@ -58,7 +58,7 @@
                             <f:message var="question" key="bbmri.action.project.ProjectActionBean.questionDelete"/>
 
                             <security:allowed bean="projectBean" event="delete">
-                                <s:form beanclass="bbmri.action.project.ProjectActionBean">
+                                <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">
                                     <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
                                         <s:param name="id" value="${project.id}"/>
                                     </s:submit>

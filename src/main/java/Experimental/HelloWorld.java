@@ -1,7 +1,7 @@
 package experimental;
 
-import bbmri.entities.Sample;
-import bbmri.entities.User;
+import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.User;
 /*
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;

@@ -2,12 +2,12 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="samples.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean">
+        <s:form beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean">
 
             <fieldset>
                 <table>

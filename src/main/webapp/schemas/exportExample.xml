@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <patient xsi:noNamespaceSchemaLocation="exportNIS.xsd"
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns="http://bbmri.cz/schemas/biobank/data"
+   xmlns="http://www.bbmri.cz/schemas/biobank/data"
    rc="88050113280" biobank="MOU" consent="true">
     <!-- Rodne cislo prodlouzeno o znak duplicity,
     idendifikator biobanky alfanumericke znaky o maximalni delce 32,

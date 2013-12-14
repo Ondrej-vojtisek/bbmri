@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.biobank.BiobankActionBean.detail" var="title"/>
+<f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>
 
-<s:useActionBean var="adminFindBean" beanclass="bbmri.action.biobank.FindBiobankAdminActionBean"/>
+<s:useActionBean var="adminFindBean" beanclass="cz.bbmri.action.biobank.FindBiobankAdminActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"

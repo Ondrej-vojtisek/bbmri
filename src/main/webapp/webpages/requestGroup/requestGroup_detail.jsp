@@ -2,12 +2,12 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="samples.title" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean">
+        <s:form beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean">
 
             <fieldset>
                 <legend><f:message key="Request.group.detail"/></legend>
@@ -57,7 +57,7 @@
                             <td><c:out value="${request.sample.grading}"/></td>
                             <td><c:out value="${request.sample.diagnosis}"/></td>
                             <td><c:out value="${request.sample.tissueType}"/></td>
-                            <td><s:link beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean" event="edit">
+                            <td><s:link beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean" event="edit">
                                 <s:param name="request" value="${request.id}"/>
                                 <f:message key="edit"/></s:link>
                             </td>
@@ -66,7 +66,7 @@
                     </tbody>
                 </table>
             </fieldset>
-            <s:link beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean" event="export" target="_blank">
+            <s:link beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean" event="export" target="_blank">
             <f:message key="export"/></s:link>
 
         </s:form>

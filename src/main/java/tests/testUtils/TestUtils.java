@@ -1,8 +1,8 @@
 package tests.testUtils;
 
-import bbmri.entities.*;
-import bbmri.entities.enumeration.ProjectState;
-import bbmri.entities.enumeration.RequestState;
+import cz.bbmri.entities.*;
+import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.entities.enumeration.RequestState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

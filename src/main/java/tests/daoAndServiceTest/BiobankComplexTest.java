@@ -1,16 +1,10 @@
 package tests.daoAndServiceTest;
 
-import bbmri.entities.*;
-import bbmri.entities.enumeration.Permission;
-import bbmri.entities.enumeration.SystemRole;
-import bbmri.service.BiobankAdministratorService;
-import bbmri.service.BiobankService;
-import bbmri.service.SampleService;
-import bbmri.service.UserService;
-import org.junit.Test;
+import cz.bbmri.service.BiobankAdministratorService;
+import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.SampleService;
+import cz.bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 

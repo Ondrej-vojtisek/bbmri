@@ -5,8 +5,8 @@
     <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.user"/></th>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.permission"/></th>
+            <th><s:label name="cz.bbmri.entities.webEntities.RoleDTO.user"/></th>
+            <th><s:label name="cz.bbmri.entities.webEntities.RoleDTO.permission"/></th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
 
                         <s:form beanclass="${bean.name}">
                             <s:select name="permission" value="${administrator.permission}">
-                                <s:options-enumeration enum="bbmri.entities.enumeration.Permission"/>
+                                <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                             </s:select>
 
                             <f:message var="questionSet" key="${bean.name}.questionSetPermission"/>

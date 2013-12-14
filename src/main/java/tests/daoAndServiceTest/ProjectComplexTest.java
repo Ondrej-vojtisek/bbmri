@@ -1,13 +1,13 @@
 package tests.daoAndServiceTest;
 
-import bbmri.entities.*;
-import bbmri.entities.enumeration.Permission;
-import bbmri.entities.enumeration.ProjectState;
-import bbmri.entities.enumeration.SystemRole;
-import bbmri.service.ProjectAdministratorService;
-import bbmri.service.ProjectService;
-import bbmri.service.RequestGroupService;
-import bbmri.service.UserService;
+import cz.bbmri.entities.*;
+import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.service.ProjectAdministratorService;
+import cz.bbmri.service.ProjectService;
+import cz.bbmri.service.RequestGroupService;
+import cz.bbmri.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

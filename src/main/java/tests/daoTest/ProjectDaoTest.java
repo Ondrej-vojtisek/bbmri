@@ -1,9 +1,9 @@
 package tests.daoTest;
 
-import bbmri.dao.ProjectDao;
-import bbmri.dao.UserDao;
-import bbmri.entities.Project;
-import bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.dao.ProjectDao;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Project;
+import cz.bbmri.entities.enumeration.ProjectState;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

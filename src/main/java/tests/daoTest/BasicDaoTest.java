@@ -1,7 +1,7 @@
 package tests.daoTest;
 
-import bbmri.dao.UserDao;
-import bbmri.entities.User;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

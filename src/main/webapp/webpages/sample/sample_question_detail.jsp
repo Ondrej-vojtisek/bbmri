@@ -2,13 +2,13 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="sample_question_detail" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.SampleQuestionActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+        <s:form beanclass="cz.bbmri.action.SampleQuestionActionBean">
             <fieldset>
                 <legend><f:message key="sample.question"/></legend>
 
@@ -30,14 +30,14 @@
 
             <fieldset>
                 <legend><f:message key="selection_criteria"/></legend>
-                <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+                <s:form beanclass="cz.bbmri.action.SampleQuestionActionBean">
                     <s:hidden name="sample.sampleID"/>
                     <%@include file="/form/createSampleForm.jsp" %>
                     <s:submit name="find"><f:message key="find"/></s:submit>
                 </s:form>
             </fieldset>
 
-        <s:form beanclass="bbmri.action.SampleQuestionActionBean">
+        <s:form beanclass="cz.bbmri.action.SampleQuestionActionBean">
             <fieldset>
                 <table cellspacing="0" class="tablesorter narrow">
                     <thead>

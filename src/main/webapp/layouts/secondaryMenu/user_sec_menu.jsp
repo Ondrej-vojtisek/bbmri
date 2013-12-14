@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="userBean" beanclass="bbmri.action.user.UserActionBean"/>
-<s:useActionBean var="userFindBean" beanclass="bbmri.action.user.FindUserActionBean"/>
+<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
+<s:useActionBean var="userFindBean" beanclass="cz.bbmri.action.user.FindUserActionBean"/>
 
 <%--<li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if> ><s:link--%>
-        <%--beanclass="bbmri.action.user.UserActionBean"><f:message--%>
+        <%--beanclass="cz.bbmri.action.user.UserActionBean"><f:message--%>
         <%--key="all"/></s:link></li>--%>
 
 <security:allowed bean="userBean" event="allUsers">

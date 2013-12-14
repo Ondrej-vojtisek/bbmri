@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="sample.requests" var="title"/>
-<s:useActionBean var="ab" beanclass="bbmri.action.SampleQuestionActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.SampleQuestionActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  secondarymenu="requestGroup_all">

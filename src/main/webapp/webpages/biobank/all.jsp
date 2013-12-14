@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.biobank.BiobankActionBean.allBiobanks" var="title"/>
-<s:useActionBean var="biobankBean" beanclass="bbmri.action.biobank.BiobankActionBean"/>
+<f:message key="cz.bbmri.action.biobank.BiobankActionBean.allBiobanks" var="title"/>
+<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  secondarymenu="biobank_all">
@@ -35,7 +35,7 @@
 
                         <security:allowed bean="biobankBean" event="edit">
                             <div class="tableAction">
-                                <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="edit"
+                                <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="edit"
                                         class="btn btn-primary btnMargin">
                                     <s:param name="id" value="${biobank.id}"/>
                                     <f:message key="edit"/>
@@ -45,7 +45,7 @@
                         <security:notAllowed bean="biobankBean" event="edit">
                             <security:allowed bean="biobankBean" event="detail">
                                 <div class="tableAction">
-                                    <s:link beanclass="bbmri.action.biobank.BiobankActionBean" event="detail"
+                                    <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                             class="btn btn-info btnMargin">
                                         <s:param name="id" value="${biobank.id}"/>
                                         <f:message key="detail"/>
@@ -55,9 +55,9 @@
                         </security:notAllowed>
 
                         <security:allowed bean="biobankBean" event="delete">
-                            <s:form beanclass="bbmri.action.biobank.BiobankActionBean">
+                            <s:form beanclass="cz.bbmri.action.biobank.BiobankActionBean">
 
-                                <f:message var="question" key="bbmri.action.biobank.BiobankActionBean.questionDelete"/>
+                                <f:message var="question" key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>
 
                                 <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
                                     <s:param name="id" value="${biobank.id}"/>

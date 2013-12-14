@@ -1,9 +1,9 @@
 package tests.daoTest;
 
-import bbmri.dao.BiobankDao;
-import bbmri.dao.SampleQuestionDao;
-import bbmri.entities.Biobank;
-import bbmri.entities.SampleQuestion;
+import cz.bbmri.dao.BiobankDao;
+import cz.bbmri.dao.SampleQuestionDao;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.SampleQuestion;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

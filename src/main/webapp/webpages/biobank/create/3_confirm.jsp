@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="bbmri.action.biobank.BiobankActionBean.create" var="title"/>
-<s:useActionBean var="biobankCreateBean" beanclass="bbmri.action.biobank.CreateActionBean"/>
+<f:message key="cz.bbmri.action.biobank.BiobankActionBean.create" var="title"/>
+<s:useActionBean var="biobankCreateBean" beanclass="cz.bbmri.action.biobank.CreateActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
@@ -10,12 +10,12 @@
 
     <s:layout-component name="body">
 
-        <s:form beanclass="bbmri.action.biobank.CreateActionBean" class="form-horizontal">
+        <s:form beanclass="cz.bbmri.action.biobank.CreateActionBean" class="form-horizontal">
 
             <fieldset>
 
                 <s:hidden name="project.id"/>
-                <legend><f:message key="bbmri.action.biobank.CreateActionBean.thirdStep"/></legend>
+                <legend><f:message key="cz.bbmri.action.biobank.CreateActionBean.thirdStep"/></legend>
 
                 <div class="control-group">
                     <s:label for="name" class="control-label"/>

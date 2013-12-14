@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="ab" beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
+<s:useActionBean var="ab" beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean"/>
 <s:layout-render name="/layout_empty.jsp">
 
     <s:layout-component name="body">
-        <s:form beanclass="bbmri.action.requestGroup.RequestGroupDetailActionBean">
+        <s:form beanclass="cz.bbmri.action.requestGroup.RequestGroupDetailActionBean">
             <fieldset>
                 <legend><f:message key="Request.group.detail"/></legend>
                 <table>

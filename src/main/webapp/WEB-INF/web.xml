@@ -72,19 +72,19 @@
 
         <init-param>
             <param-name>ActionResolver.Packages</param-name>
-            <param-value>bbmri.action</param-value>
+            <param-value>cz.bbmri.action</param-value>
         </init-param>
 
         <init-param>
             <param-name>ActionBeanContext.Class</param-name>
-            <param-value>bbmri.extension.context.TheActionBeanContext</param-value>
+            <param-value>cz.bbmri.extension.context.TheActionBeanContext</param-value>
         </init-param>
 
         <init-param>
             <param-name>Extension.Packages</param-name>
             <param-value>
                 net.sourceforge.stripes.integration.spring,
-                bbmri.security
+                cz.bbmri.extension.security
             </param-value>
         </init-param>
 
