@@ -19,6 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
+@HttpCache(allow = false)
 @UrlBinding("/sampleQuestion")
 public class SampleQuestionActionBean extends BasicActionBean {
 

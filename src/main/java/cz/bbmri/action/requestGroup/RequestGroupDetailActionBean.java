@@ -20,6 +20,7 @@ import java.util.List;
  * Time: 16:01
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 @PermitAll
 @UrlBinding("/requestGroupDetail")
 public class RequestGroupDetailActionBean extends BasicActionBean {

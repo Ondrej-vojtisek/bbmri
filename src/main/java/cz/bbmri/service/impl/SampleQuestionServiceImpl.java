@@ -4,6 +4,7 @@ import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.service.SampleQuestionService;
@@ -141,6 +142,16 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     @Transactional(readOnly = true)
     public Integer count() {
         return sampleQuestionDao.count();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SampleQuestion> allOrderedBy(String orderByParam, boolean desc){
+        return sampleQuestionDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SampleQuestion> nOrderedBy(String orderByParam, boolean desc, int number){
+        return sampleQuestionDao.nOrderedBy(orderByParam, desc, number);
     }
 
 }

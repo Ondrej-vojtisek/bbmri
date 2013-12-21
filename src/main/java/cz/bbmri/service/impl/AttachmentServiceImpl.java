@@ -69,7 +69,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     public Attachment update(Attachment attachment) {
         notNull(attachment);
         Attachment attachmentDB = attachmentDao.getAttachmentByPath(attachment.getAbsolutePath());
-        if(attachmentDB == null){
+        if (attachmentDB == null) {
             return null;
         }
         attachmentDB.setAttachmentType(attachment.getAttachmentType());
@@ -90,5 +90,15 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         Project projectDB = projectDao.get(projectId);
         notNull(projectDB);
         return attachmentDao.getAttachmentsByProject(projectDB);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Attachment> allOrderedBy(String orderByParam, boolean desc){
+        return attachmentDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Attachment> nOrderedBy(String orderByParam, boolean desc, int number){
+        return attachmentDao.nOrderedBy(orderByParam, desc, number);
     }
 }

@@ -22,6 +22,7 @@ import java.util.List;
  */
 @PermitAll
 @UrlBinding("/sampleRequests")
+@HttpCache(allow = false)
 public class SampleRequestActionBean extends BasicActionBean {
 
     private static final String WITHDRAW = "/webpages/sample/sample_withdraw.jsp";

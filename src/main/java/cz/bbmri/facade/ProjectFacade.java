@@ -22,28 +22,29 @@ public interface ProjectFacade extends PermissionFacade{
 
     boolean denyProject(Long projectId, Long loggedUserId, ValidationErrors errors);
 
-    List<User> getProjectAdministrators(Long projectId);
+  //  List<User> getProjectAdministrators(Long projectId);
 
-    //List<ProjectAdministrator> getProjectAdministrators(Long biobankId);
     Project createProject(Project project,
                           Long loggedUserId,
                           String bbmriPath,
                           ValidationErrors errors);
 
-    boolean updateProject(Project project);
+    boolean updateProject(Project project, Long loggedUserId);
 
-    boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors);
+    boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors, Long loggedUserId);
 
     boolean isApproved(Long projectId);
 
     int createAttachment(FileBean fileBean,
                           AttachmentType attachmentType,
                           Long projectId,
-                          String bbmriPath, ValidationErrors errors);
+                          String bbmriPath,
+                          ValidationErrors errors,
+                          Long loggedUserId);
 
     StreamingResolution downloadFile(Long attachmentId) throws FileNotFoundException;
 
-    boolean deleteAttachment(Long attachmentId, ValidationErrors errors);
+    boolean deleteAttachment(Long attachmentId, ValidationErrors errors, Long loggedUserId);
 
     List<Attachment> getAttachments(Long projectId);
 
@@ -55,8 +56,10 @@ public interface ProjectFacade extends PermissionFacade{
 
     boolean hasBiobankExecutePermission(Long userId);
 
-    boolean markAsFinished(Long projectId);
+    boolean markAsFinished(Long projectId, Long loggedUserId);
 
     ProjectAdministrator getProjectAdministrator(Long projectAdministratorId);
+
+    List<User> getProjectAdministratorsUsers(Long projectId);
 
 }

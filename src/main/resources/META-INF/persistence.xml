@@ -16,6 +16,7 @@
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.User</class>
+        <class>cz.bbmri.entities.Notification</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -44,6 +45,7 @@
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.User</class>
+        <class>cz.bbmri.entities.Notification</class>
 
         <properties>
 

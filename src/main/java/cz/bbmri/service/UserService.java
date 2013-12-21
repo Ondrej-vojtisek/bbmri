@@ -22,14 +22,14 @@ public interface UserService extends BasicService<User>{
 
     User removeRole(Long userId, SystemRole systemRole);
 
-    User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank);
+    User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank, boolean notification);
 
     /* Dummy - tohle musi byt udelano jinym zpusobem. Kontrolou zda dany uzivatel muze byt administrator */
     List<User> getNonAdministratorUsers();
 
-    void setSystemRole(Long userId, SystemRole systemRole);
+    boolean setSystemRole(Long userId, SystemRole systemRole);
 
-    void removeSystemRole(Long userId, SystemRole systemRole);
+    boolean removeSystemRole(Long userId, SystemRole systemRole);
 
     List<User> getAllByRole(SystemRole systemRole);
 
@@ -37,14 +37,8 @@ public interface UserService extends BasicService<User>{
 
     User get(String eppn);
 
-   /*
-    To implement:
+//    List<User> getAllAdministrators();
+//
+//    List<User> getAllDevelopers();
 
-    List<User> findUserByName (String firstName, String surname);
-
-    List<User> findUserByEmail (String email);
-
-    - also with check if new user can be administrator
-    void setNewAdministrator(Long userId)
-   */
 }

@@ -56,7 +56,6 @@ public class User implements Serializable {
     private String password;
 
 
-
     @OneToMany(mappedBy = "user")
     private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
 
@@ -65,6 +64,9 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "judgedByUser")
     private List<Project> judgedProjects = new ArrayList<Project>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications = new ArrayList<Notification>();
 
     @ElementCollection(targetClass = SystemRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
@@ -80,7 +82,8 @@ public class User implements Serializable {
 
     private boolean shibbolethUser;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String name, String surname) {
         this.name = name;
@@ -120,13 +123,12 @@ public class User implements Serializable {
     }
 
 
-
     public boolean getIsOperator() {
         return systemRoles.contains(SystemRole.BIOBANK_OPERATOR);
     }
 
     public boolean getIsAdministrator() {
-         return systemRoles.contains(SystemRole.ADMINISTRATOR);
+        return systemRoles.contains(SystemRole.ADMINISTRATOR);
     }
 
     public List<Project> getJudgedProjects() {
@@ -138,7 +140,7 @@ public class User implements Serializable {
     }
 
     public String getWholeName() {
-        if(displayName != null)
+        if (displayName != null)
             return displayName;
 
         // Fallback for non-shibboleth access
@@ -146,9 +148,9 @@ public class User implements Serializable {
         return name + " " + surname;
     }
 
-    public boolean isEmployee(){
-        if(affiliation != null){
-           return affiliation.contains(AFFILIATION_EMPLOYEE);
+    public boolean isEmployee() {
+        if (affiliation != null) {
+            return affiliation.contains(AFFILIATION_EMPLOYEE);
         }
         return false;
     }
@@ -183,6 +185,14 @@ public class User implements Serializable {
 
     public void setSystemRoles(Set<SystemRole> systemRoles) {
         this.systemRoles = systemRoles;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public Date getCreated() {

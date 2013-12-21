@@ -24,42 +24,42 @@
             <div class="control-group">
                 <s:label for="displayName" class="control-label"/>
                 <div class="controls">
-                    <s:text id="displayName" name="user.displayName" readonly="true"/>
+                    <s:text name="user.displayName" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="email" class="control-label"/>
                 <div class="controls">
-                    <s:text id="email" name="user.email" readonly="true"/>
+                    <s:text name="user.email" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="organization" class="control-label"/>
                 <div class="controls">
-                    <s:text id="organization" name="user.organization" readonly="true"/>
+                    <s:text name="user.organization" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="affiliation" class="control-label"/>
                 <div class="controls">
-                    <s:text id="affiliation" name="user.affiliation" readonly="true"/>
+                    <s:text name="user.affiliation" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="created" class="control-label"/>
                 <div class="controls">
-                    <s:text id="created" name="user.created" readonly="true"/>
+                    <s:text name="user.created" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="lastLogin" class="control-label"/>
                 <div class="controls">
-                    <s:text id="lastLogin" name="user.lastLogin" readonly="true"/>
+                    <s:text name="user.lastLogin" readonly="true"/>
                 </div>
             </div>
 

@@ -22,6 +22,7 @@ import java.util.Random;
  */
 @PermitAll
 @UrlBinding("/SampleCreate")
+@HttpCache(allow = false)
 public class CreateSampleActionBean extends BasicActionBean {
 
     private static final String CREATE = "/webpages/sample/sample_create.jsp";

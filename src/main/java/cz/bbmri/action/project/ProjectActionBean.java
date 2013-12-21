@@ -29,6 +29,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 
+@HttpCache(allow = false)
 @UrlBinding("/project/{$event}/{id}")
 public class ProjectActionBean extends BasicActionBean {
 
@@ -41,7 +42,7 @@ public class ProjectActionBean extends BasicActionBean {
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
                     required = true, on = "update"),
-            @Validate(field = "mainInvestigator",
+            @Validate(field = "principalInvestigator",
                     required = true, on = "update"),
             @Validate(field = "annotation",
                     required = true, on = "update")
@@ -263,7 +264,10 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution update() {
-        projectFacade.updateProject(project);
+        if(!projectFacade.updateProject(project, getContext().getMyId())){
+            return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("id", id);
+        }
+        successMsg(null);
         return new RedirectResolution(PROJECT_DETAIL_GENERAL).addParameter("id", id);
     }
 
@@ -284,9 +288,10 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("deleteAttachment")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution deleteAttachment() {
-        if (!projectFacade.deleteAttachment(attachmentId, getContext().getValidationErrors())) {
+        if (!projectFacade.deleteAttachment(attachmentId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "attachments").addParameter("id", id);
         }
+        successMsg(null);
         return new RedirectResolution(this.getClass(), "attachments").addParameter("id", id);
     }
 
@@ -295,18 +300,23 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution setPermission() {
-        projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors());
+        if(!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())){
+            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
+        }
         // It changes data - redirect necessary
-        return new ForwardResolution(this.getClass(), "administratorsResolution");
+        successMsg(null);
+        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
     }
 
     @DontValidate
     @HandlesEvent("removeAdministrator")
     @RolesAllowed({"project_team_member if ${allowedManager or isMyAccount}"}) //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
-        projectFacade.removeAdministrator(adminId, getContext().getValidationErrors());
-        //    return administratorsResolution(false);
-        return new ForwardResolution(this.getClass(), "administratorsResolution");
+        if(!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())){
+            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
+        }
+        successMsg(null);
+        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
     }
 
     public String getRemoveQuestion(){
@@ -322,9 +332,10 @@ public class ProjectActionBean extends BasicActionBean {
     public Resolution delete() {
         if (!projectFacade.removeProject(id,
                 getContext().getPropertiesStoragePath(),
-                getContext().getValidationErrors())) {
+                getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass());
         }
+        successMsg(null);
         return new RedirectResolution(this.getClass());
     }
 
@@ -332,9 +343,11 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution addAdministrator() {
-        projectFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors());
-        // return administratorsResolution(false);
-        return new ForwardResolution(this.getClass(), "administratorsResolution");
+        if(!projectFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())){
+            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
+        }
+        successMsg(null);
+        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
     }
 
     @DontValidate
@@ -348,14 +361,9 @@ public class ProjectActionBean extends BasicActionBean {
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedEditor}"})
     public Resolution attachmentUpload() {
 
-//        logger.debug("Context: " + getContext().getPropertiesStoragePath());
-//        logger.debug("id " + id);
-//        logger.debug("attachmentType " + attachmentType);
-
         int result = projectFacade.createAttachment(attachmentFileBean,
-                attachmentType, id, getContext().getPropertiesStoragePath(), getContext().getValidationErrors());
-
-//        logger.debug("Result: " + result);
+                attachmentType, id, getContext().getPropertiesStoragePath(),
+                getContext().getValidationErrors(), getContext().getMyId());
 
         if (result < 0) {
             return new ForwardResolution(this.getClass(), "addAttachment").addParameter("id", id);
@@ -379,7 +387,7 @@ public class ProjectActionBean extends BasicActionBean {
         if (!projectFacade.approveProject(id, getContext().getMyId(), getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
-
+        successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
     }
 
@@ -389,18 +397,17 @@ public class ProjectActionBean extends BasicActionBean {
         if (!projectFacade.denyProject(id, getContext().getMyId(), getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
-
+        successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
     }
 
     @HandlesEvent("markAsFinished")
     @RolesAllowed({"project_team_member if ${allowedExecutor}"})
     public Resolution markAsFinished() {
-        if (!projectFacade.markAsFinished(id)) {
-
+        if (!projectFacade.markAsFinished(id, getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
-
+        successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
     }
 

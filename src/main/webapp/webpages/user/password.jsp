@@ -17,14 +17,14 @@
                 <div class="control-group">
                     <s:label for="password" class="control-label"/>
                     <div class="controls">
-                        <s:text id="password" name="password"/>
+                        <s:text name="password"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="password" class="control-label"/>
                     <div class="controls">
-                        <s:text id="password" name="password2"/>
+                        <s:text name="password2"/>
                     </div>
                 </div>
 

@@ -3,6 +3,7 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.SystemRole;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
@@ -59,6 +60,16 @@ NOT case sensitive user search with priority match. If complete match on mail th
         }catch(NoResultException ex){
             return null;
         }
+    }
+
+    public List<User> getAllWithSystemRole(SystemRole systemRole){
+        notNull(systemRole);
+        Query query = em.createQuery("SELECT user FROM User user " +
+                "JOIN user.systemRoles role " +
+                "WHERE role = :systemRoleParam");
+        query.setParameter("systemRoleParam", systemRole);
+
+        return query.getResultList();
     }
 }
 

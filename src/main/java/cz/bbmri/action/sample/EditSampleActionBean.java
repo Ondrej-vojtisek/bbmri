@@ -17,6 +17,7 @@ import javax.annotation.security.PermitAll;
  */
 @PermitAll
 @UrlBinding("/EditSample")
+@HttpCache(allow = false)
 public class EditSampleActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());

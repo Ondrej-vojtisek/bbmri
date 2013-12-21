@@ -57,4 +57,25 @@ public interface BasicDao<T> {
      * @return count of all instances
      */
       Integer count();
+
+    /**
+     * Return all instances of type T ordered by given parameter. Boolean changes if it is ordered DESC or ASC
+     *
+     * @param orderByParam - name of object atribute e.g. "name" which will be used for order
+     * @param desc - flag determining if order will be DESC or default ASC
+     * @return List of all instances of type T ordered by given parameter.
+     */
+    List<T> allOrderedBy(String orderByParam, boolean desc);
+
+
+    /**
+     * Return n instances of type T ordered by given parameter. Boolean changes if it is ordered DESC or ASC. Number = n.
+     *
+     * @param orderByParam - name of object atribute e.g. "name" which will be used for order
+     * @param desc - flag determining if order will be DESC or default ASC
+     * @param number - number of objects which will be returned (if possible)
+     * @return List of n instances of type T ordered by given parameter.
+     */
+    List<T> nOrderedBy(String orderByParam, boolean desc, int number);
+
 }

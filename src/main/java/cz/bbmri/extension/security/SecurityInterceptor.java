@@ -1,6 +1,5 @@
-package cz.bbmri.extension.security.impl;
+package cz.bbmri.extension.security;
 
-import cz.bbmri.extension.security.SecurityHandler;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.Resolution;

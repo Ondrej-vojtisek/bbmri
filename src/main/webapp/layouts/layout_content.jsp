@@ -26,7 +26,7 @@
                 </a>
 
                 <div class="nav-collapse collapse">
-                    <%@include file="navigation/logout.jsp" %>
+                    <%@include file="navigation/navbar.jsp" %>
                     <ul class="nav">
                         <%@include file="primaryMenu/primaryMenu.jsp" %>
                     </ul>

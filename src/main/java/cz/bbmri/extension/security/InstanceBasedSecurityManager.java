@@ -1,4 +1,4 @@
-package cz.bbmri.extension.security.impl;
+package cz.bbmri.extension.security;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.config.DontAutoLoad;

@@ -23,7 +23,7 @@ import java.util.Set;
  * Time: 1:09
  * To change this template use File | Settings | File Templates.
  */
-
+@HttpCache(allow = false)
 @UrlBinding("/biobank/{$event}/{id}")
 public class BiobankActionBean extends BasicActionBean {
 
@@ -200,31 +200,32 @@ public class BiobankActionBean extends BasicActionBean {
     @RolesAllowed({"biobank_operator if ${allowedManager}"})
     public Resolution setPermission() {
 
-        if (biobankFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors())) {
-            successMsg(null);
-            // It changes data - redirect necessary
-            return new RedirectResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+        if (!biobankFacade.changeAdministratorPermission(adminId, permission,
+                getContext().getValidationErrors(), getContext().getMyId())) {
+            return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
         }
-        // It changes data - redirect necessary
-        return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+        successMsg(null);
+        return new RedirectResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+
+
     }
 
     @HandlesEvent("removeAdministrator")
     @RolesAllowed({"biobank_operator if ${allowedManager or isMyAccount}"})
     public Resolution removeAdministrator() {
 
-        if (biobankFacade.removeAdministrator(adminId, getContext().getValidationErrors())) {
+        if (!biobankFacade.removeAdministrator(adminId,
+                getContext().getValidationErrors(), getContext().getMyId())) {
 
-            // Everything fine, print operation succeeded msg and continue to Redirect resolution
-
-            successMsg(null);
-            return new RedirectResolution(this.getClass());
-         //   return new RedirectResolution(this.getClass(), "administrators").addParameter("id", id);
+            return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+            //   return new RedirectResolution(this.getClass(), "administrators").addParameter("id", id);
         }
 
-        // Something went wrong - Forward Resolution with error msg
+        // TODO: pokud jsem smazal sebe tak jdi na MyProjects, pokud jsem smazal nekoho jineho tak jdi na administrators
 
-        return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+        successMsg(null);
+        return new RedirectResolution(this.getClass());
+
     }
 
     public String getRemoveQuestion() {
@@ -237,12 +238,12 @@ public class BiobankActionBean extends BasicActionBean {
     @HandlesEvent("update")
     @RolesAllowed({"biobank_operator if ${allowedEditor}"})
     public Resolution update() {
-
-        if (biobankFacade.updateBiobank(biobank, getContext().getValidationErrors())) {
-            successMsg(null);
-            return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
+        if (!biobankFacade.updateBiobank(biobank, getContext().getValidationErrors(), getContext().getMyId())) {
+            return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
-        return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
+        successMsg(null);
+        return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
+
     }
 
     @HandlesEvent("samples")
@@ -255,25 +256,27 @@ public class BiobankActionBean extends BasicActionBean {
     @RolesAllowed({"developer"})
     public Resolution delete() {
 
-        if (biobankFacade.removeBiobank(id, getContext().getValidationErrors(), getContext().getPropertiesStoragePath())) {
-            successMsg(null);
-            return new RedirectResolution(BIOBANK_ALL);
+        if (!biobankFacade.removeBiobank(id, getContext().getValidationErrors(),
+                getContext().getPropertiesStoragePath(), getContext().getMyId())) {
+            return new ForwardResolution(BIOBANK_ALL);
         }
 
-        return new ForwardResolution(BIOBANK_ALL);
+        successMsg(null);
+        return new RedirectResolution(BIOBANK_ALL);
+
+
     }
 
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"biobank_operator if ${allowedManager}"})
     public Resolution addAdministrator() {
 
-        if (biobankFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors())) {
-            successMsg(null);
-            // Redirect resolution
-            return new RedirectResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+        if (!biobankFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
+            return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
         }
-        // Forward resolution
-        return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+        successMsg(null);
+        return new RedirectResolution(BIOBANK_ADMINISTRATORS).addParameter("id", id);
+
     }
 
     /* Only for permission check of primary menu */

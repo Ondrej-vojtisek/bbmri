@@ -154,8 +154,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             projectDB.setName(project.getName());
         }
 
-        if (project.getMainInvestigator() != null) {
-            projectDB.setMainInvestigator(project.getMainInvestigator());
+        if (project.getPrincipalInvestigator() != null) {
+            projectDB.setPrincipalInvestigator(project.getPrincipalInvestigator());
         }
 
      /*
@@ -369,6 +369,16 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         userDao.update(userDB);
         return true;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> allOrderedBy(String orderByParam, boolean desc){
+        return projectDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> nOrderedBy(String orderByParam, boolean desc, int number){
+        return projectDao.nOrderedBy(orderByParam, desc, number);
     }
 
 }

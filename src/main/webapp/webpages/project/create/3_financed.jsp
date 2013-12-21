@@ -16,14 +16,14 @@
                 <div class="control-group">
                     <s:label for="fundingOrganization" class="control-label"/>
                     <div class="controls">
-                        <s:text id="fundingOrganization" name="project.fundingOrganization"/>
+                        <s:text name="project.fundingOrganization"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="approvedBy" class="control-label"/>
                     <div class="controls">
-                        <s:text id="approvedBy" name="project.approvedBy"/>
+                        <s:text name="project.approvedBy"/>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                     <s:label for="approvalDate" class="control-label"/>
                     <div class="controls">
                         <div class="input-append date" id="dp" data-date="1-1-2014" data-date-format="dd-mm-yyyy">
-                            <s:text id="approvalDate" name="project.approvalDate" readonly="true" value=""/>
+                            <s:text name="project.approvalDate" readonly="true" value=""/>
                             <span class="add-on"><i class="icon-calendar"></i></span>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                 <div class="control-group">
                     <s:label for="approvalStorage" class="control-label"/>
                     <div class="controls">
-                        <s:text id="approvalStorage" name="project.approvalStorage"/>
+                        <s:text name="project.approvalStorage"/>
                     </div>
                 </div>
 

@@ -1,10 +1,9 @@
-package cz.bbmri.extension.security.impl;
+package cz.bbmri.extension.security;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.action.LoginActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
-import cz.bbmri.extension.security.SecurityHandler;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

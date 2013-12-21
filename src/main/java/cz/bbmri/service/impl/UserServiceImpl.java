@@ -1,10 +1,8 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.BiobankAdministratorDao;
-import cz.bbmri.dao.BiobankDao;
-import cz.bbmri.dao.ProjectAdministratorDao;
-import cz.bbmri.dao.UserDao;
+import cz.bbmri.dao.*;
 import cz.bbmri.entities.BiobankAdministrator;
+import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
@@ -45,6 +43,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Autowired
     private ProjectAdministratorDao projectAdministratorDao;
 
+    @Autowired
+    private NotificationDao notificationDao;
+
     public User create(User user) {
         user.setCreated(new Date());
         user.getSystemRoles().add(SystemRole.USER);
@@ -77,6 +78,13 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             }
         }
 
+        List<Notification> notifications = userDB.getNotifications();
+        if (notifications != null) {
+            for (Notification notification : notifications) {
+                notification.setUser(null);
+                notificationDao.remove(notification);
+            }
+        }
 
         userDao.remove(userDB);
         return true;
@@ -162,7 +170,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank) {
+    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank, boolean notification) {
         notNull(id);
         User userDB = userDao.get(id);
 
@@ -179,63 +187,69 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (project) {
             logger.debug("" + userDB.getProjectAdministrators());
         }
+
+        if (notification) {
+            logger.debug("" + userDB.getNotifications());
+        }
         return userDB;
 
     }
 
-    public void setSystemRole(Long userId, SystemRole systemRole) {
+    public boolean setSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
         notNull(systemRole);
 
         User userDB = userDao.get(userId);
 
         if (userDB == null) {
-            return;
-            // TODO: exception
+            return false;
         }
 
         if (userDB.getSystemRoles().contains(systemRole)) {
-            return;
-            // TODO: exception
+            return false;
         }
         userDB.getSystemRoles().add(systemRole);
         userDao.update(userDB);
+        return true;
     }
 
-    public void removeSystemRole(Long userId, SystemRole systemRole) {
+    public boolean removeSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
         notNull(systemRole);
 
         User userDB = userDao.get(userId);
 
         if (userDB == null) {
-            return;
+            return false;
             // TODO: exception
         }
 
         if (!userDB.getSystemRoles().contains(systemRole)) {
-            return;
+            return false;
             // TODO: exception
         }
         userDB.getSystemRoles().remove(systemRole);
         userDao.update(userDB);
+        return true;
     }
 
     @Transactional(readOnly = true)
     public List<User> getAllByRole(SystemRole systemRole) {
+//        notNull(systemRole);
+//        List<User> results = new ArrayList<User>();
+//        for (User user : userDao.all()) {
+//            if (user.getSystemRoles().contains(systemRole)) {
+//                results.add(user);
+//            }
+//        }
+//        return results;
         notNull(systemRole);
-        List<User> results = new ArrayList<User>();
-        for (User user : userDao.all()) {
-            if (user.getSystemRoles().contains(systemRole)) {
-                results.add(user);
-            }
-        }
-        return results;
+        return userDao.getAllWithSystemRole(systemRole);
     }
 
     @Transactional(readOnly = true)
     public List<User> find(User user, int requiredResults) {
-        logger.debug("FIND_SERVICE");
+        notNull(user);
 
         List<User> users = userDao.findUser(user);
         if (users == null) {
@@ -248,8 +262,28 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User get(String eppn){
+    public User get(String eppn) {
         notNull(eppn);
         return userDao.get(eppn);
+    }
+
+//    @Transactional(readOnly = true)
+//    public List<User> getAllAdministrators(){
+//        return userDao.getAllWithSystemRole(SystemRole.ADMINISTRATOR);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public List<User> getAllDevelopers(){
+//        return userDao.getAllWithSystemRole(SystemRole.DEVELOPER);
+//    }
+
+    @Transactional(readOnly = true)
+    public List<User> allOrderedBy(String orderByParam, boolean desc) {
+        return userDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> nOrderedBy(String orderByParam, boolean desc, int number) {
+        return userDao.nOrderedBy(orderByParam, desc, number);
     }
 }

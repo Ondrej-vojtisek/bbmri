@@ -107,17 +107,17 @@ form {
     margin-right: 5px;
 }
 
-table td.action .pull-right {
+table td.action .pull-right, div.action {
     margin-right: -3px;
 }
 
 table td.action .btn,
-table td.action input {
+table td.action input, div.action .btn, div.action input {
     margin-top: -8px;
     margin-bottom: -6px;
 }
 
-table td.action select {
+table td.action select, div.action select {
     margin-top: -6px;
     margin-bottom: -4px;
     margin-right: 5px;
@@ -220,3 +220,17 @@ table td.action input {
     background-color: rgba(0, 136, 204, 0.22);
 }
 
+.notification .firstLine{
+    background-image: linear-gradient(to bottom, #5A5A5A, #3C3C3C);
+    background-repeat: repeat-x;
+    border-color: #252525;
+}
+
+.notification .other{
+    background-color: #e5e5e5;
+    color: #333333;
+}
+
+.notification input[type="checkbox"]{
+    margin: 0;
+}

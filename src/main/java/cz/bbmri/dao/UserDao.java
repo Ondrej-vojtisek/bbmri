@@ -1,6 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.SystemRole;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface UserDao extends BasicDao<User>{
     List<User> findUser(User user);
 
     User get(String eppn);
+
+    List<User> getAllWithSystemRole(SystemRole systemRole);
 }

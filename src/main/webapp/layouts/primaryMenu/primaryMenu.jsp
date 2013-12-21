@@ -8,6 +8,14 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
+<li <c:if test="${primarymenu == 'home'}"> class="active" </c:if>">
+    <s:link beanclass="cz.bbmri.action.DashboardActionBean">
+        <f:message key="home"/>
+    </s:link>
+</li>
+
+<%-- -------------------------------------------------------------------- --%>
+
 <li class="dropdown <c:if test="${primarymenu == 'project'}"> active </c:if>">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <f:message key="projects"/>
@@ -81,18 +89,18 @@
                 </li>
             </security:allowed>
 
-            <%-- -------------------------------------------------------------------- --%>
+                <%-- -------------------------------------------------------------------- --%>
 
-            <%--List all "my" biobanks in menu. If I can edit that the link leads to editable form --%>
+                <%--List all "my" biobanks in menu. If I can edit that the link leads to editable form --%>
 
             <c:if test="${not empty biobankBean.myBiobanks}">
-              <li class="divider"></li>
-              <li class="nav-header">
-                  <f:message key="cz.bbmri.action.biobank.BiobankActionBean.myBiobanks"/>
-              </li>
+                <li class="divider"></li>
+                <li class="nav-header">
+                    <f:message key="cz.bbmri.action.biobank.BiobankActionBean.myBiobanks"/>
+                </li>
 
-            <c:forEach var="biobank" items="${biobankBean.myBiobanks}">
-                <li>
+                <c:forEach var="biobank" items="${biobankBean.myBiobanks}">
+                    <li>
                         <security:allowed bean="biobankBean" event="detail">
                             <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean"
                                     event="detail">
@@ -100,12 +108,12 @@
                                 ${biobank.name}
                             </s:link>
                         </security:allowed>
-                </li>
+                    </li>
 
-            </c:forEach>
+                </c:forEach>
             </c:if>
 
-             <%-- -------------------------------------------------------------------- --%>
+                <%-- -------------------------------------------------------------------- --%>
 
         </ul>
     </li>
@@ -156,4 +164,10 @@
     </li>
 </security:allowed>
 
+<%-- -------------------------------------------------------------------- --%>
 
+<li <c:if test="${primarymenu == 'support'}"> class="active" </c:if>">
+    <s:link beanclass="cz.bbmri.action.support.SupportActionBean">
+        <f:message key="support"/>
+    </s:link>
+</li>

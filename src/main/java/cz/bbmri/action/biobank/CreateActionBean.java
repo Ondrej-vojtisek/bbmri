@@ -21,6 +21,7 @@ import javax.annotation.security.RolesAllowed;
  * Time: 16:25
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
 public class CreateActionBean extends FindActionBean {

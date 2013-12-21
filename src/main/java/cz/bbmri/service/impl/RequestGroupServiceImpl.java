@@ -164,11 +164,11 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         }
 
         if (requestGroup.getLastModification() != null) {
-                 requestGroupDB.setLastModification(requestGroup.getLastModification());
+            requestGroupDB.setLastModification(requestGroup.getLastModification());
         }
 
         if (requestGroup.getRequestState() != null) {
-                 requestGroupDB.setRequestState(requestGroup.getRequestState());
+            requestGroupDB.setRequestState(requestGroup.getRequestState());
         }
 
    /*
@@ -231,11 +231,11 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
 
         Biobank biobankDB = biobankDao.get(biobankId);
 
-        if(biobankDB == null){
+        if (biobankDB == null) {
             return null;
             // TODO: exception
         }
-        return requestGroupDao.getByBiobankAndState(biobankDB,  requestState);
+        return requestGroupDao.getByBiobankAndState(biobankDB, requestState);
     }
 
     private void changeRequestState(RequestGroup requestGroupDB, RequestState requestState) {
@@ -243,37 +243,47 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         requestGroupDao.update(requestGroupDB);
     }
 
-    public void approveRequestGroup(Long requestGroupId){
+    public void approveRequestGroup(Long requestGroupId) {
         notNull(requestGroupId);
         RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
-        if(requestGroupDB == null){
+        if (requestGroupDB == null) {
             return;
             //TODO: exception
         }
         changeRequestState(requestGroupDB, RequestState.APPROVED);
     }
 
-    public void denyRequestGroup(Long requestGroupId){
-            notNull(requestGroupId);
-            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
-            if(requestGroupDB == null){
-                return;
-                //TODO: exception
-            }
-            changeRequestState(requestGroupDB, RequestState.DENIED);
+    public void denyRequestGroup(Long requestGroupId) {
+        notNull(requestGroupId);
+        RequestGroup requestGroupDB = requestGroupDao.get(requestGroupId);
+        if (requestGroupDB == null) {
+            return;
+            //TODO: exception
         }
+        changeRequestState(requestGroupDB, RequestState.DENIED);
+    }
 
     @Transactional(readOnly = true)
     public RequestGroup eagerGet(Long id, boolean requests) {
-             notNull(id);
-             RequestGroup requestGroupDB = requestGroupDao.get(id);
+        notNull(id);
+        RequestGroup requestGroupDB = requestGroupDao.get(id);
 
              /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-             if (requests) {
-                         logger.debug("" + requestGroupDB.getRequests());
-             }
-             return requestGroupDB;
+        if (requests) {
+            logger.debug("" + requestGroupDB.getRequests());
+        }
+        return requestGroupDB;
 
-         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestGroup> allOrderedBy(String orderByParam, boolean desc){
+        return requestGroupDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<RequestGroup> nOrderedBy(String orderByParam, boolean desc, int number){
+        return requestGroupDao.nOrderedBy(orderByParam, desc, number);
+    }
 }

@@ -56,7 +56,7 @@ public class Project implements Serializable {
 
     private Date approvalDate;
 
-    private String mainInvestigator;
+    private String principalInvestigator;
 
     private String homeInstitution;
 
@@ -82,12 +82,12 @@ public class Project implements Serializable {
         this.homeInstitution = homeInstitution;
     }
 
-    public String getMainInvestigator() {
-        return mainInvestigator;
+    public String getPrincipalInvestigator() {
+        return principalInvestigator;
     }
 
-    public void setMainInvestigator(String mainInvestigator) {
-        this.mainInvestigator = mainInvestigator;
+    public void setPrincipalInvestigator(String principalInvestigator) {
+        this.principalInvestigator = principalInvestigator;
     }
 
     public String getApprovedBy() {

@@ -20,4 +20,9 @@ public interface BasicService<T> {
     T update(T t);
 
     Integer count();
+
+    List<T> allOrderedBy(String orderByParam, boolean desc);
+
+    List<T> nOrderedBy(String orderByParam, boolean desc, int number);
+
 }

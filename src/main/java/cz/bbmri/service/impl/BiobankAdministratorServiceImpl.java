@@ -3,6 +3,7 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.BiobankAdministratorDao;
 import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.User;
@@ -133,6 +134,16 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
 
         /* My highest permission to any of my biobank is higher than permission? */
         return permissionHighest.include(permission);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BiobankAdministrator> allOrderedBy(String orderByParam, boolean desc){
+        return biobankAdministratorDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BiobankAdministrator> nOrderedBy(String orderByParam, boolean desc, int number){
+        return biobankAdministratorDao.nOrderedBy(orderByParam, desc, number);
     }
 
 

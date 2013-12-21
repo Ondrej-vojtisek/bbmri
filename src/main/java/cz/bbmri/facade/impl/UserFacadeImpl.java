@@ -1,14 +1,19 @@
 package cz.bbmri.facade.impl;
 
 import cz.bbmri.entities.BiobankAdministrator;
+import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.RoleDTO;
 import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.BiobankAdministratorService;
+import cz.bbmri.service.NotificationService;
 import cz.bbmri.service.UserService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -36,11 +41,14 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<RoleDTO> getRoles(Long userId) {
         notNull(userId);
         List<RoleDTO> results = new ArrayList<RoleDTO>();
 
-        User userDB = userService.eagerGet(userId, false, true, true);
+        User userDB = userService.eagerGet(userId, false, true, true, false);
 
         if (userDB == null) {
             return null;
@@ -73,25 +81,31 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return results;
     }
 
-    public void update(User user) {
+    public boolean update(User user) {
         notNull(user);
-        userService.update(user);
+        return userService.update(user) != null;
     }
 
     public List<User> all() {
         return userService.all();
     }
 
-    public void create(User user) {
+    public boolean create(User user) {
         notNull(user);
         user.setShibbolethUser(false);
         user = userService.create(user);
+
+        if (user == null) {
+            return false;
+        }
+
         userService.setSystemRole(user.getId(), SystemRole.USER);
+        return true;
     }
 
-    public void remove(Long userId) {
+    public boolean remove(Long userId) {
         notNull(userId);
-        userService.remove(userId);
+        return userService.remove(userId);
     }
 
     public User get(Long userId) {
@@ -99,50 +113,98 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return userService.get(userId);
     }
 
-    public void setAsDeveloper(Long userId) {
+    public boolean setAsDeveloper(Long userId, ValidationErrors errors) {
         notNull(userId);
-        userService.setSystemRole(userId, SystemRole.DEVELOPER);
+
+        User userDB = userService.get(userId);
+        if (userDB == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
+            return false;
+        }
+
+        boolean result = userService.setSystemRole(userId, SystemRole.DEVELOPER);
+        if (result) {
+            String msg = "Developer permission was given to user: " + userDB.getWholeName() + ".";
+
+            notificationService.create(getDevelopers(),
+                    NotificationType.USER_SUPPORT, msg, null);
+        }
+        return result;
     }
 
-    public void setAsAdministrator(Long userId) {
+    public boolean setAsAdministrator(Long userId, ValidationErrors errors) {
         notNull(userId);
-        userService.setSystemRole(userId, SystemRole.DEVELOPER);
+
+        User userDB = userService.get(userId);
+        if (userDB == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
+            return false;
+        }
+
+        boolean result = userService.setSystemRole(userId, SystemRole.DEVELOPER);
+        if (result) {
+            String msg = "Administrator permission was given to user: " + userDB.getWholeName() + ".";
+
+            notificationService.create(getAdministrators(),
+                    NotificationType.USER_SUPPORT, msg, null);
+        }
+        return result;
     }
 
-    public void removeSystemRole(Long userId, SystemRole systemRole) {
-        notNull(userId);
-        notNull(systemRole);
-        userService.removeSystemRole(userId, systemRole);
-    }
+//    public void removeSystemRole(Long userId, SystemRole systemRole) {
+//        notNull(userId);
+//        notNull(systemRole);
+//        userService.removeSystemRole(userId, systemRole);
+//    }
 
-    public void removeAdministratorRole(Long userId) {
+    public boolean removeAdministratorRole(Long userId, ValidationErrors errors) {
         notNull(userId);
         User userDB = userService.get(userId);
         if (userDB == null) {
-            return;
-            // TODO: exception
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
+            return false;
         }
         if (getAdministrators().size() == 1) {
-            // TODO Exception
-            // can't remove last administrator
-            return;
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastAdministratorRemove"));
+            return false;
         }
-        userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR);
+
+        boolean result = userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR);
+
+        if (result) {
+
+            String msg = "Administrator permission was taken from user: " + userDB.getWholeName() + ".";
+
+            notificationService.create(getAdministrators(),
+                    NotificationType.USER_SUPPORT, msg, null);
+        }
+
+        return result;
     }
 
-    public void removeDeveloperRole(Long userId) {
+    public boolean removeDeveloperRole(Long userId, ValidationErrors errors) {
         notNull(userId);
         User userDB = userService.get(userId);
         if (userDB == null) {
-            return;
-            // TODO: exception
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
+            return false;
         }
         if (getDevelopers().size() == 1) {
-            // TODO Exception
-            // can't remove last administrator
-            return;
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastDeveloperRemove"));
+            return false;
         }
-        userService.removeSystemRole(userId, SystemRole.DEVELOPER);
+        boolean result = userService.removeSystemRole(userId, SystemRole.DEVELOPER);
+
+        if (result) {
+
+            String msg = "Developer permission was taken from user: " + userDB.getWholeName() + ".";
+
+            notificationService.create(getDevelopers(),
+                    NotificationType.USER_SUPPORT, msg, null);
+
+        }
+
+        return result;
     }
 
 
@@ -173,7 +235,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             return null;
         }
         if (!userDB.getPassword().equals(password)) {
-           return null;
+            return null;
         }
 
         userDB.setLastLogin(new Date());
@@ -222,5 +284,38 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         user.setLastLogin(new Date());
         userService.update(userDB);
         return userDB.getId();
+    }
+
+    public List<Notification> getUnreadNotifications(Long loggedUserId) {
+        notNull(loggedUserId);
+        return notificationService.getUnread(loggedUserId);
+    }
+
+    public boolean markAsRead(List<Long> notificationsId) {
+        notNull(notificationsId);
+        if (notificationsId.isEmpty()) {
+            return false;
+        }
+        for (Long id : notificationsId) {
+            notificationService.markAsRead(id);
+        }
+
+        return true;
+    }
+
+    public boolean deleteNotifications(List<Long> notificationsId) {
+        notNull(notificationsId);
+        if (notificationsId.isEmpty()) {
+            return false;
+        }
+        for (Long id : notificationsId) {
+            notificationService.remove(id);
+        }
+
+        return true;
+    }
+
+    public List<User> allOrderedBy(String orderByParam, boolean desc){
+        return userService.allOrderedBy(orderByParam, desc);
     }
 }

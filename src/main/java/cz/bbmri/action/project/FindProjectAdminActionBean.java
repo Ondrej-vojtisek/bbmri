@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * Time: 16:36
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 @UrlBinding("/project/addAdministrator/{$event}/{id}")
 public class FindProjectAdminActionBean extends FindActionBean {
 

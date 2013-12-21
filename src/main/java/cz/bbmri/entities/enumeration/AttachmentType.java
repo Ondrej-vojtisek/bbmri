@@ -13,6 +13,7 @@ public enum AttachmentType {
     MATERIAL_TRANSFER_AGREEMENT("_mta"),
     RESULT("_result"),
     OTHER("_other");
+
     private String state;
 
     private AttachmentType(String state) {

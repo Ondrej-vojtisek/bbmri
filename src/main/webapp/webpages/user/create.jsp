@@ -14,21 +14,21 @@
             <div class="control-group">
                 <s:label for="name" class="control-label"/>
                 <div class="controls">
-                    <s:text id="name" name="user.name"/>
+                    <s:text name="user.name"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="surname" class="control-label"/>
                 <div class="controls">
-                    <s:text id="surname" name="user.surname"/>
+                    <s:text name="user.surname"/>
                 </div>
             </div>
 
             <div class="control-group">
                 <s:label for="password" class="control-label"/>
                 <div class="controls">
-                    <s:text id="password" name="user.password"/>
+                    <s:text name="user.password"/>
                 </div>
             </div>
 

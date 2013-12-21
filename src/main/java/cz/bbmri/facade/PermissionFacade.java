@@ -14,9 +14,9 @@ public interface PermissionFacade {
 
     boolean hasPermission(Permission permission, Long objectId, Long userId);
 
-    boolean changeAdministratorPermission(Long objectAdministratorId, Permission permission, ValidationErrors errors);
+    boolean changeAdministratorPermission(Long objectAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId);
 
-    boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors);
+    boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId);
 
-    boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors);
+    boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId);
 }

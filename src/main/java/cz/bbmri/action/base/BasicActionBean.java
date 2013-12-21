@@ -5,12 +5,17 @@ import cz.bbmri.entities.Request;
 import cz.bbmri.entities.RequestGroup;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.extension.localization.LocalePicker;
 import cz.bbmri.service.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,6 +25,7 @@ import java.util.Set;
  * Time: 20:49
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 public class BasicActionBean extends Links implements ActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -107,6 +113,41 @@ public class BasicActionBean extends Links implements ActionBean {
         getContext().getMessages().add(new LocalizableMessage("msg"));
     }
 
+    public String getLastUrl() {
+           HttpServletRequest req = getContext().getRequest();
+           StringBuilder sb = new StringBuilder();
 
+           // Start with the URI and the path
+           String uri = (String)
+               req.getAttribute("javax.servlet.forward.request_uri");
+           String path = (String)
+               req.getAttribute("javax.servlet.forward.path_info");
+           if (uri == null) {
+               uri = req.getRequestURI();
+               path = req.getPathInfo();
+           }
+           sb.append(uri);
+           if (path != null) { sb.append(path); }
+
+           // Now the request parameters
+           sb.append('?');
+           Map<String,String[]> map =
+               new HashMap<String,String[]>(req.getParameterMap());
+
+           // Remove previous locale parameter, if present.
+           map.remove(LocalePicker.LOCALE);
+
+           // Append the parameters to the URL
+           for (String key : map.keySet()) {
+               String[] values = map.get(key);
+               for (String value : values) {
+                   sb.append(key).append('=').append(value).append('&');
+               }
+           }
+           // Remove the last '&'
+           sb.deleteCharAt(sb.length() - 1);
+
+           return sb.toString();
+       }
 
 }

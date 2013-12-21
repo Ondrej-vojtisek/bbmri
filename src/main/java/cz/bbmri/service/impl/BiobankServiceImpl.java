@@ -275,7 +275,16 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         return biobankDB;
+    }
 
+    @Transactional(readOnly = true)
+    public List<Biobank> allOrderedBy(String orderByParam, boolean desc) {
+        return biobankDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Biobank> nOrderedBy(String orderByParam, boolean desc, int number) {
+        return biobankDao.nOrderedBy(orderByParam, desc, number);
     }
 
 }

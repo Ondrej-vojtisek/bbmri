@@ -3,6 +3,7 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
+import net.sourceforge.stripes.action.HttpCache;
 import net.sourceforge.stripes.action.UrlBinding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
+@HttpCache(allow = false)
 @UrlBinding("/releaseSample/{$event}/{loggedUser.id}")
 public class ReleaseSampleActionBean extends BasicActionBean {
 

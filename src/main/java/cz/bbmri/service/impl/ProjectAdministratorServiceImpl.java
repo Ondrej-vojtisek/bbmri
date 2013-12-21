@@ -3,6 +3,7 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.ProjectAdministratorDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
@@ -97,6 +98,16 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
         User userDB = userDao.get(userId);
 
         return !(projectDB == null || userDB == null) && projectAdministratorDao.contains(projectDB, userDB);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProjectAdministrator> allOrderedBy(String orderByParam, boolean desc){
+        return projectAdministratorDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProjectAdministrator> nOrderedBy(String orderByParam, boolean desc, int number){
+        return projectAdministratorDao.nOrderedBy(orderByParam, desc, number);
     }
 
 

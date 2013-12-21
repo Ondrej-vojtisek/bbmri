@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * Time: 10:08
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 @UrlBinding("/biobank/addAdministrator/{$event}/{id}")
 public class FindBiobankAdminActionBean extends FindActionBean {
 

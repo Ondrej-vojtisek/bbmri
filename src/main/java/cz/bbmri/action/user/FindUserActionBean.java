@@ -1,10 +1,7 @@
 package cz.bbmri.action.user;
 
 import cz.bbmri.action.FindActionBean;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.HandlesEvent;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.action.*;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -15,6 +12,7 @@ import javax.annotation.security.RolesAllowed;
  * Time: 14:02
  * To change this template use File | Settings | File Templates.
  */
+@HttpCache(allow = false)
 @UrlBinding("/user/find/{$event}")
 public class FindUserActionBean extends FindActionBean {
 

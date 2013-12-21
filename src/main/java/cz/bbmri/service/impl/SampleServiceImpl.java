@@ -4,6 +4,7 @@ import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.service.SampleService;
@@ -208,6 +209,16 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
         return sampleDB;
 
+    }
+
+    @Transactional(readOnly = true)
+    public List<Sample> allOrderedBy(String orderByParam, boolean desc){
+        return sampleDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Sample> nOrderedBy(String orderByParam, boolean desc, int number){
+        return sampleDao.nOrderedBy(orderByParam, desc, number);
     }
 
 }

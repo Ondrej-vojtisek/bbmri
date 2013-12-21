@@ -1,4 +1,4 @@
-package cz.bbmri.extension.security.impl;
+package cz.bbmri.extension.security;
 
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.ActionBean;
@@ -28,7 +28,6 @@ import org.stripesstuff.plugin.security.SecurityManager;
 @DontAutoLoad
 public class J2EESecurityManager implements SecurityManager
 {
-
 
     @SpringBean
     private UserService userService;
@@ -67,9 +66,14 @@ public class J2EESecurityManager implements SecurityManager
         // Rinse and repeat for all superclasses
         Class<?> beanClass = bean.getClass();
 
+
+
         // Iterate through the class nesting
         while(allowed == null && beanClass != null)
         {
+            logger.debug("Allowed: " + allowed);
+            logger.debug("beanClass: " + beanClass);
+
             logger.debug("Determining if access is allowed for " + beanClass.getName() + " on " + bean.toString());
             allowed = determineAccessOnElement(bean, handler, beanClass);
             beanClass = beanClass.getSuperclass();

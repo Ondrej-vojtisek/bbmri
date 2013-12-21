@@ -15,23 +15,30 @@
         <s:layout-component name="hlavicka"/>
     </head>
     <body>
-    <div style="text-align: right; margin-right: 20px;">
-        <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
+    <div class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="nav-collapse collapse">
+                <%@include file="navigation/navbar.jsp" %>
+            </div>
+        </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 50px;">
+            <s:messages/>
 
-        <s:messages/>
+            <s:errors/>
 
-        <s:errors/>
+            <div class="login_screen">
 
-        <div class="login_screen">
+                <div class="form-signin">
+                    <s:layout-component name="body"/>
+                </div>
 
-            <div class="form-signin">
-                <s:layout-component name="body"/>
             </div>
-
-        </div>
     </div>
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">

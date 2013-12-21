@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * Time: 16:36
  * To change this template use File | Settings | File Templates.
  */
-
+@HttpCache(allow = false)
 @Wizard(startEvents = {"initial", "mta"})
 @UrlBinding("/project/create/{$event}/{id}")
 public class CreateProjectActionBean extends BasicActionBean {
@@ -174,7 +174,7 @@ public class CreateProjectActionBean extends BasicActionBean {
 
         int result = projectFacade.createAttachment(attachmentFileBean,
                 AttachmentType.MATERIAL_TRANSFER_AGREEMENT,
-                project.getId(), getContext().getPropertiesStoragePath(), getContext().getValidationErrors());
+                project.getId(), getContext().getPropertiesStoragePath(), getContext().getValidationErrors(), getContext().getMyId());
 
         if(result < 0){
             return new ForwardResolution(PROJECT_CREATE_MTA);
@@ -191,5 +191,4 @@ public class CreateProjectActionBean extends BasicActionBean {
 
         return new RedirectResolution(ProjectActionBean.class);
     }
-
 }

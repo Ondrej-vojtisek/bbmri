@@ -4,6 +4,7 @@ import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.service.RequestService;
@@ -133,4 +134,14 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
            return requestDB;
 
        }
+
+    @Transactional(readOnly = true)
+    public List<Request> allOrderedBy(String orderByParam, boolean desc){
+        return requestDao.allOrderedBy(orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Request> nOrderedBy(String orderByParam, boolean desc, int number){
+        return requestDao.nOrderedBy(orderByParam, desc, number);
+    }
 }

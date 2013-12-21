@@ -5,11 +5,13 @@ import cz.bbmri.entities.Project;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.service.*;
 import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -23,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -49,14 +52,28 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
         notNull(projectId);
         notNull(loggedUserId);
+
 
         if (!projectService.approve(projectId, loggedUserId)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ApproveFailed"));
             return false;
         }
+
+        Project project = projectService.get(projectId);
+        if (project != null) {
+
+            String msg = "Project: " + project.getName() + " was approved.";
+
+            notificationService.create(getProjectAdministratorsUsers(projectId),
+                    NotificationType.PROJECT_DETAIL, msg, project.getId());
+        }
+
         return true;
     }
 
@@ -68,10 +85,20 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.DenyFailed"));
             return false;
         }
+
+        Project project = projectService.get(projectId);
+        if (project != null) {
+
+            String msg = "Project: " + project.getName() + " was denied.";
+
+            notificationService.create(getProjectAdministratorsUsers(projectId),
+                    NotificationType.PROJECT_DETAIL, msg, project.getId());
+        }
+
         return true;
     }
 
-    public List<User> getProjectAdministrators(Long projectId) {
+    public List<User> getProjectAdministratorsUsers(Long projectId) {
         throw new NotImplementedException("TODO");
     }
 
@@ -131,18 +158,51 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     }
 
-    public boolean updateProject(Project project) {
-        notNull(project);
-        return projectService.update(project) != null;
+    private List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
+        Project projectDB = projectService.eagerGet(project.getId(), true, false, false, false);
+        Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
+        ProjectAdministrator paExclude = projectAdministratorService.get(project.getId(), excludedUserId);
+        projectAdministrators.remove(paExclude);
 
+        List<User> users = new ArrayList<User>();
+        for (ProjectAdministrator pa : projectAdministrators) {
+            users.add(pa.getUser());
+        }
+
+        return users;
     }
 
-    public boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors) {
+    public boolean updateProject(Project project, Long loggedUserId) {
+        notNull(project);
+        notNull(loggedUserId);
+
+        if (projectService.update(project) == null) {
+            return false;
+        }
+
+        String msg = "Project: " + project.getName() + " was updated.";
+
+        notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+                NotificationType.PROJECT_DETAIL, msg, project.getId());
+
+        return true;
+    }
+
+    public boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors, Long loggedUserId) {
         notNull(projectId);
         notNull(errors);
         notNull(bbmriPath);
+        notNull(loggedUserId);
+
+        Project project = projectService.get(projectId);
 
         if (projectService.remove(projectId)) {
+
+            String msg = "Project: " + project.getName() + " was removed.";
+
+            notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_DELETE, msg, project.getId());
+
             return FacadeUtils.recursiveDeleteFolder(bbmriPath +
                     Attachment.PROJECT_FOLDER_PATH +
                     projectId.toString(), errors) == SUCCESS;
@@ -150,12 +210,12 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return false;
     }
 
-    // TODO: přidat mezi parametry ValidationErrors
-    public boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors) {
+    public boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId) {
         notNull(objectId);
         notNull(newAdministratorId);
         notNull(permission);
         notNull(errors);
+        notNull(loggedUserId);
 
         Project projectDB = projectService.get(objectId);
         User newAdmin = userService.get(newAdministratorId);
@@ -171,8 +231,17 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             return false;
         }
 
-        projectService.assignAdministrator(projectDB, newAdministratorId, permission);
-        return true;
+        boolean result = projectService.assignAdministrator(projectDB, newAdministratorId, permission);
+
+        if (result) {
+
+            String msg = newAdmin.getWholeName()  + " was assigned as administrator with permission: " + permission + " to project: " + projectDB.getName() +".";
+
+            notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
+                    NotificationType.PROJECT_ADMINISTRATOR, msg, projectDB.getId());
+        }
+
+        return result;
 
     }
 
@@ -188,12 +257,14 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
                                 AttachmentType attachmentType,
                                 Long projectId,
                                 String bbmriPath,
-                                ValidationErrors errors) {
+                                ValidationErrors errors,
+                                Long loggedUserId) {
         notNull(fileBean);
         notNull(attachmentType);
         notNull(projectId);
         notNull(bbmriPath);
         notNull(errors);
+        notNull(loggedUserId);
 
         Project projectDB = projectService.get(projectId);
 
@@ -250,6 +321,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             attachmentService.update(attachment);
         }
 
+        String msg = "New attachment was uploaded to project: " + projectDB.getName() +".";
+
+        notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
+                NotificationType.PROJECT_ATTACHMENT, msg, projectDB.getId());
+
         if (overwrite) {
             return 1;
         }
@@ -268,16 +344,25 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return new StreamingResolution(attachment.getContentType(), fis).setFilename(attachment.getFileName());
     }
 
-    public boolean deleteAttachment(Long attachmentId, ValidationErrors errors) {
+    public boolean deleteAttachment(Long attachmentId, ValidationErrors errors, Long loggedUserId) {
         notNull(attachmentId);
         notNull(errors);
+        notNull(loggedUserId);
 
         Attachment attachment = attachmentService.get(attachmentId);
         if (attachment == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
-            return true;
+            return false;
         }
         if (FacadeUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) == SUCCESS) {
+
+            Project project = attachment.getProject();
+
+            String msg = "Attachment: " + attachment.getFileName() + " from project: " + project.getName() + " was deleted.";
+
+            notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_ATTACHMENT, msg,  project.getId());
+
             return attachmentService.remove(attachmentId);
         }
 
@@ -317,13 +402,14 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return pa.getPermission().include(permission);
     }
 
-    // TODO: přidat mezi parametry ValidationErrors
     public boolean changeAdministratorPermission(Long objectAdministrator,
                                                  Permission permission,
-                                                 ValidationErrors errors) {
+                                                 ValidationErrors errors,
+                                                 Long loggedUserId) {
         notNull(objectAdministrator);
         notNull(permission);
         notNull(errors);
+        notNull(loggedUserId);
 
         ProjectAdministrator pa = projectAdministratorService.get(objectAdministrator);
         if (pa == null) {
@@ -334,12 +420,24 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         // TODO: There must solved situation of last administrator remove
 
         pa.setPermission(permission);
-        return projectAdministratorService.update(pa) != null;
+        boolean result = projectAdministratorService.update(pa) != null;
+        if (result) {
+            Project project = pa.getProject();
+
+            User user = pa.getUser();
+
+            String msg = "Permission of " + user.getWholeName() + " was changed to: " + permission;
+
+            notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_ADMINISTRATOR, msg,  project.getId());
+        }
+        return result;
     }
 
-    public boolean removeAdministrator(Long objectAdministrator, ValidationErrors errors) {
+    public boolean removeAdministrator(Long objectAdministrator, ValidationErrors errors, Long loggedUserId) {
         notNull(objectAdministrator);
         notNull(errors);
+        notNull(loggedUserId);
 
         ProjectAdministrator pa = projectAdministratorService.get(objectAdministrator);
         if (pa == null) {
@@ -356,13 +454,19 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 //            userService.removeSystemRole(userDB.getId(), SystemRole.PROJECT_TEAM_MEMBER);
 //        }
 
+        // TODO: NOTIFICATION
+//        Project project = pa.getProject();
+//
+//        notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+//                NotificationType.PROJECT_REMOVE_ADMINISTRATOR, pa.getUser().getWholeName(), project.getId());
+
         return true;
     }
 
     public List<Project> getProjects(Long userId) {
         notNull(userId);
 
-        User userDB = userService.eagerGet(userId, false, true, false);
+        User userDB = userService.eagerGet(userId, false, true, false, false);
         List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
 
@@ -373,18 +477,31 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return projects;
     }
 
-    public boolean hasBiobankExecutePermission(Long userId){
-       notNull(userId);
-       return biobankAdministratorService.hasSameOrHigherPermission(userId, Permission.EXECUTOR);
+    public boolean hasBiobankExecutePermission(Long userId) {
+        notNull(userId);
+        return biobankAdministratorService.hasSameOrHigherPermission(userId, Permission.EXECUTOR);
 
     }
 
-    public boolean markAsFinished(Long projectId){
+    public boolean markAsFinished(Long projectId, Long loggedUserId) {
         notNull(projectId);
-        return projectService.changeState(projectId, ProjectState.FINISHED) != null;
+        notNull(loggedUserId);
+
+        boolean result = projectService.changeState(projectId, ProjectState.FINISHED) != null;
+        if (result) {
+
+            Project project = projectService.get(projectId);
+
+            String msg = "State of project: " + project.getName() + " was changed to finished.";
+
+            notificationService.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_DETAIL, msg, project.getId());
+        }
+
+        return result;
     }
 
-    public ProjectAdministrator getProjectAdministrator(Long projectAdministratorId){
+    public ProjectAdministrator getProjectAdministrator(Long projectAdministratorId) {
         notNull(projectAdministratorId);
         return projectAdministratorService.get(projectAdministratorId);
     }

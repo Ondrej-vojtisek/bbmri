@@ -90,4 +90,6 @@ public class Links {
 
     protected static final String SAMPLE_REQUEST = "/webpages/project/sample_request.jsp";
 
+    protected static final String SUPPORT = BASIC_PATH + "/support/support.jsp";
+
 }

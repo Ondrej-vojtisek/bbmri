@@ -38,7 +38,7 @@
 }
 
 input.error {
-    background-color: #FFCC33;
+    background-color: #f2dede;
 }
 
 .action_message{
@@ -52,4 +52,5 @@ input.error {
 
 .btnMargin{
     margin-right: 5px;
+
 }

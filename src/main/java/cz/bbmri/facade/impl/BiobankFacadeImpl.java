@@ -3,6 +3,7 @@ package cz.bbmri.facade.impl;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.*;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,6 +43,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     @Autowired
     private BiobankAdministratorService biobankAdministratorService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
         notNull(biobank);
@@ -92,13 +97,34 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return true;
     }
 
-    public boolean updateBiobank(Biobank biobank, ValidationErrors errors) {
+    private List<User> getOtherProjectWorkers(Biobank biobank, Long excludedUserId) {
+        Biobank biobankDB = biobankService.eagerGet(biobank.getId(), false, false, false);
+        Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
+        BiobankAdministrator baExclude = biobankAdministratorService.get(biobank.getId(), excludedUserId);
+        biobankAdministrators.remove(baExclude);
+
+        List<User> users = new ArrayList<User>();
+        for (BiobankAdministrator ba : biobankAdministrators) {
+            users.add(ba.getUser());
+        }
+
+        return users;
+    }
+
+    public boolean updateBiobank(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
         notNull(biobank);
         notNull(errors);
+        notNull(loggedUserId);
 
         try {
 
             biobankService.update(biobank);
+
+            String msg = "Biobank " + biobank.getName() + " was updated.";
+
+            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+                    NotificationType.BIOBANK_DETAIL, msg, biobank.getId());
+
             return true;
 
         } catch (Exception ex) {
@@ -111,18 +137,20 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         }
     }
 
-    public boolean removeBiobank(Long biobankId, ValidationErrors errors, String bbmriPath) {
+    public boolean removeBiobank(Long biobankId, ValidationErrors errors, String bbmriPath, Long loggedUserId) {
         notNull(biobankId);
         notNull(errors);
         notNull(bbmriPath);
 
+        boolean result = false;
+
+        Biobank biobankDB = biobankService.get(biobankId);
+
         try {
 
-            if(biobankService.remove(biobankId)){
-                return FacadeUtils.recursiveDeleteFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobankId.toString(), errors) == SUCCESS;
+            if (biobankService.remove(biobankId)) {
+                result = FacadeUtils.recursiveDeleteFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobankId.toString(), errors) == SUCCESS;
             }
-
-            return false;
 
         } catch (Exception ex) {
 
@@ -132,17 +160,27 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
         }
 
+        if (result) {
+            String msg = "Biobank " + biobankDB.getName() + " was removed.";
+
+            notificationService.create(getOtherProjectWorkers(biobankDB, loggedUserId),
+                    NotificationType.BIOBANK_DELETE, msg, biobankDB.getId());
+        }
+
+        return result;
+
 
     }
 
     public boolean assignAdministrator(Long objectId,
                                        Long newAdministratorId,
                                        Permission permission,
-                                       ValidationErrors errors) {
+                                       ValidationErrors errors, Long loggedUserId) {
         notNull(objectId);
         notNull(newAdministratorId);
         notNull(permission);
         notNull(errors);
+        notNull(loggedUserId);
 
         Biobank biobankDB = biobankService.get(objectId);
         User newAdmin = userService.get(newAdministratorId);
@@ -157,21 +195,35 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             return false;
         }
 
+        boolean result = false;
+
         try {
-            biobankService.assignAdministrator(biobankDB, newAdministratorId, permission);
-            return true;
+            result = biobankService.assignAdministrator(biobankDB, newAdministratorId, permission);
         } catch (Exception ex) {
             fatalError(errors);
             return false;
         }
 
+        if (result) {
+
+            String msg = "New administrator was assigned to biobank: " + biobankDB.getName() +
+                    ". His name is: " + newAdmin.getWholeName() + " and his permission is: " + permission + ". ";
+
+            notificationService.create(getOtherProjectWorkers(biobankDB, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, msg, biobankDB.getId());
+
+        }
+
+        return result;
+
     }
 
     public boolean changeAdministratorPermission(Long objectAdministratorId,
                                                  Permission permission,
-                                                 ValidationErrors errors) {
+                                                 ValidationErrors errors, Long loggedUserId) {
         notNull(objectAdministratorId);
         notNull(permission);
+        notNull(errors);
         notNull(errors);
 
         BiobankAdministrator ba = biobankAdministratorService.get(objectAdministratorId);
@@ -181,9 +233,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             return false;
         }
 
+        boolean result = false;
+
         try {
-            biobankService.changeAdministratorPermission(ba, permission);
-            return true;
+            result = biobankService.changeAdministratorPermission(ba, permission);
         } catch (LastManagerException ex) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
             return false;
@@ -191,9 +244,21 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             fatalError(errors);
             return false;
         }
+
+        if (result) {
+            Biobank biobank = ba.getBiobank();
+
+            User user = ba.getUser();
+
+            String msg = "Permission of " + user.getWholeName() + " was changed to: " + permission;
+
+            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, msg, biobank.getId());
+        }
+        return result;
     }
 
-    public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors) {
+    public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId) {
         notNull(objectAdministratorId);
         notNull(errors);
 
@@ -202,13 +267,28 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.dbg.null"));
             return false;
         }
+
+        boolean result = false;
+
         try {
-            biobankService.removeAdministrator(ba);
-            return true;
+            result = biobankService.removeAdministrator(ba);
         } catch (LastManagerException ex) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
             return false;
         }
+
+        if (result) {
+            Biobank biobank = ba.getBiobank();
+
+            User user = ba.getUser();
+
+            String msg = "Permission of " + user.getWholeName() + " to access biobank " + biobank.getName() + " was removed.";
+
+            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, msg, biobank.getId());
+        }
+
+        return result;
     }
 
     public List<Biobank> all() {
@@ -245,7 +325,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     public List<Biobank> getBiobanksByUser(Long userId) {
         notNull(userId);
 
-        User userDB = userService.eagerGet(userId, false, false, true);
+        User userDB = userService.eagerGet(userId, false, false, true, false);
         if (userDB == null) {
             return null;
         }

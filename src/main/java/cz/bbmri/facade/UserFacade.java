@@ -1,9 +1,11 @@
 package cz.bbmri.facade;
 
+import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.RoleDTO;
 import cz.bbmri.facade.exceptions.AuthorizationException;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 import java.util.Set;
@@ -19,23 +21,23 @@ public interface UserFacade {
 
     List<RoleDTO> getRoles(Long userId);
 
-    void update(User user);
+    boolean update(User user);
 
-    void create(User user);
+    boolean create(User user);
 
-    void remove(Long userId);
+    boolean remove(Long userId);
 
     User get(Long userId);
 
     List<User> all();
 
-    void setAsDeveloper(Long userId);
+    boolean setAsDeveloper(Long userId, ValidationErrors errors);
 
-    void setAsAdministrator(Long userId);
+    boolean setAsAdministrator(Long userId, ValidationErrors errors);
 
-    void removeAdministratorRole(Long userId);
+    boolean removeAdministratorRole(Long userId, ValidationErrors errors);
 
-    void removeDeveloperRole(Long userId);
+    boolean removeDeveloperRole(Long userId, ValidationErrors errors);
 
     List<User> getAdministrators();
 
@@ -51,6 +53,13 @@ public interface UserFacade {
 
     Long loginShibbolethUser(User user) throws AuthorizationException;
 
+    List<Notification> getUnreadNotifications(Long loggedUserId);
+
+    boolean markAsRead(List<Long> notificationsId);
+
+    boolean deleteNotifications(List<Long> notificationsId);
+
+    List<User> allOrderedBy(String orderByParam, boolean desc);
 
     /*
     with permission check

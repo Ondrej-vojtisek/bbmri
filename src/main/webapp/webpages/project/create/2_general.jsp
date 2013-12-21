@@ -18,21 +18,21 @@
                 <div class="control-group">
                     <s:label for="name" class="control-label"/>
                     <div class="controls">
-                        <s:text id="name" name="project.name"/>
+                        <s:text name="project.name"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="principalInvestigator" class="control-label"/>
                     <div class="controls">
-                        <s:text id="principalInvestigator" name="project.principalInvestigator"/>
+                        <s:text name="project.principalInvestigator"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="homeInstitution" class="control-label"/>
                     <div class="controls">
-                        <s:text id="homeInstitution" name="project.homeInstitution"/>
+                        <s:text name="project.homeInstitution"/>
                     </div>
                 </div>
 

@@ -9,6 +9,8 @@ package cz.bbmri.extension.localization;
  */
 
 import net.sourceforge.stripes.localization.DefaultLocalizationBundleFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -19,6 +21,9 @@ import java.util.*;
  * @author Fred Daoud
  */
 public class MultipleResourceBundle extends ResourceBundle {
+
+
+
     private Locale locale;
     private List<String> bundleNames;
 
@@ -38,7 +43,9 @@ public class MultipleResourceBundle extends ResourceBundle {
         if (bundleNames != null) {
             // Look in each configured bundle
             for (String bundleName : bundleNames) {
+
                 if (bundleName != null) {
+
                     result = getFromBundle(locale, bundleName, key);
                     if (result != null) {
                         break;
@@ -47,6 +54,7 @@ public class MultipleResourceBundle extends ResourceBundle {
             }
         }
         if (result == null) {
+
             // Try the application's default bundle
             String bundleName = DefaultLocalizationBundleFactory.BUNDLE_NAME;
             result = getFromBundle(locale, bundleName, key);

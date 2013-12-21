@@ -16,49 +16,49 @@
                 <div class="control-group">
                     <s:label for="name" class="control-label"/>
                     <div class="controls">
-                        <s:text id="name" name="project.name" readonly="true"/>
+                        <s:text name="project.name" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="fundingOrganization" class="control-label"/>
                     <div class="controls">
-                        <s:text id="fundingOrganization" name="project.fundingOrganization" readonly="true"/>
+                        <s:text name="project.fundingOrganization" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="approvedBy" class="control-label"/>
                     <div class="controls">
-                        <s:text id="approvedBy" name="project.approvedBy" readonly="true"/>
+                        <s:text name="project.approvedBy" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="approvalStorage" class="control-label"/>
                     <div class="controls">
-                        <s:text id="approvalStorage" name="project.approvalStorage" readonly="true"/>
+                        <s:text name="project.approvalStorage" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="principalInvestigator" class="control-label"/>
                     <div class="controls">
-                        <s:text id="principalInvestigator" name="project.principalInvestigator" readonly="true"/>
+                        <s:text name="project.principalInvestigator" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="homeInstitution" class="control-label"/>
                     <div class="controls">
-                        <s:text id="homeInstitution" name="project.homeInstitution" readonly="true"/>
+                        <s:text name="project.homeInstitution" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="annotation" class="control-label"/>
                     <div class="controls">
-                        <s:textarea id="annotation" name="project.annotation" readonly="true"/>
+                        <s:textarea name="project.annotation" readonly="true"/>
                     </div>
                 </div>
 

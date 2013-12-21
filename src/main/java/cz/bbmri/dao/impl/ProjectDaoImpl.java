@@ -6,6 +6,7 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,4 +27,5 @@ public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao 
         query.setParameter("param", projectState);
         return query.getResultList();
     }
+
 }

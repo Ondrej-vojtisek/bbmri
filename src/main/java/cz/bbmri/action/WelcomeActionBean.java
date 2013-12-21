@@ -7,6 +7,7 @@ import cz.bbmri.facade.exceptions.AuthorizationException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/welcome")
+@HttpCache(allow = false)
 public class WelcomeActionBean extends BasicActionBean {
-
 
     private String name;
 
