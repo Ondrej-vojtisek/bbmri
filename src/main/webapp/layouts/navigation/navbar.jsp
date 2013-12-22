@@ -21,7 +21,7 @@
         <f:message key="logged_user"/>:
         <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail">
             <s:param name="id" value="${bean.context.myId}"/>
-            <c:out value="${logged}"/>
+            ${logged}
         </s:link>
     </p>
 

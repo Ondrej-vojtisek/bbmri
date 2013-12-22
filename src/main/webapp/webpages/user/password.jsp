@@ -15,14 +15,14 @@
             <s:form beanclass="cz.bbmri.action.user.UserActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="password" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.User.password" class="control-label"/>
                     <div class="controls">
                         <s:text name="password"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="password" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.User.password2" class="control-label"/>
                     <div class="controls">
                         <s:text name="password2"/>
                     </div>

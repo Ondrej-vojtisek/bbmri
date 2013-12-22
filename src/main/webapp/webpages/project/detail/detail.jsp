@@ -19,63 +19,63 @@
             </security:allowed>
 
             <div class="control-group">
-                <s:label for="name" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.name" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.name" readonly="${readonly}"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="fundingOrganization" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.fundingOrganization" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.fundingOrganization" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="approvedBy" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.approvedBy" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.approvedBy" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="approvalStorage" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.approvalStorage" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.approvalStorage" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="principalInvestigator" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.principalInvestigator" readonly="${readonly}"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="homeInstitution" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.homeInstitution" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="homeInstitution" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.approvalDate" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.homeInstitution" readonly="true"/>
+                    <s:text name="project.approvalDate" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="projectState" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.projectState" class="control-label"/>
                 <div class="controls">
                     <s:text name="project.projectState" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="annotation" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Project.annotation" class="control-label"/>
                 <div class="controls">
                     <s:textarea name="project.annotation" readonly="${readonly}"/>
                 </div>

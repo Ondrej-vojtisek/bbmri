@@ -106,7 +106,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     public Resolution login() {
         if (user != null) {
             getContext().setLoggedUser(user);
-            getContext().getMessages().add(new SimpleMessage("Succesfull login"));
+            getContext().getMessages().add(new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.loginSuccess"));
         }
 
         return new RedirectResolution(DashboardActionBean.class);

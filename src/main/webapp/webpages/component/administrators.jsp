@@ -5,8 +5,8 @@
     <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th><s:label name="cz.bbmri.entities.webEntities.RoleDTO.user"/></th>
-            <th><s:label name="cz.bbmri.entities.webEntities.RoleDTO.permission"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.user"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.permission"/></th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
 
         <c:forEach items="${bean.administrators}" var="administrator">
             <tr>
-                <td><c:out value="${administrator.user.wholeName}"/></td>
+                <td>${administrator.user.wholeName}</td>
 
                 <td class="action">
                     <security:allowed bean="bean" event="setPermission">

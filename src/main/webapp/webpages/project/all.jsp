@@ -12,9 +12,9 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th><s:label name="project.name"/></th>
-                    <th><s:label name="project.fundingOrganization"/></th>
-                    <th><s:label name="project.projectState"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.name"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.fundingOrganization"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.projectState"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,8 +27,8 @@
                 <c:forEach items="${projectBean.all}" var="project">
 
                     <tr>
-                        <td><c:out value="${project.name}"/></td>
-                        <td><c:out value="${project.fundingOrganization}"/></td>
+                        <td>${project.name}</td>
+                        <td>${project.fundingOrganization}</td>
                         <td><f:message key="ProjectState.${project.projectState}"/></td>
                         <td class="action">
 

@@ -14,16 +14,16 @@
                 <legend><f:message key="cz.bbmri.action.biobank.CreateActionBean.firstStep"/></legend>
 
                 <div class="control-group">
-                    <s:label for="name" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
                     <div class="controls">
-                        <s:text id="name" name="biobank.name"/>
+                        <s:text name="biobank.name"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="address" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.address" class="control-label"/>
                     <div class="controls">
-                        <s:text id="address" name="biobank.address"/>
+                        <s:text name="biobank.address"/>
                     </div>
                 </div>
 

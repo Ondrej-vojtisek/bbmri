@@ -12,21 +12,21 @@
         <s:form beanclass="cz.bbmri.action.user.UserActionBean" class="form-horizontal">
 
             <div class="control-group">
-                <s:label for="name" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.name" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.name"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="surname" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.surname" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.surname"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="password" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.password" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.password"/>
                 </div>

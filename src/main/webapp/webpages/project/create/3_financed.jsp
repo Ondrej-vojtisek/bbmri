@@ -14,21 +14,21 @@
                 <legend><f:message key="cz.bbmri.action.project.CreateProjectActionBean.thirdStep"/></legend>
 
                 <div class="control-group">
-                    <s:label for="fundingOrganization" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.fundingOrganization" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.fundingOrganization"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="approvedBy" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.approvedBy" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.approvedBy"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="approvalDate" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.approvalDate" class="control-label"/>
                     <div class="controls">
                         <div class="input-append date" id="dp" data-date="1-1-2014" data-date-format="dd-mm-yyyy">
                             <s:text name="project.approvalDate" readonly="true" value=""/>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="control-group">
-                    <s:label for="approvalStorage" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.approvalStorage" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.approvalStorage"/>
                     </div>

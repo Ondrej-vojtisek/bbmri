@@ -13,9 +13,9 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th><s:label name="project.name"/></th>
-                    <th><s:label name="project.fundingOrganization"/></th>
-                    <th><s:label name="project.projectState"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.name"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.fundingOrganization"/></th>
+                    <th><f:message key="cz.bbmri.entities.Project.projectState"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,8 +28,8 @@
 
                 <c:forEach items="${projectBean.myProjects}" var="project">
                     <tr>
-                        <td><c:out value="${project.name}"/></td>
-                        <td><c:out value="${project.fundingOrganization}"/></td>
+                        <td>${project.name}</td>
+                        <td>${project.fundingOrganization}</td>
                         <td><f:message key="ProjectState.${project.projectState}"/></td>
                         <td class="action">
                             <c:set target="${projectBean}" property="id" value="${project.id}"/>
@@ -59,7 +59,8 @@
 
                             <security:allowed bean="projectBean" event="delete">
                                 <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">
-                                    <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
+                                    <s:submit name="delete" class="btn btn-danger"
+                                              onclick="return confirm('${question}')">
                                         <s:param name="id" value="${project.id}"/>
                                     </s:submit>
                                 </s:form>

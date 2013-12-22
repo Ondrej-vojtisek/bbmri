@@ -11,9 +11,9 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th><s:label name="biobank.name"/></th>
-                <th><s:label name="biobank.address"/></th>
-                <th class="noSort"><s:label name="actions"/></th>
+                <th><f:message key="cz.bbmri.entities.Biobank.name"/></th>
+                <th><f:message key="cz.bbmri.entities.Biobank.address"/></th>
+                <th class="noSort"><f:message key="actions"/></th>
             </tr>
             </thead>
             <tbody>
@@ -26,8 +26,8 @@
             </c:if>
             <c:forEach items="${biobankBean.biobanks}" var="biobank">
                 <tr>
-                    <td><c:out value="${biobank.name}"/></td>
-                    <td><c:out value="${biobank.address}"/></td>
+                    <td>${biobank.name}</td>
+                    <td>${biobank.address}</td>
                     <td class="action">
 
                             <%--This is important for the instance based ACL--%>

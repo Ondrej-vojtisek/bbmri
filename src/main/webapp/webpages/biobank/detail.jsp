@@ -19,16 +19,16 @@
         <s:form beanclass="${biobankBean.name}" class="form-horizontal">
 
             <div class="control-group">
-                <s:label for="name" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
                 <div class="controls">
-                    <s:text id="name" name="biobank.name" readonly="${readonly}"/>
+                    <s:text name="biobank.name" readonly="${readonly}"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="address" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Biobank.address" class="control-label"/>
                 <div class="controls">
-                    <s:text id="address" name="biobank.address" readonly="${readonly}"/>
+                    <s:text name="biobank.address" readonly="${readonly}"/>
                 </div>
             </div>
 

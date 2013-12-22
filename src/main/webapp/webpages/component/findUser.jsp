@@ -11,23 +11,23 @@
             <s:hidden name="id"/>
 
             <div class="control-group">
-                <s:label for="name" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.name" class="control-label"/>
                 <div class="controls">
-                    <s:text id="name" name="userFind.name"/>
+                    <s:text name="userFind.name"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="surname" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.surname" class="control-label"/>
                 <div class="controls">
-                    <s:text id="surname" name="userFind.surname"/>
+                    <s:text name="userFind.surname"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="email" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.email" class="control-label"/>
                 <div class="controls">
-                    <s:text id="email" name="userFind.email"/>
+                    <s:text name="userFind.email"/>
                 </div>
             </div>
 
@@ -59,13 +59,9 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                        <%--<th><s:label name="id"/></th>--%>
-                        <%--<th><s:label name="name"/></th>--%>
-                        <%--<th><s:label name="surname"/></th>--%>
-
-                    <th>id</th>
-                    <th>name</th>
-                    <th>surname</th>
+                    <th><f:message key="cz.bbmri.entities.User.id"/></th>
+                    <th><f:message key="cz.bbmri.entities.User.wholeName"/></th>
+                    <th><f:message key="cz.bbmri.entities.User.organization"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,12 +69,9 @@
 
                 <c:forEach var="user" items="${findBean.results}">
                     <tr>
-                        <td>
-                            <c:out value="${user.id}"/>
-
-                        </td>
-                        <td><c:out value="${user.name}"/></td>
-                        <td><c:out value="${user.surname}"/></td>
+                        <td>${user.id}</td>
+                        <td>${user.wholeName}</td>
+                        <td>${user.organization}</td>
                         <td class="action">
                             <c:choose>
                                 <c:when test="${context == 'user'}">

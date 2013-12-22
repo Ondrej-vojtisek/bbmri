@@ -18,23 +18,23 @@
                 <legend><f:message key="cz.bbmri.action.biobank.CreateActionBean.thirdStep"/></legend>
 
                 <div class="control-group">
-                    <s:label for="name" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
                     <div class="controls">
-                        <s:text id="name" name="biobank.name" readonly="true"/>
+                        <s:text name="biobank.name" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="address" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.address" class="control-label"/>
                     <div class="controls">
-                        <s:text id="address" name="biobank.address" readonly="true"/>
+                        <s:text name="biobank.address" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="newAdministrator" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.newAdministrator" class="control-label"/>
                     <div class="controls">
-                        <s:text id="newAdministrator" name="newAdministrator.wholeName" readonly="true"/>
+                        <s:text name="newAdministrator.wholeName" readonly="true"/>
                     </div>
                 </div>
 

@@ -28,7 +28,7 @@
     </c:if>
     <c:forEach items="${userBean.systemRoles}" var="systemRole">
         <tr>
-            <td><c:out value="${systemRole}"/></td>
+            <td>${systemRole}</td>
             <td class="action">
                 <security:allowed bean="userBean" event="removeAdministratorRole">
                 <c:if test="${systemRole == 'ADMINISTRATOR'}">
@@ -121,9 +121,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.subject"/></th>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.permission"/></th>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.referenceId"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.subject"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.permission"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.referenceId"/></th>
         </tr>
         </thead>
         <tbody>
@@ -133,10 +133,10 @@
             </tr>
         </c:if>
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
-            <c:if test="${roleDTO.type.name == 'bbmri.entities.BiobankAdministrator'}">
+            <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.BiobankAdministrator'}">
                 <tr>
-                    <td><c:out value="${roleDTO.subject}"/></td>
-                    <td><c:out value="${roleDTO.permission}"/></td>
+                    <td>${roleDTO.subject}</td>
+                    <td>${roleDTO.permission}</td>
 
                         <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
                     <td class="action">
@@ -192,8 +192,8 @@
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
             <c:if test="${roleDTO.type.name == 'bbmri.entities.ProjectAdministrator'}">
                 <tr>
-                    <td><c:out value="${roleDTO.subject}"/></td>
-                    <td><c:out value="${roleDTO.permission}"/></td>
+                    <td>${roleDTO.subject}</td>
+                    <td>${roleDTO.permission}</td>
 
                     <td class="action">
 

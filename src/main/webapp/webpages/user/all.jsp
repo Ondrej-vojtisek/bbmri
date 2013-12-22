@@ -13,9 +13,9 @@
         <table class="table table-hover table-striped">
             <thead>
             <tr>
-                <th><s:label name="id"/></th>
-                <th><s:label name="name"/></th>
-                <th><s:label name="surname"/></th>
+                <th><f:message key="cz.bbmri.entities.User.id"/></th>
+                <th><f:message key="cz.bbmri.entities.User.wholeName"/></th>
+                <th><f:message key="cz.bbmri.entities.User.organization"/></th>
             </tr>
             </thead>
             <tbody>
@@ -27,9 +27,9 @@
 
             <c:forEach var="user" items="${userBean.users}">
                 <tr>
-                    <td><c:out value="${user.id}"/></td>
-                    <td><c:out value="${user.name}"/></td>
-                    <td><c:out value="${user.surname}"/></td>
+                    <td>${user.id}</td>
+                    <td>${user.wholeName}</td>
+                    <td>${user.organization}</td>
                     <td class="action">
 
                         <c:set target="${userBean}" property="id" value="${user.id}"/>

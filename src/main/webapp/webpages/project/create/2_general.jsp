@@ -16,21 +16,21 @@
             <s:form beanclass="cz.bbmri.action.project.CreateProjectActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="name" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.name" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.name"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="principalInvestigator" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.principalInvestigator"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="homeInstitution" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
                     <div class="controls">
                         <s:text name="project.homeInstitution"/>
                     </div>

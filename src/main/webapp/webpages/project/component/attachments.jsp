@@ -6,10 +6,10 @@
 <table class="table table-hover table-striped">
            <thead>
            <tr>
-               <th><s:label name="attachment.name"/></th>
-               <th><s:label name="attachment.type"/></th>
-               <th><s:label name="cz.bbmri.entities.Attachment.unit"/></th>
-               <th><s:label name="attachment.importance"/></th>
+               <th><f:message key="cz.bbmri.entities.Attachment.name"/></th>
+               <th><f:message key="cz.bbmri.entities.Attachment.type"/></th>
+               <th><f:message key="cz.bbmri.entities.Attachment.unit"/></th>
+               <th><f:message key="cz.bbmri.entities.Attachment.importance"/></th>
            </tr>
            </thead>
 
@@ -23,9 +23,9 @@
 
            <c:forEach items="${projectBean.attachments}" var="attachment" varStatus="loop">
                <tr>
-                   <td><c:out value="${attachment.fileName}"/></td>
-                   <td class="narrow20"><c:out value="${attachment.contentType}"/></td>
-                   <td><c:out value="${attachment.size}"/></td>
+                   <td>${attachment.fileName}</td>
+                   <td class="narrow20">${attachment.contentType}</td>
+                   <td>${attachment.size}</td>
                    <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
                    <td class="action">
                        <security:allowed bean="projectBean" event="downloadAttachment">
