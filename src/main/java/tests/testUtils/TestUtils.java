@@ -51,7 +51,6 @@ public class TestUtils {
     protected Sample createTestSample(int i){
         Sample sample = new Sample();
         sample.setDiagnosis("a" + i);
-        sample.setGrading(i);
         sample.setMorphology("a" + i);
         sample.setpTNM("a" + i);
         sample.setTissueType("a" + i);

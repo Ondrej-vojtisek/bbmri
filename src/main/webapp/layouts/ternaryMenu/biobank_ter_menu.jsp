@@ -36,3 +36,23 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+<security:allowed bean="biobankBean" event="samples">
+    <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="samples">
+            <s:param name="id" value="${biobankBean.id}"/><f:message
+                key="cz.bbmri.action.biobank.BiobankActionBean.samples"/></s:link>
+    </li>
+</security:allowed>
+
+<%-- -------------------------------------------------------------------- --%>
+
+<security:allowed bean="biobankBean" event="patients">
+    <li <c:if test="${ternarymenu == 'patients'}"> class="active" </c:if>>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patients">
+            <s:param name="id" value="${biobankBean.id}"/><f:message
+                key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
+    </li>
+</security:allowed>
+
+<%-- -------------------------------------------------------------------- --%>

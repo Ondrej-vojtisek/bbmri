@@ -1,5 +1,6 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Sample;
 
 import java.util.List;
@@ -13,6 +14,6 @@ import java.util.List;
  */
 public interface SampleDao extends BasicDao<Sample>{
 
-    List<Sample> getSelected(Sample question);
+    List<Sample> getSelected(Sample question, Biobank biobank);
 
 }

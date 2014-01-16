@@ -51,72 +51,74 @@ public class RequestGroupServiceImpl extends BasicServiceImpl implements Request
         notNull(projectId);
         notNull(requests);
 
-        if (requests.isEmpty()) {
-            return;
-            // TODO: exception
-        }
+//        if (requests.isEmpty()) {
+//            return;
+//            // TODO: exception
+//        }
+//
+//        Project projectDB = projectDao.get(projectId);
+//        if (projectDB == null) {
+//            return;
+//            // TODO: exception
+//        }
+//        RequestGroup requestGroup = initiate(null);
+//
+//        Request firstRequestDB = requestDao.get(requests.get(0).getId());
+//        Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
+//
+//        requestGroup.getRequests().add(firstRequestDB);
+//        requestGroup.setProject(projectDB);
+//        requestGroup.setBiobank(biobankDB);
+//        requestGroupDao.create(requestGroup);
+//
+//         /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
+//            biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
+//         */
+//
+//        Map<Long, RequestGroup> rgMap = new HashMap<Long, RequestGroup>();
+//
+//        rgMap.put(requestGroup.getBiobank().getId(), requestGroup);
+//
+//        List<Request> subList = requests.subList(1, requests.size());
+//
+//        for (Request request : subList) {
+//
+//            /* The biobank exists in map so we can easily add this actual request to requestGroup */
+//            if (rgMap.containsKey(request.getSample().getBiobank().getId())) {
+//                rgMap.get(request.getSample().getBiobank().getId()).getRequests().add(request);
+//            } else {
+//                RequestGroup requestGroupNew = initiate(requestGroup.getCreated());
+//                requestGroupNew.setProject(projectDB);
+//
+//                Biobank biobankDBnew = biobankDao.get(request.getSample().getBiobank().getId());
+//                requestGroupNew.setBiobank(biobankDBnew);
+//
+//                Request requestDBnew = requestDao.get(request.getId());
+//                requestGroupNew.getRequests().add(requestDBnew);
+//
+//                requestGroupDao.create(requestGroupNew);
+//                rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
+//            }
+//        }
+//
+//        /* Now we have requestGroup for each biobank */
+//        Iterator it = rgMap.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry entry = (Map.Entry) it.next();
+//            RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
+//
+//            /*Now we must set that request belongs to requestGroup - the second side of relationship*/
+//            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
+//            for (Request request : requestGroupItem.getRequests()) {
+//                request.setRequestGroup(requestGroupDB);
+//                requestDao.update(request);
+//            }
+//            requestGroupDao.update(requestGroupDB);
+//
+//        }
+//        it.remove(); // avoids a ConcurrentModificationException
 
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            return;
-            // TODO: exception
-        }
-        RequestGroup requestGroup = initiate(null);
 
-        Request firstRequestDB = requestDao.get(requests.get(0).getId());
-        Biobank biobankDB = biobankDao.get(firstRequestDB.getSample().getBiobank().getId());
-
-        requestGroup.getRequests().add(firstRequestDB);
-        requestGroup.setProject(projectDB);
-        requestGroup.setBiobank(biobankDB);
-        requestGroupDao.create(requestGroup);
-
-         /* The point is to create one RequestGroup for each biobank. So if requests contains samples from more
-            biobanks than it creates equal amount of RequestGroup using HashMap with biobank as key
-         */
-
-        Map<Long, RequestGroup> rgMap = new HashMap<Long, RequestGroup>();
-
-        rgMap.put(requestGroup.getBiobank().getId(), requestGroup);
-
-        List<Request> subList = requests.subList(1, requests.size());
-
-        for (Request request : subList) {
-
-            /* The biobank exists in map so we can easily add this actual request to requestGroup */
-            if (rgMap.containsKey(request.getSample().getBiobank().getId())) {
-                rgMap.get(request.getSample().getBiobank().getId()).getRequests().add(request);
-            } else {
-                RequestGroup requestGroupNew = initiate(requestGroup.getCreated());
-                requestGroupNew.setProject(projectDB);
-
-                Biobank biobankDBnew = biobankDao.get(request.getSample().getBiobank().getId());
-                requestGroupNew.setBiobank(biobankDBnew);
-
-                Request requestDBnew = requestDao.get(request.getId());
-                requestGroupNew.getRequests().add(requestDBnew);
-
-                requestGroupDao.create(requestGroupNew);
-                rgMap.put(requestGroupNew.getBiobank().getId(), requestGroupNew);
-            }
-        }
-
-        /* Now we have requestGroup for each biobank */
-        Iterator it = rgMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry entry = (Map.Entry) it.next();
-            RequestGroup requestGroupItem = (RequestGroup) entry.getValue();
-
-            /*Now we must set that request belongs to requestGroup - the second side of relationship*/
-            RequestGroup requestGroupDB = requestGroupDao.get(requestGroupItem.getId());
-            for (Request request : requestGroupItem.getRequests()) {
-                request.setRequestGroup(requestGroupDB);
-                requestDao.update(request);
-            }
-            requestGroupDao.update(requestGroupDB);
-
-        }
-        it.remove(); // avoids a ConcurrentModificationException
     }
 
     public boolean remove(Long id) {

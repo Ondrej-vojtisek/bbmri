@@ -37,8 +37,4 @@ public interface UserService extends BasicService<User>{
 
     User get(String eppn);
 
-//    List<User> getAllAdministrators();
-//
-//    List<User> getAllDevelopers();
-
 }

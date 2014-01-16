@@ -53,6 +53,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     @Autowired
     private BiobankAdministratorDao biobankAdministratorDao;
 
+    @Autowired
+    private PatientDao patientDao;
+
 
     public Biobank create(Biobank biobank, Long newAdministratorId) throws DuplicitBiobankException {
         notNull(biobank);
@@ -86,10 +89,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             return false;
         }
 
-        List<Sample> samples = biobankDB.getSamples();
-        if (samples != null) {
-            for (Sample sample : samples) {
-                sampleDao.remove(sample);
+        List<Patient> patients = biobankDB.getPatients();
+        if (patients != null) {
+            for (Patient patient : patients) {
+                patientDao.remove(patient);
             }
         }
         List<SampleQuestion> sampleQuestions = biobankDB.getSampleQuestions();
@@ -251,7 +254,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     }
 
     @Transactional(readOnly = true)
-    public Biobank eagerGet(Long id, boolean samples, boolean requestGroups, boolean sampleQuestions) {
+    public Biobank eagerGet(Long id, boolean patients, boolean requestGroups, boolean sampleQuestions) {
         notNull(id);
         Biobank biobankDB = biobankDao.get(id);
 
@@ -262,8 +265,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
         /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-        if (samples) {
-            logger.debug("" + biobankDB.getSamples());
+        if (patients) {
+            logger.debug("" + biobankDB.getPatients());
         }
 
         if (requestGroups) {

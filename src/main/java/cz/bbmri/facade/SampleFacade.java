@@ -13,12 +13,20 @@ import java.util.List;
  */
 public interface SampleFacade {
 
-    void createSample(Sample sample);
-    void generateRandomSample(int count);
-    void update(Sample sample);
-    void getSamplesByBiobank(Long biobankId);
-    List<Sample> getSamplesByQuery(Sample query);
-    void internalWithdraw(Long sampleId, int count);
-    void externalWithdraw(Long sampleId, int count);
+//    boolean createSample(Sample sample);
+//
+//    boolean generateRandomSample(int count);
+//
+//    boolean update(Sample sample);
+//
+//    List<Sample> getSamplesByBiobank(Long biobankId);
+//
+//    List<Sample> getSamplesByPatient(Long patientId);
+//
+//    List<Sample> getSamplesByQuery(Sample query);
+
+    // void internalWithdraw(Long sampleId, int count);
+
+    // void externalWithdraw(Long sampleId, int count);
 
 }

@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -23,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 //@UrlBinding("/login/{$event}")
-@HttpCache(allow=false)
+@HttpCache(allow = false)
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean implements ValidationErrorHandler {
 
@@ -60,18 +59,18 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     }
 
     private User initializeUser() {
-          User user = new User();
-          user = new User();
-          user.setDisplayName(getContext().getShibbolethDisplayName());
-          user.setEmail(getContext().getShibbolethMail());
-          user.setEppn(getContext().getShibbolethEppn());
-          user.setOrganization(getContext().getShibbolethOrganization());
-          user.setAffiliation(getContext().getShibbolethAffiliation());
-          user.setName(getContext().getShibbolethGivenName());
-          user.setSurname(getContext().getShibbolethSn());
-          user.setShibbolethUser(true);
-          return user;
-      }
+        User user = new User();
+        user = new User();
+        user.setDisplayName(getContext().getShibbolethDisplayName());
+        user.setEmail(getContext().getShibbolethMail());
+        user.setEppn(getContext().getShibbolethEppn());
+        user.setOrganization(getContext().getShibbolethOrganization());
+        user.setAffiliation(getContext().getShibbolethAffiliation());
+        user.setName(getContext().getShibbolethGivenName());
+        user.setSurname(getContext().getShibbolethSn());
+        user.setShibbolethUser(true);
+        return user;
+    }
 
     @DontValidate
     @DefaultHandler
@@ -85,8 +84,11 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             Long id = null;
             try {
                 id = userFacade.loginShibbolethUser(user);
+                logger.debug("User have sufficient rights to access BBMRI - " +
+                        "user: " + user + "affiliation: " + user.getAffiliation());
             } catch (AuthorizationException ex) {
-                // TODO: Loger here
+                logger.debug("User doesn't have sufficient rights to access BBMRI - " +
+                        "user: " + user + "affiliation: " + user.getAffiliation());
                 return new ForwardResolution("/errors/not_authorized_to_access.jsp");
             }
 
@@ -96,7 +98,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
                 getContext().setLoggedUser(user);
                 getContext().getMessages().add(new SimpleMessage("Succesfull login"));
             }
-           return new ForwardResolution(DashboardActionBean.class);
+            return new ForwardResolution(DashboardActionBean.class);
         }
 
 

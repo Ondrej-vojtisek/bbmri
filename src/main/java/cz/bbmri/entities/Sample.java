@@ -43,8 +43,9 @@ public class Sample implements Serializable {
     @Column(name = "PTNM")
     private String pTNM;
 
-    @Column(name = "GRADING")
-    private Integer grading;
+//    Grading is part of morphology
+//    @Column(name = "GRADING")
+//    private Integer grading;
 
     @Column(name = "REMOVAL_DATE")
     private Date removalDate; /*cutTime or blood take*/
@@ -68,17 +69,17 @@ public class Sample implements Serializable {
     private SampleRetrieval retrieved;
 
     @ManyToOne
-    private Biobank biobank;
+    private Patient patient;
 
     @OneToMany(mappedBy = "sample")
     List<Request> requests = new ArrayList<Request>();
 
-    public Biobank getBiobank() {
-        return biobank;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setBiobank(Biobank biobank) {
-        this.biobank = biobank;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public List<Request> getRequests() {
@@ -143,14 +144,6 @@ public class Sample implements Serializable {
 
     public void setpTNM(String pTNM) {
         this.pTNM = pTNM;
-    }
-
-    public Integer getGrading() {
-        return grading;
-    }
-
-    public void setGrading(Integer grading) {
-        this.grading = grading;
     }
 
     public Date getRemovalTime() {
@@ -225,6 +218,8 @@ public class Sample implements Serializable {
         this.retrieved = retrieved;
     }
 
+
+
     /**
      * Return true if all necessary field are filled
      * TODO - tohle zatim nema smysl. Potreba rozlisit STS/LTS apod..
@@ -269,7 +264,6 @@ public class Sample implements Serializable {
                 ", tissueType='" + tissueType + '\'' +
                 ", TNM='" + TNM + '\'' +
                 ", pTNM='" + pTNM + '\'' +
-                ", grading=" + grading + '\'' +
                 ", morphology='" + morphology +
                 /*            ", removalTime=" + removalTime +
        ", freezingTime=" + freezingTime +     */

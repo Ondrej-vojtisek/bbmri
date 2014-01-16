@@ -56,6 +56,8 @@ public class Links {
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "3_confirm.jsp";
 
     protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
+    protected static final String BIOBANK_PATIENTS = BIOBANK + "patients.jsp";
+
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";

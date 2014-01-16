@@ -3,6 +3,8 @@ package cz.bbmri.action.biobank;
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.BiobankAdministrator;
+import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
@@ -52,6 +54,14 @@ public class BiobankActionBean extends BasicActionBean {
 
     public List<Biobank> getBiobanks() {
         return biobankFacade.all();
+    }
+
+    public List<Patient> getPatients() {
+        return biobankFacade.getAllPatients(id);
+    }
+
+    public List<Sample> getSamples() {
+        return biobankFacade.getAllSamples(id);
     }
 
     private Long userAdminId;
@@ -250,6 +260,12 @@ public class BiobankActionBean extends BasicActionBean {
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
     public Resolution samples() {
         return new ForwardResolution(BIOBANK_SAMPLES);
+    }
+
+    @HandlesEvent("patients")
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    public Resolution patients() {
+        return new ForwardResolution(BIOBANK_PATIENTS);
     }
 
     @HandlesEvent("delete")

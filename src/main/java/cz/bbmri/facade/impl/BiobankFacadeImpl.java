@@ -1,8 +1,6 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.BiobankAdministrator;
-import cz.bbmri.entities.User;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.facade.BiobankFacade;
@@ -46,6 +44,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private PatientService patientService;
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
         notNull(biobank);
@@ -334,6 +335,22 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             biobanks.add(ba.getBiobank());
         }
         return biobanks;
+    }
+
+    public List<Patient> getAllPatients(Long biobankId){
+        notNull(biobankId);
+        Biobank biobankDB = biobankService.eagerGet(biobankId, true, false, false);
+        return biobankDB.getPatients();
+    }
+
+    public List<Sample> getAllSamples(Long biobankId){
+        notNull(biobankId);
+        List<Sample> samples = new ArrayList<Sample>();
+        for(Patient patient : getAllPatients(biobankId)){
+            patient = patientService.eagerGet(patient.getId(), true);
+            samples.addAll(patient.getSamples());
+        }
+        return samples;
     }
 
     /*

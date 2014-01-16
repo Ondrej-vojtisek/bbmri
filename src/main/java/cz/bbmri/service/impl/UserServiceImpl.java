@@ -236,14 +236,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     public List<User> getAllByRole(SystemRole systemRole) {
-//        notNull(systemRole);
-//        List<User> results = new ArrayList<User>();
-//        for (User user : userDao.all()) {
-//            if (user.getSystemRoles().contains(systemRole)) {
-//                results.add(user);
-//            }
-//        }
-//        return results;
         notNull(systemRole);
         return userDao.getAllWithSystemRole(systemRole);
     }
@@ -267,16 +259,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         notNull(eppn);
         return userDao.get(eppn);
     }
-
-//    @Transactional(readOnly = true)
-//    public List<User> getAllAdministrators(){
-//        return userDao.getAllWithSystemRole(SystemRole.ADMINISTRATOR);
-//    }
-//
-//    @Transactional(readOnly = true)
-//    public List<User> getAllDevelopers(){
-//        return userDao.getAllWithSystemRole(SystemRole.DEVELOPER);
-//    }
 
     @Transactional(readOnly = true)
     public List<User> allOrderedBy(String orderByParam, boolean desc) {

@@ -4,6 +4,10 @@ import cz.bbmri.entities.enumeration.Sex;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +38,12 @@ public class Patient implements Serializable {
     private Integer birthMonth;
 
     private boolean consent;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Sample> samples = new ArrayList<Sample>();
+
+    @ManyToOne
+    private Biobank biobank;
 
     public Long getId() {
         return id;
@@ -81,6 +91,53 @@ public class Patient implements Serializable {
 
     public void setConsent(boolean consent) {
         this.consent = consent;
+    }
+
+    public List<Sample> getSamples() {
+        return samples;
+    }
+
+    public void setSamples(List<Sample> samples) {
+        this.samples = samples;
+    }
+
+    public Biobank getBiobank() {
+        return biobank;
+    }
+
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
+
+    public Integer getAge() {
+        if (birthMonth == null && birthYear == null) {
+            return null;
+        }
+
+        int year = 0;
+        int month = 0;
+        int day = 1;
+
+        Calendar calendar = Calendar.getInstance();
+
+        if (birthMonth != null) {
+            month = birthMonth;
+        }
+
+        if (birthYear != null) {
+            year = birthYear;
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        /* calendar month is zero based - January is 0, February 1 etc.*/
+        int monthNow = cal.get(Calendar.MONTH) -1;
+        int yearNow = cal.get(Calendar.YEAR);
+
+        Integer age = yearNow - year;
+        if(monthNow < month) age = age -1;
+
+        return age;
     }
 
     @Override

@@ -125,7 +125,6 @@ public class CreateSampleActionBean extends BasicActionBean {
         Random generator = new Random();
         sample = new Sample();
         sample.setDiagnosis(randomStringUtils.random(4, true, true));
-        sample.setGrading(generator.nextInt(8) + 1);
         sample.setNumOfAvailable(generator.nextInt(20) + 1);
         sample.setNumOfSamples(sample.getNumOfAvailable() + generator.nextInt(10));
         sample.setSampleID(randomStringUtils.random(13, true, true));

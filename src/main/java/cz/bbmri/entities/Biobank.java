@@ -39,13 +39,13 @@ public class Biobank implements Serializable {
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "biobank")
-    private List<Sample> samples = new ArrayList<Sample>();
-
-    @OneToMany(mappedBy = "biobank")
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     @OneToMany(mappedBy = "biobank")
     private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
+
+    @OneToMany(mappedBy = "biobank")
+    private List<Patient> patients = new ArrayList<Patient>();
 
     public Long getId() {
         return id;
@@ -71,14 +71,6 @@ public class Biobank implements Serializable {
         this.name = name;
     }
 
-    public List<Sample> getSamples() {
-        return samples;
-    }
-
-    public void setSamples(List<Sample> samples) {
-        this.samples = samples;
-    }
-
     public List<RequestGroup> getRequestGroups() {
         return requestGroups;
     }
@@ -101,6 +93,14 @@ public class Biobank implements Serializable {
 
     public void setBiobankAdministrators(Set<BiobankAdministrator> biobankAdministrators) {
         this.biobankAdministrators = biobankAdministrators;
+    }
+
+    public List<Patient> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
     }
 
     @Override

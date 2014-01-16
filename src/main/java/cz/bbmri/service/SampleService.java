@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface SampleService extends BasicService<Sample>{
 
-     Sample create(Sample sample, Long biobankId);
+     Sample create(Sample sample, Long patientId);
 
      Sample decreaseCount(Long sampleId, Integer requested);
 
@@ -21,6 +21,6 @@ public interface SampleService extends BasicService<Sample>{
 
      List<Sample> getSamplesByQuery(Sample sample);
 
-     Sample eagerGet(Long id, boolean biobank, boolean request);
+     Sample eagerGet(Long id, boolean patient, boolean request);
 
 }

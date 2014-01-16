@@ -1,6 +1,7 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.SampleDao;
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Sample;
 import org.springframework.stereotype.Repository;
 
@@ -20,59 +21,30 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
 
     @SuppressWarnings("unchecked")
-    public List<Sample> getSelected(Sample question) {
+    public List<Sample> getSelected(Sample question, Biobank biobank) {
         notNull(question);
         Query query = null;
 
-        if (question.getBiobank() == null && question.getGrading() == null) {
-            //logger.debug("Biobank null grading null" );
-            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-                    "p.diagnosis LIKE :diagnosisParam " +
-                    "AND p.morphology LIKE :morphologyParam " +
-                    "AND p.pTNM LIKE :pTNMParam " +
-                    "AND p.tissueType LIKE :tissueTypeParam " +
-                    "AND p.TNM LIKE :TNMParam ");
-        }
-        if (question.getBiobank() == null && question.getGrading() != null) {
+        if (biobank == null) {
             //logger.debug("Biobank null grading not null" );
             query = em.createQuery("SELECT p FROM Sample p WHERE " +
                     "p.diagnosis LIKE :diagnosisParam " +
                     "AND p.morphology LIKE :morphologyParam " +
                     "AND p.pTNM LIKE :pTNMParam " +
                     "AND p.tissueType LIKE :tissueTypeParam " +
-                    "AND p.TNM LIKE :TNMParam " +
-                    "AND p.grading = :gradingParam ");
-        }
-
-        if (question.getBiobank() != null && question.getGrading() == null) {
-            //logger.debug("Biobank not null grading null" );
+                    "AND p.TNM LIKE :TNMParam ");
+        } else {
             query = em.createQuery("SELECT p FROM Sample p WHERE " +
                     "p.diagnosis LIKE :diagnosisParam " +
-                    "AND p.biobank = :biobankParam " +
+                    "AND p.patient.biobank = :biobankParam " +
                     "AND p.morphology LIKE :morphologyParam " +
                     "AND p.pTNM LIKE :pTNMParam " +
                     "AND p.tissueType LIKE :tissueTypeParam " +
                     "AND p.TNM LIKE :TNMParam ");
         }
 
-        if (question.getBiobank() != null && question.getGrading() != null) {
-            //logger.debug("Biobank not null grading not null" );
-            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-                    "p.diagnosis LIKE :diagnosisParam " +
-                    "AND p.biobank = :biobankParam " +
-                    "AND p.morphology LIKE :morphologyParam " +
-                    "AND p.pTNM LIKE :pTNMParam " +
-                    "AND p.tissueType LIKE :tissueTypeParam " +
-                    "AND p.TNM LIKE :TNMParam " +
-                    "AND p.grading = :gradingParam ");
-        }
-
-        if(question.getBiobank() != null){
-            query.setParameter("biobankParam", question.getBiobank());
-        }
-
-        if(question.getGrading() != null){
-            query.setParameter("gradingParam", question.getGrading());
+        if (biobank != null) {
+            query.setParameter("biobankParam", biobank);
         }
 
         query.setParameter("diagnosisParam", (question.getDiagnosis() != null ? question.getDiagnosis() : "%"));

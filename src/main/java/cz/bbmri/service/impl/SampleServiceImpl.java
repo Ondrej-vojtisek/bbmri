@@ -1,12 +1,10 @@
 package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.BiobankDao;
+import cz.bbmri.dao.PatientDao;
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.BiobankAdministrator;
-import cz.bbmri.entities.Request;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.*;
 import cz.bbmri.service.SampleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +29,10 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     private SampleDao sampleDao;
 
     @Autowired
-    private BiobankDao biobankDao;
+    private RequestDao requestDao;
 
     @Autowired
-    private RequestDao requestDao;
+    private PatientDao patientDao;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -46,23 +44,22 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
     */
 
-    public Sample create(Sample sample, Long biobankId) {
+    public Sample create(Sample sample, Long patientId) {
         notNull(sample);
-        notNull(biobankId);
+        notNull(patientId);
 
-
-        Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
+        Patient patientDB = patientDao.get(patientId);
+        if (patientDB == null) {
             return null;
             //TODO: exception
         }
 
         sampleDao.create(sample);
 
-        sample.setBiobank(biobankDB);
+        sample.setPatient(patientDB);
         sampleDao.update(sample);
-        biobankDB.getSamples().add(sample);
-        biobankDao.update(biobankDB);
+        patientDB.getSamples().add(sample);
+        patientDao.update(patientDB);
 
 
         return sample;
@@ -77,11 +74,11 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             return false;
         }
 
-        Biobank biobankDB = biobankDao.get(sampleDB.getBiobank().getId());
-        if (biobankDB != null) {
-            biobankDB.getSamples().remove(sampleDB);
-            biobankDao.update(biobankDB);
-            sampleDB.setBiobank(null);
+        Patient patientDB = patientDao.get(sampleDB.getPatient().getId());
+        if (patientDB != null) {
+            patientDB.getSamples().remove(sampleDB);
+            patientDao.update(patientDB);
+            sampleDB.setPatient(null);
         }
 
         List<Request> requests = sampleDB.getRequests();
@@ -164,26 +161,15 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     @Transactional(readOnly = true)
     public List<Sample> getSamplesByQuery(Sample sample) {
         notNull(sample);
-        return sampleDao.getSelected(sample);
+
+        // TODO: there should be also link to biobank
+
+        return sampleDao.getSelected(sample, null);
     }
 
     @Transactional(readOnly = true)
     public Integer count() {
         return sampleDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Sample> getAllByBiobank(Long biobankId) {
-        notNull(biobankId);
-
-        Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            return null;
-        }
-        List<Sample> results = biobankDB.getSamples();
-        /*DONT DELETE THIS COMMENT*/
-        logger.debug(" DONT DELETE" + results);
-        return results;
     }
 
     @Transactional(readOnly = true)
@@ -193,15 +179,15 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public Sample eagerGet(Long id, boolean biobank, boolean request) {
+    public Sample eagerGet(Long id, boolean patient, boolean request) {
         notNull(id);
         Sample sampleDB = sampleDao.get(id);
 
 
           /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-        if (biobank) {
-            logger.debug("" + sampleDB.getBiobank());
+        if (patient) {
+            logger.debug("" + sampleDB.getPatient());
         }
         if (request) {
             logger.debug("" + sampleDB.getRequests());
