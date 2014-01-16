@@ -51,16 +51,32 @@ public class UserActionBean extends BasicActionBean {
         this.orderParam = orderParam;
     }
 
+    private boolean desc;
+
+    public boolean getDesc(){
+        return desc;
+    }
+
+    public void setDesc(boolean desc){
+        this.desc = desc;
+    }
+
     @Validate(on = {"changePassword"}, required = true)
     private String password;
     @Validate(on = {"changePassword"}, required = true)
     private String password2;
 
     public List<User> getUsers() {
+
+        // TODO : experimentalni razeni - je potreba to ucesat na jsp strance a dodat strankovani vypisu
+
         if(orderParam == null){
-            return userFacade.all();
+            desc = false;
+            return userFacade.allOrderedBy("surname", desc);
         }
-        return userFacade.allOrderedBy(orderParam, false);
+        logger.debug("OrderParam: " + orderParam);
+
+        return userFacade.allOrderedBy(orderParam, desc);
     }
 
     @PermitAll

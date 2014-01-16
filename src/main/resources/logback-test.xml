@@ -1,32 +1,43 @@
 <configuration scan="true">
 
+    <!--Localhost test configuration-->
+
+    <property name="BBMRI_HOME" value="C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data"/>
+
     <!-- definition of appender STDOUT -->
-     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-       <encoder>
-         <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
-       </encoder>
-     </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${BBMRI_HOME}\\bbmri_logger.log</file>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
 
     <logger name="org.hibernate" level="OFF"/>
-    <logger name="o.hibernate.type.BasicTypeRegistry" level="OFF"/>
-    <logger name="o.h.annotations.common.Version" level="OFF"/>
-    <logger name="org.hibernate.cfg.Environment" level="OFF"/>
-    <logger name="o.h.i.f.DefaultIdentifierGeneratorFactory" level="OFF"/>
     <logger name="org.hibernate.jdbc.AbstractBatcher" level="OFF"/>
     <logger name="org.hibernate.loader.Loader" level="OFF"/>
-    <logger name="o.h.e.loading.CollectionLoadContext" level="OFF"/>
     <logger name="org.hibernate.SQL" level="OFF"/>
-    <logger name="o.h.transaction.JDBCTransaction" level="OFF"/>
-    <logger name="o.h.e.d.AbstractFlushingEventListener" level="OFF"/>
-    <logger name="org.hibernate.engine.Collections" level="OFF"/>
-    <logger name="o.h.e.d.AbstractFlushingEventListener" level="OFF"/>
     <logger name="org.hibernate.pretty.Printer" level="OFF"/>
+    <logger name="org.hibernate.engine.Collections" level="OFF"/>
+    <logger name="org.hibernate.cfg.Environment" level="OFF"/>
 
-
+    <logger name="o.hibernate.type.BasicTypeRegistry" level="OFF"/>
+    <logger name="o.h.annotations.common.Version" level="OFF"/>
+    <logger name="o.h.transaction.JDBCTransaction" level="OFF"/>
+    <logger name="o.h.e.loading.CollectionLoadContext" level="OFF"/>
+    <logger name="o.h.e.d.AbstractFlushingEventListener" level="OFF"/>
+    <logger name="o.h.i.f.DefaultIdentifierGeneratorFactory" level="OFF"/>
 
     <root level="DEBUG">
-      <!-- appender referenced after it is defined -->
-      <appender-ref ref="STDOUT"/>
+        <!-- appender referenced after it is defined -->
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>

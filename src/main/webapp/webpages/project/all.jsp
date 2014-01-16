@@ -25,11 +25,10 @@
                 </c:if>
 
                 <c:forEach items="${projectBean.all}" var="project">
-
                     <tr>
-                        <td>${project.name}</td>
-                        <td>${project.fundingOrganization}</td>
-                        <td><f:message key="ProjectState.${project.projectState}"/></td>
+                        <td><f:message key="cz.bbmri.entities.Project.name"/></td>
+                        <td><f:message key="cz.bbmri.entities.Project.fundingOrganization"/></td>
+                        <td><f:message key="cz.bbmri.entities.Project.projectState"/></td>
                         <td class="action">
 
                             <c:set target="${projectBean}" property="id" value="${project.id}"/>

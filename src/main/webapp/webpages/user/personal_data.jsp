@@ -22,42 +22,42 @@
             </security:allowed>
 
             <div class="control-group">
-                <s:label for="displayName" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.displayName" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.displayName" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="email" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.email" class="control-label"/>
                 <div class="controls">
-                    <s:text name="user.email" readonly="true"/>
+                    <s:text name="user.email" readonly="${readonly}"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="organization" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.organization" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.organization" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="affiliation" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.affiliation" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.affiliation" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="created" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.created" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.created" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="lastLogin" class="control-label"/>
+                <s:label for="cz.bbmri.entities.User.lastLogin" class="control-label"/>
                 <div class="controls">
                     <s:text name="user.lastLogin" readonly="true"/>
                 </div>

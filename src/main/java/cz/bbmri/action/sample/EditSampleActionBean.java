@@ -28,9 +28,9 @@ public class EditSampleActionBean extends BasicActionBean {
     private Sample sample;
 
     public Sample getSample() {
-        if(sample == null){
-            sample = getContext().getSample();
-        }
+//        if(sample == null){
+//            sample = getContext().getSample();
+//        }
         return sample;
     }
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<biobank id="MOU" xmlns="http://www.bbmri.cz/schemas/monitoring/bankoccupancy">
+
+
+    <container id="D1">
+
+        <!--Nestrukturovany doplnujici popis k pozici kontejneru  -->
+        <location>Prizemi, oddeleni A, ... budova B,</location>
+
+        <!-- max pocet stojanu uvnitr dewarovy nadoby - napr 4   -->
+        <capacity>4</capacity>
+
+        <!-- Volitelny element, minimalni teplota  -->
+        <tempMin>-50</tempMin>
+        <!-- Volitelny element, max teplota -->
+        <tempMax>-30</tempMax>
+        <!--1 or more repetitions:-->
+
+        <!--identifikator stojanu  -->
+        <rack id="R2">
+            <!--pocet boxu v jednom stojanu  -->
+            <capacity>4</capacity>
+
+            <box id="B5">
+                <capacity>100</capacity>
+                <!--Optional:-->
+                <tempMin>-50</tempMin>
+                <!--Optional:-->
+                <tempMax>-20</tempMax>
+                <!--Informace o tom co se nachazi na ktere pozici v boxu-->
+                <occupiedPosition>
+
+                    <!--Pozice v boxu muze byt definovana bud sekvencne nebo pomoci souradnic-->
+                    <sequentialPosition position="3"/>
+                    <!--Rok a id vzorku tak aby byl dohledatelny-->
+                    <year>2013</year>
+                    <sampleId>167</sampleId>
+                </occupiedPosition>
+                <occupiedPosition>
+                    <sequentialPosition position="4"/>
+                    <year>2013</year>
+                    <sampleId>168</sampleId>
+                </occupiedPosition>
+            </box>
+        </rack>
+    </container>
+
+    <!--Samostatny box je "fallback" pro situace kdy v systemu budeme muset evidovat vzorky umistene mimo strukturovane mrazaky.-->
+
+    <box id="B6">
+        <capacity>80</capacity>
+        <!--Optional:-->
+        <tempMin>-30</tempMin>
+        <!--Optional:-->
+        <tempMax>10.0</tempMax>
+        <occupiedPosition>
+
+            <!--Ukazka definovani pozice zkumavky pomoci souradnic -->
+
+            <matrixPosition row="1" column="2"/>
+            <year>2014</year>
+            <sampleId>string</sampleId>
+        </occupiedPosition>
+    </box>
+</biobank>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/monitoring/bankoccupancy" xmlns:b="http://www.bbmri.cz/schemas/monitoring/bankoccupancy">
+    <xs:element name="biobank">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="b:container"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="b:box"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>unique identifier of a biobank (assigned by a coordinator)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                        <xs:maxLength value="32"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="container">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="b:location"/>
+                <xs:element name="capacity" type="xs:int">
+                    <xs:annotation>
+                        <xs:documentation>max number of stands in container</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="tempMin" type="xs:float">
+                    <xs:annotation>
+                        <xs:documentation>minimum temperature allowed in the container</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="tempMax" type="xs:float">
+                    <xs:annotation>
+                        <xs:documentation>maximum temperature allowed in the container</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element maxOccurs="unbounded" ref="b:rack"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>unique identifier of a container</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="location" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>container location description</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="rack">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="capacity" type="xs:int">
+                    <xs:annotation>
+                        <xs:documentation>max number of box in stand</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:sequence maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>multiple boxes on different levels may be defined here</xs:documentation>
+                    </xs:annotation>
+                    <xs:element ref="b:box"/>
+                </xs:sequence>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>unique identifier of the box</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="box">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="capacity" type="xs:int">
+                    <xs:annotation>
+                        <xs:documentation>capacity of the box</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="tempMin" type="xs:float">
+                    <xs:annotation>
+                        <xs:documentation>minimum temperature allowed in the box</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element minOccurs="0" name="tempMax" type="xs:float">
+                    <xs:annotation>
+                        <xs:documentation>maximum temperature allowed in the box</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>what is stored on occupied positions</xs:documentation>
+                    </xs:annotation>
+                    <xs:element ref="b:occupiedPosition"/>
+                </xs:sequence>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>unique identifier of the box</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="occupiedPosition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice>
+                    <xs:element ref="b:sequentialPosition"/>
+                    <xs:element ref="b:matrixPosition"/>
+                </xs:choice>
+                <xs:element ref="b:year"/>
+                <xs:element ref="b:sampleId"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="year" type="xs:gYear">
+        <xs:annotation>
+            <xs:documentation>year when was sample retrieved and stored</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="sampleId">
+        <xs:annotation>
+            <xs:documentation>sequential order of sample during the year</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="6"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="sequentialPosition">
+        <xs:complexType>
+            <xs:attribute name="position" use="required" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="matrixPosition">
+        <xs:complexType>
+            <xs:attribute name="row" use="required" type="xs:int"/>
+            <xs:attribute name="column" use="required" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

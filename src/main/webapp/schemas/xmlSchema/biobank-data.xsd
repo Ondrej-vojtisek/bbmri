@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/biobank/data" xmlns:data="http://www.bbmri.cz/schemas/biobank/data">
+    <xs:element name="patient">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data:LTS"/>
+                <xs:element ref="data:STS"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>identifier of a patient (interni identifikator pacienta)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="consent" use="required" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>informed consent (informovany souhlas)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="year" use="required" type="xs:gYear">
+                <xs:annotation>
+                    <xs:documentation>year of birth</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="month" use="required" type="xs:gMonth">
+                <xs:annotation>
+                    <xs:documentation>month of birth - day is skipped to preserve k-anonymity</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="sex" use="required">
+                <xs:annotation>
+                    <xs:documentation>sex of patient</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="male"/>
+                        <xs:enumeration value="female"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attributeGroup ref="data:biobankId"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LTS">
+        <xs:annotation>
+            <xs:documentation>samples in long-term storage part of the biobank</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="data:tissue"/>
+                <xs:element ref="data:blood"/>
+                <xs:element ref="data:genome"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="STS">
+        <xs:annotation>
+            <xs:documentation>samples in short-term storage part of the biobank</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="data:bloodRsv"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tissue">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data:biopticalReport"/>
+                <xs:group ref="data:sampleNos"/>
+                <xs:element ref="data:tissueType"/>
+                <xs:element ref="data:TNM"/>
+                <xs:element ref="data:pTNM"/>
+                <xs:element ref="data:morphology"/>
+                <xs:element ref="data:cutTime"/>
+                <xs:element ref="data:freezeTime"/>
+                <xs:element ref="data:retrieved"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="data:sampleId"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tissueType">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="2"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="TNM">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="7"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="pTNM">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="7"/>
+                <xs:pattern value="[a-zA-Z0-9]+"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="morphology">
+        <xs:annotation>
+            <xs:documentation>morphology uses ICD-O-2 classification - NNNN/XY</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:length value="7"/>
+                <xs:pattern value="[0-9]{4}/[0-9]{2}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="cutTime" type="xs:dateTime"/>
+    <xs:element name="freezeTime" type="xs:dateTime"/>
+    <xs:element name="blood">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data:biopticalReport"/>
+                <xs:group ref="data:sampleNos"/>
+                <xs:element ref="data:takingDate"/>
+                <xs:element ref="data:retrieved"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="data:sampleId"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="takingDate" type="xs:dateTime"/>
+    <xs:element name="genome">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data:biopticalReport"/>
+                <xs:group ref="data:sampleNos"/>
+                <xs:element ref="data:tissueType"/>
+                <xs:element ref="data:takingDate"/>
+                <xs:element ref="data:retrieved"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="data:sampleId"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="bloodRsv">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="data:diagnosis"/>
+                <xs:element ref="data:takingDate"/>
+                <xs:element ref="data:retrieved"/>
+            </xs:sequence>
+            <xs:attributeGroup ref="data:sampleId"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="diagnosis">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="[a-zA-Z0-9]+"/>
+                <xs:minLength value="3"/>
+                <xs:maxLength value="4"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:attributeGroup name="biobankId">
+        <xs:attribute name="biobank" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[a-zA-Z0-9]+"/>
+                    <xs:maxLength value="32"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:attributeGroup name="sampleId">
+        <xs:annotation>
+            <xs:documentation>each sample is identified with biobankId and sequential number</xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="number" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="6"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+    <xs:group name="sampleNos">
+        <xs:annotation>
+            <xs:documentation>total and available number of aliquotes</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="data:samplesNo"/>
+            <xs:element ref="data:availableSamplesNo"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:element name="samplesNo" type="xs:int"/>
+    <xs:element name="availableSamplesNo" type="xs:int"/>
+    <xs:element name="retrieved">
+        <xs:simpleType>
+            <xs:restriction base="xs:token">
+                <xs:enumeration value="preoperational"/>
+                <xs:enumeration value="operational"/>
+                <xs:enumeration value="post"/>
+                <xs:enumeration value="unknown"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="biopticalReport">
+        <xs:complexType>
+            <xs:attribute name="year" use="required" type="xs:gYear"/>
+            <xs:attribute name="number" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

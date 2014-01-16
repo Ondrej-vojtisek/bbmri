@@ -36,7 +36,6 @@ public class Biobank implements Serializable {
     private String address;
 
     @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
-    //private List<BiobankAdministrator> biobankAdministrators = new ArrayList<BiobankAdministrator>();
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "biobank")

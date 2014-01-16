@@ -42,6 +42,20 @@
         <location>/errors/500.jsp</location>
     </error-page>
 
+    <!-- Logging servlet -->
+
+    <servlet>
+        <servlet-name>ViewStatusMessages</servlet-name>
+        <servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
+    </servlet>
+
+    <!-- URL to view log messages - application/lbClassicStatus -->
+
+    <servlet-mapping>
+        <servlet-name>ViewStatusMessages</servlet-name>
+        <url-pattern>/lbClassicStatus</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>SetCharacterEncoding</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
@@ -84,7 +98,9 @@
                 net.sourceforge.stripes.integration.spring,
                 cz.bbmri.extension.security,
                 cz.bbmri.extension.localization
+                cz.bbmri.extension.exceptionHandling
             </param-value>
+
         </init-param>
 
         <init-param>
@@ -106,12 +122,6 @@
             </param-name>
             <param-value>translations/shared</param-value>
         </init-param>
-
-
-        <!--<init-param>-->
-            <!--<param-name>ResourceBundles.BaseNames</param-name>-->
-            <!--<param-value>fields, text, errors</param-value>-->
-        <!--</init-param>-->
 
         <init-param>
             <description>supported languages</description>

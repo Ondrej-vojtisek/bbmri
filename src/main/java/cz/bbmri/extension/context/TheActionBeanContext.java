@@ -40,13 +40,12 @@ public class TheActionBeanContext extends ActionBeanContext {
     private static final String SHIB_MEFAPERSON = "mefaperson";
 
     private static final String MY_ID = "myId";
-    private static final String SAMPLE_ID = "sample";
-    private static final String PROJECT_ID = "project";
-    private static final String BIOBANK_ID = "biobank";
-    private static final String REQUEST_GROUP_ID = "requestGroup";
-    private static final String REQUEST_ID = "request";
-
-    private static final String USER_ID = "userId";
+//    private static final String SAMPLE_ID = "sample";
+//    private static final String PROJECT_ID = "project";
+//    private static final String BIOBANK_ID = "biobank";
+//    private static final String REQUEST_GROUP_ID = "requestGroup";
+//    private static final String REQUEST_ID = "request";
+//    private static final String USER_ID = "userId";
 
     private static final String BBMRI_PROPERTIES = "bbmri_general.properties";
     private static final String PROPERTIES_STORAGE_PATH = "StoragePath";
@@ -123,66 +122,6 @@ public class TheActionBeanContext extends ActionBeanContext {
         }
     }
 
-    public void setRequestId(Long id) {
-        setCurrent(REQUEST_ID, id);
-    }
-
-    public Long getRequestId() {
-        return getCurrent(REQUEST_ID, null);
-    }
-
-    public void dropRequestId() {
-        setCurrent(REQUEST_ID, null);
-    }
-
-    public void setRequestId(Request request) {
-        // Forget the value
-        dropRequestId();
-
-        // When user is given
-        if (request != null) {
-            // Update the identifier
-            setRequestId(request.getId());
-        }
-    }
-
-
-    public void setUserId(Long id) {
-        setCurrent(USER_ID, id);
-    }
-
-    public Long getUserId() {
-        return getCurrent(USER_ID, null);
-    }
-
-    public void dropUserId() {
-        setCurrent(USER_ID, null);
-    }
-
-
-    public void setRequestGroupId(Long id) {
-        setCurrent(REQUEST_GROUP_ID, id);
-    }
-
-    public Long getRequestGroupId() {
-        return getCurrent(REQUEST_GROUP_ID, null);
-    }
-
-    public void dropRequestGroupId() {
-        setCurrent(REQUEST_GROUP_ID, null);
-    }
-
-    public void setRequestGroupId(RequestGroup requestGroup) {
-        // Forget the value
-        dropRequestGroupId();
-
-        // When user is given
-        if (requestGroup != null) {
-            // Update the identifier
-            setRequestGroupId(requestGroup.getId());
-        }
-    }
-
 
     public Project getProject() {
         return (Project) getRequest().getSession().getAttribute("project");
@@ -190,30 +129,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public void setProject(Project project) {
         getRequest().getSession().setAttribute("project", project);
-    }
-
-    public Biobank getBiobank() {
-        return (Biobank) getRequest().getSession().getAttribute("biobank");
-    }
-
-    public void setBiobank(Biobank biobank) {
-        getRequest().getSession().setAttribute("biobank", biobank);
-    }
-
-    public Sample getSample() {
-        return (Sample) getRequest().getSession().getAttribute("sample");
-    }
-
-    public void setSample(Sample sample) {
-        getRequest().getSession().setAttribute("sample", sample);
-    }
-
-    public SampleQuestion getSampleQuestion() {
-        return (SampleQuestion) getRequest().getSession().getAttribute("sampleQuestion");
-    }
-
-    public void setSampleQuestion(SampleQuestion sampleQuestion) {
-        getRequest().getSession().setAttribute("sampleQuestion", sampleQuestion);
     }
 
 

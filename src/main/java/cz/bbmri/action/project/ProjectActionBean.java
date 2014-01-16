@@ -10,6 +10,7 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.ProjectFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
@@ -264,7 +265,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedEditor}"})
     public Resolution update() {
-        if(!projectFacade.updateProject(project, getContext().getMyId())){
+        if (!projectFacade.updateProject(project, getContext().getMyId())) {
             return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("id", id);
         }
         successMsg(null);
@@ -300,7 +301,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution setPermission() {
-        if(!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())){
+        if (!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
         }
         // It changes data - redirect necessary
@@ -310,17 +311,18 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("removeAdministrator")
-    @RolesAllowed({"project_team_member if ${allowedManager or isMyAccount}"}) //project_team_member if ${allowedManager},
+    @RolesAllowed({"project_team_member if ${allowedManager or isMyAccount}"})
+    //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
-        if(!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())){
+        if (!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
     }
 
-    public String getRemoveQuestion(){
-        if(getIsMyAccount()){
+    public String getRemoveQuestion() {
+        if (getIsMyAccount()) {
             return this.getName() + ".questionRemoveMyself";
         }
         return this.getName() + ".questionRemoveAdministrator";
@@ -343,7 +345,7 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedManager}"})
     public Resolution addAdministrator() {
-        if(!projectFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())){
+        if (!projectFacade.assignAdministrator(id, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("id", id);
         }
         successMsg(null);
@@ -384,6 +386,11 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("approve")
     @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution approve() {
+        if (getAllowedVisitor()) {
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.project.ProjectActionBean.approveMyProject"));
+            return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
+        }
+
         if (!projectFacade.approveProject(id, getContext().getMyId(), getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
@@ -394,6 +401,11 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("deny")
     @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution deny() {
+        if (getAllowedVisitor()) {
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.project.ProjectActionBean.denyMyProject"));
+            return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
+        }
+
         if (!projectFacade.denyProject(id, getContext().getMyId(), getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }

@@ -1,17 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Ori
-  Date: 17.7.13
-  Time: 13:01
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
-<%@include file="/WEB-INF/jsp/common/taglibs.jsp"%>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-ERROR 500
-</body>
-</html>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
+
+
+<s:layout-render name="/layouts/layout_error_inside.jsp"
+                 title="500">
+
+    <s:layout-component name="body">
+    </s:layout-component>
+
+</s:layout-render>

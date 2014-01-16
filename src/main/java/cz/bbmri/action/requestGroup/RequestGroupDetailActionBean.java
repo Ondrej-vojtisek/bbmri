@@ -32,7 +32,8 @@ public class RequestGroupDetailActionBean extends BasicActionBean {
     private static final String REQUEST_DETAIL_EXPORT = "/webpages/requestGroup/requestGroup_detail_export.jsp";
 
     public RequestGroup getRequestGroup() {
-        return getRequestGroupBSC();
+//        return getRequestGroupBSC();
+        return null;
     }
 
     public List<Request> getRequests() {
@@ -47,9 +48,7 @@ public class RequestGroupDetailActionBean extends BasicActionBean {
     private Request request;
 
     public Request getRequest() {
-        if(request == null){
-            request = getRequestBSC();
-        }
+
         return request;
     }
 
@@ -72,7 +71,7 @@ public class RequestGroupDetailActionBean extends BasicActionBean {
     public Resolution edit() {
         Long requestId = Long.parseLong(getContext().getRequest().getParameter("request"));
         Request request = requestService.get(requestId);
-        getContext().setRequestId(requestId);
+      //  getContext().setRequestId(requestId);
 
         return new ForwardResolution(REQUEST_DETAIL);
     }

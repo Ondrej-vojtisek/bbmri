@@ -124,7 +124,7 @@ public class SampleActionBean extends BasicActionBean {
 
     @DontValidate
     public Resolution withdrawSamples() {
-        getContext().setSample(null);
+//        getContext().setSample(null);
         return new RedirectResolution(WITHDRAW);
     }
 
@@ -146,7 +146,7 @@ public class SampleActionBean extends BasicActionBean {
     @HandlesEvent("edit")
     public Resolution edit() {
         sample = sampleService.get(sample.getId());
-        getContext().setSample(sample);
+//        getContext().setSample(sample);
         return new ForwardResolution(EditSampleActionBean.class);
     }
 

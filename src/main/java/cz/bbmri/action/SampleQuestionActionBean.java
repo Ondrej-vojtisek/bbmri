@@ -36,7 +36,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     public List<SampleQuestion> getSampleQuestions() {
         //TODO
         //Biobank biobank = getLoggedUser().getBiobankAdministrator().getBiobank();
-        biobank = getContext().getBiobank();
+//        biobank = getContext().getBiobank();
         if(biobank != null){
             biobank = biobankService.eagerGet(biobank.getId(), false, false, true);
             return biobank.getSampleQuestions();
@@ -96,9 +96,9 @@ public class SampleQuestionActionBean extends BasicActionBean {
     }
 
     public SampleQuestion getSampleQuestion() {
-        if (sampleQuestion == null) {
-            sampleQuestion = getContext().getSampleQuestion();
-        }
+//        if (sampleQuestion == null) {
+//            sampleQuestion = getContext().getSampleQuestion();
+//        }
         return sampleQuestion;
     }
 
@@ -117,7 +117,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        getContext().setSampleQuestion(sampleQuestion);
+//        getContext().setSampleQuestion(sampleQuestion);
 
         return new ForwardResolution(REQUEST);
     }
@@ -142,14 +142,14 @@ public class SampleQuestionActionBean extends BasicActionBean {
 
     public Resolution createSampleQuestion() {
         sampleQuestionService.create(sampleQuestion, biobank.getId(), project.getId());
-        getContext().setSampleQuestion(null);
+//        getContext().setSampleQuestion(null);
         return new RedirectResolution(cz.bbmri.action.project.ProjectActionBean.class);
     }
 
     @DontValidate
     public Resolution detail() {
         sampleQuestion = sampleQuestionService.get(sampleQuestion.getId());
-        getContext().setSampleQuestion(sampleQuestion);
+//        getContext().setSampleQuestion(sampleQuestion);
         return new ForwardResolution(QUESTION_DETAIL);
     }
 
@@ -230,7 +230,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
             sampleQuestion.setRequestState(RequestState.APPROVED);
             sampleQuestion.setProcessed(true);
             sampleQuestionService.update(sampleQuestion);
-            getContext().setRequestGroupId(requestGroup.getId());
+//            getContext().setRequestGroupId(requestGroup.getId());
             return new ForwardResolution(REQUESTGROUP_DETAIL);
         }
         return new ForwardResolution(APPROVE_REQUEST);
@@ -250,7 +250,7 @@ public class SampleQuestionActionBean extends BasicActionBean {
     @DontValidate
     public Resolution requestGroupDetail() {
         requestGroup = requestGroupService.get(requestGroup.getId());
-        getContext().setRequestGroupId(requestGroup);
+//        getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(REQUESTGROUP_DETAIL);
     }
 

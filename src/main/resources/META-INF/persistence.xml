@@ -9,6 +9,8 @@
         <class>cz.bbmri.entities.Attachment</class>
         <class>cz.bbmri.entities.Biobank</class>
         <class>cz.bbmri.entities.BiobankAdministrator</class>
+        <class>cz.bbmri.entities.Notification</class>
+        <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
@@ -16,7 +18,7 @@
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.User</class>
-        <class>cz.bbmri.entities.Notification</class>
+
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -38,6 +40,8 @@
         <class>cz.bbmri.entities.Attachment</class>
         <class>cz.bbmri.entities.Biobank</class>
         <class>cz.bbmri.entities.BiobankAdministrator</class>
+        <class>cz.bbmri.entities.Notification</class>
+        <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
@@ -45,7 +49,6 @@
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.User</class>
-        <class>cz.bbmri.entities.Notification</class>
 
         <properties>
 

@@ -59,8 +59,9 @@ public class ApproveRequestActionBean extends BasicActionBean {
     }
 
     public List<Request> getRequests(){
-        RequestGroup rqg = requestGroupService.get(getContext().getRequestGroupId());
-        return rqg.getRequests();
+        return null;
+//        RequestGroup rqg = requestGroupService.get(getContext().getRequestGroupId());
+//        return rqg.getRequests();
        // return requestGroupService.getRequestsByRequestGroup(getContext().getRequestGroupId());
     }
     @DontValidate
@@ -88,7 +89,7 @@ public class ApproveRequestActionBean extends BasicActionBean {
     @DontValidate
     public Resolution detail() {
         requestGroup = requestGroupService.get(requestGroup.getId());
-        getContext().setRequestGroupId(requestGroup);
+     //   getContext().setRequestGroupId(requestGroup);
         return new ForwardResolution(DETAIL);
     }
     @DontValidate

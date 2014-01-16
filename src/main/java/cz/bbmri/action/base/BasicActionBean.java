@@ -87,18 +87,6 @@ public class BasicActionBean extends Links implements ActionBean {
 
     }
 
-    public RequestGroup getRequestGroupBSC() {
-
-        Long id = ctx.getRequestGroupId();
-        return requestGroupService.get(id);
-    }
-
-    public Request getRequestBSC() {
-
-        Long id = ctx.getRequestId();
-        return requestService.get(id);
-    }
-
     public String getName() {
         return this.getClass().getName();
     }

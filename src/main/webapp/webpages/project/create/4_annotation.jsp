@@ -13,7 +13,7 @@
             <fieldset>
                 <legend><f:message key="cz.bbmri.action.project.CreateProjectActionBean.fourthStep"/></legend>
 
-                <s:label for="cz.bbmri.entities.Project.project.annotation"/>
+                <s:label for="cz.bbmri.entities.Project.annotation"/>
                 <s:textarea name="project.annotation"/>
 
                 <div class="form-actions">

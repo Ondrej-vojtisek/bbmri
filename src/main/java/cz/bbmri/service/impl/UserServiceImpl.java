@@ -105,6 +105,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
         if (user.getPassword() != null) userDB.setPassword(user.getPassword());
         if (user.getLastLogin() != null) userDB.setLastLogin(user.getLastLogin());
+        if (user.getEmail() != null) userDB.setEmail(user.getEmail());
 
         userDao.update(userDB);
         return user;

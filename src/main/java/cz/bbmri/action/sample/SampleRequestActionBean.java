@@ -125,12 +125,12 @@ public class SampleRequestActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        if(sampleQuery == null){
-            sampleQuery = getContext().getSample();
-        }
-        if(sampleQuery != null){
-            results = sampleService.getSamplesByQuery(sampleQuery);
-        }
+//        if(sampleQuery == null){
+//            sampleQuery = getContext().getSample();
+//        }
+//        if(sampleQuery != null){
+//            results = sampleService.getSamplesByQuery(sampleQuery);
+//        }
 
 
         return new ForwardResolution(WITHDRAW);

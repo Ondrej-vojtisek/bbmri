@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<patient xsi:noNamespaceSchemaLocation="exportNIS.xsd"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns="http://www.bbmri.cz/schemas/biobank/data"
+   rc="88050113280" biobank="001MOUBRNO" consent="true">
+    <LTS>
+        <tissue>
+            <sampleID>
+                <year>2004</year>
+                <number>3</number>
+            </sampleID>
+            <sampleNos>
+                <samplesNo>10</samplesNo>
+                <availableSamplesNo>1</availableSamplesNo>
+            </sampleNos>
+            <tissueType>2</tissueType>
+            <pTNM>0 0 0</pTNM>
+            <grading>3</grading>
+            <cutTime>2006-10-27T00:00</cutTime>
+            <freezeTime>2006-10-27T00:00</freezeTime>
+        </tissue>
+        <tissue>
+            <sampleID>
+                <year>2007</year>
+                <number>1</number>
+            </sampleID>
+            <sampleNos>
+                <samplesNo>4</samplesNo>
+                <availableSamplesNo>1</availableSamplesNo>
+            </sampleNos>
+            <tissueType>4</tissueType>
+            <pTNM>2 1 1</pTNM>
+            <grading>9</grading>
+            <cutTime>2003-06-24T09:02</cutTime>
+            <freezeTime>2003-06-24T10:00</freezeTime>
+        </tissue>
+        <tissue>
+            <sampleID>
+                <year>2013</year>
+                <number>1</number>
+            </sampleID>
+            <sampleNos>
+                <samplesNo>2</samplesNo>
+                <availableSamplesNo>1</availableSamplesNo>
+            </sampleNos>
+            <tissueType>3</tissueType>
+            <pTNM>2 1 1</pTNM>
+            <grading>9</grading>
+            <cutTime>2013-06-20T06:00</cutTime>
+            <freezeTime>2013-06-20T07:00</freezeTime>
+        </tissue>
+        <tissue>
+            <sampleID>
+                <year>2013</year>
+                <number>1</number>
+            </sampleID>
+            <sampleNos>
+                <samplesNo>1</samplesNo>
+                <availableSamplesNo>0</availableSamplesNo>
+            </sampleNos>
+            <tissueType>4</tissueType>
+            <pTNM>2 1 1</pTNM>
+            <grading>9</grading>
+            <cutTime>2013-06-20T06:00</cutTime>
+            <freezeTime>2013-06-20T07:00</freezeTime>
+        </tissue>
+        <blood>
+            <sampleID>
+                <year>2006</year>
+                <number>2</number>
+            </sampleID>
+            <sampleNos>
+                <samplesNo>4</samplesNo>
+                <availableSamplesNo>1</availableSamplesNo>
+            </sampleNos>
+            <takingDate>2006-10-27</takingDate>
+        </blood>
+    </LTS>
+</patient>

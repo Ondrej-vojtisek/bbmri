@@ -15,6 +15,7 @@ public class Links {
      * ************************************
      */
     protected static final String INDEX = "/index.jsp";
+    protected static final String LOGIN = "/login.jsp";
     private static final String BASIC_PATH = "/webpages";
     /**
      * *********************************

@@ -77,6 +77,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     @DefaultHandler
     public Resolution display() {
 
+        logger.debug("Login display");
+
         if (getContext().getIsShibbolethSession()) {
 
             User user = initializeUser();
@@ -84,7 +86,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             try {
                 id = userFacade.loginShibbolethUser(user);
             } catch (AuthorizationException ex) {
-                return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
+                // TODO: Loger here
+                return new ForwardResolution("/errors/not_authorized_to_access.jsp");
             }
 
             user = userFacade.get(id);
@@ -93,14 +96,13 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
                 getContext().setLoggedUser(user);
                 getContext().getMessages().add(new SimpleMessage("Succesfull login"));
             }
-
-            return new ForwardResolution(DashboardActionBean.class);
+           return new ForwardResolution(DashboardActionBean.class);
         }
 
 
         getContext().dropUser();
 
-        return new ForwardResolution(INDEX);
+        return new ForwardResolution(LOGIN);
     }
 
     public Resolution login() {

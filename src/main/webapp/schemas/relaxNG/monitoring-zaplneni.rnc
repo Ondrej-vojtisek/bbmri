@@ -1,0 +1,86 @@
+default namespace = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy"
+
+## description of a whole biobank of one institution
+start =
+element biobank {
+	## unique identifier of a biobank (assigned by a coordinator)
+	attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "32" } },
+
+	( container )*,
+
+	## nonstructured containers that are not introduced into the structure;
+	## this is a fallback alternative when container structure is not used on given biobank site
+	( box )*
+
+}
+
+## definition of a container
+container =
+	element container {
+		## unique identifier of a container
+		attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" } },
+		## container location description
+		element location { text },
+  		## max number of stands in container
+  		element capacity { xsd:int },
+
+  		## amount of occupied positions
+  		## element occupied { xsd:int },
+
+		## minimum temperature allowed in the container
+		element tempMin { xsd:float }?,
+		## maximum temperature allowed in the container
+		element tempMax { xsd:float }?,
+        ## defined inner section in container - e.g. stand, shelf, rack ...
+        ## if there are not any inner sections defined then use one default for all
+        ( rack )+
+	}
+
+rack =
+    element rack {
+         ## unique identifier of the box
+         attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" } },
+         ## max number of box in stand
+         element capacity { xsd:int },
+         ## multiple boxes on different levels may be defined here
+         ( box )+
+    }
+
+box =
+    element box {
+        ## unique identifier of the box
+        attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" } },
+        ## capacity of the box
+        element capacity { xsd:int },
+        ## minimum temperature allowed in the box
+        element tempMin { xsd:float }?,
+        ## maximum temperature allowed in the box
+        element tempMax { xsd:float }?,
+        ## what is stored on occupied positions
+        ( occupiedPosition )*
+    }
+
+occupiedPosition =
+    element occupiedPosition {
+        ## position can be defined as a sequential order or matrix (rox : column) position.
+        ## it depends on institution
+        ( sequentialPosition | matrixPosition ),
+        ## year when was sample retrieved and stored
+        element year { xsd:gYear },
+        ## sequential order of sample during the year
+        element sampleId { xsd:string { maxLength = "6" } }
+    }
+
+sequentialPosition =
+    element sequentialPosition {
+        attribute position { xsd:int }
+    }
+
+matrixPosition =
+    element matrixPosition {
+        attribute row { xsd:int },
+        attribute column { xsd:int }
+    }
+
+
+
