@@ -62,4 +62,7 @@ public interface ProjectFacade extends PermissionFacade{
 
     List<User> getProjectAdministratorsUsers(Long projectId);
 
+    List<Biobank> getAllBiobanks();
+
+    boolean createSampleQuestion(SampleQuestion sampleQuestion, Long projectId, Long biobankId, ValidationErrors errors);
 }

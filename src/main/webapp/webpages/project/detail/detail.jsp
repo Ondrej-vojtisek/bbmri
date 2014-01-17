@@ -89,6 +89,15 @@
                     </s:submit>
                 </security:allowed>
 
+                <c:if test="${projectBean.isApproved}">
+                    <security:allowed bean="projectBean" event="createSampleQuestion">
+                        <s:link beanclass="${projectBean.name}" event="createSampleQuestion" class="btn btn-primary btnMargin">
+                            <s:param name="id" value="${projectBean.id}"/>
+                            <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleQuestion"/>
+                        </s:link>
+                    </security:allowed>
+                </c:if>
+
                 <c:if test="${projectBean.isStarted}">
                     <security:allowed bean="projectBean" event="markAsFinished">
                         <s:submit name="markAsFinished" class="btn btn-primary btnMargin">

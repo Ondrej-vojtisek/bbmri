@@ -1,9 +1,7 @@
 package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.BasicActionBean;
-import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
@@ -70,6 +68,8 @@ public class ProjectActionBean extends BasicActionBean {
      * Important to specify what is the purpose of uploaded file
       * */
     private AttachmentType attachmentType;
+
+    private SampleQuestion sampleQuestion;
 
     public Long getUserAdminId() {
         return userAdminId;
@@ -148,7 +148,13 @@ public class ProjectActionBean extends BasicActionBean {
         return getProject().getProjectAdministrators();
     }
 
+    public SampleQuestion getSampleQuestion() {
+        return sampleQuestion;
+    }
 
+    public void setSampleQuestion(SampleQuestion sampleQuestion) {
+        this.sampleQuestion = sampleQuestion;
+    }
 
     /* When the project is marked as finished than it can't be edited or changes in any way */
 
@@ -196,12 +202,30 @@ public class ProjectActionBean extends BasicActionBean {
         return getProject().getProjectState().equals(ProjectState.NEW);
     }
 
+    public boolean getIsApproved() {
+        return getProject().getProjectState().equals(ProjectState.APPROVED);
+    }
+
     public boolean getIsStarted() {
         return getProject().getProjectState().equals(ProjectState.STARTED);
     }
 
     private boolean isFinished() {
         return getProject().getProjectState().equals(ProjectState.FINISHED);
+    }
+
+    public List<Biobank> getAllBiobanks() {
+        return projectFacade.getAllBiobanks();
+    }
+
+    private Long biobankId;
+
+    public Long getBiobankId() {
+        return biobankId;
+    }
+
+    public void setBiobankId(Long biobankId) {
+        this.biobankId = biobankId;
     }
 
     @DontValidate
@@ -421,6 +445,32 @@ public class ProjectActionBean extends BasicActionBean {
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
+    }
+
+    @HandlesEvent("createSampleQuestion")
+    @RolesAllowed({"project_team_member if ${allowedExecutor}"})
+    public Resolution createSampleQuestion() {
+        return new ForwardResolution(PROJECT_CREATE_SAMPLE_QUESTION);
+    }
+
+
+    //VALIDATE
+    @HandlesEvent("confirmSampleQuestion")
+    @RolesAllowed({"project_team_member if ${allowedExecutor}"})
+    public Resolution confirmSampleQuestion() {
+
+        if (!projectFacade.createSampleQuestion(sampleQuestion, id, biobankId, getContext().getValidationErrors())) {
+            return new ForwardResolution(PROJECT_DETAIL_GENERAL);
+        }
+        successMsg(null);
+        return new RedirectResolution(this.getClass(), "sampleQuestions").addParameter("id", id);
+    }
+
+    @DontValidate
+    @HandlesEvent("sampleQuestions")
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    public Resolution sampleQuestions() {
+        return new ForwardResolution(PROJECT_DETAIL_SAMPLE_QUESTIONS);
     }
 
 }

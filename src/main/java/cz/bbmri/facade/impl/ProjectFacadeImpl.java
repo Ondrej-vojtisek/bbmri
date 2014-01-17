@@ -1,9 +1,6 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.User;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
@@ -11,7 +8,6 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.service.*;
 import net.sourceforge.stripes.action.FileBean;
-import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -54,6 +50,12 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private BiobankService biobankService;
+
+    @Autowired
+    private SampleQuestionService sampleQuestionService;
 
     public boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
         notNull(projectId);
@@ -235,7 +237,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
         if (result) {
 
-            String msg = newAdmin.getWholeName()  + " was assigned as administrator with permission: " + permission + " to project: " + projectDB.getName() +".";
+            String msg = newAdmin.getWholeName() + " was assigned as administrator with permission: " + permission + " to project: " + projectDB.getName() + ".";
 
             notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
                     NotificationType.PROJECT_ADMINISTRATOR, msg, projectDB.getId());
@@ -321,7 +323,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             attachmentService.update(attachment);
         }
 
-        String msg = "New attachment was uploaded to project: " + projectDB.getName() +".";
+        String msg = "New attachment was uploaded to project: " + projectDB.getName() + ".";
 
         notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
                 NotificationType.PROJECT_ATTACHMENT, msg, projectDB.getId());
@@ -361,7 +363,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             String msg = "Attachment: " + attachment.getFileName() + " from project: " + project.getName() + " was deleted.";
 
             notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_ATTACHMENT, msg,  project.getId());
+                    NotificationType.PROJECT_ATTACHMENT, msg, project.getId());
 
             return attachmentService.remove(attachmentId);
         }
@@ -429,7 +431,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             String msg = "Permission of " + user.getWholeName() + " was changed to: " + permission;
 
             notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_ADMINISTRATOR, msg,  project.getId());
+                    NotificationType.PROJECT_ADMINISTRATOR, msg, project.getId());
         }
         return result;
     }
@@ -504,6 +506,24 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public ProjectAdministrator getProjectAdministrator(Long projectAdministratorId) {
         notNull(projectAdministratorId);
         return projectAdministratorService.get(projectAdministratorId);
+    }
+
+    public List<Biobank> getAllBiobanks() {
+        return biobankService.all();
+    }
+
+    public boolean createSampleQuestion(SampleQuestion sampleQuestion, Long projectId, Long biobankId,
+                                        ValidationErrors errors){
+
+//        notNull(sampleQuestion);
+//        notNull(projectId);
+//        notNull(biobankId);
+
+        if(sampleQuestionService.create(sampleQuestion, biobankId, projectId) == null){
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleQuestionFailed"));
+            return false;
+        }
+        return true;
     }
 
 

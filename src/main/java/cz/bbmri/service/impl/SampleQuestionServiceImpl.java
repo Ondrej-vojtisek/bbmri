@@ -65,6 +65,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         notNull(sampleQuestion);
         notNull(biobankId);
         notNull(projectId);
+
         Biobank biobankDB = biobankDao.get(biobankId);
         if (biobankDB == null) {
             return null;
