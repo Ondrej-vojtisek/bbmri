@@ -60,7 +60,7 @@
 <%-- -------------------------------------------------------------------- --%>
 
 <p class="navbar-text pull-right">
-    <b><f:message key="version"/>:</b> <i>PROJECT_VERSION</i>
+    <b><f:message key="version"/>:</b> <i>1.53</i>
 </p>
 
 

@@ -11,12 +11,12 @@
     <s:layout-component name="body">
 
         <fieldset>
-            <legend>popisek</legend>
+            <legend><f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleQuestion.legend"/></legend>
 
             <s:form beanclass="cz.bbmri.action.project.ProjectActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleQuestion.biobank" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleQuestion.biobank.create" class="control-label"/>
                     <div class="controls">
                         <s:select name="biobankId">
                             <s:options-collection collection="${projectBean.allBiobanks}"
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <s:label for="cz.bbmri.entities.SampleQuestion.specification"/>
+                <s:label for="cz.bbmri.entities.SampleQuestion.specification.create"/>
                 <s:textarea name="sampleQuestion.specification"/>
 
                 <div class="form-actions">

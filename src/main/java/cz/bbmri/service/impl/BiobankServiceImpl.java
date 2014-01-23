@@ -75,6 +75,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         biobankDao.create(biobank);
         assignAdministrator(biobank, newAdministratorId, Permission.MANAGER);
 
+        logger.debug("CreateBiobank Service - Biobank: " + biobank);
+
         return biobank;
     }
 

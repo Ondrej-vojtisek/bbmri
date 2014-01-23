@@ -1,8 +1,10 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.RequestState;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,6 +38,9 @@ public class SampleQuestion {
     private RequestState requestState;
 
     private boolean processed = false;
+
+    @Type(type = "timestamp")
+    private Date created;
 
     public boolean isProcessed() {
         return processed;
@@ -83,6 +88,14 @@ public class SampleQuestion {
 
     public void setRequestState(RequestState requestState) {
         this.requestState = requestState;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     @Override

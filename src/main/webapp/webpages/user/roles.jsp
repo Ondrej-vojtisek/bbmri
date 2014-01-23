@@ -17,7 +17,7 @@
 <table class="table table-hover table-striped">
     <thead>
     <tr>
-        <th><s:label name="bbmri.entities.enumeration.SystemRoles"/></th>
+        <th><f:message key="cz.bbmri.entities.enumeration.SystemRoles"/></th>
     </tr>
     </thead>
     <tbody>
@@ -40,6 +40,7 @@
                     <s:submit name="removeAdministratorRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionAdministrator}')"/>
+                        <s:param name="id" value="${userBean.id}"/>
                 </s:form>
                     <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                     <%--event="removeAdministratorRole">--%>
@@ -56,6 +57,7 @@
                     <s:submit name="removeDeveloperRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionDeveloper}')"/>
+                        <s:param name="id" value="${userBean.id}"/>
                 </s:form>
 
                     <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
@@ -178,9 +180,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.subject"/></th>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.permission"/></th>
-            <th><s:label name="bbmri.entities.webEntities.RoleDTO.referenceId"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.subject"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.permission"/></th>
+            <th><f:message key="cz.bbmri.entities.webEntities.RoleDTO.referenceId"/></th>
         </tr>
         </thead>
         <tbody>

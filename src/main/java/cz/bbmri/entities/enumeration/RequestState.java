@@ -13,6 +13,7 @@ public enum RequestState {
     APPROVED("approved"),
     DENIED("denied"),
     DELIVERED("delivered");
+
     private String state;
 
     private RequestState(String state) {

@@ -1,5 +1,7 @@
 package cz.bbmri.facade;
 
+import cz.bbmri.entities.SampleQuestion;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -8,6 +10,8 @@ package cz.bbmri.facade;
  * To change this template use File | Settings | File Templates.
  */
 public interface RequestFacade {
+
+    SampleQuestion getSampleQuestion(Long sampleQuestionId);
 
     //List<RequestGroup> getRequestsByBiobankAndState(Long biobank);
 }

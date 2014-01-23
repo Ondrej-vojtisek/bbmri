@@ -7,11 +7,13 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.service.SampleQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,7 +78,10 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             return null;
             //TODO: exception
         }
+        sampleQuestion.setRequestState(RequestState.NEW);
         sampleQuestion.setProcessed(false);
+        sampleQuestion.setCreated(new Date());
+
         sampleQuestionDao.create(sampleQuestion);
         sampleQuestion.setBiobank(biobankDB);
         biobankDB.getSampleQuestions().add(sampleQuestion);

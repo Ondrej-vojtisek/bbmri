@@ -12,22 +12,17 @@ public class Links {
     /**
      * **********************************
      * LINKS
-     * ************************************
+     * **********************************
      */
     protected static final String INDEX = "/index.jsp";
     protected static final String LOGIN = "/login.jsp";
     private static final String BASIC_PATH = "/webpages";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String DASHBOARD = "/dashboard.jsp";
 
     // MY ACCOUNT
     private static final String USER = BASIC_PATH + "/user/";
-    /**
-     * *********************************
-     */
-
+    /************************************/
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
     protected static final String USER_CREATE = USER + "create.jsp";
@@ -38,9 +33,7 @@ public class Links {
 
     // BIOBANK
     private static final String BIOBANK = BASIC_PATH + "/biobank/";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String BIOBANK_ALL = BIOBANK + "all.jsp";
     protected static final String BIOBANK_DETAIL = BIOBANK + "detail.jsp";
     protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators.jsp";
@@ -48,9 +41,7 @@ public class Links {
 
     // BIOBANK/CREATE
     private static final String BIOBANK_CREATE = BIOBANK + "create/";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String BIOBANK_CREATE_GENERAL = BIOBANK_CREATE + "1_general.jsp";
     protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "2_administrators.jsp";
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "3_confirm.jsp";
@@ -61,18 +52,14 @@ public class Links {
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String PROJECT_ALL = PROJECT + "all.jsp";
     protected static final String PROJECT_MY = PROJECT + "all_my.jsp";
     protected static final String PROJECT_CREATE_SAMPLE_QUESTION = PROJECT + "createSampleQuestion.jsp";
 
     // PROJECTS/CREATE
     private static final String PROJECT_DETAIL = PROJECT + "detail/";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String PROJECT_DETAIL_GENERAL = PROJECT_DETAIL + "detail.jsp";
     protected static final String PROJECT_DETAIL_ATTACHMENTS = PROJECT_DETAIL + "attachments.jsp";
     protected static final String PROJECT_DETAIL_ADMINISTRATORS = PROJECT_DETAIL + "administrators.jsp";
@@ -83,9 +70,7 @@ public class Links {
 
     // PROJECTS/CREATE
     private static final String PROJECT_CREATE = PROJECT + "create/";
-    /**
-     * *********************************
-     */
+    /* ********************************** */
     protected static final String PROJECT_CREATE_INIT = PROJECT_CREATE + "1_initial.jsp";
     protected static final String PROJECT_CREATE_GENERAL = PROJECT_CREATE + "2_general.jsp";
     protected static final String PROJECT_CREATE_FINANCED = PROJECT_CREATE + "3_financed.jsp";
@@ -95,6 +80,11 @@ public class Links {
 
     protected static final String SAMPLE_REQUEST = "/webpages/project/sample_request.jsp";
 
+     // SUPPORT
     protected static final String SUPPORT = BASIC_PATH + "/support/support.jsp";
 
+    // REQUEST
+    private static final String REQUEST = BASIC_PATH + "/request/";
+    /* ********************************** */
+    protected static final String REQUEST_DETAIL = REQUEST + "detail.jsp";
 }

@@ -8,11 +8,11 @@ package cz.bbmri.entities.enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public enum AttachmentType {
-    PATIENT_AGREEMENT("_patient"),
-    ETHICAL_AGREEMENT("_ethical"),
-    MATERIAL_TRANSFER_AGREEMENT("_mta"),
-    RESULT("_result"),
-    OTHER("_other");
+    PATIENT_AGREEMENT("patient"),
+    ETHICAL_AGREEMENT("ethical"),
+    MATERIAL_TRANSFER_AGREEMENT("mta"),
+    RESULT("result"),
+    OTHER("other");
 
     private String state;
 

@@ -43,14 +43,14 @@ public class CreateActionBean extends FindActionBean {
             @Validate(on = {"confirmStep1", "done"}, field = "name", required = true),
             @Validate(on = {"confirmStep1", "done"}, field = "address", required = true)
     })
-    private Biobank newBiobank;
+    private Biobank biobank;
 
-    public Biobank getNewBiobank() {
-        return newBiobank;
+    public Biobank getBiobank() {
+        return biobank;
     }
 
-    public void setNewBiobank(Biobank newBiobank) {
-        this.newBiobank = newBiobank;
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
     }
 
     public Long getAdminId() {
@@ -101,16 +101,12 @@ public class CreateActionBean extends FindActionBean {
     @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
     public Resolution confirmStep3() {
-        ValidationErrors errors = new ValidationErrors();
-        biobankFacade.createBiobank(newBiobank, adminId, errors, getContext().getPropertiesStoragePath());
-
-        if(biobankFacade.createBiobank(newBiobank, adminId, errors, getContext().getPropertiesStoragePath())){
-            successMsg(null);
-            return new RedirectResolution(BiobankActionBean.class, "allBiobanks");
+        if(!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors(), getContext().getPropertiesStoragePath())){
+            return new ForwardResolution(BiobankActionBean.class);
         }
 
-        getContext().setValidationErrors(errors);
-        return new ForwardResolution(BiobankActionBean.class, "allBiobanks");
+        successMsg(null);
+        return new RedirectResolution(BiobankActionBean.class);
     }
 
     @HandlesEvent("confirmStep1")

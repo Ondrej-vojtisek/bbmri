@@ -124,7 +124,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         boolean result = userService.setSystemRole(userId, SystemRole.DEVELOPER);
         if (result) {
-            String msg = "Developer permission was given to user: " + userDB.getWholeName() + ".";
+            String msg = "Developer permission was given to user: " + userDB.getWholeName();
 
             notificationService.create(getDevelopers(),
                     NotificationType.USER_SUPPORT, msg, null);
@@ -141,9 +141,9 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             return false;
         }
 
-        boolean result = userService.setSystemRole(userId, SystemRole.DEVELOPER);
+        boolean result = userService.setSystemRole(userId, SystemRole.ADMINISTRATOR);
         if (result) {
-            String msg = "Administrator permission was given to user: " + userDB.getWholeName() + ".";
+            String msg = "Administrator permission was given to user: " + userDB.getWholeName();
 
             notificationService.create(getAdministrators(),
                     NotificationType.USER_SUPPORT, msg, null);

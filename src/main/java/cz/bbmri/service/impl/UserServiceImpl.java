@@ -229,6 +229,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             return false;
             // TODO: exception
         }
+
         userDB.getSystemRoles().remove(systemRole);
         userDao.update(userDB);
         return true;

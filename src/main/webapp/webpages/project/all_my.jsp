@@ -55,7 +55,7 @@
                                 </security:allowed>
                             </security:notAllowed>
 
-                            <f:message var="question" key="bbmri.action.project.ProjectActionBean.questionDelete"/>
+                            <f:message var="question" key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>
 
                             <security:allowed bean="projectBean" event="delete">
                                 <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">

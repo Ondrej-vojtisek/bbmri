@@ -14,22 +14,24 @@
                 <legend><f:message key="cz.bbmri.action.project.CreateProjectActionBean.sixthStep"/></legend>
 
                 <div class="form-actions">
-                <div class="fileupload fileupload-new" data-provides="fileupload">
-                    <div class="input-append">
-                        <div class="uneditable-input span3">
-                            <i class="icon-file fileupload-exists"></i>
-                            <span class="fileupload-preview"></span>
-                        </div>
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-append">
+                            <div class="uneditable-input span3">
+                                <i class="icon-file fileupload-exists"></i>
+                                <span class="fileupload-preview"></span>
+                            </div>
                         <span class="btn btn-file">
                             <span class="fileupload-new">Select file</span>
                             <span class="fileupload-exists">Change</span>
                             <s:file name="attachmentFileBean"/>
                         </span>
-                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                        </div>
+
+
                     </div>
-                        <s:submit name="confirmStep6" class="btn btn-primary btnMargin"/>
-                        <s:submit name="backFromStep6" class="btn btn-inverse"/>
-                </div>
+                    <s:submit name="backFromStep6" class="btn btn-inverse btnMargin"/>
+                    <s:submit name="confirmStep6" class="btn btn-primary"/>
                 </div>
 
             </fieldset>

@@ -61,20 +61,16 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         notNull(projectId);
         notNull(loggedUserId);
 
-
         if (!projectService.approve(projectId, loggedUserId)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ApproveFailed"));
             return false;
         }
-
+        // Project can't be null - otherwise projectService.approve would have failed
         Project project = projectService.get(projectId);
-        if (project != null) {
+        String msg = "Project: " + project.getName() + " was approved.";
 
-            String msg = "Project: " + project.getName() + " was approved.";
-
-            notificationService.create(getProjectAdministratorsUsers(projectId),
-                    NotificationType.PROJECT_DETAIL, msg, project.getId());
-        }
+        notificationService.create(getProjectAdministratorsUsers(projectId),
+                NotificationType.PROJECT_DETAIL, msg, project.getId());
 
         return true;
     }
@@ -101,7 +97,12 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     }
 
     public List<User> getProjectAdministratorsUsers(Long projectId) {
-        throw new NotImplementedException("TODO");
+        Project projectDB = projectService.eagerGet(projectId, true, false, false, false);
+        List<User> users = new ArrayList<User>();
+        for(ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()){
+            users.add(projectAdministrator.getUser());
+        }
+        return users;
     }
 
     //List<ProjectAdministrator> getProjectAdministrators(Long biobankId);
@@ -198,18 +199,24 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
         Project project = projectService.get(projectId);
 
-        if (projectService.remove(projectId)) {
+        // Necessary to be able to send notification to all project members after delete
 
-            String msg = "Project: " + project.getName() + " was removed.";
+        List<User> users = getOtherProjectWorkers(project, loggedUserId);
 
-            notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_DELETE, msg, project.getId());
-
-            return FacadeUtils.recursiveDeleteFolder(bbmriPath +
-                    Attachment.PROJECT_FOLDER_PATH +
-                    projectId.toString(), errors) == SUCCESS;
+        if (!projectService.remove(projectId)) {
+            return false;
         }
-        return false;
+
+        String msg = "Project: " + project.getName() + " was removed.";
+
+        notificationService.create(users, NotificationType.PROJECT_DELETE, msg, project.getId());
+
+        boolean result = FacadeUtils.recursiveDeleteFolder(bbmriPath +
+                Attachment.PROJECT_FOLDER_PATH +
+                projectId.toString(), errors) == SUCCESS;
+
+        return result;
+
     }
 
     public boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId) {
@@ -513,17 +520,25 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     }
 
     public boolean createSampleQuestion(SampleQuestion sampleQuestion, Long projectId, Long biobankId,
-                                        ValidationErrors errors){
+                                        ValidationErrors errors) {
 
 //        notNull(sampleQuestion);
 //        notNull(projectId);
 //        notNull(biobankId);
 
-        if(sampleQuestionService.create(sampleQuestion, biobankId, projectId) == null){
+        if (sampleQuestionService.create(sampleQuestion, biobankId, projectId) == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleQuestionFailed"));
             return false;
         }
         return true;
+    }
+
+    public List<SampleQuestion> getProjectSampleQuestions(Long projectId) {
+        notNull(projectId);
+
+        Project projectDB = projectService.eagerGet(projectId, false, false, false, true);
+        return projectDB.getSampleQuestions();
+
     }
 
 

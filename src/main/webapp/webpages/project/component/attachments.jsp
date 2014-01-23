@@ -7,24 +7,22 @@
            <thead>
            <tr>
                <th><f:message key="cz.bbmri.entities.Attachment.name"/></th>
-               <th><f:message key="cz.bbmri.entities.Attachment.type"/></th>
                <th><f:message key="cz.bbmri.entities.Attachment.unit"/></th>
                <th><f:message key="cz.bbmri.entities.Attachment.importance"/></th>
+               <th></th>
            </tr>
            </thead>
-
            <tbody>
 
            <c:if test="${empty projectBean.attachments}">
                <tr>
-                   <td colspan="5"><f:message key="empty"/></td>
+                   <td colspan="4"><f:message key="empty"/></td>
                </tr>
            </c:if>
 
            <c:forEach items="${projectBean.attachments}" var="attachment" varStatus="loop">
                <tr>
                    <td>${attachment.fileName}</td>
-                   <td class="narrow20">${attachment.contentType}</td>
                    <td>${attachment.size}</td>
                    <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
                    <td class="action">
@@ -43,12 +41,14 @@
 
                        <security:allowed bean="projectBean" event="deleteAttachment">
                            <s:form beanclass="${projectBean.name}">
+                       <div class="tableAction">
                                <s:submit name="deleteAttachment"
                                          class="btn btn-danger"
                                          onclick="return confirm('${question}')">
                                    <s:param name="attachmentId" value="${attachment.id}"/>
                                    <s:param name="id" value="${projectBean.id}"/>
                                </s:submit>
+                                   </div>
                            </s:form>
                        </security:allowed>
 

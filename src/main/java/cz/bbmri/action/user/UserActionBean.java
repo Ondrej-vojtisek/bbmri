@@ -82,9 +82,6 @@ public class UserActionBean extends BasicActionBean {
     @PermitAll
     @HandlesEvent("orderBy")
     public Resolution orderBy(){
-
-        logger.debug("orderBy Event");
-
         return new ForwardResolution(USER_ALL);
     }
 
@@ -159,8 +156,10 @@ public class UserActionBean extends BasicActionBean {
         return new ForwardResolution(USER_ALL);
     }
 
+    /* Create user is only for testing purposes. So it is allowed only on localhost. */
+
     @HandlesEvent("createUser")
-    @RolesAllowed({"administrator", "developer"})
+    @RolesAllowed({"developer if ${!isShibbolethUser}"})
     public Resolution createUser() {
         return new ForwardResolution(USER_CREATE);
     }

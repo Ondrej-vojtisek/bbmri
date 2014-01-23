@@ -69,6 +69,10 @@ public class ProjectActionBean extends BasicActionBean {
       * */
     private AttachmentType attachmentType;
 
+    @ValidateNestedProperties(value = {
+            @Validate(field = "specification",
+                    required = true, on = "confirmSampleQuestion")
+    })
     private SampleQuestion sampleQuestion;
 
     public Long getUserAdminId() {
@@ -228,6 +232,14 @@ public class ProjectActionBean extends BasicActionBean {
         this.biobankId = biobankId;
     }
 
+    public List<SampleQuestion> getSampleQuestions() {
+        if (id == null) {
+            return null;
+        }
+
+        return projectFacade.getProjectSampleQuestions(id);
+    }
+
     @DontValidate
     @HandlesEvent("allProjects")
     @RolesAllowed({"administrator", "developer"})
@@ -356,9 +368,11 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("delete")
     @RolesAllowed({"developer"})
     public Resolution delete() {
+
         if (!projectFacade.removeProject(id,
                 getContext().getPropertiesStoragePath(),
-                getContext().getValidationErrors(), getContext().getMyId())) {
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass());
         }
         successMsg(null);
@@ -410,14 +424,25 @@ public class ProjectActionBean extends BasicActionBean {
     @HandlesEvent("approve")
     @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution approve() {
+
+        // If project is mine than I can't approve it
+
         if (getAllowedVisitor()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.project.ProjectActionBean.approveMyProject"));
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
 
+        logger.debug("Approve - Start");
+
         if (!projectFacade.approveProject(id, getContext().getMyId(), getContext().getValidationErrors())) {
+
+            logger.debug("Approve - failed");
+
             return new ForwardResolution(this.getClass(), "detail").addParameter("id", id);
         }
+
+        logger.debug("Approve - Finish");
+
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("id", id);
     }

@@ -42,6 +42,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     @Autowired
     private ProjectAdministratorDao projectAdministratorDao;
 
+    @Autowired
+    private SampleQuestionDao sampleQuestionDao;
+
     public Project create(Project project, Long userId) {
         notNull(project);
         notNull(userId);
@@ -53,6 +56,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             return null;
 
         }
+
         project.setProjectState(ProjectState.NEW);
         project.setCreated(new Date());
         projectDao.create(project);
@@ -74,16 +78,26 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         User judge = projectDB.getJudgedByUser();
         if (judge != null) {
+
             judge.getJudgedProjects().remove(projectDB);
             userDao.update(judge);
         }
 
         List<RequestGroup> requestGroups = projectDB.getRequestGroups();
         if (requestGroups != null) {
+
             for (RequestGroup requestGroup : requestGroups) {
                 requestGroupDao.remove(requestGroup);
             }
         }
+
+        List<SampleQuestion> sampleQuestions = projectDB.getSampleQuestions();
+                if (sampleQuestions != null) {
+
+                    for (SampleQuestion sampleQuestion : sampleQuestions) {
+                        sampleQuestionDao.remove(sampleQuestion);
+                    }
+                }
 
         List<Attachment> attachments = projectDB.getAttachments();
         if (attachments != null) {
@@ -94,6 +108,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
         if (projectAdministrators != null) {
+
+            logger.debug("projectAttachments");
+
             for (ProjectAdministrator pa : projectAdministrators) {
 
                 User userDB = pa.getUser();

@@ -49,48 +49,59 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     private PatientService patientService;
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
+
         notNull(biobank);
         notNull(newAdministratorId);
         notNull(errors);
         notNull(bbmriPath);
 
-        try {
+        logger.debug("CreateBiobank - controle") ;
 
+        try {
             biobank = biobankService.create(biobank, newAdministratorId);
 
-        } catch (DuplicitBiobankException ex) {
+            logger.debug("CreateBiobank - created") ;
 
+        } catch (DuplicitBiobankException ex) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.duplicitBiobankException"));
             return false;
 
         } catch (Exception ex) {
-
             // Return DBG info that something went wrong. In final version there should be logging instead.
             fatalError(errors);
             return false;
         }
 
-        // Base folder
+        logger.debug("CreateBiobank - create folders") ;
 
+        // Base folder
         if (!FacadeUtils.folderExists(bbmriPath)) {
+
             if (FacadeUtils.createFolder(bbmriPath, errors) != SUCCESS) {
+
+                logger.debug("CreateBiobank - Create Base folder failed");
+
                 biobankService.remove(biobank.getId());
                 return false;
             }
         }
 
         // Biobanks folder
-
         if (!FacadeUtils.folderExists(bbmriPath + Biobank.BIOBANK_FOLDER)) {
             if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER, errors) != SUCCESS) {
+
+                logger.debug("CreateBiobank - Create Biobank folder failed");
+
                 biobankService.remove(biobank.getId());
                 return false;
             }
         }
 
         // Folder for the biobank
+        if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobank.getId().toString(), errors) != SUCCESS) {
 
-        if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobank.getId().toString(), errors) < 0) {
+            logger.debug("CreateBiobank - Create folder for specific biobank failed");
+
             biobankService.remove(biobank.getId());
             return false;
         }
