@@ -23,10 +23,6 @@ container =
 		element location { text },
   		## max number of stands in container
   		element capacity { xsd:int },
-
-  		## amount of occupied positions
-  		## element occupied { xsd:int },
-
 		## minimum temperature allowed in the container
 		element tempMin { xsd:float }?,
 		## maximum temperature allowed in the container
@@ -65,8 +61,6 @@ occupiedPosition =
         ## position can be defined as a sequential order or matrix (rox : column) position.
         ## it depends on institution
         ( sequentialPosition | matrixPosition ),
-        ## year when was sample retrieved and stored
-        element year { xsd:gYear },
         ## sequential order of sample during the year
         element sampleId { xsd:string { maxLength = "6" } }
     }

@@ -51,7 +51,7 @@ public interface UserFacade {
 
     User get(String eppn);
 
-    Long loginShibbolethUser(User user) throws AuthorizationException;
+    Long loginShibbolethUser(User user)  throws AuthorizationException ;
 
     List<Notification> getUnreadNotifications(Long loggedUserId);
 

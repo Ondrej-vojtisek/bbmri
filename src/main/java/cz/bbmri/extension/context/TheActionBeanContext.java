@@ -1,6 +1,7 @@
 package cz.bbmri.extension.context;
 
-import cz.bbmri.entities.*;
+import cz.bbmri.entities.Project;
+import cz.bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import net.sourceforge.stripes.validation.LocalizableError;
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     private static final String SHIB_SESSION_ID = "Shib-Session-ID";
     private static final String SHIB_EPPN = "eppn";
+    private static final String SHIB_TARGETED_ID = "targeted-id";
+    private static final String SHIB_PERSISTENT_ID = "persistent-id";
     private static final String SHIB_AFFILIATION = "affiliation";
     private static final String SHIB_CN = "cn";
     private static final String SHIB_SN = "sn";
@@ -38,6 +41,7 @@ public class TheActionBeanContext extends ActionBeanContext {
     private static final String SHIB_MAIL = "mail";
     private static final String SHIB_DISPLAY_NAME = "displayName";
     private static final String SHIB_MEFAPERSON = "mefaperson";
+
 
     private static final String MY_ID = "myId";
 //    private static final String SAMPLE_ID = "sample";
@@ -159,6 +163,14 @@ public class TheActionBeanContext extends ActionBeanContext {
         return getHeaderParam(SHIB_EPPN);
     }
 
+    public String getShibbolethTargetedId() {
+        return getHeaderParam(SHIB_TARGETED_ID);
+    }
+
+    public String getShibbolethPersistentId() {
+        return getHeaderParam(SHIB_PERSISTENT_ID);
+    }
+
     public String getShibbolethCn() {
         return getHeaderParam(SHIB_CN);
     }
@@ -192,8 +204,8 @@ public class TheActionBeanContext extends ActionBeanContext {
         return getHeaderParam(SHIB_SN);
     }
 
-    public String getPropertiesStoragePath(){
-        if(getProperties().get(PROPERTIES_STORAGE_PATH).toString() == null){
+    public String getPropertiesStoragePath() {
+        if (getProperties().get(PROPERTIES_STORAGE_PATH).toString() == null) {
             getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.TheActionBeanContext.bbmriGeneralNotFound"));
             return null;
         }

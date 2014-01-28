@@ -19,9 +19,9 @@ import java.util.*;
 @Entity
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     private static final String AFFILIATION_EMPLOYEE = "employee@";
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -30,6 +30,12 @@ public class User implements Serializable {
 
     /* eppn in Shibboleth*/
     private String eppn;
+
+    /* targeted-id in Shibboleth*/
+    private String targetedId;
+
+    /* persistent-id in Shibboleth*/
+    private String persistentId;
 
     /* GivenName in Shibboleth*/
     private String name;
@@ -148,13 +154,6 @@ public class User implements Serializable {
         return name + " " + surname;
     }
 
-    public boolean isEmployee() {
-        if (affiliation != null) {
-            return affiliation.contains(AFFILIATION_EMPLOYEE);
-        }
-        return false;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -257,6 +256,28 @@ public class User implements Serializable {
 
     public void setShibbolethUser(boolean shibbolethUser) {
         this.shibbolethUser = shibbolethUser;
+    }
+
+    public String getTargetedId() {
+        return targetedId;
+    }
+
+    public void setTargetedId(String targetedId) {
+        this.targetedId = targetedId;
+    }
+
+    public String getPersistentId() {
+        return persistentId;
+    }
+
+    public void setPersistentId(String persistentId) {
+        this.persistentId = persistentId;
+    }
+
+    /* Only employee is taken into account now */
+    public boolean isEmployee() {
+        if (affiliation == null) return false;
+        return affiliation.contains(AFFILIATION_EMPLOYEE);
     }
 
     @Override

@@ -263,7 +263,8 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     public Long loginShibbolethUser(User user) throws AuthorizationException {
 
         if (user == null) {
-            throw new IllegalArgumentException("Object can't be a null object> User: " + user);
+            logger.debug("Object can't be a null object -> User ");
+            return null;
         }
 
         if (!user.isEmployee()) {

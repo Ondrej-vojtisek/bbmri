@@ -171,6 +171,8 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      */
     protected Resolution interceptEventHandling(ExecutionContext executionContext) throws Exception
     {
+        /* TODO Zde zkusit primo presmerovat na dashboard pokud je shibboleth a prichazi z indexu*/
+
         // Before handling the event,
         // check if access is allowed
         // If not explicitly allowed,
@@ -203,8 +205,6 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
 
 
         logger.debug("INTERCEPT: interceptResolutionExecution");
-
-        logger.debug("ExecutionContext: " + executionContext);
 
         // Before processing the resolution, add the security manager to the request, used (for example) by the security tag
         executionContext.getActionBeanContext().getRequest().setAttribute(SecurityInterceptor.MANAGER, securityManager);

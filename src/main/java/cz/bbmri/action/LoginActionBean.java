@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.support.SupportActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
@@ -60,10 +61,11 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
     private User initializeUser() {
         User user = new User();
-        user = new User();
         user.setDisplayName(getContext().getShibbolethDisplayName());
         user.setEmail(getContext().getShibbolethMail());
         user.setEppn(getContext().getShibbolethEppn());
+        user.setTargetedId(getContext().getShibbolethTargetedId());
+        user.setPersistentId(getContext().getShibbolethPersistentId());
         user.setOrganization(getContext().getShibbolethOrganization());
         user.setAffiliation(getContext().getShibbolethAffiliation());
         user.setName(getContext().getShibbolethGivenName());
@@ -77,6 +79,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     public Resolution display() {
 
         logger.debug("Login display");
+        getContext().dropUser();
 
         if (getContext().getIsShibbolethSession()) {
 
@@ -102,7 +105,12 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         }
 
 
-        getContext().dropUser();
+        if (getContext().getIsShibbolethSession()) {
+//            initializeShibbolethUser();
+//            return new ForwardResolution(SupportActionBean.class);
+            return new ForwardResolution(DashboardActionBean.class);
+        }
+
 
         return new ForwardResolution(LOGIN);
     }
@@ -122,7 +130,8 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         logger.debug("LOGOUT");
         getContext().dropUser();
         if (getContext().getIsShibbolethSession()) {
-            // false means to not append address to current context
+
+            // false here means to not append address to current context
 
             return new RedirectResolution("https://index.bbmri.cz/Shibboleth.sso/Logout", false);
         }

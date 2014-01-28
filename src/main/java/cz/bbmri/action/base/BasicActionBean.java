@@ -1,20 +1,21 @@
 package cz.bbmri.action.base;
 
-import cz.bbmri.extension.context.TheActionBeanContext;
-import cz.bbmri.entities.Request;
-import cz.bbmri.entities.RequestGroup;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
+import cz.bbmri.facade.UserFacade;
 import cz.bbmri.service.*;
-import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.HttpCache;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,6 +30,9 @@ import java.util.Set;
 public class BasicActionBean extends Links implements ActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+    @SpringBean
+    private UserFacade userFacade;
 
     /* Shibboleth headers*/
 
@@ -71,6 +75,33 @@ public class BasicActionBean extends Links implements ActionBean {
     public TheActionBeanContext getContext() {
         return ctx;
     }
+
+    public boolean isShibbolethUser() {
+        return null != getContext().getShibbolethSession();
+    }
+
+    public User initializeShibbolethUser() {
+        logger.debug("InitializeShibbolethUser");
+        User user = new User();
+        user.setDisplayName(getContext().getShibbolethDisplayName());
+        user.setEmail(getContext().getShibbolethMail());
+        user.setEppn(getContext().getShibbolethEppn());
+        user.setTargetedId(getContext().getShibbolethTargetedId());
+        user.setPersistentId(getContext().getShibbolethPersistentId());
+        user.setOrganization(getContext().getShibbolethOrganization());
+        user.setAffiliation(getContext().getShibbolethAffiliation());
+        user.setName(getContext().getShibbolethGivenName());
+        user.setSurname(getContext().getShibbolethSn());
+        user.setShibbolethUser(true);
+
+        Long id = userFacade.loginShibbolethUser(user);
+        if(id == null){
+            return null;
+        }
+
+        getContext().setMyId(id);
+        return getLoggedUser();
+    }
 //
 //    public Resolution primary_menu_project() {
 //        return new ForwardResolution(MY_PROJECTS);
@@ -102,40 +133,42 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
     public String getLastUrl() {
-           HttpServletRequest req = getContext().getRequest();
-           StringBuilder sb = new StringBuilder();
+        HttpServletRequest req = getContext().getRequest();
+        StringBuilder sb = new StringBuilder();
 
-           // Start with the URI and the path
-           String uri = (String)
-               req.getAttribute("javax.servlet.forward.request_uri");
-           String path = (String)
-               req.getAttribute("javax.servlet.forward.path_info");
-           if (uri == null) {
-               uri = req.getRequestURI();
-               path = req.getPathInfo();
-           }
-           sb.append(uri);
-           if (path != null) { sb.append(path); }
+        // Start with the URI and the path
+        String uri = (String)
+                req.getAttribute("javax.servlet.forward.request_uri");
+        String path = (String)
+                req.getAttribute("javax.servlet.forward.path_info");
+        if (uri == null) {
+            uri = req.getRequestURI();
+            path = req.getPathInfo();
+        }
+        sb.append(uri);
+        if (path != null) {
+            sb.append(path);
+        }
 
-           // Now the request parameters
-           sb.append('?');
-           Map<String,String[]> map =
-               new HashMap<String,String[]>(req.getParameterMap());
+        // Now the request parameters
+        sb.append('?');
+        Map<String, String[]> map =
+                new HashMap<String, String[]>(req.getParameterMap());
 
-           // Remove previous locale parameter, if present.
-           map.remove(LocalePicker.LOCALE);
+        // Remove previous locale parameter, if present.
+        map.remove(LocalePicker.LOCALE);
 
-           // Append the parameters to the URL
-           for (String key : map.keySet()) {
-               String[] values = map.get(key);
-               for (String value : values) {
-                   sb.append(key).append('=').append(value).append('&');
-               }
-           }
-           // Remove the last '&'
-           sb.deleteCharAt(sb.length() - 1);
+        // Append the parameters to the URL
+        for (String key : map.keySet()) {
+            String[] values = map.get(key);
+            for (String value : values) {
+                sb.append(key).append('=').append(value).append('&');
+            }
+        }
+        // Remove the last '&'
+        sb.deleteCharAt(sb.length() - 1);
 
-           return sb.toString();
-       }
+        return sb.toString();
+    }
 
 }
