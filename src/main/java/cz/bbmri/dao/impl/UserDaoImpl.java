@@ -50,10 +50,31 @@ NOT case sensitive user search with priority match. If complete match on mail th
         return query.getResultList();
     }
 
-    public User get(String eppn){
-        notNull(eppn);
-        Query query = em.createQuery("SELECT p FROM User p WHERE p.eppn = :eppnParam");
-        query.setParameter("eppnParam", eppn);
+    public User get(String eppn, String targetedId, String persitentId){
+
+        Query query = null;
+
+//        primary shibboleth identifier
+        if(eppn != null){
+           query = em.createQuery("SELECT p FROM User p WHERE p.eppn = :eppnParam");
+           query.setParameter("eppnParam", eppn);
+        }
+
+//        secondary shibboleth identifier
+        else if(targetedId != null){
+           query = em.createQuery("SELECT p FROM User p WHERE p.targetedId = :targetedIdParam");
+           query.setParameter("targetedIdParam", targetedId);
+        }
+
+//        ternary shibboleth identifier
+        else if(persitentId != null){
+            query = em.createQuery("SELECT p FROM User p WHERE p.eppn = :persistentIdParam");
+            query.setParameter("persistentIdParam", persitentId);
+        }
+
+        if(query == null){
+            return null;
+        }
 
         try{
             return (User) query.getSingleResult();

@@ -17,11 +17,13 @@ start =
 	    biobankId,
 		## samples in long-term storage part of the biobank
 		element LTS {
-			( tissue | blood | genome | plasma | urine )*
+			( tissue | blood | genome )*
+#			( tissue | blood | genome | plasma | urine )*
 		},
 		## samples in short-term storage part of the biobank
 		element STS {
-			( bloodRsv | urine )*
+		( bloodRsv )*
+#			( bloodRsv | urine )*
 		}
 	}
 
@@ -59,15 +61,17 @@ genome =
         retrieved
 	}
 
-plasma =
-	element plasma {
-
-	}
-
-urine =
-	element urine {
-
-	}
+#plasma =
+#	element plasma {
+#        sampleId,
+#        element takingDate { xsd:dateTime }
+#	}
+#
+#urine =
+#	element urine {
+#        sampleId,
+#        element takingDate { xsd:dateTime }
+#	}
 
 ## blood reserve in STS
 bloodRsv =

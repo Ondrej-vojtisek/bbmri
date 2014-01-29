@@ -9,8 +9,9 @@
     <c:set var="logged" scope="session" value="${bean.loggedUser.wholeName}"/>
 
     <p class="navbar-text pull-right">
-        <s:link event="logout" beanclass="cz.bbmri.action.LoginActionBean">
-            <f:message key="logout"/></s:link>
+        <s:link event="logout" beanclass="cz.bbmri.action.LogoutActionBean">
+            <f:message key="logout"/>
+        </s:link>
     </p>
 
 
@@ -60,7 +61,7 @@
 <%-- -------------------------------------------------------------------- --%>
 
 <p class="navbar-text pull-right">
-    <b><f:message key="version"/>:</b> <i>1.53</i>
+    <b><f:message key="version"/>:</b> <i>1.54</i>
 </p>
 
 

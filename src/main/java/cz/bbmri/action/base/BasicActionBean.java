@@ -1,15 +1,14 @@
 package cz.bbmri.action.base;
 
+import cz.bbmri.action.DashboardActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
 import cz.bbmri.facade.UserFacade;
+import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.*;
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.action.HttpCache;
-import net.sourceforge.stripes.action.LocalizableMessage;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +80,6 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
     public User initializeShibbolethUser() {
-        logger.debug("InitializeShibbolethUser");
         User user = new User();
         user.setDisplayName(getContext().getShibbolethDisplayName());
         user.setEmail(getContext().getShibbolethMail());
@@ -93,19 +91,46 @@ public class BasicActionBean extends Links implements ActionBean {
         user.setName(getContext().getShibbolethGivenName());
         user.setSurname(getContext().getShibbolethSn());
         user.setShibbolethUser(true);
+        return user;
+    }
 
-        Long id = userFacade.loginShibbolethUser(user);
-        if(id == null){
-            return null;
+    public boolean shibbolethSignIn(User user) {
+        Long id = null;
+
+        try {
+            id = userFacade.loginShibbolethUser(user);
+            logger.debug("User have sufficient rights to access BBMRI - " +
+                    "user: " + user + "affiliation: " + user.getAffiliation());
+        } catch (AuthorizationException ex) {
+            logger.debug("User doesn't have sufficient rights to access BBMRI - " +
+                    "user: " + user + "affiliation: " + user.getAffiliation());
+            return false;
+        }
+
+        if (id == null) {
+            logger.debug("Id of user is null during sign in - " +
+                    "user: " + user);
+            return false;
         }
 
         getContext().setMyId(id);
-        return getLoggedUser();
+
+        return true;
     }
-//
-//    public Resolution primary_menu_project() {
-//        return new ForwardResolution(MY_PROJECTS);
-//    }
+
+    // This method is used if user is accessing LoginActionBean
+    // It is dedicated for user accessing directly index page
+    public Resolution signInShibbolethOnIndex() {
+        User user = initializeShibbolethUser();
+
+        if(!shibbolethSignIn(user)){
+            return new RedirectResolution("/errors/not_authorized_to_access.jsp");
+        }
+
+        // Continue to Dashboard
+        return new RedirectResolution(DashboardActionBean.class);
+    }
+
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();

@@ -255,9 +255,9 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     }
 
-    public User get(String eppn) {
+    public User get(String eppn, String targetedId, String persitentId) {
         notNull(eppn);
-        return userService.get(eppn);
+        return userService.get(eppn, targetedId, persitentId);
     }
 
     public Long loginShibbolethUser(User user) throws AuthorizationException {
@@ -271,7 +271,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             throw new AuthorizationException("Only employees are authorized to access");
         }
 
-        User userDB = userService.get(user.getEppn());
+        User userDB = userService.get(user.getEppn(), user.getTargetedId(), user.getPersistentId());
 
         if (userDB == null) {
             userDB = userService.create(user);

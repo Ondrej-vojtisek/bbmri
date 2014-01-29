@@ -33,55 +33,42 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         BasicActionBean basicBean = (BasicActionBean) bean;
 
         // Compare the identifier of given authenticated user
-        Boolean set = null != basicBean.getContext().getMyId();
+        Boolean set = false;
+        if (basicBean.getContext().getMyId() != null) {
+            set = true;
+        }
 
         // In case the identifier set
         // and no instance is assigned
         if (set && user == null) {
             // Retrieve the appropriate instance
             user = basicBean.getLoggedUser();
-            logger.debug("User - uz je nastaven: " + user);
         }
-        // When no identifier
-//        else if (!set && basicBean.isShibbolethUser()) {
-//
-//            logger.debug("GetUser - notSet - but Shibboleth as heel");
-//            if (isAuthorized(basicBean.getContext().getShibbolethAffiliation())) {
-//
-//                logger.debug("Affiliation match");
-//
-//                user = basicBean.initializeShibbolethUser();
-//
-//                logger.debug("UserInitialized: " + user);
-//
-//            } else {
-//                /* CN and SN is used as a fallback */
-//                String name = basicBean.getContext().getShibbolethDisplayName() +
-//                        " CN: " + basicBean.getContext().getShibbolethCn() +
-//                        " SN: " + basicBean.getContext().getShibbolethSn();
-//
-//                logger.debug("User doesn't have sufficient rights to access BBMRI - user: " +
-//                        name + "affiliation: " +
-//                        basicBean.getContext().getShibbolethAffiliation());
-//                user = null;
-//            }
-//
-//        }
-    else {
 
-            logger.debug("Nuluji uzivatele ");
+        // When no identifier and shibboleth user
+        // This solves the situation when shibboleth user tries to access direct URL inside bbmri
+        // instead of index
+
+        else if (!set && basicBean.isShibbolethUser()) {
+
+            // Sign in should return true on success
+            user = basicBean.initializeShibbolethUser();
+
+            if (!basicBean.shibbolethSignIn(user)) {
+                user = null;
+                logger.debug("Sign in of shibboleth user failed");
+                return null;
+            }
+
+            logger.debug("Sign in of shibboleth user succeeded");
+
+        } else if (!set) {
             // Forget the user
             user = null;
         }
 
         // Return cache
         return user;
-    }
-
-    /* Only employee is taken into account now*/
-    private boolean isAuthorized(String affiliation) {
-        if (affiliation == null) return false;
-        return affiliation.contains(AFFILIATION_EMPLOYEE);
     }
 
     private Set<SystemRole> getRoles(ActionBean bean) {

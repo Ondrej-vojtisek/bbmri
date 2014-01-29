@@ -1,5 +1,7 @@
 package cz.bbmri.extension.security;
 
+import cz.bbmri.action.LoginActionBean;
+import cz.bbmri.action.base.BasicActionBean;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -26,20 +28,22 @@ import java.lang.reflect.Method;
  * @author Oscar Westra van Holthe - Kind
  * @author Fred Daoud
  * @author Sochi
- * @version
  * @see SecurityManager
  * @see cz.bbmri.extension.security.SecurityHandler
  */
 @Intercepts({LifecycleStage.BindingAndValidation, LifecycleStage.CustomValidation, LifecycleStage.EventHandling, LifecycleStage.ResolutionExecution})
-public class SecurityInterceptor implements Interceptor, ConfigurableComponent
-{
+public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
     // Key used to store the security manager before processing resolutions
     public static final String MANAGER = java.lang.SecurityManager.class.getName();
+
+
+    private static final String LOCALHOST_INDEX = "/index.jsp";
+    private static final String SERVER_INDEX = "/auth/";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     // Prepare the instance of logger class for current interceptor
-  //  private static Logger log = LoggerFactory.getLogger(SecurityInterceptor.class);
+    //  private static Logger log = LoggerFactory.getLogger(SecurityInterceptor.class);
 
     // The configured security manager
     private SecurityManager securityManager;
@@ -51,27 +55,20 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @throws StripesRuntimeException if the security manager cannot be created
      */
     @Override
-    public void init(Configuration configuration) throws StripesRuntimeException
-    {
+    public void init(Configuration configuration) throws StripesRuntimeException {
         logger.debug("INIT");
 
         // Instantiate the security manager
-        try
-        {
+        try {
             // Create new instance of the given security manager
             securityManager = new AssociatedSecurityManager();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             throw new StripesRuntimeException("Failed to configure the SecurityManager: instantiation failed.", e);
         }
 
-        if(securityManager != null)
-        {
+        if (securityManager != null) {
             logger.debug("Initialized with the SecurityManager " + securityManager.toString());
-        }
-        else
-        {
+        } else {
             logger.debug("Initialized without a SecurityManager, complete access allowed");
         }
     }
@@ -84,14 +81,11 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @throws Exception on error
      */
     @Override
-    public Resolution intercept(ExecutionContext executionContext) throws Exception
-    {
+    public Resolution intercept(ExecutionContext executionContext) throws Exception {
         Resolution resolution;
 
-        if(securityManager != null)
-        {
-            switch(executionContext.getLifecycleStage())
-            {
+        if (securityManager != null) {
+            switch (executionContext.getLifecycleStage()) {
 //                case ActionBeanResolution:
 //                    logger.debug("INTERCEPT ActionBeanResolution");
 //                    resolution = interceptBindingAndValidation(executionContext);
@@ -107,25 +101,23 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
                 case BindingAndValidation:
                 case CustomValidation:
                     resolution = interceptBindingAndValidation(executionContext);
-                break;
+                    break;
 
                 case EventHandling:
                     resolution = interceptEventHandling(executionContext);
-                break;
+                    break;
 
                 case ResolutionExecution:
                     resolution = interceptResolutionExecution(executionContext);
-                break;
+                    break;
 
                 // This should not happen due
                 // to @Intercepts annotation
                 default:
                     resolution = executionContext.proceed();
-                break;
+                    break;
             }
-        }
-        else
-        {
+        } else {
             // There is no security manager, so everything is allowed
             resolution = executionContext.proceed();
         }
@@ -141,17 +133,14 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptBindingAndValidation(ExecutionContext executionContext) throws Exception
-    {
+    protected Resolution interceptBindingAndValidation(ExecutionContext executionContext) throws Exception {
 
         Resolution resolution = executionContext.proceed();
 
         // If there are errors and a resolution to display them, check if access is allowed
         // If explicitly denied, access is denied (and showing errors would be an information leak)
-        if (resolution != null && !executionContext.getActionBeanContext().getValidationErrors().isEmpty())
-        {
-            if(Boolean.FALSE.equals(getAccessAllowed(executionContext)))
-            {
+        if (resolution != null && !executionContext.getActionBeanContext().getValidationErrors().isEmpty()) {
+            if (Boolean.FALSE.equals(getAccessAllowed(executionContext))) {
                 // If the security manager denies access, deny access
                 logger.debug("Binding and/or validation failed, and the security manager has denied access.");
                 resolution = handleAccessDenied(executionContext.getActionBean(), executionContext.getHandler());
@@ -169,9 +158,23 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptEventHandling(ExecutionContext executionContext) throws Exception
-    {
-        /* TODO Zde zkusit primo presmerovat na dashboard pokud je shibboleth a prichazi z indexu*/
+    protected Resolution interceptEventHandling(ExecutionContext executionContext) throws Exception {
+
+        // If user is accessing index and is using shibboleth than redirect him to dashboard
+
+        BasicActionBean basicBean = (BasicActionBean) executionContext.getActionBean();
+
+        // User tries to access index page using LoginActionBean
+
+        if (executionContext.getActionBean().getClass().equals(LoginActionBean.class)) {
+
+            // if shibboleth, then set user and return resolution to welcome page
+
+            if (basicBean.isShibbolethUser()) {
+                logger.debug("InterceptorA - is shibboleth");
+                return basicBean.signInShibbolethOnIndex();
+            }
+        }
 
         // Before handling the event,
         // check if access is allowed
@@ -179,12 +182,9 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
         // access is denied then
         Resolution resolution;
 
-        if(Boolean.TRUE.equals(getAccessAllowed(executionContext)))
-        {
+        if (Boolean.TRUE.equals(getAccessAllowed(executionContext))) {
             resolution = executionContext.proceed();
-        }
-        else
-        {
+        } else {
             logger.debug("The security manager has denied access.");
             resolution = handleAccessDenied(executionContext.getActionBean(), executionContext.getHandler());
         }
@@ -200,8 +200,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptResolutionExecution(ExecutionContext executionContext) throws Exception
-    {
+    protected Resolution interceptResolutionExecution(ExecutionContext executionContext) throws Exception {
 
 
         logger.debug("INTERCEPT: interceptResolutionExecution");
@@ -222,18 +221,14 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
      * @param executionContext the current execution context
      * @return whether or not the security manager allows access, if a decision can be made
      */
-    protected Boolean getAccessAllowed(ExecutionContext executionContext)
-    {
+    protected Boolean getAccessAllowed(ExecutionContext executionContext) {
         logger.debug("Checking access for " + executionContext + " at " + executionContext.getLifecycleStage());
 
         Boolean accessAllowed;
-        if (securityManager == null)
-        {
+        if (securityManager == null) {
             logger.debug("There is no security manager, so access is allowed by default.");
             accessAllowed = true;
-        }
-        else
-        {
+        } else {
             ActionBean actionBean = executionContext.getActionBean();
 
             Method handler = executionContext.getHandler();
@@ -242,27 +237,23 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent
             logger.debug("Security manager returned access allowed: " + accessAllowed);
         }
 
-       return accessAllowed;
+        return accessAllowed;
     }
 
     /**
      * Determine what to do when access has been denied. If the SecurityManager implements the optional interface
      * [@Link SecurityHandler}, ask the SecurityManager. Otherwise, return the HTTP error "forbidden".
      *
-     * @param bean the action bean to which access was denied
+     * @param bean    the action bean to which access was denied
      * @param handler the event handler to which access was denied
      * @return the Resolution to be executed when access has been denied
      */
-    protected Resolution handleAccessDenied(ActionBean bean, Method handler)
-    {
+    protected Resolution handleAccessDenied(ActionBean bean, Method handler) {
         Resolution resolution;
-        if (securityManager instanceof SecurityHandler)
-        {
+        if (securityManager instanceof SecurityHandler) {
             logger.debug("HandleAccessDenied");
-            resolution = ((SecurityHandler)securityManager).handleAccessDenied(bean, handler);
-        }
-        else
-        {
+            resolution = ((SecurityHandler) securityManager).handleAccessDenied(bean, handler);
+        } else {
             resolution = new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
         }
         return resolution;

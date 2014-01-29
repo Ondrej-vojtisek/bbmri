@@ -22,7 +22,7 @@ public interface UserDao extends BasicDao<User>{
 
     List<User> findUser(User user);
 
-    User get(String eppn);
+    User get(String eppn, String targetedId, String persitentId);
 
     List<User> getAllWithSystemRole(SystemRole systemRole);
 }

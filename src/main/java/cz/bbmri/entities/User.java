@@ -304,6 +304,8 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", eppn='" + eppn + '\'' +
+                ", targetedId='" + targetedId + '\'' +
+                ", persistentId='" + persistentId + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

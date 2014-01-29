@@ -49,9 +49,9 @@ public interface UserFacade {
 
     List<User> find(User user, int requiredResults);
 
-    User get(String eppn);
+    User get(String eppn, String targetedId, String persistentId);
 
-    Long loginShibbolethUser(User user)  throws AuthorizationException ;
+    Long loginShibbolethUser(User user) throws AuthorizationException;
 
     List<Notification> getUnreadNotifications(Long loggedUserId);
 

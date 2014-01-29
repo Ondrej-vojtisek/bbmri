@@ -256,9 +256,8 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User get(String eppn) {
-        notNull(eppn);
-        return userDao.get(eppn);
+    public User get(String eppn, String targetedId, String persistentId) {
+        return userDao.get(eppn, targetedId, persistentId);
     }
 
     @Transactional(readOnly = true)

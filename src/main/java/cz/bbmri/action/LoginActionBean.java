@@ -1,10 +1,8 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
-import cz.bbmri.action.support.SupportActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.facade.UserFacade;
-import cz.bbmri.facade.exceptions.AuthorizationException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.*;
@@ -59,20 +57,20 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         this.id = id;
     }
 
-    private User initializeUser() {
-        User user = new User();
-        user.setDisplayName(getContext().getShibbolethDisplayName());
-        user.setEmail(getContext().getShibbolethMail());
-        user.setEppn(getContext().getShibbolethEppn());
-        user.setTargetedId(getContext().getShibbolethTargetedId());
-        user.setPersistentId(getContext().getShibbolethPersistentId());
-        user.setOrganization(getContext().getShibbolethOrganization());
-        user.setAffiliation(getContext().getShibbolethAffiliation());
-        user.setName(getContext().getShibbolethGivenName());
-        user.setSurname(getContext().getShibbolethSn());
-        user.setShibbolethUser(true);
-        return user;
-    }
+//    private User initializeUser() {
+//        User user = new User();
+//        user.setDisplayName(getContext().getShibbolethDisplayName());
+//        user.setEmail(getContext().getShibbolethMail());
+//        user.setEppn(getContext().getShibbolethEppn());
+//        user.setTargetedId(getContext().getShibbolethTargetedId());
+//        user.setPersistentId(getContext().getShibbolethPersistentId());
+//        user.setOrganization(getContext().getShibbolethOrganization());
+//        user.setAffiliation(getContext().getShibbolethAffiliation());
+//        user.setName(getContext().getShibbolethGivenName());
+//        user.setSurname(getContext().getShibbolethSn());
+//        user.setShibbolethUser(true);
+//        return user;
+//    }
 
     @DontValidate
     @DefaultHandler
@@ -81,35 +79,35 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         logger.debug("Login display");
         getContext().dropUser();
 
-        if (getContext().getIsShibbolethSession()) {
+//        if (getContext().getIsShibbolethSession()) {
+//
+//            User user = initializeUser();
+//            Long id = null;
+//            try {
+//                id = userFacade.loginShibbolethUser(user);
+//                logger.debug("User have sufficient rights to access BBMRI - " +
+//                        "user: " + user + "affiliation: " + user.getAffiliation());
+//            } catch (AuthorizationException ex) {
+//                logger.debug("User doesn't have sufficient rights to access BBMRI - " +
+//                        "user: " + user + "affiliation: " + user.getAffiliation());
+//                return new ForwardResolution("/errors/not_authorized_to_access.jsp");
+//            }
+//
+//            user = userFacade.get(id);
+//
+//            if (user != null) {
+//                getContext().setLoggedUser(user);
+//                getContext().getMessages().add(new SimpleMessage("Succesfull login"));
+//            }
+//            return new ForwardResolution(DashboardActionBean.class);
+//        }
 
-            User user = initializeUser();
-            Long id = null;
-            try {
-                id = userFacade.loginShibbolethUser(user);
-                logger.debug("User have sufficient rights to access BBMRI - " +
-                        "user: " + user + "affiliation: " + user.getAffiliation());
-            } catch (AuthorizationException ex) {
-                logger.debug("User doesn't have sufficient rights to access BBMRI - " +
-                        "user: " + user + "affiliation: " + user.getAffiliation());
-                return new ForwardResolution("/errors/not_authorized_to_access.jsp");
-            }
 
-            user = userFacade.get(id);
-
-            if (user != null) {
-                getContext().setLoggedUser(user);
-                getContext().getMessages().add(new SimpleMessage("Succesfull login"));
-            }
-            return new ForwardResolution(DashboardActionBean.class);
-        }
-
-
-        if (getContext().getIsShibbolethSession()) {
+//        if (getContext().getIsShibbolethSession()) {
 //            initializeShibbolethUser();
 //            return new ForwardResolution(SupportActionBean.class);
-            return new ForwardResolution(DashboardActionBean.class);
-        }
+        //   return new ForwardResolution(DashboardActionBean.class);
+//        }
 
 
         return new ForwardResolution(LOGIN);
@@ -124,19 +122,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         return new RedirectResolution(DashboardActionBean.class);
     }
 
-    @PermitAll
-    @DontValidate
-    public Resolution logout() {
-        logger.debug("LOGOUT");
-        getContext().dropUser();
-        if (getContext().getIsShibbolethSession()) {
-
-            // false here means to not append address to current context
-
-            return new RedirectResolution("https://index.bbmri.cz/Shibboleth.sso/Logout", false);
-        }
-        return new RedirectResolution(INDEX);
-    }
 
     @ValidationMethod
     public void validateUser(ValidationErrors errors) {
