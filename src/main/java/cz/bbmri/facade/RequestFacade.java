@@ -1,6 +1,7 @@
 package cz.bbmri.facade;
 
 import cz.bbmri.entities.SampleQuestion;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +13,10 @@ import cz.bbmri.entities.SampleQuestion;
 public interface RequestFacade {
 
     SampleQuestion getSampleQuestion(Long sampleQuestionId);
+
+    boolean approveSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean denySampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
     //List<RequestGroup> getRequestsByBiobankAndState(Long biobank);
 }

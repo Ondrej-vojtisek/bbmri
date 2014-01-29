@@ -35,9 +35,7 @@ public class Links {
     private static final String BIOBANK = BASIC_PATH + "/biobank/";
     /* ********************************** */
     protected static final String BIOBANK_ALL = BIOBANK + "all.jsp";
-    protected static final String BIOBANK_DETAIL = BIOBANK + "detail.jsp";
-    protected static final String BIOBANK_ADMINISTRATORS = BIOBANK + "administrators.jsp";
-    protected static final String BIOBANK_ADD_ADMINISTRATOR = BIOBANK + "addAdministrator.jsp";
+
 
     // BIOBANK/CREATE
     private static final String BIOBANK_CREATE = BIOBANK + "create/";
@@ -46,9 +44,15 @@ public class Links {
     protected static final String BIOBANK_CREATE_ADMINISTRATORS = BIOBANK_CREATE + "2_administrators.jsp";
     protected static final String BIOBANK_CREATE_CONFIRM = BIOBANK_CREATE + "3_confirm.jsp";
 
-    protected static final String BIOBANK_SAMPLES = BIOBANK + "samples.jsp";
-    protected static final String BIOBANK_PATIENTS = BIOBANK + "patients.jsp";
-
+    // BIOBANK/DETAIL
+    private static final String BIOBANK_DETAIL = BIOBANK + "detail/";
+     /* ********************************** */
+    protected static final String BIOBANK_DETAIL_SAMPLES = BIOBANK_DETAIL + "samples.jsp";
+    protected static final String BIOBANK_DETAIL_PATIENTS = BIOBANK_DETAIL + "patients.jsp";
+    protected static final String BIOBANK_DETAIL_GENERAL = BIOBANK_DETAIL + "general.jsp";
+    protected static final String BIOBANK_DETAIL_ADMINISTRATORS = BIOBANK_DETAIL + "administrators.jsp";
+    protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
+    protected static final String BIOBANK_DETAIL_SAMPLE_QUESTIONS = BIOBANK_DETAIL + "sampleQuestions.jsp";
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";

@@ -4,7 +4,6 @@ import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.enumeration.RequestState;
@@ -97,25 +96,25 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     public boolean remove(Long id) {
         notNull(id);
         SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
-        if(sampleQuestionDB == null){
+        if (sampleQuestionDB == null) {
             return false;
         }
 
-            Biobank biobankDB = biobankDao.get(sampleQuestionDB.getBiobank().getId());
-            if (biobankDB != null) {
-                biobankDB.getSampleQuestions().remove(sampleQuestionDB);
-                biobankDao.update(biobankDB);
-                sampleQuestionDB.setBiobank(null);
-            }
-            Project projectDB = projectDao.get(sampleQuestionDB.getProject().getId());
-            if (projectDB != null) {
-                projectDB.getSampleQuestions().remove(sampleQuestionDB);
-                projectDao.update(projectDB);
-                sampleQuestionDB.setProject(null);
-            }
+        Biobank biobankDB = biobankDao.get(sampleQuestionDB.getBiobank().getId());
+        if (biobankDB != null) {
+            biobankDB.getSampleQuestions().remove(sampleQuestionDB);
+            biobankDao.update(biobankDB);
+            sampleQuestionDB.setBiobank(null);
+        }
+        Project projectDB = projectDao.get(sampleQuestionDB.getProject().getId());
+        if (projectDB != null) {
+            projectDB.getSampleQuestions().remove(sampleQuestionDB);
+            projectDao.update(projectDB);
+            sampleQuestionDB.setProject(null);
+        }
 
-            sampleQuestionDao.remove(sampleQuestionDB);
-            return true;
+        sampleQuestionDao.remove(sampleQuestionDB);
+        return true;
     }
 
     public SampleQuestion update(SampleQuestion sampleQuestion) {
@@ -151,12 +150,12 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     }
 
     @Transactional(readOnly = true)
-    public List<SampleQuestion> allOrderedBy(String orderByParam, boolean desc){
+    public List<SampleQuestion> allOrderedBy(String orderByParam, boolean desc) {
         return sampleQuestionDao.allOrderedBy(orderByParam, desc);
     }
 
     @Transactional(readOnly = true)
-    public List<SampleQuestion> nOrderedBy(String orderByParam, boolean desc, int number){
+    public List<SampleQuestion> nOrderedBy(String orderByParam, boolean desc, int number) {
         return sampleQuestionDao.nOrderedBy(orderByParam, desc, number);
     }
 

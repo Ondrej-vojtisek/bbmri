@@ -171,7 +171,6 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
             // if shibboleth, then set user and return resolution to welcome page
 
             if (basicBean.isShibbolethUser()) {
-                logger.debug("InterceptorA - is shibboleth");
                 return basicBean.signInShibbolethOnIndex();
             }
         }

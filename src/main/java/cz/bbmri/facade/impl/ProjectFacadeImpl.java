@@ -96,16 +96,17 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return true;
     }
 
-    public List<User> getProjectAdministratorsUsers(Long projectId) {
-        Project projectDB = projectService.eagerGet(projectId, true, false, false, false);
-        List<User> users = new ArrayList<User>();
-        for(ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()){
-            users.add(projectAdministrator.getUser());
-        }
-        return users;
-    }
+//    public List<User> getProjectAdministratorsUsers(Long projectId) {
+//        Project projectDB = projectService.eagerGet(projectId, true, false, false, false);
+//        List<User> users = new ArrayList<User>();
+//        for(ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()){
+//            users.add(projectAdministrator.getUser());
+//        }
+//        return users;
+//    }
 
     //List<ProjectAdministrator> getProjectAdministrators(Long biobankId);
+
     public Project createProject(Project project,
                                  Long loggedUserId,
                                  String bbmriPath,
@@ -159,20 +160,6 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
         return true;
 
-    }
-
-    private List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
-        Project projectDB = projectService.eagerGet(project.getId(), true, false, false, false);
-        Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
-        ProjectAdministrator paExclude = projectAdministratorService.get(project.getId(), excludedUserId);
-        projectAdministrators.remove(paExclude);
-
-        List<User> users = new ArrayList<User>();
-        for (ProjectAdministrator pa : projectAdministrators) {
-            users.add(pa.getUser());
-        }
-
-        return users;
     }
 
     public boolean updateProject(Project project, Long loggedUserId) {

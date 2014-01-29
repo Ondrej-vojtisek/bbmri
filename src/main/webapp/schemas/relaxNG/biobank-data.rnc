@@ -17,13 +17,11 @@ start =
 	    biobankId,
 		## samples in long-term storage part of the biobank
 		element LTS {
-			( tissue | blood | genome )*
-#			( tissue | blood | genome | plasma | urine )*
+			( tissue | blood | genome | plasma | urine )*
 		},
 		## samples in short-term storage part of the biobank
 		element STS {
-		( bloodRsv )*
-#			( bloodRsv | urine )*
+			( bloodRsv | urine | plasma )*
 		}
 	}
 
@@ -61,17 +59,19 @@ genome =
         retrieved
 	}
 
-#plasma =
-#	element plasma {
-#        sampleId,
-#        element takingDate { xsd:dateTime }
-#	}
-#
-#urine =
-#	element urine {
-#        sampleId,
-#        element takingDate { xsd:dateTime }
-#	}
+plasma =
+	element plasma {
+        sampleId,
+		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
+		element takingDate { xsd:dateTime }
+	}
+
+urine =
+	element urine {
+        sampleId,
+		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
+		element takingDate { xsd:dateTime }
+	}
 
 ## blood reserve in STS
 bloodRsv =
@@ -87,7 +87,18 @@ biobankId =
 
 ## each sample is identified with biobankId and sequential number
 sampleId =
+    ## year in combination with number could be used to internal linkage with surgeon etc, ...
+    ## At MOU it is called biopticalReport - Biopticka zadanka
+    ## attribute year { xsd:gYear },
+
 	attribute number { xsd:string { maxLength = "6" } }
+
+	## because of different format of sample identifier on each institution there is a field
+	## for unique identification of sample
+	## e.g. on mou here should be combination of YEAR + NUMBER + TYPE
+	##      on 1.LF here should be combination of Cislo pacienta + Cislo odberu + typ vzorku
+	##      identification of aliquote is _not_ a part of compositeIdentifier
+	##attribute compositeIdentifier {xsd:string}
 
 ## total and available number of aliquotes
 sampleNos =
@@ -100,7 +111,7 @@ retrieved =
 
 ## internal code-book of institution. Linkage to taking record (e.g. surgeon, ...)
 biopticalReport =
-    element biopticalReport{
+    element biopticalReport {
 	    attribute year { xsd:gYear },
-	    attribute number { xsd:string {maxLength = "4"} }
+	    attribute number { xsd:int }
 }

@@ -2,6 +2,7 @@ package cz.bbmri.entities.enumeration;
 
 import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
+import cz.bbmri.action.request.RequestActionBean;
 import cz.bbmri.entities.Project;
 
 /**
@@ -28,6 +29,9 @@ public enum NotificationType {
 
     /* UserFacade notifications */
 
+    /* RequestFacade notifications */
+
+    SAMPLE_QUESTION_DETAIL(RequestActionBean.class.getName(), "detail"),
 
     /* This should lead to support page - list of all administrators and developers */
     USER_SUPPORT(null, "detail");

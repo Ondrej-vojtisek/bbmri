@@ -51,7 +51,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         Patient patientDB = patientDao.get(patientId);
         if (patientDB == null) {
             return null;
-            //TODO: exception
+            // TODO: exception
         }
 
         sampleDao.create(sample);

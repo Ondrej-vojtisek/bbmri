@@ -2,9 +2,12 @@ package cz.bbmri.action.base;
 
 import cz.bbmri.action.DashboardActionBean;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
+import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.*;
@@ -33,33 +36,36 @@ public class BasicActionBean extends Links implements ActionBean {
     @SpringBean
     private UserFacade userFacade;
 
+    @SpringBean
+    private ProjectFacade projectFacade;
+
     /* Shibboleth headers*/
 
     private static final String SHIB_EPPN = "eppn";
 
-    @SpringBean
-    protected UserService userService;
-
-    @SpringBean
-    protected BiobankService biobankService;
-
-    @SpringBean
-    protected ProjectService projectService;
-
-    @SpringBean
-    protected RequestService requestService;
-
-    @SpringBean
-    protected SampleService sampleService;
-
-    @SpringBean
-    protected RequestGroupService requestGroupService;
-
-    @SpringBean
-    protected SampleQuestionService sampleQuestionService;
-
-    @SpringBean
-    protected AttachmentService attachmentService;
+//    @SpringBean
+//    protected UserService userService;
+//
+//    @SpringBean
+//    protected BiobankService biobankService;
+//
+//    @SpringBean
+//    protected ProjectService projectService;
+//
+//    @SpringBean
+//    protected RequestService requestService;
+//
+//    @SpringBean
+//    protected SampleService sampleService;
+//
+//    @SpringBean
+//    protected RequestGroupService requestGroupService;
+//
+//    @SpringBean
+//    protected SampleQuestionService sampleQuestionService;
+//
+//    @SpringBean
+//    protected AttachmentService attachmentService;
 
     private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
 
@@ -123,7 +129,7 @@ public class BasicActionBean extends Links implements ActionBean {
     public Resolution signInShibbolethOnIndex() {
         User user = initializeShibbolethUser();
 
-        if(!shibbolethSignIn(user)){
+        if (!shibbolethSignIn(user)) {
             return new RedirectResolution("/errors/not_authorized_to_access.jsp");
         }
 
@@ -134,12 +140,12 @@ public class BasicActionBean extends Links implements ActionBean {
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();
-        return userService.get(id);
+        return userFacade.get(id);
     }
 
     public Set<SystemRole> getRoles() {
         Long id = ctx.getMyId();
-        return userService.get(id).getSystemRoles();
+        return userFacade.get(id).getSystemRoles();
 
     }
 
@@ -195,5 +201,21 @@ public class BasicActionBean extends Links implements ActionBean {
 
         return sb.toString();
     }
+
+//    public boolean getAllowedManager() {
+//        return projectFacade.hasPermission(Permission.MANAGER, id, getContext().getMyId()) && !isFinished();
+//    }
+//
+//    public boolean getAllowedEditor() {
+//        return projectFacade.hasPermission(Permission.EDITOR, id, getContext().getMyId()) && !isFinished();
+//    }
+//
+//    public boolean getAllowedExecutor() {
+//        return projectFacade.hasPermission(Permission.EXECUTOR, id, getContext().getMyId()) && !isFinished();
+//    }
+//
+//    public boolean getAllowedVisitor() {
+//        return projectFacade.hasPermission(Permission.VISITOR, id, getContext().getMyId());
+//    }
 
 }

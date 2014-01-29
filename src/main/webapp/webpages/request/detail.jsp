@@ -42,22 +42,48 @@
                     </div>
                 </div>
 
+                <div class="form-actions">
+                    <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
+                        <s:param name="id" value="${requestBean.sampleQuestion.project.id}"/>
+                        <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
+                    </s:link>
+
+                    <security:allowed bean="requestBean" event="approve">
+                        <s:submit name="approve" class="btn btn-primary btnMargin">
+                            <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                        </s:submit>
+                    </security:allowed>
+
+                    <security:allowed bean="requestBean" event="deny">
+                        <s:submit name="deny" class="btn btn-primary btnMargin">
+                            <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                        </s:submit>
+                    </security:allowed>
+
+                    <c:if test="${requestBean.isNew}">
+                        <security:allowed bean="requestBean" event="delete">
+                            <s:submit name="deny" class="btn btn-danger btnMargin">
+                                <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                            </s:submit>
+                        </security:allowed>
+                    </c:if>
+                </div>
+
             </s:form>
 
-            <div class="form-actions">
-                <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
-                    <s:param name="id" value="${requestBean.sampleQuestion.project.id}"/>
-                    detail
-                </s:link>
-            </div>
+
         </fieldset>
 
+        <c:if test="${requestBean.isApproved}">
+            <fieldset>
+                <legend>
 
-        <fieldset>
-            <legend>
+                </legend>
 
-            </legend>
-        </fieldset>
+                Is approved, here choose appropriate sample set
+            </fieldset>
+        </c:if>
+
 
     </s:layout-component>
 </s:layout-render>

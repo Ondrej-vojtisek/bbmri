@@ -30,12 +30,12 @@ public class FindBiobankAdminActionBean extends FindActionBean {
 
     @DefaultHandler
     public Resolution display() {
-        return new ForwardResolution(BIOBANK_ADD_ADMINISTRATOR);
+        return new ForwardResolution(BIOBANK_DETAIL_ADD_ADMINISTRATOR);
     }
 
     @HandlesEvent("find")
     public Resolution find() {
-        return new ForwardResolution(BIOBANK_ADD_ADMINISTRATOR)
+        return new ForwardResolution(BIOBANK_DETAIL_ADD_ADMINISTRATOR)
                 .addParameter("UserFind", getUserFind())
                 .addParameter("id", id);
     }

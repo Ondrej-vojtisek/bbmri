@@ -98,6 +98,29 @@ public class SampleQuestion {
         this.created = created;
     }
 
+    private boolean checkState(RequestState requestState){
+        if(getRequestState() == null){
+            return false;
+        }
+        return getRequestState().equals(requestState);
+    }
+
+    public boolean isApproved(){
+        return checkState(RequestState.APPROVED);
+    }
+
+    public boolean isNew(){
+        return checkState(RequestState.NEW);
+    }
+
+    public boolean isDenied(){
+        return checkState(RequestState.DENIED);
+    }
+
+    public boolean isDelivered(){
+        return checkState(RequestState.DELIVERED);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
