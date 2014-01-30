@@ -88,12 +88,12 @@
                     <td>${user.organization}</td>
                     <td class="action">
 
-                        <c:set target="${userBean}" property="id" value="${user.id}"/>
+                        <c:set target="${userBean}" property="userId" value="${user.id}"/>
                         <security:allowed bean="userBean" event="update">
                             <div class="tableAction">
                                 <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail"
                                         class="btn btn-primary btnMargin">
-                                    <s:param name="id" value="${user.id}"/>
+                                    <s:param name="userId" value="${user.id}"/>
                                     <f:message key="edit"/>
                                 </s:link>
                             </div>
@@ -105,7 +105,7 @@
                                     <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                                             class="btn btn-info  btnMargin"
                                             event="detail">
-                                        <s:param name="id" value="${user.id}"/>
+                                        <s:param name="userId" value="${user.id}"/>
                                         <f:message key="detail"/></s:link>
                                 </div>
                             </security:allowed>
@@ -117,7 +117,7 @@
                                 <f:message var="question" key="cz.bbmri.action.user.UserActionBean.questionDelete"/>
 
                                 <s:submit name="remove" class="btn btn-danger" onclick="return confirm('${question}')">
-                                    <s:param name="id" value="${user.id}"/>
+                                    <s:param name="userId" value="${user.id}"/>
                                 </s:submit>
                             </s:form>
                         </security:allowed>

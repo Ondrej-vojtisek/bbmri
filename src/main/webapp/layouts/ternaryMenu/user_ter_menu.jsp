@@ -8,7 +8,7 @@
 <security:allowed bean="userBean" event="detail">
     <li <c:if test="${ternarymenu == 'personal_data'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail">
-            <s:param name="id" value="${userBean.id}"/>
+            <s:param name="userId" value="${userBean.userId}"/>
             <f:message key="cz.bbmri.action.user.UserActionBean.basicData"/>
         </s:link></li>
 </security:allowed>
@@ -19,7 +19,7 @@
     <li <c:if test="${ternarymenu == 'password'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                 event="changePasswordView">
-            <s:param name="id" value="${userBean.id}"/>
+            <s:param name="userId" value="${userBean.userId}"/>
             <f:message key="cz.bbmri.action.user.UserActionBean.password"/>
         </s:link>
     </li>
@@ -31,7 +31,7 @@
     <li <c:if test="${ternarymenu == 'roles'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                 event="rolesView">
-            <s:param name="id" value="${userBean.id}"/>
+            <s:param name="userId" value="${userBean.userId}"/>
             <f:message key="cz.bbmri.action.user.UserActionBean.roles"/>
         </s:link>
     </li>

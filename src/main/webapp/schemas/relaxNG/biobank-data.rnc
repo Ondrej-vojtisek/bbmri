@@ -32,8 +32,8 @@ tissue =
         element tissueType { xsd:string { maxLength = "2" } },
         element TNM { xsd:string { maxLength = "7" } },
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
-        ## morphology uses ICD-O-2 classification - NNNN/XY
-        element morphology { xsd:string { length = "7" pattern = "[0-9]{4}/[0-9]{2}"} },
+        ## grading is a part of mophology and is used as fallback here
+        ( morphology | grading ),
         element cutTime { xsd:dateTime },
 		element freezeTime { xsd:dateTime },
         retrieved
@@ -90,8 +90,8 @@ sampleIdentification =
 	attribute number { xsd:string { maxLength = "6" } },
 	## because of different format of sample identifier on each institution there is a field
 	## for unique identification of sample
-	## e.g. on mou here should be combination of YEAR + NUMBER + TYPE
-	##      on 1.LF here should be combination of Cislo pacienta + Cislo odberu + typ vzorku
+	## e.g. at mou here should be combination of YEAR + NUMBER + TYPE
+	##      at 1.LF here should be combination of Cislo pacienta + Cislo odberu + typ vzorku
 	##      identification of aliquote is _not_ a part of sampleId
 	## sampleId must match sampleId in bankOccupancy export scheme
 	attribute sampleId {xsd:string}
@@ -106,7 +106,8 @@ retrieved =
   element retrieved { "preoperational" | "operational" | "post" | "unknown" }
 
 morphology =
+  ## morphology uses ICD-O-2 classification - NNNN/XY
   element morphology { xsd:string { length = "7" pattern = "[0-9]{4}/[0-9]{2}"} }
 
 grading =
-  element grading { xsd:int { minInclusive = "1" minExclusive = "9" } }
+  element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }

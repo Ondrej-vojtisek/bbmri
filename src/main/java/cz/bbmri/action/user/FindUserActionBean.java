@@ -35,6 +35,6 @@ public class FindUserActionBean extends FindActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer"})
     public Resolution detail() {
-        return new ForwardResolution(UserActionBean.class, "detail").addParameter("id", id);
+        return new ForwardResolution(UserActionBean.class, "detail").addParameter("userId", id);
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @HttpCache(allow = false)
-@UrlBinding("/user/{$event}/{id}")
+@UrlBinding("/user/{$event}/{userId}")
 public class UserActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -39,7 +39,7 @@ public class UserActionBean extends BasicActionBean {
                     required = true)
     })
     private User user;
-    private Long id;
+    private Long userId;
 
     private String orderParam;
 
@@ -87,8 +87,8 @@ public class UserActionBean extends BasicActionBean {
 
     public User getUser() {
         if (user == null) {
-            if (id != null) {
-                user = userFacade.get(id);
+            if (userId != null) {
+                user = userFacade.get(userId);
             }
         }
         return user;
@@ -98,25 +98,25 @@ public class UserActionBean extends BasicActionBean {
         this.user = user;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public List<RoleDTO> getUserRoles() {
-        return userFacade.getRoles(id);
+        return userFacade.getRoles(userId);
     }
 
     public Set<SystemRole> getSystemRoles() {
-        return userFacade.getSystemRoles(id);
+        return userFacade.getSystemRoles(userId);
     }
 
 
     public boolean getIsMyAccount() {
-        return getContext().getMyId().equals(id);
+        return getContext().getMyId().equals(userId);
     }
 
     public boolean getIsShibbolethUser() {
@@ -177,7 +177,7 @@ public class UserActionBean extends BasicActionBean {
     @HandlesEvent("remove")
     @RolesAllowed({"administrator", "developer"})
     public Resolution remove() {
-        if(!userFacade.remove(id)){
+        if(!userFacade.remove(userId)){
             return new ForwardResolution(this.getClass(), "display");
         }
         successMsg(null);
@@ -187,53 +187,53 @@ public class UserActionBean extends BasicActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"developer", "administrator", "user if ${isMyAccount}"})
     public Resolution detail() {
-        return new ForwardResolution(USER_PERSONAL_DATA).addParameter("id", id);
+        return new ForwardResolution(USER_PERSONAL_DATA).addParameter("userId", userId);
     }
 
     @HandlesEvent("rolesView")
     @RolesAllowed({"administrator", "developer", "user if ${isMyAccount}"})
     public Resolution rolesView() {
-        return new ForwardResolution(USER_ROLES).addParameter("id", id);
+        return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
     }
 
     @HandlesEvent("removeAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
-         if(!userFacade.removeAdministratorRole(id, getContext().getValidationErrors())){
-             return new ForwardResolution(USER_ROLES).addParameter("id", id);
+         if(!userFacade.removeAdministratorRole(userId, getContext().getValidationErrors())){
+             return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
          }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("id", id);
+        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
     }
 
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
-        if(!userFacade.removeDeveloperRole(id, getContext().getValidationErrors())){
-            return new ForwardResolution(USER_ROLES).addParameter("id", id);
+        if(!userFacade.removeDeveloperRole(userId, getContext().getValidationErrors())){
+            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("id", id);
+        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
     }
 
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
-        if(!userFacade.setAsAdministrator(id, getContext().getValidationErrors())){
-            return new ForwardResolution(USER_ROLES).addParameter("id", id);
+        if(!userFacade.setAsAdministrator(userId, getContext().getValidationErrors())){
+            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("id", id);
+        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
     }
 
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
-        if(!userFacade.setAsDeveloper(id, getContext().getValidationErrors())){
-            return new ForwardResolution(USER_ROLES).addParameter("id", id);
+        if(!userFacade.setAsDeveloper(userId, getContext().getValidationErrors())){
+            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("id", id);
+        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
     }
 
     /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
@@ -241,10 +241,10 @@ public class UserActionBean extends BasicActionBean {
     @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution update() {
         if(!userFacade.update(user)){
-            return new ForwardResolution(UserActionBean.class, "detail").addParameter("id", id);
+            return new ForwardResolution(UserActionBean.class, "detail").addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", id);
+        return new RedirectResolution(UserActionBean.class, "detail").addParameter("userId", userId);
     }
 
     /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
@@ -260,7 +260,7 @@ public class UserActionBean extends BasicActionBean {
             );
         } else {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.user.UserActionBean.passwordNotMatch"));
-            return new ForwardResolution("USER_PASSWORD").addParameter("id", id);
+            return new ForwardResolution("USER_PASSWORD").addParameter("userId", userId);
         }
         return new RedirectResolution(UserActionBean.class, "detail");
     }
@@ -271,7 +271,7 @@ public class UserActionBean extends BasicActionBean {
     @HandlesEvent("changePasswordView")
     @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution changePasswordView() {
-        return new ForwardResolution(USER_PASSWORD).addParameter("id", id);
+        return new ForwardResolution(USER_PASSWORD).addParameter("userId", userId);
     }
 
 }

@@ -40,7 +40,7 @@
                     <s:submit name="removeAdministratorRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionAdministrator}')"/>
-                        <s:param name="id" value="${userBean.id}"/>
+                        <s:param name="userId" value="${userBean.userId}"/>
                 </s:form>
                     <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
                     <%--event="removeAdministratorRole">--%>
@@ -57,7 +57,7 @@
                     <s:submit name="removeDeveloperRole"
                               class="btn btn-danger"
                               onclick="return confirm('${questionDeveloper}')"/>
-                        <s:param name="id" value="${userBean.id}"/>
+                        <s:param name="userId" value="${userBean.userId}"/>
                 </s:form>
 
                     <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
@@ -81,7 +81,7 @@
             <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                 <div class="form-actions">
                     <s:submit name="setDeveloperRole" class="btn btn-primary">
-                        <s:param name="id" value="${userBean.id}"/>
+                        <s:param name="userId" value="${userBean.userId}"/>
                     </s:submit>
 
                 </div>
@@ -105,7 +105,7 @@
             <s:form beanclass="cz.bbmri.action.user.UserActionBean">
                 <div class="form-actions">
                     <s:submit name="setAdministratorRole" class="btn btn-primary">
-                        <s:param name="id" value="${userBean.id}"/>
+                        <s:param name="userId" value="${userBean.userId}"/>
                     </s:submit>
                 </div>
             </s:form>

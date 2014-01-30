@@ -76,7 +76,7 @@
                             <c:choose>
                                 <c:when test="${context == 'user'}">
                                     <s:link beanclass="${userBean.name}" event="detail" class="btn btn-primary">
-                                        <s:param name="id" value="${user.id}"/><f:message key="detail"/>
+                                        <s:param name="userId" value="${user.id}"/><f:message key="detail"/>
                                     </s:link>
                                 </c:when>
 

@@ -36,6 +36,7 @@ public class MyExceptionHandler extends DefaultExceptionHandler {
 
     public Resolution catchAll(Throwable exc, HttpServletRequest req,
         HttpServletResponse resp){
+        exc.printStackTrace();
         logger.debug(exc.getMessage());
         return new ForwardResolution(NON_SPECIFIED_ERROR);
     }
