@@ -463,10 +463,10 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         notNull(userId);
 
         User userDB = userService.eagerGet(userId, false, true, false, false);
-        List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
+        Set<ProjectAdministrator> paSet = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
 
-        for (ProjectAdministrator pa : paList) {
+        for (ProjectAdministrator pa : paSet) {
             projects.add(pa.getProject());
         }
 

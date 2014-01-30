@@ -31,13 +31,13 @@
                         <td><f:message key="ProjectState.${project.projectState}"/></td>
                         <td class="action">
 
-                            <c:set target="${projectBean}" property="id" value="${project.id}"/>
+                            <c:set target="${projectBean}" property="projectId" value="${project.id}"/>
 
                             <security:allowed bean="projectBean" event="edit">
                                 <div class="tableAction">
                                     <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="edit"
                                             class="btn btn-primary btnMargin">
-                                        <s:param name="id" value="${project.id}"/>
+                                        <s:param name="projectId" value="${project.id}"/>
                                         <f:message key="edit"/>
                                     </s:link>
                                 </div>
@@ -48,7 +48,7 @@
                                     <div class="tableAction">
                                         <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                                 class="btn btn-info btnMargin">
-                                            <s:param name="id" value="${project.id}"/><f:message
+                                            <s:param name="projectId" value="${project.id}"/><f:message
                                                 key="detail"/></s:link>
                                     </div>
                                 </security:allowed>
@@ -61,7 +61,7 @@
                                     <f:message var="question" key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>
 
                                     <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
-                                        <s:param name="id" value="${project.id}"/>
+                                        <s:param name="projectId" value="${project.id}"/>
                                     </s:submit>
                                 </s:form>
                             </security:allowed>

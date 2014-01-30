@@ -44,7 +44,7 @@
 
                 <div class="form-actions">
                     <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
-                        <s:param name="id" value="${requestBean.sampleQuestion.project.id}"/>
+                        <s:param name="projectId" value="${requestBean.sampleQuestion.project.id}"/>
                         <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
                     </s:link>
 

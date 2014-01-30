@@ -193,9 +193,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         notNull(userId);
 
         User userDB = userDao.get(userId);
-        List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
+        Set<ProjectAdministrator> paSet = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
-        for (ProjectAdministrator pa : paList) {
+        for (ProjectAdministrator pa : paSet) {
             projects.add(pa.getProject());
         }
 

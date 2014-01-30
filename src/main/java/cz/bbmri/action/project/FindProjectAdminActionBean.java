@@ -37,6 +37,6 @@ public class FindProjectAdminActionBean extends FindActionBean {
     public Resolution find() {
         return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS_ADD)
                 .addParameter("UserFind", getUserFind())
-                .addParameter("id", id);
+                .addParameter("projectId", id);
     }
 }

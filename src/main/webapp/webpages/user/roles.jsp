@@ -192,7 +192,7 @@
             </tr>
         </c:if>
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
-            <c:if test="${roleDTO.type.name == 'bbmri.entities.ProjectAdministrator'}">
+            <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.ProjectAdministrator'}">
                 <tr>
                     <td>${roleDTO.subject}</td>
                     <td>${roleDTO.permission}</td>
@@ -204,12 +204,12 @@
 
                             <%--Need to set id for each row of a table to set properly ACL--%>
 
-                        <c:set target="${projectBean}" property="id" value="${roleDTO.referenceId}"/>
+                        <c:set target="${projectBean}" property="projectId" value="${roleDTO.referenceId}"/>
 
                         <security:allowed bean="projectBean" event="edit">
                             <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="edit"
                                     class="btn btn-primary">
-                                <s:param name="id" value="${roleDTO.referenceId}"/>
+                                <s:param name="projectId" value="${roleDTO.referenceId}"/>
                                 <f:message key="edit"/>
                             </s:link>
                         </security:allowed>
@@ -217,7 +217,7 @@
                             <security:allowed bean="projectBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                         class="btn btn-info">
-                                    <s:param name="id" value="${roleDTO.referenceId}"/>
+                                    <s:param name="projectId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
                             </security:allowed>

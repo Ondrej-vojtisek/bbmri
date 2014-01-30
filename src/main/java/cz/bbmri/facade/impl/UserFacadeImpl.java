@@ -56,6 +56,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         /* Add all biobanks of user */
         Set<BiobankAdministrator> baList = userDB.getBiobankAdministrators();
+
         for (BiobankAdministrator ba : baList) {
             RoleDTO newRole = new RoleDTO();
             newRole.setSubject(ba.getBiobank().getName());
@@ -67,7 +68,9 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         }
 
         /* Add all projects of user */
-        List<ProjectAdministrator> paList = userDB.getProjectAdministrators();
+
+        Set<ProjectAdministrator> paList = userDB.getProjectAdministrators();
+
         for (ProjectAdministrator pa : paList) {
             RoleDTO newRole = new RoleDTO();
             newRole.setSubject(pa.getProject().getName());

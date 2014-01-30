@@ -46,7 +46,7 @@
                                          class="btn btn-danger"
                                          onclick="return confirm('${question}')">
                                    <s:param name="attachmentId" value="${attachment.id}"/>
-                                   <s:param name="id" value="${projectBean.id}"/>
+                                   <s:param name="projectId" value="${projectBean.projectId}"/>
                                </s:submit>
                                    </div>
                            </s:form>

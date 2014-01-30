@@ -8,7 +8,7 @@
 <security:allowed bean="projectBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.basicData"/>
         </s:link>
     </li>
@@ -21,7 +21,7 @@
 <security:allowed bean="projectBean" event="editAdministrators">
     <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.FindProjectAdminActionBean">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.addAdministrator"/>
         </s:link>
     </li>
@@ -31,7 +31,7 @@
 <security:allowed bean="projectBean" event="administratorsResolution">
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="administratorsResolution">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.administrators"/>
         </s:link>
     </li>
@@ -42,7 +42,7 @@
 <security:allowed bean="projectBean" event="attachments">
     <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="attachments">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.attachments"/>
         </s:link>
     </li>
@@ -53,7 +53,7 @@
 <security:allowed bean="projectBean" event="sampleQuestions">
     <li <c:if test="${ternarymenu == 'sampleQuestions'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="sampleQuestions">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.sampleQuestions"/>
         </s:link>
     </li>

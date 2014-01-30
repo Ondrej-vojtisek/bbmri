@@ -16,7 +16,7 @@
             <div class="form-actions">
 
             <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="addAttachment" class="btn btn-primary">
-                <s:param name="id" value="${projectBean.id}"/>
+                <s:param name="projectId" value="${projectBean.projectId}"/>
                 <f:message key="cz.bbmri.action.project.ProjectActionBean.addAttachment"/>
             </s:link>
 

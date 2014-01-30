@@ -38,7 +38,7 @@
                     </s:select>
 
                     <s:submit name="attachmentUpload" class="btn btn-primary">
-                        <s:param name="id" value="${projectBean.id}"/>
+                        <s:param name="projectId" value="${projectBean.projectId}"/>
                     </s:submit>
                 </div>
             </div>

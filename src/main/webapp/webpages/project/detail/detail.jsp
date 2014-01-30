@@ -85,14 +85,14 @@
             <div class="form-actions">
                 <security:allowed bean="projectBean" event="edit">
                     <s:submit name="update" class="btn btn-primary btnMargin">
-                        <s:param name="id" value="${projectBean.id}"/>
+                        <s:param name="projectId" value="${projectBean.projectId}"/>
                     </s:submit>
                 </security:allowed>
 
                 <c:if test="${projectBean.isApproved}">
                     <security:allowed bean="projectBean" event="createSampleQuestion">
                         <s:link beanclass="${projectBean.name}" event="createSampleQuestion" class="btn btn-primary btnMargin">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                             <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleQuestion"/>
                         </s:link>
                     </security:allowed>
@@ -101,7 +101,7 @@
                 <c:if test="${projectBean.isStarted}">
                     <security:allowed bean="projectBean" event="markAsFinished">
                         <s:submit name="markAsFinished" class="btn btn-primary btnMargin">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
                 </c:if>
@@ -110,13 +110,13 @@
 
                     <security:allowed bean="projectBean" event="approve">
                         <s:submit name="approve" class="btn btn-primary btnMargin">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
 
                     <security:allowed bean="projectBean" event="deny">
                         <s:submit name="deny" class="btn btn-danger">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
 

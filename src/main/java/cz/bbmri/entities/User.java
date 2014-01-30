@@ -63,7 +63,7 @@ public class User implements Serializable {
 
 
     @OneToMany(mappedBy = "user")
-    private List<ProjectAdministrator> projectAdministrators = new ArrayList<ProjectAdministrator>();
+    private Set<ProjectAdministrator> projectAdministrators = new HashSet<ProjectAdministrator>();
 
     @OneToMany(mappedBy = "user")
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
@@ -170,11 +170,11 @@ public class User implements Serializable {
         this.biobankAdministrators = biobankAdministrators;
     }
 
-    public List<ProjectAdministrator> getProjectAdministrators() {
+    public Set<ProjectAdministrator> getProjectAdministrators() {
         return projectAdministrators;
     }
 
-    public void setProjectAdministrators(List<ProjectAdministrator> projectAdministrators) {
+    public void setProjectAdministrators(Set<ProjectAdministrator> projectAdministrators) {
         this.projectAdministrators = projectAdministrators;
     }
 

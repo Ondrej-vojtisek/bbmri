@@ -33,12 +33,15 @@
                             <s:submit name="setPermission" onclick="return confirm('${questionSet}')"
                                       class="btn btn-primary">
                                 <s:param name="adminId" value="${administrator.id}"/>
+
                                 <c:if test="${beanType eq 'biobank'}">
                                     <s:param name="biobankId" value="${bean.biobankId}"/>
                                 </c:if>
+
                                 <c:if test="${beanType eq 'project'}">
                                     <s:param name="projectId" value="${bean.projectId}"/>
                                 </c:if>
+
                             </s:submit>
                         </s:form>
 
@@ -60,12 +63,15 @@
                             <s:submit name="removeAdministrator" onclick="return confirm('${question}')"
                                       class="btn btn-danger">
                                 <s:param name="adminId" value="${administrator.id}"/>
+
                                 <c:if test="${beanType eq 'biobank'}">
                                     <s:param name="biobankId" value="${bean.biobankId}"/>
                                 </c:if>
+
                                 <c:if test="${beanType eq 'project'}">
                                     <s:param name="projectId" value="${bean.projectId}"/>
                                 </c:if>
+
                             </s:submit>
                         </s:form>
                     </security:allowed>

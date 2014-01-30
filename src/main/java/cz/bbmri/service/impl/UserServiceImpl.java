@@ -69,7 +69,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             }
         }
 
-        List<ProjectAdministrator> projectAdministrators = userDB.getProjectAdministrators();
+        Set<ProjectAdministrator> projectAdministrators = userDB.getProjectAdministrators();
         if (projectAdministrators != null) {
             for (ProjectAdministrator pa : projectAdministrators) {
                 pa.setUser(null);

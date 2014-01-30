@@ -31,14 +31,14 @@
                 <div class="form-actions">
                     <security:allowed bean="projectBean" event="detail">
                         <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                             <f:message key="cz.bbmri.action.project.ProjectActionBean.cancelSampleQuestion"/>
                         </s:link>
                     </security:allowed>
 
                     <security:allowed bean="projectBean" event="detail">
                         <s:submit name="confirmSampleQuestion" class="btn btn-primary">
-                            <s:param name="id" value="${projectBean.id}"/>
+                            <s:param name="projectId" value="${projectBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
                 </div>
