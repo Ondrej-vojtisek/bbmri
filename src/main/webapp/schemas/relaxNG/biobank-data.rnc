@@ -27,8 +27,7 @@ start =
 
 tissue =
 	element tissue {
-        sampleId,
-        biopticalReport,
+        sampleIdentification,
         sampleNos,
         element tissueType { xsd:string { maxLength = "2" } },
         element TNM { xsd:string { maxLength = "7" } },
@@ -42,8 +41,7 @@ tissue =
 
 blood =
 	element blood {
-        biopticalReport,
-		sampleId,
+		sampleIdentification,
 		sampleNos,
 		element takingDate { xsd:dateTime },
         retrieved
@@ -51,8 +49,7 @@ blood =
 
 genome =
 	element genome {
-        biopticalReport,
-		sampleId,
+		sampleIdentification,
 		sampleNos,
 		element tissueType { xsd:string { maxLength = "2" } },
 		element takingDate { xsd:dateTime },
@@ -61,14 +58,14 @@ genome =
 
 plasma =
 	element plasma {
-        sampleId,
+        sampleIdentification,
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
 		element takingDate { xsd:dateTime }
 	}
 
 urine =
 	element urine {
-        sampleId,
+        sampleIdentification,
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
 		element takingDate { xsd:dateTime }
 	}
@@ -76,7 +73,7 @@ urine =
 ## blood reserve in STS
 bloodRsv =
 	element bloodRsv {
-		sampleId,
+		sampleIdentification,
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
 		element takingDate { xsd:dateTime },
         retrieved
@@ -86,19 +83,18 @@ biobankId =
 	attribute biobank { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "32" } }
 
 ## each sample is identified with biobankId and sequential number
-sampleId =
+sampleIdentification =
     ## year in combination with number could be used to internal linkage with surgeon etc, ...
     ## At MOU it is called biopticalReport - Biopticka zadanka
-    ## attribute year { xsd:gYear },
-
-	attribute number { xsd:string { maxLength = "6" } }
-
+    attribute year { xsd:gYear },
+	attribute number { xsd:string { maxLength = "6" } },
 	## because of different format of sample identifier on each institution there is a field
 	## for unique identification of sample
 	## e.g. on mou here should be combination of YEAR + NUMBER + TYPE
 	##      on 1.LF here should be combination of Cislo pacienta + Cislo odberu + typ vzorku
-	##      identification of aliquote is _not_ a part of compositeIdentifier
-	##attribute compositeIdentifier {xsd:string}
+	##      identification of aliquote is _not_ a part of sampleId
+	## sampleId must match sampleId in bankOccupancy export scheme
+	attribute sampleId {xsd:string}
 
 ## total and available number of aliquotes
 sampleNos =
@@ -109,9 +105,8 @@ sampleNos =
 retrieved =
   element retrieved { "preoperational" | "operational" | "post" | "unknown" }
 
-## internal code-book of institution. Linkage to taking record (e.g. surgeon, ...)
-biopticalReport =
-    element biopticalReport {
-	    attribute year { xsd:gYear },
-	    attribute number { xsd:int }
-}
+morphology =
+  element morphology { xsd:string { length = "7" pattern = "[0-9]{4}/[0-9]{2}"} }
+
+grading =
+  element grading { xsd:int { minInclusive = "1" minExclusive = "9" } }
