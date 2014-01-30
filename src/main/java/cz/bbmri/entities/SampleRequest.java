@@ -14,9 +14,9 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "SampleQuestion")
+@Table(name = "SampleRequest")
 @Entity
-public class SampleQuestion {
+public class SampleRequest {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,18 +37,8 @@ public class SampleQuestion {
     @Enumerated(EnumType.STRING)
     private RequestState requestState;
 
-    private boolean processed = false;
-
     @Type(type = "timestamp")
     private Date created;
-
-    public boolean isProcessed() {
-        return processed;
-    }
-
-    public void setProcessed(boolean processed) {
-        this.processed = processed;
-    }
 
     public Long getId() {
         return id;
@@ -126,7 +116,7 @@ public class SampleQuestion {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SampleQuestion that = (SampleQuestion) o;
+        SampleRequest that = (SampleRequest) o;
 
         if (!id.equals(that.id)) return false;
 
@@ -140,7 +130,7 @@ public class SampleQuestion {
 
     @Override
     public String toString() {
-        return "SampleQuestion{" +
+        return "SampleRequest{" +
                 "id=" + id +
                 '}';
     }

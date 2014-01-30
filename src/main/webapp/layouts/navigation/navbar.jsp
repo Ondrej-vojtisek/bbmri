@@ -61,7 +61,7 @@
 <%-- -------------------------------------------------------------------- --%>
 
 <p class="navbar-text pull-right">
-    <b><f:message key="version"/>:</b> <i>1.54</i>
+    <b><f:message key="version"/>:</b> <i>1.55</i>
 </p>
 
 

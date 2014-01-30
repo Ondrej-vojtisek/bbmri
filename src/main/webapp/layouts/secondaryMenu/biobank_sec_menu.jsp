@@ -27,22 +27,3 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<%--<c:if test="${not empty biobank}">--%>
-    <%--<li <c:if test="${secondarymenu == 'sample_approve_request'}"> class="active" </c:if> >--%>
-        <%--<s:link beanclass="cz.bbmri.action.SampleQuestionActionBean"--%>
-                <%--event="approveSampleRequest"><f:message--%>
-                <%--key="approve_sample_request"/></s:link></li>--%>
-    <%--<li <c:if test="${secondarymenu == 'sample_create'}"> class="active" </c:if> ><s:link--%>
-            <%--beanclass="cz.bbmri.action.sample.CreateSampleActionBean"><f:message--%>
-            <%--key="sample_create"/></s:link></li>--%>
-    <%--&lt;%&ndash;--%>
-    <%--<li <c:if test="${secondarymenu == 'sample_withdraw'}"> class="active" </c:if> ><s:link--%>
-            <%--beanclass="cz.bbmri.action.sample.SampleActionBean"><f:message--%>
-            <%--key="sample.withdraw"/></s:link></li>     &ndash;%&gt;--%>
-    <%--<li <c:if test="${secondarymenu == 'requestGroup_all'}"> class="active" </c:if> ><s:link--%>
-            <%--beanclass="cz.bbmri.action.SampleQuestionActionBean"--%>
-            <%--event="allRequestGroups"><f:message key="sample.requests"/></s:link></li>--%>
-    <%--<li <c:if test="${secondarymenu == 'sample_all'}"> class="active" </c:if> ><s:link--%>
-            <%--beanclass="cz.bbmri.action.sample.SampleActionBean" event="allSamples"><f:message--%>
-            <%--key="sample.all"/></s:link></li>--%>
-<%--</c:if>--%>

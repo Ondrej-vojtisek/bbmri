@@ -55,7 +55,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     private BiobankService biobankService;
 
     @Autowired
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
 
     public boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
         notNull(projectId);
@@ -506,25 +506,25 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return biobankService.all();
     }
 
-    public boolean createSampleQuestion(SampleQuestion sampleQuestion, Long projectId, Long biobankId,
+    public boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
                                         ValidationErrors errors) {
 
 //        notNull(sampleQuestion);
 //        notNull(projectId);
 //        notNull(biobankId);
 
-        if (sampleQuestionService.create(sampleQuestion, biobankId, projectId) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleQuestionFailed"));
+        if (sampleRequestService.create(sampleRequest, biobankId, projectId) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleRequestFailed"));
             return false;
         }
         return true;
     }
 
-    public List<SampleQuestion> getProjectSampleQuestions(Long projectId) {
+    public List<SampleRequest> getProjectSampleRequests(Long projectId) {
         notNull(projectId);
 
         Project projectDB = projectService.eagerGet(projectId, false, false, false, true);
-        return projectDB.getSampleQuestions();
+        return projectDB.getSampleRequests();
 
     }
 

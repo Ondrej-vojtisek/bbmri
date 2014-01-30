@@ -17,18 +17,6 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<%--<c:if test="${not empty biobank}">--%>
-    <%--<li <c:if test="${secondarymenu == 'project_approve'}"> class="active" </c:if> ><s:link--%>
-            <%--beanclass="cz.bbmri.action.project.ApproveProjectActionBean"><f:message--%>
-            <%--key="approve_project"/></s:link></li>--%>
-<%--</c:if>--%>
-
-<%--<li <c:if test="${secondarymenu == 'samples_my_requests'}"> class="active" </c:if> ><s:link--%>
-        <%--beanclass="cz.bbmri.action.SampleQuestionActionBean" event="myRequests"><f:message--%>
-        <%--key="my_requests"/></s:link></li>--%>
-
-<%-- -------------------------------------------------------------------- --%>
-
 <security:allowed bean="projectBean" event="allProjects">
     <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if> ><s:link
             beanclass="${projectBean.name}" event="allProjects"><f:message

@@ -43,7 +43,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     private ProjectAdministratorDao projectAdministratorDao;
 
     @Autowired
-    private SampleQuestionDao sampleQuestionDao;
+    private SampleRequestDao sampleRequestDao;
 
     public Project create(Project project, Long userId) {
         notNull(project);
@@ -91,11 +91,11 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             }
         }
 
-        List<SampleQuestion> sampleQuestions = projectDB.getSampleQuestions();
-                if (sampleQuestions != null) {
+        List<SampleRequest> sampleRequests = projectDB.getSampleRequests();
+                if (sampleRequests != null) {
 
-                    for (SampleQuestion sampleQuestion : sampleQuestions) {
-                        sampleQuestionDao.remove(sampleQuestion);
+                    for (SampleRequest sampleRequest : sampleRequests) {
+                        sampleRequestDao.remove(sampleRequest);
                     }
                 }
 
@@ -279,7 +279,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
     @Transactional(readOnly = true)
-    public Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleQuestions) {
+    public Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleRequests) {
         notNull(id);
         Project projectDB = projectDao.get(id);
 
@@ -297,8 +297,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             logger.debug("" + projectDB.getAttachments());
         }
 
-        if (sampleQuestions) {
-            logger.debug("" + projectDB.getSampleQuestions());
+        if (sampleRequests) {
+            logger.debug("" + projectDB.getSampleRequests());
         }
         return projectDB;
 

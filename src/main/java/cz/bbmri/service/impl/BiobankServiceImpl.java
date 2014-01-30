@@ -45,7 +45,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     private SampleDao sampleDao;
 
     @Autowired
-    private SampleQuestionDao sampleQuestionDao;
+    private SampleRequestDao sampleRequestDao;
 
     @Autowired
     private RequestGroupDao requestGroupDao;
@@ -97,10 +97,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 patientDao.remove(patient);
             }
         }
-        List<SampleQuestion> sampleQuestions = biobankDB.getSampleQuestions();
-        if (sampleQuestions != null) {
-            for (SampleQuestion sampleQuestion : sampleQuestions) {
-                sampleQuestionDao.remove(sampleQuestion);
+        List<SampleRequest> sampleRequests = biobankDB.getSampleRequests();
+        if (sampleRequests != null) {
+            for (SampleRequest sampleRequest : sampleRequests) {
+                sampleRequestDao.remove(sampleRequest);
             }
         }
 
@@ -256,7 +256,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     }
 
     @Transactional(readOnly = true)
-    public Biobank eagerGet(Long id, boolean patients, boolean requestGroups, boolean sampleQuestions) {
+    public Biobank eagerGet(Long id, boolean patients, boolean requestGroups, boolean sampleRequests) {
         notNull(id);
         Biobank biobankDB = biobankDao.get(id);
 
@@ -275,8 +275,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             logger.debug("" + biobankDB.getRequestGroups());
         }
 
-        if (sampleQuestions) {
-            logger.debug("" + biobankDB.getSampleQuestions());
+        if (sampleRequests) {
+            logger.debug("" + biobankDB.getSampleRequests());
         }
 
         return biobankDB;

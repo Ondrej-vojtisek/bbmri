@@ -49,7 +49,7 @@ public class Project implements Serializable {
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
     @OneToMany(mappedBy = "project")
-    private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
+    private List<SampleRequest> sampleRequests = new ArrayList<SampleRequest>();
 
     /*Which member of ethical committee approved project*/
     private String approvedBy;
@@ -154,12 +154,12 @@ public class Project implements Serializable {
         this.judgedByUser = judgedByUser;
     }
 
-    public List<SampleQuestion> getSampleQuestions() {
-        return sampleQuestions;
+    public List<SampleRequest> getSampleRequests() {
+        return sampleRequests;
     }
 
-    public void setSampleQuestions(List<SampleQuestion> sampleQuestions) {
-        this.sampleQuestions = sampleQuestions;
+    public void setSampleRequests(List<SampleRequest> sampleRequests) {
+        this.sampleRequests = sampleRequests;
     }
 
     public Set<ProjectAdministrator> getProjectAdministrators() {

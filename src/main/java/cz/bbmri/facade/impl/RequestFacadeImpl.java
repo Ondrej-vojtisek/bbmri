@@ -1,13 +1,11 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.enumeration.NotificationType;
-import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.facade.RequestFacade;
 import cz.bbmri.service.NotificationService;
-import cz.bbmri.service.SampleQuestionService;
+import cz.bbmri.service.SampleRequestService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +22,27 @@ import org.springframework.stereotype.Controller;
 public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     @Autowired
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
 
     @Autowired
     private NotificationService notificationService;
 
-    public SampleQuestion getSampleQuestion(Long sampleQuestionId) {
-        return sampleQuestionService.get(sampleQuestionId);
+    public SampleRequest getSampleRequest(Long sampleRequestId) {
+        return sampleRequestService.get(sampleRequestId);
     }
 
-    public boolean approveSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
-        notNull(sampleQuestionId);
+    public boolean approveSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+        notNull(sampleRequestId);
         notNull(loggedUserId);
 
-        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
+        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
 
-        if (sampleQuestionDB == null) {
-            logger.debug("SampleQuestionDB can't be null");
+        if (sampleRequestDB == null) {
+            logger.debug("SampleRequestDB can't be null");
             return false;
         }
 
-        if (!sampleQuestionDB.getRequestState().equals(RequestState.NEW)) {
+        if (!sampleRequestDB.getRequestState().equals(RequestState.NEW)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
             return false;
         }
@@ -52,41 +50,62 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         // here is no need to send notification - if approved that biobank administrator must prepare sample set
         // if sample set is choosen than change processed to true and send message to project team
 
-        sampleQuestionDB.setRequestState(RequestState.APPROVED);
+        sampleRequestDB.setRequestState(RequestState.APPROVED);
 
         return true;
 
     }
 
-    public boolean denySampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
+    public boolean denySampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
 
-        notNull(sampleQuestionId);
-          notNull(loggedUserId);
+        notNull(sampleRequestId);
+        notNull(loggedUserId);
 
-          SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
+        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
 
-          if (sampleQuestionDB == null) {
-              logger.debug("SampleQuestionDB can't be null");
-              return false;
-          }
+        if (sampleRequestDB == null) {
+            logger.debug("SampleRequestDB can't be null");
+            return false;
+        }
 
-          if (!sampleQuestionDB.getRequestState().equals(RequestState.NEW)) {
-              errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
-              return false;
-          }
+        if (!sampleRequestDB.getRequestState().equals(RequestState.NEW)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
+            return false;
+        }
 
-          sampleQuestionDB.setRequestState(RequestState.DENIED);
+        sampleRequestDB.setRequestState(RequestState.DENIED);
 
-          boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
-          if (result) {
+        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        if (result) {
 
-              String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                      " was denied";
+            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+                    " was denied";
 
-              notificationService.create(getOtherProjectWorkers(sampleQuestionDB.getProject(), loggedUserId),
-                      NotificationType.SAMPLE_QUESTION_DETAIL, msg, sampleQuestionDB.getId());
-          }
+            notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), loggedUserId),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+        }
 
-          return result;
+        return result;
+    }
+
+    public boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+
+        notNull(sampleRequestId);
+        notNull(loggedUserId);
+
+        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+
+        if (!sampleRequestService.remove(sampleRequestId)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDelete"));
+            return false;
+        }
+
+        String msg = "Sample request with id: " + sampleRequestDB.getId() +
+                " was deleted";
+
+        notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), loggedUserId),
+                NotificationType.PROJECT_DETAIL, msg, sampleRequestDB.getProject().getId());
+
+        return true;
     }
 }

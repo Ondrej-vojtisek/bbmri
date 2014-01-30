@@ -50,11 +50,11 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="projectBean" event="sampleQuestions">
-    <li <c:if test="${ternarymenu == 'sampleQuestions'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="sampleQuestions">
+<security:allowed bean="projectBean" event="sampleRequests">
+    <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
+        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="sampleRequests">
             <s:param name="projectId" value="${projectBean.projectId}"/>
-            <f:message key="cz.bbmri.action.project.ProjectActionBean.sampleQuestions"/>
+            <f:message key="cz.bbmri.action.project.ProjectActionBean.sampleRequests"/>
         </s:link>
     </li>
 </security:allowed>

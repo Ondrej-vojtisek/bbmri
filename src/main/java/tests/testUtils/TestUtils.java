@@ -58,12 +58,11 @@ public class TestUtils {
         return sample;
     }
 
-    protected SampleQuestion createTestSampleQuestion(int i){
-        SampleQuestion sampleQuestion = new SampleQuestion();
-        sampleQuestion.setSpecification("Specification" + i);
-        sampleQuestion.setProcessed(false);
-        sampleQuestion.setRequestState(RequestState.NEW);
-        return sampleQuestion;
+    protected SampleRequest createTestSampleQuestion(int i){
+        SampleRequest sampleRequest = new SampleRequest();
+        sampleRequest.setSpecification("Specification" + i);
+        sampleRequest.setRequestState(RequestState.NEW);
+        return sampleRequest;
     }
 
     protected Request createTestRequest(int i){

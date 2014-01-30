@@ -105,12 +105,12 @@ public class BiobankActionBean extends PermissionActionBean {
         return biobankFacade.getBiobanksByUser(getContext().getMyId());
     }
 
-    public List<SampleQuestion> getSampleQuestions() {
+    public List<SampleRequest> getSampleRequests() {
         if (biobankId == null) {
             return null;
         }
 
-        return biobankFacade.getBiobankSampleQuestions(biobankId);
+        return biobankFacade.getBiobankSampleRequests(biobankId);
     }
 
     /* Methods */
@@ -229,10 +229,10 @@ public class BiobankActionBean extends PermissionActionBean {
         return new ForwardResolution(BIOBANK_DETAIL_PATIENTS);
     }
 
-    @HandlesEvent("sampleQuestions")
+    @HandlesEvent("sampleRequests")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution sampleQuestions() {
-        return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_QUESTIONS);
+    public Resolution sampleRequests() {
+        return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_REQUESTS);
     }
 
     @HandlesEvent("delete")

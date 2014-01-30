@@ -1,6 +1,6 @@
 package cz.bbmri.facade;
 
-import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleRequest;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 /**
@@ -12,11 +12,13 @@ import net.sourceforge.stripes.validation.ValidationErrors;
  */
 public interface RequestFacade {
 
-    SampleQuestion getSampleQuestion(Long sampleQuestionId);
+    SampleRequest getSampleRequest(Long sampleRequestId);
 
-    boolean approveSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+    boolean approveSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
-    boolean denySampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+    boolean denySampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+
+    boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
     //List<RequestGroup> getRequestsByBiobankAndState(Long biobank);
 }

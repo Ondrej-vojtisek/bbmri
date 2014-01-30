@@ -1,7 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleRequest;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
  * Time: 20:33
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
+public interface SampleRequestDao extends BasicDao<SampleRequest> {
 
     // TODO: napsat test
-    List<SampleQuestion> getByBiobankAndProcessed(Biobank biobank, boolean processed);
+    List<SampleRequest> getByBiobankAndProcessed(Biobank biobank, boolean processed);
 
 }

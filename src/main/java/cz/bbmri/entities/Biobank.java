@@ -42,7 +42,7 @@ public class Biobank implements Serializable {
     private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     @OneToMany(mappedBy = "biobank")
-    private List<SampleQuestion> sampleQuestions = new ArrayList<SampleQuestion>();
+    private List<SampleRequest> sampleRequests = new ArrayList<SampleRequest>();
 
     @OneToMany(mappedBy = "biobank")
     private List<Patient> patients = new ArrayList<Patient>();
@@ -79,12 +79,12 @@ public class Biobank implements Serializable {
         this.requestGroups = requestGroups;
     }
 
-    public List<SampleQuestion> getSampleQuestions() {
-        return sampleQuestions;
+    public List<SampleRequest> getSampleRequests() {
+        return sampleRequests;
     }
 
-    public void setSampleQuestions(List<SampleQuestion> sampleQuestions) {
-        this.sampleQuestions = sampleQuestions;
+    public void setSampleRequests(List<SampleRequest> sampleRequests) {
+        this.sampleRequests = sampleRequests;
     }
 
     public Set<BiobankAdministrator> getBiobankAdministrators() {

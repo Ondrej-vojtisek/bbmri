@@ -57,11 +57,11 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="sampleQuestions">
-    <li <c:if test="${ternarymenu == 'sampleQuestions'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleQuestions">
+<security:allowed bean="biobankBean" event="sampleRequests">
+    <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequests">
             <s:param name="biobankId" value="${projectBean.id}"/>
-            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleQuestions"/>
+            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
         </s:link>
     </li>
 </security:allowed>

@@ -15,55 +15,55 @@
             <s:form beanclass="${requestBean.name}" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleQuestion.biobank" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleRequest.biobank" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sampleQuestion.biobank.name" readonly="true"/>
+                        <s:text name="sampleRequest.biobank.name" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleQuestion.created" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleRequest.created" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sampleQuestion.created" readonly="true"/>
+                        <s:text name="sampleRequest.created" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleQuestion.requestState" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleRequest.requestState" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sampleQuestion.requestState" readonly="true"/>
+                        <s:text name="sampleRequest.requestState" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleQuestion.specification" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleRequest.specification" class="control-label"/>
                     <div class="controls">
-                        <s:textarea name="sampleQuestion.specification" readonly="true"/>
+                        <s:textarea name="sampleRequest.specification" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="form-actions">
                     <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
-                        <s:param name="projectId" value="${requestBean.sampleQuestion.project.id}"/>
+                        <s:param name="projectId" value="${requestBean.sampleRequest.project.id}"/>
                         <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
                     </s:link>
 
                     <security:allowed bean="requestBean" event="approve">
                         <s:submit name="approve" class="btn btn-primary btnMargin">
-                            <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                            <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
                         </s:submit>
                     </security:allowed>
 
                     <security:allowed bean="requestBean" event="deny">
                         <s:submit name="deny" class="btn btn-primary btnMargin">
-                            <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                            <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
                         </s:submit>
                     </security:allowed>
 
-                    <c:if test="${requestBean.isNew}">
+                    <c:if test="${requestBean.isSampleRequestNew}">
                         <security:allowed bean="requestBean" event="delete">
-                            <s:submit name="deny" class="btn btn-danger btnMargin">
-                                <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+                            <s:submit name="delete" class="btn btn-danger btnMargin">
+                                <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
                             </s:submit>
                         </security:allowed>
                     </c:if>
@@ -74,13 +74,15 @@
 
         </fieldset>
 
-        <c:if test="${requestBean.isApproved}">
+        <c:if test="${requestBean.isSampleRequestApproved}">
             <fieldset>
+
                 <legend>
 
                 </legend>
 
                 Is approved, here choose appropriate sample set
+
             </fieldset>
         </c:if>
 

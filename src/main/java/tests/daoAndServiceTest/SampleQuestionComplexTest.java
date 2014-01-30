@@ -31,7 +31,7 @@ public class SampleQuestionComplexTest extends AbstractDaoAndServiceTest {
     private RequestService requestService;
 
     @Autowired
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
 
 //    @Test
 //    public void createSampleQuestionTest() {

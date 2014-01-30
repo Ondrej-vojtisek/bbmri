@@ -90,10 +90,10 @@
                 </security:allowed>
 
                 <c:if test="${projectBean.isApproved}">
-                    <security:allowed bean="projectBean" event="createSampleQuestion">
-                        <s:link beanclass="${projectBean.name}" event="createSampleQuestion" class="btn btn-primary btnMargin">
+                    <security:allowed bean="projectBean" event="createSampleRequest">
+                        <s:link beanclass="${projectBean.name}" event="createSampleRequest" class="btn btn-primary btnMargin">
                             <s:param name="projectId" value="${projectBean.projectId}"/>
-                            <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleQuestion"/>
+                            <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
                         </s:link>
                     </security:allowed>
                 </c:if>

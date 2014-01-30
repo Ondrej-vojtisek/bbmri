@@ -52,14 +52,14 @@ public class Links {
     protected static final String BIOBANK_DETAIL_GENERAL = BIOBANK_DETAIL + "general.jsp";
     protected static final String BIOBANK_DETAIL_ADMINISTRATORS = BIOBANK_DETAIL + "administrators.jsp";
     protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
-    protected static final String BIOBANK_DETAIL_SAMPLE_QUESTIONS = BIOBANK_DETAIL + "sampleQuestions.jsp";
+    protected static final String BIOBANK_DETAIL_SAMPLE_REQUESTS = BIOBANK_DETAIL + "sampleRequests.jsp";
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";
     /* ********************************** */
     protected static final String PROJECT_ALL = PROJECT + "all.jsp";
     protected static final String PROJECT_MY = PROJECT + "all_my.jsp";
-    protected static final String PROJECT_CREATE_SAMPLE_QUESTION = PROJECT + "createSampleQuestion.jsp";
+    protected static final String PROJECT_CREATE_SAMPLE_REQUEST = PROJECT + "createSampleRequest.jsp";
 
     // PROJECTS/CREATE
     private static final String PROJECT_DETAIL = PROJECT + "detail/";
@@ -69,7 +69,7 @@ public class Links {
     protected static final String PROJECT_DETAIL_ADMINISTRATORS = PROJECT_DETAIL + "administrators.jsp";
     protected static final String PROJECT_DETAIL_ADMINISTRATORS_ADD = PROJECT_DETAIL + "addAdministrator.jsp";
     protected static final String PROJECT_DETAIL_ATTACHMENT_ADD = PROJECT_DETAIL + "addAttachment.jsp";
-    protected static final String PROJECT_DETAIL_SAMPLE_QUESTIONS = PROJECT_DETAIL + "sampleQuestions.jsp";
+    protected static final String PROJECT_DETAIL_SAMPLE_REQUESTS = PROJECT_DETAIL + "sampleRequests.jsp";
 
 
     // PROJECTS/CREATE

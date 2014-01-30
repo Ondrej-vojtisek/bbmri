@@ -31,7 +31,7 @@ public enum NotificationType {
 
     /* RequestFacade notifications */
 
-    SAMPLE_QUESTION_DETAIL(RequestActionBean.class.getName(), "detail"),
+    SAMPLE_REQUEST_DETAIL(RequestActionBean.class.getName(), "detail"),
 
     /* This should lead to support page - list of all administrators and developers */
     USER_SUPPORT(null, "detail");

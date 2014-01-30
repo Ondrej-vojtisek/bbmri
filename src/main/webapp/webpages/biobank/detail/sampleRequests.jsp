@@ -6,7 +6,7 @@
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
-                 ternarymenu="sampleQuestions">
+                 ternarymenu="sampleRequests">
 
     <s:layout-component name="body">
 
@@ -15,33 +15,33 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th><f:message key="cz.bbmri.entities.SampleQuestion.created"/></th>
-                    <th><f:message key="cz.bbmri.entities.SampleQuestion.biobank"/></th>
-                    <th><f:message key="cz.bbmri.entities.SampleQuestion.requestState"/></th>
-                    <th><f:message key="cz.bbmri.entities.SampleQuestion.processed"/></th>
-                    <th><f:message key="cz.bbmri.entities.SampleQuestion.specification"/></th>
+                    <th><f:message key="cz.bbmri.entities.SampleRequest.created"/></th>
+                    <th><f:message key="cz.bbmri.entities.SampleRequest.biobank"/></th>
+                    <th><f:message key="cz.bbmri.entities.SampleRequest.requestState"/></th>
+                    <th><f:message key="cz.bbmri.entities.SampleRequest.processed"/></th>
+                    <th><f:message key="cz.bbmri.entities.SampleRequest.specification"/></th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${empty biobankBean.sampleQuestions}">
+                <c:if test="${empty biobankBean.sampleRequests}">
                     <tr>
                         <td colspan="6"><f:message key="empty"/></td>
                     </tr>
                 </c:if>
 
-                <c:forEach items="${biobankBean.sampleQuestions}" var="sampleQuestion">
+                <c:forEach items="${biobankBean.sampleRequests}" var="sampleRequest">
                     <tr>
-                        <td>${sampleQuestion.created}</td>
-                        <td>${sampleQuestion.biobank.name}</td>
+                        <td>${sampleRequest.created}</td>
+                        <td>${sampleRequest.biobank.name}</td>
                         <td><f:message
-                                key="cz.bbmri.entities.enumeration.RequestState.${sampleQuestion.requestState}"/></td>
-                        <td>${sampleQuestion.processed}</td>
-                        <td>${sampleQuestion.specification}</td>
+                                key="cz.bbmri.entities.enumeration.RequestState.${sampleRequest.requestState}"/></td>
+                        <td>${sampleRequest.processed}</td>
+                        <td>${sampleRequest.specification}</td>
                         <td class="action">
                             <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
                                     class="btn btn-primary">
-                                <s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>
+                                <s:param name="sampleRequestId" value="${sampleRequest.id}"/>
                                 <s:param name="biobankId" value="${biobankBean.biobankId}"/>
                                 <f:message key="detail"/>
                             </s:link>

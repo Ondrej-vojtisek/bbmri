@@ -65,9 +65,9 @@ public class ProjectActionBean extends PermissionActionBean {
 
     @ValidateNestedProperties(value = {
             @Validate(field = "specification",
-                    required = true, on = "confirmSampleQuestion")
+                    required = true, on = "confirmSampleRequest")
     })
-    private SampleQuestion sampleQuestion;
+    private SampleRequest sampleRequest;
 
     public List<Project> getAll() {
         return projectFacade.all();
@@ -121,12 +121,12 @@ public class ProjectActionBean extends PermissionActionBean {
         return getProject().getProjectAdministrators();
     }
 
-    public SampleQuestion getSampleQuestion() {
-        return sampleQuestion;
+    public SampleRequest getSampleRequest() {
+        return sampleRequest;
     }
 
-    public void setSampleQuestion(SampleQuestion sampleQuestion) {
-        this.sampleQuestion = sampleQuestion;
+    public void setSampleRequest(SampleRequest sampleRequest) {
+        this.sampleRequest = sampleRequest;
     }
 
     public FileBean getAttachmentFileBean() {
@@ -149,12 +149,12 @@ public class ProjectActionBean extends PermissionActionBean {
         return projectFacade.getAllBiobanks();
     }
 
-    public List<SampleQuestion> getSampleQuestions() {
+    public List<SampleRequest> getSampleRequests() {
         if (projectId == null) {
             return null;
         }
 
-        return projectFacade.getProjectSampleQuestions(projectId);
+        return projectFacade.getProjectSampleRequests(projectId);
     }
 
     @DontValidate
@@ -389,30 +389,30 @@ public class ProjectActionBean extends PermissionActionBean {
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
-    @HandlesEvent("createSampleQuestion")
+    @HandlesEvent("createSampleRequest")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
-    public Resolution createSampleQuestion() {
-        return new ForwardResolution(PROJECT_CREATE_SAMPLE_QUESTION);
+    public Resolution createSampleRequest() {
+        return new ForwardResolution(PROJECT_CREATE_SAMPLE_REQUEST);
     }
 
 
     //VALIDATE
-    @HandlesEvent("confirmSampleQuestion")
+    @HandlesEvent("confirmSampleRequest")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
-    public Resolution confirmSampleQuestion() {
+    public Resolution confirmSampleRequest() {
 
-        if (!projectFacade.createSampleQuestion(sampleQuestion, projectId, biobankId, getContext().getValidationErrors())) {
+        if (!projectFacade.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
             return new ForwardResolution(PROJECT_DETAIL_GENERAL);
         }
         successMsg(null);
-        return new RedirectResolution(this.getClass(), "sampleQuestions").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "sampleRequests").addParameter("projectId", projectId);
     }
 
     @DontValidate
-    @HandlesEvent("sampleQuestions")
+    @HandlesEvent("sampleRequests")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
-    public Resolution sampleQuestions() {
-        return new ForwardResolution(PROJECT_DETAIL_SAMPLE_QUESTIONS);
+    public Resolution sampleRequests() {
+        return new ForwardResolution(PROJECT_DETAIL_SAMPLE_REQUESTS);
     }
 
 }
