@@ -36,7 +36,7 @@
                 <div class="form-actions">
                     <s:submit name="update" class="btn btn-primary">
 
-                        <s:param name="id" value="${biobankBean.id}"/>
+                        <s:param name="biobankId" value="${biobankBean.biobankId}"/>
                     </s:submit>
                 </div>
             </security:allowed>

@@ -145,12 +145,12 @@
 
                             <%--Need to set id for each row of a table to set properly ACL--%>
 
-                        <c:set target="${biobankBean}" property="id" value="${roleDTO.referenceId}"/>
+                        <c:set target="${biobankBean}" property="biobankId" value="${roleDTO.referenceId}"/>
 
                         <security:allowed bean="biobankBean" event="edit">
                             <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="edit"
                                     class="btn btn-primary">
-                                <s:param name="id" value="${roleDTO.referenceId}"/>
+                                <s:param name="biobankId" value="${roleDTO.referenceId}"/>
                                 <f:message key="edit"/>
                             </s:link>
                         </security:allowed>
@@ -158,7 +158,7 @@
                             <security:allowed bean="biobankBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                         class="btn btn-infor">
-                                    <s:param name="id" value="${roleDTO.referenceId}"/>
+                                    <s:param name="biobankId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
                             </security:allowed>

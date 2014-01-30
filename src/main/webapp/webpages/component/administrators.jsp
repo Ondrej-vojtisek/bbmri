@@ -23,8 +23,6 @@
 
                 <td class="action">
                     <security:allowed bean="bean" event="setPermission">
-
-
                         <s:form beanclass="${bean.name}">
                             <s:select name="permission" value="${administrator.permission}">
                                 <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
@@ -35,7 +33,12 @@
                             <s:submit name="setPermission" onclick="return confirm('${questionSet}')"
                                       class="btn btn-primary">
                                 <s:param name="adminId" value="${administrator.id}"/>
-                                <s:param name="id" value="${bean.id}"/>
+                                <c:if test="${beanType eq 'biobank'}">
+                                    <s:param name="biobankId" value="${bean.biobankId}"/>
+                                </c:if>
+                                <c:if test="${beanType eq 'project'}">
+                                    <s:param name="projectId" value="${bean.projectId}"/>
+                                </c:if>
                             </s:submit>
                         </s:form>
 
@@ -45,22 +48,24 @@
                     </security:notAllowed>
                 </td>
 
-                <%--To distinguish if this is my record --%>
+                    <%--To distinguish if this is my record --%>
 
                 <c:set target="${bean}" property="userAdminId" value="${administrator.user.id}"/>
 
 
                 <td class="action">
                     <security:allowed bean="bean" event="removeAdministrator">
-
                         <s:form beanclass="${bean.name}">
-
                             <f:message var="question" key="${bean.removeQuestion}"/>
-
                             <s:submit name="removeAdministrator" onclick="return confirm('${question}')"
                                       class="btn btn-danger">
                                 <s:param name="adminId" value="${administrator.id}"/>
-                                <s:param name="id" value="${bean.id}"/>
+                                <c:if test="${beanType eq 'biobank'}">
+                                    <s:param name="biobankId" value="${bean.biobankId}"/>
+                                </c:if>
+                                <c:if test="${beanType eq 'project'}">
+                                    <s:param name="projectId" value="${bean.projectId}"/>
+                                </c:if>
                             </s:submit>
                         </s:form>
                     </security:allowed>

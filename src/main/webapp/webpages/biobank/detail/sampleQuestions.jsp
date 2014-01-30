@@ -42,7 +42,7 @@
                             <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
                                     class="btn btn-primary">
                                 <s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>
-                                <s:param name="biobankId" value="${biobankBean.id}"/>
+                                <s:param name="biobankId" value="${biobankBean.biobankId}"/>
                                 <f:message key="detail"/>
                             </s:link>
                         </td>

@@ -66,7 +66,7 @@
             <security:allowed bean="userBean" event="update">
                 <div class="form-actions">
                     <s:submit name="update" class="btn btn-primary"/>
-                    <s:param name="userId" value="${userBean.id}"/>
+                    <s:param name="userId" value="${userBean.userId}"/>
                 </div>
             </security:allowed>
         </s:form>

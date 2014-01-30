@@ -37,6 +37,6 @@ public class FindBiobankAdminActionBean extends FindActionBean {
     public Resolution find() {
         return new ForwardResolution(BIOBANK_DETAIL_ADD_ADMINISTRATOR)
                 .addParameter("UserFind", getUserFind())
-                .addParameter("id", id);
+                .addParameter("biobankId", id);
     }
 }

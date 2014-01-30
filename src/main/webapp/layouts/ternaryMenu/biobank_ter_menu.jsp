@@ -8,7 +8,7 @@
 <security:allowed bean="biobankBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
     </li>
 </security:allowed>
@@ -18,7 +18,7 @@
 <security:allowed bean="biobankBean" event="administratorsResolution">
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="administratorsResolution">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
     </li>
 </security:allowed>
@@ -30,7 +30,7 @@
 <security:allowed bean="biobankBean" event="editAdministrators">
     <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.FindBiobankAdminActionBean">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.addAdministrator"/></s:link>
     </li>
 </security:allowed>
@@ -40,7 +40,7 @@
 <security:allowed bean="biobankBean" event="samples">
     <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="samples">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.samples"/></s:link>
     </li>
 </security:allowed>
@@ -50,7 +50,7 @@
 <security:allowed bean="biobankBean" event="patients">
     <li <c:if test="${ternarymenu == 'patients'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patients">
-            <s:param name="id" value="${biobankBean.id}"/><f:message
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
     </li>
 </security:allowed>
@@ -60,7 +60,7 @@
 <security:allowed bean="biobankBean" event="sampleQuestions">
     <li <c:if test="${ternarymenu == 'sampleQuestions'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleQuestions">
-            <s:param name="id" value="${projectBean.id}"/>
+            <s:param name="biobankId" value="${projectBean.id}"/>
             <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleQuestions"/>
         </s:link>
     </li>

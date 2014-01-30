@@ -104,7 +104,7 @@
                         <security:allowed bean="biobankBean" event="detail">
                             <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean"
                                     event="detail">
-                                <s:param name="id" value="${biobank.id}"/>
+                                <s:param name="biobankId" value="${biobank.id}"/>
                                 ${biobank.name}
                             </s:link>
                         </security:allowed>

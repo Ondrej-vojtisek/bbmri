@@ -31,13 +31,13 @@
                     <td class="action">
 
                             <%--This is important for the instance based ACL--%>
-                        <c:set target="${biobankBean}" property="id" value="${biobank.id}"/>
+                        <c:set target="${biobankBean}" property="biobankId" value="${biobank.id}"/>
 
                         <security:allowed bean="biobankBean" event="edit">
                             <div class="tableAction">
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="edit"
                                         class="btn btn-primary btnMargin">
-                                    <s:param name="id" value="${biobank.id}"/>
+                                    <s:param name="biobankId" value="${biobank.id}"/>
                                     <f:message key="edit"/>
                                 </s:link>
                             </div>
@@ -47,7 +47,7 @@
                                 <div class="tableAction">
                                     <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                             class="btn btn-info btnMargin">
-                                        <s:param name="id" value="${biobank.id}"/>
+                                        <s:param name="biobankId" value="${biobank.id}"/>
                                         <f:message key="detail"/>
                                     </s:link>
                                 </div>
@@ -60,7 +60,7 @@
                                 <f:message var="question" key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>
 
                                 <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
-                                    <s:param name="id" value="${biobank.id}"/>
+                                    <s:param name="biobankId" value="${biobank.id}"/>
                                 </s:submit>
                             </s:form>
                         </security:allowed>

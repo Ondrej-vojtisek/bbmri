@@ -10,7 +10,7 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/administrators.jsp" bean="${projectBean}"/>
+        <s:layout-render name="/webpages/component/administrators.jsp" bean="${projectBean}" beanType="project"/>
            
     </s:layout-component>
 </s:layout-render>

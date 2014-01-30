@@ -11,7 +11,7 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/administrators.jsp" bean="${biobankBean}"/>
+        <s:layout-render name="/webpages/component/administrators.jsp" bean="${biobankBean}" beanType="biobank"/>
 
     </s:layout-component>
 </s:layout-render>
