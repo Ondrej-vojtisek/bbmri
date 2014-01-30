@@ -1,6 +1,7 @@
 package cz.bbmri.action.base;
 
 import cz.bbmri.action.DashboardActionBean;
+import cz.bbmri.entities.Project;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
@@ -10,7 +11,6 @@ import cz.bbmri.extension.localization.LocalePicker;
 import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
-import cz.bbmri.service.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -35,39 +35,6 @@ public class BasicActionBean extends Links implements ActionBean {
 
     @SpringBean
     private UserFacade userFacade;
-
-    @SpringBean
-    private ProjectFacade projectFacade;
-
-    /* Shibboleth headers*/
-
-    private static final String SHIB_EPPN = "eppn";
-
-//    @SpringBean
-//    protected UserService userService;
-//
-//    @SpringBean
-//    protected BiobankService biobankService;
-//
-//    @SpringBean
-//    protected ProjectService projectService;
-//
-//    @SpringBean
-//    protected RequestService requestService;
-//
-//    @SpringBean
-//    protected SampleService sampleService;
-//
-//    @SpringBean
-//    protected RequestGroupService requestGroupService;
-//
-//    @SpringBean
-//    protected SampleQuestionService sampleQuestionService;
-//
-//    @SpringBean
-//    protected AttachmentService attachmentService;
-
-    private static final String MY_PROJECTS = "/webpages/project/project_my_projects.jsp";
 
     private TheActionBeanContext ctx;
 
@@ -201,21 +168,4 @@ public class BasicActionBean extends Links implements ActionBean {
 
         return sb.toString();
     }
-
-//    public boolean getAllowedManager() {
-//        return projectFacade.hasPermission(Permission.MANAGER, id, getContext().getMyId()) && !isFinished();
-//    }
-//
-//    public boolean getAllowedEditor() {
-//        return projectFacade.hasPermission(Permission.EDITOR, id, getContext().getMyId()) && !isFinished();
-//    }
-//
-//    public boolean getAllowedExecutor() {
-//        return projectFacade.hasPermission(Permission.EXECUTOR, id, getContext().getMyId()) && !isFinished();
-//    }
-//
-//    public boolean getAllowedVisitor() {
-//        return projectFacade.hasPermission(Permission.VISITOR, id, getContext().getMyId());
-//    }
-
 }

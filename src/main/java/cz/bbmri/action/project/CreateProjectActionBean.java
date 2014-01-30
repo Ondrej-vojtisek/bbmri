@@ -1,6 +1,7 @@
 package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.AttachmentType;
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
 @HttpCache(allow = false)
 @Wizard(startEvents = {"initial", "mta"})
 @UrlBinding("/project/create/{$event}/{projectId}")
-public class CreateProjectActionBean extends BasicActionBean {
+public class CreateProjectActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -53,9 +54,6 @@ public class CreateProjectActionBean extends BasicActionBean {
     })
     private Project project;
 
-    /* New project identifier. Used to connect MTA to it. */
-    private Long projectId;
-
     @Validate(on = {"confirmStep6"}, required = true)
     private FileBean attachmentFileBean;
 
@@ -84,14 +82,6 @@ public class CreateProjectActionBean extends BasicActionBean {
 
     public void setAttachment(Attachment attachment) {
         this.attachment = attachment;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
     }
 
     /* First step. Introduction */

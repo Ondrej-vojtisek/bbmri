@@ -53,7 +53,7 @@
 
                     <%--To distinguish if this is my record --%>
 
-                <c:set target="${bean}" property="userAdminId" value="${administrator.user.id}"/>
+                <c:set target="${bean}" property="userId" value="${administrator.user.id}"/>
 
 
                 <td class="action">

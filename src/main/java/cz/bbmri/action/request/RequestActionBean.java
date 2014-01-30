@@ -1,6 +1,7 @@
 package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.enumeration.Permission;
@@ -23,33 +24,12 @@ import javax.annotation.security.RolesAllowed;
 
 @HttpCache(allow = false)
 @UrlBinding("/request/{$event}/{sampleQuestionId}")
-public class RequestActionBean extends BasicActionBean {
+public class RequestActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private RequestFacade requestFacade;
-
-    @SpringBean
-    private BiobankFacade biobankFacade;
-
-    public boolean getAllowedManager() {
-        return biobankFacade.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedEditor() {
-        return biobankFacade.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedExecutor() {
-        return biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedVisitor() {
-        return biobankFacade.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
-    }
-
-    private Long biobankId;
 
     /* SampleQuestion identifier */
     private Long sampleQuestionId;
@@ -64,14 +44,6 @@ public class RequestActionBean extends BasicActionBean {
         this.sampleQuestionId = sampleQuestionId;
     }
 
-    public Long getBiobankId() {
-        return biobankId;
-    }
-
-    public void setBiobankId(Long biobankId) {
-        this.biobankId = biobankId;
-    }
-
     public SampleQuestion getSampleQuestion() {
 
         if (sampleQuestion == null) {
@@ -84,7 +56,7 @@ public class RequestActionBean extends BasicActionBean {
         return sampleQuestion;
     }
 
-    public boolean getIsNew() {
+    public boolean getIsSampleQuestionNew() {
         return getSampleQuestion().isNew();
     }
 

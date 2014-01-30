@@ -1,6 +1,6 @@
 package cz.bbmri.action.biobank;
 
-import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.facade.BiobankFacade;
@@ -24,7 +24,7 @@ import java.util.Set;
  */
 @HttpCache(allow = false)
 @UrlBinding("/biobank/{$event}/{biobankId}")
-public class BiobankActionBean extends BasicActionBean {
+public class BiobankActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -61,8 +61,6 @@ public class BiobankActionBean extends BasicActionBean {
         return biobankFacade.getAllSamples(biobankId);
     }
 
-    private Long userAdminId;
-
     /*
     * This is weird - if the first _if_ is missing then only address is set during edit from .jsp
     * */
@@ -78,48 +76,6 @@ public class BiobankActionBean extends BasicActionBean {
     public void setBiobank(Biobank biobank) {
         this.biobank = biobank;
     }
-
-
-    public Long getUserAdminId() {
-        return userAdminId;
-    }
-
-    public void setUserAdminId(Long userAdminId) {
-        this.userAdminId = userAdminId;
-    }
-
-    // Used to specify biobank
-    @Validate(required = true)
-    private Long biobankId;
-
-    public Long getBiobankId() {
-        return biobankId;
-    }
-
-    public void setBiobankId(Long biobankId) {
-        this.biobankId = biobankId;
-    }
-
-    public boolean getAllowedManager() {
-        return biobankFacade.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedEditor() {
-        return biobankFacade.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedExecutor() {
-        return biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
-    }
-
-    public boolean getAllowedVisitor() {
-        return biobankFacade.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
-    }
-
-    public boolean getIsMyAccount() {
-        return getContext().getMyId().equals(userAdminId);
-    }
-
 
     public Set<BiobankAdministrator> getAdministrators() {
 
@@ -178,27 +134,27 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
         return new ForwardResolution(BIOBANK_DETAIL_GENERAL);
     }
 
     /* Event is here because of access permission definition*/
     @HandlesEvent("edit")
-    @RolesAllowed({"biobank_operator if ${allowedEditor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution edit() {
         return new ForwardResolution(BIOBANK_DETAIL_GENERAL);
     }
 
     @DontValidate
     @HandlesEvent("administratorsResolution")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution administratorsResolution() {
         return new ForwardResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
     }
 
 //    @HandlesEvent("administrators")
-//    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+//    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
 //    public Resolution administrators() {
 //        // Handles situation when administrator refuses his manager permission
 //        return new ForwardResolution(BIOBANK_ADMINISTRATORS).addParameter("biobankId", biobankId);
@@ -206,13 +162,13 @@ public class BiobankActionBean extends BasicActionBean {
 //    }
 
     @HandlesEvent("editAdministrators")
-    @RolesAllowed({"biobank_operator if ${allowedManager}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution editAdministrators() {
         return new ForwardResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
     }
 
     @HandlesEvent("setPermission")
-    @RolesAllowed({"biobank_operator if ${allowedManager}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution setPermission() {
 
         if (!biobankFacade.changeAdministratorPermission(adminId, permission,
@@ -226,7 +182,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("removeAdministrator")
-    @RolesAllowed({"biobank_operator if ${allowedManager or isMyAccount}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankManager or isMyAccount}"})
     public Resolution removeAdministrator() {
 
         if (!biobankFacade.removeAdministrator(adminId,
@@ -251,7 +207,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("update")
-    @RolesAllowed({"biobank_operator if ${allowedEditor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution update() {
         if (!biobankFacade.updateBiobank(biobank, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("biobankId", biobankId);
@@ -262,19 +218,19 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("samples")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution samples() {
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLES);
     }
 
     @HandlesEvent("patients")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution patients() {
         return new ForwardResolution(BIOBANK_DETAIL_PATIENTS);
     }
 
     @HandlesEvent("sampleQuestions")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution sampleQuestions() {
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_QUESTIONS);
     }
@@ -295,7 +251,7 @@ public class BiobankActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("addAdministrator")
-    @RolesAllowed({"biobank_operator if ${allowedManager}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution addAdministrator() {
 
         if (!biobankFacade.assignAdministrator(biobankId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {

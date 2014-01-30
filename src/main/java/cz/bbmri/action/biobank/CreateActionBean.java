@@ -30,9 +30,6 @@ public class CreateActionBean extends FindActionBean {
 
    /* Variables */
 
-//    @SpringBean
-//    private UserFacade userFacade;
-
     @SpringBean
     private BiobankFacade biobankFacade;
 

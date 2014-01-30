@@ -1,10 +1,9 @@
 package cz.bbmri.action.project;
 
-import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
-import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.ProjectFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -30,7 +29,7 @@ import java.util.Set;
 
 @HttpCache(allow = false)
 @UrlBinding("/project/{$event}/{projectId}")
-public class ProjectActionBean extends BasicActionBean {
+public class ProjectActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -48,9 +47,6 @@ public class ProjectActionBean extends BasicActionBean {
     })
     private Project project;
 
-    /* Project identifier */
-    private Long projectId;
-
     private Attachment attachment;
 
     private Permission permission;
@@ -58,8 +54,6 @@ public class ProjectActionBean extends BasicActionBean {
     private Long adminId;
 
     private Long attachmentId;
-
-    private Long userAdminId;
 
     /* Attachment upload in project detail/edit view */
     private FileBean attachmentFileBean;
@@ -75,14 +69,6 @@ public class ProjectActionBean extends BasicActionBean {
     })
     private SampleQuestion sampleQuestion;
 
-    public Long getUserAdminId() {
-        return userAdminId;
-    }
-
-    public void setUserAdminId(Long userAdminId) {
-        this.userAdminId = userAdminId;
-    }
-
     public List<Project> getAll() {
         return projectFacade.all();
     }
@@ -91,25 +77,8 @@ public class ProjectActionBean extends BasicActionBean {
         return projectFacade.getProjects(getContext().getMyId());
     }
 
-    public Project getProject() {
-        if (project == null) {
-            if (projectId != null) {
-                project = projectFacade.get(projectId);
-            }
-        }
-        return project;
-    }
-
     public void setProject(Project project) {
         this.project = project;
-    }
-
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
     }
 
     public Permission getPermission() {
@@ -120,11 +89,11 @@ public class ProjectActionBean extends BasicActionBean {
         this.permission = permission;
     }
 
-    public Long getAdminId() {
+    public Long getId() {
         return adminId;
     }
 
-    public void setAdminId(Long adminId) {
+    public void setId(Long adminId) {
         this.adminId = adminId;
     }
 
@@ -160,32 +129,6 @@ public class ProjectActionBean extends BasicActionBean {
         this.sampleQuestion = sampleQuestion;
     }
 
-    /* When the project is marked as finished than it can't be edited or changes in any way */
-
-    public boolean getAllowedManager() {
-        return projectFacade.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
-    }
-
-    public boolean getAllowedEditor() {
-        return projectFacade.hasPermission(Permission.EDITOR, projectId, getContext().getMyId()) && !isFinished();
-    }
-
-    public boolean getAllowedExecutor() {
-        return projectFacade.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
-    }
-
-    public boolean getAllowedVisitor() {
-        return projectFacade.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
-    }
-
-    public boolean getIsMyAccount() {
-        return getContext().getMyId().equals(userAdminId);
-    }
-
-    public boolean getBiobankExecutor() {
-        return projectFacade.hasBiobankExecutePermission(getContext().getMyId());
-    }
-
     public FileBean getAttachmentFileBean() {
         return attachmentFileBean;
     }
@@ -202,34 +145,8 @@ public class ProjectActionBean extends BasicActionBean {
         this.attachmentType = attachmentType;
     }
 
-    public boolean getIsNew() {
-        return getProject().getProjectState().equals(ProjectState.NEW);
-    }
-
-    public boolean getIsApproved() {
-        return getProject().getProjectState().equals(ProjectState.APPROVED);
-    }
-
-    public boolean getIsStarted() {
-        return getProject().getProjectState().equals(ProjectState.STARTED);
-    }
-
-    private boolean isFinished() {
-        return getProject().getProjectState().equals(ProjectState.FINISHED);
-    }
-
     public List<Biobank> getAllBiobanks() {
         return projectFacade.getAllBiobanks();
-    }
-
-    private Long biobankId;
-
-    public Long getBiobankId() {
-        return biobankId;
-    }
-
-    public void setBiobankId(Long biobankId) {
-        this.biobankId = biobankId;
     }
 
     public List<SampleQuestion> getSampleQuestions() {
@@ -264,28 +181,28 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("detail")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution detail() {
         return new ForwardResolution(PROJECT_DETAIL_GENERAL);
     }
 
     @DontValidate
     @HandlesEvent("attachments")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution attachments() {
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENTS);
     }
 
     @DontValidate
     @HandlesEvent("administratorsResolution")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution administratorsResolution() {
         return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS).addParameter("projectId", projectId);
     }
 
     @DontValidate
     @HandlesEvent("editAdministrators")
-    @RolesAllowed({"project_team_member if ${allowedManager}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution editAdministrators() {
         return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS).addParameter("projectId", projectId);
     }
@@ -293,13 +210,13 @@ public class ProjectActionBean extends BasicActionBean {
     /*Here only bcs of permission definition*/
     @DontValidate
     @HandlesEvent("edit")
-    @RolesAllowed({"project_team_member if ${allowedEditor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution edit() {
         return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("projectId", projectId);
     }
 
     @HandlesEvent("update")
-    @RolesAllowed({"project_team_member if ${allowedEditor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution update() {
         if (!projectFacade.updateProject(project, getContext().getMyId())) {
             return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("projectId", projectId);
@@ -309,7 +226,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("downloadAttachment")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution downloadAttachment() {
         try {
             return projectFacade.downloadFile(attachment.getId());
@@ -323,7 +240,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("deleteAttachment")
-    @RolesAllowed({"project_team_member if ${allowedEditor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution deleteAttachment() {
         if (!projectFacade.deleteAttachment(attachmentId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "attachments").addParameter("projectId", projectId);
@@ -335,7 +252,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("setPermission")
-    @RolesAllowed({"project_team_member if ${allowedManager}"})
+    @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
     public Resolution setPermission() {
         if (!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
@@ -347,7 +264,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("removeAdministrator")
-    @RolesAllowed({"project_team_member if ${allowedManager or isMyAccount}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectManager or isMyAccount}"})
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
         if (!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())) {
@@ -381,7 +298,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("addAdministrator")
-    @RolesAllowed({"project_team_member if ${allowedManager}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
         if (!projectFacade.assignAdministrator(projectId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
@@ -392,13 +309,13 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("addAttachment")
-    @RolesAllowed({"project_team_member if ${allowedEditor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution addAttachment() {
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENT_ADD);
     }
 
     @HandlesEvent("attachmentUpload")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedEditor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectEditor}"})
     public Resolution attachmentUpload() {
 
         int result = projectFacade.createAttachment(attachmentFileBean,
@@ -422,12 +339,12 @@ public class ProjectActionBean extends BasicActionBean {
 
 
     @HandlesEvent("approve")
-    @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor}"})
     public Resolution approve() {
 
         // If project is mine than I can't approve it
 
-        if (getAllowedVisitor()) {
+        if (getAllowedProjectVisitor()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.project.ProjectActionBean.approveMyProject"));
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
@@ -448,9 +365,9 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("deny")
-    @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor}"})
     public Resolution deny() {
-        if (getAllowedVisitor()) {
+        if (getAllowedProjectVisitor()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.project.ProjectActionBean.denyMyProject"));
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
@@ -463,7 +380,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("markAsFinished")
-    @RolesAllowed({"project_team_member if ${allowedExecutor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution markAsFinished() {
         if (!projectFacade.markAsFinished(projectId, getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
@@ -473,7 +390,7 @@ public class ProjectActionBean extends BasicActionBean {
     }
 
     @HandlesEvent("createSampleQuestion")
-    @RolesAllowed({"project_team_member if ${allowedExecutor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution createSampleQuestion() {
         return new ForwardResolution(PROJECT_CREATE_SAMPLE_QUESTION);
     }
@@ -481,7 +398,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     //VALIDATE
     @HandlesEvent("confirmSampleQuestion")
-    @RolesAllowed({"project_team_member if ${allowedExecutor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution confirmSampleQuestion() {
 
         if (!projectFacade.createSampleQuestion(sampleQuestion, projectId, biobankId, getContext().getValidationErrors())) {
@@ -493,7 +410,7 @@ public class ProjectActionBean extends BasicActionBean {
 
     @DontValidate
     @HandlesEvent("sampleQuestions")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedVisitor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution sampleQuestions() {
         return new ForwardResolution(PROJECT_DETAIL_SAMPLE_QUESTIONS);
     }
