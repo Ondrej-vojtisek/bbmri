@@ -3,6 +3,7 @@ package cz.bbmri.facade.impl;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.*;
 import cz.bbmri.service.exceptions.DuplicitBiobankException;
@@ -47,6 +48,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    private SampleRequestService sampleRequestService;
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
 
@@ -369,6 +373,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
         Biobank biobankDB = biobankService.eagerGet(biobankId, false, false, true);
         return biobankDB.getSampleRequests();
+    }
+
+    public List<SampleRequest> getNewSampleRequests(Long biobankId){
+        return sampleRequestService.getByBiobankAndState(biobankId, RequestState.NEW);
     }
 
     /*

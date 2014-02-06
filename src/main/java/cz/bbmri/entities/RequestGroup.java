@@ -1,6 +1,6 @@
 package cz.bbmri.entities;
 
-import cz.bbmri.entities.enumeration.RequestState;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,21 +28,14 @@ public class RequestGroup {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private RequestState requestState;
-
-    private Date created;
-
-    private Date lastModification;
-
-    @ManyToOne
-    private Project project;
-
-    @ManyToOne
-    private Biobank biobank;
-
     @OneToMany(mappedBy = "requestGroup")
     private List<Request> requests = new ArrayList<Request>();
+
+    @ManyToOne//(cascade = CascadeType.MERGE)
+    private SampleRequest sampleRequest;
+
+    @Type(type = "timestamp")
+    private Date lastModification;
 
     public RequestGroup() {
     }
@@ -55,20 +48,20 @@ public class RequestGroup {
         this.id = id;
     }
 
-    public RequestState getRequestState() {
-        return requestState;
+    public List<Request> getRequests() {
+        return requests;
     }
 
-    public void setRequestState(RequestState requestState) {
-        this.requestState = requestState;
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
-    public Date getCreated() {
-        return created;
+    public SampleRequest getSampleRequest() {
+        return sampleRequest;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setSampleRequest(SampleRequest sampleRequest) {
+        this.sampleRequest = sampleRequest;
     }
 
     public Date getLastModification() {
@@ -79,28 +72,22 @@ public class RequestGroup {
         this.lastModification = lastModification;
     }
 
-    public Project getProject() {
-        return project;
+    public Integer getAmountOfSamples() {
+        if (requests != null) {
+            return requests.size();
+        }
+        return 0;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public Biobank getBiobank() {
-        return biobank;
-    }
-
-    public void setBiobank(Biobank biobank) {
-        this.biobank = biobank;
-    }
-
-    public List<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(List<Request> requests) {
-        this.requests = requests;
+    public Integer getTotalAmountOfAliquotes() {
+        if (requests != null) {
+            Integer suma = 0;
+            for(Request request : requests){
+                suma += request.getNumOfRequested();
+            }
+            return suma;
+        }
+        return 0;
     }
 
     @Override
@@ -124,11 +111,6 @@ public class RequestGroup {
     public String toString() {
         return "RequestGroup{" +
                 "id=" + id +
-                ", requestState=" + requestState +
-                ", created=" + created +
-                ", lastModification=" + lastModification +
-                ", project=" + project +
-                ", biobank=" + biobank +
                 ", requests=" + requests +
                 '}';
     }

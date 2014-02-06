@@ -17,13 +17,13 @@ public interface RequestGroupService  extends BasicService<RequestGroup>{
 
     void create(List<Request> requests, Long projectId);
 
-    List<RequestGroup> getByBiobank(Long biobankId);
+ //   List<RequestGroup> getByBiobank(Long biobankId);
 
-    List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState);
+ //   List<RequestGroup> getByBiobankAndState(Long biobankId, RequestState requestState);
 
-    void approveRequestGroup(Long requestGroupId);
+ //   void approveRequestGroup(Long requestGroupId);
 
-    void denyRequestGroup(Long requestGroupId);
+ //   void denyRequestGroup(Long requestGroupId);
 
-    RequestGroup eagerGet(Long id, boolean requests);
+ //   RequestGroup eagerGet(Long id, boolean requests);
 }

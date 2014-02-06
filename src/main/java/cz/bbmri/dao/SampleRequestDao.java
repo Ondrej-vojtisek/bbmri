@@ -2,6 +2,7 @@ package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.enumeration.RequestState;
 
 import java.util.List;
 
@@ -14,7 +15,5 @@ import java.util.List;
  */
 public interface SampleRequestDao extends BasicDao<SampleRequest> {
 
-    // TODO: napsat test
-    List<SampleRequest> getByBiobankAndProcessed(Biobank biobank, boolean processed);
-
+    List<SampleRequest> getByBiobankAndState(Biobank biobank, RequestState requestState);
 }

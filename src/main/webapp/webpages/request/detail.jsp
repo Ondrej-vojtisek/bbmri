@@ -48,24 +48,27 @@
                         <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
                     </s:link>
 
-                    <security:allowed bean="requestBean" event="approve">
-                        <s:submit name="approve" class="btn btn-primary btnMargin">
-                            <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
-                        </s:submit>
-                    </security:allowed>
-
-                    <security:allowed bean="requestBean" event="deny">
-                        <s:submit name="deny" class="btn btn-primary btnMargin">
-                            <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
-                        </s:submit>
-                    </security:allowed>
-
                     <c:if test="${requestBean.isSampleRequestNew}">
+
+                        <security:allowed bean="requestBean" event="approve">
+                            <s:submit name="approve" class="btn btn-primary btnMargin">
+                                <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
+                            </s:submit>
+                        </security:allowed>
+
+                        <security:allowed bean="requestBean" event="deny">
+                            <s:submit name="deny" class="btn btn-primary btnMargin">
+                                <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
+                            </s:submit>
+                        </security:allowed>
+
+
                         <security:allowed bean="requestBean" event="delete">
                             <s:submit name="delete" class="btn btn-danger btnMargin">
                                 <s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>
                             </s:submit>
                         </security:allowed>
+
                     </c:if>
                 </div>
 
@@ -75,15 +78,7 @@
         </fieldset>
 
         <c:if test="${requestBean.isSampleRequestApproved}">
-            <fieldset>
-
-                <legend>
-
-                </legend>
-
-                Is approved, here choose appropriate sample set
-
-            </fieldset>
+            <jsp:include page="/webpages/request/requestGroups.jsp"/>
         </c:if>
 
 

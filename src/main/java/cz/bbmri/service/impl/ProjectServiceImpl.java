@@ -83,13 +83,13 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             userDao.update(judge);
         }
 
-        List<RequestGroup> requestGroups = projectDB.getRequestGroups();
-        if (requestGroups != null) {
-
-            for (RequestGroup requestGroup : requestGroups) {
-                requestGroupDao.remove(requestGroup);
-            }
-        }
+//        List<RequestGroup> requestGroups = projectDB.getRequestGroups();
+//        if (requestGroups != null) {
+//
+//            for (RequestGroup requestGroup : requestGroups) {
+//                requestGroupDao.remove(requestGroup);
+//            }
+//        }
 
         List<SampleRequest> sampleRequests = projectDB.getSampleRequests();
                 if (sampleRequests != null) {
@@ -289,9 +289,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             logger.debug("" + projectDB.getProjectAdministrators());
         }
 
-        if (requestGroups) {
-            logger.debug("" + projectDB.getRequestGroups());
-        }
+//        if (requestGroups) {
+//            logger.debug("" + projectDB.getRequestGroups());
+//        }
 
         if (attachments) {
             logger.debug("" + projectDB.getAttachments());

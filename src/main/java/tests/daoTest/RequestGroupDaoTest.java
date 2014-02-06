@@ -36,14 +36,10 @@ public class RequestGroupDaoTest extends AbstractDaoTest {
         biobankDao.create(biobank2);
 
         RequestGroup rqg1 = createRequestGroup(1);
-        rqg1.setBiobank(biobank1);
         requestGroupDao.create(rqg1);
 
         RequestGroup rqg2 = createRequestGroup(2);
-        rqg2.setBiobank(biobank2);
         requestGroupDao.create(rqg2);
-
-        rqg1.setRequestState(RequestState.APPROVED);
 
         assertEquals(true, requestGroupDao.getByBiobankAndState(biobank1, RequestState.NEW).isEmpty());
         assertEquals(false, requestGroupDao.getByBiobankAndState(biobank1, RequestState.APPROVED).isEmpty());

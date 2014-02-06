@@ -139,7 +139,14 @@ public class SampleRequestServiceImpl extends BasicServiceImpl implements Sample
 
     @Transactional(readOnly = true)
     public SampleRequest get(Long id) {
-        return sampleRequestDao.get(id);
+
+        SampleRequest sampleRequestDB = sampleRequestDao.get(id);
+
+        // eagerGet
+
+        logger.debug("SampleRequest: " + sampleRequestDB.getRequestGroups());
+
+        return sampleRequestDB;
     }
 
     @Transactional(readOnly = true)
@@ -155,6 +162,21 @@ public class SampleRequestServiceImpl extends BasicServiceImpl implements Sample
     @Transactional(readOnly = true)
     public List<SampleRequest> nOrderedBy(String orderByParam, boolean desc, int number) {
         return sampleRequestDao.nOrderedBy(orderByParam, desc, number);
+    }
+
+    public List<SampleRequest> getByBiobankAndState(Long biobankId, RequestState requestState) {
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can't be null");
+            return null;
+        }
+
+        if (requestState == null) {
+            logger.debug("RequestState can't be null");
+            return null;
+        }
+
+        return sampleRequestDao.getByBiobankAndState(biobankDB, requestState);
     }
 
 }

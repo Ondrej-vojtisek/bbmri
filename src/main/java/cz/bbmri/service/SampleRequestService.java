@@ -1,6 +1,9 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.enumeration.RequestState;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,5 +17,7 @@ public interface SampleRequestService extends BasicService<SampleRequest>{
     SampleRequest create(SampleRequest sampleRequest, Long biobankId, Long projectId);
 
     SampleRequest withdraw(SampleRequest sampleRequest, Long biobankId);
+
+    List<SampleRequest> getByBiobankAndState(Long biobankId, RequestState requestState);
 
 }

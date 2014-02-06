@@ -2,6 +2,7 @@ package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
+import cz.bbmri.entities.RequestGroup;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.facade.RequestFacade;
 import net.sourceforge.stripes.action.*;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,6 +53,10 @@ public class RequestActionBean extends PermissionActionBean {
             }
         }
         return sampleRequest;
+    }
+
+    public List<RequestGroup> getRequestGroups(){
+        return getSampleRequest().getRequestGroups();
     }
 
     public boolean getIsSampleRequestNew() {

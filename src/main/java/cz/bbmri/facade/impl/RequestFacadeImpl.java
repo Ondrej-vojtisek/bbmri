@@ -11,6 +11,8 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -51,6 +53,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         // if sample set is choosen than change processed to true and send message to project team
 
         sampleRequestDB.setRequestState(RequestState.APPROVED);
+        sampleRequestService.update(sampleRequestDB);
 
         return true;
 
@@ -74,6 +77,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         }
 
         sampleRequestDB.setRequestState(RequestState.DENIED);
+        sampleRequestService.update(sampleRequestDB);
 
         boolean result = sampleRequestService.update(sampleRequestDB) != null;
         if (result) {
@@ -108,4 +112,9 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
         return true;
     }
+
+    public List<SampleRequest> getNewSampleRequests(Long biobankId){
+        return sampleRequestService.getByBiobankAndState(biobankId, RequestState.NEW);
+    }
+
 }

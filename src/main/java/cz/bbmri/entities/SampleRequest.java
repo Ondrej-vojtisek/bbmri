@@ -4,7 +4,9 @@ import cz.bbmri.entities.enumeration.RequestState;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,6 +41,12 @@ public class SampleRequest {
 
     @Type(type = "timestamp")
     private Date created;
+
+    @Type(type = "timestamp")
+    private Date lastModification;
+
+    @OneToMany(mappedBy = "sampleRequest")
+    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     public Long getId() {
         return id;
@@ -88,6 +96,14 @@ public class SampleRequest {
         this.created = created;
     }
 
+    public Date getLastModification() {
+        return lastModification;
+    }
+
+    public void setLastModification(Date lastModification) {
+        this.lastModification = lastModification;
+    }
+
     private boolean checkState(RequestState requestState){
         if(getRequestState() == null){
             return false;
@@ -109,6 +125,14 @@ public class SampleRequest {
 
     public boolean isDelivered(){
         return checkState(RequestState.DELIVERED);
+    }
+
+    public List<RequestGroup> getRequestGroups() {
+        return requestGroups;
+    }
+
+    public void setRequestGroups(List<RequestGroup> requestGroups) {
+        this.requestGroups = requestGroups;
     }
 
     @Override

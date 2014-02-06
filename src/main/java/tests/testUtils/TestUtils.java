@@ -44,7 +44,6 @@ public class TestUtils {
 
     protected RequestGroup createRequestGroup(int i) {
         RequestGroup rqg = new RequestGroup();
-        rqg.setRequestState(RequestState.NEW);
         return rqg;
     }
 

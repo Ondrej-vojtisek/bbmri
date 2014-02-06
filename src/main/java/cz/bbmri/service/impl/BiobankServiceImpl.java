@@ -104,12 +104,12 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             }
         }
 
-        List<RequestGroup> requestGroups = biobankDB.getRequestGroups();
-        if (requestGroups != null) {
-            for (RequestGroup requestGroup : requestGroups) {
-                requestGroupDao.remove(requestGroup);
-            }
-        }
+//        List<RequestGroup> requestGroups = biobankDB.getRequestGroups();
+//        if (requestGroups != null) {
+//            for (RequestGroup requestGroup : requestGroups) {
+//                requestGroupDao.remove(requestGroup);
+//            }
+//        }
 
         Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
         if (biobankAdministrators != null) {
@@ -271,9 +271,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             logger.debug("" + biobankDB.getPatients());
         }
 
-        if (requestGroups) {
-            logger.debug("" + biobankDB.getRequestGroups());
-        }
+//        if (requestGroups) {
+//            logger.debug("" + biobankDB.getRequestGroups());
+//        }
 
         if (sampleRequests) {
             logger.debug("" + biobankDB.getSampleRequests());

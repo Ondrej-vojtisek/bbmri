@@ -29,17 +29,12 @@ public class Biobank implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "ADDRESS")
     private String address;
 
     @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
-
-    @OneToMany(mappedBy = "biobank")
-    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
 
     @OneToMany(mappedBy = "biobank")
     private List<SampleRequest> sampleRequests = new ArrayList<SampleRequest>();
@@ -69,14 +64,6 @@ public class Biobank implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<RequestGroup> getRequestGroups() {
-        return requestGroups;
-    }
-
-    public void setRequestGroups(List<RequestGroup> requestGroups) {
-        this.requestGroups = requestGroups;
     }
 
     public List<SampleRequest> getSampleRequests() {

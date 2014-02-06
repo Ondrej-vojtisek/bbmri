@@ -43,9 +43,6 @@ public class Project implements Serializable {
     private User judgedByUser;
 
     @OneToMany(mappedBy = "project")
-    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
-
-    @OneToMany(mappedBy = "project")
     private List<Attachment> attachments = new ArrayList<Attachment>();
 
     @OneToMany(mappedBy = "project")
@@ -170,13 +167,6 @@ public class Project implements Serializable {
         this.projectAdministrators = projectAdministrators;
     }
 
-    public List<RequestGroup> getRequestGroups() {
-        return requestGroups;
-    }
-
-    public void setRequestGroups(List<RequestGroup> requestGroups) {
-        this.requestGroups = requestGroups;
-    }
     @Fetch(value = FetchMode.SELECT)
     public List<Attachment> getAttachments() {
         return attachments;

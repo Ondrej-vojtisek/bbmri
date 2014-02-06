@@ -3,6 +3,7 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.SampleRequestDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.enumeration.RequestState;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -19,11 +20,11 @@ import java.util.List;
 public class SampleRequestDaoImpl extends BasicDaoImpl<SampleRequest> implements SampleRequestDao {
 
     @SuppressWarnings("unchecked")
-    public List<SampleRequest> getByBiobankAndProcessed(Biobank biobank, boolean processed) {
+    public List<SampleRequest> getByBiobankAndState(Biobank biobank, RequestState requestState) {
         Query query = em.createQuery("SELECT p FROM SampleRequest p where p.biobank = :bioParam and " +
-                "p.processed = :boolParam");
+                "p.requestState = :requestStateParam");
         query.setParameter("bioParam", biobank);
-        query.setParameter("boolParam", processed);
+        query.setParameter("requestStateParam", requestState);
         return query.getResultList();
     }
 

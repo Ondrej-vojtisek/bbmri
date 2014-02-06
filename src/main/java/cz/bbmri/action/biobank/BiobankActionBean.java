@@ -110,6 +110,8 @@ public class BiobankActionBean extends PermissionActionBean {
             return null;
         }
 
+        //return biobankFacade.getNewSampleRequests(biobankId);
+
         return biobankFacade.getBiobankSampleRequests(biobankId);
     }
 

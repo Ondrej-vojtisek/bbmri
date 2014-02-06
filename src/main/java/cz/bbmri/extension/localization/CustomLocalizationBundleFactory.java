@@ -49,33 +49,28 @@ public class CustomLocalizationBundleFactory implements LocalizationBundleFactor
         shareBundleName = configuration.getBootstrapPropertyResolver().getProperty(SHARE);
 
         // In case no error bundle supplied
-        if(this.errorBundleName == null)
-        {
+        if(this.errorBundleName == null){
             this.errorBundleName = PATH + "/errors";
         }
 
         // In case no field name bundle
-        if(this.fieldBundleName == null)
-        {
+        if(this.fieldBundleName == null){
             this.fieldBundleName = PATH + "/fields";
         }
 
         // In case no shared bundle supplied
-        if(this.shareBundleName == null)
-        {
+        if(this.shareBundleName == null){
             this.shareBundleName = PATH + "/shared";
         }
     }
 
     @Override
-    public ResourceBundle getFormFieldBundle(Locale locale)
-    {
+    public ResourceBundle getFormFieldBundle(Locale locale) {
         return new TheResourceBundle(locale, log, fieldBundleName, shareBundleName);
     }
 
     @Override
-    public ResourceBundle getErrorMessageBundle(Locale locale)
-    {
+    public ResourceBundle getErrorMessageBundle(Locale locale) {
         return new TheResourceBundle(locale, log, errorBundleName, shareBundleName);
     }
 }

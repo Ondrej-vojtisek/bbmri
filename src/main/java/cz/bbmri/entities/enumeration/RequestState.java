@@ -12,7 +12,22 @@ public enum RequestState {
     NEW("new"),
     APPROVED("approved"),
     DENIED("denied"),
+    PREPARED("prepared"),
     DELIVERED("delivered");
+
+    /**
+     * Workflow - project worker creates sample request for the project.
+     * It can be approved or denied. If approved than biobank operator prepares
+     * sample group - e.g. set of samples which will be released
+     * If this set is prepared then change to prepared
+     * If samples were given to applicant then change state to delivered
+     * */
+
+    /**
+     * Maybe canceled state would be also useful ... pokud zademe dve banky o stejne vzorky
+     * obe pripravi sadu vzorku a nam staci jedna.. abychom to mohli zrusit.
+     * Pripadne ze navrzena sada neni dostatecna pro nas vyzkum
+     * */
 
     private String state;
 

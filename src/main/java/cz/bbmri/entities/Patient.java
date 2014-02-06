@@ -131,11 +131,11 @@ public class Patient implements Serializable {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         /* calendar month is zero based - January is 0, February 1 etc.*/
-        int monthNow = cal.get(Calendar.MONTH) -1;
+        int monthNow = cal.get(Calendar.MONTH) - 1;
         int yearNow = cal.get(Calendar.YEAR);
 
         Integer age = yearNow - year;
-        if(monthNow < month) age = age -1;
+        if (monthNow < month) age = age - 1;
 
         return age;
     }

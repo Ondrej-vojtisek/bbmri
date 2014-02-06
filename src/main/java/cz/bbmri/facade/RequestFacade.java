@@ -3,6 +3,8 @@ package cz.bbmri.facade;
 import cz.bbmri.entities.SampleRequest;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -20,5 +22,6 @@ public interface RequestFacade {
 
     boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
-    //List<RequestGroup> getRequestsByBiobankAndState(Long biobank);
+    List<SampleRequest> getNewSampleRequests(Long biobankId);
+
 }
