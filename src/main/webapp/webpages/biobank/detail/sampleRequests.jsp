@@ -18,7 +18,6 @@
                     <th><f:message key="cz.bbmri.entities.SampleRequest.created"/></th>
                     <th><f:message key="cz.bbmri.entities.SampleRequest.biobank"/></th>
                     <th><f:message key="cz.bbmri.entities.SampleRequest.requestState"/></th>
-                    <th><f:message key="cz.bbmri.entities.SampleRequest.processed"/></th>
                     <th><f:message key="cz.bbmri.entities.SampleRequest.specification"/></th>
                     <th></th>
                 </tr>
@@ -36,7 +35,6 @@
                         <td>${sampleRequest.biobank.name}</td>
                         <td><f:message
                                 key="cz.bbmri.entities.enumeration.RequestState.${sampleRequest.requestState}"/></td>
-                        <td>${sampleRequest.processed}</td>
                         <td>${sampleRequest.specification}</td>
                         <td class="action">
                             <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"

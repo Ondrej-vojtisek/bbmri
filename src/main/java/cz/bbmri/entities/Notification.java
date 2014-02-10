@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori

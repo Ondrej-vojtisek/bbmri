@@ -55,7 +55,7 @@ public class RequestActionBean extends PermissionActionBean {
         return sampleRequest;
     }
 
-    public List<RequestGroup> getRequestGroups(){
+    public List<RequestGroup> getRequestGroups() {
         return getSampleRequest().getRequestGroups();
     }
 
@@ -119,4 +119,14 @@ public class RequestActionBean extends PermissionActionBean {
         successMsg(null);
         return new RedirectResolution(ProjectActionBean.class, "sampleRequests").addParameter("projectId", projectId);
     }
+
+    @DontValidate
+    @HandlesEvent("createRequestGroup")
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor}"})
+    public Resolution createRequestGroup() {
+        return new ForwardResolution(RequestActionBean.class).addParameter("sampleRequestId", sampleRequestId);
+    }
+
+
+
 }

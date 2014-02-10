@@ -6,6 +6,14 @@
 <fieldset>
     <legend></legend>
 
+    <%--<div class="form-actions">--%>
+        <%--<security:allowed bean="requestBean" event="createRequestGroup">--%>
+            <%--<s:submit name="createRequestGroup" class="btn btn-primary btnMargin">--%>
+                <%--<s:param name="sampleRequestId" value="${requestBean.sampleRequestId}"/>--%>
+            <%--</s:submit>--%>
+        <%--</security:allowed>--%>
+    <%--</div>--%>
+
     <table class="table table-hover table-striped">
         <thead>
         <tr>
@@ -20,7 +28,6 @@
             <tr>
                 <td colspan="4">
                     <f:message key="empty"/>
-
                 </td>
             </tr>
         </c:if>

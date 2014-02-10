@@ -69,6 +69,8 @@
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>
+
 
     <s:layout-component name="jsLibrary"/>
 
@@ -84,6 +86,15 @@
         $(function () {
             $(".alert").alert();
         });
+//        $(document).ready(function () {
+//            createStoryJS({
+//                type: 'timeline',
+//                width: '800',
+//                height: '400',
+//                source: '/libs/timeline.json',
+//                embed_id: 'my-timeline'
+//            });
+//        });
 
 
     </script>

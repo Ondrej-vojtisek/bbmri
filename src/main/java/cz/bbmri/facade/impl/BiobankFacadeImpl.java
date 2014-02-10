@@ -361,10 +361,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     public List<Sample> getAllSamples(Long biobankId){
         notNull(biobankId);
         List<Sample> samples = new ArrayList<Sample>();
-        for(Patient patient : getAllPatients(biobankId)){
-            patient = patientService.eagerGet(patient.getId(), true);
-            samples.addAll(patient.getSamples());
-        }
+//        for(Patient patient : getAllPatients(biobankId)){
+//            patient = patientService.eagerGet(patient.getId(), true);
+//            samples.addAll(patient.getSamples());
+//        }
         return samples;
     }
 

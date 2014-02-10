@@ -10,6 +10,9 @@
         <class>cz.bbmri.entities.Biobank</class>
         <class>cz.bbmri.entities.BiobankAdministrator</class>
         <class>cz.bbmri.entities.Notification</class>
+        <class>cz.bbmri.entities.Module</class>
+        <class>cz.bbmri.entities.ModuleLTS</class>
+        <class>cz.bbmri.entities.ModuleSTS</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
@@ -41,6 +44,9 @@
         <class>cz.bbmri.entities.Biobank</class>
         <class>cz.bbmri.entities.BiobankAdministrator</class>
         <class>cz.bbmri.entities.Notification</class>
+        <class>cz.bbmri.entities.Module</class>
+        <class>cz.bbmri.entities.ModuleLTS</class>
+        <class>cz.bbmri.entities.ModuleSTS</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>

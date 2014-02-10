@@ -60,7 +60,7 @@
 <security:allowed bean="biobankBean" event="sampleRequests">
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequests">
-            <s:param name="biobankId" value="${projectBean.id}"/>
+            <s:param name="biobankId" value="${projectBean.biobankId}"/>
             <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
         </s:link>
     </li>

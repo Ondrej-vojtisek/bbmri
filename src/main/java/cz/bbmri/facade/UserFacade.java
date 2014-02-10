@@ -61,6 +61,8 @@ public interface UserFacade {
 
     List<User> allOrderedBy(String orderByParam, boolean desc);
 
+    String getJSON(Long userId);
+
     /*
     with permission check
     void setNewSystemAdministrator(Long userId);

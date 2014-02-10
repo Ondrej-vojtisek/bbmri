@@ -56,9 +56,9 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
         sampleDao.create(sample);
 
-        sample.setPatient(patientDB);
+       // sample.setPatient(patientDB);
         sampleDao.update(sample);
-        patientDB.getSamples().add(sample);
+//        patientDB.getSamples().add(sample);
         patientDao.update(patientDB);
 
 
@@ -74,12 +74,13 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             return false;
         }
 
-        Patient patientDB = patientDao.get(sampleDB.getPatient().getId());
+   /*     Patient patientDB = patientDao.get(sampleDB.getPatient().getId());
         if (patientDB != null) {
             patientDB.getSamples().remove(sampleDB);
             patientDao.update(patientDB);
             sampleDB.setPatient(null);
         }
+        */
 
         List<Request> requests = sampleDB.getRequests();
         if (requests != null) {
@@ -113,19 +114,19 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             // TODO: exception
         }
 
-        Integer available = sampleDB.getNumOfAvailable();
-        Integer numOfSamples = sampleDB.getNumOfSamples();
-
-        if ((available - requested) >= 0) {
-            sampleDB.setNumOfAvailable(available - requested);
-            sampleDB.setNumOfSamples(numOfSamples - requested);
-
-
-        } else {
-            //TODO: exception
-
-            return sampleDB;
-        }
+//        Integer available = sampleDB.getNumOfAvailable();
+//        Integer numOfSamples = sampleDB.getNumOfSamples();
+//
+//        if ((available - requested) >= 0) {
+//            sampleDB.setNumOfAvailable(available - requested);
+//            sampleDB.setNumOfSamples(numOfSamples - requested);
+//
+//
+//        } else {
+//            //TODO: exception
+//
+//            return sampleDB;
+//        }
 
         sampleDao.update(sampleDB);
         return sampleDB;
@@ -136,25 +137,25 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         notNull(requested);
 
         Sample sample = sampleDao.get(sampleId);
-        Integer available = sample.getNumOfAvailable();
-        Integer numOfSamples = sample.getNumOfSamples();
-        if ((available - requested) >= 0) {
-            available -= requested;
-            numOfSamples -= requested;
-        } else if ((numOfSamples - requested) >= 0) {
-            available = 0;
-            numOfSamples -= requested;
-        } else {
-            // TODO: exception
-            return sample;
-        }
-        if (numOfSamples == 0) {
-            sampleDao.remove(sample);
-            return null;
-        }
-        sample.setNumOfAvailable(available);
-        sample.setNumOfSamples(numOfSamples);
-        sampleDao.update(sample);
+//        Integer available = sample.getNumOfAvailable();
+//        Integer numOfSamples = sample.getNumOfSamples();
+//        if ((available - requested) >= 0) {
+//            available -= requested;
+//            numOfSamples -= requested;
+//        } else if ((numOfSamples - requested) >= 0) {
+//            available = 0;
+//            numOfSamples -= requested;
+//        } else {
+//            // TODO: exception
+//            return sample;
+//        }
+//        if (numOfSamples == 0) {
+//            sampleDao.remove(sample);
+//            return null;
+//        }
+//        sample.setNumOfAvailable(available);
+//        sample.setNumOfSamples(numOfSamples);
+//        sampleDao.update(sample);
         return sample;
     }
 
@@ -186,9 +187,9 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
           /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
 
-        if (patient) {
-            logger.debug("" + sampleDB.getPatient());
-        }
+//        if (patient) {
+//            logger.debug("" + sampleDB.getPatient());
+//        }
         if (request) {
             logger.debug("" + sampleDB.getRequests());
         }

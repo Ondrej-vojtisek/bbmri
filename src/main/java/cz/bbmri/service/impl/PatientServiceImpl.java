@@ -63,12 +63,12 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
             patientDB.setBiobank(null);
         }
 
-        if(patientDB.getSamples() != null){
-            for(Sample sample : patientDB.getSamples()){
-                sampleDao.remove(sample);
-            }
-            patientDB.setSamples(null);
-        }
+//        if(patientDB.getSamples() != null){
+//            for(Sample sample : patientDB.getSamples()){
+//                sampleDao.remove(sample);
+//            }
+//            patientDB.setSamples(null);
+//        }
 
         patientDao.remove(patientDB);
         return true;
@@ -110,9 +110,9 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
            notNull(patientId);
            Patient patientDB = patientDao.get(patientId);
 
-           if(samples){
-               logger.debug("" + patientDB.getSamples());
-           }
+//           if(samples){
+//               logger.debug("" + patientDB.getSamples());
+//           }
 
            return patientDB;
        }

@@ -9,6 +9,10 @@
                  title="${title}" primarymenu="home">
 
     <s:layout-component name="body">
+
+
+        <%--<div id="my-timeline"></div>--%>
+
         <s:form beanclass="cz.bbmri.action.DashboardActionBean">
 
             <c:if test="${empty actionBean.notifications}">

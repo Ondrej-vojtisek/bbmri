@@ -124,14 +124,14 @@ public class CreateSampleActionBean extends BasicActionBean {
         RandomStringUtils randomStringUtils = new RandomStringUtils();
         Random generator = new Random();
         sample = new Sample();
-        sample.setDiagnosis(randomStringUtils.random(4, true, true));
-        sample.setNumOfAvailable(generator.nextInt(20) + 1);
-        sample.setNumOfSamples(sample.getNumOfAvailable() + generator.nextInt(10));
-        sample.setSampleID(randomStringUtils.random(13, true, true));
-        sample.setTNM(randomStringUtils.random(7, true, true));
-        sample.setpTNM(randomStringUtils.random(7, true, true));
-        sample.setTissueType(randomStringUtils.random(2, true, true));
-        sample.setBiopticalReportYear("2013");
-        sample.setBiopticalReportNumber(i.toString());
+//        sample.setDiagnosis(randomStringUtils.random(4, true, true));
+//        sample.setNumOfAvailable(generator.nextInt(20) + 1);
+//        sample.setNumOfSamples(sample.getNumOfAvailable() + generator.nextInt(10));
+//        sample.setSampleID(randomStringUtils.random(13, true, true));
+//        sample.setTNM(randomStringUtils.random(7, true, true));
+//        sample.setpTNM(randomStringUtils.random(7, true, true));
+//        sample.setTissueType(randomStringUtils.random(2, true, true));
+//        sample.setBiopticalReportYear("2013");
+//        sample.setBiopticalReportNumber(i.toString());
     }
 }

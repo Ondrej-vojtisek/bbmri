@@ -25,61 +25,61 @@ public class Sample implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @Column(name = "SAMPLE_ID")
-    private String sampleID;
-
-    @Column(name = "NUM_OF_SAMPLES")
-    private Integer numOfSamples;
-
-    @Column(name = "NUM_OF_AVAILABLE_SAMPLES")
-    private Integer numOfAvailable;
-
-    @Column(name = "TISSUE_TYPE")
-    private String tissueType;
-
-    @Column(name = "TNM")
-    private String TNM;
-
-    @Column(name = "PTNM")
-    private String pTNM;
+//    @Column(name = "SAMPLE_ID")
+//    private String sampleID;
+//
+//    @Column(name = "NUM_OF_SAMPLES")
+//    private Integer numOfSamples;
+//
+//    @Column(name = "NUM_OF_AVAILABLE_SAMPLES")
+//    private Integer numOfAvailable;
+//
+//    @Column(name = "TISSUE_TYPE")
+//    private String tissueType;
+//
+//    @Column(name = "TNM")
+//    private String TNM;
+//
+//    @Column(name = "PTNM")
+//    private String pTNM;
 
 //    Grading is part of morphology
 //    @Column(name = "GRADING")
 //    private Integer grading;
 
-    @Column(name = "REMOVAL_DATE")
-    private Date removalDate; /*cutTime or blood take*/
-
-    @Column(name = "FREZING_DATE")
-    private Date freezingDate;
-
-    @Column(name = "DIAGNOSIS")
-    private String diagnosis;
-
-    @Column(name = "MORPHOLOGY")
-    private String morphology;
-
-    @Column(name ="BIOPTICAL_REPORT_YEAR")
-    private String biopticalReportYear;
-
-    @Column(name ="BIOPTICAL_REPORT_NUMBER")
-    private String biopticalReportNumber;
-
-    @Enumerated(EnumType.STRING)
-    private SampleRetrieval retrieved;
+//    @Column(name = "REMOVAL_DATE")
+//    private Date removalDate; /*cutTime or blood take*/
+//
+//    @Column(name = "FREZING_DATE")
+//    private Date freezingDate;
+//
+//    @Column(name = "DIAGNOSIS")
+//    private String diagnosis;
+//
+//    @Column(name = "MORPHOLOGY")
+//    private String morphology;
+//
+//    @Column(name ="BIOPTICAL_REPORT_YEAR")
+//    private String biopticalReportYear;
+//
+//    @Column(name ="BIOPTICAL_REPORT_NUMBER")
+//    private String biopticalReportNumber;
+//
+//    @Enumerated(EnumType.STRING)
+//    private SampleRetrieval retrieved;
 
     @ManyToOne
-    private Patient patient;
+    private Module module;
 
     @OneToMany(mappedBy = "sample")
     List<Request> requests = new ArrayList<Request>();
 
-    public Patient getPatient() {
-        return patient;
+    public Module getModule() {
+        return module;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setModule(Module module) {
+        this.module = module;
     }
 
     public List<Request> getRequests() {
@@ -98,125 +98,125 @@ public class Sample implements Serializable {
         this.id = id;
     }
 
-    public String getSampleID() {
-        return sampleID;
-    }
-
-    public void setSampleID(String sampleID) {
-        this.sampleID = sampleID;
-    }
-
-    public Integer getNumOfSamples() {
-        return numOfSamples;
-    }
-
-    public void setNumOfSamples(Integer numOfSamples) {
-        this.numOfSamples = numOfSamples;
-    }
-
-    public Integer getNumOfAvailable() {
-        return numOfAvailable;
-    }
-
-    public void setNumOfAvailable(Integer numOfAvailable) {
-        this.numOfAvailable = numOfAvailable;
-    }
-
-    public String getTissueType() {
-        return tissueType;
-    }
-
-    public void setTissueType(String tissueType) {
-        this.tissueType = tissueType;
-    }
-
-    public String getTNM() {
-        return TNM;
-    }
-
-    public void setTNM(String TNM) {
-        this.TNM = TNM;
-    }
-
-    public String getpTNM() {
-        return pTNM;
-    }
-
-    public void setpTNM(String pTNM) {
-        this.pTNM = pTNM;
-    }
-
-    public Date getRemovalTime() {
-        return removalDate;
-    }
-
-    public void setRemovalTime(Date removalTime) {
-        this.removalDate = removalTime;
-    }
-
-    public Date getFreezingTime() {
-        return freezingDate;
-    }
-
-    public void setFreezingTime(Date freezingTime) {
-        this.freezingDate = freezingTime;
-    }
-
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public Date getRemovalDate() {
-        return removalDate;
-    }
-
-    public void setRemovalDate(Date removalDate) {
-        this.removalDate = removalDate;
-    }
-
-    public Date getFreezingDate() {
-        return freezingDate;
-    }
-
-    public void setFreezingDate(Date freezingDate) {
-        this.freezingDate = freezingDate;
-    }
-
-    public String getMorphology() {
-        return morphology;
-    }
-
-    public void setMorphology(String morphology) {
-        this.morphology = morphology;
-    }
-
-    public String getBiopticalReportYear() {
-        return biopticalReportYear;
-    }
-
-    public void setBiopticalReportYear(String biopticalReportYear) {
-        this.biopticalReportYear = biopticalReportYear;
-    }
-
-    public String getBiopticalReportNumber() {
-        return biopticalReportNumber;
-    }
-
-    public void setBiopticalReportNumber(String biopticalReportNumber) {
-        this.biopticalReportNumber = biopticalReportNumber;
-    }
-
-    public SampleRetrieval getRetrieved() {
-        return retrieved;
-    }
-
-    public void setRetrieved(SampleRetrieval retrieved) {
-        this.retrieved = retrieved;
-    }
+//    public String getSampleID() {
+//        return sampleID;
+//    }
+//
+//    public void setSampleID(String sampleID) {
+//        this.sampleID = sampleID;
+//    }
+//
+//    public Integer getNumOfSamples() {
+//        return numOfSamples;
+//    }
+//
+//    public void setNumOfSamples(Integer numOfSamples) {
+//        this.numOfSamples = numOfSamples;
+//    }
+//
+//    public Integer getNumOfAvailable() {
+//        return numOfAvailable;
+//    }
+//
+//    public void setNumOfAvailable(Integer numOfAvailable) {
+//        this.numOfAvailable = numOfAvailable;
+//    }
+//
+//    public String getTissueType() {
+//        return tissueType;
+//    }
+//
+//    public void setTissueType(String tissueType) {
+//        this.tissueType = tissueType;
+//    }
+//
+//    public String getTNM() {
+//        return TNM;
+//    }
+//
+//    public void setTNM(String TNM) {
+//        this.TNM = TNM;
+//    }
+//
+//    public String getpTNM() {
+//        return pTNM;
+//    }
+//
+//    public void setpTNM(String pTNM) {
+//        this.pTNM = pTNM;
+//    }
+//
+//    public Date getRemovalTime() {
+//        return removalDate;
+//    }
+//
+//    public void setRemovalTime(Date removalTime) {
+//        this.removalDate = removalTime;
+//    }
+//
+//    public Date getFreezingTime() {
+//        return freezingDate;
+//    }
+//
+//    public void setFreezingTime(Date freezingTime) {
+//        this.freezingDate = freezingTime;
+//    }
+//
+//    public String getDiagnosis() {
+//        return diagnosis;
+//    }
+//
+//    public void setDiagnosis(String diagnosis) {
+//        this.diagnosis = diagnosis;
+//    }
+//
+//    public Date getRemovalDate() {
+//        return removalDate;
+//    }
+//
+//    public void setRemovalDate(Date removalDate) {
+//        this.removalDate = removalDate;
+//    }
+//
+//    public Date getFreezingDate() {
+//        return freezingDate;
+//    }
+//
+//    public void setFreezingDate(Date freezingDate) {
+//        this.freezingDate = freezingDate;
+//    }
+//
+//    public String getMorphology() {
+//        return morphology;
+//    }
+//
+//    public void setMorphology(String morphology) {
+//        this.morphology = morphology;
+//    }
+//
+//    public String getBiopticalReportYear() {
+//        return biopticalReportYear;
+//    }
+//
+//    public void setBiopticalReportYear(String biopticalReportYear) {
+//        this.biopticalReportYear = biopticalReportYear;
+//    }
+//
+//    public String getBiopticalReportNumber() {
+//        return biopticalReportNumber;
+//    }
+//
+//    public void setBiopticalReportNumber(String biopticalReportNumber) {
+//        this.biopticalReportNumber = biopticalReportNumber;
+//    }
+//
+//    public SampleRetrieval getRetrieved() {
+//        return retrieved;
+//    }
+//
+//    public void setRetrieved(SampleRetrieval retrieved) {
+//        this.retrieved = retrieved;
+//    }
 
 
 
@@ -258,16 +258,16 @@ public class Sample implements Serializable {
     public String toString() {
         return "sample{" +
                 "id=" + id +
-                ", sampleID='" + sampleID + '\'' +
-                ", numOfSamples=" + numOfSamples +
-                ", numOfAvailable=" + numOfAvailable +
-                ", tissueType='" + tissueType + '\'' +
-                ", TNM='" + TNM + '\'' +
-                ", pTNM='" + pTNM + '\'' +
-                ", morphology='" + morphology +
+//                ", sampleID='" + sampleID + '\'' +
+//                ", numOfSamples=" + numOfSamples +
+//                ", numOfAvailable=" + numOfAvailable +
+//                ", tissueType='" + tissueType + '\'' +
+//                ", TNM='" + TNM + '\'' +
+//                ", pTNM='" + pTNM + '\'' +
+//                ", morphology='" + morphology +
                 /*            ", removalTime=" + removalTime +
        ", freezingTime=" + freezingTime +     */
-                ", diagnosis='" + diagnosis + '\'' +
+//                ", diagnosis='" + diagnosis + '\'' +
                 '}';
     }
 

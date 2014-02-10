@@ -2,7 +2,6 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.Notification;
-import cz.bbmri.entities.Project;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -12,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
-import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -61,6 +59,8 @@ public class DashboardActionBean extends BasicActionBean {
         logger.debug("administrators: " + userFacade.getAdministrators());
 
         return new ForwardResolution(DASHBOARD);
+
+
     }
 
     public List<Notification> getNotifications() {
@@ -74,6 +74,8 @@ public class DashboardActionBean extends BasicActionBean {
 
         return new RedirectResolution(this.getClass());
     }
+
+
 
     @DontValidate
     @HandlesEvent("deleteSelected")
@@ -104,5 +106,6 @@ public class DashboardActionBean extends BasicActionBean {
         successMsg(null);
         return new RedirectResolution(this.getClass());
     }
+
 
 }

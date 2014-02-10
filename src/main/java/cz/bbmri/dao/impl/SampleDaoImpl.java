@@ -22,38 +22,40 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
     @SuppressWarnings("unchecked")
     public List<Sample> getSelected(Sample question, Biobank biobank) {
-        notNull(question);
-        Query query = null;
+//        notNull(question);
+//        Query query = null;
+//
+//        if (biobank == null) {
+//            //logger.debug("Biobank null grading not null" );
+//            query = em.createQuery("SELECT p FROM Sample p WHERE " +
+//                    "p.diagnosis LIKE :diagnosisParam " +
+//                    "AND p.morphology LIKE :morphologyParam " +
+//                    "AND p.pTNM LIKE :pTNMParam " +
+//                    "AND p.tissueType LIKE :tissueTypeParam " +
+//                    "AND p.TNM LIKE :TNMParam ");
+//        } else {
+//            query = em.createQuery("SELECT p FROM Sample p WHERE " +
+//                    "p.diagnosis LIKE :diagnosisParam " +
+//                    "AND p.patient.biobank = :biobankParam " +
+//                    "AND p.morphology LIKE :morphologyParam " +
+//                    "AND p.pTNM LIKE :pTNMParam " +
+//                    "AND p.tissueType LIKE :tissueTypeParam " +
+//                    "AND p.TNM LIKE :TNMParam ");
+//        }
+//
+//        if (biobank != null) {
+//            query.setParameter("biobankParam", biobank);
+//        }
+//
+//        query.setParameter("diagnosisParam", (question.getDiagnosis() != null ? question.getDiagnosis() : "%"));
+//        query.setParameter("morphologyParam", (question.getMorphology() != null ? question.getMorphology() : "%"));
+//        query.setParameter("pTNMParam", (question.getpTNM() != null ? question.getpTNM() : "%"));
+//        query.setParameter("tissueTypeParam", (question.getTissueType() != null ? question.getTissueType() : "%"));
+//        query.setParameter("TNMParam", (question.getTNM() != null ? question.getTNM() : "%"));
 
-        if (biobank == null) {
-            //logger.debug("Biobank null grading not null" );
-            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-                    "p.diagnosis LIKE :diagnosisParam " +
-                    "AND p.morphology LIKE :morphologyParam " +
-                    "AND p.pTNM LIKE :pTNMParam " +
-                    "AND p.tissueType LIKE :tissueTypeParam " +
-                    "AND p.TNM LIKE :TNMParam ");
-        } else {
-            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-                    "p.diagnosis LIKE :diagnosisParam " +
-                    "AND p.patient.biobank = :biobankParam " +
-                    "AND p.morphology LIKE :morphologyParam " +
-                    "AND p.pTNM LIKE :pTNMParam " +
-                    "AND p.tissueType LIKE :tissueTypeParam " +
-                    "AND p.TNM LIKE :TNMParam ");
-        }
+//        return query.getResultList();
 
-        if (biobank != null) {
-            query.setParameter("biobankParam", biobank);
-        }
-
-        query.setParameter("diagnosisParam", (question.getDiagnosis() != null ? question.getDiagnosis() : "%"));
-        query.setParameter("morphologyParam", (question.getMorphology() != null ? question.getMorphology() : "%"));
-        query.setParameter("pTNMParam", (question.getpTNM() != null ? question.getpTNM() : "%"));
-        query.setParameter("tissueTypeParam", (question.getTissueType() != null ? question.getTissueType() : "%"));
-        query.setParameter("TNMParam", (question.getTNM() != null ? question.getTNM() : "%"));
-
-        return query.getResultList();
+          return null;
     }
 
     /* With wildcards

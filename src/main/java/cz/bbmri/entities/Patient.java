@@ -39,8 +39,14 @@ public class Patient implements Serializable {
 
     private boolean consent;
 
-    @OneToMany(mappedBy = "patient")
-    private List<Sample> samples = new ArrayList<Sample>();
+//    @OneToMany(mappedBy = "patient")
+//    private List<Sample> samples = new ArrayList<Sample>();
+
+    @OneToOne(mappedBy = "patient")
+    private ModuleSTS moduleSTS;
+
+    @OneToOne(mappedBy = "patient")
+    private ModuleLTS moduleLTS;
 
     @ManyToOne
     private Biobank biobank;
@@ -93,12 +99,20 @@ public class Patient implements Serializable {
         this.consent = consent;
     }
 
-    public List<Sample> getSamples() {
-        return samples;
+    public ModuleSTS getModuleSTS() {
+        return moduleSTS;
     }
 
-    public void setSamples(List<Sample> samples) {
-        this.samples = samples;
+    public void setModuleSTS(ModuleSTS moduleSTS) {
+        this.moduleSTS = moduleSTS;
+    }
+
+    public ModuleLTS getModuleLTS() {
+        return moduleLTS;
+    }
+
+    public void setModuleLTS(ModuleLTS moduleLTS) {
+        this.moduleLTS = moduleLTS;
     }
 
     public Biobank getBiobank() {
