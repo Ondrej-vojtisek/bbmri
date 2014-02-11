@@ -4,7 +4,6 @@ import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.service.RequestService;

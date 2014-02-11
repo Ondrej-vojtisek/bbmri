@@ -3,6 +3,7 @@ package cz.bbmri.action.biobank;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;

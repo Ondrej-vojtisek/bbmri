@@ -5,7 +5,6 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Sample;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import java.util.List;
 
 /**

@@ -1,14 +1,10 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Sample;
 import cz.bbmri.facade.SampleFacade;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.SampleService;
-import cz.bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

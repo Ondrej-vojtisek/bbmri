@@ -1,6 +1,7 @@
 package cz.bbmri.facade;
 
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.Sample;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;

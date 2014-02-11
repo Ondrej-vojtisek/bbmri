@@ -1,10 +1,10 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.PatientDao;
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.service.SampleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

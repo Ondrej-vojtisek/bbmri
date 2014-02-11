@@ -1,9 +1,5 @@
 package cz.bbmri.facade;
 
-import cz.bbmri.entities.Sample;
-
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Ori

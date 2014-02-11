@@ -5,7 +5,6 @@ import cz.bbmri.dao.PatientDao;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.service.PatientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

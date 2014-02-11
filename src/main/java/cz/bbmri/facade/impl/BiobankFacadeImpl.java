@@ -4,6 +4,7 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.RequestState;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.*;
 import cz.bbmri.service.exceptions.DuplicitBiobankException;
