@@ -1,5 +1,7 @@
 package cz.bbmri.entities;
 
+import cz.bbmri.entities.infrastructure.Infrastructure;
+
 import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
@@ -41,6 +43,9 @@ public class Biobank implements Serializable {
 
     @OneToMany(mappedBy = "biobank")
     private List<Patient> patients = new ArrayList<Patient>();
+
+    @OneToOne(mappedBy = "biobank")
+    private Infrastructure infrastructure;
 
     public Long getId() {
         return id;
@@ -88,6 +93,14 @@ public class Biobank implements Serializable {
 
     public void setPatients(List<Patient> patients) {
         this.patients = patients;
+    }
+
+    public Infrastructure getInfrastructure() {
+        return infrastructure;
+    }
+
+    public void setInfrastructure(Infrastructure infrastructure) {
+        this.infrastructure = infrastructure;
     }
 
     @Override

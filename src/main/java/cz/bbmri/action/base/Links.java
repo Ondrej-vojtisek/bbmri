@@ -53,6 +53,7 @@ public class Links {
     protected static final String BIOBANK_DETAIL_ADMINISTRATORS = BIOBANK_DETAIL + "administrators.jsp";
     protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
     protected static final String BIOBANK_DETAIL_SAMPLE_REQUESTS = BIOBANK_DETAIL + "sampleRequests.jsp";
+    protected static final String BIOBANK_DETAIL_INFRASTRUCTURE_ALL = BIOBANK_DETAIL + "infrastructure/all.jsp";
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";

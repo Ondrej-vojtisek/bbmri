@@ -62,7 +62,7 @@ occupiedPosition =
         ## it depends on institution
         ( sequentialPosition | matrixPosition ),
         ## unique identifier of sample; it can have different format depending on the institution
-        element sampleId { xsd:string }
+        element sampleId { xsd:string { maxLength = "32" } }
     }
 
 sequentialPosition =

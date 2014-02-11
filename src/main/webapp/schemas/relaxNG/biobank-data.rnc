@@ -4,7 +4,7 @@ default namespace = "http://www.bbmri.cz/schemas/biobank/data"
 start =
 	element patient {
 		## identifier of a patient (interni identifikator pacienta)
-		attribute id { xsd:string },
+		attribute id { xsd:string { maxLength = "12" } },
 		## informed consent (informovany souhlas)
 		attribute consent { xsd:boolean },
         ## year of birth
@@ -17,11 +17,11 @@ start =
 	    biobankId,
 		## samples in long-term storage part of the biobank
 		element LTS {
-			( tissue | blood | genome | plasma | urine )*
+			( tissue | serum | genome | diagnosisMaterial )*
 		},
 		## samples in short-term storage part of the biobank
 		element STS {
-			( bloodRsv | urine | plasma )*
+			( diagnosisMaterial )*
 		}
 	}
 
@@ -39,45 +39,33 @@ tissue =
         retrieved
 	}
 
-blood =
-	element blood {
-		sampleIdentification,
-		sampleNos,
-		element takingDate { xsd:dateTime },
-        retrieved
+serum =
+	element serum {
+        sampleIdentification,
+        sampleNos,
+        element materialType { xsd:string { maxLength = "2" } },
+        element takingDate { xsd:dateTime }
 	}
 
+## DNA, RNA, Full blood, tissue in later
 genome =
 	element genome {
 		sampleIdentification,
 		sampleNos,
-		element tissueType { xsd:string { maxLength = "2" } },
+		element materialType { xsd:string { maxLength = "2" } },
 		element takingDate { xsd:dateTime },
         retrieved
 	}
 
-plasma =
-	element plasma {
+## Plasma, urine, serum, blood reserve
+diagnosisMaterial =
+    element diagnosisMaterial {
         sampleIdentification,
-		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
-		element takingDate { xsd:dateTime }
-	}
-
-urine =
-	element urine {
-        sampleIdentification,
-		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
-		element takingDate { xsd:dateTime }
-	}
-
-## blood reserve in STS
-bloodRsv =
-	element bloodRsv {
-		sampleIdentification,
+		element materialType { xsd:string { maxLength = "2" } },
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
 		element takingDate { xsd:dateTime },
-        retrieved
-	}
+		retrieved
+    }
 
 biobankId =
 	attribute biobank { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "32" } }
@@ -90,11 +78,11 @@ sampleIdentification =
 	attribute number { xsd:string { maxLength = "6" } },
 	## because of different format of sample identifier on each institution there is a field
 	## for unique identification of sample
-	## e.g. at mou here should be combination of YEAR + NUMBER + TYPE
-	##      at 1.LF here should be combination of Cislo pacienta + Cislo odberu + typ vzorku
+	## e.g. at mou here should be combination of INSTITUTION PREFIX + YEAR + NUMBER + TYPE
+	##      at 1.LF here should be combination of INSTITUTION PREFIX + Cislo pacienta + Cislo odberu + typ vzorku
 	##      identification of aliquote is _not_ a part of sampleId
 	## sampleId must match sampleId in bankOccupancy export scheme
-	attribute sampleId {xsd:string}
+	attribute sampleId { xsd:string { maxLength = "32" } }
 
 ## total and available number of aliquotes
 sampleNos =
@@ -106,7 +94,7 @@ retrieved =
   element retrieved { "preoperational" | "operational" | "post" | "unknown" }
 
 morphology =
-  ## morphology uses ICD-O-2 classification - NNNN/XY
+      ## morphology uses ICD-O-2 classification - NNNN/XY
   element morphology { xsd:string { length = "7" pattern = "[0-9]{4}/[0-9]{2}"} }
 
 grading =
