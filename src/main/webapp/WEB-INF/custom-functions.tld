@@ -26,17 +26,4 @@
         <function-signature>boolean ownProject(java.lang.Object,java.lang.Object)</function-signature>
     </function>
 
-    <function>
-        <name>isAdmin</name>
-        <function-class>cz.bbmri.action.Function</function-class>
-        <function-signature>boolean isAdmin(java.lang.Object,java.lang.Object)</function-signature>
-    </function>
-
-    <function>
-            <name>isAdministrator</name>
-            <function-class>cz.bbmri.action.base.BasicActionBean</function-class>
-            <function-signature>boolean isAdministrator()</function-signature>
-        </function>
-
-
 </taglib>

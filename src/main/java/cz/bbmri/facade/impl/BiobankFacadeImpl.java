@@ -4,7 +4,7 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.RequestState;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.*;
 import cz.bbmri.service.exceptions.DuplicitBiobankException;
@@ -53,6 +53,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     @Autowired
     private SampleRequestService sampleRequestService;
 
+    @Autowired
+    private SampleService sampleService;
+
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
 
         notNull(biobank);
@@ -60,12 +63,12 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         notNull(errors);
         notNull(bbmriPath);
 
-        logger.debug("CreateBiobank - controle") ;
+        logger.debug("CreateBiobank - controle");
 
         try {
             biobank = biobankService.create(biobank, newAdministratorId);
 
-            logger.debug("CreateBiobank - created") ;
+            logger.debug("CreateBiobank - created");
 
         } catch (DuplicitBiobankException ex) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.duplicitBiobankException"));
@@ -77,7 +80,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             return false;
         }
 
-        logger.debug("CreateBiobank - create folders") ;
+        logger.debug("CreateBiobank - create folders");
 
         // Base folder
         if (!FacadeUtils.folderExists(bbmriPath)) {
@@ -353,31 +356,50 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return biobanks;
     }
 
-    public List<Patient> getAllPatients(Long biobankId){
+    public List<Patient> getAllPatients(Long biobankId) {
         notNull(biobankId);
         Biobank biobankDB = biobankService.eagerGet(biobankId, true, false, false);
         return biobankDB.getPatients();
     }
 
-    public List<Sample> getAllSamples(Long biobankId){
+    public List<Sample> getAllSamples(Long biobankId) {
         notNull(biobankId);
         List<Sample> samples = new ArrayList<Sample>();
 //        for(Patient patient : getAllPatients(biobankId)){
 //            patient = patientService.eagerGet(patient.getId(), true);
 //            samples.addAll(patient.getSamples());
 //        }
-        return samples;
+        // return samples;
+        return sampleService.all();
     }
 
-    public List<SampleRequest> getBiobankSampleRequests(Long biobankId){
+    public List<SampleRequest> getBiobankSampleRequests(Long biobankId) {
         notNull(biobankId);
 
         Biobank biobankDB = biobankService.eagerGet(biobankId, false, false, true);
         return biobankDB.getSampleRequests();
     }
 
-    public List<SampleRequest> getNewSampleRequests(Long biobankId){
+    public List<SampleRequest> getNewSampleRequests(Long biobankId) {
         return sampleRequestService.getByBiobankAndState(biobankId, RequestState.NEW);
+    }
+
+    public Patient getPatient(Long patientId) {
+        return patientService.get(patientId);
+    }
+
+    public Infrastructure getInfrastructure(Long infrastructureId) {
+
+        // TODO
+
+        return null;
+    }
+
+    public boolean createInfrastructure(Long biobankId) {
+
+        // TODO
+
+        return false;
     }
 
     /*

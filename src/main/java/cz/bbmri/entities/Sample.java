@@ -115,6 +115,10 @@ public class Sample implements Serializable {
         this.positions = positions;
     }
 
+    public String getType(){
+        return "Sample";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

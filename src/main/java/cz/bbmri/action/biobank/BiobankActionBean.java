@@ -62,9 +62,6 @@ public class BiobankActionBean extends PermissionActionBean {
         return biobankFacade.getAllSamples(biobankId);
     }
 
-    /*
-    * This is weird - if the first _if_ is missing then only address is set during edit from .jsp
-    * */
     public Biobank getBiobank() {
         if (biobank == null) {
             if (biobankId != null) {

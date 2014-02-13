@@ -1,7 +1,9 @@
 package cz.bbmri.action;
 
 import cz.bbmri.entities.Project;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.sample.Tissue;
 
 import java.util.List;
 

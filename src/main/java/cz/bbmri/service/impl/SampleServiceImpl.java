@@ -5,6 +5,7 @@ import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.service.SampleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,24 +47,30 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
     public Sample create(Sample sample, Long patientId) {
         notNull(sample);
-        notNull(patientId);
-
-        Patient patientDB = patientDao.get(patientId);
-        if (patientDB == null) {
-            return null;
-            // TODO: exception
-        }
+//        notNull(patientId);
+//
+//        Patient patientDB = patientDao.get(patientId);
+//        if (patientDB == null) {
+//            return null;
+//            // TODO: exception
+//        }
 
         sampleDao.create(sample);
 
        // sample.setPatient(patientDB);
-        sampleDao.update(sample);
+//        sampleDao.update(sample);
 //        patientDB.getSamples().add(sample);
-        patientDao.update(patientDB);
+//        patientDao.update(patientDB);
 
 
         return sample;
     }
+
+    public Tissue create(Tissue tissue, Long patientId){
+        sampleDao.create(tissue);
+        return tissue;
+    }
+
 
     public boolean remove(Long id) {
 

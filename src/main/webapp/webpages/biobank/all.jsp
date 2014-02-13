@@ -25,6 +25,7 @@
                 </tr>
             </c:if>
             <c:forEach items="${biobankBean.biobanks}" var="biobank">
+
                 <tr>
                     <td>${biobank.name}</td>
                     <td>${biobank.address}</td>

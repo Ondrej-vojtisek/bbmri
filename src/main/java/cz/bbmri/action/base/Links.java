@@ -54,6 +54,9 @@ public class Links {
     protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
     protected static final String BIOBANK_DETAIL_SAMPLE_REQUESTS = BIOBANK_DETAIL + "sampleRequests.jsp";
     protected static final String BIOBANK_DETAIL_INFRASTRUCTURE_ALL = BIOBANK_DETAIL + "infrastructure/all.jsp";
+    protected static final String BIOBANK_DETAIL_PATIENT_DETAIL = BIOBANK_DETAIL + "patient/detail.jsp";
+    protected static final String BIOBANK_DETAIL_PATIENT_MODULESTS = BIOBANK_DETAIL + "patient/modulests.jsp";
+    protected static final String BIOBANK_DETAIL_PATIENT_MODULELTS = BIOBANK_DETAIL + "patient/modulelts.jsp";
 
     // PROJECTS
     private static final String PROJECT = BASIC_PATH + "/project/";
@@ -92,4 +95,10 @@ public class Links {
     private static final String REQUEST = BASIC_PATH + "/request/";
     /* ********************************** */
     protected static final String REQUEST_DETAIL = REQUEST + "detail.jsp";
+
+    // SAMPLE DETAIL
+
+    protected static final String SAMPLE_DETAIL = "/webpages/sample/detail.jsp";
+    protected static final String SAMPLE_RESERVATIONS = "/webpages/sample/reservations.jsp";
+    protected static final String SAMPLE_PROJECTS = "/webpages/sample/projects.jsp";
 }

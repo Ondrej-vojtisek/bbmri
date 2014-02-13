@@ -75,4 +75,8 @@ public class Tissue extends Sample {
     public void setFreezeDate(Date freezeDate) {
         this.freezeDate = freezeDate;
     }
+
+    public String getType(){
+        return "Tissue";
+    }
 }

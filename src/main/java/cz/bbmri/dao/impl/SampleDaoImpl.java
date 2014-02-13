@@ -3,6 +3,7 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Tissue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -89,4 +90,9 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
            return query.getResultList();
        }
        */
+
+    public void create(Tissue tissue) {
+          notNull(tissue);
+          em.persist(tissue);
+      }
 }

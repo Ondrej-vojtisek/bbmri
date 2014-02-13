@@ -3,6 +3,7 @@
 
 <f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="patientBean" beanclass="cz.bbmri.action.patient.PatientActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
@@ -33,7 +34,21 @@
                     <td>${patient.sex}</td>
                     <td>${patient.age}</td>
                     <td>${patient.consent}</td>
-                    <td> AKCE ? </td>
+                    <c:set target="${patientBean}" property="biobankId" value="${biobankBean.biobankId}"/>
+                    <td class="action">
+                        <security:allowed bean="patientBean" event="detail">
+                            <div class="tableAction">
+                                <s:link beanclass="cz.bbmri.action.patient.PatientActionBean" event="detail"
+                                        class="btn btn-primary btnMargin">
+                                    <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+                                    <s:param name="patientId" value="${patient.id}"/>
+                                    <f:message key="detail"/>
+                                </s:link>
+                            </div>
+                        </security:allowed>
+                    </td>
+
+
                 </tr>
             </c:forEach>
             </tbody>

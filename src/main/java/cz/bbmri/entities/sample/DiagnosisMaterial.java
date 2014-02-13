@@ -28,4 +28,8 @@ public class DiagnosisMaterial extends Sample {
         this.diagnosis = diagnosis;
     }
 
+    public String getType(){
+        return "DiagnosisMaterial";
+    }
+
 }

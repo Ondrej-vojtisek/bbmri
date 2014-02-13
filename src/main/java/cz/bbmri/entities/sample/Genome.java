@@ -26,4 +26,8 @@ public class Genome extends Sample {
     public void setSampleNos(SampleNos sampleNos) {
         this.sampleNos = sampleNos;
     }
+
+    public String getType(){
+        return "Genome";
+    }
 }

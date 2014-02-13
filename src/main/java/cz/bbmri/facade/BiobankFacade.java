@@ -2,6 +2,7 @@ package cz.bbmri.facade;
 
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.infrastructure.Infrastructure;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -36,6 +37,12 @@ public interface BiobankFacade extends PermissionFacade {
     List<SampleRequest> getBiobankSampleRequests(Long biobankId);
 
     List<SampleRequest> getNewSampleRequests(Long biobankId);
+
+    Patient getPatient(Long patientId);
+
+    Infrastructure getInfrastructure(Long infrastructureId);
+
+    boolean createInfrastructure(Long biobankId);
 
     // List<RequestGroup> getNewRequestGroups(Long biobankId);
 

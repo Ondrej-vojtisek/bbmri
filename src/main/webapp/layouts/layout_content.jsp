@@ -43,7 +43,6 @@
             <s:errors/>
 
             <h1>${title}</h1>
-                <%--<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>--%>
 
             <c:if test="${not empty ternarymenu}">
                 <ul class="nav nav-tabs">
@@ -56,6 +55,13 @@
                     <c:if test="${primarymenu == 'project'}">
                         <%@include file="ternaryMenu/project_ter_menu.jsp" %>
                     </c:if>
+                    <c:if test="${primarymenu == 'patient'}">
+                        <%@include file="ternaryMenu/patient_ter_menu.jsp" %>
+                    </c:if>
+                    <c:if test="${primarymenu == 'sample'}">
+                        <%@include file="ternaryMenu/sample_ter_menu.jsp" %>
+                    </c:if>
+
                 </ul>
             </c:if>
 
@@ -69,8 +75,7 @@
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>
-
+    <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
 
     <s:layout-component name="jsLibrary"/>
 
@@ -86,15 +91,15 @@
         $(function () {
             $(".alert").alert();
         });
-//        $(document).ready(function () {
-//            createStoryJS({
-//                type: 'timeline',
-//                width: '800',
-//                height: '400',
-//                source: '/libs/timeline.json',
-//                embed_id: 'my-timeline'
-//            });
-//        });
+        //        $(document).ready(function () {
+        //            createStoryJS({
+        //                type: 'timeline',
+        //                width: '800',
+        //                height: '400',
+        //                source: '/libs/timeline.json',
+        //                embed_id: 'my-timeline'
+        //            });
+        //        });
 
 
     </script>

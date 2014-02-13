@@ -1,137 +1,80 @@
 package cz.bbmri.action.sample;
 
-import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.validation.IntegerTypeConverter;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.apache.commons.lang.RandomStringUtils;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.security.PermitAll;
-import java.util.Random;
+import javax.annotation.security.RolesAllowed;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
- * Date: 16.4.13
- * Time: 23:06
+ * Date: 12.2.14
+ * Time: 13:51
  * To change this template use File | Settings | File Templates.
  */
-@PermitAll
-@UrlBinding("/SampleCreate")
-@HttpCache(allow = false)
-public class CreateSampleActionBean extends BasicActionBean {
 
-    private static final String CREATE = "/webpages/sample/sample_create.jsp";
+@HttpCache(allow = false)
+@UrlBinding("/createSample/{$event}/{sampleId}")
+public class CreateSampleActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    @ValidateNestedProperties(value = {
-             @Validate(on = {"create"},
-                     field = "sampleID", required = true,
-                     minlength = 13, maxlength = 13),
-             @Validate(on = {"create"},
-                     field = "TNM", required = true,
-                     minlength = 7, maxlength = 7),
-             @Validate(on = {"create"},
-                     field = "pTNM", required = true,
-                     minlength = 7, maxlength = 7),
-             @Validate(on = {"create"},
-                     field = "grading", required = true,
-                     minvalue = 1, maxvalue = 8),
-             @Validate(on = {"create"}, field = "tissueType", required = true,
-                     minlength = 2, maxlength = 2),
-             @Validate(on = {"create"}, field = "numOfSamples", required = true,
-                     minvalue = 1),
-             @Validate(on = {"create"}, field = "numOfAvailable", required = true,
-                     minvalue = 1),
-             @Validate(on = {"create"}, field = "diagnosis", required = true,
-                     minlength = 4, maxlength = 4),
-     })
+    @SpringBean
+    private SampleFacade sampleFacade;
+
+    private Long sampleId;
+
     private Sample sample;
 
     public Sample getSample() {
+        if (sample == null) {
+            if (sampleId != null) {
+                //  sample = sampleFacade.get(sampleId);
+            }
+        }
         return sample;
+    }
+
+    private Tissue tissue;
+
+    public Tissue getTissue() {
+        return tissue;
+    }
+
+    public void setTissue(Tissue tissue) {
+        this.tissue = tissue;
     }
 
     public void setSample(Sample sample) {
         this.sample = sample;
     }
 
-    @Validate(converter = IntegerTypeConverter.class, on = {"generateRandomSample"},
-            required = true, minvalue = 1, maxvalue = 100)
-    private Integer numOfRandom;
-
-    public Integer getNumOfRandom() {
-        return numOfRandom;
-    }
-
-    public void setNumOfRandom(Integer numOfRandom) {
-        this.numOfRandom = numOfRandom;
-    }
-
+    /* Methods */
     @DontValidate
     @DefaultHandler
-    public Resolution display() {
-        return new ForwardResolution(CREATE);
-    }
-
+    @HandlesEvent("create") /* Necessary for stripes security tag*/
+    @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
-
-
-        /*
-        TODO
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
-        Biobank biobank = biobankService.get(ba.getBiobank().getId());
-
-        if (biobank != null) {
-            sampleService.create(sample, biobank.getId());
-            getContext().getMessages().add(
-                    new SimpleMessage("Added 1 sample")
-            );
-        }
-        */
-        return new ForwardResolution(this.getClass(), "display");
+        return new ForwardResolution("/webpages/sample/create.jsp");
     }
 
-    @DontValidate
-    public Resolution generateRandomSample() {
-        /*
-        TODO
+    @RolesAllowed({"administrator", "developer"})
+    public Resolution createTissue() {
 
-        BiobankAdministrator ba = getLoggedUser().getBiobankAdministrator();
-        Biobank biobank = biobankService.get(ba.getBiobank().getId());
-        Integer added = 0;
-        if (biobank != null) {
-            for (int i = 0; i < numOfRandom; i++) {
-                generateSample(i);
-                sampleService.create(sample, biobank.getId());
-                added = i + 1;
-            }
-        }
-        getContext().getMessages().add(
-                new SimpleMessage("Added {0} sample(s)", added)
-        );
-        */
-        return new ForwardResolution(this.getClass(), "display");
-    }
+        logger.debug("TISSUE: " + sample);
+        sampleFacade.create(sample);
+        return new ForwardResolution(this.getClass(), "create");
 
-    @DontValidate
-    public void generateSample(Integer i) {
-        RandomStringUtils randomStringUtils = new RandomStringUtils();
-        Random generator = new Random();
-        sample = new Sample();
-//        sample.setDiagnosis(randomStringUtils.random(4, true, true));
-//        sample.setNumOfAvailable(generator.nextInt(20) + 1);
-//        sample.setNumOfSamples(sample.getNumOfAvailable() + generator.nextInt(10));
-//        sample.setSampleID(randomStringUtils.random(13, true, true));
-//        sample.setTNM(randomStringUtils.random(7, true, true));
-//        sample.setpTNM(randomStringUtils.random(7, true, true));
-//        sample.setTissueType(randomStringUtils.random(2, true, true));
-//        sample.setBiopticalReportYear("2013");
-//        sample.setBiopticalReportNumber(i.toString());
+//        if (!sampleFacade.create(tissue)) {
+//            return new ForwardResolution(this.getClass());
+//        }
+//        successMsg(null);
+//        return new RedirectResolution(this.getClass());
     }
 }

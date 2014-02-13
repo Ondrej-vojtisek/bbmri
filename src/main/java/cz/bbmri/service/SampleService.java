@@ -1,6 +1,7 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Tissue;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface SampleService extends BasicService<Sample>{
+
+     Tissue create(Tissue tissue, Long patientId);
 
      Sample create(Sample sample, Long patientId);
 

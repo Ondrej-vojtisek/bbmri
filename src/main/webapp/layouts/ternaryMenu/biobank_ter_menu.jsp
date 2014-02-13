@@ -2,6 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
 
 <%-- -------------------------------------------------------------------- --%>
 
@@ -60,7 +61,7 @@
 <security:allowed bean="biobankBean" event="sampleRequests">
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequests">
-            <s:param name="biobankId" value="${projectBean.biobankId}"/>
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/>
             <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
         </s:link>
     </li>
@@ -68,13 +69,12 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="sampleRequests">
-    <li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.InfrastructureActionBean">
-            <s:param name="biobankId" value="${projectBean.biobankId}"/>
-            <f:message key="cz.bbmri.action.biobank.InfrastructureActionBean.occupancy"/>
-        </s:link>
-    </li>
-</security:allowed>
+    <%--<li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>--%>
+        <%--<s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" event="all">--%>
+            <%--<s:param name="biobankId" value="${biobankBean.biobankId}"/>--%>
+            <%--<s:param name="infrastructureId" value="${biobankBean.biobank.infrastructure.id}"/>--%>
+            <%--<f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy"/>--%>
+        <%--</s:link>--%>
+    <%--</li>--%>
 
-<%-- -------------------------------------------------------------------- --%>
+<%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>

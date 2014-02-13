@@ -10,7 +10,7 @@
 
     <s:layout-component name="body">
 
-       SAMPLES
+        <s:layout-render name="/webpages/component/samples.jsp"/>
 
     </s:layout-component>
 </s:layout-render>

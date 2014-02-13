@@ -1,5 +1,7 @@
 package cz.bbmri.facade.impl;
 
+import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.facade.SampleFacade;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.SampleService;
@@ -26,7 +28,29 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     @Autowired
     private SampleService sampleService;
 
+    public boolean create(Tissue tissue) {
+        Tissue tissueDB = sampleService.create(tissue, null);
 
+        if (tissueDB == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean create(Sample sample) {
+            Sample sampleDB = sampleService.create(sample, null);
+
+            if (sampleDB == null) {
+                return false;
+            }
+
+            return true;
+        }
+
+    public Sample get (Long sampleId){
+        return sampleService.get(sampleId);
+    }
 
 //    public boolean generateRandomSample(int count) {
 //
