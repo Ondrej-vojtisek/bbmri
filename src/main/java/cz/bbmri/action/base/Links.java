@@ -22,7 +22,9 @@ public class Links {
 
     // MY ACCOUNT
     private static final String USER = BASIC_PATH + "/user/";
-    /************************************/
+    /**
+     * ********************************
+     */
     // USER
     protected static final String USER_ALL = USER + "all.jsp";
     protected static final String USER_CREATE = USER + "create.jsp";
@@ -46,14 +48,13 @@ public class Links {
 
     // BIOBANK/DETAIL
     private static final String BIOBANK_DETAIL = BIOBANK + "detail/";
-     /* ********************************** */
+    /* ********************************** */
     protected static final String BIOBANK_DETAIL_SAMPLES = BIOBANK_DETAIL + "samples.jsp";
     protected static final String BIOBANK_DETAIL_PATIENTS = BIOBANK_DETAIL + "patients.jsp";
     protected static final String BIOBANK_DETAIL_GENERAL = BIOBANK_DETAIL + "general.jsp";
     protected static final String BIOBANK_DETAIL_ADMINISTRATORS = BIOBANK_DETAIL + "administrators.jsp";
     protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
     protected static final String BIOBANK_DETAIL_SAMPLE_REQUESTS = BIOBANK_DETAIL + "sampleRequests.jsp";
-    protected static final String BIOBANK_DETAIL_INFRASTRUCTURE_ALL = BIOBANK_DETAIL + "infrastructure/all.jsp";
     protected static final String BIOBANK_DETAIL_PATIENT_DETAIL = BIOBANK_DETAIL + "patient/detail.jsp";
     protected static final String BIOBANK_DETAIL_PATIENT_MODULESTS = BIOBANK_DETAIL + "patient/modulests.jsp";
     protected static final String BIOBANK_DETAIL_PATIENT_MODULELTS = BIOBANK_DETAIL + "patient/modulelts.jsp";
@@ -88,7 +89,7 @@ public class Links {
 
     protected static final String SAMPLE_REQUEST = "/webpages/project/sample_request.jsp";
 
-     // SUPPORT
+    // SUPPORT
     protected static final String SUPPORT = BASIC_PATH + "/support/support.jsp";
 
     // REQUEST
@@ -101,4 +102,18 @@ public class Links {
     protected static final String SAMPLE_DETAIL = "/webpages/sample/detail.jsp";
     protected static final String SAMPLE_RESERVATIONS = "/webpages/sample/reservations.jsp";
     protected static final String SAMPLE_PROJECTS = "/webpages/sample/projects.jsp";
+
+    // INFRASTRUCTURE
+
+    private static final String INFRASTRUCTURE = BASIC_PATH + "/infrastructure/";
+
+    protected static final String INFRASTRUCTURE_DETAIL = INFRASTRUCTURE + "infrastructureDetail.jsp";
+    protected static final String INFRASTRUCTURE_CREATE_CONTAINER = INFRASTRUCTURE + "create/createContainer.jsp";
+    protected static final String INFRASTRUCTURE_CREATE_RACK= INFRASTRUCTURE + "create/createRack.jsp";
+    protected static final String INFRASTRUCTURE_CREATE_RACKBOX= INFRASTRUCTURE + "create/createRackBox.jsp";
+    protected static final String INFRASTRUCTURE_CREATE_STANDALONEBOX= INFRASTRUCTURE + "create/createStandaloneBox.jsp";
+
+    protected static final String INFRASTRUCTURE_DETAIL_CONTAINER= INFRASTRUCTURE + "detail/containerDetail.jsp";
+    protected static final String INFRASTRUCTURE_DETAIL_BOX = INFRASTRUCTURE + "detail/boxDetail.jsp";
+    protected static final String INFRASTRUCTURE_DETAIL_RACK = INFRASTRUCTURE + "detail/rackDetail.jsp";
 }

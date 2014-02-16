@@ -9,24 +9,17 @@
 
     <s:layout-component name="body">
 
+        <s:form beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" class="form-horizontal">
 
-        <c:if test="${empty infrastructureBean.infrastructure }">
-            Infrastructure null
+            <s:layout-render name="/webpages/infrastructure/component/createBox.jsp"
+                             boxType="standaloneBox"/>
+            <div class="form-actions">
+            <s:submit name="createStandaloneBox" class="btn btn-primary">
+                <s:param name="biobankId" value="${infrastructureBean.biobankId}"/>
+            </s:submit>
+            </div>
 
-            <s:form beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean">
-                <s:submit name="initiateInfrastructure">
-                    <s:param name="biobankId" value="${infrastructureBean.biobankId}"/>
-                </s:submit>
-            </s:form>
-
-        </c:if>
-
-        <c:if test="${empty infrastructureBean.infrastructure }">
-            Infrastructure null or empty containers or empty boxes
-        </c:if>
-
-
-
+        </s:form>
 
     </s:layout-component>
 </s:layout-render>

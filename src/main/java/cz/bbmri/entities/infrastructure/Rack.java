@@ -3,7 +3,9 @@ package cz.bbmri.entities.infrastructure;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,11 +24,13 @@ public class Rack implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     private Container container;
 
     @OneToMany(mappedBy = "rack")
-    private List<Box> boxes = new ArrayList<Box>();
+    private Set<RackBox> rackBoxes = new HashSet<RackBox>();
 
     private Integer capacity;
 
@@ -46,12 +50,12 @@ public class Rack implements Serializable {
         this.container = container;
     }
 
-    public List<Box> getBoxes() {
-        return boxes;
+    public Set<RackBox> getRackBoxes() {
+        return rackBoxes;
     }
 
-    public void setBoxes(List<Box> boxes) {
-        this.boxes = boxes;
+    public void setRackBoxes(Set<RackBox> rackBoxes) {
+        this.rackBoxes = rackBoxes;
     }
 
     public Integer getCapacity() {
@@ -60,6 +64,14 @@ public class Rack implements Serializable {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -83,8 +95,6 @@ public class Rack implements Serializable {
     public String toString() {
         return "Rack{" +
                 "id=" + id +
-                ", container=" + container +
-                ", boxes=" + boxes +
                 ", capacity=" + capacity +
                 '}';
     }

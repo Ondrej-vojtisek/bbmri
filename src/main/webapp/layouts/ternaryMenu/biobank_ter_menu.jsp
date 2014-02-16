@@ -69,12 +69,11 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-    <%--<li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>--%>
-        <%--<s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" event="all">--%>
-            <%--<s:param name="biobankId" value="${biobankBean.biobankId}"/>--%>
-            <%--<s:param name="infrastructureId" value="${biobankBean.biobank.infrastructure.id}"/>--%>
-            <%--<f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy"/>--%>
-        <%--</s:link>--%>
-    <%--</li>--%>
+    <li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>
+        <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" event="all">
+            <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+            <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy"/>
+        </s:link>
+    </li>
 
-<%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+<%-- -------------------------------------------------------------------- --%>

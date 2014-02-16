@@ -1,12 +1,11 @@
 package cz.bbmri.entities.infrastructure;
 
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.SampleRequest;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,10 +27,10 @@ public class Infrastructure implements Serializable {
     private Biobank biobank;
 
     @OneToMany(mappedBy = "infrastructure")
-    private List<Container> containers = new ArrayList<Container>();
+    private Set<Container> containers = new HashSet<Container>();
 
     @OneToMany(mappedBy = "infrastructure")
-    private List<Box> boxes = new ArrayList<Box>();
+    private Set<StandaloneBox> standaloneBoxes = new HashSet<StandaloneBox>();
 
     public Long getId() {
         return id;
@@ -49,20 +48,20 @@ public class Infrastructure implements Serializable {
         this.biobank = biobank;
     }
 
-    public List<Container> getContainers() {
+    public Set<Container> getContainers() {
         return containers;
     }
 
-    public void setContainers(List<Container> containers) {
+    public void setContainers(Set<Container> containers) {
         this.containers = containers;
     }
 
-    public List<Box> getBoxes() {
-        return boxes;
+    public Set<StandaloneBox> getStandaloneBoxes() {
+        return standaloneBoxes;
     }
 
-    public void setBoxes(List<Box> boxes) {
-        this.boxes = boxes;
+    public void setStandaloneBoxes(Set<StandaloneBox> standaloneBoxes) {
+        this.standaloneBoxes = standaloneBoxes;
     }
 
     @Override
@@ -86,9 +85,6 @@ public class Infrastructure implements Serializable {
     public String toString() {
         return "Infrastructure{" +
                 "id=" + id +
-                ", biobank=" + biobank +
-                ", containers=" + containers +
-                ", boxes=" + boxes +
                 '}';
     }
 }

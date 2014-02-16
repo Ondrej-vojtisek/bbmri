@@ -1,13 +1,9 @@
 package cz.bbmri.entities.infrastructure;
 
-import java.io.Serializable;
-
-import cz.bbmri.entities.Sample;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import cz.bbmri.entities.Sample;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,7 +12,7 @@ import java.util.List;
  * Time: 15:48
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Position")
+@Table(name = "BoxPosition")
 @Entity
 public class Position implements Serializable {
 
@@ -32,8 +28,10 @@ public class Position implements Serializable {
     private Sample sample;
 
 //    Matrix position
+    @Column(name = "positionrow")
     private Integer row;
 
+    @Column(name = "positioncolumn")
     private Integer column;
 
 //    Sequential position
@@ -87,6 +85,8 @@ public class Position implements Serializable {
         this.sequentialPosition = sequentialPosition;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,8 +108,6 @@ public class Position implements Serializable {
     public String toString() {
         return "Position{" +
                 "id=" + id +
-                ", box=" + box +
-                ", sample=" + sample +
                 ", row=" + row +
                 ", column=" + column +
                 ", sequentialPosition=" + sequentialPosition +

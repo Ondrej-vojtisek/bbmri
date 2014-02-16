@@ -3,7 +3,9 @@ package cz.bbmri.entities.infrastructure;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,20 +23,20 @@ public class Box implements Serializable  {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-    @ManyToOne
-    private Infrastructure infrastructure;
+    private String name;
 
-    @ManyToOne
-    private Rack rack;
-
-    @OneToMany(mappedBy = "box")
-    private List<Position> positions = new ArrayList<Position>();
+    @OneToMany(mappedBy = "box", fetch = FetchType.EAGER)
+    private Set<Position> positions = new HashSet<Position>();
 
     private Integer capacity;
 
     private Float tempMin;
 
     private Float tempMax;
+
+    public Box() {
+    }
+
 
     public Long getId() {
         return id;
@@ -44,27 +46,19 @@ public class Box implements Serializable  {
         this.id = id;
     }
 
-    public Infrastructure getInfrastructure() {
-        return infrastructure;
+    public String getName() {
+        return name;
     }
 
-    public void setInfrastructure(Infrastructure infrastructure) {
-        this.infrastructure = infrastructure;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Rack getRack() {
-        return rack;
-    }
-
-    public void setRack(Rack rack) {
-        this.rack = rack;
-    }
-
-    public List<Position> getPositions() {
+    public Set<Position> getPositions() {
         return positions;
     }
 
-    public void setPositions(List<Position> positions) {
+    public void setPositions(Set<Position> positions) {
         this.positions = positions;
     }
 
@@ -92,6 +86,17 @@ public class Box implements Serializable  {
         this.tempMax = tempMax;
     }
 
+    public Integer getNumberOfPositions(){
+        if(positions == null){
+            return null;
+        }
+        return positions.size();
+    }
+
+    public String getType(){
+         return "Box";
+     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,9 +118,7 @@ public class Box implements Serializable  {
     public String toString() {
         return "Box{" +
                 "id=" + id +
-                ", infrastructure=" + infrastructure +
-                ", rack=" + rack +
-                ", positions=" + positions +
+                ", name='" + name + '\'' +
                 ", capacity=" + capacity +
                 ", tempMin=" + tempMin +
                 ", tempMax=" + tempMax +

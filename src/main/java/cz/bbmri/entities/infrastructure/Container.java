@@ -1,11 +1,12 @@
 package cz.bbmri.entities.infrastructure;
 
-import cz.bbmri.entities.Biobank;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,11 +25,13 @@ public class Container implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    private String name;
+
     @ManyToOne
     private Infrastructure infrastructure;
 
-    @OneToMany(mappedBy = "container")
-    private List<Rack> racks = new ArrayList<Rack>();
+    @OneToMany(mappedBy = "container", fetch = FetchType.EAGER)
+    private Set<Rack> racks = new HashSet<Rack>();
 
     private String location;
 
@@ -38,12 +41,22 @@ public class Container implements Serializable {
 
     private Float tempMax;
 
+
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Infrastructure getInfrastructure() {
@@ -54,11 +67,11 @@ public class Container implements Serializable {
         this.infrastructure = infrastructure;
     }
 
-    public List<Rack> getRacks() {
+    public Set<Rack> getRacks() {
         return racks;
     }
 
-    public void setRacks(List<Rack> racks) {
+    public void setRacks(Set<Rack> racks) {
         this.racks = racks;
     }
 
@@ -94,6 +107,13 @@ public class Container implements Serializable {
         this.tempMax = tempMax;
     }
 
+    public Integer getNumberOfRacks(){
+        if(racks == null){
+            return null;
+        }
+        return racks.size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,8 +135,6 @@ public class Container implements Serializable {
     public String toString() {
         return "Container{" +
                 "id=" + id +
-                ", infrastructure=" + infrastructure +
-                ", racks=" + racks +
                 ", location='" + location + '\'' +
                 ", capacity=" + capacity +
                 ", tempMin=" + tempMin +

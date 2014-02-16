@@ -8,9 +8,7 @@ import cz.bbmri.entities.sample.field.SampleIdentification;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,10 +43,10 @@ public class Sample implements Serializable {
     private Module module;
 
     @OneToMany(mappedBy = "sample")
-    List<Request> requests = new ArrayList<Request>();
+    private List<Request> requests = new ArrayList<Request>();
 
     @OneToMany(mappedBy = "sample")
-    private List<Position> positions = new ArrayList<Position>();
+    private Set<Position> positions = new HashSet<Position>();
 
 
     public Long getId() {
@@ -107,11 +105,11 @@ public class Sample implements Serializable {
         this.requests = requests;
     }
 
-    public List<Position> getPositions() {
+    public Set<Position> getPositions() {
         return positions;
     }
 
-    public void setPositions(List<Position> positions) {
+    public void setPositions(Set<Position> positions) {
         this.positions = positions;
     }
 

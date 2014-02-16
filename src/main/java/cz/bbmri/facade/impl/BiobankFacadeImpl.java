@@ -4,7 +4,7 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.RequestState;
-import cz.bbmri.entities.infrastructure.Infrastructure;
+import cz.bbmri.entities.infrastructure.*;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.*;
 import cz.bbmri.service.exceptions.DuplicitBiobankException;
@@ -55,6 +55,18 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     @Autowired
     private SampleService sampleService;
+
+    @Autowired
+    private InfrastructureService infrastructureService;
+
+    @Autowired
+    private ContainerService containerService;
+
+    @Autowired
+    private RackService rackService;
+
+    @Autowired
+    private BoxService boxService;
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
 
@@ -389,18 +401,93 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     public Infrastructure getInfrastructure(Long infrastructureId) {
+        return infrastructureService.eagerGet(infrastructureId, true, true);
+    }
 
-        // TODO
+    public Container getContainer(Long containerId) {
+        return containerService.get(containerId);
+    }
 
-        return null;
+    public Rack getRack(Long rackId) {
+        return rackService.eagerGet(rackId, true);
+    }
+
+    public Box getBox(Long boxId) {
+        return boxService.get(boxId);
     }
 
     public boolean createInfrastructure(Long biobankId) {
+        Infrastructure infrastructure = infrastructureService.initialize(biobankService.get(biobankId));
+        // This method is not caused intentionally by user so there is no need to create any un-success messages
 
-        // TODO
+        if (infrastructure == null) {
+            logger.debug("Infrastructure was not created");
+            return false;
+        }
 
-        return false;
+        return true;
     }
+
+    public boolean createContainer(Long infrastructureId, Container container, ValidationErrors errors) {
+        notNull(infrastructureId);
+        notNull(container);
+        notNull(errors);
+
+        if (containerService.create(infrastructureId, container) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
+            return false;
+        }
+        return true;
+    }
+
+
+    public boolean createRack(Long containerId, Rack rack, ValidationErrors errors) {
+        notNull(containerId);
+        notNull(rack);
+        notNull(errors);
+
+        if (rackService.create(containerId, rack) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.rackcreatefailed"));
+            return false;
+        }
+        return true;
+    }
+
+    public boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors) {
+        notNull(infrastructureId);
+        notNull(box);
+        notNull(errors);
+
+        if (boxService.createStandaloneBox(infrastructureId, box) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
+            return false;
+        }
+        return true;
+    }
+
+    public boolean createBox(Long rackId, RackBox box, ValidationErrors errors) {
+        notNull(rackId);
+        notNull(box);
+        notNull(errors);
+
+        if (boxService.createRackBox(rackId, box) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
+            return false;
+        }
+        return true;
+    }
+
+//    public boolean createRack(Long biobankId, Rack rack){
+//
+//    }
+//
+//    public boolean createBox(Long rackId, Box box){
+//
+//    }
+//
+//    public boolean createAloneBox(Long biobankId, Box box){
+//
+//    }
 
     /*
         public List<RequestGroup> getNewRequestGroups(Long biobankId) {
