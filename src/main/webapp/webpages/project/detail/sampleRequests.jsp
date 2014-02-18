@@ -11,15 +11,9 @@
     <s:layout-component name="body">
 
         <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th><f:message key="cz.bbmri.entities.SampleRequest.created"/></th>
-                <th><f:message key="cz.bbmri.entities.SampleRequest.biobank"/></th>
-                <th><f:message key="cz.bbmri.entities.SampleRequest.requestState"/></th>
-                <th><f:message key="cz.bbmri.entities.SampleRequest.specification"/></th>
-                <th></th>
-            </tr>
-            </thead>
+
+            <s:layout-render name="/webpages/component/detail/sampleRequest/header.jsp"/>
+
             <tbody>
             <c:if test="${empty projectBean.sampleRequests}">
                 <tr>
@@ -29,10 +23,9 @@
 
             <c:forEach items="${projectBean.sampleRequests}" var="sampleRequest">
                 <tr>
-                    <td>${sampleRequest.created}</td>
-                    <td>${sampleRequest.biobank.name}</td>
-                    <td><f:message key="cz.bbmri.entities.enumeration.RequestState.${sampleRequest.requestState}"/></td>
-                    <td>${sampleRequest.specification}</td>
+
+                    <s:layout-render name="/webpages/component/detail/sampleRequest/row.jsp" sampleRequest="${sampleRequest}"/>
+
                     <td class="action">
                         <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail" class="btn btn-primary">
                             <s:param name="sampleRequestId" value="${sampleRequest.id}"/>

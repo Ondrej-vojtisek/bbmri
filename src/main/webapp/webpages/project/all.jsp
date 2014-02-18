@@ -10,13 +10,7 @@
     <s:layout-component name="body">
 
             <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th><f:message key="cz.bbmri.entities.Project.name"/></th>
-                    <th><f:message key="cz.bbmri.entities.Project.fundingOrganization"/></th>
-                    <th><f:message key="cz.bbmri.entities.Project.projectState"/></th>
-                </tr>
-                </thead>
+                <s:layout-render name="/webpages/component/detail/project/header.jsp"/>
                 <tbody>
                 <c:if test="${empty projectBean.all}">
                     <tr>
@@ -26,9 +20,9 @@
 
                 <c:forEach items="${projectBean.all}" var="project">
                     <tr>
-                        <td>${project.name}</td>
-                        <td>${project.fundingOrganization}</td>
-                        <td><f:message key="ProjectState.${project.projectState}"/></td>
+
+                        <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+
                         <td class="action">
 
                             <c:set target="${projectBean}" property="projectId" value="${project.id}"/>

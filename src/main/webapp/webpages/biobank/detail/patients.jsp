@@ -12,15 +12,9 @@
     <s:layout-component name="body">
 
         <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th><f:message key="cz.bbmri.entities.Patient.institutionId"/></th>
-                <th><f:message key="cz.bbmri.entities.Patient.sex"/></th>
-                <th><f:message key="cz.bbmri.entities.Patient.age"/></th>
-                <th><f:message key="cz.bbmri.entities.Patient.consent"/></th>
-                <th></th>
-            </tr>
-            </thead>
+
+            <s:layout-render name="/webpages/component/detail/patient/header.jsp"/>
+
             <tbody>
 
             <c:if test="${empty biobankBean.patients}">
@@ -30,10 +24,9 @@
             </c:if>
             <c:forEach items="${biobankBean.patients}" var="patient">
                 <tr>
-                    <td>${patient.institutionId}</td>
-                    <td>${patient.sex}</td>
-                    <td>${patient.age}</td>
-                    <td>${patient.consent}</td>
+
+                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" patient="${patient}"/>
+
                     <c:set target="${patientBean}" property="biobankId" value="${biobankBean.biobankId}"/>
                     <td class="action">
                         <security:allowed bean="patientBean" event="detail">

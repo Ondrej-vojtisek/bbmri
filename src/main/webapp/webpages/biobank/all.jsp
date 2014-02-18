@@ -9,15 +9,7 @@
 
     <s:layout-component name="body">
         <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th><f:message key="cz.bbmri.entities.Biobank.name"/></th>
-                <th><f:message key="cz.bbmri.entities.Biobank.address"/></th>
-                <th class="noSort"><f:message key="actions"/></th>
-            </tr>
-            </thead>
-            <tbody>
-
+            <s:layout-render name="/webpages/component/detail/box/header.jsp"/>
 
             <c:if test="${empty biobankBean.biobanks}">
                 <tr>
@@ -27,8 +19,9 @@
             <c:forEach items="${biobankBean.biobanks}" var="biobank">
 
                 <tr>
-                    <td>${biobank.name}</td>
-                    <td>${biobank.address}</td>
+
+                    <s:layout-render name="/webpages/component/detail/biobank/row.jsp" biobank="${biobank}"/>
+
                     <td class="action">
 
                             <%--This is important for the instance based ACL--%>
