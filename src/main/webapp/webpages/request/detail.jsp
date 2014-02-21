@@ -78,7 +78,7 @@
         </fieldset>
 
         <c:if test="${requestBean.isSampleRequestApproved}">
-            <jsp:include page="/webpages/request/requestGroups.jsp"/>
+            <s:layout-render name="/webpages/request/requestGroups.jsp"/>
         </c:if>
 
 

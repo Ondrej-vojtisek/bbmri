@@ -64,11 +64,11 @@ public class PermissionActionBean extends BasicActionBean {
 
     private Long userId;
 
-    public Long getUserId(){
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId){
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -89,7 +89,6 @@ public class PermissionActionBean extends BasicActionBean {
     }
 
 
-
     /* When the project is marked as finished than it can't be edited or changes in any way */
     public boolean getAllowedProjectManager() {
         return projectFacade.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
@@ -108,20 +107,31 @@ public class PermissionActionBean extends BasicActionBean {
     }
 
 
-
     public boolean getIsNew() {
+        if (getProject() == null) {
+            return false;
+        }
         return getProject().getProjectState().equals(ProjectState.NEW);
     }
 
     public boolean getIsApproved() {
+        if (getProject() == null) {
+            return false;
+        }
         return getProject().getProjectState().equals(ProjectState.APPROVED);
     }
 
     public boolean getIsStarted() {
+        if (getProject() == null) {
+            return false;
+        }
         return getProject().getProjectState().equals(ProjectState.STARTED);
     }
 
     private boolean isFinished() {
+        if (getProject() == null) {
+            return false;
+        }
         return getProject().getProjectState().equals(ProjectState.FINISHED);
     }
 

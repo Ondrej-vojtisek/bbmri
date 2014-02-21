@@ -3,11 +3,10 @@
 
 <s:layout-definition>
 
-                <td>${sample.type}</td>
                 <td>${sample.sampleIdentificator.sampleId}</td>
                 <td>${sample.sampleIdentificator.year}</td>
                 <td>${sample.sampleIdentificator.number}</td>
                 <td>${sample.takingDate}</td>
-                <td>${sample.tissueType}</td>
+                <td>${sample.materialType}</td>
 
 </s:layout-definition>

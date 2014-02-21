@@ -1,11 +1,14 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.enumeration.ProjectState;
-import cz.bbmri.entities.enumeration.Retrieved;
-import cz.bbmri.entities.sample.field.*;
+import cz.bbmri.entities.sample.field.Morphology;
+import cz.bbmri.entities.sample.field.PTNM;
+import cz.bbmri.entities.sample.field.SampleNos;
+import cz.bbmri.entities.sample.field.TNM;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -76,7 +79,18 @@ public class Tissue extends Sample {
         this.freezeDate = freezeDate;
     }
 
-    public String getType(){
-        return "Tissue";
+    @Override
+    public String toString() {
+        return "Tissue{" +
+                "tnm=" + tnm +
+                ", ptnm=" + ptnm +
+                ", morphology=" + morphology +
+                ", sampleNos=" + sampleNos +
+                ", freezeDate=" + freezeDate +
+                ", sampleIdentificator=" + getSampleIdentificator() +
+                ", retrieved=" + getRetrieved() +
+                ", takingDate=" + getTakingDate() +
+                ", materialType=" + getMaterialType() +
+                '}';
     }
 }

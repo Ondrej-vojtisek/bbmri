@@ -1,9 +1,8 @@
 package cz.bbmri.action;
 
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
-import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.enumeration.SampleType;
 
 import java.util.List;
 
@@ -21,22 +20,6 @@ public class Function {
         return users.contains(user);
     }
 
-    public static boolean ownProject(Object project, Object user) {
-        if (project == null || user == null) {
-            return false;
-        }
-        User usr = (User) user;
-        Project proj = (Project) project;
-
-      /*  if (proj.getOwner() == null) {
-            return false;
-        }
-
-        return usr.equals(proj.getOwner());
-        */
-        //TODO
-        return false;
-    }
 
 }
 

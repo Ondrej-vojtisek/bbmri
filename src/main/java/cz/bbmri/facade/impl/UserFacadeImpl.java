@@ -37,8 +37,6 @@ import java.util.Set;
 @Controller("userFacade")
 public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
-    private static final int MAXIMUM_FIND_RESULTS = 5;
-
     @Autowired
     private UserService userService;
 

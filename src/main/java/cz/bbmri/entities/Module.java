@@ -69,4 +69,8 @@ public class Module implements Serializable {
     public int hashCode() {
         return id.hashCode();
     }
+
+    public String getType(){
+        return "Module";
+    }
 }

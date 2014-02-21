@@ -25,6 +25,14 @@ public class SampleNos implements Serializable {
         this.samplesNo = samplesNo;
     }
 
+    public Integer getAvailableSamplesNo() {
+        return availableSamplesNo;
+    }
+
+    public void setAvailableSamplesNo(Integer availableSamplesNo) {
+        this.availableSamplesNo = availableSamplesNo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

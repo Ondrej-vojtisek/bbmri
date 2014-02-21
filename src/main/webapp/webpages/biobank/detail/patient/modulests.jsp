@@ -15,10 +15,16 @@
                 <s:param name="biobankId" value="${patientBean.biobankId}"/>
                 <f:message key="cz.bbmri.action.patient.PatientActionBean.backToBiobank"/>
             </s:link>
+
+            <s:link beanclass="cz.bbmri.action.sample.CreateSampleActionBean" event="initial"
+                    class="btn btn-primary">
+                <s:param name="biobankId" value="${patientBean.biobankId}"/>
+                <s:param name="moduleId" value="${patientBean.moduleStsId}"/>
+                <f:message key="cz.bbmri.action.sample.CreateSampleActionBean.addSample"/>
+            </s:link>
         </div>
 
-     MODULE STS
-
+        <s:layout-render name="/webpages/component/samples.jsp" samples="${patientBean.samplesSTS}"/>
 
     </s:layout-component>
 </s:layout-render>

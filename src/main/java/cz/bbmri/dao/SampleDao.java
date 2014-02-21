@@ -1,6 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.Tissue;
 
@@ -16,6 +17,8 @@ import java.util.List;
 public interface SampleDao extends BasicDao<Sample>{
 
     List<Sample> getSelected(Sample question, Biobank biobank);
+
+    List<Sample> getSelected(Sample question, Biobank biobank, Patient patient, boolean lts);
 
     void create(Tissue tissue);
 

@@ -15,4 +15,8 @@ import java.util.List;
 public interface PatientService  extends BasicService<Patient> {
 
     Patient eagerGet(Long patientId, boolean samples);
+
+    Patient create(Patient patient, Long biobankId);
+
+    List<Patient> find(Patient patient, int requiredResults);
 }

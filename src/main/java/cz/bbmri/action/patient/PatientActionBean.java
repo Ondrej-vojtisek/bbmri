@@ -2,13 +2,16 @@ package cz.bbmri.action.patient;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +28,9 @@ public class PatientActionBean extends PermissionActionBean {
 
     @SpringBean
     private BiobankFacade biobankFacade;
+
+    @SpringBean
+    private SampleFacade sampleFacade;
 
     private Long patientId;
 
@@ -48,6 +54,42 @@ public class PatientActionBean extends PermissionActionBean {
         return patient;
     }
 
+    public Long getModuleStsId() {
+        if (getPatient() == null) {
+            return null;
+        }
+        if (getPatient().getModuleSTS() == null) {
+            return null;
+        }
+        return getPatient().getModuleSTS().getId();
+    }
+
+    public Long getModuleLtsId() {
+        if (getPatient() == null) {
+            return null;
+        }
+        if (getPatient().getModuleLTS() == null) {
+            return null;
+        }
+        return getPatient().getModuleLTS().getId();
+    }
+
+    public List<Sample> getSamplesLTS() {
+        if (getModuleLtsId() == null) {
+            return null;
+        }
+
+        return sampleFacade.getModule(getModuleLtsId()).getSamples();
+    }
+
+    public List<Sample> getSamplesSTS() {
+        if (getModuleStsId() == null) {
+            return null;
+        }
+
+        return sampleFacade.getModule(getModuleStsId()).getSamples();
+    }
+
     @DontValidate
     @DefaultHandler
     @HandlesEvent("detail")
@@ -64,9 +106,15 @@ public class PatientActionBean extends PermissionActionBean {
     }
 
     @DontValidate
-      @HandlesEvent("modulelts")
-      @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-      public Resolution modulelts() {
-          return new ForwardResolution(BIOBANK_DETAIL_PATIENT_MODULELTS);
-      }
+    @HandlesEvent("modulelts")
+    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
+    public Resolution modulelts() {
+        return new ForwardResolution(BIOBANK_DETAIL_PATIENT_MODULELTS);
+    }
+
+    @HandlesEvent(" findPatient") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
+    public Resolution findPatient() {
+        return new ForwardResolution(SAMPLE_CREATE_INITIAL);
+    }
 }

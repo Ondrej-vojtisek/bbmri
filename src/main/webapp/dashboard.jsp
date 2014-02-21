@@ -46,11 +46,14 @@
                         <td class="action" style="width: 60px;">
                             <c:if test="${not empty notification.notificationType.actionBeanName
                                                 and not empty notification.notificationType.confirmEvent}">
+
                                 <s:link beanclass="${notification.notificationType.actionBeanName}"
                                         event="${notification.notificationType.confirmEvent}" class="btn btn-info">
-                                    <s:param name="id" value="${notification.objectId}"/>
+                                        <s:param name="${notification.notificationType.parameter}"
+                                                 value="${notification.objectId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
+
                             </c:if>
                         </td>
                     </tr>

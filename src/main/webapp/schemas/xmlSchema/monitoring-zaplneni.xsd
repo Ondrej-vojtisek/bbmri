@@ -128,23 +128,17 @@
                     <xs:element ref="b:sequentialPosition"/>
                     <xs:element ref="b:matrixPosition"/>
                 </xs:choice>
-                <xs:element ref="b:year"/>
                 <xs:element ref="b:sampleId"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="year" type="xs:gYear">
-        <xs:annotation>
-            <xs:documentation>year when was sample retrieved and stored</xs:documentation>
-        </xs:annotation>
-    </xs:element>
     <xs:element name="sampleId">
         <xs:annotation>
-            <xs:documentation>sequential order of sample during the year</xs:documentation>
+            <xs:documentation>unique identifier of sample; it can have different format depending on the institution</xs:documentation>
         </xs:annotation>
         <xs:simpleType>
             <xs:restriction base="xs:string">
-                <xs:maxLength value="6"/>
+                <xs:maxLength value="32"/>
             </xs:restriction>
         </xs:simpleType>
     </xs:element>

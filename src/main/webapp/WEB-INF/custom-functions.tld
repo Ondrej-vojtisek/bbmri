@@ -20,10 +20,4 @@
         <function-signature>boolean contains(java.util.List,java.lang.Object)</function-signature>
     </function>
 
-    <function>
-        <name>ownProject</name>
-        <function-class>cz.bbmri.action.Function</function-class>
-        <function-signature>boolean ownProject(java.lang.Object,java.lang.Object)</function-signature>
-    </function>
-
 </taglib>

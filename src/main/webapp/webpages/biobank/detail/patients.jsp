@@ -11,6 +11,21 @@
 
     <s:layout-component name="body">
 
+        <div class="form-actions">
+            <s:link beanclass="cz.bbmri.action.patient.CreatePatientActionBean" event="initial"
+                    class="btn btn-primary btnMargin">
+                <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+                <f:message key="cz.bbmri.action.patient.CreatePatientActionBean.addPatient"/>
+            </s:link>
+
+            <s:link beanclass="cz.bbmri.action.patient.FindPatientActionBean" event="findResolution"
+                    class="btn btn-primary">
+                <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+                find patient
+            </s:link>
+        </div>
+
+
         <table class="table table-hover table-striped">
 
             <s:layout-render name="/webpages/component/detail/patient/header.jsp"/>

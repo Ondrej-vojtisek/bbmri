@@ -477,6 +477,26 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return true;
     }
 
+    public boolean createPatient(Patient patient, Long biobankId, ValidationErrors errors){
+        notNull(patient);
+        if(patientService.create(patient, biobankId) == null){
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
+            return false;
+        }
+        return true;
+    }
+
+    public List<Patient> find(Patient patient, int requiredResults) {
+        if (patient == null) {
+            return null;
+        }
+        if (requiredResults < 1) {
+            requiredResults = MAXIMUM_FIND_RESULTS;
+        }
+
+        return patientService.find(patient, requiredResults);
+    }
+
 //    public boolean createRack(Long biobankId, Rack rack){
 //
 //    }

@@ -1,12 +1,22 @@
 package cz.bbmri.facade.impl;
 
+import cz.bbmri.entities.Module;
+import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.DiagnosisMaterial;
+import cz.bbmri.entities.sample.Genome;
+import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.facade.SampleFacade;
 import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.ModuleService;
 import cz.bbmri.service.SampleService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,28 +38,37 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     @Autowired
     private SampleService sampleService;
 
-    public boolean create(Tissue tissue) {
-        Tissue tissueDB = sampleService.create(tissue, null);
+    @Autowired
+    private ModuleService moduleService;
 
-        if (tissueDB == null) {
+
+    public boolean create(Sample sample, ValidationErrors errors) {
+        Sample sampleDB = sampleService.create(sample, null);
+
+        if (sampleDB == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
             return false;
         }
 
         return true;
     }
 
-    public boolean create(Sample sample) {
-            Sample sampleDB = sampleService.create(sample, null);
-
-            if (sampleDB == null) {
-                return false;
-            }
-
-            return true;
-        }
-
-    public Sample get (Long sampleId){
+    public Sample get(Long sampleId) {
         return sampleService.get(sampleId);
+    }
+
+    public Module getModule(Long moduleId) {
+        return moduleService.get(moduleId);
+    }
+
+    public List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts){
+        logger.debug("Facade findSamples sample: " + sample + " biobankId: " + biobankId + " Patient: " + patient
+        + " LTS: " + lts);
+        return sampleService.getSamplesByQuery(sample, biobankId,  patient, lts);
+    }
+
+    public boolean createRequestGroup(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors){
+
     }
 
 //    public boolean generateRandomSample(int count) {

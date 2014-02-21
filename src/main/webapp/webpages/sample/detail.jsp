@@ -9,21 +9,25 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp" sample="${sampleBean.sample}"/>
+        <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp"
+                         sample="${sampleBean.sample}"/>
 
-        <c:if test="${sampleBean.sample.type eq 'Tissue'}">
-            <s:layout-render name="/webpages/component/detail/tissue/ribbon.jsp" tissue="${sampleBean.tissue}"/>
+        <c:if test="${sampleBean.isTissue}">
+            <s:layout-render name="/webpages/component/detail/tissue/ribbon.jsp"
+                             tissue="${sampleBean.tissue}"/>
         </c:if>
 
-        <c:if test="${sampleBean.sample.type eq 'Serum'}">
-            <s:layout-render name="/webpages/component/detail/serum/ribbon.jsp" serum="${sampleBean.serum}"/>
+        <c:if test="${sampleBean.isSerum}">
+            <s:layout-render name="/webpages/component/detail/serum/ribbon.jsp"
+                             serum="${sampleBean.serum}"/>
         </c:if>
 
-        <c:if test="${sampleBean.sample.type eq 'Genome'}">
-            <s:layout-render name="/webpages/component/detail/genome/ribbon.jsp" genome="${sampleBean.genome}"/>
+        <c:if test="${sampleBean.isGenome}">
+            <s:layout-render name="/webpages/component/detail/genome/ribbon.jsp"
+                             genome="${sampleBean.genome}"/>
         </c:if>
 
-        <c:if test="${sampleBean.sample.type eq 'DiagnosisMaterial'}">
+        <c:if test="${sampleBean.isDiagnosisMaterial}">
             <s:layout-render name="/webpages/component/detail/diagnosisMaterial/ribbon.jsp"
                              diagnosisMaterial="${sampleBean.diagnosisMaterial}"/>
         </c:if>

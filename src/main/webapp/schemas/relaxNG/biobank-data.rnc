@@ -4,7 +4,7 @@ default namespace = "http://www.bbmri.cz/schemas/biobank/data"
 start =
 	element patient {
 		## identifier of a patient (interni identifikator pacienta)
-		attribute id { xsd:string { maxLength = "12" } },
+		attribute id { xsd:string { maxLength = "10" } },
 		## informed consent (informovany souhlas)
 		attribute consent { xsd:boolean },
         ## year of birth
@@ -29,7 +29,7 @@ tissue =
 	element tissue {
         sampleIdentification,
         sampleNos,
-        element materialType { xsd:string { maxLength = "2" } },
+        materialType,
         element TNM { xsd:string { maxLength = "7" } },
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
         ## grading is a part of mophology and is used as fallback here
@@ -43,7 +43,7 @@ serum =
 	element serum {
         sampleIdentification,
         sampleNos,
-        element materialType { xsd:string { maxLength = "2" } },
+        materialType,
         element takingDate { xsd:dateTime }
 	}
 
@@ -52,7 +52,7 @@ genome =
 	element genome {
 		sampleIdentification,
 		sampleNos,
-		element materialType { xsd:string { maxLength = "2" } },
+		materialType,
 		element takingDate { xsd:dateTime },
         retrieved
 	}
@@ -61,14 +61,14 @@ genome =
 diagnosisMaterial =
     element diagnosisMaterial {
         sampleIdentification,
-		element materialType { xsd:string { maxLength = "2" } },
+		materialType,
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
 		element takingDate { xsd:dateTime },
 		retrieved
     }
 
 biobankId =
-	attribute biobank { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "32" } }
+	attribute biobank { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "6" } }
 
 ## each sample is identified with biobankId and sequential number
 sampleIdentification =
@@ -99,3 +99,6 @@ morphology =
 
 grading =
   element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }
+
+materialType =
+  element materialType { xsd:string { maxLength = "4" } }

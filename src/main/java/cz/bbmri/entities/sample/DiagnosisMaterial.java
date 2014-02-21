@@ -1,6 +1,7 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.enumeration.SampleType;
 import cz.bbmri.entities.sample.field.Diagnosis;
 
 import javax.persistence.Column;
@@ -28,8 +29,10 @@ public class DiagnosisMaterial extends Sample {
         this.diagnosis = diagnosis;
     }
 
-    public String getType(){
-        return "DiagnosisMaterial";
+    @Override
+    public String toString() {
+        return "DiagnosisMaterial{" +
+                "diagnosis=" + diagnosis +
+                '}';
     }
-
 }

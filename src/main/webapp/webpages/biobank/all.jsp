@@ -9,7 +9,7 @@
 
     <s:layout-component name="body">
         <table class="table table-hover table-striped">
-            <s:layout-render name="/webpages/component/detail/box/header.jsp"/>
+            <s:layout-render name="/webpages/component/detail/biobank/header.jsp"/>
 
             <c:if test="${empty biobankBean.biobanks}">
                 <tr>

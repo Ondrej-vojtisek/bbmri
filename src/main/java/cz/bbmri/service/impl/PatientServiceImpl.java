@@ -1,9 +1,12 @@
 package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.BiobankDao;
+import cz.bbmri.dao.ModuleDao;
 import cz.bbmri.dao.PatientDao;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.ModuleLTS;
+import cz.bbmri.entities.ModuleSTS;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.service.PatientService;
 import org.slf4j.Logger;
@@ -36,18 +39,48 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     @Autowired
     private SampleDao sampleDao;
 
+    @Autowired
+    private ModuleDao moduleDao;
+
     @Transactional(readOnly = true)
-    public List<Patient> all(){
+    public List<Patient> all() {
         return patientDao.all();
     }
 
     @Transactional(readOnly = true)
-    public Patient get(Long id){
+    public Patient get(Long id) {
         notNull(id);
         return patientDao.get(id);
     }
 
-    public boolean remove(Long id){
+    public Patient create(Patient patient, Long biobankId) {
+        if (patient == null) {
+            logger.debug("Object can't null");
+            return null;
+        }
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+
+        if (biobankDB == null) {
+            logger.debug("Object retrieved from database is null");
+            return null;
+        }
+
+        patient.setBiobank(biobankDB);
+        patientDao.create(patient);
+
+        ModuleSTS modulests = new ModuleSTS();
+        modulests.setPatient(patient);
+        moduleDao.create(modulests);
+
+        ModuleLTS modulelts = new ModuleLTS();
+        modulelts.setPatient(patient);
+        moduleDao.create(modulelts);
+
+        return patient;
+    }
+
+    public boolean remove(Long id) {
         notNull(id);
         Patient patientDB = patientDao.get(id);
         if (patientDB == null) {
@@ -55,65 +88,79 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
             return false;
         }
 
-        if(patientDB.getBiobank() != null){
+        if (patientDB.getBiobank() != null) {
             Biobank biobank = patientDB.getBiobank();
             biobank.getPatients().remove(patientDB);
             biobankDao.update(biobank);
             patientDB.setBiobank(null);
         }
 
-//        if(patientDB.getSamples() != null){
-//            for(Sample sample : patientDB.getSamples()){
-//                sampleDao.remove(sample);
-//            }
-//            patientDB.setSamples(null);
-//        }
+        if (patientDB.getModuleSTS() != null) {
+            moduleDao.remove(patientDB.getModuleSTS());
+        }
+
+        if (patientDB.getModuleLTS() != null) {
+            moduleDao.remove(patientDB.getModuleLTS());
+        }
 
         patientDao.remove(patientDB);
         return true;
     }
 
-    public Patient update(Patient patient){
+    public Patient update(Patient patient) {
         notNull(patient);
 
         Patient patientDB = patientDao.get(patient.getId());
 
-        if(patient.getSex() != null) patientDB.setSex(patient.getSex());
-        if(patient.getBirthMonth() != null) patientDB.setBirthMonth(patient.getBirthMonth());
-        if(patient.getBirthYear() != null) patientDB.setBirthYear(patient.getBirthYear());
-        if(patient.getInstitutionId() != null ) patientDB.setInstitutionId(patient.getInstitutionId());
+        if (patient.getSex() != null) patientDB.setSex(patient.getSex());
+        if (patient.getBirthMonth() != null) patientDB.setBirthMonth(patient.getBirthMonth());
+        if (patient.getBirthYear() != null) patientDB.setBirthYear(patient.getBirthYear());
+        if (patient.getInstitutionId() != null) patientDB.setInstitutionId(patient.getInstitutionId());
 
         patientDao.update(patientDB);
         return patientDB;
     }
 
 
-
     @Transactional(readOnly = true)
-    public Integer count(){
+    public Integer count() {
         return patientDao.count();
     }
 
     @Transactional(readOnly = true)
-    public List<Patient> allOrderedBy(String orderByParam, boolean desc){
+    public List<Patient> allOrderedBy(String orderByParam, boolean desc) {
         return patientDao.allOrderedBy(orderByParam, desc);
     }
 
     @Transactional(readOnly = true)
-    public List<Patient> nOrderedBy(String orderByParam, boolean desc, int number){
+    public List<Patient> nOrderedBy(String orderByParam, boolean desc, int number) {
         return patientDao.nOrderedBy(orderByParam, desc, number);
     }
 
     @Transactional(readOnly = true)
-    public Patient eagerGet(Long patientId, boolean samples){
-           notNull(patientId);
-           Patient patientDB = patientDao.get(patientId);
+    public Patient eagerGet(Long patientId, boolean samples) {
+        notNull(patientId);
+        Patient patientDB = patientDao.get(patientId);
 
 //           if(samples){
 //               logger.debug("" + patientDB.getSamples());
 //           }
 
-           return patientDB;
-       }
+        return patientDB;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Patient> find(Patient patient, int requiredResults) {
+        notNull(patient);
+
+        List<Patient> patients = patientDao.findPatient(patient);
+        if (patients == null) {
+            return null;
+        }
+        if (requiredResults > patients.size()) {
+            return patients;
+        }
+        return patients.subList(0, requiredResults);
+    }
 
 }

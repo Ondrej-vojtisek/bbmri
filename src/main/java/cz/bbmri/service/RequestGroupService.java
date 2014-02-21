@@ -15,7 +15,9 @@ import java.util.List;
  */
 public interface RequestGroupService  extends BasicService<RequestGroup>{
 
-    void create(List<Request> requests, Long projectId);
+    //void create(List<Request> requests, Long projectId);
+
+    boolean create(List<Long> samplesId, Long sampleRequestId);
 
  //   List<RequestGroup> getByBiobank(Long biobankId);
 

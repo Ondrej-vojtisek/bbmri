@@ -1,7 +1,15 @@
 package cz.bbmri.facade;
 
+import cz.bbmri.entities.Module;
+import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.DiagnosisMaterial;
+import cz.bbmri.entities.sample.Genome;
+import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
+import net.sourceforge.stripes.validation.ValidationErrors;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,11 +20,15 @@ import cz.bbmri.entities.sample.Tissue;
  */
 public interface SampleFacade {
 
-      boolean create(Tissue tissue);
+    boolean create(Sample sample, ValidationErrors errors);
 
-      boolean create(Sample sample);
+    Sample get(Long sampleId);
 
-      Sample get (Long sampleId);
+    Module getModule(Long moduleId);
+
+    List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
+
+    boolean createRequestGroup(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors);
 
 //    boolean createSample(Sample sample);
 //

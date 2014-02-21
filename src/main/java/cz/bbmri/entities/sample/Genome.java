@@ -27,7 +27,10 @@ public class Genome extends Sample {
         this.sampleNos = sampleNos;
     }
 
-    public String getType(){
-        return "Genome";
+    @Override
+    public String toString() {
+        return "Genome{" +
+                "sampleNos=" + sampleNos +
+                '}';
     }
 }

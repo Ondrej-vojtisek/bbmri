@@ -4,7 +4,7 @@ default namespace = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy"
 start =
 element biobank {
 	## unique identifier of a biobank (assigned by a coordinator)
-	attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "32" } },
+	attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "6" } },
 
 	( container )*,
 

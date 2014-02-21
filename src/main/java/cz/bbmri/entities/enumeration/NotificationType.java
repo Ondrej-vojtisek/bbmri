@@ -16,25 +16,25 @@ public enum NotificationType {
 
     /* ProjectFacade notifications */
 
-    PROJECT_DETAIL(ProjectActionBean.class.getName(),  "detail"),
-    PROJECT_ATTACHMENT(ProjectActionBean.class.getName(), "attachments"),
-    PROJECT_ADMINISTRATOR(ProjectActionBean.class.getName(), "administratorsResolution"),
-    PROJECT_DELETE(ProjectActionBean.class.getName(), null),
+    PROJECT_DETAIL(ProjectActionBean.class.getName(),  "detail", "projectId"),
+    PROJECT_ATTACHMENT(ProjectActionBean.class.getName(), "attachments", "projectId"),
+    PROJECT_ADMINISTRATOR(ProjectActionBean.class.getName(), "administratorsResolution", "projectId"),
+    PROJECT_DELETE(ProjectActionBean.class.getName(), null, null),
 
     /* BiobankFacade notifications */
 
-    BIOBANK_DETAIL(BiobankActionBean.class.getName(), "detail"),
-    BIOBANK_ADMINISTRATOR(BiobankActionBean.class.getName(), "administratorsResolution"),
-    BIOBANK_DELETE(BiobankActionBean.class.getName(), null),
+    BIOBANK_DETAIL(BiobankActionBean.class.getName(), "detail", "biobankId"),
+    BIOBANK_ADMINISTRATOR(BiobankActionBean.class.getName(), "administratorsResolution", "biobankId"),
+    BIOBANK_DELETE(BiobankActionBean.class.getName(), null, null),
 
     /* UserFacade notifications */
 
     /* RequestFacade notifications */
 
-    SAMPLE_REQUEST_DETAIL(RequestActionBean.class.getName(), "detail"),
+    SAMPLE_REQUEST_DETAIL(RequestActionBean.class.getName(), "detail", "sampleRequestId"),
 
     /* This should lead to support page - list of all administrators and developers */
-    USER_SUPPORT(null, "detail");
+    USER_SUPPORT(null, "detail", null);
 
 
 
@@ -42,11 +42,14 @@ public enum NotificationType {
 
     private String confirmEvent;
 
+    private String parameter;
+
   //  private String denyEvent;
 
-    private NotificationType(String actionBeanName, String confirmEvent) {
+    private NotificationType(String actionBeanName, String confirmEvent, String parameter) {
         this.actionBeanName = actionBeanName;
         this.confirmEvent = confirmEvent;
+        this.parameter = parameter;
     }
 
     public String getActionBeanName() {
@@ -58,4 +61,7 @@ public enum NotificationType {
         return confirmEvent;
     }
 
+    public String getParameter() {
+        return parameter;
+    }
 }

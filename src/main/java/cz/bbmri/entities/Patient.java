@@ -39,9 +39,6 @@ public class Patient implements Serializable {
 
     private boolean consent;
 
-//    @OneToMany(mappedBy = "patient")
-//    private List<Sample> samples = new ArrayList<Sample>();
-
     @OneToOne(mappedBy = "patient")
     private ModuleSTS moduleSTS;
 

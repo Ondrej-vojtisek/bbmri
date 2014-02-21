@@ -43,6 +43,34 @@ public class SampleActionBean extends PermissionActionBean {
         return sample;
     }
 
+    public boolean getIsTissue() {
+        if (getSample() == null) {
+            return false;
+        }
+        return sample instanceof Tissue;
+    }
+
+    public boolean getIsSerum() {
+        if (getSample() == null) {
+            return false;
+        }
+        return sample instanceof Serum;
+    }
+
+    public boolean getIsDiagnosisMaterial() {
+        if (getSample() == null) {
+            return false;
+        }
+        return sample instanceof DiagnosisMaterial;
+    }
+
+    public boolean getIsGenome() {
+           if (getSample() == null) {
+               return false;
+           }
+           return sample instanceof Genome;
+       }
+
     public Tissue getTissue() {
         return (Tissue) getSample();
     }

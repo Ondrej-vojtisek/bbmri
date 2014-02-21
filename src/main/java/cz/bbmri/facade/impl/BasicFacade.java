@@ -27,6 +27,8 @@ public class BasicFacade {
     protected static final int SUCCESS = 0;
     protected static final int NOT_SUCCESS = -1;
 
+    protected static final int MAXIMUM_FIND_RESULTS = 5;
+
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired

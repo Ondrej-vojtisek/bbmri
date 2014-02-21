@@ -5,12 +5,11 @@
 
     <thead>
     <tr>
-        <th><f:message key="cz.bbmri.entities.Sample.type"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.sampleId"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.year"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.number"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.takingDate"/></th>
-        <th><f:message key="cz.bbmri.entities.Sample.tissueType"/></th>
+        <th><f:message key="cz.bbmri.entities.Sample.materialType"/></th>
     </tr>
     </thead>
 

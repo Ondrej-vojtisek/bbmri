@@ -1,6 +1,7 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.enumeration.SampleType;
 import cz.bbmri.entities.sample.field.SampleNos;
 
 import javax.persistence.Embedded;
@@ -27,7 +28,10 @@ public class Serum extends Sample {
         this.sampleNos = sampleNos;
     }
 
-    public String getType(){
-        return "Serum";
+    @Override
+    public String toString() {
+        return "Serum{" +
+                "sampleNos=" + sampleNos +
+                '}';
     }
 }

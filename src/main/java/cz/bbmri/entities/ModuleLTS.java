@@ -14,4 +14,7 @@ import java.io.Serializable;
 @Entity
 public class ModuleLTS extends Module {
 
+    public String getType(){
+           return "ModuleLTS";
+       }
 }

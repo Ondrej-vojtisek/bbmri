@@ -37,7 +37,7 @@ public class Sample implements Serializable {
     private Date takingDate;
 
     @Embedded
-    private MaterialType tissueType;
+    private MaterialType materialType;
 
     @ManyToOne
     private Module module;
@@ -81,12 +81,12 @@ public class Sample implements Serializable {
         this.takingDate = takingDate;
     }
 
-    public MaterialType getTissueType() {
-        return tissueType;
+    public MaterialType getMaterialType() {
+        return materialType;
     }
 
-    public void setTissueType(MaterialType tissueType) {
-        this.tissueType = tissueType;
+    public void setMaterialType(MaterialType materialType) {
+        this.materialType = materialType;
     }
 
     public Module getModule() {
@@ -113,10 +113,6 @@ public class Sample implements Serializable {
         this.positions = positions;
     }
 
-    public String getType(){
-        return "Sample";
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -141,7 +137,7 @@ public class Sample implements Serializable {
                 ", sampleIdentificator=" + sampleIdentificator +
                 ", retrieved=" + retrieved +
                 ", takingDate=" + takingDate +
-                ", tissueType=" + tissueType +
+                ", materialType=" + materialType +
                 ", module=" + module +
                 ", requests=" + requests +
                 '}';

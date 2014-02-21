@@ -40,6 +40,8 @@ public interface BiobankFacade extends PermissionFacade {
 
     Patient getPatient(Long patientId);
 
+    boolean createPatient(Patient patient, Long biobankId, ValidationErrors errors);
+
     Infrastructure getInfrastructure(Long infrastructureId);
 
     Container getContainer(Long containerId);
@@ -57,6 +59,8 @@ public interface BiobankFacade extends PermissionFacade {
     boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors);
 
     boolean createBox(Long rackId, RackBox box, ValidationErrors errors);
+
+    List<Patient> find(Patient patient, int requiredResults);
 
 
     // List<RequestGroup> getNewRequestGroups(Long biobankId);

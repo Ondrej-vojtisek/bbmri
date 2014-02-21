@@ -166,14 +166,6 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<li <c:if test="${primarymenu == 'sample'}"> class="active" </c:if>">
-    <s:link beanclass="cz.bbmri.action.sample.CreateSampleActionBean" event="create">
-        Create sample
-    </s:link>
-</li>
-
-<%-- -------------------------------------------------------------------- --%>
-
 <li <c:if test="${primarymenu == 'support'}"> class="active" </c:if>">
     <s:link beanclass="cz.bbmri.action.support.SupportActionBean">
         <f:message key="support"/>

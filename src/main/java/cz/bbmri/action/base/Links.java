@@ -96,12 +96,25 @@ public class Links {
     private static final String REQUEST = BASIC_PATH + "/request/";
     /* ********************************** */
     protected static final String REQUEST_DETAIL = REQUEST + "detail.jsp";
+    protected static final String REQUESTGROUP_CREATE = REQUEST + "create/createRequestGroup.jsp";
 
     // SAMPLE DETAIL
 
     protected static final String SAMPLE_DETAIL = "/webpages/sample/detail.jsp";
     protected static final String SAMPLE_RESERVATIONS = "/webpages/sample/reservations.jsp";
     protected static final String SAMPLE_PROJECTS = "/webpages/sample/projects.jsp";
+
+    // SAMPLE CREATE
+
+    protected static final String SAMPLE_CREATE_INITIAL = "/webpages/sample/create/1_initial.jsp";
+    protected static final String SAMPLE_CREATE_TYPE = "/webpages/sample/create/2_type.jsp";
+    protected static final String SAMPLE_CREATE_CLASIFICATIONS = "/webpages/sample/create/3_clasifications.jsp";
+    protected static final String SAMPLE_CREATE_CONFIRM = "/webpages/sample/create/4_confirm.jsp";
+
+    // PATIENT CREATE
+
+    protected static final String PATIENT_CREATE_INITIAL = "/webpages/patient/create/1_initial.jsp";
+    protected static final String PATIENT_FIND = "/webpages/patient/findPatient.jsp";
 
     // INFRASTRUCTURE
 

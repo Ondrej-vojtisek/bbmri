@@ -1,11 +1,7 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.PatientDao;
-import cz.bbmri.dao.RequestDao;
-import cz.bbmri.dao.SampleDao;
+import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
-import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.service.SampleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +31,12 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     @Autowired
     private PatientDao patientDao;
 
+    @Autowired
+    private ModuleDao moduleDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
+
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     /*
@@ -45,32 +47,25 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
     */
 
-    public Sample create(Sample sample, Long patientId) {
+    public Sample create(Sample sample, Long moduleId) {
         notNull(sample);
-//        notNull(patientId);
-//
-//        Patient patientDB = patientDao.get(patientId);
-//        if (patientDB == null) {
-//            return null;
-//            // TODO: exception
-//        }
+
+        if (sample.getModule() == null) {
+            if (moduleId == null) {
+                logger.debug("Module must be defined during sample create");
+                return null;
+            }
+            Module moduleDB = moduleDao.get(moduleId);
+            if (moduleDB == null) {
+                logger.debug("ModuleDB can't be null");
+                return null;
+            }
+            sample.setModule(moduleDB);
+        }
 
         sampleDao.create(sample);
-
-       // sample.setPatient(patientDB);
-//        sampleDao.update(sample);
-//        patientDB.getSamples().add(sample);
-//        patientDao.update(patientDB);
-
-
         return sample;
     }
-
-    public Tissue create(Tissue tissue, Long patientId){
-        sampleDao.create(tissue);
-        return tissue;
-    }
-
 
     public boolean remove(Long id) {
 
@@ -167,12 +162,19 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public List<Sample> getSamplesByQuery(Sample sample) {
+    public List<Sample> getSamplesByQuery(Sample sample, Long biobankId, Patient patient, boolean lts) {
         notNull(sample);
 
-        // TODO: there should be also link to biobank
+        logger.debug("Service findSamples sample: " + sample + " biobankId: " + biobankId + " Patient: " + patient
+                + " LTS: " + lts);
 
-        return sampleDao.getSelected(sample, null);
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if(biobankDB == null){
+            logger.debug("Biobank can't be null");
+            return null;
+        }
+
+        return sampleDao.getSelected(sample, biobankDB, patient, lts);
     }
 
     @Transactional(readOnly = true)
@@ -206,12 +208,12 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public List<Sample> allOrderedBy(String orderByParam, boolean desc){
+    public List<Sample> allOrderedBy(String orderByParam, boolean desc) {
         return sampleDao.allOrderedBy(orderByParam, desc);
     }
 
     @Transactional(readOnly = true)
-    public List<Sample> nOrderedBy(String orderByParam, boolean desc, int number){
+    public List<Sample> nOrderedBy(String orderByParam, boolean desc, int number) {
         return sampleDao.nOrderedBy(orderByParam, desc, number);
     }
 

@@ -8,7 +8,7 @@
                 <td>${tissue.morphology.classification}</td>
                 <td>${tissue.morphology.grading}</td>
                 <td>${tissue.freezeDate}</td>
-                <td>${tissue.sampleNos.availableSampleNo}</td>
+                <td>${tissue.sampleNos.availableSamplesNo}</td>
                 <td>${tissue.sampleNos.samplesNo}</td>
 
 </s:layout-definition>
