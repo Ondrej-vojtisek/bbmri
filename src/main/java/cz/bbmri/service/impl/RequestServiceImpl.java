@@ -84,7 +84,6 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
             request.setSampleRequest(sampleRequestDB);
             requestDao.create(request);
 
-
             int availableSamples = sampleDB.getSampleNos().getAvailableSamplesNo();
             sampleDB.getSampleNos().setAvailableSamplesNo(
                     availableSamples - Request.IMPLICIT_REQUESTED_SAMPLES);
