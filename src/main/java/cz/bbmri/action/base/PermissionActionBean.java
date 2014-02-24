@@ -62,6 +62,8 @@ public class PermissionActionBean extends BasicActionBean {
         return project;
     }
 
+
+
     private Long userId;
 
     public Long getUserId() {
@@ -99,6 +101,9 @@ public class PermissionActionBean extends BasicActionBean {
     }
 
     public boolean getAllowedProjectExecutor() {
+        logger.debug("GetAllowedProjectExecutor");
+        logger.debug("ProjectId: " + projectId);
+
         return projectFacade.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
     }
 

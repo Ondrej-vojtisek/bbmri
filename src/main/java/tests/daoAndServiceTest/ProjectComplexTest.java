@@ -6,7 +6,6 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
-import cz.bbmri.service.RequestGroupService;
 import cz.bbmri.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,6 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
     private ProjectService projectService;
 
     @Autowired
-    private RequestGroupService requestGroupService;
-
-    @Autowired
     private ProjectAdministratorService projectAdministratorService;
 
         /* ********* GIVEN ********** */
@@ -53,7 +49,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         /* ********* THEN ********** */
 
         user = userService.eagerGet(user.getId(),false, true, false, false);
-        project = projectService.eagerGet(project.getId(), true, false, false, false);
+        project = projectService.eagerGet(project.getId(), true, false, false);
 
         assertEquals(1, project.getProjectAdministrators().size());
         assertEquals(1, user.getProjectAdministrators().size());
@@ -78,10 +74,6 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
         userService.create(user2);
 
         projectService.approve(project.getId(), user2.getId());
-
-        // TODO: RequestGroup dodelat
-        //RequestGroup requestGroup = createRequestGroup(1);
-        //requestGroupService.create();
 
         /* ********* WHEN ********** */
 

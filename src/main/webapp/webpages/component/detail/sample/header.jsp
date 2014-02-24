@@ -10,6 +10,8 @@
         <th><f:message key="cz.bbmri.entities.Sample.number"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.takingDate"/></th>
         <th><f:message key="cz.bbmri.entities.Sample.materialType"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.samplesNo"/></th>
     </tr>
     </thead>
 

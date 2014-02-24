@@ -10,6 +10,7 @@ import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
@@ -44,12 +45,12 @@ public class CreateSampleActionBean extends PermissionActionBean {
 
     private Long sampleId;
 
-//    @ValidateNestedProperties(value = {
-//            @Validate(on = "confirmStep1", field = "sampleIdentificator.sampleId", required = true),
-//            @Validate(on = "confirmStep1", field = "retrieved", required = true),
-//            @Validate(on = "confirmStep1", field = "takingDate", required = true),
-//            @Validate(on = "confirmStep2", field = "materialType.type", required = true)
-//    })
+    @ValidateNestedProperties(value = {
+            @Validate(on = "confirmStep1", field = "sampleIdentificator.sampleId", required = true),
+            @Validate(on = "confirmStep1", field = "retrieved", required = true),
+            @Validate(on = "confirmStep1", field = "takingDate", required = true),
+            @Validate(on = "confirmStep2", field = "materialType.type", required = true)
+    })
     private Sample sample;
 
     private Long moduleId;
@@ -218,7 +219,6 @@ public class CreateSampleActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution confirmStep4() {
         Sample sampleOUT = (Sample) tissue;
-        String type = "";
 
         if (getIsTissue()) {
             sampleOUT = (Sample) tissue;
@@ -229,6 +229,18 @@ public class CreateSampleActionBean extends PermissionActionBean {
         }
 
         if (getIsDiagnosisMaterial()) {
+
+            /* This is not part of create wizard */
+
+            if(sample.getSampleNos() == null){
+                sample.setSampleNos(new SampleNos());
+            }
+
+             /* Implicit amount - there is only one sample */
+
+            sample.getSampleNos().setAvailableSamplesNo(1);
+            sample.getSampleNos().setSamplesNo(1);
+
             sampleOUT = (Sample) diagnosisMaterial;
         }
 
@@ -241,6 +253,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         sampleOUT.setSampleIdentificator(sample.getSampleIdentificator());
         sampleOUT.setRetrieved(sample.getRetrieved());
         sampleOUT.setModule(getModule());
+        sampleOUT.setSampleNos(sample.getSampleNos());
 
         Object object = sampleOUT;
         logger.debug("ObjectType: " + object.getClass());

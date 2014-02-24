@@ -22,7 +22,6 @@
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
-        <class>cz.bbmri.entities.RequestGroup</class>
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.sample.Tissue</class>
         <class>cz.bbmri.entities.sample.Genome</class>
@@ -64,7 +63,6 @@
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
-        <class>cz.bbmri.entities.RequestGroup</class>
         <class>cz.bbmri.entities.Sample</class>
         <class>cz.bbmri.entities.sample.Tissue</class>
         <class>cz.bbmri.entities.sample.Genome</class>

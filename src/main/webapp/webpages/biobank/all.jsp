@@ -27,26 +27,16 @@
                             <%--This is important for the instance based ACL--%>
                         <c:set target="${biobankBean}" property="biobankId" value="${biobank.id}"/>
 
-                        <security:allowed bean="biobankBean" event="edit">
+                        <security:allowed bean="biobankBean" event="detail">
                             <div class="tableAction">
-                                <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="edit"
-                                        class="btn btn-primary btnMargin">
+                                <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
+                                        class="btn btn-info btnMargin">
                                     <s:param name="biobankId" value="${biobank.id}"/>
-                                    <f:message key="edit"/>
+                                    <f:message key="detail"/>
                                 </s:link>
                             </div>
                         </security:allowed>
-                        <security:notAllowed bean="biobankBean" event="edit">
-                            <security:allowed bean="biobankBean" event="detail">
-                                <div class="tableAction">
-                                    <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
-                                            class="btn btn-info btnMargin">
-                                        <s:param name="biobankId" value="${biobank.id}"/>
-                                        <f:message key="detail"/>
-                                    </s:link>
-                                </div>
-                            </security:allowed>
-                        </security:notAllowed>
+
 
                         <security:allowed bean="biobankBean" event="delete">
                             <s:form beanclass="cz.bbmri.action.biobank.BiobankActionBean">

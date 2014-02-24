@@ -1,9 +1,6 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.sample.field.SampleNos;
-
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 /**
@@ -15,22 +12,4 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Genome extends Sample {
-
-    @Embedded
-    private SampleNos sampleNos;
-
-    public SampleNos getSampleNos() {
-        return sampleNos;
-    }
-
-    public void setSampleNos(SampleNos sampleNos) {
-        this.sampleNos = sampleNos;
-    }
-
-    @Override
-    public String toString() {
-        return "Genome{" +
-                "sampleNos=" + sampleNos +
-                '}';
-    }
 }

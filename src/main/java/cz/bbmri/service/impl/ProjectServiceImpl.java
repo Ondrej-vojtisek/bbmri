@@ -37,9 +37,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     private AttachmentDao attachmentDao;
 
     @Autowired
-    private RequestGroupDao requestGroupDao;
-
-    @Autowired
     private ProjectAdministratorDao projectAdministratorDao;
 
     @Autowired
@@ -82,14 +79,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             judge.getJudgedProjects().remove(projectDB);
             userDao.update(judge);
         }
-
-//        List<RequestGroup> requestGroups = projectDB.getRequestGroups();
-//        if (requestGroups != null) {
-//
-//            for (RequestGroup requestGroup : requestGroups) {
-//                requestGroupDao.remove(requestGroup);
-//            }
-//        }
 
         List<SampleRequest> sampleRequests = projectDB.getSampleRequests();
                 if (sampleRequests != null) {
@@ -279,7 +268,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
     @Transactional(readOnly = true)
-    public Project eagerGet(Long id, boolean users, boolean requestGroups, boolean attachments, boolean sampleRequests) {
+    public Project eagerGet(Long id, boolean users, boolean attachments, boolean sampleRequests) {
         notNull(id);
         Project projectDB = projectDao.get(id);
 
@@ -288,10 +277,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         if (users) {
             logger.debug("" + projectDB.getProjectAdministrators());
         }
-
-//        if (requestGroups) {
-//            logger.debug("" + projectDB.getRequestGroups());
-//        }
 
         if (attachments) {
             logger.debug("" + projectDB.getAttachments());

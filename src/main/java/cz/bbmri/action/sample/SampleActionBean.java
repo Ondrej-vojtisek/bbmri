@@ -1,6 +1,7 @@
 package cz.bbmri.action.sample;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.entities.Project;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
@@ -13,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -93,6 +96,14 @@ public class SampleActionBean extends PermissionActionBean {
 
     public void setSampleId(Long sampleId) {
         this.sampleId = sampleId;
+    }
+
+    public List<Project> getProjectsBySample(){
+        if(getSample() == null){
+            return null;
+        }
+
+        return sampleFacade.getProjectsBySample(sampleId);
     }
 
     /* Methods */

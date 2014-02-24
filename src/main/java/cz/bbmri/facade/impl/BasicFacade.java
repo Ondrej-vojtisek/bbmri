@@ -1,8 +1,8 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.User;
+import cz.bbmri.entities.*;
+import cz.bbmri.service.BiobankAdministratorService;
+import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -35,7 +35,13 @@ public class BasicFacade {
     private ProjectService projectService;
 
     @Autowired
+    private BiobankService biobankService;
+
+    @Autowired
     private ProjectAdministratorService projectAdministratorService;
+
+    @Autowired
+    private BiobankAdministratorService biobankAdministratorService;
 
     public static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
@@ -50,30 +56,54 @@ public class BasicFacade {
         }
     }
 
-    public static void fatalError(ValidationErrors errors){
+    public static void fatalError(ValidationErrors errors) {
         errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.dbg.fatal"));
     }
 
-    /* Here because it is useful at more facades when we need to send notification */
+    /* Definition here because it is useful at more facades when we need to send notification */
     public List<User> getProjectAdministratorsUsers(Long projectId) {
-           Project projectDB = projectService.eagerGet(projectId, true, false, false, false);
-           List<User> users = new ArrayList<User>();
-           for(ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()){
-               users.add(projectAdministrator.getUser());
-           }
-           return users;
-       }
+        Project projectDB = projectService.eagerGet(projectId, true, false, false);
+        List<User> users = new ArrayList<User>();
+        for (ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()) {
+            users.add(projectAdministrator.getUser());
+        }
+        return users;
+    }
 
-    /* Here because it is useful at more facades when we need to send notification */
-   public List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
-        Project projectDB = projectService.eagerGet(project.getId(), true, false, false, false);
+    /* Definition here because it is useful at more facades when we need to send notification */
+    public List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
+        Project projectDB = projectService.eagerGet(project.getId(), true, false, false);
         Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
-        ProjectAdministrator paExclude = projectAdministratorService.get(project.getId(), excludedUserId);
-        projectAdministrators.remove(paExclude);
+
+        if (excludedUserId != null) {
+              ProjectAdministrator paExclude = projectAdministratorService.get(project.getId(), excludedUserId);
+              if (projectAdministrators.contains(paExclude)) {
+                  projectAdministrators.remove(paExclude);
+              }
+          }
 
         List<User> users = new ArrayList<User>();
         for (ProjectAdministrator pa : projectAdministrators) {
             users.add(pa.getUser());
+        }
+
+        return users;
+    }
+
+    public List<User> getOtherBiobankAdministrators(Biobank biobank, Long excludedUserId) {
+        Biobank biobankDB = biobankService.eagerGet(biobank.getId(), false, false);
+        Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
+
+        if (excludedUserId != null) {
+            BiobankAdministrator baExclude = biobankAdministratorService.get(biobank.getId(), excludedUserId);
+            if (biobankAdministrators.contains(baExclude)) {
+                biobankAdministrators.remove(baExclude);
+            }
+        }
+
+        List<User> users = new ArrayList<User>();
+        for (BiobankAdministrator ba : biobankAdministrators) {
+            users.add(ba.getUser());
         }
 
         return users;

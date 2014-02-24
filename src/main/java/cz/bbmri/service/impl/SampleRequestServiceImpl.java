@@ -116,7 +116,21 @@ public class SampleRequestServiceImpl extends BasicServiceImpl implements Sample
     }
 
     public SampleRequest update(SampleRequest sampleRequest) {
-        sampleRequestDao.update(sampleRequest);
+        if (sampleRequest == null) {
+            logger.debug("SampleRequest can't be null");
+            return null;
+        }
+        SampleRequest sampleRequestDB = sampleRequestDao.get(sampleRequest.getId());
+
+        if (sampleRequestDB == null) {
+            logger.debug("SampleRequestDB can't be null");
+            return null;
+        }
+
+        if(sampleRequest.getRequestState() != null ) sampleRequestDB.setRequestState(sampleRequest.getRequestState());
+        sampleRequestDB.setLastModification(new Date());
+
+        sampleRequestDao.update(sampleRequestDB);
         return sampleRequest;
     }
 
@@ -144,7 +158,7 @@ public class SampleRequestServiceImpl extends BasicServiceImpl implements Sample
 
         // eagerGet
 
-        logger.debug("SampleRequest: " + sampleRequestDB.getRequestGroups());
+        logger.debug("SampleRequest: " + sampleRequestDB.getRequests());
 
         return sampleRequestDB;
     }

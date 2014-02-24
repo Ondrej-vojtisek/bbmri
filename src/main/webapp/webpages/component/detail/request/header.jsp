@@ -5,6 +5,11 @@
 
     <thead>
     <tr>
+
+        <th><f:message key="cz.bbmri.entities.Sample.sampleId"/></th>
+        <th><f:message key="cz.bbmri.entities.Sample.tissueType"/></th>
+        <th><f:message key="cz.bbmri.entities.Request.numOfRequested"/></th>
+
     </tr>
     </thead>
 

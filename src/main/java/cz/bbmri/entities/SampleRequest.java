@@ -4,9 +4,9 @@ import cz.bbmri.entities.enumeration.RequestState;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,10 +30,10 @@ public class SampleRequest {
     @Column(name = "SPECIFICATION", columnDefinition = "TEXT")
     private String specification;
 
-    @ManyToOne//(cascade = CascadeType.MERGE)
+    @ManyToOne
     private Biobank biobank;
 
-    @ManyToOne//(cascade = CascadeType.MERGE)
+    @ManyToOne
     private Project project;
 
     @Enumerated(EnumType.STRING)
@@ -46,7 +46,7 @@ public class SampleRequest {
     private Date lastModification;
 
     @OneToMany(mappedBy = "sampleRequest")
-    private List<RequestGroup> requestGroups = new ArrayList<RequestGroup>();
+    private Set<Request> requests = new HashSet<Request>();
 
     public Long getId() {
         return id;
@@ -104,35 +104,43 @@ public class SampleRequest {
         this.lastModification = lastModification;
     }
 
-    private boolean checkState(RequestState requestState){
-        if(getRequestState() == null){
+    private boolean checkState(RequestState requestState) {
+        if (getRequestState() == null) {
             return false;
         }
         return getRequestState().equals(requestState);
     }
 
-    public boolean isApproved(){
+    public boolean isApproved() {
         return checkState(RequestState.APPROVED);
     }
 
-    public boolean isNew(){
+    public boolean isNew() {
         return checkState(RequestState.NEW);
     }
 
-    public boolean isDenied(){
+    public boolean isDenied() {
         return checkState(RequestState.DENIED);
     }
 
-    public boolean isDelivered(){
+    public boolean isClosed() {
+        return checkState(RequestState.CLOSED);
+    }
+
+    public boolean isAgreed() {
+          return checkState(RequestState.AGREED);
+      }
+
+    public boolean isDelivered() {
         return checkState(RequestState.DELIVERED);
     }
 
-    public List<RequestGroup> getRequestGroups() {
-        return requestGroups;
+    public Set<Request> getRequests() {
+        return requests;
     }
 
-    public void setRequestGroups(List<RequestGroup> requestGroups) {
-        this.requestGroups = requestGroups;
+    public void setRequests(Set<Request> requests) {
+        this.requests = requests;
     }
 
     @Override

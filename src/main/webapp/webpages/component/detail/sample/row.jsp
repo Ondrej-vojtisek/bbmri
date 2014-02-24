@@ -3,10 +3,12 @@
 
 <s:layout-definition>
 
-                <td>${sample.sampleIdentificator.sampleId}</td>
-                <td>${sample.sampleIdentificator.year}</td>
-                <td>${sample.sampleIdentificator.number}</td>
-                <td>${sample.takingDate}</td>
-                <td>${sample.materialType}</td>
+    <td>${sample.sampleIdentificator.sampleId}</td>
+    <td>${sample.sampleIdentificator.year}</td>
+    <td>${sample.sampleIdentificator.number}</td>
+    <td>${sample.takingDate}</td>
+    <td>${sample.materialType}</td>
+    <td>${sample.sampleNos.availableSamplesNo}</td>
+    <td>${sample.sampleNos.samplesNo}</td>
 
 </s:layout-definition>

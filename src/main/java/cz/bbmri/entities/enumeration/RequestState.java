@@ -12,7 +12,8 @@ public enum RequestState {
     NEW("new"),
     APPROVED("approved"),
     DENIED("denied"),
-    PREPARED("prepared"),
+    CLOSED("closed"),
+    AGREED("agreed"),
     DELIVERED("delivered");
 
     /**

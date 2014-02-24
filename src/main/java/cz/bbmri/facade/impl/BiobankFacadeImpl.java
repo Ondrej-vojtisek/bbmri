@@ -33,9 +33,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     private BiobankService biobankService;
 
     @Autowired
-    private RequestGroupService requestGroupService;
-
-    @Autowired
     private RequestService requestService;
 
     @Autowired
@@ -129,19 +126,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return true;
     }
 
-    private List<User> getOtherProjectWorkers(Biobank biobank, Long excludedUserId) {
-        Biobank biobankDB = biobankService.eagerGet(biobank.getId(), false, false, false);
-        Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
-        BiobankAdministrator baExclude = biobankAdministratorService.get(biobank.getId(), excludedUserId);
-        biobankAdministrators.remove(baExclude);
 
-        List<User> users = new ArrayList<User>();
-        for (BiobankAdministrator ba : biobankAdministrators) {
-            users.add(ba.getUser());
-        }
-
-        return users;
-    }
 
     public boolean updateBiobank(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
         notNull(biobank);
@@ -154,7 +139,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
             String msg = "Biobank " + biobank.getName() + " was updated.";
 
-            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+            notificationService.create(getOtherBiobankAdministrators(biobank, loggedUserId),
                     NotificationType.BIOBANK_DETAIL, msg, biobank.getId());
 
             return true;
@@ -195,7 +180,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         if (result) {
             String msg = "Biobank " + biobankDB.getName() + " was removed.";
 
-            notificationService.create(getOtherProjectWorkers(biobankDB, loggedUserId),
+            notificationService.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
                     NotificationType.BIOBANK_DELETE, msg, biobankDB.getId());
         }
 
@@ -241,7 +226,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             String msg = "New administrator was assigned to biobank: " + biobankDB.getName() +
                     ". His name is: " + newAdmin.getWholeName() + " and his permission is: " + permission + ". ";
 
-            notificationService.create(getOtherProjectWorkers(biobankDB, loggedUserId),
+            notificationService.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
                     NotificationType.BIOBANK_ADMINISTRATOR, msg, biobankDB.getId());
 
         }
@@ -284,7 +269,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
             String msg = "Permission of " + user.getWholeName() + " was changed to: " + permission;
 
-            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+            notificationService.create(getOtherBiobankAdministrators(biobank, loggedUserId),
                     NotificationType.BIOBANK_ADMINISTRATOR, msg, biobank.getId());
         }
         return result;
@@ -316,7 +301,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
             String msg = "Permission of " + user.getWholeName() + " to access biobank " + biobank.getName() + " was removed.";
 
-            notificationService.create(getOtherProjectWorkers(biobank, loggedUserId),
+            notificationService.create(getOtherBiobankAdministrators(biobank, loggedUserId),
                     NotificationType.BIOBANK_ADMINISTRATOR, msg, biobank.getId());
         }
 
@@ -370,7 +355,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public List<Patient> getAllPatients(Long biobankId) {
         notNull(biobankId);
-        Biobank biobankDB = biobankService.eagerGet(biobankId, true, false, false);
+        Biobank biobankDB = biobankService.eagerGet(biobankId, true, false);
         return biobankDB.getPatients();
     }
 
@@ -388,7 +373,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     public List<SampleRequest> getBiobankSampleRequests(Long biobankId) {
         notNull(biobankId);
 
-        Biobank biobankDB = biobankService.eagerGet(biobankId, false, false, true);
+        Biobank biobankDB = biobankService.eagerGet(biobankId, false, true);
         return biobankDB.getSampleRequests();
     }
 
@@ -509,29 +494,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 //
 //    }
 
-    /*
-        public List<RequestGroup> getNewRequestGroups(Long biobankId) {
-            notNull(biobankId);
-            return requestGroupService.getByBiobankAndState(biobankId, RequestState.NEW);
-        }
-    */
-
-
-//    public List<Request> getRequests(Long requestGroupId) {
-//        notNull(requestGroupId);
-//        RequestGroup rqg = requestGroupService.eagerGet(requestGroupId, true);
-//        return rqg.getRequests();
-//    }
-//
-//    public void approveRequestGroup(Long requestGroupId) {
-//        notNull(requestGroupId);
-//        requestGroupService.approveRequestGroup(requestGroupId);
-//    }
-//
-//    public void rejectRequestGroup(Long requestGroupId) {
-//        notNull(requestGroupId);
-//        requestGroupService.denyRequestGroup(requestGroupId);
-//    }
 
 
 }

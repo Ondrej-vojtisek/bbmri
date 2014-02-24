@@ -10,8 +10,6 @@
         <th><f:message key="cz.bbmri.entities.sample.Tissue.morphology"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.Morphology.grading"/></th>
         <th><f:message key="cz.bbmri.entities.sample.Tissue.freezeDate"/></th>
-        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"/></th>
-        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.samplesNo"/></th>
     </tr>
     </thead>
 

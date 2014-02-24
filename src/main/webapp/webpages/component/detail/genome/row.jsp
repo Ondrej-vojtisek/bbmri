@@ -3,7 +3,6 @@
 
 <s:layout-definition>
 
-                <td>${genome.sampleNos.availableSampleNo}</td>
-                <td>${genome.sampleNos.samplesNo}</td>
+
 
 </s:layout-definition>

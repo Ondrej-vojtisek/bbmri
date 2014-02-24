@@ -21,8 +21,8 @@ import java.util.List;
  * Time: 15:12
  * To change this template use File | Settings | File Templates.
  */
-@UrlBinding("/createrequestgroup/{$event}/{sampleRequestId}")
-public class CreateRequestGroup extends PermissionActionBean {
+@UrlBinding("/createrequests/{$event}/{sampleRequestId}")
+public class CreateRequestsActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -116,28 +116,37 @@ public class CreateRequestGroup extends PermissionActionBean {
     @HandlesEvent("initial")
     @RolesAllowed({"administrator", "developer", "project_team_member", "biobank_operator"})
     public Resolution initial() {
-        return new ForwardResolution(REQUESTGROUP_CREATE);
+        return new ForwardResolution(CREATE_REQUESTS);
     }
 
     @HandlesEvent("find") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution find() {
-        logger.debug("Sample: " + sample);
-        logger.debug("Patient: " + patient);
-        logger.debug("BiobankId: " + biobankId);
-        logger.debug("ModuleLTS: " + moduleLTS);
-
-        return new ForwardResolution(this.getClass(), "initial");
+        return new ForwardResolution(this.getClass(), "initial")
+                .addParameter("biobankId", biobankId)
+                .addParameter("sampleRequestId", sampleRequestId);
     }
 
-    @HandlesEvent("cofirmSelected") /* Necessary for stripes security tag*/
+    @HandlesEvent("confirmSelected") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution cofirmSelected() {
+    public Resolution confirmSelected() {
         logger.debug("ConfirmSelected: " + selectedSamples);
+        logger.debug("SampleRequestId: " + sampleRequestId);
 
-        return new ForwardResolution(this.getClass(), "initial");
+        if (!requestFacade.createRequests(selectedSamples,
+                sampleRequestId,
+                getContext().getValidationErrors(),
+                getContext().getMessages())) {
+
+            return new ForwardResolution(RequestActionBean.class, "detail")
+                    .addParameter("biobankId", biobankId)
+                    .addParameter("sampleRequestId", sampleRequestId);
+        }
+
+        return new RedirectResolution(RequestActionBean.class, "detail")
+                .addParameter("biobankId", biobankId)
+                .addParameter("sampleRequestId", sampleRequestId);
     }
-
 
 
 }

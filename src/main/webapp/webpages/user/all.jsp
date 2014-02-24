@@ -89,27 +89,15 @@
                     <td class="action">
 
                         <c:set target="${userBean}" property="userId" value="${user.id}"/>
-                        <security:allowed bean="userBean" event="update">
+                        <security:allowed bean="userBean" event="detail">
                             <div class="tableAction">
                                 <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail"
                                         class="btn btn-primary btnMargin">
                                     <s:param name="userId" value="${user.id}"/>
-                                    <f:message key="edit"/>
+                                    <f:message key="detail"/>
                                 </s:link>
                             </div>
                         </security:allowed>
-
-                        <security:notAllowed bean="userBean" event="update">
-                            <security:allowed bean="userBean" event="detail">
-                                <div class="tableAction">
-                                    <s:link beanclass="cz.bbmri.action.user.UserActionBean"
-                                            class="btn btn-info  btnMargin"
-                                            event="detail">
-                                        <s:param name="userId" value="${user.id}"/>
-                                        <f:message key="detail"/></s:link>
-                                </div>
-                            </security:allowed>
-                        </security:notAllowed>
 
                         <security:allowed bean="userBean" event="remove">
                             <s:form beanclass="cz.bbmri.action.user.UserActionBean">

@@ -5,8 +5,7 @@
 
     <thead>
     <tr>
-        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"/></th>
-        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.samplesNo"/></th>
+
     </tr>
     </thead>
 

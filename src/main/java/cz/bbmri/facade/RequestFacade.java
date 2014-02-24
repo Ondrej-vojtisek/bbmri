@@ -1,6 +1,7 @@
 package cz.bbmri.facade;
 
 import cz.bbmri.entities.SampleRequest;
+import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -20,8 +21,21 @@ public interface RequestFacade {
 
     boolean denySampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
+    boolean closeSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+
     boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+
+    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+
+    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+
+    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
     List<SampleRequest> getNewSampleRequests(Long biobankId);
 
+    boolean createRequests(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors, List<Message> messages);
+
+    boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors);
+
+    boolean deleteRequest(Long requestId, ValidationErrors errors);
 }

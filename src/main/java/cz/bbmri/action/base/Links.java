@@ -96,7 +96,7 @@ public class Links {
     private static final String REQUEST = BASIC_PATH + "/request/";
     /* ********************************** */
     protected static final String REQUEST_DETAIL = REQUEST + "detail.jsp";
-    protected static final String REQUESTGROUP_CREATE = REQUEST + "create/createRequestGroup.jsp";
+    protected static final String CREATE_REQUESTS = REQUEST + "create/createRequests.jsp";
 
     // SAMPLE DETAIL
 

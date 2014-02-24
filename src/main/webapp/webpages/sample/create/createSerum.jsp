@@ -6,14 +6,14 @@
     <div class="control-group">
         <s:label for="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo" class="control-label"/>
         <div class="controls">
-            <s:text name="serum.sampleNos.availableSampleNo"/>
+            <s:text name="sample.sampleNos.availableSampleNo"/>
         </div>
     </div>
 
     <div class="control-group">
         <s:label for="cz.bbmri.entities.sample.field.SampleNos.samplesNo" class="control-label"/>
         <div class="controls">
-            <s:text name="serum.sampleNos.samplesNo"/>
+            <s:text name="sample.sampleNos.samplesNo"/>
         </div>
     </div>
 

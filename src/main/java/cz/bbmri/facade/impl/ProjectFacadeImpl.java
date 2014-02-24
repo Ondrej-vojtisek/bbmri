@@ -369,7 +369,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public List<Attachment> getAttachments(Long projectId) {
         notNull(projectId);
 
-        Project projectDB = projectService.eagerGet(projectId, false, false, true, false);
+        Project projectDB = projectService.eagerGet(projectId, false, true, false);
 
         return projectDB.getAttachments();
     }
@@ -523,7 +523,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public List<SampleRequest> getProjectSampleRequests(Long projectId) {
         notNull(projectId);
 
-        Project projectDB = projectService.eagerGet(projectId, false, false, false, true);
+        Project projectDB = projectService.eagerGet(projectId, false, false, true);
         return projectDB.getSampleRequests();
 
     }

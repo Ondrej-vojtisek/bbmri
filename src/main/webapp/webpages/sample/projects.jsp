@@ -9,7 +9,22 @@
 
     <s:layout-component name="body">
 
-        PROJECTS
+        <table class="table table-hover table-striped">
+            <s:layout-render name="/webpages/component/detail/project/header.jsp"/>
+            <tbody>
+            <c:if test="${empty actionBean.projectsBySample}">
+                <tr>
+                    <td colspan="5"><f:message key="empty"/></td>
+                </tr>
+            </c:if>
+
+            <c:forEach items="${actionBean.projectsBySample}" var="project">
+                <tr>
+                    <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
     </s:layout-component>
 </s:layout-render>

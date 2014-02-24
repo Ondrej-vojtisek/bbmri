@@ -3,17 +3,14 @@
 
 <s:layout-definition>
 
-    <fieldset>
-           <legend><f:message key="cz.bbmri.entities.Project.project"/></legend>
     <table class="table table-striped">
-        <s:layout-render name="/webpages/component/detail/project/header.jsp"/>
+        <s:layout-render name="/webpages/component/detail/request/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+            <s:layout-render name="/webpages/component/detail/request/row.jsp" request="${request}"/>
         </tr>
         </tbody>
     </table>
-    </fieldset>
 
 </s:layout-definition>
 

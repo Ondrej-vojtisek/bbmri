@@ -47,7 +47,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 //    private static final String SAMPLE_ID = "sample";
 //    private static final String PROJECT_ID = "project";
 //    private static final String BIOBANK_ID = "biobank";
-//    private static final String REQUEST_GROUP_ID = "requestGroup";
 //    private static final String REQUEST_ID = "request";
 //    private static final String USER_ID = "userId";
 

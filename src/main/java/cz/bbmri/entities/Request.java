@@ -14,6 +14,8 @@ import javax.persistence.*;
 @Entity
 public class Request {
 
+    public static final int IMPLICIT_REQUESTED_SAMPLES = 1;
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,7 +29,7 @@ public class Request {
     private Integer numOfRequested;
 
     @ManyToOne
-    private RequestGroup requestGroup;
+    private SampleRequest sampleRequest;
 
     public Request() {
     }
@@ -56,12 +58,12 @@ public class Request {
         this.numOfRequested = numOfRequested;
     }
 
-    public RequestGroup getRequestGroup() {
-        return requestGroup;
+    public SampleRequest getSampleRequest() {
+        return sampleRequest;
     }
 
-    public void setRequestGroup(RequestGroup requestGroup) {
-        this.requestGroup = requestGroup;
+    public void setSampleRequest(SampleRequest sampleRequest) {
+        this.sampleRequest = sampleRequest;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Request;
+import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,9 +14,6 @@ import cz.bbmri.entities.Request;
  */
 public interface RequestService extends BasicService<Request>{
 
-     Request create(Long sampleId);
+     int createRequests(List<Long> sampleIds, Long sampleRequestId) throws InsuficientAmountOfSamplesException;
 
-     Request create(Long sampleId, Integer numOfRequested);
-
-     Request eagerGet(Long id, boolean requestGroup, boolean sample);
 }

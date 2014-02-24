@@ -131,29 +131,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 //    }
 
 
-    public void removeBiobankTest3() {
-           /* Test if remove involves second side of relationship - RequestGroup */
-        //TODO
-          /* ********* GIVEN ********** */
 
-          /* ********* WHEN ********** */
-
-
-          /* ********* THEN ********** */
-
-    }
-
-    public void removeBiobankTest4() {
-              /* Test if remove involves second side of relationship - SampleQuestion */
-        // TODO
-             /* ********* GIVEN ********** */
-
-             /* ********* WHEN ********** */
-
-
-             /* ********* THEN ********** */
-
-    }
 
 //    @Test
 //    public void getEagerGetTest() {
@@ -199,7 +177,7 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
     public void getEagerGetTest2() {
              /* ********* GIVEN ********** */
-        // TODO Test relationship to RequestGroup
+
             /* ********* WHEN ********** */
 
             /* ********* THEN ********** */

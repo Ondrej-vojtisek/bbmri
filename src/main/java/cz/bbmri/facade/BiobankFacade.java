@@ -63,12 +63,4 @@ public interface BiobankFacade extends PermissionFacade {
     List<Patient> find(Patient patient, int requiredResults);
 
 
-    // List<RequestGroup> getNewRequestGroups(Long biobankId);
-
-    // List<Request> getRequests(Long requestGroupId);
-
-    // void approveRequestGroup(Long requestGroupId);
-
-    // void rejectRequestGroup(Long requestGroupId);
-
 }

@@ -4,7 +4,7 @@
 <s:layout-definition>
 
     <fieldset>
-           <legend><f:message key="cz.bbmri.entities.infrastructure.SampleRequest.sampleRequest"/></legend>
+           <legend><f:message key="cz.bbmri.entities.SampleRequest.sampleRequest"/></legend>
     <table class="table table-striped">
         <s:layout-render name="/webpages/component/detail/sampleRequest/header.jsp"/>
         <tbody>

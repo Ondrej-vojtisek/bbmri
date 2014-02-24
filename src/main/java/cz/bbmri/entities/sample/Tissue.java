@@ -3,7 +3,6 @@ package cz.bbmri.entities.sample;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.field.Morphology;
 import cz.bbmri.entities.sample.field.PTNM;
-import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.entities.sample.field.TNM;
 
 import javax.persistence.Column;
@@ -34,9 +33,6 @@ public class Tissue extends Sample {
     @Column(name = "morphology")
     private Morphology morphology;
 
-    @Embedded
-    private SampleNos sampleNos;
-
     private Date freezeDate;
 
     public TNM getTnm() {
@@ -63,13 +59,7 @@ public class Tissue extends Sample {
         this.morphology = morphology;
     }
 
-    public SampleNos getSampleNos() {
-        return sampleNos;
-    }
 
-    public void setSampleNos(SampleNos sampleNos) {
-        this.sampleNos = sampleNos;
-    }
 
     public Date getFreezeDate() {
         return freezeDate;
@@ -85,7 +75,6 @@ public class Tissue extends Sample {
                 "tnm=" + tnm +
                 ", ptnm=" + ptnm +
                 ", morphology=" + morphology +
-                ", sampleNos=" + sampleNos +
                 ", freezeDate=" + freezeDate +
                 ", sampleIdentificator=" + getSampleIdentificator() +
                 ", retrieved=" + getRetrieved() +

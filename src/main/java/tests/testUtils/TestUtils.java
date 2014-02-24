@@ -43,10 +43,6 @@ public class TestUtils {
         return project;
     }
 
-    protected RequestGroup createRequestGroup(int i) {
-        RequestGroup rqg = new RequestGroup();
-        return rqg;
-    }
 
     protected Sample createTestSample(int i){
         Sample sample = new Sample();

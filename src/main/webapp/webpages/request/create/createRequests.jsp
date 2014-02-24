@@ -3,14 +3,13 @@
 
 <f:message key="cz.bbmri.action.request.RequestActionBean.title" var="title"/>
 
-<s:useActionBean var="requestBean" beanclass="cz.bbmri.action.request.CreateRequestGroup"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
                  ternarymenu="">
 
     <s:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.request.CreateRequestGroup" class="form-horizontal">
+        <s:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean" class="form-horizontal">
 
             <div class="control-group">
                 <s:label for="cz.bbmri.entities.Sample.sampleId" class="control-label"/>
@@ -86,23 +85,24 @@
             <div class="form-actions">
                 <s:submit name="find" class="btn btn-primary btnMargin">
                     <s:param name="biobankId" value="${actionBean.biobankId}"/>
+                    <s:param name="sampleRequestId" value="${actionBean.sampleRequestId}"/>
                 </s:submit>
             </div>
 
         </s:form>
-        <s:form beanclass="cz.bbmri.action.request.CreateRequestGroup">
+        <s:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean">
 
             <table class="table table-hover table-striped">
 
                 <s:layout-render name="/webpages/component/detail/sample/header.jsp"/>
 
                 <tbody>
-                <c:if test="${empty requestBean.samples}">
+                <c:if test="${empty actionBean.samples}">
                     <tr>
                         <td colspan="7"><f:message key="empty"/></td>
                     </tr>
                 </c:if>
-                <c:forEach items="${requestBean.samples}" var="sample">
+                <c:forEach items="${actionBean.samples}" var="sample">
                     <tr>
                         <s:layout-render name="/webpages/component/detail/sample/row.jsp" sample="${sample}"/>
                         <td>
@@ -114,7 +114,9 @@
             </table>
 
             <div class="form-actions">
-                <s:submit name="cofirmSelected"/>
+                <s:submit name="confirmSelected" class="btn btn-primary">
+                    <s:param name="sampleRequestId" value="${actionBean.sampleRequestId}"/>
+                </s:submit>
             </div>
 
         </s:form>

@@ -77,8 +77,8 @@
 
         </fieldset>
 
-        <c:if test="${requestBean.isSampleRequestApproved}">
-            <s:layout-render name="/webpages/request/requestGroups.jsp"/>
+        <c:if test="${not requestBean.isSampleRequestNew and not requestBean.isSampleRequestDenied}">
+            <s:layout-render name="/webpages/request/requests.jsp"/>
         </c:if>
 
 

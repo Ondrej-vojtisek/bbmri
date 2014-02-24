@@ -1,10 +1,10 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.Retrieved;
-import cz.bbmri.entities.infrastructure.Box;
 import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.field.MaterialType;
 import cz.bbmri.entities.sample.field.SampleIdentification;
+import cz.bbmri.entities.sample.field.SampleNos;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -47,6 +47,12 @@ public class Sample implements Serializable {
 
     @OneToMany(mappedBy = "sample")
     private Set<Position> positions = new HashSet<Position>();
+
+
+    /* This field should be in specialized objects in xml import schema. For DiagnosisMaterial it will be be set as 1/1
+    *  The reason is to make it like this is to make easier validation of request in RequestService */
+    @Embedded
+    private SampleNos sampleNos;
 
 
     public Long getId() {
@@ -111,6 +117,14 @@ public class Sample implements Serializable {
 
     public void setPositions(Set<Position> positions) {
         this.positions = positions;
+    }
+
+    public SampleNos getSampleNos() {
+        return sampleNos;
+    }
+
+    public void setSampleNos(SampleNos sampleNos) {
+        this.sampleNos = sampleNos;
     }
 
     @Override

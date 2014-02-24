@@ -4,7 +4,7 @@
 <s:layout-definition>
 
 
-    <s:form beanclass="cz.bbmri.action.request.CreateRequestGroup" class="form-horizontal">
+    <s:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean" class="form-horizontal">
 
         <div class="control-group">
             <s:label for="cz.bbmri.entities.Sample.sampleId" class="control-label"/>

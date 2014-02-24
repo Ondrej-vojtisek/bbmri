@@ -2,11 +2,13 @@ package cz.bbmri.facade;
 
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.Project;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
+import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public interface SampleFacade {
 
     List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
 
-    boolean createRequestGroup(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors);
+    List<Project> getProjectsBySample(Long sampleId);
 
 //    boolean createSample(Sample sample);
 //
