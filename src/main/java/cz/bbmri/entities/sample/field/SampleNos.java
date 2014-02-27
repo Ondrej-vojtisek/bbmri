@@ -33,6 +33,54 @@ public class SampleNos implements Serializable {
         this.availableSamplesNo = availableSamplesNo;
     }
 
+    private boolean checkAmount(int requestedAmount) {
+        if (requestedAmount < 1) {
+            return false;
+        }
+        if (requestedAmount > samplesNo) {
+            return false;
+        }
+        return true;
+    }
+
+    // decrease amount of samples, both available and total amount
+    public boolean decreaseAmount(int requestedAmount) {
+        if (!checkAmount(requestedAmount)) return false;
+
+        if (requestedAmount > availableSamplesNo) {
+            return false;
+        }
+
+        availableSamplesNo -= requestedAmount;
+        samplesNo -= requestedAmount;
+        return true;
+    }
+
+    // increase amount of samples, both available and total amount
+    public boolean increaseAmount(int requestedAmount) {
+        if (!checkAmount(requestedAmount)) return false;
+
+        availableSamplesNo += requestedAmount;
+        samplesNo += requestedAmount;
+        return true;
+
+    }
+
+    // decrease amount - also not available samples can be withdrawn
+    public boolean withdrawAmount(int requestedAmount) {
+        if (!checkAmount(requestedAmount)) return false;
+
+        if (requestedAmount > samplesNo) {
+            return false;
+        }
+        if(requestedAmount > availableSamplesNo){
+            availableSamplesNo = 0;
+        }
+
+        samplesNo -= requestedAmount;
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

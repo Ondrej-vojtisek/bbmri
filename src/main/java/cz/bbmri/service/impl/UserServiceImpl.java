@@ -171,7 +171,8 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     @Transactional(readOnly = true)
-    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank, boolean notification) {
+    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank,
+                         boolean notification, boolean reservations) {
         notNull(id);
         User userDB = userDao.get(id);
 
@@ -191,6 +192,10 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
         if (notification) {
             logger.debug("" + userDB.getNotifications());
+        }
+
+        if (reservations) {
+            logger.debug("" + userDB.getSampleReservations());
         }
         return userDB;
 

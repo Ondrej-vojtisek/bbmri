@@ -3,9 +3,9 @@
 
 <s:layout-definition>
 
-    <td>${sample.sampleIdentificator.sampleId}</td>
-    <td>${sample.sampleIdentificator.year}</td>
-    <td>${sample.sampleIdentificator.number}</td>
+    <td>${sample.sampleIdentification.sampleId}</td>
+    <td>${sample.sampleIdentification.year}</td>
+    <td>${sample.sampleIdentification.number}</td>
     <td>${sample.takingDate}</td>
     <td>${sample.materialType}</td>
     <td>${sample.sampleNos.availableSamplesNo}</td>

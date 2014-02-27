@@ -1,35 +1,35 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest" var="title"/>
-<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
-
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
-                 ternarymenu="sampleRequests">
+                 secondarymenu="reservations">
 
     <s:layout-component name="body">
+
+        <div class="form-actions">
+
+        </div>
 
         <table class="table table-hover table-striped">
 
             <s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>
 
             <tbody>
-
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${projectBean.sampleRequests}"/>
+                             collection="${actionBean.sampleReservations}"/>
 
-            <c:forEach items="${projectBean.sampleRequests}" var="sampleQuestion">
+            <c:forEach items="${actionBean.sampleReservations}" var="sampleReservation">
                 <tr>
 
                     <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"
-                                     sampleQuestion="${sampleQuestion}"/>
+                                     sampleQuestion="${sampleReservation}"/>
 
                     <td class="action">
                         <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
                                 class="btn btn-primary">
-                            <s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>
-                            <s:param name="biobankId" value="${sampleQuestion.biobank.id}"/>
+                            <s:param name="sampleQuestionId" value="${sampleReservation.id}"/>
+                            <s:param name="biobankId" value="${sampleReservation.biobank.id}"/>
                             <f:message key="detail"/>
                         </s:link>
                     </td>

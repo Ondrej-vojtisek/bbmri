@@ -3,7 +3,7 @@
 
 <s:layout-definition>
 
-    <td>${request.sample.sampleIdentificator.sampleId}</td>
+    <td>${request.sample.sampleIdentification.sampleId}</td>
     <td>${request.sample.materialType.type}</td>
     <td>${request.numOfRequested}</td>
 

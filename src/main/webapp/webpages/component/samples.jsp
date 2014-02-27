@@ -10,11 +10,9 @@
         <s:layout-render name="/webpages/component/detail/sample/header.jsp"/>
 
         <tbody>
-        <c:if test="${empty samples}">
-            <tr>
-                <td colspan="7"><f:message key="empty"/></td>
-            </tr>
-        </c:if>
+
+        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                         collection="${samples}"/>
         <c:forEach items="${samples}" var="sample">
             <tr>
                 <s:layout-render name="/webpages/component/detail/sample/row.jsp" sample="${sample}"/>

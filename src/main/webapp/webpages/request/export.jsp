@@ -20,11 +20,11 @@
 <s:layout-render name="/webpages/component/detail/project/ribbon.jsp"
                  project="${actionBean.sampleRequest.project}"/>
 
-<s:layout-render name="/webpages/component/detail/sampleRequest/ribbon.jsp"
-                 sampleRequest="${actionBean.sampleRequest}"/>
+<s:layout-render name="/webpages/component/detail/sampleQuestion/ribbon.jsp"
+                 sampleQuestion="${actionBean.sampleRequest}"/>
 
 <fieldset>
-    <legend><f:message key="cz.bbmri.entities.SampleRequest.sampleRequestSet"/></legend>
+    <legend><f:message key="cz.bbmri.entities.SampleQuestion.sampleRequestSet"/></legend>
     <c:forEach items="${actionBean.requests}" var="request">
 
         <s:layout-render name="/webpages/component/detail/request/ribbon.jsp"

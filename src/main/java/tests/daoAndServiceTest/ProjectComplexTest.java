@@ -48,7 +48,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
-        user = userService.eagerGet(user.getId(),false, true, false, false);
+        user = userService.eagerGet(user.getId(),false, true, false, false, false);
         project = projectService.eagerGet(project.getId(), true, false, false);
 
         assertEquals(1, project.getProjectAdministrators().size());
@@ -81,7 +81,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
-        user = userService.eagerGet(user.getId(), false, true, false, false);
+        user = userService.eagerGet(user.getId(), false, true, false, false, false);
 
         assertEquals(null, projectService.get(project.getId()));
         assertEquals(true, user.getProjectAdministrators().isEmpty());
@@ -109,7 +109,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
-        user2 = userService.eagerGet(user2.getId(), true, false, false, false);
+        user2 = userService.eagerGet(user2.getId(), true, false, false, false, false);
         project = projectService.get(project.getId());
 
        assertEquals(ProjectState.APPROVED, project.getProjectState());
@@ -134,7 +134,7 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
            /* ********* THEN ********** */
 
-        user2 = userService.eagerGet(user2.getId(), true, false, false, false);
+        user2 = userService.eagerGet(user2.getId(), true, false, false, false, false);
         project = projectService.get(project.getId());
 
         assertEquals(ProjectState.DENIED, project.getProjectState());
@@ -166,8 +166,8 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
         /* ********* THEN ********** */
 
-        user = userService.eagerGet(user.getId(), false, true, false, false);
-        user2 = userService.eagerGet(user2.getId(), false, true, false, false);
+        user = userService.eagerGet(user.getId(), false, true, false, false, false);
+        user2 = userService.eagerGet(user2.getId(), false, true, false, false, false);
 
         assertEquals(user.getProjectAdministrators().size(), 3);
         assertEquals(user2.getProjectAdministrators().size(), 1);
@@ -201,8 +201,8 @@ public class ProjectComplexTest extends AbstractDaoAndServiceTest {
 
             /* ********* THEN ********** */
 
-        user = userService.eagerGet(user.getId(), false, true, false, false);
-        user2 = userService.eagerGet(user2.getId(), false, true, false, false);
+        user = userService.eagerGet(user.getId(), false, true, false, false, false);
+        user2 = userService.eagerGet(user2.getId(), false, true, false, false, false);
 
          assertEquals(3, user.getProjectAdministrators().size());
         assertEquals(true, user2.getProjectAdministrators().isEmpty());

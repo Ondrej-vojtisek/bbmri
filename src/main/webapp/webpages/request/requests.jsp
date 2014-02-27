@@ -8,20 +8,17 @@
 
         <div class="form-actions">
             <s:form beanclass="cz.bbmri.action.request.RequestActionBean">
-                <s:hidden name="sampleRequestId" value="${sampleRequestId}"/>
+                <s:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
                 <s:hidden name="biobankId" value="${biobankId}"/>
 
-                <c:if test="${actionBean.isSampleRequestApproved}">
+                <c:if test="${actionBean.isSampleQuestionApproved}">
                     <s:link beanclass="cz.bbmri.action.request.CreateRequestsActionBean" event="display"
                             class="btn btn-primary btnMargin">
-                        <s:param name="sampleRequestId" value="${actionBean.sampleRequestId}"/>
+                        <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
                         <s:param name="biobankId" value="${actionBean.biobankId}"/>
                         <f:message key="cz.bbmri.action.request.CreateRequests.create"/>
                     </s:link>
                 </c:if>
-
-                <%--Necessary due to security check--%>
-                <c:set var="projecId" target="${actionBean}" value="${actionBean.sampleRequest.project.id}"/>
 
                 <security:allowed event="changeStateToClosed">
                     <s:submit name="changeStateToClosed" class="btn btn-primary btnMargin"/>
@@ -43,7 +40,7 @@
                     <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="exportSampleList"
                             class="btn btn-primary btnMargin" target="_blank">
 
-                        <s:param name="sampleRequestId" value="${actionBean.sampleRequestId}"/>
+                        <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
                         <s:param name="biobankId" value="${actionBean.biobankId}"/>
 
                         <f:message key="cz.bbmri.action.request.RequestActionBean.export"/>
@@ -60,18 +57,18 @@
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             colspan="4" collection="${actionBean.requests}"/>
+                             collection="${actionBean.requests}"/>
 
             <c:forEach items="${actionBean.requests}" var="request">
                 <s:form beanclass="cz.bbmri.action.request.RequestActionBean">
                     <tr>
-                        <td>${request.sample.sampleIdentificator.sampleId}</td>
+                        <td>${request.sample.sampleIdentification.sampleId}</td>
                         <td>${request.sample.materialType.type}</td>
                         <td class="action">
                                 ${request.numOfRequested} / ${request.sample.sampleNos.availableSamplesNo}
 
 
-                            <s:hidden name="sampleRequestId" value="${sampleRequestId}"/>
+                            <s:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
                             <s:hidden name="requestId" value="${request.id}"/>
                             <s:hidden name="biobankId" value="${biobankId}"/>
 

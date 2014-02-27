@@ -81,7 +81,7 @@ public class FindPatientActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution findPatient() {
 
-        logger.debug("FindPatient event BiobankId: " + biobankId);
+        logger.debug("patient: " + patient);
 
         return new ForwardResolution(this.getClass(), "findResolution")
                 .addParameter("biobankId", biobankId);

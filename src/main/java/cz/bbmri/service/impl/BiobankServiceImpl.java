@@ -45,7 +45,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     private SampleDao sampleDao;
 
     @Autowired
-    private SampleRequestDao sampleRequestDao;
+    private SampleQuestionDao sampleQuestionDao;
 
     @Autowired
     private BiobankAdministratorDao biobankAdministratorDao;
@@ -94,10 +94,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 patientDao.remove(patient);
             }
         }
-        List<SampleRequest> sampleRequests = biobankDB.getSampleRequests();
-        if (sampleRequests != null) {
-            for (SampleRequest sampleRequest : sampleRequests) {
-                sampleRequestDao.remove(sampleRequest);
+        List<SampleQuestion> sampleQuestions = biobankDB.getSampleQuestions();
+        if (sampleQuestions != null) {
+            for (SampleQuestion sampleQuestion : sampleQuestions) {
+                sampleQuestionDao.remove(sampleQuestion);
             }
         }
 
@@ -262,7 +262,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
 
         if (sampleRequests) {
-            logger.debug("" + biobankDB.getSampleRequests());
+            logger.debug("" + biobankDB.getSampleQuestions());
         }
 
         return biobankDB;

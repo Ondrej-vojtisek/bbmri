@@ -14,11 +14,8 @@
            </thead>
            <tbody>
 
-           <c:if test="${empty projectBean.attachments}">
-               <tr>
-                   <td colspan="4"><f:message key="empty"/></td>
-               </tr>
-           </c:if>
+           <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                               collection="${projectBean.attachments}"/>
 
            <c:forEach items="${projectBean.attachments}" var="attachment" varStatus="loop">
                <tr>

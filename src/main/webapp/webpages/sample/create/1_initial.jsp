@@ -16,7 +16,7 @@
                 <div class="control-group">
                     <s:label for="cz.bbmri.entities.Sample.sampleId" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sample.sampleIdentificator.sampleId"/>
+                        <s:text name="sample.sampleIdentification.sampleId"/>
                     </div>
                 </div>
 
@@ -24,14 +24,14 @@
                 <div class="control-group">
                     <s:label for="cz.bbmri.entities.Sample.year" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sample.sampleIdentificator.year"/>
+                        <s:text name="sample.sampleIdentification.year"/>
                     </div>
                 </div>
 
                 <div class="control-group">
                     <s:label for="cz.bbmri.entities.Sample.number" class="control-label"/>
                     <div class="controls">
-                        <s:text name="sample.sampleIdentificator.number"/>
+                        <s:text name="sample.sampleIdentification.number"/>
                     </div>
                 </div>
 

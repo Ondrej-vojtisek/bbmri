@@ -50,7 +50,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         notNull(userId);
         List<RoleDTO> results = new ArrayList<RoleDTO>();
 
-        User userDB = userService.eagerGet(userId, false, true, true, false);
+        User userDB = userService.eagerGet(userId, false, true, true, false, false);
 
         if (userDB == null) {
             return null;

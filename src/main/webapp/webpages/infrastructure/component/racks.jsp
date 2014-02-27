@@ -8,13 +8,8 @@
         <s:layout-render name="/webpages/component/detail/rack/header.jsp"/>
         <tbody>
 
-        <c:if test="${empty actionBean.racks}">
-            <tr>
-                <td colspan="2">
-                    <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.emptyRacks"/>
-                </td>
-            </tr>
-        </c:if>
+        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                       collection="${actionBean.racks}"/>
 
         <c:forEach items="${actionBean.racks}" var="rack">
             <tr>

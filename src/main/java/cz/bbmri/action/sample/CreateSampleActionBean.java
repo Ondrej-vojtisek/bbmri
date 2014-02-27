@@ -46,7 +46,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
     private Long sampleId;
 
     @ValidateNestedProperties(value = {
-            @Validate(on = "confirmStep1", field = "sampleIdentificator.sampleId", required = true),
+            @Validate(on = "confirmStep1", field = "sampleIdentification.sampleId", required = true),
             @Validate(on = "confirmStep1", field = "retrieved", required = true),
             @Validate(on = "confirmStep1", field = "takingDate", required = true),
             @Validate(on = "confirmStep2", field = "materialType.type", required = true)
@@ -248,15 +248,18 @@ public class CreateSampleActionBean extends PermissionActionBean {
             sampleOUT = (Sample) genome;
         }
 
+        logger.debug("Sample: " + sample);
+        logger.debug("Sample OUT: " + sampleOUT);
+
+
         sampleOUT.setMaterialType(sample.getMaterialType());
         sampleOUT.setTakingDate(sample.getTakingDate());
-        sampleOUT.setSampleIdentificator(sample.getSampleIdentificator());
+        sampleOUT.setSampleIdentification(sample.getSampleIdentification());
         sampleOUT.setRetrieved(sample.getRetrieved());
         sampleOUT.setModule(getModule());
         sampleOUT.setSampleNos(sample.getSampleNos());
 
         Object object = sampleOUT;
-        logger.debug("ObjectType: " + object.getClass());
 
         if(!sampleFacade.create(sampleOUT, getContext().getValidationErrors())){
             return new RedirectResolution(PatientActionBean.class, "detail")
@@ -274,6 +277,4 @@ public class CreateSampleActionBean extends PermissionActionBean {
     public Resolution backFromStep4() {
         return new ForwardResolution(SAMPLE_CREATE_CLASIFICATIONS);
     }
-
-
 }

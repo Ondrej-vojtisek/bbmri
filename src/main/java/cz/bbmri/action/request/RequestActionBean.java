@@ -4,6 +4,7 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Request;
+import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.RequestFacade;
@@ -24,7 +25,7 @@ import java.util.Set;
  */
 
 @HttpCache(allow = false)
-@UrlBinding("/samplerequest/{$event}/{biobankId}/{sampleRequestId}")
+@UrlBinding("/samplerequest/{$event}/{biobankId}/{sampleQuestionId}")
 public class RequestActionBean extends PermissionActionBean {
 
     private static final int STEP_INCREASE_REQUEST_AMOUNT = 1;
@@ -38,81 +39,123 @@ public class RequestActionBean extends PermissionActionBean {
     private BiobankFacade biobankFacade;
 
     /* SampleQuestion identifier */
-    private Long sampleRequestId;
+    private Long sampleQuestionId;
 
-    private SampleRequest sampleRequest;
+    private SampleQuestion sampleQuestion;
 
     private Long requestId;
 
-    public Long getSampleRequestId() {
-        return sampleRequestId;
+    public Long getSampleQuestionId() {
+        return sampleQuestionId;
     }
 
 
-    public void setSampleRequestId(Long sampleRequestId) {
-        this.sampleRequestId = sampleRequestId;
+    public void setSampleQuestionId(Long sampleQuestionId) {
+        this.sampleQuestionId = sampleQuestionId;
     }
 
-    public SampleRequest getSampleRequest() {
+    public SampleQuestion getSampleQuestion() {
+        if (sampleQuestion == null) {
 
-        if (sampleRequest == null) {
+            if (sampleQuestionId != null) {
+                sampleQuestion = requestFacade.getSampleQuestion(sampleQuestionId);
 
-            if (sampleRequestId != null) {
-                sampleRequest = requestFacade.getSampleRequest(sampleRequestId);
-                setProjectId(sampleRequest.getProject().getId());
+                // is isntanceof SampleRequest
+                if (isSampleRequest()) {
+
+                    // Project is set
+                    if (((SampleRequest) sampleQuestion).getProject() != null) {
+                        setProjectId(((SampleRequest) sampleQuestion).getProject().getId());
+                    }
+                }
+
             }
         }
-        return sampleRequest;
+        return sampleQuestion;
     }
 
-    public boolean getIsSampleRequestNew() {
-        if (getSampleRequest() == null) {
-            return false;
-        }
-        return getSampleRequest().isNew();
-    }
+    private boolean isSampleRequest() {
+        if (sampleQuestion == null) return false;
 
-    public boolean getIsSampleRequestApproved() {
-        if (getSampleRequest() == null) {
+        if (!(sampleQuestion instanceof SampleRequest)) {
             return false;
         }
-        return getSampleRequest().isApproved();
-    }
 
-    public boolean getIsSampleRequestDenied() {
-        if (getSampleRequest() == null) {
-            return false;
-        }
-        return getSampleRequest().isDenied();
-    }
-
-    public boolean getIsSampleRequestClosed() {
-        if (getSampleRequest() == null) {
-            return false;
-        }
-        return getSampleRequest().isClosed();
-    }
-
-    private boolean isSampleRequestAgreed() {
-        if (getSampleRequest() == null) {
-            return false;
-        }
-        return getSampleRequest().isAgreed();
+        return true;
     }
 
 
-    private boolean isSampleRequestDelivered() {
-        if (getSampleRequest() == null) {
+    public SampleRequest getSampleRequest() {
+            if (getSampleQuestion() == null) {
+                logger.debug("getSampleRequest - getSampleQuestion Null");
+                return null;
+            }
+
+            if (!isSampleRequest()) {
+                logger.debug("getSampleRequest - wrong type");
+                return null;
+            }
+
+        return (SampleRequest) sampleQuestion;
+    }
+
+    public boolean getIsSampleQuestionNew() {
+        if (getSampleQuestion() == null) {
             return false;
         }
-        return getSampleRequest().isDelivered();
+        return getSampleQuestion().isNew();
+    }
+
+    public boolean getIsSampleQuestionApproved() {
+        logger.debug("SampleQuestion_ Approved");
+        if (getSampleQuestion() == null) {
+            logger.debug("SampleQuestion_ " + null);
+            return false;
+        }
+        logger.debug("SampleQuestion_ " + sampleQuestion.isApproved());
+        return sampleQuestion.isApproved();
+    }
+
+    public boolean getIsSampleQuestionDenied() {
+        logger.debug("SampleQuestion_ Denied");
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        logger.debug("SampleQuestion_ " + sampleQuestion.isDenied());
+        return sampleQuestion.isDenied();
+    }
+
+    public boolean getIsSampleQuestionClosed() {
+        logger.debug("SampleQuestion_ Closed");
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        return getSampleQuestion().isClosed();
+    }
+
+    public boolean getIsSampleQuestionAgreed() {
+        logger.debug("SampleQuestion_ Agreed");
+
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        logger.debug("SampleQuestion_ " + sampleQuestion.isAgreed());
+        return sampleQuestion.isAgreed();
+    }
+
+
+    public boolean getIsSampleQuestionDelivered() {
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        return sampleQuestion.isDelivered();
     }
 
     public Set<Request> getRequests() {
-        if (getSampleRequest() == null) {
+        if (getSampleQuestion() == null) {
             return null;
         }
-        return sampleRequest.getRequests();
+        return sampleQuestion.getRequests();
     }
 
     public Long getRequestId() {
@@ -140,7 +183,11 @@ public class RequestActionBean extends PermissionActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer", "project_team_member", "biobank_operator"})
     public Resolution detail() {
-        getSampleRequest();
+        logger.debug("ProjectId1: " + projectId );
+
+        getSampleQuestion();
+
+        logger.debug("ProjectId2: " + projectId );
         return new ForwardResolution(REQUEST_DETAIL);
     }
 
@@ -148,42 +195,41 @@ public class RequestActionBean extends PermissionActionBean {
     /* Here can be self approve - withdraw */
     @DontValidate
     @HandlesEvent("approve")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestNew}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
     public Resolution approve() {
-        if (!requestFacade.approveSampleRequest(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.approveSampleRequest(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(RequestActionBean.class)
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
     @DontValidate
     @HandlesEvent("deny")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestNew}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
     public Resolution deny() {
-        if (!requestFacade.denySampleRequest(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.denySampleRequest(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(RequestActionBean.class)
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
     @DontValidate
     @HandlesEvent("delete")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor && isSampleRequestNew}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionNew}"})
     public Resolution delete() {
-        Long projectId = getSampleRequest().getProject().getId();
-        if (!requestFacade.deleteSampleRequest(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.deleteSampleQuestion(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
@@ -198,13 +244,13 @@ public class RequestActionBean extends PermissionActionBean {
     public Resolution createRequests() {
 
         return new ForwardResolution(RequestActionBean.class)
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
     @DontValidate
     @HandlesEvent("decreaseAmount")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestApproved}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution decreaseAmount() {
 
         logger.debug("requestId: " + requestId);
@@ -215,16 +261,16 @@ public class RequestActionBean extends PermissionActionBean {
 
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId)
-                    .addParameter("sampleRequestId", sampleRequestId);
+                    .addParameter("sampleQuestionId", sampleQuestionId);
         }
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("biobankId", biobankId)
-                .addParameter("sampleRequestId", sampleRequestId);
+                .addParameter("sampleQuestionId", sampleQuestionId);
     }
 
     @DontValidate
     @HandlesEvent("increaseAmount")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestApproved}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution increaseAmount() {
 
         logger.debug("requestId: " + requestId);
@@ -234,103 +280,103 @@ public class RequestActionBean extends PermissionActionBean {
 
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId)
-                    .addParameter("sampleRequestId", sampleRequestId);
+                    .addParameter("sampleQuestionId", sampleQuestionId);
         }
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("biobankId", biobankId)
-                .addParameter("sampleRequestId", sampleRequestId);
+                .addParameter("sampleQuestionId", sampleQuestionId);
     }
 
     @DontValidate
     @HandlesEvent("removeRequest")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestApproved}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution removeRequest() {
         if (!requestFacade.deleteRequest(requestId, getContext().getValidationErrors())) {
 
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId)
-                    .addParameter("sampleRequestId", sampleRequestId);
+                    .addParameter("sampleQuestionId", sampleQuestionId);
         }
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("biobankId", biobankId)
-                .addParameter("sampleRequestId", sampleRequestId);
+                .addParameter("sampleQuestionId", sampleQuestionId);
     }
 
     @DontValidate
     @HandlesEvent("changeStateToClosed")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestApproved}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution changeStateToClosed() {
 
-        if (!requestFacade.closeSampleRequest(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.closeSampleRequest(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail")
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
 
     @DontValidate
     @HandlesEvent("confirmChosenSet")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor && isSampleRequestClosed}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution confirmChosenSet() {
-        if (!requestFacade.confirmChosenSet(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.confirmChosenSet(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail")
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
     @DontValidate
     @HandlesEvent("denyChosenSet")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor && isSampleRequestClosed}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution denyChosenSet() {
 
-        if (!requestFacade.denyChosenSet(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.denyChosenSet(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail")
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
 
     @DontValidate
     @HandlesEvent("setAsDelivered")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor && isSampleRequestAgreed}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionAgreed}"})
     public Resolution setAsDelivered() {
 
-        if (!requestFacade.setAsDelivered(sampleRequestId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.setAsDelivered(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
-                    .addParameter("sampleRequestId", sampleRequestId)
+                    .addParameter("sampleQuestionId", sampleQuestionId)
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail")
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
     }
 
     @DontValidate
     @HandlesEvent("exportSampleList")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor && isSampleRequestAgreed}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor and isSampleQuestionAgreed}"})
     public Resolution exportSampleList() {
 
         logger.debug("BiobankId: " + biobankId);
-        logger.debug("sampleRequestId: " + sampleRequestId);
+        logger.debug("sampleQuestionId: " + sampleQuestionId);
 
         return new ForwardResolution("/webpages/request/export.jsp")
-                .addParameter("sampleRequestId", sampleRequestId)
+                .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
 
     }

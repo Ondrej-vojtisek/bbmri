@@ -1,6 +1,8 @@
 package cz.bbmri.facade;
 
-import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleReservation;
 import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
@@ -15,27 +17,29 @@ import java.util.List;
  */
 public interface RequestFacade {
 
-    SampleRequest getSampleRequest(Long sampleRequestId);
+    SampleQuestion getSampleQuestion(Long sampleQuestionId);
 
-    boolean approveSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean approveSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean denySampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean denySampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean closeSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean closeSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean deleteSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean denyChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean confirmChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean setAsDelivered(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
 
-    List<SampleRequest> getNewSampleRequests(Long biobankId);
-
-    boolean createRequests(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors, List<Message> messages);
+    boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages);
 
     boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors);
 
     boolean deleteRequest(Long requestId, ValidationErrors errors);
+
+    List<SampleQuestion> getNewSampleRequests(Long biobankId);
+
+    List<SampleReservation> getSampleReservations(Long userId);
 }

@@ -21,7 +21,7 @@
             <s:link beanclass="cz.bbmri.action.patient.FindPatientActionBean" event="findResolution"
                     class="btn btn-primary">
                 <s:param name="biobankId" value="${biobankBean.biobankId}"/>
-                find patient
+                <f:message key="cz.bbmri.action.patient.FindPatientActionBean.findPatient"/>
             </s:link>
         </div>
 
@@ -32,11 +32,9 @@
 
             <tbody>
 
-            <c:if test="${empty biobankBean.patients}">
-                <tr>
-                    <td colspan="5"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                      collection="${biobankBean.patients}"/>
+
             <c:forEach items="${biobankBean.patients}" var="patient">
                 <tr>
 

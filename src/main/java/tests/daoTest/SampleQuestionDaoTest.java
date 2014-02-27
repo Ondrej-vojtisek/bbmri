@@ -1,9 +1,8 @@
 package tests.daoTest;
 
 import cz.bbmri.dao.BiobankDao;
-import cz.bbmri.dao.SampleRequestDao;
+import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.SampleRequest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class SampleQuestionDaoTest extends AbstractDaoTest {
 
     @Autowired
-    SampleRequestDao sampleRequestDao;
+    SampleQuestionDao sampleQuestionDao;
 
     @Autowired
     BiobankDao biobankDao;
@@ -27,25 +26,25 @@ public class SampleQuestionDaoTest extends AbstractDaoTest {
     @Test
     public void getAllByBiobankAndProcessed() {
 
-        Biobank biobank1 = createTestBiobank(1);
-        biobankDao.create(biobank1);
-
-        Biobank biobank2 = createTestBiobank(2);
-        biobankDao.create(biobank2);
-
-        SampleRequest sq1 = createTestSampleQuestion(1);
-        sq1.setBiobank(biobank1);
-        sampleRequestDao.create(sq1);
-
-        SampleRequest sq2 = createTestSampleQuestion(2);
-        sq2.setBiobank(biobank1);
-        sampleRequestDao.create(sq2);
-
-        SampleRequest sq3 = createTestSampleQuestion(3);
-        sq3.setBiobank(biobank2);
-        sampleRequestDao.create(sq3);
-
-        sampleRequestDao.update(sq1);
+//        Biobank biobank1 = createTestBiobank(1);
+//        biobankDao.create(biobank1);
+//
+//        Biobank biobank2 = createTestBiobank(2);
+//        biobankDao.create(biobank2);
+//
+//        SampleRequest sq1 = createTestSampleQuestion(1);
+//        sq1.setBiobank(biobank1);
+//        sampleQuestionDao.create(sq1);
+//
+//        SampleRequest sq2 = createTestSampleQuestion(2);
+//        sq2.setBiobank(biobank1);
+//        sampleQuestionDao.create(sq2);
+//
+//        SampleRequest sq3 = createTestSampleQuestion(3);
+//        sq3.setBiobank(biobank2);
+//        sampleQuestionDao.create(sq3);
+//
+//        sampleQuestionDao.update(sq1);
 
 //        assertEquals(true, sampleRequestDao.getByBiobankAndProcessed(biobank1, true).contains(sq1));
 //        assertEquals(true, sampleRequestDao.getByBiobankAndProcessed(biobank1, false).contains(sq2));

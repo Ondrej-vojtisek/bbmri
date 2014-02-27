@@ -2,7 +2,6 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.UserDao;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.NotificationType;
@@ -34,6 +33,31 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
 
     @Autowired
     private NotificationDao notificationDao;
+
+    public boolean create(Long userId, NotificationType notificationType, String message, Long objectId) {
+        notNull(userId);
+        notNull(notificationType);
+
+        User userDB = userDao.get(userId);
+
+        if(userDB == null){
+            logger.debug("UserDB can't be null");
+            return false;
+        }
+
+        Date created = new Date();
+
+        Notification notification = new Notification();
+        notification.setCreated(created);
+        notification.setNotificationType(notificationType);
+        notification.setRead(false);
+        notification.setUser(userDB);
+        notification.setObjectId(objectId);
+        notification.setMessage(message);
+        notificationDao.create(notification);
+
+        return true;
+    }
 
     public boolean create(List<User> users, NotificationType notificationType, String message, Long objectId) {
         notNull(users);

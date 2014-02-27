@@ -40,7 +40,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     private ProjectAdministratorDao projectAdministratorDao;
 
     @Autowired
-    private SampleRequestDao sampleRequestDao;
+    private SampleQuestionDao sampleQuestionDao;
 
     public Project create(Project project, Long userId) {
         notNull(project);
@@ -84,7 +84,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
                 if (sampleRequests != null) {
 
                     for (SampleRequest sampleRequest : sampleRequests) {
-                        sampleRequestDao.remove(sampleRequest);
+                        sampleQuestionDao.remove(sampleRequest);
                     }
                 }
 

@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface RequestService extends BasicService<Request>{
 
-     int createRequests(List<Long> sampleIds, Long sampleRequestId) throws InsuficientAmountOfSamplesException;
+     int createRequests(List<Long> sampleIds, Long sampleQuestionId) throws InsuficientAmountOfSamplesException;
 
 }

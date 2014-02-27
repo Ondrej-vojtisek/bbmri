@@ -16,7 +16,7 @@
             <s:form beanclass="cz.bbmri.action.project.ProjectActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.SampleRequest.biobank.create" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.SampleQuestion.biobank.create" class="control-label"/>
                     <div class="controls">
                         <s:select name="biobankId">
                             <s:options-collection collection="${projectBean.allBiobanks}"
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <s:label for="cz.bbmri.entities.SampleRequest.specification.create"/>
+                <s:label for="cz.bbmri.entities.SampleQuestion.specification.create"/>
                 <s:textarea name="sampleRequest.specification"/>
 
                 <div class="form-actions">
@@ -42,7 +42,6 @@
                         </s:submit>
                     </security:allowed>
                 </div>
-
             </s:form>
 
         </fieldset>

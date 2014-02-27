@@ -42,9 +42,9 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
                 "AND sample.module.patient.sex = :sex " +
                 "AND sample.materialType.type LIKE :materialType " +
                 "AND sample.retrieved = :retrieved " +
-                "AND sample.sampleIdentificator.number LIKE :numberParam " +
-                "AND sample.sampleIdentificator.year LIKE :year " +
-                "AND sample.sampleIdentificator.sampleId LIKE :sampleId ");
+                "AND sample.sampleIdentification.number LIKE :numberParam " +
+                "AND sample.sampleIdentification.year LIKE :year " +
+                "AND sample.sampleIdentification.sampleId LIKE :sampleId ");
 
 
         query.setParameter("biobank", biobank);
@@ -57,17 +57,17 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
                 question.getMaterialType().getType() : "%"));
         query.setParameter("retrieved", (question.getRetrieved() != null ? question.getRetrieved() : "*"));
 
-        if (question.getSampleIdentificator() == null) {
+        if (question.getSampleIdentification() == null) {
             query.setParameter("numberParam", "%");
             query.setParameter("year", "%");
             query.setParameter("sampleId", "%");
         } else {
-            query.setParameter("numberParam", (question.getSampleIdentificator().getNumber() != null ?
-                    question.getSampleIdentificator().getNumber() : "%"));
-            query.setParameter("year", (question.getSampleIdentificator().getYear() != null ?
-                           question.getSampleIdentificator().getYear() : "%"));
-            query.setParameter("sampleId", (question.getSampleIdentificator().getSampleId() != null ?
-                       question.getSampleIdentificator().getSampleId() : "%"));
+            query.setParameter("numberParam", (question.getSampleIdentification().getNumber() != null ?
+                    question.getSampleIdentification().getNumber() : "%"));
+            query.setParameter("year", (question.getSampleIdentification().getYear() != null ?
+                           question.getSampleIdentification().getYear() : "%"));
+            query.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
+                       question.getSampleIdentification().getSampleId() : "%"));
         }
 
         return query.getResultList();

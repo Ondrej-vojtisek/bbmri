@@ -9,9 +9,9 @@
 <%-- -------------------------------------------------------------------- --%>
 
 <li <c:if test="${primarymenu == 'home'}"> class="active" </c:if>">
-    <s:link beanclass="cz.bbmri.action.DashboardActionBean">
-        <f:message key="home"/>
-    </s:link>
+<s:link beanclass="cz.bbmri.action.DashboardActionBean">
+    <f:message key="home"/>
+</s:link>
 </li>
 
 <%-- -------------------------------------------------------------------- --%>
@@ -21,6 +21,15 @@
         <f:message key="projects"/>
         <b class="caret"></b></a>
     <ul class="dropdown-menu">
+
+        <%-- -------------------------------------------------------------------- --%>
+
+        <li <c:if test="${secondarymenu == 'reservations'}"> class="active" </c:if>>
+            <s:link beanclass="cz.bbmri.action.reservation.ReservationActionBean">
+                <f:message key="cz.bbmri.action.project.ReservationActionBean.reservations"/>
+            </s:link>
+        </li>
+
 
         <%-- -------------------------------------------------------------------- --%>
 
@@ -167,7 +176,7 @@
 <%-- -------------------------------------------------------------------- --%>
 
 <li <c:if test="${primarymenu == 'support'}"> class="active" </c:if>">
-    <s:link beanclass="cz.bbmri.action.support.SupportActionBean">
-        <f:message key="support"/>
-    </s:link>
+<s:link beanclass="cz.bbmri.action.support.SupportActionBean">
+    <f:message key="support"/>
+</s:link>
 </li>

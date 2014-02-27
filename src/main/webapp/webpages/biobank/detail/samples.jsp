@@ -10,14 +10,6 @@
 
     <s:layout-component name="body">
 
-        <div class="form-actions">
-            <s:link beanclass="cz.bbmri.action.sample.CreateSampleActionBean" event="initial"
-                    class="btn btn-primary">
-                <s:param name="biobankId" value="${biobankBean.biobankId}"/>
-                <f:message key="cz.bbmri.action.sample.CreateSampleActionBean.addSample"/>
-            </s:link>
-        </div>
-
         <s:layout-render name="/webpages/component/samples.jsp" samples="${biobankBean.samples}"/>
 
     </s:layout-component>

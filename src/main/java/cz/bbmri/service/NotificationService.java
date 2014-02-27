@@ -15,6 +15,8 @@ import java.util.List;
  */
 public interface NotificationService extends BasicService<Notification>{
 
+    boolean create(Long userId, NotificationType notificationType, String message, Long objectId);
+
     boolean create(List<User> users, NotificationType notificationType, String message, Long objectId);
 
     List<Notification> getUnread(Long userId);

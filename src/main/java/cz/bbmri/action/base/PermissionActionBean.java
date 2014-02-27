@@ -83,6 +83,10 @@ public class PermissionActionBean extends BasicActionBean {
     }
 
     public boolean getAllowedBiobankExecutor() {
+        logger.debug("AllowedBiobankExecutor_ ");
+        logger.debug("BiobankId: " + biobankId);
+
+        logger.debug("AllowedBiobankExecutor_ " + biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
         return biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
     }
 

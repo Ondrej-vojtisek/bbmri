@@ -34,9 +34,9 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<Sample> getAllSamples(Long biobankId);
 
-    List<SampleRequest> getBiobankSampleRequests(Long biobankId);
+    List<SampleQuestion> getBiobankSampleRequests(Long biobankId);
 
-    List<SampleRequest> getNewSampleRequests(Long biobankId);
+    List<SampleQuestion> getNewSampleRequests(Long biobankId);
 
     Patient getPatient(Long patientId);
 

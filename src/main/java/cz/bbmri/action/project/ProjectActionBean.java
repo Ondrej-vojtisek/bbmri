@@ -36,7 +36,6 @@ public class ProjectActionBean extends PermissionActionBean {
     @SpringBean
     private ProjectFacade projectFacade;
 
-
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
                     required = true, on = "update"),
@@ -153,6 +152,8 @@ public class ProjectActionBean extends PermissionActionBean {
         if (projectId == null) {
             return null;
         }
+
+        logger.debug("ProjectActionBean: SampleRequestList: " + projectFacade.getProjectSampleRequests(projectId));
 
         return projectFacade.getProjectSampleRequests(projectId);
     }
@@ -389,6 +390,7 @@ public class ProjectActionBean extends PermissionActionBean {
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
+    @DontValidate
     @HandlesEvent("createSampleRequest")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution createSampleRequest() {

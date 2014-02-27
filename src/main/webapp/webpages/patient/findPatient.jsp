@@ -29,11 +29,9 @@
             <s:layout-render name="/webpages/component/detail/patient/header.jsp"/>
 
             <tbody>
-            <c:if test="${empty patientBean.patients}">
-                <tr>
-                    <td colspan="3"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                           collection="${patientBean.patients}"/>
 
             <c:forEach items="${patientBean.patients}" var="patient">
                 <tr>

@@ -29,7 +29,7 @@ public class Request {
     private Integer numOfRequested;
 
     @ManyToOne
-    private SampleRequest sampleRequest;
+    private SampleQuestion sampleQuestion;
 
     public Request() {
     }
@@ -58,12 +58,12 @@ public class Request {
         this.numOfRequested = numOfRequested;
     }
 
-    public SampleRequest getSampleRequest() {
-        return sampleRequest;
+    public SampleQuestion getSampleQuestion() {
+        return sampleQuestion;
     }
 
-    public void setSampleRequest(SampleRequest sampleRequest) {
-        this.sampleRequest = sampleRequest;
+    public void setSampleQuestion(SampleQuestion sampleQuestion) {
+        this.sampleQuestion = sampleQuestion;
     }
 
     @Override

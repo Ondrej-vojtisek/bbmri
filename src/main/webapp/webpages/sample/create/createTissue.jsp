@@ -44,7 +44,7 @@
     <div class="control-group">
         <s:label for="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo" class="control-label"/>
         <div class="controls">
-            <s:text name="sample.sampleNos.availableSampleNo"/>
+            <s:text name="sample.sampleNos.availableSamplesNo"/>
         </div>
     </div>
 

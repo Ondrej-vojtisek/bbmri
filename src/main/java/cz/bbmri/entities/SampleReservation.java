@@ -1,6 +1,7 @@
 package cz.bbmri.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,4 +12,15 @@ import javax.persistence.Entity;
  */
 @Entity
 public class SampleReservation extends SampleQuestion {
+
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

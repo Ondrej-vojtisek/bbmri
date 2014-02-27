@@ -28,7 +28,7 @@ public class Sample implements Serializable {
     private Long id;
 
     @Embedded
-    private SampleIdentification sampleIdentificator;
+    private SampleIdentification sampleIdentification;
 
     @Enumerated(EnumType.STRING)
     private Retrieved retrieved;
@@ -63,12 +63,12 @@ public class Sample implements Serializable {
         this.id = id;
     }
 
-    public SampleIdentification getSampleIdentificator() {
-        return sampleIdentificator;
+    public SampleIdentification getSampleIdentification() {
+        return sampleIdentification;
     }
 
-    public void setSampleIdentificator(SampleIdentification sampleIdentificator) {
-        this.sampleIdentificator = sampleIdentificator;
+    public void setSampleIdentification(SampleIdentification sampleIdentification) {
+        this.sampleIdentification = sampleIdentification;
     }
 
     public Retrieved getRetrieved() {
@@ -148,7 +148,7 @@ public class Sample implements Serializable {
     public String toString() {
         return "Sample{" +
                 "id=" + id +
-                ", sampleIdentificator=" + sampleIdentificator +
+                ", sampleIdentification=" + sampleIdentification +
                 ", retrieved=" + retrieved +
                 ", takingDate=" + takingDate +
                 ", materialType=" + materialType +

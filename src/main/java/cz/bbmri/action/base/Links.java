@@ -129,4 +129,8 @@ public class Links {
     protected static final String INFRASTRUCTURE_DETAIL_CONTAINER= INFRASTRUCTURE + "detail/containerDetail.jsp";
     protected static final String INFRASTRUCTURE_DETAIL_BOX = INFRASTRUCTURE + "detail/boxDetail.jsp";
     protected static final String INFRASTRUCTURE_DETAIL_RACK = INFRASTRUCTURE + "detail/rackDetail.jsp";
+
+    private static final String RESERVATION = BASIC_PATH + "/reservation/";
+
+    protected static final String RESERVATION_ALL = RESERVATION + "all.jsp";
 }

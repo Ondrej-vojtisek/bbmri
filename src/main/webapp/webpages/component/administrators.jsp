@@ -11,11 +11,8 @@
         </thead>
         <tbody>
 
-        <c:if test="${empty bean.administrators}">
-            <tr>
-                <td colspan="2"><f:message key="empty"/></td>
-            </tr>
-        </c:if>
+        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                          collection="${bean.administrators}"/>
 
         <c:forEach items="${bean.administrators}" var="administrator">
             <tr>

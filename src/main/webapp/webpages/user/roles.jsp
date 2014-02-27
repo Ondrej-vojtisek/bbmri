@@ -129,11 +129,10 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${empty userBean.userRoles}">
-            <tr>
-                <td colspan="3"><f:message key="empty"/></td>
-            </tr>
-        </c:if>
+
+        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                   collection="${userBean.userRoles}"/>
+
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
             <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.BiobankAdministrator'}">
                 <tr>
@@ -186,11 +185,10 @@
         </tr>
         </thead>
         <tbody>
-        <c:if test="${empty userBean.userRoles}">
-            <tr>
-                <td colspan="3"><f:message key="empty"/></td>
-            </tr>
-        </c:if>
+
+        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                   collection="${userBean.userRoles}"/>
+
         <c:forEach items="${userBean.userRoles}" var="roleDTO">
             <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.ProjectAdministrator'}">
                 <tr>

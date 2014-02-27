@@ -75,11 +75,9 @@
             </tr>
             </thead>
             <tbody>
-            <c:if test="${empty userBean.users}">
-                <tr>
-                    <td colspan="3"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                       collection="${userBean.users}"/>
 
             <c:forEach var="user" items="${userBean.users}">
                 <tr>

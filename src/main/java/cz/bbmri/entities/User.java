@@ -74,6 +74,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications = new ArrayList<Notification>();
 
+    @OneToMany(mappedBy = "user")
+    private List<SampleReservation> sampleReservations = new ArrayList<SampleReservation>();
+
     @ElementCollection(targetClass = SystemRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "roleType", joinColumns = @JoinColumn(name = "userID"))
     @Column(nullable = false)
@@ -272,6 +275,14 @@ public class User implements Serializable {
 
     public void setPersistentId(String persistentId) {
         this.persistentId = persistentId;
+    }
+
+    public List<SampleReservation> getSampleReservations() {
+        return sampleReservations;
+    }
+
+    public void setSampleReservations(List<SampleReservation> sampleReservations) {
+        this.sampleReservations = sampleReservations;
     }
 
     /* Only employee is taken into account now */

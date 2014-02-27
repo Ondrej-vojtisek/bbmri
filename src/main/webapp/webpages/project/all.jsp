@@ -12,11 +12,9 @@
         <table class="table table-hover table-striped">
             <s:layout-render name="/webpages/component/detail/project/header.jsp"/>
             <tbody>
-            <c:if test="${empty projectBean.all}">
-                <tr>
-                    <td colspan="5"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                           collection="${projectBean.all}"/>
 
             <c:forEach items="${projectBean.all}" var="project">
                 <tr>

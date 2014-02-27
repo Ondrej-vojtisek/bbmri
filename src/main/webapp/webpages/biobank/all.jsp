@@ -10,12 +10,11 @@
     <s:layout-component name="body">
         <table class="table table-hover table-striped">
             <s:layout-render name="/webpages/component/detail/biobank/header.jsp"/>
+            <tbody>
 
-            <c:if test="${empty biobankBean.biobanks}">
-                <tr>
-                    <td colspan="3"><f:message key="empty"/></td>
-                </tr>
-            </c:if>
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                             collection="${biobankBean.biobanks}"/>
+
             <c:forEach items="${biobankBean.biobanks}" var="biobank">
 
                 <tr>
@@ -41,7 +40,8 @@
                         <security:allowed bean="biobankBean" event="delete">
                             <s:form beanclass="cz.bbmri.action.biobank.BiobankActionBean">
 
-                                <f:message var="question" key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>
+                                <f:message var="question"
+                                           key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>
 
                                 <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
                                     <s:param name="biobankId" value="${biobank.id}"/>

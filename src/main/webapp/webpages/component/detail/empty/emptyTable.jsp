@@ -5,7 +5,7 @@
 
     <c:if test="${empty collection}">
         <tr>
-            <td colspan="${colspan}">
+            <td colspan="100%">
                 <f:message key="empty"/>
             </td>
         </tr>

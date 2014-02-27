@@ -19,11 +19,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${empty actionBean.allAdministrators}">
-                    <tr>
-                        <td colspan="2"><f:message key="empty"/></td>
-                    </tr>
-                </c:if>
+
+                <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                           collection="${actionBean.allAdministrators}"/>
 
                 <c:forEach items="${actionBean.allAdministrators}" var="user">
                     <tr>
@@ -48,11 +46,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${empty actionBean.allDevelopers}">
-                    <tr>
-                        <td colspan="2"><f:message key="empty"/></td>
-                    </tr>
-                </c:if>
+
+                <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                           collection="${actionBean.allDevelopers}"/>
 
                 <c:forEach items="${actionBean.allDevelopers}" var="user">
                     <tr>

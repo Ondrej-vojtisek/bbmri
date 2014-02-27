@@ -9,13 +9,8 @@
             <s:layout-render name="/webpages/component/detail/position/header.jsp"/>
             <tbody>
 
-            <c:if test="${empty actionBean.positions}">
-                <tr>
-                    <td colspan="6">
-                        <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.emptyPositions"/>
-                    </td>
-                </tr>
-            </c:if>
+            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                           collection="${actionBean.positions}"/>
 
             <c:forEach items="${actionBean.positions}" var="position">
                 <tr>

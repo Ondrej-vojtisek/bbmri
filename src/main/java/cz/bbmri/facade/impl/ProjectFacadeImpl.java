@@ -55,7 +55,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     private BiobankService biobankService;
 
     @Autowired
-    private SampleRequestService sampleRequestService;
+    private SampleQuestionService sampleQuestionService;
 
     public boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
         notNull(projectId);
@@ -462,7 +462,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public List<Project> getProjects(Long userId) {
         notNull(userId);
 
-        User userDB = userService.eagerGet(userId, false, true, false, false);
+        User userDB = userService.eagerGet(userId, false, true, false, false, false);
         Set<ProjectAdministrator> paSet = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
 
@@ -513,7 +513,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 //        notNull(projectId);
 //        notNull(biobankId);
 
-        if (sampleRequestService.create(sampleRequest, biobankId, projectId) == null) {
+        if (sampleQuestionService.create(sampleRequest, biobankId, projectId) == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleRequestFailed"));
             return false;
         }

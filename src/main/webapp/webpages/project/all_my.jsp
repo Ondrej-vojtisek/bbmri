@@ -16,11 +16,8 @@
 
                 <tbody>
 
-                <c:if test="${empty projectBean.myProjects}">
-                    <tr>
-                        <td colspan="5"><f:message key="empty"/></td>
-                    </tr>
-                </c:if>
+                <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                               collection="${projectBean.myProjects}"/>
 
                 <c:forEach items="${projectBean.myProjects}" var="project">
                     <tr>

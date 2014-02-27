@@ -76,7 +76,6 @@ public class Tissue extends Sample {
                 ", ptnm=" + ptnm +
                 ", morphology=" + morphology +
                 ", freezeDate=" + freezeDate +
-                ", sampleIdentificator=" + getSampleIdentificator() +
                 ", retrieved=" + getRetrieved() +
                 ", takingDate=" + getTakingDate() +
                 ", materialType=" + getMaterialType() +

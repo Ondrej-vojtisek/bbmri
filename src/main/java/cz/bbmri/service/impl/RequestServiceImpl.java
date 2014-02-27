@@ -2,10 +2,10 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.RequestDao;
 import cz.bbmri.dao.SampleDao;
-import cz.bbmri.dao.SampleRequestDao;
+import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
 import cz.bbmri.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +32,9 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
     private SampleDao sampleDao;
 
     @Autowired
-    private SampleRequestDao sampleRequestDao;
+    private SampleQuestionDao sampleQuestionDao;
 
-    public int createRequests(List<Long> sampleIds, Long sampleRequestId) throws InsuficientAmountOfSamplesException {
+    public int createRequests(List<Long> sampleIds, Long sampleQuestionId) throws InsuficientAmountOfSamplesException {
         if (sampleIds == null) {
             logger.debug("sampleIds can't be null");
             return -1;
@@ -45,14 +45,14 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
             return -1;
         }
 
-        if (sampleRequestId == null) {
-            logger.debug("sampleRequestId can't be null");
+        if (sampleQuestionId == null) {
+            logger.debug("sampleQuestionId can't be null");
             return -1;
         }
 
-        SampleRequest sampleRequestDB = sampleRequestDao.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionDao.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("sampleRequestDB can't be null");
             return -1;
         }
@@ -63,6 +63,11 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
             Sample sampleDB = sampleDao.get(sampleId);
             if (sampleDB == null) {
                 logger.debug("sampleDB can't be null - sampleId was: " + sampleId);
+                continue;
+            }
+
+            if (sampleDB.getSampleNos() == null) {
+                logger.debug("sampleDB.sampleNos can't be null: " + sampleId);
                 continue;
             }
 
@@ -81,12 +86,16 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
             Request request = new Request();
             request.setSample(sampleDB);
             request.setNumOfRequested(Request.IMPLICIT_REQUESTED_SAMPLES);
-            request.setSampleRequest(sampleRequestDB);
+            request.setSampleQuestion(sampleQuestionDB);
             requestDao.create(request);
 
-            int availableSamples = sampleDB.getSampleNos().getAvailableSamplesNo();
-            sampleDB.getSampleNos().setAvailableSamplesNo(
-                    availableSamples - Request.IMPLICIT_REQUESTED_SAMPLES);
+            if (!sampleDB.getSampleNos().decreaseAmount(Request.IMPLICIT_REQUESTED_SAMPLES)) {
+                logger.debug("Decrease sample nos failed");
+                throw new InsuficientAmountOfSamplesException("Sample with sampleId: " + sampleId +
+                        " can't be requested because number of available " +
+                        "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
+            }
+
             sampleDao.update(sampleDB);
             result++;
         }
@@ -105,16 +114,19 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         // Delete sample allocation - return to previous state before request
 
         Sample sampleDB = requestDB.getSample();
-        int availableSamples = sampleDB.getSampleNos().getAvailableSamplesNo();
-        sampleDB.getSampleNos().setAvailableSamplesNo(availableSamples + requestDB.getNumOfRequested());
+        if (!sampleDB.getSampleNos().increaseAmount(requestDB.getNumOfRequested())) {
+            logger.debug("decrease failed");
+            return false;
+        }
+
         sampleDao.update(sampleDB);
 
         if (requestDB.getSample() != null) {
             requestDB.setSample(null);
         }
 
-        if (requestDB.getSampleRequest() != null) {
-            requestDB.setSampleRequest(null);
+        if (requestDB.getSampleQuestion() != null) {
+            requestDB.setSampleQuestion(null);
         }
 
         requestDao.remove(requestDB);
@@ -163,15 +175,18 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
 
         int availableSamples = sampleDB.getSampleNos().getAvailableSamplesNo();
 
-        // try to increase
+        int samplesNo = sampleDB.getSampleNos().getSamplesNo();
+
+        // try to increase number of requested
 
         if (difference > 0) {
 
-           /* request can be increased*/
+           /* request can be increased - so decrease availablesamplesNo*/
 
             if (difference < availableSamples) {
-                sampleDB.getSampleNos().setAvailableSamplesNo(
-                        availableSamples - difference);
+
+                sampleDB.getSampleNos().decreaseAmount(difference);
+
             } else {
 
                  /* request can't be arised */
@@ -183,9 +198,8 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
             // try to decrease
 
         } else {
-            sampleDB.getSampleNos().setAvailableSamplesNo(
 
-                    availableSamples + (requestDB.getNumOfRequested() - request.getNumOfRequested()));
+            sampleDB.getSampleNos().increaseAmount(requestDB.getNumOfRequested() - request.getNumOfRequested());
 
             if (sampleDB.getSampleNos().getAvailableSamplesNo() > sampleDB.getSampleNos().getSamplesNo()) {
 

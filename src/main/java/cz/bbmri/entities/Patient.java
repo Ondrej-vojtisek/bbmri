@@ -120,6 +120,8 @@ public class Patient implements Serializable {
         this.biobank = biobank;
     }
 
+
+
     public Integer getAge() {
         if (birthMonth == null && birthYear == null) {
             return null;

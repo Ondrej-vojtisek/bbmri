@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,7 +47,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     private PatientService patientService;
 
     @Autowired
-    private SampleRequestService sampleRequestService;
+    private SampleQuestionService sampleQuestionService;
 
     @Autowired
     private SampleService sampleService;
@@ -342,7 +341,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     public List<Biobank> getBiobanksByUser(Long userId) {
         notNull(userId);
 
-        User userDB = userService.eagerGet(userId, false, false, true, false);
+        User userDB = userService.eagerGet(userId, false, false, true, false, false);
         if (userDB == null) {
             return null;
         }
@@ -370,15 +369,15 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return sampleService.all();
     }
 
-    public List<SampleRequest> getBiobankSampleRequests(Long biobankId) {
+    public List<SampleQuestion> getBiobankSampleRequests(Long biobankId) {
         notNull(biobankId);
 
         Biobank biobankDB = biobankService.eagerGet(biobankId, false, true);
-        return biobankDB.getSampleRequests();
+        return biobankDB.getSampleQuestions();
     }
 
-    public List<SampleRequest> getNewSampleRequests(Long biobankId) {
-        return sampleRequestService.getByBiobankAndState(biobankId, RequestState.NEW);
+    public List<SampleQuestion> getNewSampleRequests(Long biobankId) {
+        return sampleQuestionService.getSampleRequests(biobankId, RequestState.NEW);
     }
 
     public Patient getPatient(Long patientId) {

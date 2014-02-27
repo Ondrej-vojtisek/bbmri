@@ -1,15 +1,13 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Request;
-import cz.bbmri.entities.SampleRequest;
-import cz.bbmri.entities.User;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.facade.RequestFacade;
 import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
 import cz.bbmri.service.NotificationService;
 import cz.bbmri.service.RequestService;
-import cz.bbmri.service.SampleRequestService;
+import cz.bbmri.service.SampleQuestionService;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.Message;
@@ -18,6 +16,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ import java.util.List;
 public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     @Autowired
-    private SampleRequestService sampleRequestService;
+    private SampleQuestionService sampleQuestionService;
 
     @Autowired
     private NotificationService notificationService;
@@ -42,22 +41,22 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     @Autowired
     private UserService userService;
 
-    public SampleRequest getSampleRequest(Long sampleRequestId) {
-        return sampleRequestService.get(sampleRequestId);
+    public SampleQuestion getSampleQuestion(Long sampleQuestionId) {
+        return sampleQuestionService.get(sampleQuestionId);
     }
 
-    public boolean approveSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
-        notNull(sampleRequestId);
+    public boolean approveSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
+        notNull(sampleQuestionId);
         notNull(loggedUserId);
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("SampleRequestDB can't be null");
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.NEW)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.NEW)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
             return false;
         }
@@ -65,41 +64,51 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         // here is no need to send notification - if approved that biobank administrator must prepare sample set
         // if sample set is choosen than change processed to true and send message to project team
 
-        sampleRequestDB.setRequestState(RequestState.APPROVED);
-        sampleRequestService.update(sampleRequestDB);
+        sampleQuestionDB.setRequestState(RequestState.APPROVED);
+        sampleQuestionService.update(sampleQuestionDB);
 
         return true;
 
     }
 
-    public boolean denySampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean denySampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
 
-        notNull(sampleRequestId);
+        notNull(sampleQuestionId);
         notNull(loggedUserId);
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("SampleRequestDB can't be null");
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.NEW)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.NEW)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
             return false;
         }
 
-        sampleRequestDB.setRequestState(RequestState.DENIED);
-        sampleRequestService.update(sampleRequestDB);
+        sampleQuestionDB.setRequestState(RequestState.DENIED);
+        sampleQuestionService.update(sampleQuestionDB);
 
-        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " was denied";
 
-            notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), loggedUserId),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+            // Notification for all users involved in project
+
+            if(sampleQuestionDB instanceof SampleRequest){
+            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), loggedUserId),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+            }
+
+            // Notification for the user who etnered the reservation
+
+            else if(sampleQuestionDB instanceof SampleReservation){
+                notificationService.create(loggedUserId,NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+            }
         }
 
         return result;
@@ -109,31 +118,39 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     /* Sample set is prepared - e.g. samples were choosen and now the project worker must decide if it is suitable
     * sample set for hos research
     * */
-    public boolean closeSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
-        notNull(sampleRequestId);
+    public boolean closeSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
+        notNull(sampleQuestionId);
         notNull(loggedUserId);
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("SampleRequestDB can't be null");
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.APPROVED)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.APPROVED)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantCloseThisRequestState"));
             return false;
         }
 
-        sampleRequestDB.setRequestState(RequestState.CLOSED);
-        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        sampleQuestionDB.setRequestState(RequestState.CLOSED);
+        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " is closed. Check if sample set suits your requirements. ";
 
-            notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), loggedUserId),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+            if (sampleQuestionDB instanceof SampleRequest) {
+                notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(),
+                        loggedUserId),
+                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+            } else if (sampleQuestionDB instanceof SampleReservation) {
+                notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg,
+                        sampleQuestionDB.getId());
+            }
+
+
         }
 
         return result;
@@ -142,19 +159,27 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     /* Action of project administrator - decision if the sample set is suitable or not
     * */
-    public boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
-        notNull(sampleRequestId);
+    public boolean confirmChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
+        notNull(sampleQuestionId);
         notNull(loggedUserId);
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("SampleRequestDB can't be null");
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.CLOSED)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.CLOSED)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantConfirmThisRequestState"));
+            return false;
+        }
+
+        // Not instanceof SampleRequest
+
+        if (!(sampleQuestionDB instanceof SampleRequest)) {
+            logger.debug("SampleQuestionDB must be instance of SampleRequest");
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
             return false;
         }
 
@@ -166,15 +191,15 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             return false;
         }
 
-        sampleRequestDB.setRequestState(RequestState.AGREED);
-        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        sampleQuestionDB.setRequestState(RequestState.AGREED);
+        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " was agreed by project administrator " + loggedUser.getWholeName() + ". Please prepare set of samples. ";
 
-            notificationService.create(getOtherBiobankAdministrators(sampleRequestDB.getBiobank(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+            notificationService.create(getOtherBiobankAdministrators(sampleQuestionDB.getBiobank(), null),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -183,17 +208,25 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     /* Action of project administrator - decision if the sample set is suitable or not
         * */
-    public boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean denyChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
-            logger.debug("SampleRequestDB can't be null");
+        if (sampleQuestionDB == null) {
+            logger.debug("SampleQuestionDB can't be null");
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.CLOSED)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.CLOSED)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
+            return false;
+        }
+
+        // Not instanceof SampleRequest
+
+        if (!(sampleQuestionDB instanceof SampleRequest)) {
+            logger.debug("SampleQuestionDB must be instance of SampleRequest");
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
             return false;
         }
@@ -206,16 +239,16 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             return false;
         }
 
-        sampleRequestDB.setRequestState(RequestState.APPROVED);
-        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        sampleQuestionDB.setRequestState(RequestState.APPROVED);
+        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " wasn't confirmed by project administrator " + loggedUser.getWholeName() + ". Please contant him:" +
                     " on " + loggedUser.getEmail();
 
-            notificationService.create(getOtherBiobankAdministrators(sampleRequestDB.getBiobank(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+            notificationService.create(getOtherBiobankAdministrators(sampleQuestionDB.getBiobank(), null),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -224,18 +257,26 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     /* Action of project administrator - decision if the sample set is suitable or not
       * */
-    public boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean setAsDelivered(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (sampleRequestDB == null) {
+        if (sampleQuestionDB == null) {
             logger.debug("SampleRequestDB can't be null");
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantSetAsDelivered"));
             return false;
         }
 
-        if (!sampleRequestDB.getRequestState().equals(RequestState.CLOSED)) {
+        if (!sampleQuestionDB.getRequestState().equals(RequestState.CLOSED)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantSetAsDelivered"));
+            return false;
+        }
+
+        // Not instanceof SampleRequest
+
+        if (!(sampleQuestionDB instanceof SampleRequest)) {
+            logger.debug("SampleQuestionDB must be instance of SampleRequest");
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
             return false;
         }
 
@@ -247,15 +288,15 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             return false;
         }
 
-        sampleRequestDB.setRequestState(RequestState.DELIVERED);
-        boolean result = sampleRequestService.update(sampleRequestDB) != null;
+        sampleQuestionDB.setRequestState(RequestState.DELIVERED);
+        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleRequestDB.getId() +
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " was delivered by: " + loggedUser.getWholeName();
 
-            notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleRequestDB.getId());
+            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), null),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -263,40 +304,45 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     }
 
 
-    public boolean deleteSampleRequest(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean deleteSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId) {
 
-        notNull(sampleRequestId);
+        notNull(sampleQuestionId);
         notNull(loggedUserId);
 
-        SampleRequest sampleRequestDB = sampleRequestService.get(sampleRequestId);
+        SampleQuestion sampleQuestionDB = sampleQuestionService.get(sampleQuestionId);
 
-        if (!sampleRequestService.remove(sampleRequestId)) {
+        if (!sampleQuestionService.remove(sampleQuestionId)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDelete"));
             return false;
         }
 
-        String msg = "Sample request with id: " + sampleRequestDB.getId() +
+        String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                 " was deleted";
 
-        notificationService.create(getOtherProjectWorkers(sampleRequestDB.getProject(), loggedUserId),
-                NotificationType.PROJECT_DETAIL, msg, sampleRequestDB.getProject().getId());
+        if(sampleQuestionDB instanceof SampleRequest){
+            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), loggedUserId),
+                         NotificationType.PROJECT_DETAIL, msg, ((SampleRequest)sampleQuestionDB).getProject().getId());
+
+        }
+
+        // Reservation is my own - there is no need to send notification
 
         return true;
     }
 
-    public List<SampleRequest> getNewSampleRequests(Long biobankId) {
-        return sampleRequestService.getByBiobankAndState(biobankId, RequestState.NEW);
+    public List<SampleQuestion> getNewSampleRequests(Long biobankId) {
+        return sampleQuestionService.getSampleRequests(biobankId, RequestState.NEW);
     }
 
-    public boolean createRequests(List<Long> sampleIds, Long sampleRequestId, ValidationErrors errors, List<Message> messages) {
+    public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
         logger.debug("Facade - createRequests");
         logger.debug("SampleIds: " + sampleIds);
-        logger.debug("SampleRequestId: " + sampleRequestId);
+        logger.debug("SampleQuestionId: " + sampleQuestionId);
 
         int result = -1;
 
         try {
-            result = requestService.createRequests(sampleIds, sampleRequestId);
+            result = requestService.createRequests(sampleIds, sampleQuestionId);
         } catch (InsuficientAmountOfSamplesException ex) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
             return false;
@@ -344,6 +390,14 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             return false;
         }
         return true;
+    }
+
+    public List<SampleReservation> getSampleReservations(Long userId) {
+        notNull(userId);
+
+        User userDB = userService.eagerGet(userId, false, false, false, false, true);
+
+        return userDB.getSampleReservations();
     }
 
 

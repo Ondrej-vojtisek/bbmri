@@ -103,7 +103,7 @@ public class BiobankActionBean extends PermissionActionBean {
         return biobankFacade.getBiobanksByUser(getContext().getMyId());
     }
 
-    public List<SampleRequest> getSampleRequests() {
+    public List<SampleQuestion> getSampleRequests() {
         if (biobankId == null) {
             return null;
         }

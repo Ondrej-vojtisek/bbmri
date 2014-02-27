@@ -62,7 +62,7 @@ diagnosisMaterial =
     element diagnosisMaterial {
         sampleIdentification,
 		materialType,
-		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "4" } },
+		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "5" } },
 		element takingDate { xsd:dateTime },
 		retrieved
     }
@@ -100,5 +100,6 @@ morphology =
 grading =
   element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }
 
+## internal institution code of material
 materialType =
   element materialType { xsd:string { maxLength = "4" } }
