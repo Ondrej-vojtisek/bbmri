@@ -62,11 +62,7 @@ public class ProjectActionBean extends PermissionActionBean {
       * */
     private AttachmentType attachmentType;
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "specification",
-                    required = true, on = "confirmSampleRequest")
-    })
-    private SampleRequest sampleRequest;
+
 
     public List<Project> getAll() {
         return projectFacade.all();
@@ -120,14 +116,6 @@ public class ProjectActionBean extends PermissionActionBean {
         return getProject().getProjectAdministrators();
     }
 
-    public SampleRequest getSampleRequest() {
-        return sampleRequest;
-    }
-
-    public void setSampleRequest(SampleRequest sampleRequest) {
-        this.sampleRequest = sampleRequest;
-    }
-
     public FileBean getAttachmentFileBean() {
         return attachmentFileBean;
     }
@@ -142,10 +130,6 @@ public class ProjectActionBean extends PermissionActionBean {
 
     public void setAttachmentType(AttachmentType attachmentType) {
         this.attachmentType = attachmentType;
-    }
-
-    public List<Biobank> getAllBiobanks() {
-        return projectFacade.getAllBiobanks();
     }
 
     public List<SampleRequest> getSampleRequests() {
@@ -388,26 +372,6 @@ public class ProjectActionBean extends PermissionActionBean {
         }
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
-    }
-
-    @DontValidate
-    @HandlesEvent("createSampleRequest")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
-    public Resolution createSampleRequest() {
-        return new ForwardResolution(PROJECT_CREATE_SAMPLE_REQUEST);
-    }
-
-
-    //VALIDATE
-    @HandlesEvent("confirmSampleRequest")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
-    public Resolution confirmSampleRequest() {
-
-        if (!projectFacade.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
-            return new ForwardResolution(PROJECT_DETAIL_GENERAL);
-        }
-        successMsg(null);
-        return new RedirectResolution(this.getClass(), "sampleRequests").addParameter("projectId", projectId);
     }
 
     @DontValidate

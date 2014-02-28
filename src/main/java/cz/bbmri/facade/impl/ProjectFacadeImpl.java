@@ -506,20 +506,6 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return biobankService.all();
     }
 
-    public boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
-                                        ValidationErrors errors) {
-
-//        notNull(sampleQuestion);
-//        notNull(projectId);
-//        notNull(biobankId);
-
-        if (sampleQuestionService.create(sampleRequest, biobankId, projectId) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleRequestFailed"));
-            return false;
-        }
-        return true;
-    }
-
     public List<SampleRequest> getProjectSampleRequests(Long projectId) {
         notNull(projectId);
 

@@ -16,7 +16,6 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,15 +98,15 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
             // Notification for all users involved in project
 
-            if(sampleQuestionDB instanceof SampleRequest){
-            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), loggedUserId),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+            if (sampleQuestionDB instanceof SampleRequest) {
+                notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), loggedUserId),
+                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
             }
 
             // Notification for the user who etnered the reservation
 
-            else if(sampleQuestionDB instanceof SampleReservation){
-                notificationService.create(loggedUserId,NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+            else if (sampleQuestionDB instanceof SampleReservation) {
+                notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
             }
         }
 
@@ -135,25 +134,31 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         }
 
         sampleQuestionDB.setRequestState(RequestState.CLOSED);
-        boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
-        if (result) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " is closed. Check if sample set suits your requirements. ";
-
-            if (sampleQuestionDB instanceof SampleRequest) {
-                notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(),
-                        loggedUserId),
-                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
-            } else if (sampleQuestionDB instanceof SampleReservation) {
-                notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg,
-                        sampleQuestionDB.getId());
-            }
-
-
+        if (sampleQuestionService.update(sampleQuestionDB) == null) {
+            return false;
         }
 
-        return result;
+        if (sampleQuestionDB instanceof SampleRequest) {
+
+            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
+                    " is finished. Check if sample set suits your requirements. ";
+
+            notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(),
+                    loggedUserId),
+                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+        }
+
+        if (sampleQuestionDB instanceof SampleReservation) {
+
+            String msg = "Sample reservation with id: " + sampleQuestionDB.getId() +
+                    " is finished. Check if sample set suits your requirements. ";
+
+            notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg,
+                    sampleQuestionDB.getId());
+        }
+
+        return true;
 
     }
 
@@ -295,7 +300,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                     " was delivered by: " + loggedUser.getWholeName();
 
-            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), null),
+            notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), null),
                     NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
         }
 
@@ -319,9 +324,9 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         String msg = "Sample request with id: " + sampleQuestionDB.getId() +
                 " was deleted";
 
-        if(sampleQuestionDB instanceof SampleRequest){
-            notificationService.create(getOtherProjectWorkers(((SampleRequest)sampleQuestionDB).getProject(), loggedUserId),
-                         NotificationType.PROJECT_DETAIL, msg, ((SampleRequest)sampleQuestionDB).getProject().getId());
+        if (sampleQuestionDB instanceof SampleRequest) {
+            notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), loggedUserId),
+                    NotificationType.PROJECT_DETAIL, msg, ((SampleRequest) sampleQuestionDB).getProject().getId());
 
         }
 
@@ -398,6 +403,26 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         User userDB = userService.eagerGet(userId, false, false, false, false, true);
 
         return userDB.getSampleReservations();
+    }
+
+    public boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
+                                       ValidationErrors errors) {
+
+        if (sampleQuestionService.create(sampleRequest, biobankId, projectId) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleRequestFailed"));
+            return false;
+        }
+        return true;
+    }
+
+    public boolean createSampleQuestion(SampleQuestion sampleQuestion, Long biobankId,
+                                        ValidationErrors errors) {
+
+        if (sampleQuestionService.create(sampleQuestion, biobankId) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleReservationFailed"));
+            return false;
+        }
+        return true;
     }
 
 

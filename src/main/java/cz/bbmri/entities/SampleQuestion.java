@@ -16,8 +16,9 @@ import java.util.Set;
  * Time: 17:18
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "SampleQuestion")
 @Entity
+@Table(name = "SampleQuestion")
+//@DiscriminatorColumn(name="subclass")
 public class SampleQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;

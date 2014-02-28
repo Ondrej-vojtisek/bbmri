@@ -24,13 +24,29 @@
                     <s:submit name="changeStateToClosed" class="btn btn-primary btnMargin"/>
                 </security:allowed>
 
-                <security:allowed event="confirmChosenSet">
-                    <s:submit name="confirmChosenSet" class="btn btn-primary btnMargin"/>
-                </security:allowed>
+                <c:if test="${actionBean.isSampleRequest}">
 
-                <security:allowed event="denyChosenSet">
-                    <s:submit name="denyChosenSet" class="btn btn-primary btnMargin"/>
-                </security:allowed>
+                    <security:allowed event="confirmChosenSet">
+                        <s:submit name="confirmChosenSet" class="btn btn-primary btnMargin"/>
+                    </security:allowed>
+
+                    <security:allowed event="denyChosenSet">
+                        <s:submit name="denyChosenSet" class="btn btn-primary btnMargin"/>
+                    </security:allowed>
+
+                </c:if>
+
+                <c:if test="${actionBean.isSampleReservation}">
+
+                    <security:allowed event="asignToProject">
+                        <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="asignToProject"
+                                class="btn btn-primary btnMargin">
+                            <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                            <f:message key="cz.bbmri.action.request.RequestActionBean.asignToProject"/>
+                        </s:link>
+                    </security:allowed>
+
+                </c:if>
 
                 <security:allowed event="setAsDelivered">
                     <s:submit name="setAsDelivered" class="btn btn-primary btnMargin"/>

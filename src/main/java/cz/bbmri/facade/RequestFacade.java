@@ -2,6 +2,7 @@ package cz.bbmri.facade;
 
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
 import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -42,4 +43,10 @@ public interface RequestFacade {
     List<SampleQuestion> getNewSampleRequests(Long biobankId);
 
     List<SampleReservation> getSampleReservations(Long userId);
+
+    boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId, ValidationErrors errors);
+
+    boolean createSampleQuestion(SampleQuestion sampleQuestion, Long biobankId,
+                                           ValidationErrors errors);
+
 }

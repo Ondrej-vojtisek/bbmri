@@ -15,8 +15,8 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Users")
 @Entity
+@Table(name = "Users")
 public class User implements Serializable {
 
     private static final String AFFILIATION_EMPLOYEE = "employee@";

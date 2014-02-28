@@ -46,7 +46,7 @@
                         <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
                     </s:link>
 
-                    <c:if test="${requestBean.isSampleQuestionNew}">
+                    <c:if test="${actionBean.isSampleQuestionNew}">
 
                         <security:allowed bean="requestBean" event="approve">
                             <s:submit name="approve" class="btn btn-primary btnMargin">

@@ -371,9 +371,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public List<SampleQuestion> getBiobankSampleRequests(Long biobankId) {
         notNull(biobankId);
-
-        Biobank biobankDB = biobankService.eagerGet(biobankId, false, true);
-        return biobankDB.getSampleQuestions();
+        return sampleQuestionService.getSampleRequests(biobankId, null);
     }
 
     public List<SampleQuestion> getNewSampleRequests(Long biobankId) {

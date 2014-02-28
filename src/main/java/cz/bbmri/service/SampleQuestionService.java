@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.enumeration.RequestState;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.List;
 public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     SampleRequest create(SampleRequest sampleRequest, Long biobankId, Long projectId);
+
+    SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId);
 
     List<SampleQuestion> getSampleReservations(Long biobankId, RequestState requestState);
 

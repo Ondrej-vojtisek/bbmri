@@ -3,6 +3,7 @@
 
 <f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>
 <s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
+<s:useActionBean var="createSampleQuestionBean" beanclass="cz.bbmri.action.request.CreateSampleQuestion"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
@@ -90,8 +91,8 @@
                 </security:allowed>
 
                 <c:if test="${projectBean.isApproved}">
-                    <security:allowed bean="projectBean" event="createSampleRequest">
-                        <s:link beanclass="${projectBean.name}" event="createSampleRequest" class="btn btn-primary btnMargin">
+                    <security:allowed bean="createSampleQuestionBean" event="createSampleRequest">
+                        <s:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest" class="btn btn-primary btnMargin">
                             <s:param name="projectId" value="${projectBean.projectId}"/>
                             <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
                         </s:link>

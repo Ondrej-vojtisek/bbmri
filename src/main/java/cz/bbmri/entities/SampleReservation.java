@@ -1,7 +1,11 @@
 package cz.bbmri.entities;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,10 +15,14 @@ import javax.persistence.ManyToOne;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+//@DiscriminatorValue("SampleReservation")
 public class SampleReservation extends SampleQuestion {
 
     @ManyToOne
     private User user;
+
+    @Type(type = "timestamp")
+    private Date validity;
 
     public User getUser() {
         return user;
@@ -22,5 +30,13 @@ public class SampleReservation extends SampleQuestion {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getValidity() {
+        return validity;
+    }
+
+    public void setValidity(Date validity) {
+        this.validity = validity;
     }
 }

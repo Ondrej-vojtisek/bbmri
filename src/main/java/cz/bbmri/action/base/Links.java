@@ -64,7 +64,7 @@ public class Links {
     /* ********************************** */
     protected static final String PROJECT_ALL = PROJECT + "all.jsp";
     protected static final String PROJECT_MY = PROJECT + "all_my.jsp";
-    protected static final String PROJECT_CREATE_SAMPLE_REQUEST = PROJECT + "createSampleRequest.jsp";
+
 
     // PROJECTS/CREATE
     private static final String PROJECT_DETAIL = PROJECT + "detail/";
@@ -97,6 +97,10 @@ public class Links {
     /* ********************************** */
     protected static final String REQUEST_DETAIL = REQUEST + "detail.jsp";
     protected static final String CREATE_REQUESTS = REQUEST + "create/createRequests.jsp";
+    protected static final String REQUEST_CREATE_SAMPLE_REQUEST = REQUEST + "create/createSampleRequest.jsp";
+    protected static final String REQUEST_CREATE_SAMPLE_RESERVATION = REQUEST + "create/createSampleReservation.jsp";
+    protected static final String REQUEST_ASSIGN_RESERVATION_TO_PROJECT = REQUEST + "asignToProject.jsp";
+    protected static final String REQUEST_EXPORT = REQUEST + "export.jsp";
 
     // SAMPLE DETAIL
 
@@ -133,4 +137,6 @@ public class Links {
     private static final String RESERVATION = BASIC_PATH + "/reservation/";
 
     protected static final String RESERVATION_ALL = RESERVATION + "all.jsp";
+
+
 }

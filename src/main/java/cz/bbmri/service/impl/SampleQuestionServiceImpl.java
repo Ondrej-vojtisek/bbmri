@@ -3,6 +3,7 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.dao.SampleQuestionDao;
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.service.SampleQuestionService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     @Autowired
     private ProjectDao projectDao;
 
+    @Autowired
+    private UserDao userDao;
+
 
     public SampleRequest create(SampleRequest sampleRequest, Long biobankId, Long projectId) {
         notNull(sampleRequest);
@@ -41,22 +46,39 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
 
         Biobank biobankDB = biobankDao.get(biobankId);
         if (biobankDB == null) {
+            logger.debug("biobankDB can't be null");
             return null;
-            // TODO: exception
         }
         Project projectDB = projectDao.get(projectId);
         if (projectDB == null) {
+            logger.debug("projectDB can't be null");
             return null;
-            //TODO: exception
         }
         sampleRequest.setRequestState(RequestState.NEW);
         sampleRequest.setCreated(new Date());
 
-        sampleQuestionDao.create(sampleRequest);
         sampleRequest.setBiobank(biobankDB);
         sampleRequest.setProject(projectDB);
         sampleQuestionDao.update(sampleRequest);
         return sampleRequest;
+    }
+
+    public SampleQuestion create(SampleQuestion sampleQuestion, Long biobankId) {
+        notNull(sampleQuestion);
+        notNull(biobankId);
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("biobankDB can't be null");
+            return null;
+        }
+
+        sampleQuestion.setRequestState(RequestState.NEW);
+        sampleQuestion.setCreated(new Date());
+        sampleQuestion.setBiobank(biobankDB);
+        sampleQuestionDao.create(sampleQuestion);
+
+        return sampleQuestion;
     }
 
     public boolean remove(Long id) {
@@ -98,12 +120,45 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             return null;
         }
 
-        if (sampleQuestion.getRequestState() != null)
-            sampleQuestionDB.setRequestState(sampleQuestion.getRequestState());
-        sampleQuestionDB.setLastModification(new Date());
+        boolean changed = false;
 
-        sampleQuestionDao.update(sampleQuestionDB);
+        if (sampleQuestion.getRequestState() != null) {
+
+            // set new state
+            changed = true;
+            sampleQuestionDB.setRequestState(sampleQuestion.getRequestState());
+
+            // completition of reservation triggers validity for sample reservation
+
+            if (sampleQuestion.getRequestState() == RequestState.CLOSED
+                    && sampleQuestionDB instanceof SampleReservation) {
+                setValidity(sampleQuestionDB);
+            }
+        }
+
+        // only if sampleQuestion was changed
+        if (changed){
+            sampleQuestionDB.setLastModification(new Date());
+            sampleQuestionDao.update(sampleQuestionDB);
+        }
         return sampleQuestion;
+    }
+
+    private void setValidity(SampleQuestion sampleQuestion) {
+        if (sampleQuestion == null) return;
+
+        if (!(sampleQuestion instanceof SampleReservation)) return;
+
+        Date today = new Date();
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+
+        // add one month
+        cal.add(Calendar.MONTH, 1);
+
+        // Validity one month
+        ((SampleReservation) sampleQuestion).setValidity(cal.getTime());
     }
 
     @Transactional(readOnly = true)
@@ -146,10 +201,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
             return null;
         }
 
-        if (requestState == null) {
-            logger.debug("RequestState can't be null");
-            return null;
-        }
+        // requestState CAN be null
 
         return sampleQuestionDao.getSampleRequests(biobankDB, requestState);
     }

@@ -2,10 +2,7 @@ package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.Request;
-import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.*;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.RequestFacade;
 import net.sourceforge.stripes.action.*;
@@ -45,10 +42,27 @@ public class RequestActionBean extends PermissionActionBean {
 
     private Long requestId;
 
+    public boolean getIsSampleRequest() {
+        logger.debug("IsSampleRequest");
+
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        return sampleQuestion instanceof SampleRequest;
+    }
+
+    public boolean getIsSampleReservation() {
+        logger.debug("IsSampleReservation");
+
+        if (getSampleQuestion() == null) {
+            return false;
+        }
+        return sampleQuestion instanceof SampleReservation;
+    }
+
     public Long getSampleQuestionId() {
         return sampleQuestionId;
     }
-
 
     public void setSampleQuestionId(Long sampleQuestionId) {
         this.sampleQuestionId = sampleQuestionId;
@@ -86,15 +100,15 @@ public class RequestActionBean extends PermissionActionBean {
 
 
     public SampleRequest getSampleRequest() {
-            if (getSampleQuestion() == null) {
-                logger.debug("getSampleRequest - getSampleQuestion Null");
-                return null;
-            }
+        if (getSampleQuestion() == null) {
+            logger.debug("getSampleRequest - getSampleQuestion Null");
+            return null;
+        }
 
-            if (!isSampleRequest()) {
-                logger.debug("getSampleRequest - wrong type");
-                return null;
-            }
+        if (!isSampleRequest()) {
+            logger.debug("getSampleRequest - wrong type");
+            return null;
+        }
 
         return (SampleRequest) sampleQuestion;
     }
@@ -183,11 +197,11 @@ public class RequestActionBean extends PermissionActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer", "project_team_member", "biobank_operator"})
     public Resolution detail() {
-        logger.debug("ProjectId1: " + projectId );
+        logger.debug("ProjectId1: " + projectId);
 
         getSampleQuestion();
 
-        logger.debug("ProjectId2: " + projectId );
+        logger.debug("ProjectId2: " + projectId);
         return new ForwardResolution(REQUEST_DETAIL);
     }
 
@@ -336,7 +350,7 @@ public class RequestActionBean extends PermissionActionBean {
 
     @DontValidate
     @HandlesEvent("denyChosenSet")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed"})
     public Resolution denyChosenSet() {
 
         if (!requestFacade.denyChosenSet(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
@@ -375,11 +389,21 @@ public class RequestActionBean extends PermissionActionBean {
         logger.debug("BiobankId: " + biobankId);
         logger.debug("sampleQuestionId: " + sampleQuestionId);
 
-        return new ForwardResolution("/webpages/request/export.jsp")
+        return new ForwardResolution(REQUEST_EXPORT)
                 .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
 
     }
+
+    @DontValidate
+    @HandlesEvent("asignToProject")
+    @RolesAllowed({"project_team_member if ${isSampleQuestionClosed}"})
+    public Resolution asignToProject() {
+        return new ForwardResolution(REQUEST_ASSIGN_RESERVATION_TO_PROJECT)
+                .addParameter("sampleQuestionId", sampleQuestionId);
+    }
+
+
 
 
 }
