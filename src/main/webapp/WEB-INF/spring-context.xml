@@ -28,32 +28,24 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
         <property name="password" value="hanako"/>
     </bean>
 
+
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
 
-    <!--<bean id="sessionFactory"-->
-          <!--class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">-->
-        <!--<property name="mappingResources">-->
-            <!--<list>-->
-                <!--<value>rsswebclient/domain/Item.hbm.xml</value>-->
-                <!--<value>rsswebclient/domain/Channel.hbm.xml</value>-->
-            <!--</list>-->
-        <!--</property>-->
-        <!--<property name="hibernateProperties">-->
-            <!--<props>-->
-                <!--<prop key="hibernate.dialect">-->
-                    <!--org.hibernate.dialect.MySQLDialect-->
-                <!--</prop>-->
-                <!--<prop key="hibernate.show_sql">false</prop>-->
-            <!--</props>-->
-        <!--</property>-->
-        <!--<property name="dataSource">-->
-            <!--<ref bean="dataSource"/>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <!--Must be here bcs of hibernateSessionInViewFilter   -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="mappingResources">
+            <list/>
+        </property>
+
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
 
     <bean id="jpaAdapter"
           class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
