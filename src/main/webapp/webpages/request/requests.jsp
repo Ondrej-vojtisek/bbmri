@@ -38,11 +38,12 @@
 
                 <c:if test="${actionBean.isSampleReservation}">
 
-                    <security:allowed event="asignToProject">
-                        <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="asignToProject"
+                    <security:allowed event="assignToProjectResolution">
+                        <s:link beanclass="cz.bbmri.action.request.RequestActionBean"
+                                event="assignToProjectResolution"
                                 class="btn btn-primary btnMargin">
                             <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                            <f:message key="cz.bbmri.action.request.RequestActionBean.asignToProject"/>
+                            <f:message key="cz.bbmri.action.request.RequestActionBean.assignToProject"/>
                         </s:link>
                     </security:allowed>
 

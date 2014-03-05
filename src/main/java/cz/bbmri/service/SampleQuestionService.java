@@ -24,4 +24,8 @@ public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     List<SampleQuestion> getSampleRequests(Long biobankId, RequestState requestState);
 
+    boolean assignReservationToProject(Long sampleQuestionId, Long projectId);
+
+    List<SampleReservation> getSampleReservationsOrderedByDate();
+
 }

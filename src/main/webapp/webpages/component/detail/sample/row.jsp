@@ -6,7 +6,7 @@
     <td>${sample.sampleIdentification.sampleId}</td>
     <td>${sample.sampleIdentification.year}</td>
     <td>${sample.sampleIdentification.number}</td>
-    <td>${sample.takingDate}</td>
+    <td><s:layout-render name="/webpages/component/detail/date/date.jsp" date="${sample.takingDate}"/></td>
     <td>${sample.materialType}</td>
     <td>${sample.sampleNos.availableSamplesNo}</td>
     <td>${sample.sampleNos.samplesNo}</td>

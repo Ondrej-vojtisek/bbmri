@@ -49,4 +49,7 @@ public interface RequestFacade {
     boolean createSampleQuestion(SampleQuestion sampleQuestion, Long biobankId,
                                            ValidationErrors errors);
 
+    boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
+
+    void checkReservationValidity();
 }

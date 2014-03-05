@@ -9,9 +9,11 @@ import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
 import cz.bbmri.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -247,4 +249,19 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
     public List<Request> nOrderedBy(String orderByParam, boolean desc, int number) {
         return requestDao.nOrderedBy(orderByParam, desc, number);
     }
+
+    // min hour day month year
+    // 1 0 * * * - prvni minuta, nulte hodiny kazdeho dne - tj. trigger 0:01
+    @Scheduled(cron="*/5 * * * * ?")
+    public void pokusScheduling(){
+     // TODO
+     //   logger.debug("POKUS: " + sampleQuestionDao.getSampleReservationsOrderedByDate());
+
+     //   logger.debug("Scheduler successful " + new Date());
+      //  System.out.println("Method executed at every 5 seconds. Current time is :: "+ new Date());
+
+
+    }
+
+
 }

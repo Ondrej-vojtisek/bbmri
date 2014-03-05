@@ -78,38 +78,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
         logger.debug("Login display");
         getContext().dropUser();
-
-//        if (getContext().getIsShibbolethSession()) {
-//
-//            User user = initializeUser();
-//            Long id = null;
-//            try {
-//                id = userFacade.loginShibbolethUser(user);
-//                logger.debug("User have sufficient rights to access BBMRI - " +
-//                        "user: " + user + "affiliation: " + user.getAffiliation());
-//            } catch (AuthorizationException ex) {
-//                logger.debug("User doesn't have sufficient rights to access BBMRI - " +
-//                        "user: " + user + "affiliation: " + user.getAffiliation());
-//                return new ForwardResolution("/errors/not_authorized_to_access.jsp");
-//            }
-//
-//            user = userFacade.get(id);
-//
-//            if (user != null) {
-//                getContext().setLoggedUser(user);
-//                getContext().getMessages().add(new SimpleMessage("Succesfull login"));
-//            }
-//            return new ForwardResolution(DashboardActionBean.class);
-//        }
-
-
-//        if (getContext().getIsShibbolethSession()) {
-//            initializeShibbolethUser();
-//            return new ForwardResolution(SupportActionBean.class);
-        //   return new ForwardResolution(DashboardActionBean.class);
-//        }
-
-
         return new ForwardResolution(LOGIN);
     }
 

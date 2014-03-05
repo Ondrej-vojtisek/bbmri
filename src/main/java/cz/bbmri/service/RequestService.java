@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.Request;
 import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface RequestService extends BasicService<Request>{
 
      int createRequests(List<Long> sampleIds, Long sampleQuestionId) throws InsuficientAmountOfSamplesException;
 
+
+   // Method must be declared here event if it is triggered with CRON
+    void pokusScheduling();
 }

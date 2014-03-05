@@ -20,4 +20,7 @@ public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
     List<SampleQuestion> getSampleRequests(Biobank biobank, RequestState requestState);
 
     List<SampleQuestion> getSampleReservations(Biobank biobank, RequestState requestState);
+
+    // CLOSED RESERVATIONS
+    List<SampleReservation> getSampleReservationsOrderedByDate();
 }

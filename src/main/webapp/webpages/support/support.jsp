@@ -5,7 +5,7 @@
 
 <s:useActionBean var="actionBean" beanclass="cz.bbmri.action.support.SupportActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp"
-                 title="${title}" primarymenu="support">
+                 title="${title}" primarymenu="support" secondarymenu="contacts">
 
     <s:layout-component name="body">
         <fieldset>

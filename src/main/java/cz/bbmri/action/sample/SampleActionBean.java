@@ -3,6 +3,8 @@ package cz.bbmri.action.sample;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
@@ -68,11 +70,11 @@ public class SampleActionBean extends PermissionActionBean {
     }
 
     public boolean getIsGenome() {
-           if (getSample() == null) {
-               return false;
-           }
-           return sample instanceof Genome;
-       }
+        if (getSample() == null) {
+            return false;
+        }
+        return sample instanceof Genome;
+    }
 
     public Tissue getTissue() {
         return (Tissue) getSample();
@@ -98,13 +100,30 @@ public class SampleActionBean extends PermissionActionBean {
         this.sampleId = sampleId;
     }
 
-    public List<Project> getProjectsBySample(){
-        if(getSample() == null){
+    public List<Project> getProjectsBySample() {
+        if (getSample() == null) {
             return null;
         }
 
         return sampleFacade.getProjectsBySample(sampleId);
     }
+
+    public List<SampleQuestion> getReservationsBySample() {
+        if (getSample() == null) {
+            return null;
+        }
+
+        return sampleFacade.getReservationsBySample(sampleId);
+    }
+
+    public Set<Position> getPositions() {
+        if (getSample() == null) {
+            return null;
+        }
+
+        return sampleFacade.getPositionsBySample(sampleId);
+    }
+
 
     /* Methods */
     @DontValidate
@@ -134,5 +153,13 @@ public class SampleActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution reservations() {
         return new ForwardResolution(SAMPLE_RESERVATIONS);
+    }
+
+
+    @DontValidate
+    @HandlesEvent("positions") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
+    public Resolution positions() {
+        return new ForwardResolution(SAMPLE_POSITIONS);
     }
 }

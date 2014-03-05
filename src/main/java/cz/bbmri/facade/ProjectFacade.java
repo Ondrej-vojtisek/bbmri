@@ -2,6 +2,7 @@ package cz.bbmri.facade;
 
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.ProjectState;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -53,6 +54,8 @@ public interface ProjectFacade extends PermissionFacade{
     Project get(Long id);
 
     List<Project> getProjects(Long userId);
+
+    List<Project> getProjects(Long userId, ProjectState projectState);
 
     boolean hasBiobankExecutePermission(Long userId);
 

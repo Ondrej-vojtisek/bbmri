@@ -1,9 +1,6 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.BiobankDao;
-import cz.bbmri.dao.ProjectDao;
-import cz.bbmri.dao.SampleQuestionDao;
-import cz.bbmri.dao.UserDao;
+import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.service.SampleQuestionService;
@@ -37,6 +34,9 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RequestDao requestDao;
 
 
     public SampleRequest create(SampleRequest sampleRequest, Long biobankId, Long projectId) {
@@ -137,7 +137,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         }
 
         // only if sampleQuestion was changed
-        if (changed){
+        if (changed) {
             sampleQuestionDB.setLastModification(new Date());
             sampleQuestionDao.update(sampleQuestionDB);
         }
@@ -222,5 +222,58 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return sampleQuestionDao.getSampleReservations(biobankDB, requestState);
     }
 
+    public boolean assignReservationToProject(Long sampleQuestionId, Long projectId) {
+        if (sampleQuestionId == null) {
+            logger.debug("question can't be null");
+            return false;
+        }
+
+        SampleQuestion sampleQuestionDB = sampleQuestionDao.get(sampleQuestionId);
+
+        if (sampleQuestionDB == null) {
+            logger.debug("sampleQuestionDB can't be null");
+            return false;
+        }
+
+        Project projectDB = projectDao.get(projectId);
+
+        if (projectDB == null) {
+            logger.debug("Project can't be null");
+            return false;
+        }
+
+        SampleRequest sampleRequest = new SampleRequest();
+
+        // Set values from sampleReservation
+
+        sampleRequest.setBiobank(sampleQuestionDB.getBiobank());
+        sampleRequest.setCreated(sampleQuestionDB.getCreated());
+        sampleRequest.setSpecification(sampleQuestionDB.getSpecification());
+        sampleRequest.setRequestState(sampleQuestionDB.getRequestState());
+
+        // Actual date
+        sampleRequest.setLastModification(new Date());
+
+        // Association to project
+        sampleRequest.setProject(projectDB);
+
+        sampleQuestionDao.create(sampleRequest);
+
+        for (Request request : sampleQuestionDB.getRequests()) {
+            request.setSampleQuestion(sampleRequest);
+            requestDao.update(request);
+        }
+
+        // Delete sampleReservation
+
+        sampleQuestionDB.setBiobank(null);
+        sampleQuestionDao.remove(sampleQuestionDB);
+
+        return true;
+    }
+
+    public List<SampleReservation> getSampleReservationsOrderedByDate(){
+        return sampleQuestionDao.getSampleReservationsOrderedByDate();
+    }
 
 }

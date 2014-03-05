@@ -473,6 +473,20 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return projects;
     }
 
+    public List<Project> getProjects(Long userId, ProjectState projectState) {
+        if (userId == null) {
+            logger.debug("UserId can't be null");
+            return null;
+        }
+
+        if (projectState == null) {
+            logger.debug("projectState can't be null");
+            return null;
+        }
+
+        return projectService.getAllByUserAndProjectState(projectState, userId);
+    }
+
     public boolean hasBiobankExecutePermission(Long userId) {
         notNull(userId);
         return biobankAdministratorService.hasSameOrHigherPermission(userId, Permission.EXECUTOR);

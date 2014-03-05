@@ -30,6 +30,7 @@
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
+        <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
         <class>cz.bbmri.entities.User</class>
 
         <properties>
@@ -73,6 +74,7 @@
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
+        <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
         <class>cz.bbmri.entities.User</class>
 
         <properties>

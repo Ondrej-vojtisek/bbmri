@@ -81,12 +81,12 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
 
         List<SampleRequest> sampleRequests = projectDB.getSampleRequests();
-                if (sampleRequests != null) {
+        if (sampleRequests != null) {
 
-                    for (SampleRequest sampleRequest : sampleRequests) {
-                        sampleQuestionDao.remove(sampleRequest);
-                    }
-                }
+            for (SampleRequest sampleRequest : sampleRequests) {
+                sampleQuestionDao.remove(sampleRequest);
+            }
+        }
 
         List<Attachment> attachments = projectDB.getAttachments();
         if (attachments != null) {
@@ -132,8 +132,8 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             return null;
         }
 
-        if(projectState.equals(ProjectState.APPROVED) ||
-                projectState.equals(ProjectState.DENIED)){
+        if (projectState.equals(ProjectState.APPROVED) ||
+                projectState.equals(ProjectState.DENIED)) {
             logger.debug("This method purpose is not to approve or deny project");
             return null;
         }
@@ -196,6 +196,28 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         notNull(projectState);
 
         return projectDao.getAllByProjectState(projectState);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Project> getAllByUserAndProjectState(ProjectState projectState, Long userId) {
+        if (projectState == null) {
+            logger.debug("ProjectState is null");
+            return null;
+        }
+
+        if (userId == null) {
+            logger.debug("UserId is null");
+            return null;
+        }
+
+        User userDB = userDao.get(userId);
+
+        if (userId == null) {
+            logger.debug("UserDB is null");
+            return null;
+        }
+
+        return projectDao.getAllByUserAndProjectState(userDB, projectState);
     }
 
     public boolean approve(Long projectId, Long userId) {
@@ -374,12 +396,12 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     }
 
     @Transactional(readOnly = true)
-    public List<Project> allOrderedBy(String orderByParam, boolean desc){
+    public List<Project> allOrderedBy(String orderByParam, boolean desc) {
         return projectDao.allOrderedBy(orderByParam, desc);
     }
 
     @Transactional(readOnly = true)
-    public List<Project> nOrderedBy(String orderByParam, boolean desc, int number){
+    public List<Project> nOrderedBy(String orderByParam, boolean desc, int number) {
         return projectDao.nOrderedBy(orderByParam, desc, number);
     }
 

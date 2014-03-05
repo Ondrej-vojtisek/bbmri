@@ -169,7 +169,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
                 + " LTS: " + lts);
 
         Biobank biobankDB = biobankDao.get(biobankId);
-        if(biobankDB == null){
+        if (biobankDB == null) {
             logger.debug("Biobank can't be null");
             return null;
         }
@@ -189,7 +189,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public Sample eagerGet(Long id, boolean patient, boolean request) {
+    public Sample eagerGet(Long id, boolean patient, boolean request, boolean position) {
         notNull(id);
         Sample sampleDB = sampleDao.get(id);
 
@@ -201,6 +201,10 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 //        }
         if (request) {
             logger.debug("" + sampleDB.getRequests());
+        }
+
+        if (position) {
+            logger.debug("" + sampleDB.getPositions());
         }
 
         return sampleDB;

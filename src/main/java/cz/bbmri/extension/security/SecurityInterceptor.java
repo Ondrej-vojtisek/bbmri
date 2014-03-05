@@ -60,9 +60,13 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
 
         // Instantiate the security manager
         try {
+            logger.debug("INIT - kontruktor");
             // Create new instance of the given security manager
             securityManager = new AssociatedSecurityManager();
+
+            logger.debug("INIT - kontruktor2");
         } catch (Exception e) {
+            logger.debug("INIT - CATCH");
             throw new StripesRuntimeException("Failed to configure the SecurityManager: instantiation failed.", e);
         }
 
@@ -86,18 +90,8 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
 
         if (securityManager != null) {
             switch (executionContext.getLifecycleStage()) {
-//                case ActionBeanResolution:
-//                    logger.debug("INTERCEPT ActionBeanResolution");
-//                    resolution = interceptBindingAndValidation(executionContext);
-//                break;
-//
-//
-//                case HandlerResolution:
-//                    logger.debug("INTERCEPT HandlerResolution");
-//                    resolution = interceptBindingAndValidation(executionContext);
-//
-//                break;
-
+                case ActionBeanResolution:
+                case HandlerResolution:
                 case BindingAndValidation:
                 case CustomValidation:
                     resolution = interceptBindingAndValidation(executionContext);

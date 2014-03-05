@@ -14,8 +14,10 @@ import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -409,7 +411,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
                                        ValidationErrors errors) {
 
         if (sampleQuestionService.create(sampleRequest, biobankId, projectId) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleRequestFailed"));
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.createSampleRequestFailed"));
             return false;
         }
         return true;
@@ -419,11 +421,64 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
                                         ValidationErrors errors) {
 
         if (sampleQuestionService.create(sampleQuestion, biobankId) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.createSampleReservationFailed"));
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.createSampleReservationFailed"));
             return false;
         }
         return true;
     }
 
+    public boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors) {
 
+
+        if (!sampleQuestionService.assignReservationToProject(sampleQuestionId, projectId)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.assignReservationToProjectFailed"));
+            return false;
+        }
+
+        return true;
+    }
+
+    private void setReservationAsExpired(SampleReservation sampleReservation) {
+        logger.debug("CRON - checkReservationValidity. SampleReservatino: " + sampleReservation.getId() +
+        "was set as EXPIRED");
+        sampleReservation.setRequestState(RequestState.EXPIRED);
+        sampleQuestionService.update(sampleReservation);
+
+        // delete all request - alocated samples are free
+        for (Request request : sampleReservation.getRequests()) {
+            requestService.remove(request.getId());
+        }
+    }
+
+    // triggers at 0:01 each day
+    @Scheduled(cron = "1 0 * * * ?")
+    public void checkReservationValidity() {
+        logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
+
+        Date date = new Date();
+        boolean firstValid = false;
+        for (SampleReservation sampleReservation : sampleQuestionService.getSampleReservationsOrderedByDate()) {
+            // if this date (today) is after sampleReservation.getValidity
+            // then validity is over
+
+            if (firstValid) break;
+
+            if (date.after(sampleReservation.getValidity())) {
+                setReservationAsExpired(sampleReservation);
+
+                String msg = "Sample reservation with id: " + sampleReservation.getId() +
+                        " expired.";
+
+                notificationService.create(sampleReservation.getUser().getId(),
+                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleReservation.getId());
+            } else {
+                // reservations are sorted from oldest to newest
+                // if first one is valid, that all next will be also valid
+                firstValid = true;
+            }
+
+        }
+
+
+    }
 }

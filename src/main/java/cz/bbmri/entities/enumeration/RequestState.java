@@ -14,7 +14,8 @@ public enum RequestState {
     DENIED("denied"),
     CLOSED("closed"),
     AGREED("agreed"),
-    DELIVERED("delivered");
+    DELIVERED("delivered"),
+    EXPIRED("expired");
 
     /**
      * Workflow - project worker creates sample request for the project.

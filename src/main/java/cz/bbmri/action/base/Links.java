@@ -99,7 +99,7 @@ public class Links {
     protected static final String CREATE_REQUESTS = REQUEST + "create/createRequests.jsp";
     protected static final String REQUEST_CREATE_SAMPLE_REQUEST = REQUEST + "create/createSampleRequest.jsp";
     protected static final String REQUEST_CREATE_SAMPLE_RESERVATION = REQUEST + "create/createSampleReservation.jsp";
-    protected static final String REQUEST_ASSIGN_RESERVATION_TO_PROJECT = REQUEST + "asignToProject.jsp";
+    protected static final String REQUEST_ASSIGN_RESERVATION_TO_PROJECT = REQUEST + "assignToProject.jsp";
     protected static final String REQUEST_EXPORT = REQUEST + "export.jsp";
 
     // SAMPLE DETAIL
@@ -107,6 +107,7 @@ public class Links {
     protected static final String SAMPLE_DETAIL = "/webpages/sample/detail.jsp";
     protected static final String SAMPLE_RESERVATIONS = "/webpages/sample/reservations.jsp";
     protected static final String SAMPLE_PROJECTS = "/webpages/sample/projects.jsp";
+    protected static final String SAMPLE_POSITIONS = "/webpages/sample/positions.jsp";
 
     // SAMPLE CREATE
 
@@ -138,5 +139,8 @@ public class Links {
 
     protected static final String RESERVATION_ALL = RESERVATION + "all.jsp";
 
+    // GLOBAL SETTINGS
+
+    protected static final String GLOBAL_SETTINGS = BASIC_PATH + "/globalSettings/settings.jsp";
 
 }

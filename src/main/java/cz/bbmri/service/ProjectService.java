@@ -23,6 +23,8 @@ public interface ProjectService extends BasicService<Project>, PermissionService
 
     List<Project> getAllByProjectState(ProjectState projectState);
 
+    List<Project> getAllByUserAndProjectState(ProjectState projectState, Long userId);
+
     List<Project> getEagerByUserWithRequests(Long userId);
 
     Project eagerGet(Long id, boolean users, boolean attachments, boolean sampleRequests);

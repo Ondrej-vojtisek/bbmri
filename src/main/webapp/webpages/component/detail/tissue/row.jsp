@@ -3,10 +3,10 @@
 
 <s:layout-definition>
 
-                <td>${tissue.tnm.classification}</td>
-                <td>${tissue.ptnm.classification}</td>
-                <td>${tissue.morphology.classification}</td>
-                <td>${tissue.morphology.grading}</td>
-                <td>${tissue.freezeDate}</td>
+    <td>${tissue.tnm.classification}</td>
+    <td>${tissue.ptnm.classification}</td>
+    <td>${tissue.morphology.classification}</td>
+    <td>${tissue.morphology.grading}</td>
+    <td><s:layout-render name="/webpages/component/detail/date/date.jsp" date="${tissue.freezeDate}"/></td>
 
 </s:layout-definition>

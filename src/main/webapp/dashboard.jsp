@@ -1,4 +1,3 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
@@ -29,7 +28,7 @@
                             <s:checkbox name="selectedNotifications" value="${notification.id}"/>
                         </td>
                         <td>
-                            <fmt:formatDate value="${notification.created}" type="both"/>
+                            <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${notification.created}"/>
                         </td>
                         <td></td>
                         <td>

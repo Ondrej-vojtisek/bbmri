@@ -37,3 +37,14 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+<security:allowed bean="sampleBean" event="positions">
+    <li <c:if test="${ternarymenu == 'positions'}"> class="active" </c:if> >
+        <s:link beanclass="cz.bbmri.action.sample.SampleActionBean" event="positions">
+            <s:param name="sampleId" value="${sampleBean.sampleId}"/>
+            <s:param name="biobankId" value="${sampleBean.biobankId}"/>
+            <f:message key="positions"/>
+        </s:link></li>
+</security:allowed>
+
+<%-- -------------------------------------------------------------------- --%>

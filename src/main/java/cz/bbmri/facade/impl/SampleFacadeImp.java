@@ -1,6 +1,7 @@
 package cz.bbmri.facade.impl;
 
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.facade.SampleFacade;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.ModuleService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,7 +65,7 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     }
 
     public List<Project> getProjectsBySample(Long sampleId) {
-        Sample sampleDB = sampleService.eagerGet(sampleId, false, true);
+        Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
         if (sampleDB == null) {
             logger.debug("sampleDB can't be null");
             // Empty List
@@ -72,12 +74,37 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
         List<Project> projects = new ArrayList<Project>();
         for (Request request : sampleDB.getRequests()) {
             if (request.getSampleQuestion() instanceof SampleRequest) {
-                Project project = ((SampleRequest)request.getSampleQuestion()).getProject();
+                Project project = ((SampleRequest) request.getSampleQuestion()).getProject();
                 projects.add(project);
             }
         }
 
         return projects;
+    }
+
+    public List<SampleQuestion> getReservationsBySample(Long sampleId) {
+        Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
+        if (sampleDB == null) {
+            logger.debug("sampleDB can't be null");
+            // Empty List
+            return new ArrayList<SampleQuestion>();
+        }
+        List<SampleQuestion> reservations = new ArrayList<SampleQuestion>();
+        for (Request request : sampleDB.getRequests()) {
+            if (request.getSampleQuestion() instanceof SampleReservation) {
+                reservations.add(request.getSampleQuestion());
+            }
+        }
+
+        return reservations;
+    }
+
+    public Set<Position> getPositionsBySample(Long sampleId){
+        Sample sampleDB = sampleService.eagerGet(sampleId, false, false, true);
+        if(sampleDB == null){
+            return null;
+        }
+        return sampleDB.getPositions();
     }
 
 

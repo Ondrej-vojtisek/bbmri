@@ -5,6 +5,8 @@
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 <s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
 <s:useActionBean var="userFindBean" beanclass="cz.bbmri.action.user.FindUserActionBean"/>
+<s:useActionBean var="globalSettingsBean" beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean"/>
+
 
 <%-- -------------------------------------------------------------------- --%>
 
@@ -175,8 +177,30 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<li <c:if test="${primarymenu == 'support'}"> class="active" </c:if>">
-<s:link beanclass="cz.bbmri.action.support.SupportActionBean">
-    <f:message key="support"/>
-</s:link>
+
+<li class="dropdown <c:if test="${primarymenu == 'support'}"> active </c:if>">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <f:message key="support"/>
+        <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+
+        <%-- -------------------------------------------------------------------- --%>
+
+        <li <c:if test="${secondarymenu == 'contacts'}"> class="active" </c:if>>
+            <s:link beanclass="cz.bbmri.action.support.SupportActionBean">
+                <f:message key="cz.bbmri.action.support.SupportActionBean.contacts"/>
+            </s:link>
+        </li>
+
+        <%-- -------------------------------------------------------------------- --%>
+
+        <security:allowed bean="globalSettingsBean" event="all">
+            <li <c:if test="${secondarymenu == 'settings'}"> class="active" </c:if>>
+                <s:link beanclass="${globalSettingsBean.name}">
+                    <f:message key="cz.bbmri.action.globalSettings.GlobalSettingsActionBean"/>
+                </s:link>
+            </li>
+        </security:allowed>
+
+    </ul>
 </li>

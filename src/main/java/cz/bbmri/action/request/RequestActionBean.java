@@ -2,8 +2,11 @@ package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
+import cz.bbmri.action.reservation.ReservationActionBean;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.facade.RequestFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -11,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -34,6 +38,9 @@ public class RequestActionBean extends PermissionActionBean {
 
     @SpringBean
     private BiobankFacade biobankFacade;
+
+    @SpringBean
+    private ProjectFacade projectFacade;
 
     /* SampleQuestion identifier */
     private Long sampleQuestionId;
@@ -68,13 +75,17 @@ public class RequestActionBean extends PermissionActionBean {
         this.sampleQuestionId = sampleQuestionId;
     }
 
+    public List<Project> getMyApprovedProjects() {
+        return projectFacade.getProjects(getContext().getMyId(), ProjectState.APPROVED);
+    }
+
     public SampleQuestion getSampleQuestion() {
         if (sampleQuestion == null) {
 
             if (sampleQuestionId != null) {
                 sampleQuestion = requestFacade.getSampleQuestion(sampleQuestionId);
 
-                // is isntanceof SampleRequest
+                // is instanceof SampleRequest
                 if (isSampleRequest()) {
 
                     // Project is set
@@ -97,6 +108,7 @@ public class RequestActionBean extends PermissionActionBean {
 
         return true;
     }
+
 
 
     public SampleRequest getSampleRequest() {
@@ -188,6 +200,11 @@ public class RequestActionBean extends PermissionActionBean {
             if (biobankId != null) {
                 biobank = biobankFacade.get(projectId);
             }
+
+            if(getSampleQuestion() != null){
+                biobank = sampleQuestion.getBiobank();
+                biobankId = biobank.getId();
+            }
         }
         return biobank;
     }
@@ -267,8 +284,6 @@ public class RequestActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution decreaseAmount() {
 
-        logger.debug("requestId: " + requestId);
-
         if (!requestFacade.changeRequestedAmount(requestId, false, STEP_INCREASE_REQUEST_AMOUNT,
                 getContext().getValidationErrors())) {
 
@@ -286,8 +301,6 @@ public class RequestActionBean extends PermissionActionBean {
     @HandlesEvent("increaseAmount")
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution increaseAmount() {
-
-        logger.debug("requestId: " + requestId);
 
         if (!requestFacade.changeRequestedAmount(requestId, true, STEP_INCREASE_REQUEST_AMOUNT,
                 getContext().getValidationErrors())) {
@@ -350,7 +363,7 @@ public class RequestActionBean extends PermissionActionBean {
 
     @DontValidate
     @HandlesEvent("denyChosenSet")
-    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution denyChosenSet() {
 
         if (!requestFacade.denyChosenSet(sampleQuestionId, getContext().getValidationErrors(), getContext().getMyId())) {
@@ -386,9 +399,6 @@ public class RequestActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor and isSampleQuestionAgreed}"})
     public Resolution exportSampleList() {
 
-        logger.debug("BiobankId: " + biobankId);
-        logger.debug("sampleQuestionId: " + sampleQuestionId);
-
         return new ForwardResolution(REQUEST_EXPORT)
                 .addParameter("sampleQuestionId", sampleQuestionId)
                 .addParameter("biobankId", biobankId);
@@ -396,14 +406,25 @@ public class RequestActionBean extends PermissionActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("asignToProject")
+    @HandlesEvent("assignToProjectResolution")
     @RolesAllowed({"project_team_member if ${isSampleQuestionClosed}"})
-    public Resolution asignToProject() {
+    public Resolution assignToProjectResolution() {
         return new ForwardResolution(REQUEST_ASSIGN_RESERVATION_TO_PROJECT)
                 .addParameter("sampleQuestionId", sampleQuestionId);
     }
 
+    @DontValidate
+    @HandlesEvent("assignToProject")
+    @RolesAllowed({"project_team_member if ${isSampleQuestionClosed}"})
+    public Resolution assignToProject() {
 
+        if (!requestFacade.assignReservationToProject(sampleQuestionId, projectId, getContext().getValidationErrors())) {
+            return new ForwardResolution(ReservationActionBean.class);
+        }
+        successMsg(null);
 
+        return new RedirectResolution(ProjectActionBean.class, "sampleRequests")
+                .addParameter("projectId", projectId);
+    }
 
 }
