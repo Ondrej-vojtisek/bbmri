@@ -64,6 +64,8 @@ public interface ProjectFacade extends PermissionFacade{
 
     ProjectAdministrator getProjectAdministrator(Long projectAdministratorId);
 
+    List<Project> allOrderedBy(String orderByParam, boolean desc);
+
   //  List<User> getProjectAdministratorsUsers(Long projectId);
 
    // List<Biobank> getAllBiobanks();

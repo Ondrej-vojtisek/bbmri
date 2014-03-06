@@ -1,11 +1,14 @@
 package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.*;
-import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -14,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,7 +30,7 @@ import java.util.Set;
  */
 @HttpCache(allow = false)
 @UrlBinding("/biobank/{$event}/{biobankId}")
-public class BiobankActionBean extends PermissionActionBean {
+public class BiobankActionBean extends PermissionActionBean<Biobank> {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -49,10 +53,18 @@ public class BiobankActionBean extends PermissionActionBean {
     @Validate(required = true, on = {"addAdministrator", "removeAdministrator", "setPermission"})
     private Long adminId;
 
+    public BiobankActionBean() {
+        setPagination(new MyPagedListHolder<Biobank>(new ArrayList<Biobank>()));
+        //default
+        getPagination().setOrderParam("name");
+        getPagination().setEvent("allBiobanks");
+        setComponentManager(new ComponentManager("biobank"));
+    }
+
     /* Setter / Getter */
 
     public List<Biobank> getBiobanks() {
-        return biobankFacade.all();
+        return biobankFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
     }
 
     public List<Sample> getSamples() {
@@ -106,6 +118,15 @@ public class BiobankActionBean extends PermissionActionBean {
     @HandlesEvent("allBiobanks") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution allBiobanks() {
+        if (getPage() != null) {
+            getPagination().setCurrentPage(getPage());
+        }
+        if (getOrderParam() != null) {
+            getPagination().setOrderParam(getOrderParam());
+        }
+        getPagination().setDesc(isDesc());
+        getPagination().setSource(getBiobanks());
+
         return new ForwardResolution(BIOBANK_ALL);
     }
 

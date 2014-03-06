@@ -69,6 +69,16 @@
                     <s:param name="userId" value="${userBean.userId}"/>
                 </div>
             </security:allowed>
+
+            <security:allowed bean="userBean" event="remove">
+                <s:form beanclass="cz.bbmri.action.user.UserActionBean">
+                    <f:message var="question" key="cz.bbmri.action.user.UserActionBean.questionDelete"/>
+                    <s:submit name="remove" class="btn btn-danger" onclick="return confirm('${question}')">
+                        <s:param name="userId" value="${user.id}"/>
+                    </s:submit>
+                </s:form>
+            </security:allowed>
+
         </s:form>
 
     </s:layout-component>

@@ -23,7 +23,7 @@
                 <c:forEach items="${projectBean.loggedUser.projectAdministrators}" var="pa">
                     <tr>
 
-                        <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${pa.project}"/>
+                        <s:layout-render name="/webpages/component/detail/project/row.jsp" record="${pa.project}"/>
 
                         <td class="action">
                             <c:set target="${projectBean}" property="projectId" value="${pa.project.id}"/>

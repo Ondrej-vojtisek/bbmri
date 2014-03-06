@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * Time: 14:20
  * To change this template use File | Settings | File Templates.
  */
-public class PermissionActionBean extends BasicActionBean {
+public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -55,24 +55,15 @@ public class PermissionActionBean extends BasicActionBean {
 
     public Project getProject() {
 
-        logger.debug("GetProject1");
-
         if (project == null) {
 
-            logger.debug("GetProject1 null");
-
             if (projectId != null) {
-
-                logger.debug("GetProject1 projectId not null");
 
                 project = projectFacade.get(projectId);
 
 
             }
         }
-        logger.debug("GetProject1 Project: " + project);
-
-        logger.debug("GetProject1 Project: " + project.getAttachments());
 
         return project;
     }

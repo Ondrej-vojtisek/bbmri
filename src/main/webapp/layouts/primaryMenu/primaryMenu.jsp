@@ -51,9 +51,9 @@
 
         <%-- -------------------------------------------------------------------- --%>
 
-        <security:allowed bean="projectBean" event="allProjects">
+        <security:allowed bean="projectBean" event="display">
             <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if>>
-                <s:link beanclass="${projectBean.name}" event="allProjects">
+                <s:link beanclass="${projectBean.name}" event="display">
                     <f:message key="cz.bbmri.action.project.ProjectActionBean.allProjects"/>
                 </s:link>
             </li>
@@ -79,8 +79,7 @@
                 <%-- -------------------------------------------------------------------- --%>
 
             <security:allowed bean="biobankBean" event="allBiobanks">
-                <li
-                        <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link
+                <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link
                         beanclass="${biobankBean.name}" event="allBiobanks">
                     <f:message key="cz.bbmri.action.biobank.BiobankActionBean.allBiobanks"/>
                 </s:link>
@@ -132,7 +131,7 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="userBean" event="allUsers">
+<security:allowed bean="userBean" event="display">
     <li class="dropdown <c:if test="${primarymenu == 'user'}"> active </c:if>">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <f:message key="users"/>
@@ -141,7 +140,7 @@
 
                 <%-- -------------------------------------------------------------------- --%>
 
-            <security:allowed bean="userBean" event="allUsers">
+            <security:allowed bean="userBean" event="display">
                 <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>>
                     <s:link beanclass="${userBean.name}">
                         <f:message key="cz.bbmri.action.user.UserActionBean.all"/>

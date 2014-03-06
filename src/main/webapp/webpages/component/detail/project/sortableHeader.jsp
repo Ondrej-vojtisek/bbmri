@@ -7,16 +7,15 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.id" column="id"/>
-        </th>
-        <th>
-            <%--whole name is not a table column--%>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.wholeName" column="surname"/>
+                             msgKey="cz.bbmri.entities.Project.name" column="name"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.organization" column="organization"/>
+                             msgKey="cz.bbmri.entities.Project.fundingOrganization" column="fundingOrganization"/>
+        </th>
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entities.Project.projectState" column="projectState"/>
         </th>
     </tr>
     </thead>

@@ -3,8 +3,8 @@
 
 <s:layout-definition>
 
-    <td>${user.id}</td>
-    <td>${user.wholeName}</td>
-    <td>${user.organization}</td>
+    <td>${record.id}</td>
+    <td>${record.wholeName}</td>
+    <td>${record.organization}</td>
 
 </s:layout-definition>

@@ -9,7 +9,7 @@
         <s:layout-render name="/webpages/component/detail/biobank/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/biobank/row.jsp" biobank="${biobank}"/>
+            <s:layout-render name="/webpages/component/detail/biobank/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

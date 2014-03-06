@@ -1,5 +1,6 @@
 package cz.bbmri.service;
 
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.User;
 

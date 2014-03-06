@@ -538,5 +538,9 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     }
 
+    public List<Project> allOrderedBy(String orderByParam, boolean desc) {
+         return projectService.allOrderedBy(orderByParam, desc);
+     }
+
 
 }

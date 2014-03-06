@@ -3,8 +3,8 @@
 
 <s:layout-definition>
 
-    <td>${biobank.name}</td>
-    <td>${biobank.address}</td>
+    <td>${record.name}</td>
+    <td>${record.address}</td>
 
 </s:layout-definition>
 

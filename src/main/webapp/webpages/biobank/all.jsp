@@ -8,51 +8,56 @@
                  secondarymenu="biobank_all">
 
     <s:layout-component name="body">
-        <table class="table table-hover table-striped">
-            <s:layout-render name="/webpages/component/detail/biobank/header.jsp"/>
-            <tbody>
 
-            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${biobankBean.biobanks}"/>
-
-            <c:forEach items="${biobankBean.biobanks}" var="biobank">
-
-                <tr>
-
-                    <s:layout-render name="/webpages/component/detail/biobank/row.jsp" biobank="${biobank}"/>
-
-                    <td class="action">
-
-                            <%--This is important for the instance based ACL--%>
-                        <c:set target="${biobankBean}" property="biobankId" value="${biobank.id}"/>
-
-                        <security:allowed bean="biobankBean" event="detail">
-                            <div class="tableAction">
-                                <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
-                                        class="btn btn-info btnMargin">
-                                    <s:param name="biobankId" value="${biobank.id}"/>
-                                    <f:message key="detail"/>
-                                </s:link>
-                            </div>
-                        </security:allowed>
+        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                eventName="detail" paramName="biobankId"/>
 
 
-                        <security:allowed bean="biobankBean" event="delete">
-                            <s:form beanclass="cz.bbmri.action.biobank.BiobankActionBean">
+        <%--<table class="table table-hover table-striped">--%>
+            <%--<s:layout-render name="/webpages/component/detail/biobank/header.jsp"/>--%>
+            <%--<tbody>--%>
 
-                                <f:message var="question"
-                                           key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>
+            <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
+                             <%--collection="${biobankBean.biobanks}"/>--%>
 
-                                <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
-                                    <s:param name="biobankId" value="${biobank.id}"/>
-                                </s:submit>
-                            </s:form>
-                        </security:allowed>
+            <%--<c:forEach items="${biobankBean.biobanks}" var="biobank">--%>
 
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                <%--<tr>--%>
+
+                    <%--<s:layout-render name="/webpages/component/detail/biobank/row.jsp" biobank="${biobank}"/>--%>
+
+                    <%--<td class="action">--%>
+
+                            <%--&lt;%&ndash;This is important for the instance based ACL&ndash;%&gt;--%>
+                        <%--<c:set target="${biobankBean}" property="biobankId" value="${biobank.id}"/>--%>
+
+                        <%--<security:allowed bean="biobankBean" event="detail">--%>
+                            <%--<div class="tableAction">--%>
+                                <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"--%>
+                                        <%--class="btn btn-info btnMargin">--%>
+                                    <%--<s:param name="biobankId" value="${biobank.id}"/>--%>
+                                    <%--<f:message key="detail"/>--%>
+                                <%--</s:link>--%>
+                            <%--</div>--%>
+                        <%--</security:allowed>--%>
+
+
+                        <%--<security:allowed bean="biobankBean" event="delete">--%>
+                            <%--<s:form beanclass="cz.bbmri.action.biobank.BiobankActionBean">--%>
+
+                                <%--<f:message var="question"--%>
+                                           <%--key="cz.bbmri.action.biobank.BiobankActionBean.questionDelete"/>--%>
+
+                                <%--<s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">--%>
+                                    <%--<s:param name="biobankId" value="${biobank.id}"/>--%>
+                                <%--</s:submit>--%>
+                            <%--</s:form>--%>
+                        <%--</security:allowed>--%>
+
+                    <%--</td>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+            <%--</tbody>--%>
+        <%--</table>--%>
     </s:layout-component>
 </s:layout-render>

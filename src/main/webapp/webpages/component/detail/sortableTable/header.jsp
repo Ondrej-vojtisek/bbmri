@@ -7,13 +7,13 @@
     <s:link beanclass="${actionBean.name}" event="display">
 
         <%--which column is used to order--%>
-        <c:if test="${actionBean.orderParam eq column}">
+        <c:if test="${actionBean.pagination.orderParam eq column}">
 
             <%--visibility of arrows--%>
             <s:layout-render name="/webpages/component/detail/sortableTable/arrows.jsp"/>
 
             <%--switch desc to asc--%>
-            <s:param name="desc" value="${not actionBean.desc}"/>
+            <s:param name="desc" value="${not actionBean.pagination.desc}"/>
         </c:if>
 
         <%--param defining by which column is table ordered--%>
@@ -22,6 +22,5 @@
         <%--header text--%>
         <f:message key="${msgKey}"/>
     </s:link>
-
 
 </s:layout-definition>

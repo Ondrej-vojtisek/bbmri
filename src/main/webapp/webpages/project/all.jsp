@@ -9,49 +9,53 @@
 
     <s:layout-component name="body">
 
-        <table class="table table-hover table-striped">
-            <s:layout-render name="/webpages/component/detail/project/header.jsp"/>
-            <tbody>
 
-            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                                           collection="${projectBean.all}"/>
+        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                eventName="detail" paramName="projectId"/>
 
-            <c:forEach items="${projectBean.all}" var="project">
-                <tr>
+        <%--<table class="table table-hover table-striped">--%>
+            <%--<s:layout-render name="/webpages/component/detail/project/header.jsp"/>--%>
+            <%--<tbody>--%>
 
-                    <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+            <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
+                                           <%--collection="${projectBean.all}"/>--%>
 
-                    <td class="action">
+            <%--<c:forEach items="${projectBean.all}" var="project">--%>
+                <%--<tr>--%>
 
-                        <c:set target="${projectBean}" property="projectId" value="${project.id}"/>
+                    <%--<s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>--%>
 
-                        <security:allowed bean="projectBean" event="detail">
-                            <div class="tableAction">
-                                <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
-                                        class="btn btn-info btnMargin">
-                                    <s:param name="projectId" value="${project.id}"/>
-                                    <f:message key="detail"/>
-                                </s:link>
-                            </div>
-                        </security:allowed>
+                    <%--<td class="action">--%>
 
-                        <security:allowed bean="projectBean" event="delete">
-                            <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">
+                        <%--<c:set target="${projectBean}" property="projectId" value="${project.id}"/>--%>
 
-                                <f:message var="question"
-                                           key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>
+                        <%--<security:allowed bean="projectBean" event="detail">--%>
+                            <%--<div class="tableAction">--%>
+                                <%--<s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"--%>
+                                        <%--class="btn btn-info btnMargin">--%>
+                                    <%--<s:param name="projectId" value="${project.id}"/>--%>
+                                    <%--<f:message key="detail"/>--%>
+                                <%--</s:link>--%>
+                            <%--</div>--%>
+                        <%--</security:allowed>--%>
 
-                                <s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">
-                                    <s:param name="projectId" value="${project.id}"/>
-                                </s:submit>
-                            </s:form>
-                        </security:allowed>
+                        <%--<security:allowed bean="projectBean" event="delete">--%>
+                            <%--<s:form beanclass="cz.bbmri.action.project.ProjectActionBean">--%>
 
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                                <%--<f:message var="question"--%>
+                                           <%--key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>--%>
+
+                                <%--<s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">--%>
+                                    <%--<s:param name="projectId" value="${project.id}"/>--%>
+                                <%--</s:submit>--%>
+                            <%--</s:form>--%>
+                        <%--</security:allowed>--%>
+
+                    <%--</td>--%>
+                <%--</tr>--%>
+            <%--</c:forEach>--%>
+            <%--</tbody>--%>
+        <%--</table>--%>
 
     </s:layout-component>
 </s:layout-render>

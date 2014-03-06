@@ -487,6 +487,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return patientService.find(patient, requiredResults);
     }
 
+    public List<Biobank> allOrderedBy(String orderByParam, boolean desc) {
+             return biobankService.allOrderedBy(orderByParam, desc);
+         }
+
 //    public boolean createRack(Long biobankId, Rack rack){
 //
 //    }

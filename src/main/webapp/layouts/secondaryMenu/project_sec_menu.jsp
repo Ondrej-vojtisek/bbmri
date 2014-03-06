@@ -17,9 +17,9 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="projectBean" event="allProjects">
+<security:allowed bean="projectBean" event="display">
     <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if> ><s:link
-            beanclass="${projectBean.name}" event="allProjects"><f:message
+            beanclass="${projectBean.name}" event="display"><f:message
             key="all_projects"/></s:link></li>
 </security:allowed>
 

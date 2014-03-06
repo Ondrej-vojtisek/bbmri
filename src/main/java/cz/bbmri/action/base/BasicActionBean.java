@@ -6,6 +6,8 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
 import cz.bbmri.facade.ProjectFacade;
@@ -50,6 +52,16 @@ public class BasicActionBean extends Links implements ActionBean {
 
     public boolean isShibbolethUser() {
         return null != getContext().getShibbolethSession();
+    }
+
+    private ComponentManager componentManager;
+
+    public ComponentManager getComponentManager() {
+        return componentManager;
+    }
+
+    public void setComponentManager(ComponentManager componentManager) {
+        this.componentManager = componentManager;
     }
 
     public User initializeShibbolethUser() {

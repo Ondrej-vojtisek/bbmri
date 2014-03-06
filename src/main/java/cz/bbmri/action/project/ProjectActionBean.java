@@ -7,6 +7,8 @@ import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -19,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +35,7 @@ import java.util.Set;
 
 @HttpCache(allow = false)
 @UrlBinding("/project/{$event}/{projectId}")
-public class ProjectActionBean extends PermissionActionBean {
+public class ProjectActionBean extends PermissionActionBean<Project> {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -66,12 +69,15 @@ public class ProjectActionBean extends PermissionActionBean {
     private AttachmentType attachmentType;
 
 
-    public List<Project> getAll() {
-        return projectFacade.all();
+    public ProjectActionBean() {
+        setPagination(new MyPagedListHolder<Project>(new ArrayList<Project>()));
+        //default
+        getPagination().setOrderParam("name");
+        setComponentManager(new ComponentManager("project"));
     }
 
-//    public List<Project> getMyProjects() {
-//        return projectFacade.getProjects(getContext().getMyId());
+//    public List<Project> getAll() {
+//        return projectFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
 //    }
 
     public void setProject(Project project) {
@@ -139,22 +145,20 @@ public class ProjectActionBean extends PermissionActionBean {
         return getProject().getSampleRequests();
     }
 
-
-//    public List<SampleRequest> getSampleRequests() {
-////        if (projectId == null) {
-////            return null;
-////        }
-//
-//        logger.debug("Requests: " + getProject().getSampleRequests());
-//        return getProject().getSampleRequests();
-//
-//      //  return projectFacade.getProjectSampleRequests(projectId);
-//    }
-
     @DontValidate
-    @HandlesEvent("allProjects")
+    @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
+        getPagination().setEvent("display");
+        if (getPage() != null) {
+            getPagination().setCurrentPage(getPage());
+        }
+        if (getOrderParam() != null) {
+            getPagination().setOrderParam(getOrderParam());
+        }
+        getPagination().setDesc(isDesc());
+        getPagination().setSource(projectFacade.allOrderedBy(getPagination().getOrderParam(),
+                getPagination().getDesc()));
         return new ForwardResolution(PROJECT_ALL);
     }
 
@@ -163,6 +167,16 @@ public class ProjectActionBean extends PermissionActionBean {
     @HandlesEvent("myProjects")
     @PermitAll
     public Resolution myProjects() {
+//        getPagination().setEvent("myProjects");
+//        if (getPage() != null) {
+//            getPagination().setCurrentPage(getPage());
+//        }
+//        if (getOrderParam() != null) {
+//            getPagination().setOrderParam(getOrderParam());
+//        }
+//        getPagination().setDesc(isDesc());
+//        getPagination().setSource(getLoggedUser().getProjectAdministrators());
+
         return new ForwardResolution(PROJECT_MY);
     }
 

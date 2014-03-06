@@ -3,9 +3,9 @@
 
 <s:layout-definition>
 
-    <td>${project.name}</td>
-    <td>${project.fundingOrganization}</td>
-    <td><f:message key="ProjectState.${project.projectState}"/></td>
+    <td>${record.name}</td>
+    <td>${record.fundingOrganization}</td>
+    <td><f:message key="ProjectState.${record.projectState}"/></td>
 
 </s:layout-definition>
 

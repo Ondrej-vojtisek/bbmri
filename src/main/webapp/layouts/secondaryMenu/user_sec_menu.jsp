@@ -8,7 +8,7 @@
         <%--beanclass="cz.bbmri.action.user.UserActionBean"><f:message--%>
         <%--key="all"/></s:link></li>--%>
 
-<security:allowed bean="userBean" event="allUsers">
+<security:allowed bean="userBean" event="display">
     <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>><s:link
             beanclass="${userBean.name}"><f:message
             key="all"/></s:link></li>

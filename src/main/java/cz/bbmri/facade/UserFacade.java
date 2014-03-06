@@ -5,6 +5,7 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.RoleDTO;
 import cz.bbmri.facade.exceptions.AuthorizationException;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;

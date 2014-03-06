@@ -63,5 +63,7 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<Patient> find(Patient patient, int requiredResults);
 
+    List<Biobank> allOrderedBy(String orderByParam, boolean desc);
+
 
 }
