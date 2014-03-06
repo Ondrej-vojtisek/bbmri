@@ -19,9 +19,9 @@
                 <tbody>
 
                 <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                                                  collection="${biobankBean.sampleRequests}"/>
+                                                  collection="${biobankBean.biobank.sampleQuestions}"/>
 
-                <c:forEach items="${biobankBean.sampleRequests}" var="sampleQuestion">
+                <c:forEach items="${biobankBean.biobank.sampleQuestions}" var="sampleQuestion">
                     <tr>
 
                         <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" sampleQuestion="${sampleQuestion}"/>

@@ -23,9 +23,9 @@
 
             <tbody>
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.sampleReservations}"/>
+                             collection="${actionBean.loggedUser.sampleReservations}"/>
 
-            <c:forEach items="${actionBean.sampleReservations}" var="sampleReservation">
+            <c:forEach items="${actionBean.loggedUser.sampleReservations}" var="sampleReservation">
                 <tr>
 
                     <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"

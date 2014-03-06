@@ -10,15 +10,16 @@
 
     <s:layout-component name="body">
 
-        <jsp:include page="/webpages/project/component/attachments.jsp"/>
+        <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
 
         <security:allowed bean="projectBean" event="addAttachment">
             <div class="form-actions">
 
-            <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="addAttachment" class="btn btn-primary">
-                <s:param name="projectId" value="${projectBean.projectId}"/>
-                <f:message key="cz.bbmri.action.project.ProjectActionBean.addAttachment"/>
-            </s:link>
+                <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="addAttachment"
+                        class="btn btn-primary">
+                    <s:param name="projectId" value="${projectBean.projectId}"/>
+                    <f:message key="cz.bbmri.action.project.ProjectActionBean.addAttachment"/>
+                </s:link>
 
             </div>
         </security:allowed>

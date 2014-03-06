@@ -264,7 +264,7 @@ public class RequestActionBean extends PermissionActionBean {
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
-        return new RedirectResolution(ProjectActionBean.class, "sampleRequests")
+        return new RedirectResolution(ProjectActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId)
                 .addParameter("biobankId", biobankId);
     }
@@ -423,7 +423,7 @@ public class RequestActionBean extends PermissionActionBean {
         }
         successMsg(null);
 
-        return new RedirectResolution(ProjectActionBean.class, "sampleRequests")
+        return new RedirectResolution(ProjectActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId);
     }
 

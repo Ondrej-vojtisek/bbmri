@@ -13,6 +13,6 @@ public interface ContainerService extends BasicService<Container>{
 
     Container create(Long infrastructureId, Container container);
 
-    Container eagerGet(Long containerId, boolean rack);
+   // Container eagerGet(Long containerId, boolean rack);
 
 }

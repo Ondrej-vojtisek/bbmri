@@ -31,17 +31,13 @@ public class ReservationActionBean extends PermissionActionBean {
     @SpringBean
     private RequestFacade requestFacade;
 
-    public List<SampleReservation> getSampleReservations(){
-        return requestFacade.getSampleReservations(getContext().getMyId());
-    }
-
-
 
     @DontValidate
     @DefaultHandler
     @HandlesEvent("all")
     @RolesAllowed("user")
     public Resolution all() {
+
         return new ForwardResolution(RESERVATION_ALL);
     }
 

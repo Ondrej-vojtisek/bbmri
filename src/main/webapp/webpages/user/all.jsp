@@ -11,79 +11,17 @@
     <s:layout-component name="body">
 
         <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
 
-                    <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="display">
+            <s:layout-render name="/webpages/component/detail/user/sortableHeader.jsp"/>
 
-                        <c:if test="${userBean.orderParam eq 'id'}">
-                            <c:if test="${userBean.desc}">
-                                <i class="icon-chevron-down"></i>
-                            </c:if>
-
-                            <c:if test="${not userBean.desc}">
-                                <i class="icon-chevron-up"></i>
-                            </c:if>
-                            <s:param name="desc" value="${not userBean.desc}"/>
-                        </c:if>
-                        <s:param name="orderParam" value="id"/>
-                        <f:message key="cz.bbmri.entities.User.id"/>
-                    </s:link>
-
-                </th>
-
-                <th>
-                    <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="display">
-
-                        <c:if test="${userBean.orderParam eq 'surname'}">
-
-                            <c:if test="${userBean.desc}">
-                                <i class="icon-chevron-down"></i>
-                            </c:if>
-
-                            <c:if test="${not userBean.desc}">
-                                <i class="icon-chevron-up"></i>
-                            </c:if>
-
-                            <s:param name="desc" value="${not userBean.desc}"/>
-                        </c:if>
-
-                        <s:param name="orderParam" value="surname"/>
-                        <f:message key="cz.bbmri.entities.User.wholeName"/>
-                    </s:link>
-                </th>
-                <th>
-                    <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="display">
-
-                        <c:if test="${userBean.orderParam eq 'organization'}">
-                            <c:if test="${userBean.desc}">
-                                <i class="icon-chevron-down"></i>
-                            </c:if>
-
-                            <c:if test="${not userBean.desc}">
-                                <i class="icon-chevron-up"></i>
-                            </c:if>
-
-                            <s:param name="desc" value="${not userBean.desc}"/>
-                        </c:if>
-
-                        <s:param name="orderParam" value="organization"/>
-                        <f:message key="cz.bbmri.entities.User.organization"/>
-                    </s:link>
-                </th>
-            </tr>
-            </thead>
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                                       collection="${userBean.users}"/>
+                             collection="${userBean.users}"/>
 
             <c:forEach var="user" items="${userBean.users}">
                 <tr>
-                    <td>${user.id}</td>
-                    <td>${user.wholeName}</td>
-                    <td>${user.organization}</td>
+                    <s:layout-render name="/webpages/component/detail/user/row.jsp" user="${user}"/>
                     <td class="action">
 
                         <c:set target="${userBean}" property="userId" value="${user.id}"/>

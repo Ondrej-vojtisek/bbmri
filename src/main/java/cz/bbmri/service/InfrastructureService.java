@@ -14,5 +14,5 @@ public interface InfrastructureService extends BasicService<Infrastructure> {
 
     Infrastructure initialize(Biobank biobank);
 
-    Infrastructure eagerGet(Long infrastructureId, boolean box, boolean container);
+  //  Infrastructure eagerGet(Long infrastructureId, boolean box, boolean container);
 }

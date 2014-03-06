@@ -43,7 +43,7 @@ public interface UserFacade {
 
     List<User> getDevelopers();
 
-    Set<SystemRole> getSystemRoles(Long userId);
+  //  Set<SystemRole> getSystemRoles(Long userId);
 
     User login(Long id, String password);
 
@@ -61,7 +61,7 @@ public interface UserFacade {
 
     List<User> allOrderedBy(String orderByParam, boolean desc);
 
-    String getJSON(Long userId);
+  //  String getJSON(Long userId);
 
     /*
     with permission check

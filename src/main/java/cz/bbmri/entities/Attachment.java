@@ -38,8 +38,6 @@ public class Attachment implements Serializable {
     private String contentType;
     private String absolutePath;
 
-
-
     public Long getId() {
         return id;
     }

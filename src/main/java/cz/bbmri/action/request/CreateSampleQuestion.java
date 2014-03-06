@@ -69,15 +69,16 @@ public class CreateSampleQuestion extends PermissionActionBean {
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution confirmSampleRequest() {
 
-        SampleRequest sampleRequest = (SampleRequest) sampleQuestion;
+        SampleRequest sampleRequest = new SampleRequest();
         sampleRequest.setProject(getProject());
+        sampleRequest.setSpecification(sampleQuestion.getSpecification());
 
         if (!requestFacade.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
-            return new ForwardResolution(ProjectActionBean.class, "sampleRequests")
+            return new ForwardResolution(ProjectActionBean.class, "sampleRequestsResolution")
                     .addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(ProjectActionBean.class, "sampleRequests")
+        return new RedirectResolution(ProjectActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId);
     }
 

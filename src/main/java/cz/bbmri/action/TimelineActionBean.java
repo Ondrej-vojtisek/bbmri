@@ -26,10 +26,10 @@ public class TimelineActionBean extends BasicActionBean {
       @SpringBean
       private UserFacade userFacade;
 
-    @PermitAll
-    @DontValidate
-    @DefaultHandler
-    public Resolution timeline() {
-         return new StreamingResolution("application/json", userFacade.getJSON(getContext().getMyId()));
-    }
+//    @PermitAll
+//    @DontValidate
+//    @DefaultHandler
+//    public Resolution timeline() {
+//         return new StreamingResolution("application/json", userFacade.getJSON(getContext().getMyId()));
+//    }
 }

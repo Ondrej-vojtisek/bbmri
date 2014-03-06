@@ -104,19 +104,19 @@
 
                 <%--List all "my" biobanks in menu. If I can edit that the link leads to editable form --%>
 
-            <c:if test="${not empty biobankBean.myBiobanks}">
+            <c:if test="${not empty biobankBean.loggedUser.biobankAdministrators}">
                 <li class="divider"></li>
                 <li class="nav-header">
                     <f:message key="cz.bbmri.action.biobank.BiobankActionBean.myBiobanks"/>
                 </li>
 
-                <c:forEach var="biobank" items="${biobankBean.myBiobanks}">
+                <c:forEach var="ba" items="${biobankBean.loggedUser.biobankAdministrators}">
                     <li>
                         <security:allowed bean="biobankBean" event="detail">
                             <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean"
                                     event="detail">
-                                <s:param name="biobankId" value="${biobank.id}"/>
-                                ${biobank.name}
+                                <s:param name="biobankId" value="${ba.biobank.id}"/>
+                                ${ba.biobank.name}
                             </s:link>
                         </security:allowed>
                     </li>

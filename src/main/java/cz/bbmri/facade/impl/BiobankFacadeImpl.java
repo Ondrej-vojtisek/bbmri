@@ -13,6 +13,7 @@ import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,11 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     @Autowired
     private BoxService boxService;
+
+
+    public BiobankService getService(){
+        return biobankService;
+    }
 
     public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath) {
 
@@ -340,8 +346,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public List<Biobank> getBiobanksByUser(Long userId) {
         notNull(userId);
-
-        User userDB = userService.eagerGet(userId, false, false, true, false, false);
+        User userDB = userService.get(userId);
+        //User userDB = userService.eagerGet(userId, false, false, true, false, false);
         if (userDB == null) {
             return null;
         }
@@ -352,11 +358,11 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return biobanks;
     }
 
-    public List<Patient> getAllPatients(Long biobankId) {
-        notNull(biobankId);
-        Biobank biobankDB = biobankService.eagerGet(biobankId, true, false);
-        return biobankDB.getPatients();
-    }
+//    public List<Patient> getAllPatients(Long biobankId) {
+//        notNull(biobankId);
+//        Biobank biobankDB = biobankService.eagerGet(biobankId, true, false);
+//        return biobankDB.getPatients();
+//    }
 
     public List<Sample> getAllSamples(Long biobankId) {
         notNull(biobankId);
@@ -383,7 +389,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     public Infrastructure getInfrastructure(Long infrastructureId) {
-        return infrastructureService.eagerGet(infrastructureId, true, true);
+
+        return infrastructureService.get(infrastructureId); //eagerGet(infrastructureId, true, true);
     }
 
     public Container getContainer(Long containerId) {
@@ -391,7 +398,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     public Rack getRack(Long rackId) {
-        return rackService.eagerGet(rackId, true);
+        return rackService.get(rackId);
+       // return rackService.eagerGet(rackId, true);
     }
 
     public Box getBox(Long boxId) {

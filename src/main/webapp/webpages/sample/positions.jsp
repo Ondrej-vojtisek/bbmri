@@ -15,9 +15,9 @@
 
             <tbody>
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.positions}"/>
+                             collection="${actionBean.sample.positions}"/>
 
-            <c:forEach items="${actionBean.positions}" var="position">
+            <c:forEach items="${actionBean.sample.positions}" var="position">
                 <tr>
                     <s:layout-render name="/webpages/component/detail/position/row.jsp"
                                      position="${position}"/>

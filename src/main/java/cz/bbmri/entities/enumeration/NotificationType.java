@@ -17,7 +17,7 @@ public enum NotificationType {
     /* ProjectFacade notifications */
 
     PROJECT_DETAIL(ProjectActionBean.class.getName(),  "detail", "projectId"),
-    PROJECT_ATTACHMENT(ProjectActionBean.class.getName(), "attachments", "projectId"),
+    PROJECT_ATTACHMENT(ProjectActionBean.class.getName(), "attachmentsResolution", "projectId"),
     PROJECT_ADMINISTRATOR(ProjectActionBean.class.getName(), "administratorsResolution", "projectId"),
     PROJECT_DELETE(ProjectActionBean.class.getName(), null, null),
 

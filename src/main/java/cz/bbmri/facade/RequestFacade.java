@@ -42,7 +42,7 @@ public interface RequestFacade {
 
     List<SampleQuestion> getNewSampleRequests(Long biobankId);
 
-    List<SampleReservation> getSampleReservations(Long userId);
+  //  List<SampleReservation> getSampleReservations(Long userId);
 
     boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId, ValidationErrors errors);
 

@@ -76,12 +76,11 @@
 
     <!-- hack lazy initialization -->
     <filter>
-        <description>Filter to avoid hibernate lazy initialization error</description>
-        <filter-name>hibernateSessionInViewFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+        <filter-name>openEntityManagerInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>hibernateSessionInViewFilter</filter-name>
+        <filter-name>openEntityManagerInViewFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

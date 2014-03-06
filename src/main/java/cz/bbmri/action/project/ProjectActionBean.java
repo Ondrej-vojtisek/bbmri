@@ -1,7 +1,10 @@
 package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.*;
+import cz.bbmri.entities.Attachment;
+import cz.bbmri.entities.Project;
+import cz.bbmri.entities.ProjectAdministrator;
+import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.facade.ProjectFacade;
@@ -63,14 +66,13 @@ public class ProjectActionBean extends PermissionActionBean {
     private AttachmentType attachmentType;
 
 
-
     public List<Project> getAll() {
         return projectFacade.all();
     }
 
-    public List<Project> getMyProjects() {
-        return projectFacade.getProjects(getContext().getMyId());
-    }
+//    public List<Project> getMyProjects() {
+//        return projectFacade.getProjects(getContext().getMyId());
+//    }
 
     public void setProject(Project project) {
         this.project = project;
@@ -105,7 +107,8 @@ public class ProjectActionBean extends PermissionActionBean {
     }
 
     public List<Attachment> getAttachments() {
-        return projectFacade.getAttachments(projectId);
+        return getProject().getAttachments();
+//        return projectFacade.getAttachments(projectId);
     }
 
     public Set<ProjectAdministrator> getAdministrators() {
@@ -133,14 +136,20 @@ public class ProjectActionBean extends PermissionActionBean {
     }
 
     public List<SampleRequest> getSampleRequests() {
-        if (projectId == null) {
-            return null;
-        }
-
-        logger.debug("ProjectActionBean: SampleRequestList: " + projectFacade.getProjectSampleRequests(projectId));
-
-        return projectFacade.getProjectSampleRequests(projectId);
+        return getProject().getSampleRequests();
     }
+
+
+//    public List<SampleRequest> getSampleRequests() {
+////        if (projectId == null) {
+////            return null;
+////        }
+//
+//        logger.debug("Requests: " + getProject().getSampleRequests());
+//        return getProject().getSampleRequests();
+//
+//      //  return projectFacade.getProjectSampleRequests(projectId);
+//    }
 
     @DontValidate
     @HandlesEvent("allProjects")
@@ -168,13 +177,19 @@ public class ProjectActionBean extends PermissionActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution detail() {
+
+        logger.debug("Detail event");
+
         return new ForwardResolution(PROJECT_DETAIL_GENERAL);
     }
 
     @DontValidate
-    @HandlesEvent("attachments")
+    @HandlesEvent("attachmentsResolution")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
-    public Resolution attachments() {
+    public Resolution attachmentsResolution() {
+
+        logger.debug("Attachments event");
+
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENTS);
     }
 
@@ -220,7 +235,7 @@ public class ProjectActionBean extends PermissionActionBean {
                     new SimpleMessage("File does not exist.")
 
             );
-            return new ForwardResolution(this.getClass(), "attachments");
+            return new ForwardResolution(this.getClass(), "attachmentsResolution");
         }
     }
 
@@ -228,10 +243,10 @@ public class ProjectActionBean extends PermissionActionBean {
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution deleteAttachment() {
         if (!projectFacade.deleteAttachment(attachmentId, getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(this.getClass(), "attachments").addParameter("projectId", projectId);
+            return new ForwardResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(this.getClass(), "attachments").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
     }
 
 
@@ -319,7 +334,7 @@ public class ProjectActionBean extends PermissionActionBean {
             successMsg(null);
         }
 
-        return new RedirectResolution(this.getClass(), "attachments").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
     }
 
 
@@ -334,16 +349,10 @@ public class ProjectActionBean extends PermissionActionBean {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        logger.debug("Approve - Start");
-
         if (!projectFacade.approveProject(projectId, getContext().getMyId(), getContext().getValidationErrors())) {
-
-            logger.debug("Approve - failed");
 
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
-
-        logger.debug("Approve - Finish");
 
         successMsg(null);
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
@@ -375,9 +384,9 @@ public class ProjectActionBean extends PermissionActionBean {
     }
 
     @DontValidate
-    @HandlesEvent("sampleRequests")
+    @HandlesEvent("sampleRequestsResolution")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
-    public Resolution sampleRequests() {
+    public Resolution sampleRequestsResolution() {
         return new ForwardResolution(PROJECT_DETAIL_SAMPLE_REQUESTS);
     }
 

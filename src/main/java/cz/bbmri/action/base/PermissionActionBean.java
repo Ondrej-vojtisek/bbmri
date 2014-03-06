@@ -54,11 +54,26 @@ public class PermissionActionBean extends BasicActionBean {
     private Project project;
 
     public Project getProject() {
+
+        logger.debug("GetProject1");
+
         if (project == null) {
+
+            logger.debug("GetProject1 null");
+
             if (projectId != null) {
+
+                logger.debug("GetProject1 projectId not null");
+
                 project = projectFacade.get(projectId);
+
+
             }
         }
+        logger.debug("GetProject1 Project: " + project);
+
+        logger.debug("GetProject1 Project: " + project.getAttachments());
+
         return project;
     }
 

@@ -17,36 +17,26 @@
                 <tbody>
 
                 <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                                               collection="${projectBean.myProjects}"/>
+                                               collection="${projectBean.loggedUser.projectAdministrators}"/>
+                <c:if test="${not empty projectBean.loggedUser.projectAdministrators}">
 
-                <c:forEach items="${projectBean.myProjects}" var="project">
+                <c:forEach items="${projectBean.loggedUser.projectAdministrators}" var="pa">
                     <tr>
 
-                        <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+                        <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${pa.project}"/>
 
                         <td class="action">
-                            <c:set target="${projectBean}" property="projectId" value="${project.id}"/>
+                            <c:set target="${projectBean}" property="projectId" value="${pa.project.id}"/>
 
-                            <security:allowed bean="projectBean" event="edit">
-                                <div class="tableAction">
-                                    <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="edit"
-                                            class="btn btn-primary btnMargin">
-                                        <s:param name="projectId" value="${project.id}"/>
-                                        <f:message key="edit"/>
-                                    </s:link>
-                                </div>
-                            </security:allowed>
-                            <security:notAllowed bean="projectBean" event="edit">
-                                <security:allowed bean="projectBean" event="detail">
-                                    <div class="tableAction">
-                                        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
-                                                class="btn btn-info btnMargin">
-                                            <s:param name="projectId" value="${project.id}"/>
-                                            <f:message key="detail"/>
-                                        </s:link>
-                                    </div>
-                                </security:allowed>
-                            </security:notAllowed>
+                            <security:allowed bean="projectBean" event="detail">
+                            <div class="tableAction">
+                                <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
+                                        class="btn btn-info btnMargin">
+                                    <s:param name="projectId" value="${pa.project.id}"/>
+                                    <f:message key="detail"/>
+                                </s:link>
+                            </div>
+                        </security:allowed>
 
                             <f:message var="question" key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>
 
@@ -54,7 +44,7 @@
                                 <s:form beanclass="cz.bbmri.action.project.ProjectActionBean">
                                     <s:submit name="delete" class="btn btn-danger"
                                               onclick="return confirm('${question}')">
-                                        <s:param name="projectId" value="${project.id}"/>
+                                        <s:param name="projectId" value="${pa.project.id}"/>
                                     </s:submit>
                                 </s:form>
                             </security:allowed>
@@ -62,6 +52,7 @@
                         </td>
                     </tr>
                 </c:forEach>
+                </c:if>
                 </tbody>
             </table>
         </s:form>

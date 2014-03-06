@@ -65,7 +65,8 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     }
 
     public List<Project> getProjectsBySample(Long sampleId) {
-        Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
+        Sample sampleDB = sampleService.get(sampleId);
+        //Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
         if (sampleDB == null) {
             logger.debug("sampleDB can't be null");
             // Empty List
@@ -83,7 +84,8 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     }
 
     public List<SampleQuestion> getReservationsBySample(Long sampleId) {
-        Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
+        Sample sampleDB = sampleService.get(sampleId);
+       // Sample sampleDB = sampleService.eagerGet(sampleId, false, true, false);
         if (sampleDB == null) {
             logger.debug("sampleDB can't be null");
             // Empty List
@@ -100,7 +102,8 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
     }
 
     public Set<Position> getPositionsBySample(Long sampleId){
-        Sample sampleDB = sampleService.eagerGet(sampleId, false, false, true);
+        Sample sampleDB = sampleService.get(sampleId);
+       // Sample sampleDB = sampleService.eagerGet(sampleId, false, false, true);
         if(sampleDB == null){
             return null;
         }

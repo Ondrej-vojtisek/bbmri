@@ -18,7 +18,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "SampleQuestion")
-//@DiscriminatorColumn(name="subclass")
 public class SampleQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;

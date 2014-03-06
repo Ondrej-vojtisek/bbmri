@@ -1,8 +1,6 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.ProjectState;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -19,6 +17,7 @@ import java.util.*;
 @Table(name = "Project")
 @Entity
 public class Project implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -167,7 +166,6 @@ public class Project implements Serializable {
         this.projectAdministrators = projectAdministrators;
     }
 
-    @Fetch(value = FetchMode.SELECT)
     public List<Attachment> getAttachments() {
         return attachments;
     }

@@ -5,6 +5,7 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -54,10 +55,6 @@ public class BiobankActionBean extends PermissionActionBean {
         return biobankFacade.all();
     }
 
-    public List<Patient> getPatients() {
-        return biobankFacade.getAllPatients(biobankId);
-    }
-
     public List<Sample> getSamples() {
         return biobankFacade.getAllSamples(biobankId);
     }
@@ -99,18 +96,8 @@ public class BiobankActionBean extends PermissionActionBean {
         this.adminId = adminId;
     }
 
-    public List<Biobank> getMyBiobanks() {
-        return biobankFacade.getBiobanksByUser(getContext().getMyId());
-    }
-
-    public List<SampleQuestion> getSampleRequests() {
-        if (biobankId == null) {
-            return null;
-        }
-
-        //return biobankFacade.getNewSampleRequests(biobankId);
-
-        return biobankFacade.getBiobankSampleRequests(biobankId);
+    public List<SampleQuestion> getSampleQuestions() {
+        return getBiobank().getSampleQuestions();
     }
 
     /* Methods */
@@ -223,15 +210,15 @@ public class BiobankActionBean extends PermissionActionBean {
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLES);
     }
 
-    @HandlesEvent("patients")
+    @HandlesEvent("patientsResolution")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution patients() {
+    public Resolution patientsResolution() {
         return new ForwardResolution(BIOBANK_DETAIL_PATIENTS);
     }
 
-    @HandlesEvent("sampleRequests")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution sampleRequests() {
+    @HandlesEvent("sampleRequestsResolution")
+    @RolesAllowed({"administratorResolution", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+    public Resolution sampleRequestsResolution() {
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_REQUESTS);
     }
 
@@ -246,8 +233,6 @@ public class BiobankActionBean extends PermissionActionBean {
 
         successMsg(null);
         return new RedirectResolution(BIOBANK_ALL);
-
-
     }
 
     @HandlesEvent("addAdministrator")

@@ -22,8 +22,8 @@ public interface UserService extends BasicService<User>{
 
     User removeRole(Long userId, SystemRole systemRole);
 
-    User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank,
-                             boolean notification, boolean reservations);
+  /*  User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank,
+                             boolean notification, boolean reservations);      */
 
     /* Dummy - tohle musi byt udelano jinym zpusobem. Kontrolou zda dany uzivatel muze byt administrator */
     List<User> getNonAdministratorUsers();

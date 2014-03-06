@@ -48,9 +48,9 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="patients">
+<security:allowed bean="biobankBean" event="patientsResolution">
     <li <c:if test="${ternarymenu == 'patients'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patients">
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patientsResolution">
             <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
                 key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
     </li>
@@ -58,9 +58,9 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="sampleRequests">
+<security:allowed bean="biobankBean" event="sampleRequestsResolution">
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequests">
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequestsResolution">
             <s:param name="biobankId" value="${biobankBean.biobankId}"/>
             <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
         </s:link>

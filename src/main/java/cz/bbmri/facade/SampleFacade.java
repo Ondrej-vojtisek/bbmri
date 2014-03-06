@@ -29,11 +29,11 @@ public interface SampleFacade {
 
     List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
 
-    List<Project> getProjectsBySample(Long sampleId);
+   // List<Project> getProjectsBySample(Long sampleId);
 
-    List<SampleQuestion> getReservationsBySample(Long sampleId);
+   // List<SampleQuestion> getReservationsBySample(Long sampleId);
 
-    Set<Position> getPositionsBySample(Long sampleId);
+   // Set<Position> getPositionsBySample(Long sampleId);
 
 //    boolean createSample(Sample sample);
 //

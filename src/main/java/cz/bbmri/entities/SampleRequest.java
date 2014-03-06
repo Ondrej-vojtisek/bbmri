@@ -1,8 +1,6 @@
 package cz.bbmri.entities;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +11,6 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
-//@DiscriminatorValue("SampleRequest")
 public class SampleRequest extends SampleQuestion {
 
     @ManyToOne

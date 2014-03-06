@@ -11,7 +11,7 @@
 
     <s:layout-component name="body">
 
-        <jsp:include page="/webpages/project/component/attachments.jsp"/>
+        <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
 
         <s:form beanclass="cz.bbmri.action.project.ProjectActionBean" class="form-inline">
 

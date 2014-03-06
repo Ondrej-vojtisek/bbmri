@@ -11,7 +11,7 @@ import cz.bbmri.entities.infrastructure.Rack;
  */
 public interface RackService extends BasicService<Rack>{
 
-    Rack eagerGet(Long rackId, boolean box);
+ //   Rack eagerGet(Long rackId, boolean box);
 
     Rack create(Long containerId, Rack rack);
 }

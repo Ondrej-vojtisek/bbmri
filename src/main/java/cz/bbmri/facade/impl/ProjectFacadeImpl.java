@@ -368,8 +368,8 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     public List<Attachment> getAttachments(Long projectId) {
         notNull(projectId);
-
-        Project projectDB = projectService.eagerGet(projectId, false, true, false);
+        Project projectDB = projectService.get(projectId);
+        //  Project projectDB = projectService.eagerGet(projectId, false, true, false);
 
         return projectDB.getAttachments();
     }
@@ -461,12 +461,21 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     public List<Project> getProjects(Long userId) {
         notNull(userId);
-
-        User userDB = userService.eagerGet(userId, false, true, false, false, false);
+        User userDB = userService.get(userId);
+        //  User userDB = userService.eagerGet(userId, false, true, false, false, false);
         Set<ProjectAdministrator> paSet = userDB.getProjectAdministrators();
         List<Project> projects = new ArrayList<Project>();
 
+        if (paSet == null) {
+            return projects;
+        }
+
+        if (paSet.isEmpty()) {
+            return projects;
+        }
+
         for (ProjectAdministrator pa : paSet) {
+
             projects.add(pa.getProject());
         }
 
@@ -523,7 +532,8 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public List<SampleRequest> getProjectSampleRequests(Long projectId) {
         notNull(projectId);
 
-        Project projectDB = projectService.eagerGet(projectId, false, false, true);
+        Project projectDB = projectService.get(projectId);
+        //    Project projectDB = projectService.eagerGet(projectId, false, false, true);
         return projectDB.getSampleRequests();
 
     }

@@ -67,9 +67,6 @@ public class UserActionBean extends BasicActionBean {
     private String password2;
 
     public List<User> getUsers() {
-
-        // TODO : experimentalni razeni - je potreba to ucesat na jsp strance a dodat strankovani vypisu
-
         if(orderParam == null){
             desc = false;
             return userFacade.allOrderedBy("surname", desc);
@@ -77,12 +74,6 @@ public class UserActionBean extends BasicActionBean {
         logger.debug("OrderParam: " + orderParam);
 
         return userFacade.allOrderedBy(orderParam, desc);
-    }
-
-    @PermitAll
-    @HandlesEvent("orderBy")
-    public Resolution orderBy(){
-        return new ForwardResolution(USER_ALL);
     }
 
     public User getUser() {
@@ -110,9 +101,9 @@ public class UserActionBean extends BasicActionBean {
         return userFacade.getRoles(userId);
     }
 
-    public Set<SystemRole> getSystemRoles() {
-        return userFacade.getSystemRoles(userId);
-    }
+//    public Set<SystemRole> getSystemRoles() {
+//        return getUser().getSystemRoles();
+//    }
 
 
     public boolean getIsMyAccount() {
@@ -140,11 +131,11 @@ public class UserActionBean extends BasicActionBean {
        }
 
     public boolean getIsDeveloper(){
-            return getSystemRoles().contains(SystemRole.DEVELOPER);
+            return getUser().getSystemRoles().contains(SystemRole.DEVELOPER);
         }
 
     public boolean getIsAdministrator(){
-           return getSystemRoles().contains(SystemRole.ADMINISTRATOR);
+           return getUser().getSystemRoles().contains(SystemRole.ADMINISTRATOR);
        }
 
 

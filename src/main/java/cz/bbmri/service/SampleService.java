@@ -23,7 +23,7 @@ public interface SampleService extends BasicService<Sample>{
 
      List<Sample> getSamplesByQuery(Sample sample, Long biobankId, Patient patient, boolean lts);
 
-     Sample eagerGet(Long id, boolean patient, boolean request, boolean position);
+   //  Sample eagerGet(Long id, boolean patient, boolean request, boolean position);
 
 
 }

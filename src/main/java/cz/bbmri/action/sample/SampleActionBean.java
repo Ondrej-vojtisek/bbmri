@@ -1,10 +1,7 @@
 package cz.bbmri.action.sample;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.infrastructure.Position;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
@@ -16,8 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -105,7 +102,18 @@ public class SampleActionBean extends PermissionActionBean {
             return null;
         }
 
-        return sampleFacade.getProjectsBySample(sampleId);
+        if (getSample().getRequests() == null) {
+            return null;
+        }
+
+        List<Project> projects = new ArrayList<Project>();
+        for (Request request : getSample().getRequests()) {
+            if (request.getSampleQuestion() instanceof SampleRequest) {
+                projects.add(((SampleRequest) request.getSampleQuestion()).getProject());
+            }
+        }
+
+        return projects;
     }
 
     public List<SampleQuestion> getReservationsBySample() {
@@ -113,17 +121,19 @@ public class SampleActionBean extends PermissionActionBean {
             return null;
         }
 
-        return sampleFacade.getReservationsBySample(sampleId);
-    }
-
-    public Set<Position> getPositions() {
-        if (getSample() == null) {
+        if (getSample().getRequests() == null) {
             return null;
         }
 
-        return sampleFacade.getPositionsBySample(sampleId);
-    }
+        List<SampleQuestion> reservations = new ArrayList<SampleQuestion>();
+        for (Request request : getSample().getRequests()) {
+            if (request.getSampleQuestion() instanceof SampleReservation) {
+                reservations.add(request.getSampleQuestion());
+            }
+        }
 
+        return reservations;
+    }
 
     /* Methods */
     @DontValidate

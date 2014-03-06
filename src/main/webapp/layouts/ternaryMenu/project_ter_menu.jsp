@@ -39,9 +39,9 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="projectBean" event="attachments">
+<security:allowed bean="projectBean" event="attachmentsResolution">
     <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="attachments">
+        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="attachmentsResolution">
             <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.attachments"/>
         </s:link>
@@ -50,9 +50,9 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="projectBean" event="sampleRequests">
+<security:allowed bean="projectBean" event="sampleRequestsResolution">
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="sampleRequests">
+        <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="sampleRequestsResolution">
             <s:param name="projectId" value="${projectBean.projectId}"/>
             <f:message key="cz.bbmri.action.project.ProjectActionBean.sampleRequests"/>
         </s:link>

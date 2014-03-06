@@ -17,19 +17,18 @@
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${projectBean.sampleRequests}"/>
+                             collection="${projectBean.project.sampleRequests}"/>
 
-            <c:forEach items="${projectBean.sampleRequests}" var="sampleQuestion">
+            <c:forEach items="${projectBean.project.sampleRequests}" var="sampleRequest">
                 <tr>
-
                     <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"
-                                     sampleQuestion="${sampleQuestion}"/>
+                                     sampleQuestion="${sampleRequest}"/>
 
                     <td class="action">
                         <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
                                 class="btn btn-primary">
-                            <s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>
-                            <s:param name="biobankId" value="${sampleQuestion.biobank.id}"/>
+                            <s:param name="sampleQuestionId" value="${sampleRequest.id}"/>
+                            <s:param name="biobankId" value="${sampleRequest.biobank.id}"/>
                             <f:message key="detail"/>
                         </s:link>
                     </td>

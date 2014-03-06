@@ -2,9 +2,7 @@ package cz.bbmri.entities;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -15,7 +13,6 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-//@DiscriminatorValue("SampleReservation")
 public class SampleReservation extends SampleQuestion {
 
     @ManyToOne

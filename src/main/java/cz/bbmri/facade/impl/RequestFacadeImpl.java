@@ -402,7 +402,8 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     public List<SampleReservation> getSampleReservations(Long userId) {
         notNull(userId);
 
-        User userDB = userService.eagerGet(userId, false, false, false, false, true);
+        User userDB = userService.get(userId);
+     //   User userDB = userService.eagerGet(userId, false, false, false, false, true);
 
         return userDB.getSampleReservations();
     }
@@ -451,7 +452,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     }
 
     // triggers at 0:01 each day
-    @Scheduled(cron = "1 0 * * * ?")
+    @Scheduled(cron = "1 0 * * * *")
     public void checkReservationValidity() {
         logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
 
