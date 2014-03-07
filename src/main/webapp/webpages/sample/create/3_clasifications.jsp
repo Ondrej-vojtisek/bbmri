@@ -8,7 +8,7 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" patient="${actionBean.patient}"/>
+        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
         <s:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
 
             <c:if test="${actionBean.isTissue}">

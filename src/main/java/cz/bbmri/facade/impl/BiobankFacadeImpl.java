@@ -13,7 +13,6 @@ import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     private BoxService boxService;
 
 
-    public BiobankService getService(){
+    public BiobankService getService() {
         return biobankService;
     }
 
@@ -130,7 +129,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
         return true;
     }
-
 
 
     public boolean updateBiobank(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
@@ -399,7 +397,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public Rack getRack(Long rackId) {
         return rackService.get(rackId);
-       // return rackService.eagerGet(rackId, true);
+        // return rackService.eagerGet(rackId, true);
     }
 
     public Box getBox(Long boxId) {
@@ -467,9 +465,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return true;
     }
 
-    public boolean createPatient(Patient patient, Long biobankId, ValidationErrors errors){
+    public boolean createPatient(Patient patient, Long biobankId, ValidationErrors errors) {
         notNull(patient);
-        if(patientService.create(patient, biobankId) == null){
+        if (patientService.create(patient, biobankId) == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
             return false;
         }
@@ -488,8 +486,12 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     public List<Biobank> allOrderedBy(String orderByParam, boolean desc) {
-             return biobankService.allOrderedBy(orderByParam, desc);
-         }
+        return biobankService.allOrderedBy(orderByParam, desc);
+    }
+
+    public List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc) {
+        return sampleService.allOrderedBy(orderByParam, desc);
+    }
 
 //    public boolean createRack(Long biobankId, Rack rack){
 //
@@ -502,7 +504,6 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 //    public boolean createAloneBox(Long biobankId, Box box){
 //
 //    }
-
 
 
 }

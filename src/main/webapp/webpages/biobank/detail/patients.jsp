@@ -38,7 +38,7 @@
             <c:forEach items="${biobankBean.patients}" var="patient">
                 <tr>
 
-                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" patient="${patient}"/>
+                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" record="${patient}"/>
 
                     <c:set target="${patientBean}" property="biobankId" value="${biobankBean.biobankId}"/>
                     <td class="action">

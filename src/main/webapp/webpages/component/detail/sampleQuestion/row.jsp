@@ -3,11 +3,11 @@
 
 <s:layout-definition>
     <td>
-        <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${sampleQuestion.created}"/>
+        <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${record.created}"/>
     </td>
-    <td>${sampleQuestion.biobank.name}</td>
-    <td><f:message key="cz.bbmri.entities.enumeration.RequestState.${sampleQuestion.requestState}"/></td>
-    <td>${sampleQuestion.specification}</td>
+    <td>${record.biobank.name}</td>
+    <td><f:message key="cz.bbmri.entities.enumeration.RequestState.${record.requestState}"/></td>
+    <td>${record.specification}</td>
 
 </s:layout-definition>
 

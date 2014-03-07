@@ -7,7 +7,7 @@
         <s:layout-render name="/webpages/component/detail/tissue/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/tissue/row.jsp" tissue="${tissue}"/>
+            <s:layout-render name="/webpages/component/detail/tissue/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

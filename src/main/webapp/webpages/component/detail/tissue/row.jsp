@@ -3,10 +3,10 @@
 
 <s:layout-definition>
 
-    <td>${tissue.tnm.classification}</td>
-    <td>${tissue.ptnm.classification}</td>
-    <td>${tissue.morphology.classification}</td>
-    <td>${tissue.morphology.grading}</td>
-    <td><s:layout-render name="/webpages/component/detail/date/date.jsp" date="${tissue.freezeDate}"/></td>
+    <td>${record.tnm.classification}</td>
+    <td>${record.ptnm.classification}</td>
+    <td>${record.morphology.classification}</td>
+    <td>${record.morphology.grading}</td>
+    <td><s:layout-render name="/webpages/component/detail/date/date.jsp" date="${record.freezeDate}"/></td>
 
 </s:layout-definition>

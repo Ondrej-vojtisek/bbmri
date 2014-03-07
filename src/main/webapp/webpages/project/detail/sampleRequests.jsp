@@ -22,7 +22,7 @@
             <c:forEach items="${projectBean.project.sampleRequests}" var="sampleRequest">
                 <tr>
                     <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"
-                                     sampleQuestion="${sampleRequest}"/>
+                                     record="${sampleRequest}"/>
 
                     <td class="action">
                         <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"

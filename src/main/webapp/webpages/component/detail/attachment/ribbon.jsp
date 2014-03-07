@@ -7,7 +7,7 @@
         <s:layout-render name="/webpages/component/detail/attachment/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/attachment/row.jsp" attachment="${attachment}"/>
+            <s:layout-render name="/webpages/component/detail/attachment/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

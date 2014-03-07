@@ -3,8 +3,8 @@
 
 <s:layout-definition>
 
-    <td>${rack.name}</td>
-    <td>${rack.capacity}</td>
+    <td>${record.name}</td>
+    <td>${record.capacity}</td>
 
 </s:layout-definition>
 

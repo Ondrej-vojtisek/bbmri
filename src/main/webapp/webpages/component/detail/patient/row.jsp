@@ -3,10 +3,10 @@
 
 <s:layout-definition>
 
-    <td>${patient.institutionId}</td>
-    <td>${patient.sex}</td>
-    <td>${patient.age}</td>
-    <td>${patient.consent}</td>
+    <td>${record.institutionId}</td>
+    <td>${record.sex}</td>
+    <td>${record.age}</td>
+    <td>${record.consent}</td>
 
 </s:layout-definition>
 

@@ -29,7 +29,7 @@
                 <tr>
 
                     <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"
-                                     sampleQuestion="${sampleReservation}"/>
+                                     record="${sampleReservation}"/>
 
                     <td class="action">
                         <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"

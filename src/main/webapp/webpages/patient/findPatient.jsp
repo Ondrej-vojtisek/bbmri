@@ -35,7 +35,7 @@
 
             <c:forEach items="${patientBean.patients}" var="patient">
                 <tr>
-                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" patient="${patient}"/>
+                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" record="${patient}"/>
                     <td class="action">
                         <div class="tableAction">
                             <s:link beanclass="cz.bbmri.action.patient.PatientActionBean" event="detail"

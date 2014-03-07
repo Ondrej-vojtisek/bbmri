@@ -8,30 +8,30 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" patient="${actionBean.patient}"/>
+        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
 
-        <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp" sample="${actionBean.sample}"/>
+        <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp" record="${actionBean.sample}"/>
 
         <s:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
 
             <c:if test="${actionBean.isTissue}">
                 <s:layout-render name="/webpages/component/detail/tissue/ribbon.jsp"
-                                 tissue="${actionBean.tissue}"/>
+                                 record="${actionBean.tissue}"/>
             </c:if>
 
             <c:if test="${actionBean.isGenome}">
                 <s:layout-render name="/webpages/component/detail/genome/ribbon.jsp"
-                                 genome="${actionBean.genome}"/>
+                                 record="${actionBean.genome}"/>
             </c:if>
 
             <c:if test="${actionBean.isDiagnosisMaterial}">
                 <s:layout-render name="/webpages/component/detail/diagnosisMaterial/ribbon.jsp"
-                                 diagnosisMaterial="${actionBean.diagnosisMaterial}"/>
+                                 record="${actionBean.diagnosisMaterial}"/>
             </c:if>
 
             <c:if test="${actionBean.isSerum}">
                 <s:layout-render name="/webpages/component/detail/serum/ribbon.jsp"
-                                 serum="${actionBean.serum}"/>
+                                 record="${actionBean.serum}"/>
             </c:if>
 
             <div class="form-actions">

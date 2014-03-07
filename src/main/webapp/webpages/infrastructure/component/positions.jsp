@@ -14,7 +14,7 @@
 
             <c:forEach items="${actionBean.positions}" var="position">
                 <tr>
-                    <s:layout-render name="/webpages/component/detail/position/row.jsp" position="${position}"/>
+                    <s:layout-render name="/webpages/component/detail/position/row.jsp" record="${position}"/>
                     <td class="action">
                         <div class="tableAction">
                             <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"

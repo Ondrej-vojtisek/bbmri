@@ -7,7 +7,7 @@
         <s:layout-render name="/webpages/component/detail/request/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/request/row.jsp" request="${request}"/>
+            <s:layout-render name="/webpages/component/detail/request/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

@@ -3,11 +3,11 @@
 
 <s:layout-definition>
 
-    <td>${box.name}</td>
-    <td>${box.capacity}</td>
-    <td>${box.numberOfPositions}</td>
-    <td>${box.tempMin}</td>
-    <td>${box.tempMax}</td>
+    <td>${record.name}</td>
+    <td>${record.capacity}</td>
+    <td>${record.numberOfPositions}</td>
+    <td>${record.tempMin}</td>
+    <td>${record.tempMax}</td>
 
 </s:layout-definition>
 

@@ -3,7 +3,7 @@
 
 <s:layout-definition>
 
-                <td>${diagnosisMaterial.diagnosis.classification}</td>
+                <td>${record.diagnosis.classification}</td>
 
 </s:layout-definition>
 

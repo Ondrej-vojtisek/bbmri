@@ -103,7 +103,7 @@
 
                 <c:forEach items="${actionBean.samples}" var="sample">
                     <tr>
-                        <s:layout-render name="/webpages/component/detail/sample/row.jsp" sample="${sample}"/>
+                        <s:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
                         <td>
                             <s:checkbox name="selectedSamples" value="${sample.id}"/>
                         </td>

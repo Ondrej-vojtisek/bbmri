@@ -1,10 +1,7 @@
 package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.BiobankAdministrator;
-import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
@@ -54,18 +51,15 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     private Long adminId;
 
     public BiobankActionBean() {
-        setPagination(new MyPagedListHolder<Biobank>(new ArrayList<Biobank>()));
         //default
-        getPagination().setOrderParam("name");
-        getPagination().setEvent("allBiobanks");
         setComponentManager(new ComponentManager("biobank"));
     }
 
     /* Setter / Getter */
 
-    public List<Biobank> getBiobanks() {
-        return biobankFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
-    }
+//    public List<Biobank> getBiobanks() {
+//        return biobankFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
+//    }
 
     public List<Sample> getSamples() {
         return biobankFacade.getAllSamples(biobankId);
@@ -118,14 +112,19 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @HandlesEvent("allBiobanks") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution allBiobanks() {
+        setPagination(new MyPagedListHolder<Biobank>(new ArrayList<Biobank>()));
+
         if (getPage() != null) {
             getPagination().setCurrentPage(getPage());
         }
         if (getOrderParam() != null) {
             getPagination().setOrderParam(getOrderParam());
         }
+        getPagination().setOrderParam("name");
+        getPagination().setEvent("allBiobanks");
         getPagination().setDesc(isDesc());
-        getPagination().setSource(getBiobanks());
+        getPagination().setSource(biobankFacade.allOrderedBy(getPagination().getOrderParam(),
+                getPagination().getDesc()));
 
         return new ForwardResolution(BIOBANK_ALL);
     }
@@ -228,6 +227,11 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @HandlesEvent("samples")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution samples() {
+        getPagination().setOrderParam("sampleId");
+        getPagination().setEvent("samples");
+        getPagination().setDesc(isDesc());
+        getPagination().setSource(biobankFacade.allSamplesOrderedBy(getPagination().getOrderParam(),
+                getPagination().getDesc()));
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLES);
     }
 

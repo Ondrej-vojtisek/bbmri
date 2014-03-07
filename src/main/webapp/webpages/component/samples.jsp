@@ -15,7 +15,7 @@
                          collection="${samples}"/>
         <c:forEach items="${samples}" var="sample">
             <tr>
-                <s:layout-render name="/webpages/component/detail/sample/row.jsp" sample="${sample}"/>
+                <s:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
 
                 <td class="action">
                     <div class="tableAction">

@@ -9,7 +9,7 @@
         <s:layout-render name="/webpages/component/detail/rack/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/rack/row.jsp" rack="${rack}"/>
+            <s:layout-render name="/webpages/component/detail/rack/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

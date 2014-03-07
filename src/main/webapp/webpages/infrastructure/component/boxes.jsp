@@ -14,7 +14,7 @@
 
             <c:forEach items="${boxes}" var="box">
                 <tr>
-                    <s:layout-render name="/webpages/component/detail/box/row.jsp" box="${box}"/>
+                    <s:layout-render name="/webpages/component/detail/box/row.jsp" record="${box}"/>
                     <td class="action">
                         <div class="tableAction">
                             <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"

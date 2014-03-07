@@ -10,26 +10,26 @@
     <s:layout-component name="body">
 
         <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp"
-                         sample="${sampleBean.sample}"/>
+                         record="${sampleBean.sample}"/>
 
         <c:if test="${sampleBean.isTissue}">
             <s:layout-render name="/webpages/component/detail/tissue/ribbon.jsp"
-                             tissue="${sampleBean.tissue}"/>
+                             record="${sampleBean.tissue}"/>
         </c:if>
 
         <c:if test="${sampleBean.isSerum}">
             <s:layout-render name="/webpages/component/detail/serum/ribbon.jsp"
-                             serum="${sampleBean.serum}"/>
+                             record="${sampleBean.serum}"/>
         </c:if>
 
         <c:if test="${sampleBean.isGenome}">
             <s:layout-render name="/webpages/component/detail/genome/ribbon.jsp"
-                             genome="${sampleBean.genome}"/>
+                             record="${sampleBean.genome}"/>
         </c:if>
 
         <c:if test="${sampleBean.isDiagnosisMaterial}">
             <s:layout-render name="/webpages/component/detail/diagnosisMaterial/ribbon.jsp"
-                             diagnosisMaterial="${sampleBean.diagnosisMaterial}"/>
+                             record="${sampleBean.diagnosisMaterial}"/>
         </c:if>
 
         <div class="form-actions">

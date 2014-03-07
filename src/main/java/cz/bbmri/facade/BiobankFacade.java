@@ -65,5 +65,7 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<Biobank> allOrderedBy(String orderByParam, boolean desc);
 
+    List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc);
+
 
 }

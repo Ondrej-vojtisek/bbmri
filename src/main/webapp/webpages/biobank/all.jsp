@@ -24,7 +24,7 @@
 
                 <%--<tr>--%>
 
-                    <%--<s:layout-render name="/webpages/component/detail/biobank/row.jsp" biobank="${biobank}"/>--%>
+                    <%--<s:layout-render name="/webpages/component/detail/biobank/row.jsp" record="${biobank}"/>--%>
 
                     <%--<td class="action">--%>
 

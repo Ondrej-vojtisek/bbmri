@@ -3,9 +3,9 @@
 
 <s:layout-definition>
 
-    <td>${position.row}</td>
-    <td>${position.column}</td>
-    <td>${position.sequentialPosition}</td>
+    <td>${record.row}</td>
+    <td>${record.column}</td>
+    <td>${record.sequentialPosition}</td>
 
 </s:layout-definition>
 

@@ -19,7 +19,7 @@
 
             <c:forEach items="${actionBean.projectsBySample}" var="project">
                 <tr>
-                    <s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>
+                    <s:layout-render name="/webpages/component/detail/project/row.jsp" record="${project}"/>
 
                     <td class="action">
                     <c:set target="${projectBean}" property="projectId" value="${project.id}"/>

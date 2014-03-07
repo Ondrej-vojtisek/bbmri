@@ -8,7 +8,7 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" patient="${actionBean.patient}"/>
+        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
 
         <c:if test="${actionBean.module.type eq 'ModuleLTS'}">
             Module LTS

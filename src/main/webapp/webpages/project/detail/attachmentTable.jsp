@@ -16,7 +16,7 @@
         <c:forEach items="${projectBean.project.attachments}" var="attachment">
             <tr>
                 <s:layout-render name="/webpages/component/detail/attachment/row.jsp"
-                                 attachment="${attachment}"/>
+                                 record="${attachment}"/>
                 <td class="action">
                     <security:allowed bean="projectBean" event="downloadAttachment">
                         <div class="tableAction">

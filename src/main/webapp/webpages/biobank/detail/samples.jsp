@@ -10,7 +10,10 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/samples.jsp" samples="${biobankBean.samples}"/>
+        <%--<s:layout-render name="/webpages/component/samples.jsp" samples="${biobankBean.samples}"/>--%>
+
+        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                        eventName="detail" paramName="sampleId"/>
 
     </s:layout-component>
 </s:layout-render>

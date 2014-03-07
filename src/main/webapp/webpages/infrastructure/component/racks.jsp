@@ -13,7 +13,7 @@
 
         <c:forEach items="${actionBean.racks}" var="rack">
             <tr>
-                <s:layout-render name="/webpages/component/detail/rack/row.jsp" rack="${rack}"/>
+                <s:layout-render name="/webpages/component/detail/rack/row.jsp" record="${rack}"/>
                 <td class="action">
                     <div class="tableAction">
                         <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"

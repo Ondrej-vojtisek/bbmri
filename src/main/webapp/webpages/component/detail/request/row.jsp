@@ -3,8 +3,8 @@
 
 <s:layout-definition>
 
-    <td>${request.sample.sampleIdentification.sampleId}</td>
-    <td>${request.sample.materialType.type}</td>
-    <td>${request.numOfRequested}</td>
+    <td>${record.sample.sampleIdentification.sampleId}</td>
+    <td>${record.sample.materialType.type}</td>
+    <td>${record.numOfRequested}</td>
 
 </s:layout-definition>

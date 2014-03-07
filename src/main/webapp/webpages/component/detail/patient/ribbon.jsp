@@ -9,7 +9,7 @@
         <s:layout-render name="/webpages/component/detail/patient/header.jsp"/>
         <tbody>
         <tr>
-            <s:layout-render name="/webpages/component/detail/patient/row.jsp" patient="${patient}"/>
+            <s:layout-render name="/webpages/component/detail/patient/row.jsp" record="${record}"/>
         </tr>
         </tbody>
     </table>

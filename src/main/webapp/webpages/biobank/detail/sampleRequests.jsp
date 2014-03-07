@@ -24,7 +24,7 @@
                 <c:forEach items="${biobankBean.biobank.sampleQuestions}" var="sampleQuestion">
                     <tr>
 
-                        <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" sampleQuestion="${sampleQuestion}"/>
+                        <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" record="${sampleQuestion}"/>
 
                         <td class="action">
                             <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"

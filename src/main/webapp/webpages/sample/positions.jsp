@@ -20,7 +20,7 @@
             <c:forEach items="${actionBean.sample.positions}" var="position">
                 <tr>
                     <s:layout-render name="/webpages/component/detail/position/row.jsp"
-                                     position="${position}"/>
+                                     record="${position}"/>
                 </tr>
             </c:forEach>
             </tbody>

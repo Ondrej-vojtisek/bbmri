@@ -3,12 +3,12 @@
 
 <s:layout-definition>
 
-    <td>${container.name}</td>
-    <td>${container.location}</td>
-    <td>${container.capacity}</td>
-    <td>${container.numberOfRacks}</td>
-    <td>${container.tempMin}</td>
-    <td>${container.tempMax}</td>
+    <td>${record.name}</td>
+    <td>${record.location}</td>
+    <td>${record.capacity}</td>
+    <td>${record.numberOfRacks}</td>
+    <td>${record.tempMin}</td>
+    <td>${record.tempMax}</td>
 
 </s:layout-definition>
 

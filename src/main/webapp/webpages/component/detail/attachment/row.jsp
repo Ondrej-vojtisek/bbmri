@@ -3,8 +3,8 @@
 
 <s:layout-definition>
 
-    <td>${attachment.fileName}</td>
-    <td>${attachment.size}</td>
-    <td><f:message key="AttachmentType.${attachment.attachmentType}"/></td>
+    <td>${record.fileName}</td>
+    <td>${record.size}</td>
+    <td><f:message key="AttachmentType.${record.attachmentType}"/></td>
 
 </s:layout-definition>
