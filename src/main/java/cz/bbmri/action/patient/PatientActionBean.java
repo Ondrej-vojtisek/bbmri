@@ -3,6 +3,9 @@ package cz.bbmri.action.patient;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.comparator.sample.*;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
@@ -11,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,8 +24,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @HttpCache(allow = false)
-@UrlBinding("/patient/{biobankId}/{patientId}")
-public class PatientActionBean extends PermissionActionBean {
+@UrlBinding("/biobank/patient/{$event}/{patientId}")
+public class PatientActionBean extends PermissionActionBean<Sample> {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -36,6 +39,14 @@ public class PatientActionBean extends PermissionActionBean {
 
     private Patient patient;
 
+    public PatientActionBean() {
+        //default
+        setPagination(new MyPagedListHolder<Sample>(new ArrayList<Sample>()));
+        setComponentManager(new ComponentManager(
+                ComponentManager.SAMPLE_DETAIL,
+                ComponentManager.PATIENT_DETAIL));
+        getPagination().setIdentifierParam("patientId");
+    }
 
     public Long getPatientId() {
         return patientId;
@@ -54,40 +65,36 @@ public class PatientActionBean extends PermissionActionBean {
         return patient;
     }
 
-    public Long getModuleStsId() {
-        if (getPatient() == null) {
-            return null;
+    public void selectSampleComparator() {
+        if (getOrderParam() != null) {
+            if (getOrderParam().equals("sampleIdentification.year")) {
+                getPagination().setComparator(new YearComparator());
+                return;
+            }
+            if (getOrderParam().equals("sampleIdentification.number")) {
+                getPagination().setComparator(new NumberComparator());
+                return;
+            }
+            if (getOrderParam().equals("takingDate")) {
+                getPagination().setComparator(new TakingDateComparator());
+                return;
+            }
+            if (getOrderParam().equals("materialType")) {
+                getPagination().setComparator(new MaterialTypeComparator());
+                return;
+            }
+            if (getOrderParam().equals("sampleNos.availableSamplesNo")) {
+                getPagination().setComparator(new AvailableSamplesComparator());
+                return;
+            }
+            if (getOrderParam().equals("sampleNos.samplesNo")) {
+                getPagination().setComparator(new TotalSampleNumberComparator());
+                return;
+            }
         }
-        if (getPatient().getModuleSTS() == null) {
-            return null;
-        }
-        return getPatient().getModuleSTS().getId();
-    }
-
-    public Long getModuleLtsId() {
-        if (getPatient() == null) {
-            return null;
-        }
-        if (getPatient().getModuleLTS() == null) {
-            return null;
-        }
-        return getPatient().getModuleLTS().getId();
-    }
-
-    public List<Sample> getSamplesLTS() {
-        if (getModuleLtsId() == null) {
-            return null;
-        }
-
-        return sampleFacade.getModule(getModuleLtsId()).getSamples();
-    }
-
-    public List<Sample> getSamplesSTS() {
-        if (getModuleStsId() == null) {
-            return null;
-        }
-
-        return sampleFacade.getModule(getModuleStsId()).getSamples();
+        // default
+        getPagination().setOrderParam("sampleIdentification.sampleId");
+        getPagination().setComparator(new SampleIdComparator());
     }
 
     @DontValidate
@@ -95,21 +102,37 @@ public class PatientActionBean extends PermissionActionBean {
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
-        return new ForwardResolution(BIOBANK_DETAIL_PATIENT_DETAIL);
+        return new ForwardResolution(PATIENT_DETAIL);
     }
 
     @DontValidate
     @HandlesEvent("modulests")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution modulests() {
-        return new ForwardResolution(BIOBANK_DETAIL_PATIENT_MODULESTS);
+        initiatePagination();
+        if (patientId != null) {
+            getPagination().setIdentifier(patientId);
+        }
+
+        selectSampleComparator();
+        getPagination().setEvent("modulests");
+        getPagination().setSource(getPatient().getModuleSTS().getSamples());
+        return new ForwardResolution(PATIENT_MODULESTS);
     }
 
     @DontValidate
     @HandlesEvent("modulelts")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution modulelts() {
-        return new ForwardResolution(BIOBANK_DETAIL_PATIENT_MODULELTS);
+        initiatePagination();
+        if (patientId != null) {
+            getPagination().setIdentifier(patientId);
+        }
+
+        selectSampleComparator();
+        getPagination().setEvent("modulelts");
+        getPagination().setSource(getPatient().getModuleLTS().getSamples());
+        return new ForwardResolution(PATIENT_MODULELTS);
     }
 
     @HandlesEvent(" findPatient") /* Necessary for stripes security tag*/

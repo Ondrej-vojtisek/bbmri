@@ -10,7 +10,11 @@
     <s:layout-component name="body">
 
         <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
-                eventName="detail" paramName="userId"/>
+                         pagination="${actionBean.pagination}"
+                         componentManager="${actionBean.componentManager}"
+                         targetBean="cz.bbmri.action.user.UserActionBean"
+                         eventName="detail"
+                         paramName="userId"/>
 
     </s:layout-component>
 

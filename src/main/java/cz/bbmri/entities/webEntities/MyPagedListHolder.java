@@ -2,6 +2,8 @@ package cz.bbmri.entities.webEntities;
 
 import org.springframework.beans.support.PagedListHolder;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,6 +23,16 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     private boolean desc;
 
     private String event;
+
+    private Comparator comparator;
+
+    // if necessary to store context - for instance biobank or project
+    private Long identifier;
+
+    private String identifierParam;
+
+    // if we need more pagination on one page - we need to distinguish between parameters in URL
+    private String webParamDiscriminator = "";
 
     public MyPagedListHolder(List<E> source) {
         super(source);
@@ -71,4 +83,57 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     public int getMyLastLinkedPage() {
         return getLastLinkedPage() + 1;
     }
+
+
+    public Long getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(Long identifier) {
+        this.identifier = identifier;
+    }
+
+    public String getIdentifierParam() {
+        return identifierParam;
+    }
+
+    public void setIdentifierParam(String identifierParam) {
+        this.identifierParam = identifierParam;
+    }
+
+    public Comparator getComparator() {
+        return comparator;
+    }
+
+    public void setComparator(Comparator comparator) {
+        this.comparator = comparator;
+    }
+
+    public String getWebParamDiscriminator() {
+        return webParamDiscriminator;
+    }
+
+    public void setWebParamDiscriminator(String webParamDiscriminator) {
+        this.webParamDiscriminator = webParamDiscriminator;
+    }
+
+    public List<E> getMyPageList() {
+
+        // Not SQL in memory sort
+        // used for smaller collections
+        if (comparator != null) {
+            List<E> result = getPageList();
+            Collections.sort(result, comparator);
+
+            if (desc) {
+                Collections.reverse(result);
+            }
+            return result;
+        }
+
+        List<E> result = getPageList();
+        return result;
+    }
+
+
 }

@@ -42,6 +42,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     @Autowired
     private SampleQuestionDao sampleQuestionDao;
 
+    @Autowired
+    private SampleDao sampleDao;
+
     public Project create(Project project, Long userId) {
         notNull(project);
         notNull(userId);
@@ -289,27 +292,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.count();
     }
 
-    @Transactional(readOnly = true)
-    public Project eagerGet(Long id, boolean users, boolean attachments, boolean sampleRequests) {
-        notNull(id);
-        Project projectDB = projectDao.get(id);
-
-           /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
-
-        if (users) {
-            logger.debug("" + projectDB.getProjectAdministrators());
-        }
-
-        if (attachments) {
-            logger.debug("" + projectDB.getAttachments());
-        }
-
-        if (sampleRequests) {
-            logger.debug("" + projectDB.getSampleRequests());
-        }
-        return projectDB;
-
-    }
 
     public boolean removeAdministrator(ProjectAdministrator objectAdministrator) throws LastManagerException {
         notNull(objectAdministrator);
@@ -403,6 +385,36 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     @Transactional(readOnly = true)
     public List<Project> nOrderedBy(String orderByParam, boolean desc, int number) {
         return projectDao.nOrderedBy(orderByParam, desc, number);
+    }
+
+    public List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc) {
+        if (userId == null) {
+            logger.debug("userId is null");
+            return null;
+        }
+
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            logger.debug("UserDB can´t be null");
+            return null;
+        }
+
+        return projectDao.getMyProjectsSorted(userDB, orderByParam, desc);
+    }
+
+    public List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc) {
+        if (sampleId == null) {
+            logger.debug("sampleId is null");
+            return null;
+        }
+
+        Sample sampleDB = sampleDao.get(sampleId);
+        if (sampleDB == null) {
+            logger.debug("SampleDB can´t be null");
+            return null;
+        }
+
+        return projectDao.getProjectsBySample(sampleDB, orderByParam, desc);
     }
 
 }

@@ -2,66 +2,60 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<s:useActionBean var="biobankSamplesBean" beanclass="cz.bbmri.action.biobank.BiobankSamplesActionBean"/>
+<s:useActionBean var="biobankPatientsBean" beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean"/>
+<s:useActionBean var="biobankRequestsBean" beanclass="cz.bbmri.action.biobank.BiobankSampleRequestsActionBean"/>
 <s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
+<s:useActionBean var="biobankAdministratorsBean" beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean"/>
 
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="biobankBean" event="detail">
     <li <c:if test="${ternarymenu == 'detail'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
-                key="cz.bbmri.action.biobank.BiobankActionBean.basicData"/></s:link>
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
+            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.basicData"/>
+        </s:link>
     </li>
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="administratorsResolution">
+<security:allowed bean="biobankAdministratorsBean" event="administratorsResolution">
     <li <c:if test="${ternarymenu == 'administrators'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="administratorsResolution">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
-                key="cz.bbmri.action.biobank.BiobankActionBean.administrators"/></s:link>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean" event="administratorsResolution">
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
+            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.administrators"/>
+        </s:link>
     </li>
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
 
-<%--Event from biobankBean is here only because security check--%>
-
-<security:allowed bean="biobankBean" event="editAdministrators">
-    <li <c:if test="${ternarymenu == 'addAdministrator'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.FindBiobankAdminActionBean">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
-                key="cz.bbmri.action.biobank.BiobankActionBean.addAdministrator"/></s:link>
-    </li>
-</security:allowed>
-
-<%-- -------------------------------------------------------------------- --%>
-
-<security:allowed bean="biobankBean" event="samples">
+<security:allowed bean="biobankSamplesBean" event="display">
     <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="samples">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
-                key="cz.bbmri.action.biobank.BiobankActionBean.samples"/></s:link>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankSamplesActionBean" event="display">
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
+            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.samples"/></s:link>
     </li>
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="patientsResolution">
+<security:allowed bean="biobankPatientsBean" event="display">
     <li <c:if test="${ternarymenu == 'patients'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patientsResolution">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/><f:message
-                key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean" event="display">
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
+            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
     </li>
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="sampleRequestsResolution">
+<security:allowed bean="biobankRequestsBean" event="display">
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="sampleRequestsResolution">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+        <s:link beanclass="cz.bbmri.action.biobank.BiobankSampleRequestsActionBean" event="display">
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
             <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
         </s:link>
     </li>
@@ -71,7 +65,7 @@
 
     <li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" event="all">
-            <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+            <s:param name="biobankId" value="${actionBean.biobankId}"/>
             <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy"/>
         </s:link>
     </li>

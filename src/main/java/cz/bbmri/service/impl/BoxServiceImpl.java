@@ -1,9 +1,7 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.BoxDao;
-import cz.bbmri.dao.InfrastructureDao;
-import cz.bbmri.dao.PositionDao;
-import cz.bbmri.dao.RackDao;
+import cz.bbmri.dao.*;
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.*;
 import cz.bbmri.service.BoxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,9 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
 
     @Autowired
     private InfrastructureDao infrastructureDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
 
 
     public RackBox createRackBox(Long rackId, RackBox rackBox) {
@@ -148,6 +149,36 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
     @Transactional(readOnly = true)
     public List<Box> nOrderedBy(String orderByParam, boolean desc, int number) {
         return boxDao.nOrderedBy(orderByParam, desc, number);
+    }
+
+    public List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc) {
+        if (rackId == null) {
+            logger.debug("rackId is null");
+            return null;
+        }
+
+        Rack rackDB = rackDao.get(rackId);
+        if (rackDB == null) {
+            logger.debug("rackDB can´t be null");
+            return null;
+        }
+
+        return boxDao.getSorted(rackDB, orderByParam, desc);
+    }
+
+    public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("biobankId is null");
+            return null;
+        }
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return boxDao.getSorted(biobankDB, orderByParam, desc);
     }
 
 }

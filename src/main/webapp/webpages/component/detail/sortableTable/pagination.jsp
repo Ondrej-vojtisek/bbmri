@@ -4,40 +4,39 @@
 <s:layout-definition>
 
     <div class="pagination pagination-centered">
-            <ul>
-                    <%--<li class="disabled"><a href="#">«</a></li>--%>
-                <li>
-                    <s:link beanclass="${actionBean.name}" event="${actionBean.pagination.event}">
-                        <s:param name="page" value="${actionBean.pagination.currentPage - 1}"/>
-                        <s:param name="orderParam" value="${actionBean.pagination.orderParam}"/>
-                        <s:param name="desc" value="${actionBean.pagination.desc}"/>
-                        «
+        <ul>
+            <li>
+                <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                    <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage - 1}"/>
+                    <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                    <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                    «
+                </s:link>
+            </li>
+
+            <c:forEach var="i" begin="${pagination.myFirstLinkedPage}"
+                       end="${pagination.myLastLinkedPage}">
+
+                <li ${pagination.currentPage == i ?  "class=\"active\"" : ""}>
+                    <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                        <s:param name="page${pagination.webParamDiscriminator}" value="${i}"/>
+                        <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                        <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                        ${i}
                     </s:link>
                 </li>
 
-                <c:forEach var="i" begin="${actionBean.pagination.myFirstLinkedPage}"
-                           end="${actionBean.pagination.myLastLinkedPage}">
+            </c:forEach>
 
-                    <li ${actionBean.pagination.currentPage == i ?  "class=\"active\"" : ""}>
-                        <s:link beanclass="${actionBean.name}" event="${actionBean.pagination.event}">
-                            <s:param name="page" value="${i}"/>
-                            <s:param name="orderParam" value="${actionBean.pagination.orderParam}"/>
-                            <s:param name="desc" value="${actionBean.pagination.desc}"/>
-                            ${i}
-                        </s:link>
-                    </li>
-
-                </c:forEach>
-
-                <li>
-                    <s:link beanclass="${actionBean.name}" event="${actionBean.pagination.event}">
-                        <s:param name="page" value="${actionBean.pagination.currentPage + 1}"/>
-                        <s:param name="orderParam" value="${actionBean.pagination.orderParam}"/>
-                        <s:param name="desc" value="${actionBean.pagination.desc}"/>
-                        »
-                    </s:link>
-                </li>
-            </ul>
-        </div>
+            <li>
+                <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                    <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage + 1}"/>
+                    <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                    <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                    »
+                </s:link>
+            </li>
+        </ul>
+    </div>
 
 </s:layout-definition>

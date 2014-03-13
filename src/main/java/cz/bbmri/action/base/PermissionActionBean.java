@@ -1,5 +1,6 @@
 package cz.bbmri.action.base;
 
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
@@ -7,6 +8,8 @@ import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +21,6 @@ import org.slf4j.LoggerFactory;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private BiobankFacade biobankFacade;
@@ -56,19 +57,34 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     public Project getProject() {
 
         if (project == null) {
-
             if (projectId != null) {
-
                 project = projectFacade.get(projectId);
-
-
             }
         }
 
         return project;
     }
 
+    @ValidateNestedProperties(value = {
+            @Validate(field = "name",
+                    required = true, on = "update"),
+            @Validate(field = "address",
+                    required = true, on = "update")
+    })
+    private Biobank biobank;
 
+    public Biobank getBiobank() {
+        if (biobank == null) {
+            if (biobankId != null) {
+                biobank = biobankFacade.get(biobankId);
+            }
+        }
+        return biobank;
+    }
+
+    public void setBiobank(Biobank biobank) {
+        this.biobank = biobank;
+    }
 
     private Long userId;
 

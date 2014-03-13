@@ -33,7 +33,7 @@ import java.util.Set;
 @HttpCache(allow = false)
 public class BasicActionBean extends Links implements ActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private UserFacade userFacade;

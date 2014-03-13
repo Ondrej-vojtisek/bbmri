@@ -9,5 +9,6 @@ import cz.bbmri.entities.infrastructure.Rack;
  * Time: 15:07
  * To change this template use File | Settings | File Templates.
  */
-public interface RackDao extends BasicDao<Rack>  {
+public interface RackDao extends BasicBiobankDao<Rack>  {
+
 }

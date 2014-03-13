@@ -3,9 +3,7 @@ package cz.bbmri.facade.impl;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.facade.SampleFacade;
-import cz.bbmri.service.BiobankService;
-import cz.bbmri.service.ModuleService;
-import cz.bbmri.service.SampleService;
+import cz.bbmri.service.*;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +23,6 @@ import java.util.Set;
 @Controller("sampleFacade")
 public class SampleFacadeImp extends BasicFacade implements SampleFacade {
 
-
-//    @Autowired
-//    private PatientService patientService;
-
     @Autowired
     private BiobankService biobankService;
 
@@ -37,6 +31,12 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
 
     @Autowired
     private ModuleService moduleService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private SampleQuestionService sampleQuestionService;
 
 
     public boolean create(Sample sample, ValidationErrors errors) {
@@ -108,6 +108,22 @@ public class SampleFacadeImp extends BasicFacade implements SampleFacade {
             return null;
         }
         return sampleDB.getPositions();
+    }
+
+    public List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc){
+        if(biobankId == null){
+            logger.debug("BiobankId can't be null");
+            return null;
+        }
+        return sampleService.getSortedSamples(biobankId, orderByParam, desc);
+    }
+
+    public List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc){
+        return projectService.getProjectsBySample(sampleId, orderByParam, desc);
+    }
+
+    public List<SampleReservation> getSampleReservationsBySample(Long sampleId, String orderByParam, boolean desc){
+        return sampleQuestionService.getSampleReservationsBySample(sampleId, orderByParam, desc);
     }
 
 

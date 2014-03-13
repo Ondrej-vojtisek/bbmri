@@ -69,7 +69,7 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="biobankBean" event="viewBiobanks">
+<security:allowed bean="biobankBean" event="allBiobanks">
     <li class="dropdown <c:if test="${primarymenu == 'biobank'}"> active </c:if>">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <f:message key="biobanks"/>

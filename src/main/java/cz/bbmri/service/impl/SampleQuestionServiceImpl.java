@@ -38,6 +38,9 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
     @Autowired
     private RequestDao requestDao;
 
+    @Autowired
+    private SampleDao sampleDao;
+
 
     public SampleRequest create(SampleRequest sampleRequest, Long biobankId, Long projectId) {
         notNull(sampleRequest);
@@ -168,14 +171,7 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
 
     @Transactional(readOnly = true)
     public SampleQuestion get(Long id) {
-
-        SampleQuestion sampleQuestionDB = sampleQuestionDao.get(id);
-
-        // eagerGet
-
-        logger.debug("SampleRequest: " + sampleQuestionDB.getRequests());
-
-        return sampleQuestionDB;
+        return sampleQuestionDao.get(id);
     }
 
     @Transactional(readOnly = true)
@@ -272,8 +268,69 @@ public class SampleQuestionServiceImpl extends BasicServiceImpl implements Sampl
         return true;
     }
 
-    public List<SampleReservation> getSampleReservationsOrderedByDate(){
+    public List<SampleReservation> getSampleReservationsOrderedByDate() {
         return sampleQuestionDao.getSampleReservationsOrderedByDate();
     }
 
+
+    public List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("biobankId is null");
+            return null;
+        }
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return sampleQuestionDao.getSortedSampleQuestions(biobankDB, orderByParam, desc);
+    }
+
+
+    public List<SampleRequest> getSortedSampleRequests(Long projectId, String orderByParam, boolean desc) {
+        if (projectId == null) {
+            logger.debug("projectId is null");
+            return null;
+        }
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            logger.debug("projectDB can´t be null");
+            return null;
+        }
+
+        return sampleQuestionDao.getSampleRequestsSorted(projectDB, orderByParam, desc);
+    }
+
+    public List<SampleReservation> getSortedSampleReservations(Long userId, String orderByParam, boolean desc) {
+        if (userId == null) {
+            logger.debug("userId is null");
+            return null;
+        }
+
+        User userDB = userDao.get(userId);
+        if (userDB == null) {
+            logger.debug("userDB can´t be null");
+            return null;
+        }
+
+        return sampleQuestionDao.getSampleReservationsSorted(userDB, orderByParam, desc);
+    }
+
+    public List<SampleReservation> getSampleReservationsBySample(Long sampleId, String orderByParam, boolean desc) {
+        if (sampleId == null) {
+            logger.debug("sampleId is null");
+            return null;
+        }
+
+        Sample sampleDB = sampleDao.get(sampleId);
+        if (sampleDB == null) {
+            logger.debug("sampleDB can´t be null");
+            return null;
+        }
+
+        return sampleQuestionDao.getSampleReservationsBySample(sampleDB, orderByParam, desc);
+    }
 }

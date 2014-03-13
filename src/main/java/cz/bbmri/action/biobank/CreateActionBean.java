@@ -124,7 +124,6 @@ public class CreateActionBean extends FindActionBean {
     @RolesAllowed({"administrator", "developer"})
     public Resolution find() {
         logger.debug("UserFind: " + getUserFind());
-
         return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS)
                 .addParameter("UserFind", getUserFind());
     }

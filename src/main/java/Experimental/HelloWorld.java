@@ -2,6 +2,11 @@ package experimental;
 
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /*
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -9,9 +14,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 */
-
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,7 +28,36 @@ public class HelloWorld {
     //@SuppressWarnings("unchecked")
     public static void main(String[] args) {
 
-        }
+        List<User> users = new ArrayList<User>();
+        User user1 = new User();
+        User user2 = new User();
+        User user3 = new User();
+
+        user1.setName("BOndraA");
+        user1.setSurname("VojtaA");
+        user1.setId(new Long(3));
+
+        user2.setName("AOndraB");
+        user2.setSurname("VojtaB");
+        user2.setId(new Long(2));
+
+        user3.setName("COndraC");
+        user3.setSurname("VojtaC");
+        user3.setId(new Long(1));
+
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+//        System.out.println("Users: " + users);
+//        Collections.sort(users, User.UserIdComparator);
+//        System.out.println("\nUsers2: " + users);
+//        Collections.sort(users, User.UserNameComparator);
+
+        System.out.println("\nUsers3: " + users);
+        Collections.reverse(users);
+        System.out.println("\nUsers4: " + users);
+    }
 
 
     public static List<User> parseUserFile(String filename) throws Exception {
@@ -152,7 +183,7 @@ public class HelloWorld {
            return samples;
            */
         return null;
-       }
+    }
 
 
     private static void parseSample(List<Sample> samples, List rowData) {
@@ -186,6 +217,6 @@ public class HelloWorld {
             }
             */
 
-        }
+    }
 
 }

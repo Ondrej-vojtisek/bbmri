@@ -52,4 +52,10 @@ public interface RequestFacade {
     boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
 
     void checkReservationValidity();
+
+    List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc);
+
+    List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc);
+
+    List<SampleReservation> getSortedSampleReservation(Long userId, String orderByParam, boolean desc);
 }

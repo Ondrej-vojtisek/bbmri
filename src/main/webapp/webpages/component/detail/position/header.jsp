@@ -8,6 +8,7 @@
         <th><f:message key="cz.bbmri.entities.infrastructure.Position.row"/></th>
         <th><f:message key="cz.bbmri.entities.infrastructure.Position.column"/></th>
         <th><f:message key="cz.bbmri.entities.infrastructure.Position.sequentialPosition"/></th>
+        <th><f:message key="cz.bbmri.entities.infrastructure.Position.sample"/></th>
     </tr>
     </thead>
 

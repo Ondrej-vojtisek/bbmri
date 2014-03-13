@@ -17,4 +17,6 @@ public interface AttachmentService extends BasicService<Attachment> {
 
     List<Attachment> getAttachmentsByProject(Long projectId);
 
+    List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc);
+
 }

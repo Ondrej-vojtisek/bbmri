@@ -3,10 +3,11 @@
 
 <s:layout-definition>
 
-        <c:if test="${actionBean.pagination.desc}">
+        <c:if test="${pagination.desc}">
             <i class="icon-chevron-down"></i>
         </c:if>
-        <c:if test="${not actionBean.pagination.desc}">
+
+        <c:if test="${not pagination.desc}">
             <i class="icon-chevron-up"></i>
         </c:if>
 

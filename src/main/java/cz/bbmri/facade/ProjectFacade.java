@@ -47,14 +47,9 @@ public interface ProjectFacade extends PermissionFacade{
 
     boolean deleteAttachment(Long attachmentId, ValidationErrors errors, Long loggedUserId);
 
-   // List<Attachment> getAttachments(Long projectId);
-
     List<Project> all();
 
     Project get(Long id);
-
-
-   // List<Project> getProjects(Long userId);
 
     List<Project> getProjects(Long userId, ProjectState projectState);
 
@@ -65,6 +60,11 @@ public interface ProjectFacade extends PermissionFacade{
     ProjectAdministrator getProjectAdministrator(Long projectAdministratorId);
 
     List<Project> allOrderedBy(String orderByParam, boolean desc);
+
+    List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc);
+
+    List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc);
+
 
   //  List<User> getProjectAdministratorsUsers(Long projectId);
 

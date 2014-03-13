@@ -29,13 +29,7 @@ public interface BiobankFacade extends PermissionFacade {
 
     BiobankAdministrator getBiobankAdministrator(Long id);
 
-    //List<Biobank> getBiobanksByUser(Long userId);
-
-   // List<Patient> getAllPatients(Long biobankId);
-
     List<Sample> getAllSamples(Long biobankId);
-
-   // List<SampleQuestion> getBiobankSampleRequests(Long biobankId);
 
     List<SampleQuestion> getNewSampleRequests(Long biobankId);
 
@@ -65,7 +59,17 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<Biobank> allOrderedBy(String orderByParam, boolean desc);
 
-    List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc);
+    List<Patient> getSortedPatients(Long biobankId, String orderByParam, boolean desc);
+
+    List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc);
+
+    List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc);
+
+    List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc);
+
+    List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc);
+
+ //   List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc);
 
 
 }

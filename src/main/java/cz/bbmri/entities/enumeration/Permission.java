@@ -37,19 +37,35 @@ public enum Permission {
     /*
     * Checks if this includes permission of _permission_. Manager include all, visitor include only visitor etc.
     * */
-    public boolean include(Permission permission){
+    public boolean include(Permission permission) {
 
-        switch (permission){
-            case VISITOR: return true;
+        switch (permission) {
+            case VISITOR:
+                return true;
 
-            case EXECUTOR: return !this.equals(Permission.VISITOR);
+            case EXECUTOR:
+                return !this.equals(Permission.VISITOR);
 
-            case EDITOR: return !this.equals(Permission.VISITOR)
-                    && !this.equals(Permission.EXECUTOR);
+            case EDITOR:
+                return !this.equals(Permission.VISITOR)
+                        && !this.equals(Permission.EXECUTOR);
 
-            case MANAGER: return this.equals(Permission.MANAGER);
+            case MANAGER:
+                return this.equals(Permission.MANAGER);
         }
         /* This could not happen*/
         return false;
+    }
+
+    public static int compare(Permission e1, Permission e2) {
+
+        if (e1 == e2) {
+            return 0;
+        }
+        if (e1.include(e2)){
+            return 1;
+        }
+
+        return -1;
     }
 }

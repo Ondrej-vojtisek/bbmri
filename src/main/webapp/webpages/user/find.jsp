@@ -10,9 +10,44 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/findUser.jsp"
-                         context="user"
-                         findBean="${userFindBean}"/>
+        <fieldset>
+            <s:form beanclass="${actionBean.name}" class="form-horizontal">
+
+                <s:layout-render name="/webpages/component/form/userFindInput.jsp"/>
+
+                <div class="form-actions">
+                    <s:submit name="find" class="btn btn-primary btnMargin"/>
+                </div>
+            </s:form>
+        </fieldset>
+
+        </br>
+
+        <fieldset>
+            <c:if test="${empty actionBean.results}">
+                <p><f:message key="cz.bbmri.action.FindActionBean.noResults"/></p>
+            </c:if>
+            <c:if test="${not empty actionBean.results}">
+                <legend><f:message key="cz.bbmri.action.FindActionBean.results"/></legend>
+                <table class="table table-hover table-striped">
+                    <s:layout-render name="/webpages/component/detail/user/header.jsp"/>
+                    <tbody>
+
+                    <c:forEach var="user" items="${actionBean.results}">
+                        <tr>
+                            <s:layout-render name="/webpages/component/detail/user/row.jsp" record="${user}"/>
+                            <td class="action">
+                                <s:link beanclass="${actionBean.name}" event="detail" class="btn btn-primary">
+                                    <s:param name="userId" value="${user.id}"/>
+                                    <f:message key="detail"/>
+                                </s:link>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:if>
+        </fieldset>
 
     </s:layout-component>
 </s:layout-render>

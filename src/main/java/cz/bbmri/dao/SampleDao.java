@@ -14,7 +14,7 @@ import java.util.List;
  * Time: 0:16
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleDao extends BasicDao<Sample>{
+public interface SampleDao extends BasicBiobankDao<Sample>{
 
     List<Sample> getSelected(Sample question, Biobank biobank);
 

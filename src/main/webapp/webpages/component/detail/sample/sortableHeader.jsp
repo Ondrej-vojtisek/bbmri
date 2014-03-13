@@ -7,31 +7,45 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.sampleId" column="sampleId"/>
+                             msgKey="cz.bbmri.entities.Sample.sampleId"
+                             column="sampleIdentification.sampleId"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.year" column="year"/>
+                             msgKey="cz.bbmri.entities.Sample.year"
+                             column="sampleIdentification.year"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.number" column="number"/>
+                             msgKey="cz.bbmri.entities.Sample.number"
+                             column="sampleIdentification.number"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.takingDate" column="takingDate"/>
+                             msgKey="cz.bbmri.entities.Sample.takingDate"
+                             column="takingDate"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.materialType" column="type"/>
+                             msgKey="cz.bbmri.entities.Sample.materialType"
+                             column="materialType"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo" column="availableSamplesNo"/>
+                             msgKey="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"
+                             column="sampleNos.availableSamplesNo"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="Property:cz.bbmri.entities.sample.field.SampleNos.samplesNo" column="samplesNo"/>
+                             msgKey="cz.bbmri.entities.sample.field.SampleNos.samplesNo"
+                             column="sampleNos.samplesNo"
+                             pagination="${pagination}"/>
         </th>
     </tr>
     </thead>

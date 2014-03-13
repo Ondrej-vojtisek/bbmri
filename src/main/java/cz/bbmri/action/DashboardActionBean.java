@@ -1,7 +1,9 @@
 package cz.bbmri.action;
 
-import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Notification;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -11,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,9 +24,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @PermitAll
-@HttpCache(allow = false)
 @UrlBinding("/dashboard")
-public class DashboardActionBean extends BasicActionBean {
+public class DashboardActionBean extends PermissionActionBean<Notification> {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -35,6 +37,14 @@ public class DashboardActionBean extends BasicActionBean {
 
     @Validate(on = {"markAsRead", "deleteSelected"}, required = true)
     private List<Long> selectedNotifications;
+
+    public DashboardActionBean() {
+        setPagination(new MyPagedListHolder<Notification>(new ArrayList<Notification>()));
+        setComponentManager(new ComponentManager(
+                ComponentManager.NOTIFICATION_DETAIL,
+                ComponentManager.NOTIFICATION_DETAIL));
+    }
+
 
     public Notification getNotification() {
         return notification;
@@ -56,16 +66,14 @@ public class DashboardActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-        logger.debug("administrators: " + userFacade.getAdministrators());
-
+        initiatePagination();
+        getPagination().setSource(userFacade.getUnreadNotifications(getContext().getMyId()));
         return new ForwardResolution(DASHBOARD);
-
-
     }
 
-    public List<Notification> getNotifications() {
-        return userFacade.getUnreadNotifications(getContext().getMyId());
-    }
+//    public List<Notification> getNotifications() {
+//        return userFacade.getUnreadNotifications(getContext().getMyId());
+//    }
 
     @DontValidate
     @HandlesEvent("markAsRead")
@@ -74,7 +82,6 @@ public class DashboardActionBean extends BasicActionBean {
 
         return new RedirectResolution(this.getClass());
     }
-
 
 
     @DontValidate

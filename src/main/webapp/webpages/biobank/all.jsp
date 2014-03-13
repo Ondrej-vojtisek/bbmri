@@ -10,7 +10,11 @@
     <s:layout-component name="body">
 
         <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
-                eventName="detail" paramName="biobankId"/>
+                         pagination="${actionBean.pagination}"
+                         componentManager="${actionBean.componentManager}"
+                         targetBean="cz.bbmri.action.biobank.BiobankActionBean"
+                         eventName="detail"
+                         paramName="biobankId"/>
 
 
         <%--<table class="table table-hover table-striped">--%>

@@ -5,10 +5,7 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
 import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -130,4 +127,59 @@ public class Biobank implements Serializable {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+//    public int compareTo(Biobank compareBiobank) {
+//
+//        if (this.getId() > compareBiobank.getId())
+//            return 1;
+//        else if (this.getId() < compareBiobank.getId())
+//            return -1;
+//        else
+//            return 0;
+//    }
+
+//    public static Comparator<Biobank> BiobankIdComparator
+//            = new Comparator<Biobank>() {
+//
+//        public int compare(Biobank biobank1, Biobank biobank2) {
+//
+//            Long biobankAtr1 = biobank1.getId();
+//            Long biobankAtr2 = biobank2.getId();
+//
+//            //ascending order
+//            return biobankAtr1.compareTo(biobankAtr2);
+//
+//        }
+//
+//    };
+//
+//    public static Comparator<Biobank> BiobankAddressComparator
+//            = new Comparator<Biobank>() {
+//
+//        public int compare(Biobank biobank1, Biobank biobank2) {
+//
+//            String biobankAtr1 = biobank1.getAddress();
+//            String biobankAtr2 = biobank2.getAddress();
+//
+//            //ascending order
+//            return biobankAtr1.compareTo(biobankAtr2);
+//
+//        }
+//
+//    };
+//
+//    public static Comparator<Biobank> BiobankNameComparator
+//            = new Comparator<Biobank>() {
+//
+//        public int compare(Biobank biobank1, Biobank biobank2) {
+//
+//            String biobankAtr1 = biobank1.getName();
+//            String biobankAtr2 = biobank2.getName();
+//
+//            //ascending order
+//            return biobankAtr1.compareTo(biobankAtr2);
+//
+//        }
+//
+//    };
 }

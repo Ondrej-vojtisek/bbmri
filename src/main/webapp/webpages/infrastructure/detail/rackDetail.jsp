@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="cz.bbmri.action.biobank.BiobankActionBean.allBiobanks" var="title"/>
-<s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
+
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  ternarymenu="infrastructure">
@@ -10,28 +10,30 @@
     <s:layout-component name="body">
 
         <s:layout-render name="/webpages/component/detail/container/ribbon.jsp"
-                         container="${infrastructureBean.container}"/>
+                         record="${actionBean.rack.container}"/>
 
         <s:layout-render name="/webpages/component/detail/rack/ribbon.jsp"
-                         rack="${infrastructureBean.rack}"/>
+                         record="${actionBean.rack}"/>
 
 
         <fieldset>
             <legend><f:message key="cz.bbmri.entities.infrastructure.Box.boxes"/></legend>
 
             <div class="form-actions">
-                <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"
+                <s:link beanclass="cz.bbmri.action.infrastructure.BoxActionBean"
                         event="createRackBoxResolution"
                         class="btn btn-primary btnMargin">
-                    <s:param name="biobankId" value="${infrastructureBean.biobankId}"/>
-                    <s:param name="rackId" value="${infrastructureBean.rackId}"/>
+                    <s:param name="rackId" value="${actionBean.rackId}"/>
                     <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.createBox"/>
                 </s:link>
             </div>
 
-            <s:layout-render name="/webpages/infrastructure/component/boxes.jsp"
-                             boxes="${infrastructureBean.rackBoxes}"/>
-
+            <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                             pagination="${actionBean.pagination}"
+                             componentManager="${actionBean.componentManager}"
+                             targetBean="cz.bbmri.action.infrastructure.BoxActionBean"
+                             eventName="detail"
+                             paramName="boxId"/>
         </fieldset>
 
     </s:layout-component>

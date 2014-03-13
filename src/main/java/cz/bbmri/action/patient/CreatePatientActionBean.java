@@ -61,11 +61,11 @@ public class CreatePatientActionBean extends PermissionActionBean {
     public Resolution createPatient() {
         logger.debug("Patient: " + patient);
         if (!biobankFacade.createPatient(patient, biobankId, getContext().getValidationErrors())) {
-            return new ForwardResolution(cz.bbmri.action.biobank.BiobankActionBean.class, "patientsResolution")
+            return new ForwardResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                     .addParameter("biobankId", biobankId);
         }
         successMsg(null);
-        return new RedirectResolution(cz.bbmri.action.biobank.BiobankActionBean.class, "patientsResolution")
+        return new RedirectResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                 .addParameter("biobankId", biobankId);
     }
 

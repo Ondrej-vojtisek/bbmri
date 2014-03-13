@@ -1,8 +1,6 @@
 package cz.bbmri.entities.sample.field;
 
-import cz.bbmri.entities.Sample;
-
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
@@ -70,4 +68,10 @@ public class SampleIdentification implements Serializable {
                 ", sampleId='" + sampleId + '\'' +
                 '}';
     }
+
+    public int compareTo(SampleIdentification compareSampleIndentification) {
+
+       return this.getSampleId().compareTo(compareSampleIndentification.getSampleId());
+    }
+
 }

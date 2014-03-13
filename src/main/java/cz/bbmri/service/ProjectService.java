@@ -2,6 +2,8 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.Project;
+import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.ProjectState;
 
 import java.util.List;
@@ -27,8 +29,9 @@ public interface ProjectService extends BasicService<Project>, PermissionService
 
     List<Project> getEagerByUserWithRequests(Long userId);
 
-  //  Project eagerGet(Long id, boolean users, boolean attachments, boolean sampleRequests);
-
     Project changeState(Long projectId, ProjectState projectState);
 
+    List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc);
+
+    List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc);
 }

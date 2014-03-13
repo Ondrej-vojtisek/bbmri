@@ -1,5 +1,6 @@
 package cz.bbmri.service;
 
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.Tissue;
@@ -23,7 +24,6 @@ public interface SampleService extends BasicService<Sample>{
 
      List<Sample> getSamplesByQuery(Sample sample, Long biobankId, Patient patient, boolean lts);
 
-   //  Sample eagerGet(Long id, boolean patient, boolean request, boolean position);
-
+    List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc);
 
 }

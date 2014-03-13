@@ -1,7 +1,9 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.SampleDao;
-import cz.bbmri.entities.*;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.Tissue;
 import org.springframework.stereotype.Repository;
 
@@ -20,16 +22,28 @@ import java.util.List;
 public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
 
-//    select b.fname, b.lname from Users b JOIN b.groups c where c.groupName = :groupName
+    public List<Sample> getSorted(Biobank biobank, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if(orderByParam != null){
+            orderParam = "ORDER BY sample." + orderByParam;
 
-//    SELECT o
-//    FROM OrderEntity o
-//    WHERE TYPE(o) <> RecurringOrderEntity
-//      AND o.cancellationDate is null
-//      AND o.maxOccurrences = o.occurrence
+        }
+        // ORDER BY p.name DESC
+        if(desc){
+            orderParam = orderParam + " DESC";
+        }
 
-    @SuppressWarnings("unchecked")
-    public List<Sample> getSelected(Sample question, Biobank biobank, Patient patient, boolean lts) {
+        query = em.createQuery("SELECT sample FROM Sample sample WHERE " +
+                "sample.module.patient.biobank = :biobank " +
+                orderParam);
+        query.setParameter("biobank", biobank);
+        return query.getResultList();
+    }
+
+    public List<Sample> getSelected(Sample question, Biobank biobank, Patient patient,
+                                    boolean lts) {
         notNull(question);
         Query query = null;
 
@@ -48,7 +62,7 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
 
         query.setParameter("biobank", biobank);
-      //  query.setParameter("module", (lts ? ModuleLTS.class : ModuleSTS.class));
+        //  query.setParameter("module", (lts ? ModuleLTS.class : ModuleSTS.class));
         query.setParameter("birthMonth", (patient.getBirthMonth() != null ? patient.getBirthMonth() : null));
         query.setParameter("birthYear", (patient.getBirthYear() != null ? patient.getBirthYear() : null));
         query.setParameter("consent", patient.isConsent());
@@ -65,15 +79,14 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
             query.setParameter("numberParam", (question.getSampleIdentification().getNumber() != null ?
                     question.getSampleIdentification().getNumber() : "%"));
             query.setParameter("year", (question.getSampleIdentification().getYear() != null ?
-                           question.getSampleIdentification().getYear() : "%"));
+                    question.getSampleIdentification().getYear() : "%"));
             query.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
-                       question.getSampleIdentification().getSampleId() : "%"));
+                    question.getSampleIdentification().getSampleId() : "%"));
         }
 
         return query.getResultList();
     }
 
-    @SuppressWarnings("unchecked")
     public List<Sample> getSelected(Sample question, Biobank biobank) {
 //        notNull(question);
 //        Query query = null;

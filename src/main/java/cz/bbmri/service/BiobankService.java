@@ -15,6 +15,4 @@ public interface BiobankService  extends BasicService<Biobank>, PermissionServic
 
    Biobank create(Biobank biobank, Long administratorId) throws DuplicitBiobankException;
 
-   //Biobank eagerGet(Long id, boolean patients, boolean sampleRequests);
-
 }

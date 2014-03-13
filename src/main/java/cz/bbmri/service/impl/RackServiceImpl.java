@@ -1,9 +1,10 @@
 package cz.bbmri.service.impl;
 
+import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.BoxDao;
 import cz.bbmri.dao.ContainerDao;
 import cz.bbmri.dao.RackDao;
-import cz.bbmri.entities.infrastructure.Box;
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.entities.infrastructure.RackBox;
@@ -35,6 +36,9 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
 
     @Autowired
     private BoxDao boxDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
 
     public Rack create(Long containerId, Rack rack) {
         if (containerId == null) {
@@ -121,15 +125,19 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
         return rackDao.nOrderedBy(orderByParam, desc, number);
     }
 
-    @Transactional(readOnly = true)
-    public Rack eagerGet(Long rackId, boolean box) {
-        Rack rack = rackDao.get(rackId);
-
-        if (box) {
-            logger.debug("" + rack.getRackBoxes());
+    public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("biobankId is null");
+            return null;
         }
 
-        return rack;
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return rackDao.getSorted(biobankDB, orderByParam, desc);
     }
 
 }

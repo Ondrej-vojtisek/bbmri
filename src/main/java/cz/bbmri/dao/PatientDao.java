@@ -1,5 +1,6 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * Time: 14:54
  * To change this template use File | Settings | File Templates.
  */
-public interface PatientDao extends BasicDao<Patient> {
+public interface PatientDao extends BasicBiobankDao<Patient> {
 
     List<Patient> findPatient(Patient patient);
+
 }

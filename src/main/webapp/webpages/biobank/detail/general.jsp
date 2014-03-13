@@ -1,10 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>
-<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<%--<f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>--%>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="detail">
 
@@ -12,11 +11,11 @@
 
         <c:set var="readonly" value="${true}"/>
 
-        <security:allowed bean="biobankBean" event="edit">
+        <security:allowed event="update">
             <c:set var="readonly" value="${false}"/>
         </security:allowed>
 
-        <s:form beanclass="${biobankBean.name}" class="form-horizontal">
+        <s:form beanclass="${actionBean.name}" class="form-horizontal">
 
             <div class="control-group">
                 <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
@@ -32,11 +31,11 @@
                 </div>
             </div>
 
-            <security:allowed bean="biobankBean" event="edit">
+            <security:allowed event="update">
                 <div class="form-actions">
                     <s:submit name="update" class="btn btn-primary">
 
-                        <s:param name="biobankId" value="${biobankBean.biobankId}"/>
+                        <s:param name="biobankId" value="${actionBean.biobankId}"/>
                     </s:submit>
                 </div>
             </security:allowed>

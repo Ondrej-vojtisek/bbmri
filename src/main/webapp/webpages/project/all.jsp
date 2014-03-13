@@ -11,51 +11,11 @@
 
 
         <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
-                eventName="detail" paramName="projectId"/>
-
-        <%--<table class="table table-hover table-striped">--%>
-            <%--<s:layout-render name="/webpages/component/detail/project/header.jsp"/>--%>
-            <%--<tbody>--%>
-
-            <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
-                                           <%--collection="${projectBean.all}"/>--%>
-
-            <%--<c:forEach items="${projectBean.all}" var="project">--%>
-                <%--<tr>--%>
-
-                    <%--<s:layout-render name="/webpages/component/detail/project/row.jsp" project="${project}"/>--%>
-
-                    <%--<td class="action">--%>
-
-                        <%--<c:set target="${projectBean}" property="projectId" value="${project.id}"/>--%>
-
-                        <%--<security:allowed bean="projectBean" event="detail">--%>
-                            <%--<div class="tableAction">--%>
-                                <%--<s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"--%>
-                                        <%--class="btn btn-info btnMargin">--%>
-                                    <%--<s:param name="projectId" value="${project.id}"/>--%>
-                                    <%--<f:message key="detail"/>--%>
-                                <%--</s:link>--%>
-                            <%--</div>--%>
-                        <%--</security:allowed>--%>
-
-                        <%--<security:allowed bean="projectBean" event="delete">--%>
-                            <%--<s:form beanclass="cz.bbmri.action.project.ProjectActionBean">--%>
-
-                                <%--<f:message var="question"--%>
-                                           <%--key="cz.bbmri.action.project.ProjectActionBean.questionDelete"/>--%>
-
-                                <%--<s:submit name="delete" class="btn btn-danger" onclick="return confirm('${question}')">--%>
-                                    <%--<s:param name="projectId" value="${project.id}"/>--%>
-                                <%--</s:submit>--%>
-                            <%--</s:form>--%>
-                        <%--</security:allowed>--%>
-
-                    <%--</td>--%>
-                <%--</tr>--%>
-            <%--</c:forEach>--%>
-            <%--</tbody>--%>
-        <%--</table>--%>
+                         pagination="${actionBean.pagination}"
+                         componentManager="${actionBean.componentManager}"
+                         targetBean="cz.bbmri.action.project.ProjectActionBean"
+                         eventName="detail"
+                         paramName="projectId"/>
 
     </s:layout-component>
 </s:layout-render>

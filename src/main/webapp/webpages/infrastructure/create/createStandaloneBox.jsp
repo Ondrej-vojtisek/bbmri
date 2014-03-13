@@ -2,21 +2,21 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="cz.bbmri.action.biobank.BiobankActionBean.allBiobanks" var="title"/>
-<s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="biobank"
                  ternarymenu="infrastructure">
 
     <s:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" class="form-horizontal">
+        <s:form beanclass="cz.bbmri.action.infrastructure.BoxActionBean" class="form-horizontal">
 
             <s:layout-render name="/webpages/infrastructure/component/createBox.jsp"
                              boxType="standaloneBox"/>
+
+            <s:hidden name="biobankId"/>
+
             <div class="form-actions">
-            <s:submit name="createStandaloneBox" class="btn btn-primary">
-                <s:param name="biobankId" value="${infrastructureBean.biobankId}"/>
-            </s:submit>
+                <s:submit name="createStandaloneBox" class="btn btn-primary"/>
             </div>
 
         </s:form>

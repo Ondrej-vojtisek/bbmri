@@ -93,12 +93,27 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     }
 
     @Transactional(readOnly = true)
-    public List<Attachment> allOrderedBy(String orderByParam, boolean desc){
+    public List<Attachment> allOrderedBy(String orderByParam, boolean desc) {
         return attachmentDao.allOrderedBy(orderByParam, desc);
     }
 
     @Transactional(readOnly = true)
-    public List<Attachment> nOrderedBy(String orderByParam, boolean desc, int number){
+    public List<Attachment> nOrderedBy(String orderByParam, boolean desc, int number) {
         return attachmentDao.nOrderedBy(orderByParam, desc, number);
+    }
+
+    public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
+        if (projectId == null) {
+            logger.debug("projectId is null");
+            return null;
+        }
+
+        Project projectDB = projectDao.get(projectId);
+        if (projectDB == null) {
+            logger.debug("projectDB can´t be null");
+            return null;
+        }
+
+        return attachmentDao.getAttachmentSorted(projectDB, orderByParam, desc);
     }
 }

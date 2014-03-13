@@ -246,29 +246,6 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     }
 
     @Transactional(readOnly = true)
-    public Biobank eagerGet(Long id, boolean patients, boolean sampleRequests) {
-        notNull(id);
-        Biobank biobankDB = biobankDao.get(id);
-
-        if (biobankDB == null) {
-            logger.debug("Object retrieved from database is null - biobankDB");
-            return null;
-        }
-
-        /* Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
-
-        if (patients) {
-            logger.debug("" + biobankDB.getPatients());
-        }
-
-        if (sampleRequests) {
-            logger.debug("" + biobankDB.getSampleQuestions());
-        }
-
-        return biobankDB;
-    }
-
-    @Transactional(readOnly = true)
     public List<Biobank> allOrderedBy(String orderByParam, boolean desc) {
         return biobankDao.allOrderedBy(orderByParam, desc);
     }

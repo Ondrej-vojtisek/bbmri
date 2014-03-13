@@ -6,6 +6,7 @@
     <td>${record.row}</td>
     <td>${record.column}</td>
     <td>${record.sequentialPosition}</td>
+    <td>${record.sample.sampleIdentification.sampleId}</td>
 
 </s:layout-definition>
 

@@ -17,10 +17,9 @@ import java.util.List;
  * Time: 10:08
  * To change this template use File | Settings | File Templates.
  */
-@HttpCache(allow = false)
 public class FindActionBean extends BasicActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private static int FIND_RESULTS = 5;
 
     @SpringBean
     protected UserFacade userFacade;
@@ -39,6 +38,6 @@ public class FindActionBean extends BasicActionBean {
         if (userFind == null) {
             return null;
         }
-        return userFacade.find(userFind, 5);
+        return userFacade.find(userFind, FIND_RESULTS);
     }
 }

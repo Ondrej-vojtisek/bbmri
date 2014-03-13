@@ -47,12 +47,20 @@
             <c:if test="${not empty ternarymenu}">
                 <ul class="nav nav-tabs">
                     <c:if test="${primarymenu == 'biobank'}">
+
+                        <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
+                                         record="${actionBean.biobank}"/>
+
                         <%@include file="ternaryMenu/biobank_ter_menu.jsp" %>
                     </c:if>
                     <c:if test="${primarymenu == 'user'}">
                         <%@include file="ternaryMenu/user_ter_menu.jsp" %>
                     </c:if>
                     <c:if test="${primarymenu == 'project'}">
+
+                        <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
+                                         record="${actionBean.project}"/>
+
                         <%@include file="ternaryMenu/project_ter_menu.jsp" %>
                     </c:if>
                     <c:if test="${primarymenu == 'patient'}">
@@ -75,7 +83,7 @@
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
-    <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
+        <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
 
     <s:layout-component name="jsLibrary"/>
 

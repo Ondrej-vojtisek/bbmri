@@ -4,7 +4,7 @@ import cz.bbmri.entities.enumeration.Permission;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.util.Comparator;
 
 
 /**
@@ -16,14 +16,14 @@ import java.io.Serializable;
  */
 @Table(name = "BiobankAdministrator")
 @Entity
-public class BiobankAdministrator implements Serializable {
+public class BiobankAdministrator implements Serializable, Comparable<BiobankAdministrator> {
 
     private static final long serialVersionUID = 1L;
 
-     @Id
-     @GeneratedValue(strategy = GenerationType.TABLE)
-     @Column(name = "ID", nullable = false)
-     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @Column(name = "ID", nullable = false)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Permission permission;
@@ -34,7 +34,7 @@ public class BiobankAdministrator implements Serializable {
     @ManyToOne
     private User user;
 
-   // public BiobankAdministrator(){}
+    // public BiobankAdministrator(){}
 
     public Biobank getBiobank() {
         return biobank;
@@ -72,21 +72,18 @@ public class BiobankAdministrator implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BiobankAdministrator)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         BiobankAdministrator that = (BiobankAdministrator) o;
 
-        if (!biobank.equals(that.biobank)) return false;
-        if (!user.equals(that.user)) return false;
+        if (!id.equals(that.id)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = biobank.hashCode();
-        result = 31 * result + user.hashCode();
-        return result;
+        return id.hashCode();
     }
 
     @Override
@@ -97,5 +94,78 @@ public class BiobankAdministrator implements Serializable {
                 ", user=" + user +
                 '}';
     }
+
+    public int compareTo(BiobankAdministrator compareAdministrator) {
+
+        if (this.getId() > compareAdministrator.getId())
+            return 1;
+        else if (this.getId() < compareAdministrator.getId())
+            return -1;
+        else
+            return 0;
+    }
+
+    public static Comparator<BiobankAdministrator> NameComparator
+            = new Comparator<BiobankAdministrator>() {
+
+        public int compare(BiobankAdministrator admin1, BiobankAdministrator admin2) {
+
+            User atr1 = admin1.getUser();
+            User atr2 = admin2.getUser();
+
+            if (atr1 == null) {
+                if (atr2 == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (atr2 == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            if (atr1.getSurname() == null) {
+                if (atr2.getSurname() == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (atr2.getSurname() == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            return atr1.getSurname().compareTo(atr2.getSurname());
+        }
+
+    };
+
+    public static Comparator<BiobankAdministrator> PermissionComparator
+            = new Comparator<BiobankAdministrator>() {
+
+        public int compare(BiobankAdministrator admin1, BiobankAdministrator admin2) {
+
+            Permission atr1 = admin1.getPermission();
+            Permission atr2 = admin2.getPermission();
+
+            if (atr1 == null) {
+                if (atr2 == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (atr2 == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            return Permission.compare(atr1, atr2);
+
+        }
+
+    };
 
 }

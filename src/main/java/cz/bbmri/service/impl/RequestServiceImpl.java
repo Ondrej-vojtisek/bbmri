@@ -250,18 +250,7 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return requestDao.nOrderedBy(orderByParam, desc, number);
     }
 
-    // min hour day month year
-    // 1 0 * * * - prvni minuta, nulte hodiny kazdeho dne - tj. trigger 0:01
-    @Scheduled(cron="*/5 * * * * ?")
-    public void pokusScheduling(){
-     // TODO
-     //   logger.debug("POKUS: " + sampleQuestionDao.getSampleReservationsOrderedByDate());
 
-     //   logger.debug("Scheduler successful " + new Date());
-      //  System.out.println("Method executed at every 5 seconds. Current time is :: "+ new Date());
-
-
-    }
 
 
 }

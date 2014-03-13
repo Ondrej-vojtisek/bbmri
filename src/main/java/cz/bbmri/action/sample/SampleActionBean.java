@@ -23,54 +23,38 @@ import java.util.List;
  * Time: 12:07
  * To change this template use File | Settings | File Templates.
  */
-@HttpCache(allow = false)
-@UrlBinding("/sample/{$event}/{biobankId}/{sampleId}")
-public class SampleActionBean extends PermissionActionBean {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+@UrlBinding("/sample/{$event}/{sampleId}")
+public class SampleActionBean extends AbstractSampleActionBean {
 
     @SpringBean
     private SampleFacade sampleFacade;
-
-    private Long sampleId;
-
-    private Sample sample;
-
-    public Sample getSample() {
-        if (sample == null) {
-            if (sampleId != null) {
-                sample = sampleFacade.get(sampleId);
-            }
-        }
-        return sample;
-    }
 
     public boolean getIsTissue() {
         if (getSample() == null) {
             return false;
         }
-        return sample instanceof Tissue;
+        return getSample() instanceof Tissue;
     }
 
     public boolean getIsSerum() {
         if (getSample() == null) {
             return false;
         }
-        return sample instanceof Serum;
+        return getSample() instanceof Serum;
     }
 
     public boolean getIsDiagnosisMaterial() {
         if (getSample() == null) {
             return false;
         }
-        return sample instanceof DiagnosisMaterial;
+        return getSample() instanceof DiagnosisMaterial;
     }
 
     public boolean getIsGenome() {
         if (getSample() == null) {
             return false;
         }
-        return sample instanceof Genome;
+        return getSample() instanceof Genome;
     }
 
     public Tissue getTissue() {
@@ -87,14 +71,6 @@ public class SampleActionBean extends PermissionActionBean {
 
     public DiagnosisMaterial getDiagnosisMaterial() {
         return (DiagnosisMaterial) getSample();
-    }
-
-    public Long getSampleId() {
-        return sampleId;
-    }
-
-    public void setSampleId(Long sampleId) {
-        this.sampleId = sampleId;
     }
 
     public List<Project> getProjectsBySample() {
@@ -135,41 +111,20 @@ public class SampleActionBean extends PermissionActionBean {
         return reservations;
     }
 
-    /* Methods */
-    @DontValidate
-    @DefaultHandler
-    @HandlesEvent("all") /* Necessary for stripes security tag*/
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution all() {
-        return new ForwardResolution("/webpages/sample/all.jsp");
-    }
+//    /* Methods */
+//    @DontValidate
+//    @DefaultHandler
+//    @HandlesEvent("all") /* Necessary for stripes security tag*/
+//    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+//    public Resolution all() {
+//        return new ForwardResolution("/webpages/sample/all.jsp");
+//    }
 
     @DontValidate
+    @DefaultHandler
     @HandlesEvent("detail") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
         return new ForwardResolution(SAMPLE_DETAIL);
-    }
-
-    @DontValidate
-    @HandlesEvent("projects") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution projects() {
-        return new ForwardResolution(SAMPLE_PROJECTS);
-    }
-
-    @DontValidate
-    @HandlesEvent("reservations") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution reservations() {
-        return new ForwardResolution(SAMPLE_RESERVATIONS);
-    }
-
-
-    @DontValidate
-    @HandlesEvent("positions") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution positions() {
-        return new ForwardResolution(SAMPLE_POSITIONS);
     }
 }

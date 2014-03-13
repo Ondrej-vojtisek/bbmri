@@ -26,7 +26,7 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
 
     }
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public BiobankAdministrator get(Biobank biobank, User user) {
         Query query = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
                 "p.biobank = :biobankParam " +
@@ -44,7 +44,7 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public List<BiobankAdministrator> get(Biobank biobank, Permission permission) {
         Query query = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
                 "p.biobank = :biobankParam " +
@@ -61,22 +61,22 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
      * @param user
      * @return
      */
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public Permission getHighestPermission(User user) {
 
         Query query = em.createQuery("" +
                 "SELECT p.permission " +
                 "FROM BiobankAdministrator p WHERE " +
-                    "p.user = :userParam " +
-                        "ORDER BY " +
-                            "CASE " +
-                                "WHEN (p.permission = :managerPermission) THEN 4 " +
-                                "WHEN (p.permission = :editorPermission) THEN 3 " +
-                                "WHEN (p.permission = :executorPermission) THEN 2 " +
-                                "WHEN (p.permission = :visitorPermission) THEN 1" +
-                                "ELSE 0 " +
-                            "END " +
-                        "DESC");
+                "p.user = :userParam " +
+                "ORDER BY " +
+                "CASE " +
+                "WHEN (p.permission = :managerPermission) THEN 4 " +
+                "WHEN (p.permission = :editorPermission) THEN 3 " +
+                "WHEN (p.permission = :executorPermission) THEN 2 " +
+                "WHEN (p.permission = :visitorPermission) THEN 1" +
+                "ELSE 0 " +
+                "END " +
+                "DESC");
         query.setParameter("userParam", user);
         query.setParameter("managerPermission", Permission.MANAGER);
         query.setParameter("editorPermission", Permission.EDITOR);

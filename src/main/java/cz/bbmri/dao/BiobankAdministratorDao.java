@@ -2,6 +2,7 @@ package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.BiobankAdministrator;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 
@@ -23,4 +24,5 @@ public interface BiobankAdministratorDao extends BasicDao<BiobankAdministrator> 
     BiobankAdministrator get(Biobank biobank, User user);
 
     List<BiobankAdministrator> get(Biobank biobank, Permission permission);
+
 }

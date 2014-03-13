@@ -123,18 +123,4 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
         return infrastructureDao.nOrderedBy(orderByParam, desc, number);
     }
 
-    @Transactional(readOnly = true)
-    public Infrastructure eagerGet(Long infrastructureId, boolean box, boolean container) {
-        Infrastructure infrastructure = infrastructureDao.get(infrastructureId);
-
-        if (box) {
-            logger.debug("" + infrastructure.getStandaloneBoxes());
-        }
-
-        if (container) {
-            logger.debug("" + infrastructure.getContainers());
-        }
-
-        return infrastructure;
-    }
 }

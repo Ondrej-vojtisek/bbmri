@@ -2,6 +2,7 @@ package cz.bbmri.dao;
 
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
+import cz.bbmri.entities.User;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface AttachmentDao extends BasicDao<Attachment> {
     List<Attachment> getAttachmentsByProject(Project project);
 
     Attachment getAttachmentByPath(String path);
+
+    List<Attachment> getAttachmentSorted(Project project, String orderByParam, boolean desc);
 }

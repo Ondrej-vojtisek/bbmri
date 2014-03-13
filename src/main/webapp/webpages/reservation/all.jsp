@@ -17,31 +17,11 @@
             </security:allowed>
         </div>
 
-        <table class="table table-hover table-striped">
-
-            <s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>
-
-            <tbody>
-            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.loggedUser.sampleReservations}"/>
-
-            <c:forEach items="${actionBean.loggedUser.sampleReservations}" var="sampleReservation">
-                <tr>
-
-                    <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"
-                                     record="${sampleReservation}"/>
-
-                    <td class="action">
-                        <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
-                                class="btn btn-primary">
-                            <s:param name="sampleQuestionId" value="${sampleReservation.id}"/>
-                            <s:param name="biobankId" value="${sampleReservation.biobank.id}"/>
-                            <f:message key="detail"/>
-                        </s:link>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                         pagination="${actionBean.pagination}"
+                         componentManager="${actionBean.componentManager}"
+                         targetBean="cz.bbmri.action.request.RequestActionBean"
+                         eventName="detail"
+                         paramName="sampleQuestionId"/>
     </s:layout-component>
 </s:layout-render>

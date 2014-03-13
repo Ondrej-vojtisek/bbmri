@@ -40,5 +40,25 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
 
     }
 
+    public List<Attachment> getAttachmentSorted(Project project, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY attachment." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        query = em.createQuery("SELECT attachment FROM Attachment attachment WHERE " +
+                "attachment.project = :project " +
+                orderParam);
+        query.setParameter("project", project);
+        return query.getResultList();
+    }
+
 
 }

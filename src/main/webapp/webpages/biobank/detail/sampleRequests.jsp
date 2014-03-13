@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>
+<%--<f:message key="cz.bbmri.action.biobank.BiobankActionBean.detail" var="title"/>--%>
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="sampleRequests">
 
@@ -12,32 +12,39 @@
 
         <s:layout-component name="body">
 
-            <table class="table table-hover table-striped">
+            <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                             pagination="${actionBean.pagination}"
+                             componentManager="${actionBean.componentManager}"
+                             targetBean="cz.bbmri.action.request.RequestActionBean"
+                             eventName="detail"
+                             paramName="sampleQuestionId"/>
 
-                <s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>
+            <%--<table class="table table-hover table-striped">--%>
 
-                <tbody>
+            <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>--%>
 
-                <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                                                  collection="${biobankBean.biobank.sampleQuestions}"/>
+            <%--<tbody>--%>
 
-                <c:forEach items="${biobankBean.biobank.sampleQuestions}" var="sampleQuestion">
-                    <tr>
+            <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
+            <%--collection="${biobankBean.biobank.sampleQuestions}"/>--%>
 
-                        <s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" record="${sampleQuestion}"/>
+            <%--<c:forEach items="${biobankBean.biobank.sampleQuestions}" var="sampleQuestion">--%>
+            <%--<tr>--%>
 
-                        <td class="action">
-                            <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"
-                                    class="btn btn-primary">
-                                <s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>
-                                <s:param name="biobankId" value="${biobankBean.biobankId}"/>
-                                <f:message key="detail"/>
-                            </s:link>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+            <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" record="${sampleQuestion}"/>--%>
+
+            <%--<td class="action">--%>
+            <%--<s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"--%>
+            <%--class="btn btn-primary">--%>
+            <%--<s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>--%>
+            <%--<s:param name="biobankId" value="${biobankBean.biobankId}"/>--%>
+            <%--<f:message key="detail"/>--%>
+            <%--</s:link>--%>
+            <%--</td>--%>
+            <%--</tr>--%>
+            <%--</c:forEach>--%>
+            <%--</tbody>--%>
+            <%--</table>--%>
         </s:layout-component>
 
     </s:layout-component>

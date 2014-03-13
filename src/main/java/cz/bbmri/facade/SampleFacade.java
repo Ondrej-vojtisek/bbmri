@@ -29,6 +29,12 @@ public interface SampleFacade {
 
     List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
 
+    List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc);
+
+    List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc);
+
+    List<SampleReservation> getSampleReservationsBySample(Long sampleId, String orderByParam, boolean desc);
+
    // List<Project> getProjectsBySample(Long sampleId);
 
    // List<SampleQuestion> getReservationsBySample(Long sampleId);

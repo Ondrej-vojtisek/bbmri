@@ -1,8 +1,10 @@
 package cz.bbmri.service.impl;
 
+import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ContainerDao;
 import cz.bbmri.dao.InfrastructureDao;
 import cz.bbmri.dao.RackDao;
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.entities.infrastructure.Rack;
@@ -32,6 +34,9 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
 
     @Autowired
     private RackDao rackDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
 
     public Container create(Long infrastructureId, Container container) {
         if (infrastructureId == null) {
@@ -121,14 +126,18 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
         return containerDao.nOrderedBy(orderByParam, desc, number);
     }
 
-    @Transactional(readOnly = true)
-    public Container eagerGet(Long containerId, boolean rack) {
-        Container container = containerDao.get(containerId);
-
-        if (rack) {
-            logger.debug("" + container.getRacks());
+    public List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("biobankId is null");
+            return null;
         }
 
-        return container;
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return containerDao.getSorted(biobankDB, orderByParam, desc);
     }
 }

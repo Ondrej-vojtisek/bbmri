@@ -1,8 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.User;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.Permission;
 
 import java.util.List;
@@ -21,4 +19,6 @@ public interface ProjectAdministratorDao extends BasicDao<ProjectAdministrator>{
     ProjectAdministrator get(Project project, User user);
 
     List<ProjectAdministrator> get(Project project, Permission permission);
+
+//    List<ProjectAdministrator> getSorted(Project project, String orderByParam, boolean desc);
 }

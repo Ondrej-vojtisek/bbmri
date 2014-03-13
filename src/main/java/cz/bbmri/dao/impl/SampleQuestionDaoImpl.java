@@ -1,9 +1,7 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.SampleQuestionDao;
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.SampleReservation;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +17,27 @@ import java.util.List;
  */
 @Repository
 public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
+
+    public List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY sampleQuestion." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        query = em.createQuery("SELECT sampleQuestion FROM SampleQuestion sampleQuestion WHERE " +
+                "sampleQuestion.biobank = :biobank " +
+                orderParam);
+        query.setParameter("biobank", biobank);
+        return query.getResultList();
+    }
+
 
     public List<SampleQuestion> getSampleRequests(Biobank biobank, RequestState requestState) {
         return getByBiobankAndState(biobank, requestState, "SampleRequest");
@@ -56,6 +75,68 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implemen
                 "ORDER BY p.validity" +
                 "");
 
+        return query.getResultList();
+    }
+
+
+    public List<SampleRequest> getSampleRequestsSorted(Project project, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY sampleRequest." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        query = em.createQuery("SELECT sampleRequest FROM SampleRequest sampleRequest WHERE " +
+                "sampleRequest.project = :project " +
+                orderParam);
+        query.setParameter("project", project);
+        return query.getResultList();
+    }
+
+    public List<SampleReservation> getSampleReservationsSorted(User user, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY sampleReservation." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        query = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation WHERE " +
+                "sampleReservation.user = :user " +
+                orderParam);
+        query.setParameter("user", user);
+        return query.getResultList();
+    }
+
+    public List<SampleReservation> getSampleReservationsBySample(Sample sample, String orderByParam, boolean desc) {
+        Query query = null;
+        String orderParam = "";
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY sampleReservation." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        query = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation JOIN " +
+                "sampleReservation.requests request WHERE " +
+                "request.sample = :sample " +
+                orderParam);
+        query.setParameter("sample", sample);
         return query.getResultList();
     }
 

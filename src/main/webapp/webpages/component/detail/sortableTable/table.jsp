@@ -5,35 +5,37 @@
 
     <table class="table table-hover table-striped">
 
-        <s:layout-render name="${actionBean.componentManager.sortableHeader}"/>
+        <s:layout-render name="${componentManager.sortableHeader}"
+                         pagination="${pagination}"/>
 
         <tbody>
 
         <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                         collection="${actionBean.pagination.pageList}"/>
+                         collection="${pagination.myPageList}"/>
 
-        <c:forEach var="item" items="${actionBean.pagination.pageList}">
+        <c:forEach var="item" items="${pagination.myPageList}">
             <tr>
-                <s:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
+                <s:layout-render name="${componentManager.tableRow}" record="${item}"/>
                 <td class="action">
-                    <%--Event must be defined in actionBean--%>
-                    <security:allowed event="${eventName}">
+
+                        <c:if test="${not empty targetBean}">
                         <%--fix styles of button--%>
                         <div class="tableAction">
-                            <s:link beanclass="${actionBean.name}" event="${eventName}"
+                            <s:link beanclass="${targetBean}" event="${eventName}"
                                     class="btn btn-info btnMargin">
                                 <%--which parameter to access event--%>
                                 <s:param name="${paramName}" value="${item.id}"/>
                                 <f:message key="detail"/>
                             </s:link>
                         </div>
-                    </security:allowed>
+                        </c:if>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 
-    <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"/>
+    <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                     pagination="${pagination}"/>
 
 </s:layout-definition>

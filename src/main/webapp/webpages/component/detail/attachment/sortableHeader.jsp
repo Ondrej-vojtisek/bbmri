@@ -7,16 +7,22 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.name" column="fileName"/>
+                             msgKey="cz.bbmri.entities.Attachment.name"
+                             column="fileName"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.unit" column="size"/>
+                             msgKey="cz.bbmri.entities.Attachment.unit"
+                             column="size"
+                             pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.importance" column="attachmentType"/>
+                             msgKey="cz.bbmri.entities.Attachment.importance"
+                             column="attachmentType"
+                             pagination="${pagination}"/>
         </th>
     </tr>
     </thead>

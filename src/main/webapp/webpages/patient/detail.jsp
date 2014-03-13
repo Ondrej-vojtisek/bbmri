@@ -10,7 +10,7 @@
     <s:layout-component name="body">
 
         <div class="form-actions">
-            <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="patientsResolution"
+            <s:link beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean" event="display"
                     class="btn btn-primary btnMargin">
                 <s:param name="biobankId" value="${patientBean.biobankId}"/>
                 <f:message key="cz.bbmri.action.patient.PatientActionBean.backToBiobank"/>

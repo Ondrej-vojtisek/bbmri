@@ -19,7 +19,7 @@ import java.util.*;
  */
 @Table(name = "Sample")
 @Entity
-public class Sample implements Serializable {
+public class Sample implements Serializable, Comparable<Sample> {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -156,5 +156,123 @@ public class Sample implements Serializable {
                 ", requests=" + requests +
                 '}';
     }
+
+    public int compareTo(Sample compareSample) {
+
+        if (this.getId() > compareSample.getId())
+            return 1;
+        else if (this.getId() < compareSample.getId())
+            return -1;
+        else
+            return 0;
+    }
+
+
+    public static Comparator<Sample> SampleIdComparator
+            = new Comparator<Sample>() {
+
+        public int compare(Sample sample1,
+                           Sample sample2) {
+
+            SampleIdentification sampleIdentification1 = sample1.getSampleIdentification();
+            SampleIdentification sampleIdentification2 = sample2.getSampleIdentification();
+
+            if (sampleIdentification1 == null) {
+                if (sampleIdentification2 == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (sampleIdentification2 == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            //ascending order
+            return sampleIdentification1.compareTo(sampleIdentification2);
+        }
+
+    };
+
+    public static Comparator<Sample> YearComparator
+            = new Comparator<Sample>() {
+
+
+        public int compare(Sample sample1,
+                           Sample sample2) {
+
+            SampleIdentification sampleIdentification1 = sample1.getSampleIdentification();
+            SampleIdentification sampleIdentification2 = sample2.getSampleIdentification();
+
+            if (sampleIdentification1 == null) {
+                if (sampleIdentification2 == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (sampleIdentification2 == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            if (sampleIdentification1.getYear() == null) {
+                if (sampleIdentification2.getYear() == null) {
+                    return 0;
+                } else {
+                    return Integer.MIN_VALUE;
+                }
+            }
+
+            if (sampleIdentification2.getYear() == null) {
+                return Integer.MAX_VALUE;
+            }
+
+            //ascending order
+            return sampleIdentification1.getYear().compareTo(sampleIdentification2.getYear());
+        }
+
+    };
+
+    public static Comparator<Sample> NumberComparator
+             = new Comparator<Sample>() {
+
+
+         public int compare(Sample sample1,
+                            Sample sample2) {
+
+             SampleIdentification sampleIdentification1 = sample1.getSampleIdentification();
+             SampleIdentification sampleIdentification2 = sample2.getSampleIdentification();
+
+             if (sampleIdentification1 == null) {
+                 if (sampleIdentification2 == null) {
+                     return 0;
+                 } else {
+                     return Integer.MIN_VALUE;
+                 }
+             }
+
+             if (sampleIdentification2 == null) {
+                 return Integer.MAX_VALUE;
+             }
+
+             if (sampleIdentification1.getNumber() == null) {
+                 if (sampleIdentification2.getNumber() == null) {
+                     return 0;
+                 } else {
+                     return Integer.MIN_VALUE;
+                 }
+             }
+
+             if (sampleIdentification2.getNumber() == null) {
+                 return Integer.MAX_VALUE;
+             }
+
+             //ascending order
+             return sampleIdentification1.getNumber().compareTo(sampleIdentification2.getNumber());
+         }
+
+     };
 }
 

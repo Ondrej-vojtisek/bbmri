@@ -1,20 +1,17 @@
 package cz.bbmri.action.infrastructure;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.infrastructure.*;
+import cz.bbmri.entities.infrastructure.Container;
+import cz.bbmri.entities.infrastructure.Infrastructure;
+import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.FloatTypeConverter;
-import net.sourceforge.stripes.validation.IntegerTypeConverter;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,72 +20,74 @@ import java.util.Set;
  * Time: 16:49
  * To change this template use File | Settings | File Templates.
  */
-@HttpCache(allow = false)
-@UrlBinding("/infrastructure/{$event}/{biobankId}/{containerId}/{rackId}/{boxId}")
-public class InfrastructureActionBean extends PermissionActionBean {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
-    private Biobank biobank;
+@UrlBinding("/biobank/infrastructure/{$event}/{biobankId}")
+public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     @SpringBean
     private BiobankFacade biobankFacade;
 
     private Infrastructure infrastructure;
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "name",
-                    required = true, on = "createContainer"),
-            @Validate(field = "location",
-                    required = false, on = "createContainer"),
-            @Validate(converter = IntegerTypeConverter.class, field = "capacity",
-                    required = true, on = "createContainer"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMin",
-                    required = false, on = "createContainer"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMax",
-                    required = false, on = "createContainer")
-    })
-    private Container container;
+    private MyPagedListHolder<StandaloneBox> boxesPagination;
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "name",
-                    required = true, on = "createRackBox"),
-            @Validate(converter = IntegerTypeConverter.class, field = "capacity",
-                    required = true, on = "createRackBox"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMin",
-                    required = false, on = "createRackBox"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMax",
-                    required = false, on = "createRackBox")
-    })
-    private RackBox rackBox;
+    private ComponentManager boxComponentManager;
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "name",
-                    required = true, on = "createStandaloneBox"),
-            @Validate(converter = IntegerTypeConverter.class, field = "capacity",
-                    required = true, on = "createStandaloneBox"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMin",
-                    required = false, on = "createStandaloneBox"),
-            @Validate(converter = FloatTypeConverter.class, field = "tempMax",
-                    required = false, on = "createStandaloneBox")
-    })
-    private StandaloneBox standaloneBox;
+    public ComponentManager getBoxComponentManager() {
+        return boxComponentManager;
+    }
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "name",
-                    required = true, on = "createRack"),
-            @Validate(converter = IntegerTypeConverter.class, field = "capacity",
-                    required = true, on = "createRack")
-    })
-    private Rack rack;
+    public MyPagedListHolder<StandaloneBox> getBoxesPagination() {
+        return boxesPagination;
+    }
 
-    private Box box;
+    private Integer page2;
 
-    private Long containerId;
+    private String orderParam2;
 
-    private Long rackId;
+    private boolean desc2;
 
-    private Long boxId;
+    public Integer getPage2() {
+        return page2;
+    }
+
+    public void setPage2(Integer page2) {
+        this.page2 = page2;
+    }
+
+    public String getOrderParam2() {
+        return orderParam2;
+    }
+
+    public void setOrderParam2(String orderParam2) {
+        this.orderParam2 = orderParam2;
+    }
+
+    public boolean isDesc2() {
+        return desc2;
+    }
+
+    public void setDesc2(boolean desc2) {
+        this.desc2 = desc2;
+    }
+
+    public InfrastructureActionBean() {
+        //default
+
+        boxesPagination = new MyPagedListHolder<StandaloneBox>(new ArrayList<StandaloneBox>());
+        boxComponentManager = new ComponentManager(
+                ComponentManager.BOX_DETAIL,
+                ComponentManager.BIOBANK_DETAIL);
+        boxesPagination.setIdentifierParam("biobankId");
+        // distinguish between pagination params
+        boxesPagination.setWebParamDiscriminator("2");
+
+        setPagination(new MyPagedListHolder<Container>(new ArrayList<Container>()));
+        setComponentManager(new ComponentManager(
+                        ComponentManager.CONTAINER_DETAIL,
+                        ComponentManager.BIOBANK_DETAIL));
+        getPagination().setIdentifierParam("biobankId");
+
+    }
 
     public Long getInfrastructureId() {
         if (getBiobank() == null) {
@@ -107,142 +106,14 @@ public class InfrastructureActionBean extends PermissionActionBean {
         return infrastructure;
     }
 
-    public Biobank getBiobank() {
-        if (biobank == null) {
-            if (biobankId != null) {
-                biobank = biobankFacade.get(biobankId);
-            }
+    public void initiatePaginationBoxes() {
+        if (page2 != null) {
+            boxesPagination.setCurrentPage(page2);
         }
-        return biobank;
-    }
-
-    public Set<Container> getContainers() {
-        if (getInfrastructure() == null) {
-            return null;
+        if (orderParam2 != null) {
+            boxesPagination.setOrderParam(orderParam2);
         }
-
-        return getInfrastructure().getContainers();
-    }
-
-    public Set<StandaloneBox> getStandaloneBoxes() {
-        if (getInfrastructure() == null) {
-            return null;
-        }
-
-        return getInfrastructure().getStandaloneBoxes();
-    }
-
-    public Set<Rack> getRacks() {
-        if (getContainer() == null) {
-            logger.debug("Container null");
-            return null;
-        }
-
-        logger.debug("Racks: " + getContainer().getRacks());
-
-        return getContainer().getRacks();
-    }
-
-
-    public void setStandaloneBox(StandaloneBox standaloneBox) {
-        this.standaloneBox = standaloneBox;
-    }
-
-
-    public Set<RackBox> getRackBoxes() {
-        if (getRack() == null) {
-            return null;
-        }
-
-        return getRack().getRackBoxes();
-    }
-
-    public Container getContainer() {
-        if (container == null) {
-            if (containerId != null) {
-                container = biobankFacade.getContainer(containerId);
-            }
-        }
-        return container;
-    }
-
-    public Rack getRack() {
-        if (rack == null) {
-            if (rackId != null) {
-                rack = biobankFacade.getRack(rackId);
-            }
-        }
-        return rack;
-    }
-
-    public void setRack(Rack rack) {
-        this.rack = rack;
-    }
-
-    public void setRackBox(RackBox rackBox) {
-        this.rackBox = rackBox;
-    }
-
-    public RackBox getRackBox() {
-        if (rackBox == null) {
-            if (boxId != null) {
-                rackBox = (RackBox) biobankFacade.getBox(boxId);
-            }
-        }
-        return rackBox;
-    }
-
-    public StandaloneBox getStandaloneBox() {
-        if (standaloneBox == null) {
-            if (boxId != null) {
-                standaloneBox = (StandaloneBox) biobankFacade.getBox(boxId);
-            }
-        }
-        return standaloneBox;
-    }
-
-    public Box getBox() {
-        if (box == null) {
-            if (boxId != null) {
-                box = biobankFacade.getBox(boxId);
-            }
-        }
-        return box;
-    }
-
-    public Set<Position> getPositions() {
-        if (getBox() == null) {
-            return null;
-        }
-        return getBox().getPositions();
-    }
-
-    public void setContainer(Container container) {
-        this.container = container;
-    }
-
-    public Long getContainerId() {
-        return containerId;
-    }
-
-    public void setContainerId(Long containerId) {
-        this.containerId = containerId;
-    }
-
-    public Long getRackId() {
-        return rackId;
-    }
-
-    public void setRackId(Long rackId) {
-        this.rackId = rackId;
-    }
-
-    public Long getBoxId() {
-        return boxId;
-    }
-
-    public void setBoxId(Long boxId) {
-        this.boxId = boxId;
+        boxesPagination.setDesc(desc2);
     }
 
     /* Methods */
@@ -256,122 +127,37 @@ public class InfrastructureActionBean extends PermissionActionBean {
             return new RedirectResolution(INFRASTRUCTURE_DETAIL)
                     .addParameter("biobankId", biobankId);
         }
+
+        if (biobankId != null) {
+            boxesPagination.setIdentifier(biobankId);
+            getPagination().setIdentifier(biobankId);
+        }
+
+        initiatePagination();
+        initiatePaginationBoxes();
+        // default
+        if (getOrderParam() == null) {
+            setOrderParam("name");
+            getPagination().setOrderParam("name");
+        }
+
+        // default
+        if (orderParam2 == null) {
+            orderParam2 = "name";
+            boxesPagination.setOrderParam("name");
+        }
+
+        getPagination().setEvent("all");
+        getPagination().setSource(biobankFacade.getSortedContainers(biobankId,
+                getPagination().getOrderParam(),
+                getPagination().getDesc()));
+
+        boxesPagination.setEvent("all");
+        boxesPagination.setSource(biobankFacade.getSortedStandAloneBoxes(biobankId,
+                boxesPagination.getOrderParam(),
+                boxesPagination.getDesc()));
+
         return new ForwardResolution(INFRASTRUCTURE_DETAIL).addParameter("biobankId", biobankId);
     }
-
-
-    @DontValidate
-    @HandlesEvent("createContainerResolution")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createContainerResolution() {
-        return new ForwardResolution(INFRASTRUCTURE_CREATE_CONTAINER);
-    }
-
-    @DontValidate
-    @HandlesEvent("createRackResolution")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createRackResolution() {
-        return new ForwardResolution(INFRASTRUCTURE_CREATE_RACK);
-    }
-
-    @HandlesEvent("createStandaloneBoxResolution")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createStandaloneBoxResolution() {
-        return new ForwardResolution(INFRASTRUCTURE_CREATE_STANDALONEBOX);
-    }
-
-    @HandlesEvent("createRackBoxResolution")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createRackBoxResolution() {
-        return new ForwardResolution(INFRASTRUCTURE_CREATE_RACKBOX)
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId)
-                .addParameter("rackId", rackId);
-    }
-
-    @HandlesEvent("createContainer")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createContainer() {
-        if (!biobankFacade.createContainer(getInfrastructureId(), container, getContext().getValidationErrors())) {
-            return new ForwardResolution(this.getClass(), "all").addParameter("biobankId", biobankId);
-        }
-
-        biobank = null;
-        successMsg(null);
-        return new RedirectResolution(this.getClass(), "all").addParameter("biobankId", biobankId);
-    }
-
-    @HandlesEvent("createRack")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createRack() {
-        if (!biobankFacade.createRack(containerId, rack, getContext().getValidationErrors())) {
-            return new ForwardResolution(this.getClass(), "containerDetail")
-                    .addParameter("biobankId", biobankId)
-                    .addParameter("containerId", containerId);
-        }
-        successMsg(null);
-        return new RedirectResolution(this.getClass(), "containerDetail")
-                .addParameter("biobankId", biobankId)
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId);
-    }
-
-    @HandlesEvent("createStandaloneBox")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createStandaloneBox() {
-        if (!biobankFacade.createStandaloneBox(getInfrastructureId(), standaloneBox, getContext().getValidationErrors())) {
-            return new ForwardResolution(this.getClass(), "all").addParameter("biobankId", biobankId);
-        }
-        successMsg(null);
-        return new RedirectResolution(this.getClass(), "all").addParameter("biobankId", biobankId);
-    }
-
-    @HandlesEvent("createRackBox")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution createRackBox() {
-        logger.debug("RackBox: " + rackBox);
-        logger.debug("rackId " + rackId);
-
-        if (!biobankFacade.createBox(rackId, rackBox, getContext().getValidationErrors())) {
-            return new ForwardResolution(this.getClass(), "rackDetail")
-                    .addParameter("biobankId", biobankId)
-                    .addParameter("containerId", containerId)
-                    .addParameter("rackId", rackId);
-        }
-        successMsg(null);
-        return new RedirectResolution(this.getClass(), "rackDetail")
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId)
-                .addParameter("rackId", rackId);
-    }
-
-    @HandlesEvent("containerDetail")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution containerDetail() {
-        return new ForwardResolution(INFRASTRUCTURE_DETAIL_CONTAINER)
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId);
-    }
-
-    @HandlesEvent("boxDetail")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution boxDetail() {
-        return new ForwardResolution(INFRASTRUCTURE_DETAIL_BOX)
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId)
-                .addParameter("rackId", rackId)
-                .addParameter("boxId", boxId);
-    }
-
-    @HandlesEvent("rackDetail")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
-    public Resolution rackDetail() {
-
-        return new ForwardResolution(INFRASTRUCTURE_DETAIL_RACK)
-                .addParameter("biobankId", biobankId)
-                .addParameter("containerId", containerId)
-                .addParameter("rackId", rackId);
-    }
-
 
 }

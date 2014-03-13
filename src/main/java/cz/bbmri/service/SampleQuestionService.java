@@ -1,5 +1,6 @@
 package cz.bbmri.service;
 
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
@@ -28,4 +29,11 @@ public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     List<SampleReservation> getSampleReservationsOrderedByDate();
 
+    List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc);
+
+    List<SampleRequest> getSortedSampleRequests(Long projectId, String orderByParam, boolean desc);
+
+    List<SampleReservation> getSortedSampleReservations(Long userId, String orderByParam, boolean desc);
+
+    List<SampleReservation> getSampleReservationsBySample(Long sampleId, String orderByParam, boolean desc);
 }

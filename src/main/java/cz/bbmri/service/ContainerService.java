@@ -2,6 +2,8 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.infrastructure.Container;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -13,6 +15,6 @@ public interface ContainerService extends BasicService<Container>{
 
     Container create(Long infrastructureId, Container container);
 
-   // Container eagerGet(Long containerId, boolean rack);
+    List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc);
 
 }

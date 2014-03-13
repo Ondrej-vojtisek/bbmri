@@ -43,13 +43,12 @@ public class UserActionBean extends ComponentActionBean<User> {
     private Long userId;
 
 
-
     public UserActionBean() {
         setPagination(new MyPagedListHolder<User>(new ArrayList<User>()));
         //default
-        getPagination().setOrderParam("surname");
-        getPagination().setEvent("display");
-        setComponentManager(new ComponentManager("user"));
+        setComponentManager(new ComponentManager(
+                ComponentManager.USER_DETAIL,
+                ComponentManager.USER_DETAIL));
     }
 
 
@@ -59,9 +58,9 @@ public class UserActionBean extends ComponentActionBean<User> {
     private String password2;
 
 
-    public List<User> getUsers() {
-        return userFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
-    }
+//    public List<User> getUsers() {
+//        return userFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
+//    }
 
     public User getUser() {
         if (user == null) {
@@ -125,20 +124,29 @@ public class UserActionBean extends ComponentActionBean<User> {
         return getUser().getSystemRoles().contains(SystemRole.ADMINISTRATOR);
     }
 
+    private void setUserComparator() {
+        if (getOrderParam() != null) {
+            getPagination().setOrderParam(getOrderParam());
+            getPagination().setDesc(isDesc());
+            return;
+        }
+        // default
+        getPagination().setOrderParam("surname");
+        getPagination().setDesc(false);
+    }
+
 
     @DontValidate
     @DefaultHandler
     @HandlesEvent("display") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
-        if (getPage() != null) {
-            getPagination().setCurrentPage(getPage());
-        }
-        if(getOrderParam() != null){
-            getPagination().setOrderParam(getOrderParam());
-        }
-        getPagination().setDesc(isDesc());
-        getPagination().setSource(getUsers());
+        initiatePagination();
+        setUserComparator();
+        getPagination().setEvent("display");
+        getPagination().setSource(userFacade.allOrderedBy(
+                getPagination().getOrderParam(),
+                getPagination().getDesc()));
         return new ForwardResolution(USER_ALL);
     }
 

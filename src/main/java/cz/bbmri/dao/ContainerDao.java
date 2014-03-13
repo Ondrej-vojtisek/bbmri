@@ -1,6 +1,10 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.infrastructure.Container;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,5 +13,6 @@ import cz.bbmri.entities.infrastructure.Container;
  * Time: 15:06
  * To change this template use File | Settings | File Templates.
  */
-public interface ContainerDao extends BasicDao<Container>  {
+public interface ContainerDao extends BasicBiobankDao<Container>  {
+
 }

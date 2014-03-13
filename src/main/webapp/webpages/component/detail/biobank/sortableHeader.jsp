@@ -7,11 +7,15 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.name" column="name"/>
+                             msgKey="cz.bbmri.entities.Biobank.name"
+                             column="name"
+                             pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.address" column="address"/>
+                             msgKey="cz.bbmri.entities.Biobank.address"
+                             column="address"
+                             pagination="${pagination}"/>
         </th>
     </tr>
     </thead>

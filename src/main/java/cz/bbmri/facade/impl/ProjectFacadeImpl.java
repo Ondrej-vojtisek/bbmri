@@ -542,5 +542,12 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
          return projectService.allOrderedBy(orderByParam, desc);
      }
 
+    public List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc){
+        return projectService.getMyProjectsSorted(userId, orderByParam, desc);
+    }
+
+    public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc){
+        return attachmentService.getSortedAttachments(projectId, orderByParam, desc);
+    }
 
 }

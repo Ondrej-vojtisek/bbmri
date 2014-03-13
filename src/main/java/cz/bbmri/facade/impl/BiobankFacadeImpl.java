@@ -364,6 +364,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     public List<Sample> getAllSamples(Long biobankId) {
         notNull(biobankId);
+
+        logger.debug("AllSamples:");
+
         List<Sample> samples = new ArrayList<Sample>();
 //        for(Patient patient : getAllPatients(biobankId)){
 //            patient = patientService.eagerGet(patient.getId(), true);
@@ -489,9 +492,34 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return biobankService.allOrderedBy(orderByParam, desc);
     }
 
-    public List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc) {
-        return sampleService.allOrderedBy(orderByParam, desc);
+    public List<Patient> getSortedPatients(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("BiobankId can't be null");
+            return null;
+        }
+        return patientService.getSorted(biobankId, orderByParam, desc);
     }
+
+    public List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc) {
+        return containerService.getSortedContainers(biobankId, orderByParam, desc);
+    }
+
+    public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc){
+        return rackService.getSortedRacks(biobankId, orderByParam, desc);
+    }
+
+    public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc){
+        return boxService.getSortedStandAloneBoxes(biobankId, orderByParam, desc);
+    }
+
+    public List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc){
+        return boxService.getSortedRackBoxes(rackId, orderByParam, desc);
+    }
+
+//
+//    public List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc) {
+//        return sampleService.allOrderedBy(orderByParam, desc);
+//    }
 
 //    public boolean createRack(Long biobankId, Rack rack){
 //

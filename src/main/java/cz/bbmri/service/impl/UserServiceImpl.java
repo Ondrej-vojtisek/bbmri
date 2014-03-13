@@ -170,37 +170,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return results;
     }
 
-    @Transactional(readOnly = true)
-    public User eagerGet(Long id, boolean judgedProjects, boolean project, boolean biobank,
-                         boolean notification, boolean reservations) {
-        notNull(id);
-        User userDB = userDao.get(id);
-
-        /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
-
-        if (biobank) {
-            logger.debug("" + userDB.getBiobankAdministrators());
-        }
-
-        if (judgedProjects) {
-            logger.debug("" + userDB.getJudgedProjects());
-        }
-
-        if (project) {
-            logger.debug("" + userDB.getProjectAdministrators());
-        }
-
-        if (notification) {
-            logger.debug("" + userDB.getNotifications());
-        }
-
-        if (reservations) {
-            logger.debug("" + userDB.getSampleReservations());
-        }
-        return userDB;
-
-    }
-
     public boolean setSystemRole(Long userId, SystemRole systemRole) {
         notNull(userId);
         notNull(systemRole);

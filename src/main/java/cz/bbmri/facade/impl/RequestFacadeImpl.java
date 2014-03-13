@@ -403,7 +403,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         notNull(userId);
 
         User userDB = userService.get(userId);
-     //   User userDB = userService.eagerGet(userId, false, false, false, false, true);
+        //   User userDB = userService.eagerGet(userId, false, false, false, false, true);
 
         return userDB.getSampleReservations();
     }
@@ -441,7 +441,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
     private void setReservationAsExpired(SampleReservation sampleReservation) {
         logger.debug("CRON - checkReservationValidity. SampleReservatino: " + sampleReservation.getId() +
-        "was set as EXPIRED");
+                "was set as EXPIRED");
         sampleReservation.setRequestState(RequestState.EXPIRED);
         sampleQuestionService.update(sampleReservation);
 
@@ -481,5 +481,21 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         }
 
 
+    }
+
+    public List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("BiobankId can't be null");
+            return null;
+        }
+        return sampleQuestionService.getSortedSampleQuestions(biobankId, orderByParam, desc);
+    }
+
+    public List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc){
+        return sampleQuestionService.getSortedSampleRequests(projectId, orderByParam, desc);
+    }
+
+    public List<SampleReservation> getSortedSampleReservation(Long userId, String orderByParam, boolean desc){
+        return sampleQuestionService.getSortedSampleReservations(userId, orderByParam, desc);
     }
 }

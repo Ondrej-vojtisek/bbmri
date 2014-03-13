@@ -138,18 +138,6 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     }
 
     @Transactional(readOnly = true)
-    public Patient eagerGet(Long patientId, boolean samples) {
-        notNull(patientId);
-        Patient patientDB = patientDao.get(patientId);
-
-//           if(samples){
-//               logger.debug("" + patientDB.getSamples());
-//           }
-
-        return patientDB;
-    }
-
-    @Transactional(readOnly = true)
     public List<Patient> find(Patient patient, int requiredResults) {
         notNull(patient);
 
@@ -161,6 +149,21 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
             return patients;
         }
         return patients.subList(0, requiredResults);
+    }
+
+    public List<Patient> getSorted(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
+            logger.debug("biobankId is null");
+            return null;
+        }
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (biobankDB == null) {
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return patientDao.getSorted(biobankDB, orderByParam, desc);
     }
 
 }

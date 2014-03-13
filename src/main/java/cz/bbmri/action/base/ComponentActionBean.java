@@ -13,8 +13,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ComponentActionBean<T> extends BasicActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
     private Integer page;
 
     private String orderParam;
@@ -22,6 +20,16 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
     private boolean desc;
 
     private MyPagedListHolder<T> pagination;
+
+    public void initiatePagination() {
+        if (getPage() != null) {
+            getPagination().setCurrentPage(getPage());
+        }
+        if (getOrderParam() != null) {
+            getPagination().setOrderParam(getOrderParam());
+        }
+        getPagination().setDesc(isDesc());
+    }
 
     public MyPagedListHolder<T> getPagination() {
         return pagination;

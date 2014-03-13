@@ -2,6 +2,8 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.infrastructure.Rack;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -11,7 +13,7 @@ import cz.bbmri.entities.infrastructure.Rack;
  */
 public interface RackService extends BasicService<Rack>{
 
- //   Rack eagerGet(Long rackId, boolean box);
+    List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc);
 
     Rack create(Long containerId, Rack rack);
 }

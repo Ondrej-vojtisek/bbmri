@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -189,29 +190,6 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public Sample eagerGet(Long id, boolean patient, boolean request, boolean position) {
-        notNull(id);
-        Sample sampleDB = sampleDao.get(id);
-
-
-          /*Not only comments - this force hibernate to load mentioned relationship from db. Otherwise it wont be accessible from presentational layer of application.*/
-
-//        if (patient) {
-//            logger.debug("" + sampleDB.getPatient());
-//        }
-        if (request) {
-            logger.debug("" + sampleDB.getRequests());
-        }
-
-        if (position) {
-            logger.debug("" + sampleDB.getPositions());
-        }
-
-        return sampleDB;
-
-    }
-
-    @Transactional(readOnly = true)
     public List<Sample> allOrderedBy(String orderByParam, boolean desc) {
         return sampleDao.allOrderedBy(orderByParam, desc);
     }
@@ -219,6 +197,21 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     @Transactional(readOnly = true)
     public List<Sample> nOrderedBy(String orderByParam, boolean desc, int number) {
         return sampleDao.nOrderedBy(orderByParam, desc, number);
+    }
+
+    public List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc){
+        if(biobankId == null){
+            logger.debug("biobankId is null");
+            return null;
+        }
+
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if(biobankDB == null){
+            logger.debug("BiobankDB can´t be null");
+            return null;
+        }
+
+        return sampleDao.getSorted(biobankDB, orderByParam, desc);
     }
 
 }

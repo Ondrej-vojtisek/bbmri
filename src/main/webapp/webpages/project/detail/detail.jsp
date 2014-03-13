@@ -1,21 +1,20 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>
-<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
+<%--<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
 <s:useActionBean var="createSampleQuestionBean" beanclass="cz.bbmri.action.request.CreateSampleQuestion"/>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="detail">
 
     <s:layout-component name="body">
 
-        <s:form beanclass="${projectBean.name}" class="form-horizontal">
+        <s:form beanclass="${actionBean.name}" class="form-horizontal">
 
             <c:set var="readonly" value="${true}"/>
 
-            <security:allowed bean="projectBean" event="edit">
+            <security:allowed event="update">
                 <c:set var="readonly" value="${false}"/>
             </security:allowed>
 
@@ -84,40 +83,40 @@
 
 
             <div class="form-actions">
-                <security:allowed bean="projectBean" event="edit">
+                <security:allowed event="update">
                     <s:submit name="update" class="btn btn-primary btnMargin">
-                        <s:param name="projectId" value="${projectBean.projectId}"/>
+                        <s:param name="projectId" value="${actionBean.projectId}"/>
                     </s:submit>
                 </security:allowed>
 
-                <c:if test="${projectBean.isApproved}">
+                <c:if test="${actionBean.isApproved}">
                     <security:allowed bean="createSampleQuestionBean" event="createSampleRequest">
                         <s:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest" class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${projectBean.projectId}"/>
+                            <s:param name="projectId" value="${actionBean.projectId}"/>
                             <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
                         </s:link>
                     </security:allowed>
                 </c:if>
 
-                <c:if test="${projectBean.isStarted}">
-                    <security:allowed bean="projectBean" event="markAsFinished">
+                <c:if test="${actionBean.isStarted}">
+                    <security:allowed event="markAsFinished">
                         <s:submit name="markAsFinished" class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${projectBean.projectId}"/>
+                            <s:param name="projectId" value="${actionBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
                 </c:if>
 
-                <c:if test="${projectBean.isNew}">
+                <c:if test="${actionBean.isNew}">
 
-                    <security:allowed bean="projectBean" event="approve">
+                    <security:allowed event="approve">
                         <s:submit name="approve" class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${projectBean.projectId}"/>
+                            <s:param name="projectId" value="${actionBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
 
-                    <security:allowed bean="projectBean" event="deny">
+                    <security:allowed event="deny">
                         <s:submit name="deny" class="btn btn-danger">
-                            <s:param name="projectId" value="${projectBean.projectId}"/>
+                            <s:param name="projectId" value="${actionBean.projectId}"/>
                         </s:submit>
                     </security:allowed>
 

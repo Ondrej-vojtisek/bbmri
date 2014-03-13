@@ -1,11 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>
+<%--<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
 
-<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
-
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="attachments">
 
@@ -13,7 +11,7 @@
 
         <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
 
-        <s:form beanclass="cz.bbmri.action.project.ProjectActionBean" class="form-inline">
+        <s:form beanclass="cz.bbmri.action.project.ProjectAttachmentsActionBean" class="form-inline">
 
 
             <div class="form-actions">
@@ -38,7 +36,7 @@
                     </s:select>
 
                     <s:submit name="attachmentUpload" class="btn btn-primary">
-                        <s:param name="projectId" value="${projectBean.projectId}"/>
+                        <s:param name="projectId" value="${actionBean.projectId}"/>
                     </s:submit>
                 </div>
             </div>

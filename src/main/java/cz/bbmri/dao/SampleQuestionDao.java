@@ -1,9 +1,7 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.enumeration.RequestState;
 
 import java.util.List;
@@ -21,6 +19,14 @@ public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
 
     List<SampleQuestion> getSampleReservations(Biobank biobank, RequestState requestState);
 
+    List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc);
+
+    List<SampleRequest> getSampleRequestsSorted(Project project, String orderByParam, boolean desc);
+
+    List<SampleReservation> getSampleReservationsSorted(User user, String orderByParam, boolean desc);
+
     // CLOSED RESERVATIONS
     List<SampleReservation> getSampleReservationsOrderedByDate();
+
+    List<SampleReservation> getSampleReservationsBySample(Sample sample, String orderByParam, boolean desc);
 }
