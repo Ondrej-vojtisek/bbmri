@@ -44,7 +44,8 @@ serum =
         sampleIdentification,
         sampleNos,
         materialType,
-        element takingDate { xsd:dateTime }
+        element takingDate { xsd:dateTime },
+        retrieved
 	}
 
 ## DNA, RNA, Full blood, tissue in later
