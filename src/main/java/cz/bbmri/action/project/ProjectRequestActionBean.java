@@ -3,6 +3,7 @@ package cz.bbmri.action.project;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
@@ -35,11 +36,22 @@ public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest
         getPagination().setIdentifierParam("projectId");
     }
 
+    public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
+            return new Breadcrumb(ProjectRequestActionBean.class.getName(),
+                    "sampleRequestsResolution", false, "cz.bbmri.action.project.ProjectActionBean.sampleRequests",
+                    active, "projectId", projectId);
+        }
+
     @DontValidate
     @DefaultHandler
     @HandlesEvent("sampleRequestsResolution")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution sampleRequestsResolution() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, projectId));
+        getBreadcrumbs().add(ProjectRequestActionBean.getBreadcrumb(true, projectId));
+
         if (projectId != null) {
             getPagination().setIdentifier(projectId);
         }

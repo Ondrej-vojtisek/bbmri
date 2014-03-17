@@ -91,7 +91,8 @@
 
                 <c:if test="${actionBean.isApproved}">
                     <security:allowed bean="createSampleQuestionBean" event="createSampleRequest">
-                        <s:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest" class="btn btn-primary btnMargin">
+                        <s:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest"
+                                class="btn btn-primary btnMargin">
                             <s:param name="projectId" value="${actionBean.projectId}"/>
                             <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
                         </s:link>

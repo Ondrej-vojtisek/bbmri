@@ -3,6 +3,8 @@ package cz.bbmri.action.globalSettings;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.dao.GlobalSettingDao;
 import cz.bbmri.entities.systemAdministration.GlobalSetting;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
@@ -34,6 +36,15 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
        })
     private GlobalSetting validity;
 
+    public GlobalSettingsActionBean(){
+        setComponentManager(new ComponentManager());
+    }
+
+    public static Breadcrumb getBreadcrumb(boolean active) {
+        return new Breadcrumb(GlobalSettingsActionBean.class.getName(),
+                "all", false, "cz.bbmri.action.globalSettings.GlobalSettingsActionBean", active);
+    }
+
     public GlobalSetting getValidity() {
         if (validity == null) {
             validity = globalSettingDao.get(GlobalSetting.RESERVATION_VALIDITY);
@@ -51,6 +62,7 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
     @HandlesEvent("all")
     @RolesAllowed("administrator")
     public Resolution all() {
+        getBreadcrumbs().add(GlobalSettingsActionBean.getBreadcrumb(true));
         return new ForwardResolution(GLOBAL_SETTINGS);
     }
 
@@ -59,9 +71,9 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
     public Resolution saveValidity() {
 
         if(!globalSettingDao.set(GlobalSetting.RESERVATION_VALIDITY, validity.getValue())){
-        return new ForwardResolution(GLOBAL_SETTINGS);
+        return new ForwardResolution(this.getClass(), "all");
         }
         successMsg(null);
-        return new RedirectResolution(GLOBAL_SETTINGS);
+        return new RedirectResolution(this.getClass(), "all");
     }
 }

@@ -1,9 +1,12 @@
 package cz.bbmri.action.patient;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.biobank.BiobankActionBean;
+import cz.bbmri.action.biobank.BiobankPatientsActionBean;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.comparator.sample.*;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -34,6 +37,24 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
 
     @SpringBean
     private SampleFacade sampleFacade;
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
+        return new Breadcrumb(PatientActionBean.class.getName(),
+                "display", false, "cz.bbmri.action.patient.PatientActionBean.patient",
+                active, "patientId", patientId);
+    }
+
+    public static Breadcrumb getSTSBreadcrumb(boolean active, Long patientId) {
+        return new Breadcrumb(PatientActionBean.class.getName(),
+                "modulests", false, "cz.bbmri.action.patient.PatientActionBean.modulests",
+                active, "patientId", patientId);
+    }
+
+    public static Breadcrumb getLTSBreadcrumb(boolean active, Long patientId) {
+        return new Breadcrumb(PatientActionBean.class.getName(),
+                "modulelts", false, "cz.bbmri.action.patient.PatientActionBean.modulelts",
+                active, "patientId", patientId);
+    }
 
     private Long patientId;
 
@@ -102,6 +123,16 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
+        // Biobanks
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        // Biobanks > Detail
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getPatient().getBiobank().getId(),
+                getPatient().getBiobank()));
+        // Biobanks > Detail > Patients
+        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(false, getPatient().getBiobank().getId()));
+        // Biobanks > Detail > Patients > Patient
+        getBreadcrumbs().add(PatientActionBean.getBreadcrumb(true, patientId));
+
         return new ForwardResolution(PATIENT_DETAIL);
     }
 
@@ -109,6 +140,19 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     @HandlesEvent("modulests")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution modulests() {
+
+        // Biobanks
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        // Biobanks > Detail
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getPatient().getBiobank().getId(),
+                getPatient().getBiobank()));
+        // Biobanks > Detail > Patients
+        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(false, getPatient().getBiobank().getId()));
+        // Biobanks > Detail > Patients > Patient
+        getBreadcrumbs().add(PatientActionBean.getBreadcrumb(false, patientId));
+        // Biobanks > Detail > Patients > Patient > Module STS
+        getBreadcrumbs().add(PatientActionBean.getSTSBreadcrumb(true, patientId));
+
         initiatePagination();
         if (patientId != null) {
             getPagination().setIdentifier(patientId);
@@ -124,6 +168,19 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     @HandlesEvent("modulelts")
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution modulelts() {
+
+        // Biobanks
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        // Biobanks > Detail
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getPatient().getBiobank().getId(),
+                getPatient().getBiobank()));
+        // Biobanks > Detail > Patients
+        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(false, getPatient().getBiobank().getId()));
+        // Biobanks > Detail > Patients > Patient
+        getBreadcrumbs().add(PatientActionBean.getBreadcrumb(false, patientId));
+        // Biobanks > Detail > Patients > Patient > Module LTS
+        getBreadcrumbs().add(PatientActionBean.getLTSBreadcrumb(true, patientId));
+
         initiatePagination();
         if (patientId != null) {
             getPagination().setIdentifier(patientId);

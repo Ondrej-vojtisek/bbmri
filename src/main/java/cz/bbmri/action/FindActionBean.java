@@ -1,6 +1,8 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.ComponentActionBean;
+import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.HttpCache;
@@ -17,7 +19,7 @@ import java.util.List;
  * Time: 10:08
  * To change this template use File | Settings | File Templates.
  */
-public class FindActionBean extends BasicActionBean {
+public class FindActionBean extends PermissionActionBean {
 
     private static int FIND_RESULTS = 5;
 

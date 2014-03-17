@@ -1,17 +1,13 @@
 package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -29,6 +25,12 @@ public class BiobankPatientsActionBean extends PermissionActionBean<Patient> {
     @SpringBean
     private BiobankFacade biobankFacade;
 
+    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(BiobankPatientsActionBean.class.getName(),
+                "display", false, "cz.bbmri.action.biobank.BiobankActionBean.patients",
+                active, "biobankId", biobankId);
+    }
+
     public BiobankPatientsActionBean() {
         //default
         setPagination(new MyPagedListHolder<Patient>(new ArrayList<Patient>()));
@@ -43,12 +45,17 @@ public class BiobankPatientsActionBean extends PermissionActionBean<Patient> {
     @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution display() {
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(true, biobankId));
+
         if (biobankId != null) {
             getPagination().setIdentifier(biobankId);
         }
 
         initiatePagination();
-        if(getOrderParam() == null){
+        if (getOrderParam() == null) {
             getPagination().setOrderParam("institutionId");
         }
         getPagination().setEvent("display");

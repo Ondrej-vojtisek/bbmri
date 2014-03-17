@@ -3,12 +3,13 @@ package cz.bbmri.action.biobank;
 import cz.bbmri.action.FindActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +22,6 @@ import javax.annotation.security.RolesAllowed;
  * Time: 16:25
  * To change this template use File | Settings | File Templates.
  */
-@HttpCache(allow = false)
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
 public class CreateActionBean extends FindActionBean {
@@ -70,8 +70,10 @@ public class CreateActionBean extends FindActionBean {
     @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
+
         return new ForwardResolution(BIOBANK_CREATE_GENERAL);
     }
+
 
     @DontValidate
     @HandlesEvent("backFromStep2")
@@ -98,7 +100,7 @@ public class CreateActionBean extends FindActionBean {
     @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
     public Resolution confirmStep3() {
-        if(!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors(), getContext().getPropertiesStoragePath())){
+        if (!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors(), getContext().getPropertiesStoragePath())) {
             return new ForwardResolution(BiobankActionBean.class);
         }
 

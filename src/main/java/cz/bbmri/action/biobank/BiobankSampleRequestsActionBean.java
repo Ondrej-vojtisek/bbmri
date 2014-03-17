@@ -2,6 +2,7 @@ package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.SampleQuestion;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -29,6 +30,11 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
     @SpringBean
     private RequestFacade requestFacade;
 
+    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId){
+        return new Breadcrumb(BiobankSampleRequestsActionBean.class.getName(), "display",
+                false, "cz.bbmri.action.biobank.BiobankActionBean.sampleRequests", active, "biobankId", biobankId);
+    }
+
     public BiobankSampleRequestsActionBean() {
         //default
         setPagination(new MyPagedListHolder<SampleQuestion>(new ArrayList<SampleQuestion>()));
@@ -40,10 +46,16 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
     }
 
 
-    @HandlesEvent("display")
+
     @DefaultHandler
-    @RolesAllowed({"administratorResolution", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+    @HandlesEvent("display")
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution display() {
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankSampleRequestsActionBean.getBreadcrumb(true, biobankId));
+
         if (biobankId != null) {
             getPagination().setIdentifier(biobankId);
         }

@@ -40,13 +40,9 @@
                     </div>
                 </div>
 
-                <div class="form-actions">
-                    <s:link beanclass="${projectBean.name}" event="detail" class="btn btn-inverse btnMargin">
-                        <s:param name="projectId" value="${requestBean.projectId}"/>
-                        <f:message key="cz.bbmri.action.request.RequestActionBean.returnToProject"/>
-                    </s:link>
+                <c:if test="${actionBean.isSampleQuestionNew}">
 
-                    <c:if test="${actionBean.isSampleQuestionNew}">
+                    <div class="form-actions">
 
                         <security:allowed bean="requestBean" event="approve">
                             <s:submit name="approve" class="btn btn-primary btnMargin">
@@ -67,8 +63,9 @@
                             </s:submit>
                         </security:allowed>
 
-                    </c:if>
-                </div>
+                    </div>
+
+                </c:if>
 
             </s:form>
 

@@ -2,6 +2,7 @@ package cz.bbmri.action.reservation;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.SampleReservation;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
@@ -39,11 +40,20 @@ public class ReservationActionBean extends PermissionActionBean<SampleReservatio
                 ComponentManager.SAMPLEQUESTION_DETAIL));
     }
 
+    public static Breadcrumb getBreadcrumb(boolean active) {
+        return new Breadcrumb(ReservationActionBean.class.getName(),
+                "all", false, "cz.bbmri.action.project.ReservationActionBean.reservations", active);
+    }
+
+
     @DontValidate
     @DefaultHandler
     @HandlesEvent("all")
     @RolesAllowed("user")
     public Resolution all() {
+
+        getBreadcrumbs().add(ReservationActionBean.getBreadcrumb(true));
+
         initiatePagination();
         if (getOrderParam() == null) {
             // default

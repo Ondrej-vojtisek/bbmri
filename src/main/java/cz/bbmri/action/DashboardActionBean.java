@@ -2,6 +2,7 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Notification;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.UserFacade;
@@ -39,6 +40,8 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
     private List<Long> selectedNotifications;
 
     public DashboardActionBean() {
+        getBreadcrumbs().add(new Breadcrumb(DashboardActionBean.class.getName(), "display", false, "home", true));
+
         setPagination(new MyPagedListHolder<Notification>(new ArrayList<Notification>()));
         setComponentManager(new ComponentManager(
                 ComponentManager.NOTIFICATION_DETAIL,

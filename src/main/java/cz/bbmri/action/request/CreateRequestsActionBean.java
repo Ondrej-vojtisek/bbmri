@@ -1,10 +1,15 @@
 package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.project.ProjectActionBean;
+import cz.bbmri.action.project.ProjectRequestActionBean;
+import cz.bbmri.action.reservation.ReservationActionBean;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.RequestFacade;
 import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
@@ -23,7 +28,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/createrequests/{$event}/{sampleQuestionId}")
-public class CreateRequestsActionBean extends PermissionActionBean {
+public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -33,11 +38,6 @@ public class CreateRequestsActionBean extends PermissionActionBean {
     @SpringBean
     private SampleFacade sampleFacade;
 
-    /* SampleQuestion identifier */
-    private Long sampleQuestionId;
-
-    private SampleQuestion sampleQuestion;
-
     private Sample sample;
 
     private Patient patient;
@@ -46,31 +46,14 @@ public class CreateRequestsActionBean extends PermissionActionBean {
 
     private List<Long> selectedSamples;
 
-    public Long getSampleQuestionId() {
-        return sampleQuestionId;
+    public CreateRequestsActionBean() {
+        setComponentManager(new ComponentManager());
     }
 
-    public void setSampleQuestionId(Long sampleQuestionId) {
-        this.sampleQuestionId = sampleQuestionId;
-    }
-
-    public SampleRequest getSampleRequest() {
-        if(getSampleQuestion() == null){
-            return null;
-        }
-        return (SampleRequest) getSampleQuestion();
-    }
-
-    public SampleQuestion getSampleQuestion() {
-
-        if (sampleQuestion == null) {
-
-            if (sampleQuestionId != null) {
-
-                sampleQuestion = requestFacade.getSampleQuestion(sampleQuestionId);
-            }
-        }
-        return sampleQuestion;
+    public static Breadcrumb getBreadcrumb(boolean active, Long sampleQuestionId) {
+        return new Breadcrumb(CreateRequestsActionBean.class.getName(),
+                "initial", false, "cz.bbmri.action.request.CreateRequests.create", active,
+                "sampleQuestionId", sampleQuestionId);
     }
 
     public Sample getSample() {
@@ -111,11 +94,6 @@ public class CreateRequestsActionBean extends PermissionActionBean {
             return null;
         }
 
-        logger.debug("Sample: " + sample);
-        logger.debug("Patient: " + patient);
-        logger.debug("BiobankId: " + biobankId);
-        logger.debug("ModuleLTS: " + moduleLTS);
-
         return sampleFacade.findSamples(sample, biobankId, patient, moduleLTS);
     }
 
@@ -124,6 +102,20 @@ public class CreateRequestsActionBean extends PermissionActionBean {
     @HandlesEvent("initial")
     @RolesAllowed({"administrator", "developer", "project_team_member", "biobank_operator"})
     public Resolution initial() {
+
+        if (getIsSampleRequest()) {
+            getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+            getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, getSampleRequest().getProject().getId()));
+            getBreadcrumbs().add(ProjectRequestActionBean.getBreadcrumb(false, getSampleRequest().getProject().getId()));
+            getBreadcrumbs().add(RequestActionBean.getSampleRequestBreadcrumb(false, getSampleQuestionId()));
+            getBreadcrumbs().add(CreateRequestsActionBean.getBreadcrumb(true, getSampleQuestionId()));
+
+        } else if (getIsSampleReservation()) {
+            getBreadcrumbs().add(ReservationActionBean.getBreadcrumb(false));
+            getBreadcrumbs().add(RequestActionBean.getSampleReservationBreadcrumb(false, getSampleQuestionId()));
+            getBreadcrumbs().add(CreateRequestsActionBean.getBreadcrumb(true, getSampleQuestionId()));
+        }
+
         return new ForwardResolution(CREATE_REQUESTS);
     }
 
@@ -132,28 +124,26 @@ public class CreateRequestsActionBean extends PermissionActionBean {
     public Resolution find() {
         return new ForwardResolution(this.getClass(), "initial")
                 .addParameter("biobankId", biobankId)
-                .addParameter("sampleQuestionId", sampleQuestionId);
+                .addParameter("sampleQuestionId", getSampleQuestionId());
     }
 
     @HandlesEvent("confirmSelected") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution confirmSelected() {
-        logger.debug("ConfirmSelected: " + selectedSamples);
-        logger.debug("SampleQuestionId: " + sampleQuestionId);
 
         if (!requestFacade.createRequests(selectedSamples,
-                sampleQuestionId,
+                getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMessages())) {
 
             return new ForwardResolution(RequestActionBean.class, "detail")
                     .addParameter("biobankId", biobankId)
-                    .addParameter("sampleQuestionId", sampleQuestionId);
+                    .addParameter("sampleQuestionId", getSampleQuestionId());
         }
 
         return new RedirectResolution(RequestActionBean.class, "detail")
                 .addParameter("biobankId", biobankId)
-                .addParameter("sampleQuestionId", sampleQuestionId);
+                .addParameter("sampleQuestionId", getSampleQuestionId());
     }
 
 

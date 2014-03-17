@@ -1,9 +1,11 @@
 package cz.bbmri.action.infrastructure;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.entities.infrastructure.Rack;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -50,6 +52,18 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     private Long infrastructureId;
 
     private Infrastructure infrastructure;
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long containerId) {
+        return new Breadcrumb(ContainerActionBean.class.getName(),
+                "detail", false, "cz.bbmri.entities.infrastructure.Container.container", active,
+                "containerId", containerId);
+    }
+
+    public static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(InfrastructureActionBean.class.getName(),
+                "createContainerResolution", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.createContainer",
+                active, "biobankId", biobankId);
+    }
 
     public ContainerActionBean() {
         //default
@@ -100,9 +114,15 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution detail() {
+
         if (getContainer() != null) {
             setBiobankId(getContainer().getInfrastructure().getBiobank().getId());
         }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(true, containerId));
 
         initiatePagination();
         getPagination().setEvent("detail");
@@ -116,7 +136,11 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     @HandlesEvent("createContainerResolution")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createContainerResolution() {
-     //   infrastructure = getBiobank().getInfrastructure();
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(ContainerActionBean.getCreateContainerBreadcrumb(true, biobankId));
+
         return new ForwardResolution(INFRASTRUCTURE_CREATE_CONTAINER);
     }
 

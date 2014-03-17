@@ -1,7 +1,9 @@
 package cz.bbmri.action.support;
 
-import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -21,16 +23,26 @@ import java.util.List;
 @PermitAll
 @UrlBinding("/support")
 @HttpCache(allow = false)
-public class SupportActionBean extends BasicActionBean {
+public class SupportActionBean extends ComponentActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private UserFacade userFacade;
 
+    public SupportActionBean() {
+        setComponentManager(new ComponentManager());
+    }
+
+    public static Breadcrumb getBreadcrumb(boolean active) {
+        return new Breadcrumb(SupportActionBean.class.getName(),
+                "display", false, "cz.bbmri.action.support.SupportActionBean.contacts", active);
+    }
+
     @DontValidate
     @DefaultHandler
     public Resolution display() {
+        getBreadcrumbs().add(SupportActionBean.getBreadcrumb(true));
         return new ForwardResolution(SUPPORT);
     }
 

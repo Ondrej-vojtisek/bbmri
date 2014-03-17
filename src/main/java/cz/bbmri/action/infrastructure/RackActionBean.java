@@ -1,10 +1,11 @@
 package cz.bbmri.action.infrastructure;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.infrastructure.Box;
+import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.entities.infrastructure.RackBox;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -42,13 +43,20 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
 
     private Long containerId;
 
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long rackId) {
+        return new Breadcrumb(RackActionBean.class.getName(),
+                "detail", false, "cz.bbmri.entities.infrastructure.Rack.rack", active,
+                "rackId", rackId);
+    }
+
     public RackActionBean() {
-          //default
-          setPagination(new MyPagedListHolder<RackBox>(new ArrayList<RackBox>()));
-          setComponentManager(new ComponentManager(
-                  ComponentManager.BOX_DETAIL,
-                  ComponentManager.BIOBANK_DETAIL));
-      }
+        //default
+        setPagination(new MyPagedListHolder<RackBox>(new ArrayList<RackBox>()));
+        setComponentManager(new ComponentManager(
+                ComponentManager.BOX_DETAIL,
+                ComponentManager.BIOBANK_DETAIL));
+    }
 
 
     public Rack getRack() {
@@ -83,9 +91,16 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution detail() {
+
         if (getRack() != null) {
             setBiobankId(getRack().getContainer().getInfrastructure().getBiobank().getId());
         }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false, getRack().getContainer().getId()));
+        getBreadcrumbs().add(RackActionBean.getBreadcrumb(true, rackId));
 
         initiatePagination();
         getPagination().setEvent("detail");
@@ -102,7 +117,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     public Resolution createRackResolution() {
         // biobank ribbon
         Container container = biobankFacade.getContainer(containerId);
-        if(container != null){
+        if (container != null) {
             setBiobankId(container.getInfrastructure().getBiobank().getId());
         }
         return new ForwardResolution(INFRASTRUCTURE_CREATE_RACK)

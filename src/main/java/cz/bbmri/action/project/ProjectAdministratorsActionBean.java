@@ -6,6 +6,7 @@ import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.comparator.PermissionComparator;
 import cz.bbmri.entities.comparator.PermissionUserComparator;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
@@ -32,6 +33,12 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
 
     private Long adminId;
 
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
+        return new Breadcrumb(ProjectAdministratorsActionBean.class.getName(),
+                "administratorsResolution", false, "cz.bbmri.action.project.ProjectActionBean.administrators",
+                active, "projectId", projectId);
+    }
 
     public ProjectAdministratorsActionBean() {
         setPagination(new MyPagedListHolder<ProjectAdministrator>(new ArrayList<ProjectAdministrator>()));
@@ -63,6 +70,11 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("administratorsResolution")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution administratorsResolution() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, projectId));
+        getBreadcrumbs().add(ProjectAdministratorsActionBean.getBreadcrumb(true, projectId));
+
         if (projectId != null) {
             getPagination().setIdentifier(projectId);
         }
@@ -84,14 +96,16 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
         getPagination().setEvent("administratorsResolution");
         // Administrators are stored in Set
         getPagination().setSource(new ArrayList<ProjectAdministrator>(getProject().getProjectAdministrators()));
-        return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS).addParameter("projectId", projectId);
+        return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS)
+                .addParameter("projectId", projectId);
     }
 
     @DontValidate
     @HandlesEvent("editAdministrators")
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution editAdministrators() {
-        return new ForwardResolution(PROJECT_DETAIL_ADMINISTRATORS).addParameter("projectId", projectId);
+        return new ForwardResolution(this.getClass(), "administratorsResolution")
+                .addParameter("projectId", projectId);
     }
 
     @DontValidate
@@ -99,11 +113,13 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
     public Resolution setPermission() {
         if (!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("projectId", projectId);
         }
         // It changes data - redirect necessary
         successMsg(null);
-        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "administratorsResolution")
+                .addParameter("projectId", projectId);
     }
 
     @DontValidate
@@ -112,10 +128,12 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
         if (!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "administratorsResolution")
+                .addParameter("projectId", projectId);
     }
 
     public String getRemoveQuestion() {
@@ -130,10 +148,12 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
         if (!projectFacade.assignAdministrator(projectId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(this.getClass(), "administratorsResolution").addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "administratorsResolution")
+                .addParameter("projectId", projectId);
     }
 
 }

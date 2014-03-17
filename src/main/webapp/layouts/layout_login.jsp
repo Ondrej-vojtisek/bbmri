@@ -28,17 +28,17 @@
     </div>
 
     <div class="container-fluid" style="margin-top: 50px;">
-            <s:messages/>
+        <s:messages/>
 
-            <s:errors/>
+        <s:errors/>
 
-            <div class="login_screen">
+        <div class="login_screen">
 
-                <div class="form-signin">
-                    <s:layout-component name="body"/>
-                </div>
-
+            <div class="form-signin">
+                <s:layout-component name="body"/>
             </div>
+
+        </div>
     </div>
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">

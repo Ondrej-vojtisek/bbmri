@@ -2,6 +2,7 @@ package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -13,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +33,12 @@ public class BiobankSamplesActionBean extends PermissionActionBean<Sample> {
     @SpringBean
     private SampleFacade sampleFacade;
 
+    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(BiobankSamplesActionBean.class.getName(),
+                "display", false, "cz.bbmri.action.biobank.BiobankActionBean.patients",
+                active, "biobankId", biobankId);
+    }
+
     public BiobankSamplesActionBean() {
         // default
         setPagination(new MyPagedListHolder<Sample>(new ArrayList<Sample>()));
@@ -43,17 +49,23 @@ public class BiobankSamplesActionBean extends PermissionActionBean<Sample> {
         getPagination().setIdentifierParam("biobankId");
     }
 
+
+
     @DefaultHandler
     @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution display() {
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankSamplesActionBean.getBreadcrumb(true, biobankId));
 
         if (biobankId != null) {
             getPagination().setIdentifier(biobankId);
         }
 
         initiatePagination();
-        if(getOrderParam() == null){
+        if (getOrderParam() == null) {
             getPagination().setOrderParam("sampleIdentification.sampleId");
         }
         getPagination().setEvent("display");

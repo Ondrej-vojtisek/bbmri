@@ -3,6 +3,7 @@ package cz.bbmri.action.user;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.entities.webEntities.RoleDTO;
@@ -12,8 +13,6 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -22,8 +21,6 @@ import java.util.List;
 @HttpCache(allow = false)
 @UrlBinding("/user/{$event}/{userId}")
 public class UserActionBean extends ComponentActionBean<User> {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private UserFacade userFacade;
@@ -46,9 +43,34 @@ public class UserActionBean extends ComponentActionBean<User> {
     public UserActionBean() {
         setPagination(new MyPagedListHolder<User>(new ArrayList<User>()));
         //default
-        setComponentManager(new ComponentManager(
-                ComponentManager.USER_DETAIL,
-                ComponentManager.USER_DETAIL));
+        setComponentManager(new ComponentManager());
+    }
+
+    public static Breadcrumb getBreadcrumb(boolean active) {
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "display", false, "cz.bbmri.action.user.UserActionBean.all", active);
+    }
+
+    public static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "display", true, user.getWholeName(), active, "userId", user.getId());
+    }
+
+    public static Breadcrumb getMyDetailBreadcrumb(boolean active, User user) {
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "display", false, "logged_user", active, "userId", user.getId());
+    }
+
+    public static Breadcrumb getRoleBreadcrumb(boolean active, Long userId) {
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "rolesView", false, "cz.bbmri.action.user.UserActionBean.roles", active,
+                "userId", userId);
+    }
+
+    public static Breadcrumb getPasswordBreadcrumb(boolean active, Long userId) {
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "changePasswordView", false, "cz.bbmri.action.user.UserActionBean.password", active,
+                "userId", userId);
     }
 
 
@@ -57,10 +79,6 @@ public class UserActionBean extends ComponentActionBean<User> {
     @Validate(on = {"changePassword"}, required = true)
     private String password2;
 
-
-//    public List<User> getUsers() {
-//        return userFacade.allOrderedBy(getPagination().getOrderParam(), getPagination().getDesc());
-//    }
 
     public User getUser() {
         if (user == null) {
@@ -124,25 +142,22 @@ public class UserActionBean extends ComponentActionBean<User> {
         return getUser().getSystemRoles().contains(SystemRole.ADMINISTRATOR);
     }
 
-    private void setUserComparator() {
-        if (getOrderParam() != null) {
-            getPagination().setOrderParam(getOrderParam());
-            getPagination().setDesc(isDesc());
-            return;
-        }
-        // default
-        getPagination().setOrderParam("surname");
-        getPagination().setDesc(false);
-    }
-
 
     @DontValidate
     @DefaultHandler
     @HandlesEvent("display") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
+
+        getBreadcrumbs().add(UserActionBean.getBreadcrumb(true));
+
         initiatePagination();
-        setUserComparator();
+        // default ordering
+        if (getOrderParam() == null) {
+            setOrderParam("surname");
+            getPagination().setOrderParam("surname");
+            getPagination().setDesc(false);
+        }
         getPagination().setEvent("display");
         getPagination().setSource(userFacade.allOrderedBy(
                 getPagination().getOrderParam(),
@@ -181,12 +196,31 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("detail")
     @RolesAllowed({"developer", "administrator", "user if ${isMyAccount}"})
     public Resolution detail() {
+
+        if (getIsMyAccount()) {
+            getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(true, getLoggedUser()));
+
+        } else {
+            getBreadcrumbs().add(UserActionBean.getBreadcrumb(false));
+            getBreadcrumbs().add(UserActionBean.getDetailBreadcrumb(true, getUser()));
+        }
         return new ForwardResolution(USER_PERSONAL_DATA).addParameter("userId", userId);
     }
 
     @HandlesEvent("rolesView")
     @RolesAllowed({"administrator", "developer", "user if ${isMyAccount}"})
     public Resolution rolesView() {
+
+        if (getIsMyAccount()) {
+                   getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(false, getLoggedUser()));
+
+               } else {
+                   getBreadcrumbs().add(UserActionBean.getBreadcrumb(false));
+                   getBreadcrumbs().add(UserActionBean.getDetailBreadcrumb(false, getUser()));
+               }
+
+               getBreadcrumbs().add(UserActionBean.getRoleBreadcrumb(true, userId));
+
         return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
     }
 
@@ -194,40 +228,40 @@ public class UserActionBean extends ComponentActionBean<User> {
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
         if (!userFacade.removeAdministratorRole(userId, getContext().getValidationErrors())) {
-            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
+            return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
+        return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
         if (!userFacade.removeDeveloperRole(userId, getContext().getValidationErrors())) {
-            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
+            return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
+        return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
         if (!userFacade.setAsAdministrator(userId, getContext().getValidationErrors())) {
-            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
+            return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
+        return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
         if (!userFacade.setAsDeveloper(userId, getContext().getValidationErrors())) {
-            return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
+            return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
-        return new RedirectResolution(USER_ROLES).addParameter("userId", userId);
+        return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
     /* Credentials of user using Shibboleth are loaded during sign in. Any change inside BBMRI index is unnecessary*/
@@ -254,7 +288,7 @@ public class UserActionBean extends ComponentActionBean<User> {
             );
         } else {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.user.UserActionBean.passwordNotMatch"));
-            return new ForwardResolution("USER_PASSWORD").addParameter("userId", userId);
+            return new ForwardResolution(this.getClass(), "changePasswordView").addParameter("userId", userId);
         }
         return new RedirectResolution(UserActionBean.class, "detail");
     }
@@ -265,6 +299,17 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("changePasswordView")
     @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution changePasswordView() {
+        if (getIsMyAccount()) {
+            getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(false, getLoggedUser()));
+
+        } else {
+            getBreadcrumbs().add(UserActionBean.getBreadcrumb(false));
+            getBreadcrumbs().add(UserActionBean.getDetailBreadcrumb(false, getUser()));
+        }
+
+        getBreadcrumbs().add(UserActionBean.getPasswordBreadcrumb(true, userId));
+
+
         return new ForwardResolution(USER_PASSWORD).addParameter("userId", userId);
     }
 

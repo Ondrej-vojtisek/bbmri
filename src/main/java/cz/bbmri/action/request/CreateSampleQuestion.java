@@ -2,11 +2,14 @@ package cz.bbmri.action.request;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
+import cz.bbmri.action.project.ProjectRequestActionBean;
 import cz.bbmri.action.reservation.ReservationActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.RequestFacade;
 import net.sourceforge.stripes.action.*;
@@ -29,8 +32,6 @@ import java.util.List;
 @UrlBinding("/samplequestion/{$event}/{sampleQuestionId}")
 public class CreateSampleQuestion extends PermissionActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
     @SpringBean
     private RequestFacade requestFacade;
 
@@ -43,6 +44,16 @@ public class CreateSampleQuestion extends PermissionActionBean {
                     on = {"confirmSampleRequest", "confirmSampleReservation"})
     })
     private SampleQuestion sampleQuestion;
+
+    public static Breadcrumb getBreadcrumb(boolean active) {
+        return new Breadcrumb(CreateSampleQuestion.class.getName(),
+                "createSampleRequest", false, "cz.bbmri.action.request.CreateSampleQuestion.createSampleRequest.breadcrumb",
+                active);
+    }
+
+    public CreateSampleQuestion() {
+        setComponentManager(new ComponentManager());
+    }
 
     public SampleQuestion getSampleQuestion() {
         return sampleQuestion;
@@ -61,6 +72,11 @@ public class CreateSampleQuestion extends PermissionActionBean {
     @HandlesEvent("createSampleRequest")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution createSampleRequest() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, projectId));
+        getBreadcrumbs().add(CreateSampleQuestion.getBreadcrumb(true));
+
         return new ForwardResolution(REQUEST_CREATE_SAMPLE_REQUEST);
     }
 
@@ -74,11 +90,11 @@ public class CreateSampleQuestion extends PermissionActionBean {
         sampleRequest.setSpecification(sampleQuestion.getSpecification());
 
         if (!requestFacade.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
-            return new ForwardResolution(ProjectActionBean.class, "sampleRequestsResolution")
+            return new ForwardResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                     .addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(ProjectActionBean.class, "sampleRequestsResolution")
+        return new RedirectResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId);
     }
 

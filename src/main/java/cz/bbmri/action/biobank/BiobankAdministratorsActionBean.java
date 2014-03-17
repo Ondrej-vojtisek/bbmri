@@ -6,6 +6,7 @@ import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.comparator.PermissionComparator;
 import cz.bbmri.entities.comparator.PermissionUserComparator;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -30,7 +31,14 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     @SpringBean
     private BiobankFacade biobankFacade;
 
+    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(BiobankAdministratorsActionBean.class.getName(),
+                "administratorsResolution", false, "cz.bbmri.action.biobank.BiobankActionBean.administrators",
+                active, "biobankId", biobankId);
+    }
+
     public BiobankAdministratorsActionBean() {
+
         setPagination(new MyPagedListHolder<BiobankAdministrator>(new ArrayList<BiobankAdministrator>()));
         // ribbon
         setComponentManager(new ComponentManager(
@@ -66,9 +74,15 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     @HandlesEvent("administratorsResolution")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution administratorsResolution() {
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankAdministratorsActionBean.getBreadcrumb(true, biobankId));
+
         if (biobankId != null) {
             getPagination().setIdentifier(biobankId);
         }
+
         initiatePagination();
 
         if (getOrderParam() == null) {
@@ -76,7 +90,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
             getPagination().setOrderParam("user.surname");
             getPagination().setComparator(new PermissionUserComparator());
 
-        }else if(getOrderParam().equals("user.surname")){
+        } else if (getOrderParam().equals("user.surname")) {
             // pagination orderParam was already set
             getPagination().setComparator(new PermissionUserComparator());
 
@@ -97,10 +111,12 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
 
         if (!biobankFacade.changeAdministratorPermission(adminId, permission,
                 getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("biobankId", biobankId);
         }
         successMsg(null);
-        return new RedirectResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
+        return new RedirectResolution(this.getClass(), "administratorsResolution")
+                .addParameter("biobankId", biobankId);
 
 
     }
@@ -113,7 +129,8 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
 
         if (!biobankFacade.removeAdministrator(adminId,
                 getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("biobankId", biobankId);
         }
 
         successMsg(null);
@@ -138,10 +155,12 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     public Resolution addAdministrator() {
 
         if (!biobankFacade.assignAdministrator(biobankId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
-            return new ForwardResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
+            return new ForwardResolution(this.getClass(), "administratorsResolution")
+                    .addParameter("biobankId", biobankId);
         }
         successMsg(null);
-        return new RedirectResolution(BIOBANK_DETAIL_ADMINISTRATORS).addParameter("biobankId", biobankId);
+        return new RedirectResolution(this.getClass(), "administratorsResolution")
+                .addParameter("biobankId", biobankId);
 
     }
 }

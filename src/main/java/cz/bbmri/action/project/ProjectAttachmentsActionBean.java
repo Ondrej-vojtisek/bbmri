@@ -3,6 +3,7 @@ package cz.bbmri.action.project;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
@@ -33,6 +34,18 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
                 ComponentManager.ATTACHMENT_DETAIL,
                 ComponentManager.PROJECT_DETAIL));
         getPagination().setIdentifierParam("projectId");
+    }
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
+        return new Breadcrumb(ProjectAttachmentsActionBean.class.getName(),
+                "attachmentsResolution", false, "cz.bbmri.action.project.ProjectActionBean.attachments",
+                active, "projectId", projectId);
+    }
+
+    public static Breadcrumb getAddAttachmentBreadcrumb(boolean active, Long projectId) {
+        return new Breadcrumb(ProjectAttachmentsActionBean.class.getName(),
+                "addAttachment", false, "cz.bbmri.action.project.ProjectActionBean.addAttachment",
+                active, "projectId", projectId);
     }
 
     private Attachment attachment;
@@ -80,6 +93,11 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @HandlesEvent("attachmentsResolution")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution attachmentsResolution() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, projectId));
+        getBreadcrumbs().add(ProjectAttachmentsActionBean.getBreadcrumb(true, projectId));
+
         if (projectId != null) {
             getPagination().setIdentifier(projectId);
         }
@@ -125,6 +143,12 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @HandlesEvent("addAttachment")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution addAttachment() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, projectId));
+        getBreadcrumbs().add(ProjectAttachmentsActionBean.getBreadcrumb(false, projectId));
+        getBreadcrumbs().add(ProjectAttachmentsActionBean.getAddAttachmentBreadcrumb(true, projectId));
+
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENT_ADD);
     }
 

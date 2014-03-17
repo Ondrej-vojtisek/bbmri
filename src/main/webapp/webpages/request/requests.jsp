@@ -74,9 +74,9 @@
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.requests}"/>
+                             collection="${actionBean.sampleQuestion.requests}"/>
 
-            <c:forEach items="${actionBean.requests}" var="request">
+            <c:forEach items="${actionBean.sampleQuestion.requests}" var="request">
                 <s:form beanclass="cz.bbmri.action.request.RequestActionBean">
                     <tr>
                         <td>${request.sample.sampleIdentification.sampleId}</td>

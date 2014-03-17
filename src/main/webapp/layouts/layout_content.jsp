@@ -38,6 +38,8 @@
     <div class="container-fluid">
         <div class="row-fluid">
 
+            <s:layout-render name="${actionBean.componentManager.breadcrumbsComponent}"/>
+
             <s:messages/>
 
             <s:errors/>

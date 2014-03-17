@@ -2,9 +2,7 @@ package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.SampleRequest;
-import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.ProjectFacade;
@@ -17,8 +15,6 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -45,7 +41,16 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     })
     private Project project;
 
+    public static Breadcrumb getProjectsBreadcrumb(boolean active) {
+        return new Breadcrumb(ProjectActionBean.class.getName(),
+                "myProjects", false, "cz.bbmri.action.project.ProjectActionBean.projects", active);
+    }
 
+    public static Breadcrumb getDetailBreadcrumb(boolean active, Long projectId) {
+          return new Breadcrumb(ProjectActionBean.class.getName(),
+                  "detail", false, "cz.bbmri.action.project.ProjectActionBean.project", active,
+                  "projectId", projectId);
+      }
 
     public ProjectActionBean() {
         setPagination(new MyPagedListHolder<Project>(new ArrayList<Project>()));
@@ -62,6 +67,9 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("display")
     @RolesAllowed({"administrator", "developer"})
     public Resolution display() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(true));
+
         initiatePagination();
         if (getOrderParam() == null) {
             // default
@@ -78,6 +86,9 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("myProjects")
     @PermitAll
     public Resolution myProjects() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(true));
+
         initiatePagination();
         getPagination().setEvent("myProjects");
         getPagination().setSource(projectFacade.getMyProjectsSorted(
@@ -98,6 +109,10 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("detail")
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution detail() {
+
+        getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(true, projectId));
+
         return new ForwardResolution(PROJECT_DETAIL_GENERAL);
     }
 
@@ -105,10 +120,10 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution update() {
         if (!projectFacade.updateProject(project, getContext().getMyId())) {
-            return new ForwardResolution(PROJECT_DETAIL_GENERAL).addParameter("projectId", projectId);
+            return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
         successMsg(null);
-        return new RedirectResolution(PROJECT_DETAIL_GENERAL).addParameter("projectId", projectId);
+        return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
     @DontValidate

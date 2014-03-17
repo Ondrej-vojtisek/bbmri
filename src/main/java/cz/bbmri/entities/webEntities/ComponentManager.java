@@ -37,12 +37,17 @@ public class ComponentManager {
 
     private static final String SORTABLE_HEADER = "/sortableHeader.jsp";
 
+    private static final String BREADCRUMBS = "/webpages/component/detail/breadcrumb/breadcrumb.jsp";
+
 
     // for instance view of all Samples
     private String primaryObjectName;
 
     // for instance banner of biobank
     private String secondaryObjectName;
+
+    // In create wizard there is no need to define any object name
+    public ComponentManager() {}
 
     public ComponentManager(String primaryObjectName) {
         this.primaryObjectName = primaryObjectName;
@@ -89,6 +94,10 @@ public class ComponentManager {
     public String getSecondaryRibbon() {
         return COMPONENT_PATH + secondaryObjectName + RIBBON;
     }
+
+    public String getBreadcrumbsComponent() {
+            return BREADCRUMBS;
+        }
 
 
 }

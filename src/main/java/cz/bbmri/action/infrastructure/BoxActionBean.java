@@ -1,7 +1,9 @@
 package cz.bbmri.action.infrastructure;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.entities.infrastructure.*;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -58,6 +60,12 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     private Box box;
 
     private Long rackId;
+
+    public static Breadcrumb getBoxBreadcrumb(boolean active, Long boxId) {
+        return new Breadcrumb(BoxActionBean.class.getName(),
+                "detail", false, "cz.bbmri.entities.infrastructure.Box.box", active,
+                "boxId", boxId);
+    }
 
     public BoxActionBean() {
         //default
@@ -154,6 +162,19 @@ public class BoxActionBean extends PermissionActionBean<Position> {
             }
         }
 
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
+
+        if (getIsRackBox()) {
+            getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false,
+                    getRackBox().getRack().getContainer().getId()));
+            getBreadcrumbs().add(RackActionBean.getBreadcrumb(true,
+                    getRackBox().getRack().getId()));
+        }
+
+        getBreadcrumbs().add(BoxActionBean.getBoxBreadcrumb(true, boxId));
+
         getPagination().setEvent("detail");
         getPagination().setSource(new ArrayList<Position>(getBox().getPositions()));
 
@@ -171,7 +192,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackBoxResolution() {
         Rack rack = biobankFacade.getRack(rackId);
-        if(rack != null){
+        if (rack != null) {
             setBiobankId(rack.getContainer().getInfrastructure().getBiobank().getId());
         }
         return new ForwardResolution(INFRASTRUCTURE_CREATE_RACKBOX);

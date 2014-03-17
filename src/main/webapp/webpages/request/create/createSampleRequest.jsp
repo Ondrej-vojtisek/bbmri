@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="createSampleQuestionBean" beanclass="cz.bbmri.action.request.CreateSampleQuestion"/>
+
 <s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="">
@@ -22,7 +22,7 @@
                             <f:message key="cancel"/>
                         </s:link>
 
-                    <security:allowed bean="createSampleQuestionBean" event="confirmSampleRequest">
+                    <security:allowed event="confirmSampleRequest">
                         <s:submit name="confirmSampleRequest" class="btn btn-primary">
                             <s:param name="projectId" value="${actionBean.projectId}"/>
                         </s:submit>

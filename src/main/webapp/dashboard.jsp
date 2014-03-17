@@ -9,8 +9,7 @@
 
     <s:layout-component name="body">
 
-
-        <%--<div id="my-timeline"></div>--%>
+        <div id="my-timeline"></div>
 
         <s:form beanclass="cz.bbmri.action.DashboardActionBean">
 

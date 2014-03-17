@@ -1,8 +1,11 @@
 package cz.bbmri.action.base;
-
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +23,16 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
     private boolean desc;
 
     private MyPagedListHolder<T> pagination;
+
+    private List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
+
+    public List<Breadcrumb> getBreadcrumbs() {
+        return breadcrumbs;
+    }
+
+    public void setBreadcrumbs(List<Breadcrumb> breadcrumbs) {
+        this.breadcrumbs = breadcrumbs;
+    }
 
     public void initiatePagination() {
         if (getPage() != null) {

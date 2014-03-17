@@ -1,9 +1,11 @@
 package cz.bbmri.action.infrastructure;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.BiobankFacade;
@@ -31,6 +33,12 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     private MyPagedListHolder<StandaloneBox> boxesPagination;
 
     private ComponentManager boxComponentManager;
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(InfrastructureActionBean.class.getName(),
+                "all", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy", active,
+        "biobankId", biobankId);
+    }
 
     public ComponentManager getBoxComponentManager() {
         return boxComponentManager;
@@ -71,8 +79,6 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     }
 
     public InfrastructureActionBean() {
-        //default
-
         boxesPagination = new MyPagedListHolder<StandaloneBox>(new ArrayList<StandaloneBox>());
         boxComponentManager = new ComponentManager(
                 ComponentManager.BOX_DETAIL,
@@ -83,8 +89,8 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
         setPagination(new MyPagedListHolder<Container>(new ArrayList<Container>()));
         setComponentManager(new ComponentManager(
-                        ComponentManager.CONTAINER_DETAIL,
-                        ComponentManager.BIOBANK_DETAIL));
+                ComponentManager.CONTAINER_DETAIL,
+                ComponentManager.BIOBANK_DETAIL));
         getPagination().setIdentifierParam("biobankId");
 
     }
@@ -122,6 +128,11 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     @HandlesEvent("all")
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution all() {
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId.longValue(), getBiobank()));
+        getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(true, biobankId));
+
         if (getBiobank().getInfrastructure() == null) {
             biobankFacade.createInfrastructure(biobankId);
             return new RedirectResolution(INFRASTRUCTURE_DETAIL)
