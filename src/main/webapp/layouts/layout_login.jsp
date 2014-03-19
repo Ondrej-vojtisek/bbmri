@@ -22,7 +22,7 @@
             </a>
 
             <div class="nav-collapse collapse">
-                <%@include file="navigation/navbar.jsp" %>
+                <s:layout-render name="/layouts/navigation/navbar.jsp"/>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">
             <img src="../images/recamo_logo.png" alt="recamo" style="margin-right: 30px;">
-            <img src="../images/bbmri_logo.gif" alt="bbmri" style="margin-left: 30px;">
+            <img src="../images/BBMRIERIC_final.png" alt="bbmri" style="margin-left: 30px;">
         </div>
     </a>
 
