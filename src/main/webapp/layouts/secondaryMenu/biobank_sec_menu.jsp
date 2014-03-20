@@ -3,6 +3,8 @@
 
 <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 
+
+<s:layout-definition>
 <%-- -------------------------------------------------------------------- --%>
 
 
@@ -27,3 +29,4 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
+</s:layout-definition>

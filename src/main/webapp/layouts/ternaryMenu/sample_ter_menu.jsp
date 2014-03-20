@@ -6,6 +6,8 @@
 <s:useActionBean var="sampleReservationsBean" beanclass="cz.bbmri.action.sample.SampleReservationsActionBean"/>
 <s:useActionBean var="samplePositionsBean" beanclass="cz.bbmri.action.sample.SamplePositionsActionBean"/>
 
+<s:layout-definition>
+
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="sampleBean" event="detail">
@@ -47,3 +49,5 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+</s:layout-definition>

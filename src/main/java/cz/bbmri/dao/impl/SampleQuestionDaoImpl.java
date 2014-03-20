@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
+public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> implements SampleQuestionDao {
 
     public List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc) {
         Query query = null;

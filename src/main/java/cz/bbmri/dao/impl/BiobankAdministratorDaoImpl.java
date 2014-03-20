@@ -18,7 +18,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrator> implements BiobankAdministratorDao {
+public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrator, Long>
+        implements BiobankAdministratorDao {
 
     public boolean contains(Biobank biobank, User user) {
         BiobankAdministrator pa = get(biobank, user);

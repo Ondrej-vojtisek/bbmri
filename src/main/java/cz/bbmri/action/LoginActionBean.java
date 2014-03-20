@@ -20,7 +20,6 @@ import javax.annotation.security.PermitAll;
  * To change this template use File | Settings | File Templates.
  */
 
-//@UrlBinding("/login/{$event}")
 @HttpCache(allow = false)
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean implements ValidationErrorHandler {

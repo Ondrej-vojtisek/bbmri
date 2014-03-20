@@ -19,7 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
+public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
 
 
     public List<StandaloneBox> getSorted(Biobank biobank, String orderByParam, boolean desc) {

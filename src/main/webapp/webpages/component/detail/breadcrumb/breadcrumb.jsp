@@ -38,7 +38,7 @@
                     </c:if>
 
                     <%--Divider between breadcrumbs--%>
-                    <span class="divider">></span>
+                    <span class="divider">/</span>
                 </li>
             </c:forEach>
         </ul>

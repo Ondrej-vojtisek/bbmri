@@ -1,13 +1,8 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.Project;
-import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.User;
-import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,6 +110,46 @@ public class FacadeUtils extends BasicFacade {
             }
         }
         return SUCCESS;
+    }
+
+
+    public static List<File> getFiles(String path) {
+
+        System.out.println("Check files for path: " + path);
+
+        File dir = new File(path);
+        List<File> files = new ArrayList<File>();
+        if (!dir.exists()) {
+
+            System.out.println("dir doesnt exist");
+
+            // not success
+            return files;
+        }
+
+        if (!dir.isDirectory()) {
+
+            System.out.println("not directory");
+
+            // not success
+            return files;
+        }
+
+
+        for (File file : dir.listFiles()){
+
+            System.out.println("File: " + file);
+
+            // only files not directories
+            if(file.isFile()){
+
+                System.out.println("File addded ");
+
+                files.add(file);
+            }
+        }
+
+        return files;
     }
 
     public static boolean folderExists(String path) {

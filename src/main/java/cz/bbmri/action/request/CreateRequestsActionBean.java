@@ -1,13 +1,10 @@
 package cz.bbmri.action.request;
 
-import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.action.project.ProjectRequestActionBean;
 import cz.bbmri.action.reservation.ReservationActionBean;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.SampleQuestion;
-import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.RequestFacade;
@@ -130,6 +127,9 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("confirmSelected") /* Necessary for stripes security tag*/
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution confirmSelected() {
+
+        logger.debug("SelectedSamples: " + selectedSamples);
+        logger.debug("sampleQuestionId: " + getSampleQuestionId());
 
         if (!requestFacade.createRequests(selectedSamples,
                 getSampleQuestionId(),

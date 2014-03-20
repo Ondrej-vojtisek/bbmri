@@ -3,6 +3,9 @@
 
 <s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
 
+
+<s:layout-definition>
+
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="userBean" event="detail">
@@ -38,3 +41,18 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+<%--<security:allowed bean="userBean" event="mySettingResolution">--%>
+    <%--<li <c:if test="${ternarymenu == 'setting'}"> class="active" </c:if>>--%>
+        <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
+                <%--event="mySettingResolution">--%>
+            <%--<s:param name="userId" value="${userBean.userId}"/>--%>
+            <%--<f:message key="cz.bbmri.action.user.UserActionBean.setting"/>--%>
+        <%--</s:link>--%>
+    <%--</li>--%>
+<%--</security:allowed>--%>
+
+<%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+
+</s:layout-definition>
+

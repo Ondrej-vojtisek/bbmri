@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Repository
-public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
+public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleDao {
 
 
     public List<Sample> getSorted(Biobank biobank, String orderByParam, boolean desc) {

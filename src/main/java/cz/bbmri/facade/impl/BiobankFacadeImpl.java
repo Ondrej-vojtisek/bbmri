@@ -12,8 +12,10 @@ import cz.bbmri.service.exceptions.LastManagerException;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,9 +121,49 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         }
 
         // Folder for the biobank
-        if (FacadeUtils.createFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobank.getId().toString(), errors) != SUCCESS) {
+        if (FacadeUtils.createFolder(bbmriPath + biobank.getBiobankFolderPath(), errors)
+                != SUCCESS) {
 
             logger.debug("CreateBiobank - Create folder for specific biobank failed");
+
+            biobankService.remove(biobank.getId());
+            return false;
+        }
+
+        // Folder for the biobank/monitoring_data
+        if (FacadeUtils.createFolder(bbmriPath + biobank.getBiobankMonitoringFolder(), errors)!= SUCCESS) {
+
+            logger.debug("CreateBiobank - Create folder for monitoring data failed");
+
+            biobankService.remove(biobank.getId());
+            return false;
+        }
+
+        // Folder for the biobank/patient_data
+        if (FacadeUtils.createFolder(bbmriPath + biobank.getBiobankPatientDataFolder(), errors)
+                != SUCCESS) {
+
+            logger.debug("CreateBiobank - Create folder for patient data failed");
+
+            biobankService.remove(biobank.getId());
+            return false;
+        }
+
+        // Folder for the biobank/monitoring_data_archive
+        if (FacadeUtils.createFolder(bbmriPath + biobank.getBiobankMonitoringArchiveFolder(), errors)
+                != SUCCESS) {
+
+            logger.debug("CreateBiobank - Create folder for archive of patient data failed");
+
+            biobankService.remove(biobank.getId());
+            return false;
+        }
+
+        // Folder for the biobank/patient_data_archive
+        if (FacadeUtils.createFolder(bbmriPath + biobank.getBiobankPatientArchiveDataFolder(), errors)
+                != SUCCESS) {
+
+            logger.debug("CreateBiobank - Create folder for archive of monitoring data failed");
 
             biobankService.remove(biobank.getId());
             return false;
@@ -169,7 +211,7 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         try {
 
             if (biobankService.remove(biobankId)) {
-                result = FacadeUtils.recursiveDeleteFolder(bbmriPath + Biobank.BIOBANK_FOLDER_PATH + biobankId.toString(), errors) == SUCCESS;
+                result = FacadeUtils.recursiveDeleteFolder(bbmriPath + biobankDB.getBiobankFolderPath(), errors) == SUCCESS;
             }
 
         } catch (Exception ex) {
@@ -504,34 +546,24 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return containerService.getSortedContainers(biobankId, orderByParam, desc);
     }
 
-    public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc){
+    public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc) {
         return rackService.getSortedRacks(biobankId, orderByParam, desc);
     }
 
-    public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc){
+    public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc) {
         return boxService.getSortedStandAloneBoxes(biobankId, orderByParam, desc);
     }
 
-    public List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc){
+    public List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc) {
         return boxService.getSortedRackBoxes(rackId, orderByParam, desc);
     }
 
-//
-//    public List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc) {
-//        return sampleService.allOrderedBy(orderByParam, desc);
+//    @Scheduled(cron = "1 * * * * *")
+//    public void checkBiobankFolders(){
+//        for(Biobank biobank : all()){
+//            List<File> files = FacadeUtils.getFiles(biobank.getBiobankFolderPath());
+//            logger.debug("Biobank: " + biobank.getName() + " files: " + files);
+//        }
 //    }
-
-//    public boolean createRack(Long biobankId, Rack rack){
-//
-//    }
-//
-//    public boolean createBox(Long rackId, Box box){
-//
-//    }
-//
-//    public boolean createAloneBox(Long biobankId, Box box){
-//
-//    }
-
 
 }

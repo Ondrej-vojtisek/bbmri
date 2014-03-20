@@ -8,6 +8,8 @@
         <%--beanclass="cz.bbmri.action.user.UserActionBean"><f:message--%>
         <%--key="all"/></s:link></li>--%>
 
+<s:layout-definition>
+
 <security:allowed bean="userBean" event="display">
     <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>><s:link
             beanclass="${userBean.name}"><f:message
@@ -25,3 +27,5 @@
             beanclass="${userFindBean.name}" event="find"><f:message
             key="user.find"/></s:link></li>
 </security:allowed>
+
+</s:layout-definition>

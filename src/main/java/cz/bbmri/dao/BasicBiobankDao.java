@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 14:48
  * To change this template use File | Settings | File Templates.
  */
-public interface BasicBiobankDao<T> extends BasicDao<T> {
+public interface BasicBiobankDao<T> extends BasicDao<T , Long> {
 
     List<T> getSorted(Biobank biobank, String orderByParam, boolean desc);
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectDao extends BasicDao<Project> {
+public interface ProjectDao extends BasicDao<Project, Long> {
 
     List<Project> getAllByProjectState(ProjectState projectState);
 

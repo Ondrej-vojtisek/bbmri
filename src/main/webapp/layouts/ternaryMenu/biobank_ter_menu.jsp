@@ -8,6 +8,8 @@
 <s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
 <s:useActionBean var="biobankAdministratorsBean" beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean"/>
 
+<s:layout-definition>
+
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="biobankBean" event="detail">
@@ -71,3 +73,5 @@
     </li>
 
 <%-- -------------------------------------------------------------------- --%>
+
+</s:layout-definition>

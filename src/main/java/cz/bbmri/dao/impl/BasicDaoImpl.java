@@ -18,7 +18,7 @@ import java.util.List;
  * Time: 16:33
  * To change this template use File | Settings | File Templates.
  */
-public abstract class BasicDaoImpl<T> implements BasicDao<T> {
+public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 
     @PersistenceContext
     protected EntityManager em;
@@ -49,7 +49,7 @@ public abstract class BasicDaoImpl<T> implements BasicDao<T> {
         em.merge(t);
     }
 
-    public T get(Long id) {
+    public T get(E id) {
         notNull(id);
         return em.find(entityClass, id);
     }

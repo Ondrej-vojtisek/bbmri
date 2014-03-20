@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 20:33
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
+public interface SampleQuestionDao extends BasicDao<SampleQuestion, Long> {
 
     List<SampleQuestion> getSampleRequests(Biobank biobank, RequestState requestState);
 

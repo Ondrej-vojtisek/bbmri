@@ -6,6 +6,8 @@
 <s:useActionBean var="projectRequestsBean" beanclass="cz.bbmri.action.project.ProjectRequestActionBean"/>
 <s:useActionBean var="projectAdministratorsBean" beanclass="cz.bbmri.action.project.ProjectAdministratorsActionBean"/>
 
+<s:layout-definition>
+
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="projectBean" event="detail">
@@ -50,3 +52,5 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+</s:layout-definition>

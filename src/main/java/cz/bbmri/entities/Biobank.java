@@ -5,7 +5,10 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
 import javax.persistence.*;
 import java.io.File;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +22,11 @@ import java.util.*;
 public class Biobank implements Serializable {
 
     public final static String BIOBANK_FOLDER = File.separator + "biobank_files";
-    public final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
+    private final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
+    private final static String PATIENT_DATA_FOLDER = "patient_data";
+    private final static String MONITORING_DATA_FOLDER = "monitoring_data";
+    private final static String PATIENT_DATA_ARCHIVE_FOLDER = "patient_data_archive";
+    private final static String MONITORING_DATA_ARCHIVE_FOLDER = "monitoring_data_archive";
 
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +34,8 @@ public class Biobank implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "ID", nullable = false)
     private Long id;
+
+
 
     private String name;
 
@@ -126,6 +135,42 @@ public class Biobank implements Serializable {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public String getBiobankFolderPath() {
+        if (this.getId() == null) {
+            return null;
+        }
+
+        return Biobank.BIOBANK_FOLDER_PATH + this.getId().toString();
+    }
+
+    public String getBiobankMonitoringFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.MONITORING_DATA_FOLDER;
+    }
+
+    public String getBiobankMonitoringArchiveFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.MONITORING_DATA_ARCHIVE_FOLDER;
+    }
+
+    public String getBiobankPatientDataFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.PATIENT_DATA_FOLDER;
+    }
+
+    public String getBiobankPatientArchiveDataFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.PATIENT_DATA_ARCHIVE_FOLDER;
     }
 
 //    public int compareTo(Biobank compareBiobank) {

@@ -1,11 +1,11 @@
 package cz.bbmri.entities.infrastructure;
 
 
+import cz.bbmri.entities.infrastructure.monitoring.Monitoring;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +32,9 @@ public class Container implements Serializable {
 
     @OneToMany(mappedBy = "container", fetch = FetchType.EAGER)
     private Set<Rack> racks = new HashSet<Rack>();
+
+    @OneToOne(mappedBy = "container")
+    private Monitoring monitoring;
 
     private String location;
 
@@ -112,6 +115,14 @@ public class Container implements Serializable {
             return null;
         }
         return racks.size();
+    }
+
+    public Monitoring getMonitoring() {
+        return monitoring;
+    }
+
+    public void setMonitoring(Monitoring monitoring) {
+        this.monitoring = monitoring;
     }
 
     @Override

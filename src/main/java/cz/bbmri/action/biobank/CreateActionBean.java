@@ -42,6 +42,11 @@ public class CreateActionBean extends FindActionBean {
     })
     private Biobank biobank;
 
+    public CreateActionBean() {
+             //default
+             setComponentManager(new ComponentManager());
+         }
+
     public Biobank getBiobank() {
         return biobank;
     }

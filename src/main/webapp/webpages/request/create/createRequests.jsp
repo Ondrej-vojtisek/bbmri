@@ -115,6 +115,7 @@
             <div class="form-actions">
                 <s:submit name="confirmSelected" class="btn btn-primary">
                     <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                    <s:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
                 </s:submit>
             </div>
 

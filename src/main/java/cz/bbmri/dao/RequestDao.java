@@ -9,6 +9,6 @@ import cz.bbmri.entities.Request;
  * Time: 10:15
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestDao extends BasicDao<Request> {
+public interface RequestDao extends BasicDao<Request, Long> {
 
 }

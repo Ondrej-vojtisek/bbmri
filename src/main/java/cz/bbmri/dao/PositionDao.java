@@ -9,5 +9,5 @@ import cz.bbmri.entities.infrastructure.Position;
  * Time: 23:50
  * To change this template use File | Settings | File Templates.
  */
-public interface PositionDao extends BasicDao<Position> {
+public interface PositionDao extends BasicDao<Position, Long> {
 }

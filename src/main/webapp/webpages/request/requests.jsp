@@ -15,7 +15,7 @@
                     <s:link beanclass="cz.bbmri.action.request.CreateRequestsActionBean" event="display"
                             class="btn btn-primary btnMargin">
                         <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                        <s:param name="biobankId" value="${actionBean.biobankId}"/>
+                        <s:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
                         <f:message key="cz.bbmri.action.request.CreateRequests.create"/>
                     </s:link>
                 </c:if>

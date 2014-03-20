@@ -43,7 +43,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     public UserActionBean() {
         setPagination(new MyPagedListHolder<User>(new ArrayList<User>()));
         //default
-        setComponentManager(new ComponentManager());
+        setComponentManager(new ComponentManager(ComponentManager.USER_DETAIL));
     }
 
     public static Breadcrumb getBreadcrumb(boolean active) {
@@ -72,6 +72,12 @@ public class UserActionBean extends ComponentActionBean<User> {
                 "changePasswordView", false, "cz.bbmri.action.user.UserActionBean.password", active,
                 "userId", userId);
     }
+
+    public static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
+          return new Breadcrumb(UserActionBean.class.getName(),
+                  "mySettingResolution", false, "cz.bbmri.action.user.UserActionBean.setting", active,
+                  "userId", userId);
+      }
 
 
     @Validate(on = {"changePassword"}, required = true)
@@ -311,6 +317,16 @@ public class UserActionBean extends ComponentActionBean<User> {
 
 
         return new ForwardResolution(USER_PASSWORD).addParameter("userId", userId);
+    }
+
+    @DontValidate
+    @HandlesEvent("mySettingResolution")
+    @RolesAllowed({"user if ${isMyAccount}"})
+    public Resolution mySettingResolution() {
+
+        getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(false, getLoggedUser()));
+        getBreadcrumbs().add(UserActionBean.getSettingBreadcrumb(true, getContext().getMyId()));
+        return new ForwardResolution(USER_SETTING).addParameter("userId", userId);
     }
 
 }

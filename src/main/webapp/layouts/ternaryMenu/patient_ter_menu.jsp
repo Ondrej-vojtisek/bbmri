@@ -3,6 +3,8 @@
 
 <s:useActionBean var="patientBean" beanclass="cz.bbmri.action.patient.PatientActionBean"/>
 
+<s:layout-definition>
+
 <%-- -------------------------------------------------------------------- --%>
 
 <security:allowed bean="patientBean" event="detail">
@@ -32,4 +34,8 @@
             <f:message key="cz.bbmri.action.patient.PatientActionBean.modulelts"/>
         </s:link></li>
 </security:allowed>
+
+<%-- -------------------------------------------------------------------- --%>
+
+</s:layout-definition>
 

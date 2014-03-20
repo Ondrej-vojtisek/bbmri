@@ -18,6 +18,8 @@
         <class>cz.bbmri.entities.infrastructure.Infrastructure</class>
         <class>cz.bbmri.entities.infrastructure.Position</class>
         <class>cz.bbmri.entities.infrastructure.Rack</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.Monitoring</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.TemperatureRecord</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
@@ -31,7 +33,9 @@
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
         <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
+        <class>cz.bbmri.entities.systemAdministration.UserSetting</class>
         <class>cz.bbmri.entities.User</class>
+
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
@@ -62,6 +66,8 @@
         <class>cz.bbmri.entities.infrastructure.Infrastructure</class>
         <class>cz.bbmri.entities.infrastructure.Position</class>
         <class>cz.bbmri.entities.infrastructure.Rack</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.Monitoring</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.TemperatureRecord</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
@@ -75,6 +81,7 @@
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
         <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
+        <class>cz.bbmri.entities.systemAdministration.UserSetting</class>
         <class>cz.bbmri.entities.User</class>
 
         <properties>

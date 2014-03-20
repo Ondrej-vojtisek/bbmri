@@ -32,6 +32,7 @@ public class Links {
     protected static final String USER_ROLES = USER + "roles.jsp";
     protected static final String USER_FIND = USER + "find.jsp";
     protected static final String USER_PASSWORD = USER + "password.jsp";
+    protected static final String USER_SETTING = USER + "mySetting.jsp";
 
     // BIOBANK
     private static final String BIOBANK = BASIC_PATH + "/biobank/";

@@ -26,9 +26,9 @@
                 </a>
 
                 <div class="nav-collapse collapse">
-                    <%@include file="navigation/navbar.jsp" %>
+                    <s:layout-render name="/layouts/navigation/navbar.jsp"/>
                     <ul class="nav">
-                        <%@include file="primaryMenu/primaryMenu.jsp" %>
+                        <s:layout-render name="/layouts/primaryMenu/primaryMenu.jsp"/>
                     </ul>
                 </div>
             </div>
@@ -48,28 +48,41 @@
 
             <c:if test="${not empty ternarymenu}">
                 <ul class="nav nav-tabs">
+
                     <c:if test="${primarymenu == 'biobank'}">
 
                         <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
                                          record="${actionBean.biobank}"/>
 
-                        <%@include file="ternaryMenu/biobank_ter_menu.jsp" %>
+                        <s:layout-render name="/layouts/ternaryMenu/biobank_ter_menu.jsp"/>
+
                     </c:if>
+
                     <c:if test="${primarymenu == 'user'}">
-                        <%@include file="ternaryMenu/user_ter_menu.jsp" %>
+
+                        <s:layout-render name="/layouts/ternaryMenu/user_ter_menu.jsp"/>
+
                     </c:if>
+
                     <c:if test="${primarymenu == 'project'}">
 
                         <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
                                          record="${actionBean.project}"/>
 
-                        <%@include file="ternaryMenu/project_ter_menu.jsp" %>
+                        <s:layout-render name="/layouts/ternaryMenu/project_ter_menu.jsp"/>
+
                     </c:if>
+
                     <c:if test="${primarymenu == 'patient'}">
-                        <%@include file="ternaryMenu/patient_ter_menu.jsp" %>
+
+                        <s:layout-render name="/layouts/ternaryMenu/patient_ter_menu.jsp"/>
+
                     </c:if>
+
                     <c:if test="${primarymenu == 'sample'}">
-                        <%@include file="ternaryMenu/sample_ter_menu.jsp" %>
+
+                        <s:layout-render name="/layouts/ternaryMenu/sample_ter_menu.jsp"/>
+
                     </c:if>
 
                 </ul>
@@ -113,7 +126,7 @@
 
 
     </script>
-    <s:layout-component name="script"/>
+        <s:layout-component name="script"/>
     </body>
 
     </html>

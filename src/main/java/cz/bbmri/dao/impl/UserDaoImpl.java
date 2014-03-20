@@ -17,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
+public class UserDaoImpl extends BasicDaoImpl<User, Long> implements UserDao {
 
     @SuppressWarnings("unchecked")
     public List<User> findUser(User user){

@@ -16,7 +16,7 @@ import javax.persistence.Query;
  */
 
 @Repository
-public class BiobankDaoImpl extends BasicDaoImpl<Biobank> implements BiobankDao {
+public class BiobankDaoImpl extends BasicDaoImpl<Biobank, Long> implements BiobankDao {
 
     public Biobank getBiobankByName(String name) {
         notNull(name);

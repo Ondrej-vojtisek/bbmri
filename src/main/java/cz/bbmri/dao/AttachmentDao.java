@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 21:51
  * To change this template use File | Settings | File Templates.
  */
-public interface AttachmentDao extends BasicDao<Attachment> {
+public interface AttachmentDao extends BasicDao<Attachment, Long> {
 
     List<Attachment> getAttachmentsByProject(Project project);
 

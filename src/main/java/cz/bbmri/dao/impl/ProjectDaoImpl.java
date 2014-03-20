@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Repository
-public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao {
+public class ProjectDaoImpl extends BasicDaoImpl<Project, Long> implements ProjectDao {
 
     @SuppressWarnings("unchecked")
     public List<Project> getAllByProjectState(ProjectState projectState) {

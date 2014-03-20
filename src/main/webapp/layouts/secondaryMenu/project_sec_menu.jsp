@@ -3,6 +3,7 @@
 
 <s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
 
+<s:layout-definition>
 <%-- -------------------------------------------------------------------- --%>
 
 <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if> ><s:link
@@ -24,3 +25,5 @@
 </security:allowed>
 
 <%-- -------------------------------------------------------------------- --%>
+
+</s:layout-definition>

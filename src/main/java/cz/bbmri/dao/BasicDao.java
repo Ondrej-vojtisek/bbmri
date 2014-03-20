@@ -11,7 +11,7 @@ import java.util.List;
  * Date: 22.7.13
  * Time: 12:52
  */
-public interface BasicDao<T> {
+public interface BasicDao<T, E> {
 
     /**
      * Retrieves all objects of given type stored in database - SELECT * FROM T;
@@ -27,7 +27,7 @@ public interface BasicDao<T> {
      * @param id - unique identifier of object which we want to retrieve from DB
      * @return object of given type T
      */
-      T get(Long id);
+      T get(E id);
 
     /**
      * Insert instance of object T into database.

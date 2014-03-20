@@ -15,7 +15,7 @@ import java.util.List;
  * Time: 13:11
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankAdministratorDao extends BasicDao<BiobankAdministrator> {
+public interface BiobankAdministratorDao extends BasicDao<BiobankAdministrator, Long> {
 
     boolean contains(Biobank biobank, User user);
 

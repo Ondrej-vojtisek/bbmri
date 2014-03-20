@@ -9,7 +9,7 @@ import cz.bbmri.entities.Biobank;
  * Time: 12:14
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankDao extends BasicDao<Biobank> {
+public interface BiobankDao extends BasicDao<Biobank, Long> {
 
     Biobank getBiobankByName(String name);
 

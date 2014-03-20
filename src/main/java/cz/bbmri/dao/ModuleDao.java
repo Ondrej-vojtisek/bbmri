@@ -9,5 +9,5 @@ import cz.bbmri.entities.Module;
  * Time: 13:37
  * To change this template use File | Settings | File Templates.
  */
-public interface ModuleDao extends BasicDao<Module> {
+public interface ModuleDao extends BasicDao<Module, Long> {
 }

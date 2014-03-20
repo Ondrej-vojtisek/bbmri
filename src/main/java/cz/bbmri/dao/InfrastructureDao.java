@@ -10,5 +10,5 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
  * Time: 23:43
  * To change this template use File | Settings | File Templates.
  */
-public interface InfrastructureDao extends BasicDao<Infrastructure> {
+public interface InfrastructureDao extends BasicDao<Infrastructure, Long> {
 }

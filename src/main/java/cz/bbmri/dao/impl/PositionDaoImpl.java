@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class PositionDaoImpl extends BasicDaoImpl<Position> implements PositionDao {
+public class PositionDaoImpl extends BasicDaoImpl<Position, Long> implements PositionDao {
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class RackDaoImpl extends BasicDaoImpl<Rack> implements RackDao {
+public class RackDaoImpl extends BasicDaoImpl<Rack, Long> implements RackDao {
 
     public List<Rack> getSorted(Biobank biobank, String orderByParam, boolean desc) {
         Query query = null;

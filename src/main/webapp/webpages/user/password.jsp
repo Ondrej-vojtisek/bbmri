@@ -2,11 +2,9 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
-<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
-                 secondarymenu="user_all"
                  ternarymenu="password">
 
     <s:layout-component name="body">

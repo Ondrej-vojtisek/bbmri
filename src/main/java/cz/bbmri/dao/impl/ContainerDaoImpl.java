@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class ContainerDaoImpl extends BasicDaoImpl<Container> implements ContainerDao {
+public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements ContainerDao {
 
     public List<Container> getSorted(Biobank biobank, String orderByParam, boolean desc) {
         Query query = null;

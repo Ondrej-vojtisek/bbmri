@@ -69,6 +69,8 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc);
 
+//    void checkBiobankFolders();
+
  //   List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc);
 
 

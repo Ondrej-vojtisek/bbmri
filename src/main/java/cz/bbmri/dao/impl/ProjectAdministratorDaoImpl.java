@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrator> implements ProjectAdministratorDao {
+public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrator, Long> implements ProjectAdministratorDao {
 
     public boolean contains(Project project, User user) {
         ProjectAdministrator pa = get(project, user);

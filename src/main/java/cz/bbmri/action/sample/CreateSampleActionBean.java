@@ -11,6 +11,7 @@ import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.entities.sample.field.SampleNos;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
@@ -36,6 +37,12 @@ import javax.annotation.security.RolesAllowed;
 public class CreateSampleActionBean extends PermissionActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+
+    public CreateSampleActionBean() {
+         //default
+         setComponentManager(new ComponentManager());
+     }
 
     @SpringBean
     private SampleFacade sampleFacade;

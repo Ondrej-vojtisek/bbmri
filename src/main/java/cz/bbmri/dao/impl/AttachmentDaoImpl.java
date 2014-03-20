@@ -17,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements AttachmentDao {
+public class AttachmentDaoImpl extends BasicDaoImpl<Attachment, Long> implements AttachmentDao {
 
     @SuppressWarnings("unchecked")
     public List<Attachment> getAttachmentsByProject(Project project) {

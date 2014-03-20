@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 12:57
  * To change this template use File | Settings | File Templates.
  */
-public interface NotificationDao extends BasicDao<Notification>{
+public interface NotificationDao extends BasicDao<Notification, Long>{
 
     List<Notification> getUnread(User user);
 }

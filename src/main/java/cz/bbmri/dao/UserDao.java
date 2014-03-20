@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 12:21
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDao extends BasicDao<User>{
+public interface UserDao extends BasicDao<User, Long>{
 
    /*
     List<User> findUserByEmail(String email);

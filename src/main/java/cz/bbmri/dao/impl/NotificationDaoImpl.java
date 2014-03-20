@@ -16,7 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class NotificationDaoImpl extends BasicDaoImpl<Notification> implements NotificationDao {
+public class NotificationDaoImpl extends BasicDaoImpl<Notification, Long> implements NotificationDao {
 
    public List<Notification> getUnread(User user){
        Query query = em.createQuery("SELECT p FROM Notification p " +

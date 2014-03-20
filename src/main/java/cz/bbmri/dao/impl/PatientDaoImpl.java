@@ -17,7 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class PatientDaoImpl extends BasicDaoImpl<Patient> implements PatientDao {
+public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements PatientDao {
 
 
     public List<Patient> getSorted(Biobank biobank, String orderByParam, boolean desc) {

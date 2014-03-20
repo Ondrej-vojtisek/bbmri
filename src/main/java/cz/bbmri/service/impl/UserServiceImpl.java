@@ -6,6 +6,7 @@ import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +47,13 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Autowired
     private NotificationDao notificationDao;
 
+    @Autowired
+    private UserSettingDao userSettingDao;
+
     public User create(User user) {
         user.setCreated(new Date());
         user.getSystemRoles().add(SystemRole.USER);
+        user.setUserSetting(new UserSetting());
         userDao.create(user);
         return user;
     }
@@ -84,6 +89,10 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
                 notification.setUser(null);
                 notificationDao.remove(notification);
             }
+        }
+
+        if(userDB.getUserSetting() != null){
+            userSettingDao.remove(userDB.getUserSetting());
         }
 
         userDao.remove(userDB);

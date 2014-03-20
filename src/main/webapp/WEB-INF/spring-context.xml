@@ -19,6 +19,8 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
     <task:annotation-driven/>
 
+    <context:property-placeholder location="my.properties" ignore-unresolvable="true"/>
+
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

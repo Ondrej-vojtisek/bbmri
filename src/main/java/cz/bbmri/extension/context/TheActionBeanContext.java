@@ -44,11 +44,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 
 
     private static final String MY_ID = "myId";
-//    private static final String SAMPLE_ID = "sample";
-//    private static final String PROJECT_ID = "project";
-//    private static final String BIOBANK_ID = "biobank";
-//    private static final String REQUEST_ID = "request";
-//    private static final String USER_ID = "userId";
 
     private static final String BBMRI_PROPERTIES = "bbmri_general.properties";
     private static final String PROPERTIES_STORAGE_PATH = "StoragePath";

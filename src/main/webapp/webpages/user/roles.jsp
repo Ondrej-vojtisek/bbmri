@@ -9,7 +9,6 @@
 
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
-                 secondarymenu="user_all"
                  ternarymenu="roles">
 
 <s:layout-component name="body">
