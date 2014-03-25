@@ -105,7 +105,7 @@ public class CreateActionBean extends FindActionBean {
     @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
     public Resolution confirmStep3() {
-        if (!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors(), getContext().getPropertiesStoragePath())) {
+        if (!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors())) {
             return new ForwardResolution(BiobankActionBean.class);
         }
 

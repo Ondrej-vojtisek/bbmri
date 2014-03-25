@@ -13,6 +13,7 @@ import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
@@ -32,6 +33,9 @@ import java.util.Set;
  */
 @Controller("projectFacade")
 public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
+
+    @Value("${StoragePath}")
+    private String storagePath;
 
     @Autowired
     private UserService userService;
@@ -109,19 +113,17 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     public Project createProject(Project project,
                                  Long loggedUserId,
-                                 String bbmriPath,
                                  ValidationErrors errors) {
         notNull(project);
         notNull(loggedUserId);
         notNull(errors);
-        notNull(bbmriPath);
 
         project = projectService.create(project, loggedUserId);
 
         if (project != null) {
 
             // If this is the first created instance of Project and Biobank than create cz.bbmri general folder
-            if (!createFolderStructure(bbmriPath, project, errors)) {
+            if (!createFolderStructure(project, errors)) {
                 projectService.remove(project.getId());
                 return null;
             }
@@ -131,13 +133,13 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     }
 
-    private boolean createFolderStructure(String bbmriPath, Project project, ValidationErrors errors) {
+    private boolean createFolderStructure( Project project, ValidationErrors errors) {
 
-        String projectPath = bbmriPath + Attachment.PROJECT_FOLDER;
-        String thisProjectPath = bbmriPath + Attachment.PROJECT_FOLDER_PATH + project.getId().toString();
+        String projectPath = storagePath + Attachment.PROJECT_FOLDER;
+        String thisProjectPath = storagePath + Attachment.PROJECT_FOLDER_PATH + project.getId().toString();
 
-        if (!FacadeUtils.folderExists(bbmriPath)) {
-            if (FacadeUtils.createFolder(bbmriPath, errors) != SUCCESS) {
+        if (!FacadeUtils.folderExists(storagePath)) {
+            if (FacadeUtils.createFolder(storagePath, errors) != SUCCESS) {
                 return false;
             }
         }
@@ -178,10 +180,9 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         return true;
     }
 
-    public boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors, Long loggedUserId) {
+    public boolean removeProject(Long projectId, ValidationErrors errors, Long loggedUserId) {
         notNull(projectId);
         notNull(errors);
-        notNull(bbmriPath);
         notNull(loggedUserId);
 
         Project project = projectService.get(projectId);
@@ -198,7 +199,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
         notificationService.create(users, NotificationType.PROJECT_DELETE, msg, project.getId());
 
-        boolean result = FacadeUtils.recursiveDeleteFolder(bbmriPath +
+        boolean result = FacadeUtils.recursiveDeleteFolder(storagePath +
                 Attachment.PROJECT_FOLDER_PATH +
                 projectId.toString(), errors) == SUCCESS;
 
@@ -252,13 +253,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     public int createAttachment(FileBean fileBean,
                                 AttachmentType attachmentType,
                                 Long projectId,
-                                String bbmriPath,
                                 ValidationErrors errors,
                                 Long loggedUserId) {
         notNull(fileBean);
         notNull(attachmentType);
         notNull(projectId);
-        notNull(bbmriPath);
         notNull(errors);
         notNull(loggedUserId);
 
@@ -269,7 +268,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             return -1;
         }
 
-        if (!createFolderStructure(bbmriPath, projectDB, errors)) {
+        if (!createFolderStructure(projectDB, errors)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.CantCreateFolderStructure"));
             return -1;
         }
@@ -279,7 +278,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         attachment.setContentType(fileBean.getContentType());
         attachment.setSize(fileBean.getSize());
         attachment.setAttachmentType(attachmentType);
-        attachment.setAbsolutePath(bbmriPath +
+        attachment.setAbsolutePath(storagePath +
                 Attachment.PROJECT_FOLDER_PATH +
                 projectId.toString() +
                 File.separator +

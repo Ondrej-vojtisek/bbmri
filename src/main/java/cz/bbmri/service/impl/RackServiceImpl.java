@@ -140,4 +140,8 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
         return rackDao.getSorted(biobankDB, orderByParam, desc);
     }
 
+    public Rack getRackByName(Container container, String name){
+        return rackDao.getByName(container, name);
+    }
+
 }

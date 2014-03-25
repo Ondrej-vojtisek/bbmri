@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface ContainerDao extends BasicBiobankDao<Container>  {
 
+    Container getByName(Biobank biobank, String name);
 }

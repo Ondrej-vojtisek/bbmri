@@ -45,8 +45,8 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     private static final String MY_ID = "myId";
 
-    private static final String BBMRI_PROPERTIES = "bbmri_general.properties";
-    private static final String PROPERTIES_STORAGE_PATH = "StoragePath";
+   // private static final String BBMRI_PROPERTIES = "bbmri_general.properties";
+   // private static final String PROPERTIES_STORAGE_PATH = "StoragePath";
 
 
     /**
@@ -198,26 +198,26 @@ public class TheActionBeanContext extends ActionBeanContext {
         return getHeaderParam(SHIB_SN);
     }
 
-    public String getPropertiesStoragePath() {
-        if (getProperties().get(PROPERTIES_STORAGE_PATH).toString() == null) {
-            getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.TheActionBeanContext.bbmriGeneralNotFound"));
-            return null;
-        }
-        return getProperties().get(PROPERTIES_STORAGE_PATH).toString();
-    }
-
-    private Properties getProperties() {
-        return loadProperties("/" + BBMRI_PROPERTIES);
-    }
-
-
-    private Properties loadProperties(String fileName) {
-        try {
-            // Read the resource and cast them into properties
-            Resource resource = new ClassPathResource(fileName);
-            return PropertiesLoaderUtils.loadProperties(resource);
-        } catch (IOException e) {
-            return new Properties();
-        }
-    }
+//    public String getPropertiesStoragePath() {
+//        if (getProperties().get(PROPERTIES_STORAGE_PATH).toString() == null) {
+//            getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.TheActionBeanContext.bbmriGeneralNotFound"));
+//            return null;
+//        }
+//        return getProperties().get(PROPERTIES_STORAGE_PATH).toString();
+//    }
+//
+//    private Properties getProperties() {
+//        return loadProperties("/" + BBMRI_PROPERTIES);
+//    }
+//
+//
+//    private Properties loadProperties(String fileName) {
+//        try {
+//            // Read the resource and cast them into properties
+//            Resource resource = new ClassPathResource(fileName);
+//            return PropertiesLoaderUtils.loadProperties(resource);
+//        } catch (IOException e) {
+//            return new Properties();
+//        }
+//    }
 }

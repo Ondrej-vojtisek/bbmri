@@ -100,8 +100,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @HandlesEvent("delete")
     @RolesAllowed({"developer"})
     public Resolution delete() {
-        if (!biobankFacade.removeBiobank(biobankId, getContext().getValidationErrors(),
-                getContext().getPropertiesStoragePath(), getContext().getMyId())) {
+        if (!biobankFacade.removeBiobank(biobankId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(),"allBiobanks");
         }
 

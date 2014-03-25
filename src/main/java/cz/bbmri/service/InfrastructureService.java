@@ -13,5 +13,4 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
 public interface InfrastructureService extends BasicService<Infrastructure> {
 
     Infrastructure initialize(Biobank biobank);
-
 }

@@ -42,7 +42,7 @@ public class ReservationActionBean extends PermissionActionBean<SampleReservatio
 
     public static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(ReservationActionBean.class.getName(),
-                "all", false, "cz.bbmri.action.project.ReservationActionBean.reservations", active);
+                "all", false, "cz.bbmri.entities.Reservation.reservations", active);
     }
 
 

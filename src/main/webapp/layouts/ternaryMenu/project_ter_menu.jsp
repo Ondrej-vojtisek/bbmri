@@ -35,7 +35,7 @@
     <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.ProjectAttachmentsActionBean" event="attachmentsResolution">
             <s:param name="projectId" value="${actionBean.projectId}"/>
-            <f:message key="cz.bbmri.action.project.ProjectActionBean.attachments"/>
+            <f:message key="cz.bbmri.entities.Attachment.attachments"/>
         </s:link>
     </li>
 </security:allowed>
@@ -46,7 +46,7 @@
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.project.ProjectRequestActionBean" event="sampleRequestsResolution">
             <s:param name="projectId" value="${actionBean.projectId}"/>
-            <f:message key="cz.bbmri.action.project.ProjectActionBean.sampleRequests"/>
+            <f:message key="cz.bbmri.entities.SampleRequest.sampleRequests"/>
         </s:link>
     </li>
 </security:allowed>

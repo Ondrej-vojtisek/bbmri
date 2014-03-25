@@ -1,5 +1,6 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 
 /**
@@ -11,4 +12,5 @@ import cz.bbmri.entities.infrastructure.Rack;
  */
 public interface RackDao extends BasicBiobankDao<Rack>  {
 
+    Rack getByName(Container container, String name);
 }

@@ -5,6 +5,7 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -36,5 +37,21 @@ public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements C
                 orderParam);
         query.setParameter("biobank", biobank);
         return query.getResultList();
+    }
+
+    public Container getByName(Biobank biobank, String name) {
+        notNull(biobank);
+        notNull(name);
+        Query query = em.createQuery("SELECT p FROM Container p WHERE " +
+                "p.infrastructure.biobank = :biobankParam AND " +
+                "p.name = :nameParam");
+        query.setParameter("biobankParam", biobank);
+        query.setParameter("nameParam", name);
+
+        try {
+            return (Container) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

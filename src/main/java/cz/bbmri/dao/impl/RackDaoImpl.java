@@ -2,10 +2,11 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.RackDao;
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -37,5 +38,21 @@ public class RackDaoImpl extends BasicDaoImpl<Rack, Long> implements RackDao {
                 orderParam);
         query.setParameter("biobank", biobank);
         return query.getResultList();
+    }
+
+    public Rack getByName(Container container, String name) {
+        notNull(container);
+        notNull(name);
+        Query query = em.createQuery("SELECT p FROM Rack p WHERE " +
+                "p.container = :containerParam AND " +
+                "p.name = :nameParam");
+        query.setParameter("containerParam", container);
+        query.setParameter("nameParam", name);
+
+        try {
+            return (Rack) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

@@ -1,9 +1,7 @@
 package cz.bbmri.service;
 
-import cz.bbmri.entities.infrastructure.Box;
-import cz.bbmri.entities.infrastructure.Rack;
-import cz.bbmri.entities.infrastructure.RackBox;
-import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.entities.Biobank;
+import cz.bbmri.entities.infrastructure.*;
 
 import java.util.List;
 
@@ -23,4 +21,6 @@ public interface BoxService extends BasicService<Box> {
     List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc);
 
     List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc);
+
+    Box getBoxByName(Biobank biobank, Rack rack, String name);
 }

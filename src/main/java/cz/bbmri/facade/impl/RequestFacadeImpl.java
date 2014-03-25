@@ -451,8 +451,8 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         }
     }
 
-    // triggers at 0:01 each day
-    @Scheduled(cron = "1 0 * * * *")
+    // triggers at 0:10 each day
+    @Scheduled(cron = "10 0 * * * *")
     public void checkReservationValidity() {
         logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
 

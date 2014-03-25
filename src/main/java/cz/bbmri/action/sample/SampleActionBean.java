@@ -1,16 +1,18 @@
 package cz.bbmri.action.sample;
 
-import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.biobank.BiobankActionBean;
+import cz.bbmri.action.biobank.BiobankSampleRequestsActionBean;
+import cz.bbmri.action.biobank.BiobankSamplesActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
 import cz.bbmri.entities.sample.Genome;
 import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -24,10 +26,24 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @UrlBinding("/sample/{$event}/{sampleId}")
-public class SampleActionBean extends AbstractSampleActionBean {
+public class SampleActionBean extends AbstractSampleActionBean<Sample> {
 
     @SpringBean
     private SampleFacade sampleFacade;
+
+    public SampleActionBean() {
+        setComponentManager(new ComponentManager(
+                ComponentManager.SAMPLE_DETAIL,
+                ComponentManager.BIOBANK_DETAIL));
+    }
+
+
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+        return new Breadcrumb(SampleActionBean.class.getName(),
+                "detail", false, "cz.bbmri.entities.Sample.sample",
+                active, "sampleId", sampleId);
+    }
 
     public boolean getIsTissue() {
         if (getSample() == null) {
@@ -125,6 +141,20 @@ public class SampleActionBean extends AbstractSampleActionBean {
     @HandlesEvent("detail") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
+
+        logger.debug("Sample " + getSample());
+        logger.debug("Module " + getSample().getModule());
+        logger.debug("Patient " + getSample().getModule().getPatient());
+        logger.debug("Biobank " + getSample().getModule().getPatient().getBiobank());
+
+        setBiobankId(getSample().getModule().getPatient().getBiobank().getId());
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankSamplesActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(SampleActionBean.getBreadcrumb(true, getSampleId()));
+
+
         return new ForwardResolution(SAMPLE_DETAIL);
     }
 }

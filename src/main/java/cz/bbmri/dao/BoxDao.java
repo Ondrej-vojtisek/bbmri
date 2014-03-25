@@ -1,10 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.infrastructure.Box;
-import cz.bbmri.entities.infrastructure.Rack;
-import cz.bbmri.entities.infrastructure.RackBox;
-import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.entities.infrastructure.*;
 
 import java.util.List;
 
@@ -20,4 +17,6 @@ public interface BoxDao extends BasicDao<Box, Long> {
     List<StandaloneBox> getSorted(Biobank biobank, String orderByParam, boolean desc);
 
     List<RackBox> getSorted(Rack rack, String orderByParam, boolean desc);
+
+    Box getByName(Biobank biobank, Rack rack, String name);
 }

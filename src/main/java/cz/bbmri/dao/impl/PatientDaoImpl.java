@@ -2,10 +2,12 @@ package cz.bbmri.dao.impl;
 
 
 import cz.bbmri.dao.PatientDao;
+import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -87,5 +89,17 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements Patie
         query.setParameter("sexParam", (patient.getSex() != null ? patient.getSex() : ""));
 
         return query.getResultList();
+    }
+
+    public Patient getByInstitutionalId(String id){
+        notNull(id);
+        Query query = em.createQuery("SELECT p FROM Patient p WHERE p.institutionId = :idParam");
+        query.setParameter("idParam", id);
+
+        try {
+            return (Patient) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

@@ -2,12 +2,10 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.BoxDao;
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.infrastructure.Box;
-import cz.bbmri.entities.infrastructure.Rack;
-import cz.bbmri.entities.infrastructure.RackBox;
-import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.entities.infrastructure.*;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -30,9 +28,9 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
 
         if (orderByParam != null) {
 
-            if(orderByParam.equals("numberOfPositions")){
+            if (orderByParam.equals("numberOfPositions")) {
                 orderParam = "ORDER BY COUNT box.positions";
-            }else{
+            } else {
                 orderParam = "ORDER BY box." + orderByParam;
             }
         }
@@ -66,5 +64,39 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
                 orderParam);
         query.setParameter("rack", rack);
         return query.getResultList();
+    }
+
+    public Box getByName(Biobank biobank, Rack rack, String name) {
+        notNull(biobank);
+        notNull(name);
+
+        Query query = null;
+
+        if (rack == null) {
+
+            // Standalone box
+
+            query = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
+                    "box.infrastructure.biobank = :biobankParam AND " +
+                    "box.name = :nameParam");
+            query.setParameter("biobankParam", biobank);
+        } else {
+
+            // rack box
+
+            query = em.createQuery("SELECT box FROM RackBox box WHERE " +
+                    "box.rack = :rackParam AND " +
+                    "box.name = :nameParam");
+            query.setParameter("rackParam", rack);
+        }
+
+        query.setParameter("nameParam", name);
+
+        try {
+            return (Box) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 }

@@ -4,9 +4,11 @@ import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.Tissue;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -161,4 +163,17 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
         notNull(tissue);
         em.persist(tissue);
     }
+
+
+    public Sample getByInstitutionalId(String id) {
+          notNull(id);
+          Query query = em.createQuery("SELECT p FROM Sample p WHERE p.sampleIdentification.sampleId = :idParam");
+          query.setParameter("idParam", id);
+
+          try {
+              return (Sample) query.getSingleResult();
+          } catch (NoResultException ex) {
+              return null;
+          }
+      }
 }

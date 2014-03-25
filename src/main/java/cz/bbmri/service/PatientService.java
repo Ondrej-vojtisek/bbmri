@@ -3,6 +3,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.infrastructure.Position;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface PatientService  extends BasicService<Patient> {
     List<Patient> find(Patient patient, int requiredResults);
 
     List<Patient> getSorted(Long biobankId, String orderByParam, boolean desc);
+
+    Patient getByInstitutionalId(String id);
+
 }

@@ -38,7 +38,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
 
     public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
         return new Breadcrumb(ProjectAttachmentsActionBean.class.getName(),
-                "attachmentsResolution", false, "cz.bbmri.action.project.ProjectActionBean.attachments",
+                "attachmentsResolution", false, "cz.bbmri.entities.Attachment.attachments",
                 active, "projectId", projectId);
     }
 
@@ -158,8 +158,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     public Resolution attachmentUpload() {
 
         int result = projectFacade.createAttachment(attachmentFileBean,
-                attachmentType, projectId, getContext().getPropertiesStoragePath(),
-                getContext().getValidationErrors(), getContext().getMyId());
+                attachmentType, projectId, getContext().getValidationErrors(), getContext().getMyId());
 
         if (result < 0) {
             return new ForwardResolution(this.getClass(), "addAttachment").addParameter("projectId", projectId);

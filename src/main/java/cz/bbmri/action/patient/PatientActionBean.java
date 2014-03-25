@@ -40,7 +40,7 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
 
     public static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
-                "display", false, "cz.bbmri.action.patient.PatientActionBean.patient",
+                "display", false, "cz.bbmri.entities.Patient.patient",
                 active, "patientId", patientId);
     }
 

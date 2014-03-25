@@ -169,7 +169,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         if (getIsRackBox()) {
             getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false,
                     getRackBox().getRack().getContainer().getId()));
-            getBreadcrumbs().add(RackActionBean.getBreadcrumb(true,
+            getBreadcrumbs().add(RackActionBean.getBreadcrumb(false,
                     getRackBox().getRack().getId()));
         }
 

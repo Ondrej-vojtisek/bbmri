@@ -199,6 +199,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sampleDao.nOrderedBy(orderByParam, desc, number);
     }
 
+    @Transactional(readOnly = true)
     public List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc){
         if(biobankId == null){
             logger.debug("biobankId is null");
@@ -212,6 +213,11 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         }
 
         return sampleDao.getSorted(biobankDB, orderByParam, desc);
+    }
+
+    @Transactional(readOnly = true)
+    public Sample getByInstitutionalId(String id){
+        return sampleDao.getByInstitutionalId(id);
     }
 
 }

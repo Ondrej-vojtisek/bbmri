@@ -16,4 +16,6 @@ public interface PatientDao extends BasicBiobankDao<Patient> {
 
     List<Patient> findPatient(Patient patient);
 
+    Patient getByInstitutionalId(String id);
+
 }

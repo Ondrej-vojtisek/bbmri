@@ -1,5 +1,6 @@
 package cz.bbmri.service;
 
+import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface RackService extends BasicService<Rack>{
     List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc);
 
     Rack create(Long containerId, Rack rack);
+
+    Rack getRackByName(Container container, String name);
 }

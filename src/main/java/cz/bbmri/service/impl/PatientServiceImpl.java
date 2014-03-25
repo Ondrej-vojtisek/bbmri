@@ -151,6 +151,7 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patients.subList(0, requiredResults);
     }
 
+    @Transactional(readOnly = true)
     public List<Patient> getSorted(Long biobankId, String orderByParam, boolean desc) {
         if (biobankId == null) {
             logger.debug("biobankId is null");
@@ -164,6 +165,10 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         }
 
         return patientDao.getSorted(biobankDB, orderByParam, desc);
+    }
+
+    public Patient getByInstitutionalId(String id){
+        return patientDao.getByInstitutionalId(id);
     }
 
 }

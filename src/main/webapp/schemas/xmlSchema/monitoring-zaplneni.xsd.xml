@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<biobank id="MOU" xmlns="http://www.bbmri.cz/schemas/monitoring/bankoccupancy">
-
-
+<biobank id="MOU">
     <container id="D1">
         <!--Nestrukturovany doplnujici popis k pozici kontejneru  -->
         <location>Prizemi, oddeleni A, ... budova B,</location>

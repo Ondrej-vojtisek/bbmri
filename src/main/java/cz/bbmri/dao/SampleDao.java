@@ -22,4 +22,6 @@ public interface SampleDao extends BasicBiobankDao<Sample>{
 
     void create(Tissue tissue);
 
+    Sample getByInstitutionalId(String id);
+
 }

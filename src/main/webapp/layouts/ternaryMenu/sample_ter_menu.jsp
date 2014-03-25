@@ -24,7 +24,7 @@
     <li <c:if test="${ternarymenu == 'projects'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.sample.SampleProjectsActionBean" event="projects">
             <s:param name="sampleId" value="${actionBean.sampleId}"/>
-            <f:message key="projects"/>
+            <f:message key="cz.bbmri.entities.Project.projects"/>
         </s:link></li>
 </security:allowed>
 
@@ -34,7 +34,7 @@
     <li <c:if test="${ternarymenu == 'reservations'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.sample.SampleReservationsActionBean" event="reservations">
             <s:param name="sampleId" value="${actionBean.sampleId}"/>
-            <f:message key="reservations"/>
+            <f:message key="cz.bbmri.entities.SampleReservation.sampleReservations"/>
         </s:link></li>
 </security:allowed>
 
@@ -44,7 +44,7 @@
     <li <c:if test="${ternarymenu == 'positions'}"> class="active" </c:if> >
         <s:link beanclass="cz.bbmri.action.sample.SamplePositionsActionBean" event="positions">
             <s:param name="sampleId" value="${actionBean.sampleId}"/>
-            <f:message key="positions"/>
+            <f:message key="cz.bbmri.entities.infrastructure.Position.positions"/>
         </s:link></li>
 </security:allowed>
 

@@ -27,19 +27,17 @@ public interface ProjectFacade extends PermissionFacade{
 
     Project createProject(Project project,
                           Long loggedUserId,
-                          String bbmriPath,
                           ValidationErrors errors);
 
     boolean updateProject(Project project, Long loggedUserId);
 
-    boolean removeProject(Long projectId, String bbmriPath, ValidationErrors errors, Long loggedUserId);
+    boolean removeProject(Long projectId, ValidationErrors errors, Long loggedUserId);
 
     boolean isApproved(Long projectId);
 
     int createAttachment(FileBean fileBean,
                           AttachmentType attachmentType,
                           Long projectId,
-                          String bbmriPath,
                           ValidationErrors errors,
                           Long loggedUserId);
 

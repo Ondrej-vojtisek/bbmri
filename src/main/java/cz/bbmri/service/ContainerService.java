@@ -1,5 +1,6 @@
 package cz.bbmri.service;
 
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface ContainerService extends BasicService<Container>{
     Container create(Long infrastructureId, Container container);
 
     List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc);
+
+    Container getContainerByName(Biobank biobank, String name);
 
 }

@@ -43,12 +43,12 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
 
     public static Breadcrumb getProjectsBreadcrumb(boolean active) {
         return new Breadcrumb(ProjectActionBean.class.getName(),
-                "myProjects", false, "cz.bbmri.action.project.ProjectActionBean.projects", active);
+                "myProjects", false, "cz.bbmri.entities.Project.projects", active);
     }
 
     public static Breadcrumb getDetailBreadcrumb(boolean active, Long projectId) {
           return new Breadcrumb(ProjectActionBean.class.getName(),
-                  "detail", false, "cz.bbmri.action.project.ProjectActionBean.project", active,
+                  "detail", false, "cz.bbmri.entities.Project.project", active,
                   "projectId", projectId);
       }
 
@@ -132,7 +132,6 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     public Resolution delete() {
 
         if (!projectFacade.removeProject(projectId,
-                getContext().getPropertiesStoragePath(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass());

@@ -56,13 +56,6 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         rackBox.setRack(rackDB);
         boxDao.create(rackBox);
 
-//        if(rackBox.getCapacity() != null){
-//            for(int i = 0; i < rackBox.getCapacity(); i++){
-//                Position position = new Position();
-//                position.setBox(rackBox);
-//                positionDao.create(position);
-//            }
-//        }
         return rackBox;
     }
 
@@ -181,4 +174,8 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return boxDao.getSorted(biobankDB, orderByParam, desc);
     }
 
+    @Override
+    public Box getBoxByName(Biobank biobank, Rack rack, String name) {
+        return boxDao.getByName(biobank, rack, name);
+    }
 }

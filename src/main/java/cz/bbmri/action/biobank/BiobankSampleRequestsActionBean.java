@@ -32,7 +32,7 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId){
         return new Breadcrumb(BiobankSampleRequestsActionBean.class.getName(), "display",
-                false, "cz.bbmri.action.biobank.BiobankActionBean.sampleRequests", active, "biobankId", biobankId);
+                false, "cz.bbmri.entities.SampleRequest.sampleRequests", active, "biobankId", biobankId);
     }
 
     public BiobankSampleRequestsActionBean() {

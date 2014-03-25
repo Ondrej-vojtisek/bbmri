@@ -17,11 +17,11 @@ import java.util.List;
  */
 public interface BiobankFacade extends PermissionFacade {
 
-    boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors, String bbmriPath);
+    boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors);
 
     boolean updateBiobank(Biobank biobank, ValidationErrors errors, Long loggedUserId);
 
-    boolean removeBiobank(Long biobankId, ValidationErrors errors, String bbmriPath, Long loggedUserId);
+    boolean removeBiobank(Long biobankId, ValidationErrors errors, Long loggedUserId);
 
     List<Biobank> all();
 
@@ -69,7 +69,7 @@ public interface BiobankFacade extends PermissionFacade {
 
     List<RackBox> getSortedStandRackBoxes(Long rackId, String orderByParam, boolean desc);
 
-//    void checkBiobankFolders();
+    void checkBiobankPatientData();
 
  //   List<Sample> allSamplesOrderedBy(String orderByParam, boolean desc);
 

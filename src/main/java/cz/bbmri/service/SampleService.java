@@ -18,6 +18,8 @@ public interface SampleService extends BasicService<Sample>{
 
      Sample create(Sample sample, Long moduleId);
 
+     Sample getByInstitutionalId(String id);
+
      Sample decreaseCount(Long sampleId, Integer requested);
 
      Sample withdrawSample(Long sampleId, Integer requested);

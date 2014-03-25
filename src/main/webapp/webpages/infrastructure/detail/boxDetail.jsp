@@ -23,12 +23,42 @@
         <fieldset>
             <legend><f:message key="cz.bbmri.entities.infrastructure.Position.positions"/></legend>
 
-            <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
-                             pagination="${actionBean.pagination}"
-                             componentManager="${actionBean.componentManager}"
-                             targetBean="cz.bbmri.action.sample.sampleactionbean"
-                             eventName="detail"
-                             paramName="sampleId"/>
+            <%--Layout sortableTable can't be used because we want to assign position.sample.id (item.sample.id) as parameter instead of--%>
+            <%--position.id (item.id) as it is in all other tables--%>
+
+            <table class="table table-hover table-striped">
+
+                    <s:layout-render name="${actionBean.componentManager.sortableHeader}"
+                                     pagination="${actionBean.pagination}"/>
+
+                    <tbody>
+
+                    <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                                     collection="${actionBean.pagination.myPageList}"/>
+
+                    <c:forEach var="item" items="${actionBean.pagination.myPageList}">
+                        <tr>
+                            <s:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
+                            <td class="action">
+
+                                    <%--fix styles of button--%>
+                                    <div class="tableAction">
+                                        <s:link beanclass="cz.bbmri.action.sample.SampleActionBean" event="detail"
+                                                class="btn btn-info btnMargin">
+
+                                            <%--which parameter to access event--%>
+                                            <s:param name="sampleId" value="${item.sample.id}"/>
+                                            <f:message key="detail"/>
+                                        </s:link>
+                                    </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
+                <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                                 pagination="${actionBean.pagination}"/>
         </fieldset>
 
     </s:layout-component>

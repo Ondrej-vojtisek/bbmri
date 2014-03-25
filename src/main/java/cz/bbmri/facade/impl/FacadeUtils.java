@@ -46,6 +46,23 @@ public class FacadeUtils extends BasicFacade {
         return SUCCESS;
     }
 
+    public static int deleteFile(File file) {
+
+           // Exists?
+           if (!file.exists()) {
+               return NOT_SUCCESS;
+           }
+
+           boolean success = file.delete();
+
+           // Truly deleted?
+           if (!success) {
+               return NOT_SUCCESS;
+           }
+           return SUCCESS;
+       }
+
+
     public static int deleteFile(String path, ValidationErrors errors) {
 
         File file = new File(path);
@@ -115,13 +132,14 @@ public class FacadeUtils extends BasicFacade {
 
     public static List<File> getFiles(String path) {
 
-        System.out.println("Check files for path: " + path);
+        System.out.println("Get Files of path: " + path);
+
 
         File dir = new File(path);
         List<File> files = new ArrayList<File>();
         if (!dir.exists()) {
 
-            System.out.println("dir doesnt exist");
+            System.err.println("dir doesnt exist");
 
             // not success
             return files;
@@ -136,20 +154,43 @@ public class FacadeUtils extends BasicFacade {
         }
 
 
-        for (File file : dir.listFiles()){
-
-            System.out.println("File: " + file);
+        for (File file : dir.listFiles()) {
 
             // only files not directories
-            if(file.isFile()){
-
-                System.out.println("File addded ");
+            if (file.isFile()) {
 
                 files.add(file);
             }
         }
 
         return files;
+    }
+
+    public static int copyFile(File source, String destination) {
+
+
+        File destinationFile = new File(destination + File.separator + source.getName());
+
+        System.out.println("Copy file");
+        System.out.println("Source: " + source + " destination: " + destinationFile);
+
+        if (!source.exists()) {
+            System.out.println("dir doesn't exist");
+            System.err.println("dir doesn't exist");
+
+            // not success
+            return NOT_SUCCESS;
+        }
+        try{
+            FileUtils.copyFile(source, destinationFile);
+        }catch(IOException ex){
+            ex.printStackTrace();
+            System.out.println("JavaIOException during copy File");
+            System.err.println("JavaIOException during copy File");
+            return NOT_SUCCESS;
+        }
+
+        return SUCCESS;
     }
 
     public static boolean folderExists(String path) {

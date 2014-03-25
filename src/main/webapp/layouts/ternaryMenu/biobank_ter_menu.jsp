@@ -38,7 +38,7 @@
     <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankSamplesActionBean" event="display">
             <s:param name="biobankId" value="${actionBean.biobankId}"/>
-            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.samples"/></s:link>
+            <f:message key="cz.bbmri.entities.Sample.samples"/></s:link>
     </li>
 </security:allowed>
 
@@ -48,7 +48,7 @@
     <li <c:if test="${ternarymenu == 'patients'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean" event="display">
             <s:param name="biobankId" value="${actionBean.biobankId}"/>
-            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.patients"/></s:link>
+            <f:message key="cz.bbmri.entities.Patient.patients"/></s:link>
     </li>
 </security:allowed>
 
@@ -58,7 +58,7 @@
     <li <c:if test="${ternarymenu == 'sampleRequests'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.biobank.BiobankSampleRequestsActionBean" event="display">
             <s:param name="biobankId" value="${actionBean.biobankId}"/>
-            <f:message key="cz.bbmri.action.biobank.BiobankActionBean.sampleRequests"/>
+            <f:message key="cz.bbmri.entities.SampleRequest.sampleRequests"/>
         </s:link>
     </li>
 </security:allowed>

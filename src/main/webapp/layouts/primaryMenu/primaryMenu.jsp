@@ -29,7 +29,7 @@
 
             <li <c:if test="${secondarymenu == 'reservations'}"> class="active" </c:if>>
                 <s:link beanclass="cz.bbmri.action.reservation.ReservationActionBean">
-                    <f:message key="cz.bbmri.action.project.ReservationActionBean.reservations"/>
+                    <f:message key="cz.bbmri.entities.SampleReservation.sampleReservations"/>
                 </s:link>
             </li>
 

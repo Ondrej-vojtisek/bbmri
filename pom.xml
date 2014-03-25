@@ -213,6 +213,33 @@
         </dependency>
            -->
 
+        <!--IO-->
+        <!--gYear parsing-->
+
+        <dependency>
+          <groupId>org.apache.ws.commons.axiom</groupId>
+          <artifactId>axiom-api</artifactId>
+          <version>1.2.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom</artifactId>
+            <version>1.2.11</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>stax</groupId>
+        	<artifactId>stax-api</artifactId>
+        	<version>1.0.1</version>
+        </dependency>
+
 
     </dependencies>
 
@@ -290,13 +317,13 @@
         </plugins>
 
         <!--<resources>-->
-            <!--<resource>-->
-                <!--<directory>src/main/resources</directory>-->
-                <!--<excludes>-->
-                    <!--<exclude>bbmri_general.properties</exclude>-->
-                <!--</excludes>-->
-                <!--<filtering>false</filtering>-->
-            <!--</resource>-->
+        <!--<resource>-->
+        <!--<directory>src/main/resources</directory>-->
+        <!--<excludes>-->
+        <!--<exclude>bbmri_general.properties</exclude>-->
+        <!--</excludes>-->
+        <!--<filtering>false</filtering>-->
+        <!--</resource>-->
         <!--</resources>-->
 
     </build>

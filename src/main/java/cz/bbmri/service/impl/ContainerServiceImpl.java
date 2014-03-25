@@ -140,4 +140,8 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
 
         return containerDao.getSorted(biobankDB, orderByParam, desc);
     }
+
+    public Container getContainerByName(Biobank biobank, String name) {
+        return containerDao.getByName(biobank,  name);
+    }
 }
