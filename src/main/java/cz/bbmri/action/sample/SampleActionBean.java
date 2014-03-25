@@ -142,11 +142,6 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution detail() {
 
-        logger.debug("Sample " + getSample());
-        logger.debug("Module " + getSample().getModule());
-        logger.debug("Patient " + getSample().getModule().getPatient());
-        logger.debug("Biobank " + getSample().getModule().getPatient().getBiobank());
-
         setBiobankId(getSample().getModule().getPatient().getBiobank().getId());
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));

@@ -1,9 +1,12 @@
 package cz.bbmri.action.sample;
 
+import cz.bbmri.action.biobank.BiobankActionBean;
+import cz.bbmri.action.biobank.BiobankSamplesActionBean;
 import cz.bbmri.entities.comparator.position.MatrixComparator;
 import cz.bbmri.entities.comparator.position.SampleComparator;
 import cz.bbmri.entities.comparator.position.SequentialComparator;
 import cz.bbmri.entities.infrastructure.Position;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -25,9 +28,16 @@ public class SamplePositionsActionBean extends AbstractSampleActionBean<Position
         setPagination(new MyPagedListHolder<Position>(new ArrayList<Position>()));
         setComponentManager(new ComponentManager(
                 ComponentManager.POSITION_DETAIL,
-                ComponentManager.SAMPLE_DETAIL));
+                ComponentManager.BIOBANK_DETAIL));
         getPagination().setIdentifierParam("sampleId");
     }
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+        return new Breadcrumb(SamplePositionsActionBean.class.getName(),
+                "positions", false, "cz.bbmri.entities.infrastructure.Position.positions",
+                active, "sampleId", sampleId);
+    }
+
 
     public void choosePositionComparator() {
         if (getOrderParam() != null) {
@@ -49,16 +59,27 @@ public class SamplePositionsActionBean extends AbstractSampleActionBean<Position
     @HandlesEvent("positions") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution positions() {
-        if (getSampleId() != null) {
-            getPagination().setIdentifier(getSampleId());
-        }
+
+        setBiobankId(getSample().getModule().getPatient().getBiobank().getId());
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankSamplesActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(SampleActionBean.getBreadcrumb(false, getSampleId()));
+        getBreadcrumbs().add(SamplePositionsActionBean.getBreadcrumb(true, getSampleId()));
+
+        getPagination().setIdentifier(getSampleId());
 
         initiatePagination();
         if (getOrderParam() == null) {
             getPagination().setOrderParam("institutionId");
         }
         getPagination().setEvent("positions");
-        getPagination().setSource(new ArrayList<Position>(getSample().getPositions()));
+        choosePositionComparator();
+
+        getPagination().setSource(new ArrayList<Position>(getSample().getPositions())); //getSample().getPositions()
+
+
         return new ForwardResolution(SAMPLE_POSITIONS);
     }
 }

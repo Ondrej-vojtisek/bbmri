@@ -1,6 +1,9 @@
 package cz.bbmri.action.sample;
 
+import cz.bbmri.action.biobank.BiobankActionBean;
+import cz.bbmri.action.biobank.BiobankSamplesActionBean;
 import cz.bbmri.entities.SampleReservation;
+import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -22,8 +25,14 @@ public class SampleReservationsActionBean extends AbstractSampleActionBean<Sampl
         setPagination(new MyPagedListHolder<SampleReservation>(new ArrayList<SampleReservation>()));
         setComponentManager(new ComponentManager(
                 ComponentManager.SAMPLEQUESTION_DETAIL,
-                ComponentManager.SAMPLE_DETAIL));
+                ComponentManager.BIOBANK_DETAIL));
         getPagination().setIdentifierParam("sampleId");
+    }
+
+    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+        return new Breadcrumb(SampleReservationsActionBean.class.getName(),
+                "reservations", false, "cz.bbmri.entities.SampleReservation.sampleReservations",
+                active, "sampleId", sampleId);
     }
 
     @DontValidate
@@ -31,9 +40,15 @@ public class SampleReservationsActionBean extends AbstractSampleActionBean<Sampl
     @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution reservations() {
 
-        if (getSampleId() != null) {
-            getPagination().setIdentifier(getSampleId());
-        }
+        setBiobankId(getSample().getModule().getPatient().getBiobank().getId());
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
+        getBreadcrumbs().add(BiobankSamplesActionBean.getBreadcrumb(false, biobankId));
+        getBreadcrumbs().add(SampleActionBean.getBreadcrumb(false, getSampleId()));
+        getBreadcrumbs().add(SampleReservationsActionBean.getBreadcrumb(true, getSampleId()));
+
+        getPagination().setIdentifier(getSampleId());
 
         initiatePagination();
         if (getOrderParam() == null) {

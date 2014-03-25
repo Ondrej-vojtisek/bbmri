@@ -566,7 +566,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
     }
 
     // triggers at 0:01 each day
-    @Scheduled(cron = "1 0 * * * *")
+    //@Scheduled(cron = "1 0 * * * *")
+    @Scheduled(cron = "1 * * * * *")
     public void checkBiobankPatientData() {
 
         logger.debug("Cron fired method checkBiobankPatientData");
@@ -589,10 +590,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
                 }
 
 //                copy file if parsing was correct
-                if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == SUCCESS) {
+             //   if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == SUCCESS) {
 //                delete file if copy succeeded
-                    FacadeUtils.deleteFile(file);
-                }
+            //        FacadeUtils.deleteFile(file);
+            //    }
 
             }
         }
@@ -600,7 +601,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
 
     // TODO - update to lower frequency
     // triggers at 0:05 each day
-    @Scheduled(cron = "5 0 * * * *")
+    //@Scheduled(cron = "5 0 * * * *")
+    @Scheduled(cron = "1 * * * * *")
     public void checkBiobankMonitoringData() {
 
         logger.debug("Cron fired method checkBiobankMonitoringData");
@@ -623,10 +625,10 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
                 }
 
 //                copy file if parsing was correct
-                if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == SUCCESS) {
+        //        if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankMonitoringArchiveFolder()) == SUCCESS) {
 //                delete file if copy succeeded
-                    FacadeUtils.deleteFile(file);
-                }
+            //        FacadeUtils.deleteFile(file);
+            //    }
 
             }
         }

@@ -21,7 +21,7 @@
 
     <li class="dropdown <c:if test="${primarymenu == 'project'}"> active </c:if>">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <f:message key="projects"/>
+            <f:message key="cz.bbmri.entities.Project.projects"/>
             <b class="caret"></b></a>
         <ul class="dropdown-menu">
 
@@ -38,7 +38,7 @@
 
             <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if>>
                 <s:link beanclass="${projectBean.name}">
-                    <f:message key="cz.bbmri.action.project.ProjectActionBean.myProjects"/>
+                    <f:message key="cz.bbmri.entities.Project.myProjects"/>
                 </s:link>
             </li>
 
@@ -73,7 +73,7 @@
     <security:allowed bean="biobankBean" event="allBiobanks">
         <li class="dropdown <c:if test="${primarymenu == 'biobank'}"> active </c:if>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <f:message key="biobanks"/>
+                <f:message key="cz.bbmri.entities.Biobank.biobanks"/>
                 <b class="caret"></b></a>
             <ul class="dropdown-menu">
 
@@ -82,7 +82,7 @@
                 <security:allowed bean="biobankBean" event="allBiobanks">
                     <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link
                             beanclass="${biobankBean.name}" event="allBiobanks">
-                        <f:message key="cz.bbmri.action.biobank.BiobankActionBean.allBiobanks"/>
+                        <f:message key="cz.bbmri.entities.Biobank.allBiobanks"/>
                     </s:link>
                     </li>
                 </security:allowed>
@@ -107,7 +107,7 @@
                 <c:if test="${not empty biobankBean.loggedUser.biobankAdministrators}">
                     <li class="divider"></li>
                     <li class="nav-header">
-                        <f:message key="cz.bbmri.action.biobank.BiobankActionBean.myBiobanks"/>
+                        <f:message key="cz.bbmri.entities.Biobank.myBiobanks"/>
                     </li>
 
                     <c:forEach var="ba" items="${biobankBean.loggedUser.biobankAdministrators}">
@@ -135,7 +135,7 @@
     <security:allowed bean="userBean" event="display">
         <li class="dropdown <c:if test="${primarymenu == 'user'}"> active </c:if>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <f:message key="users"/>
+                <f:message key="cz.bbmri.action.entities.User.users"/>
                 <b class="caret"></b></a>
             <ul class="dropdown-menu">
 
@@ -144,7 +144,7 @@
                 <security:allowed bean="userBean" event="display">
                     <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>>
                         <s:link beanclass="${userBean.name}">
-                            <f:message key="cz.bbmri.action.user.UserActionBean.all"/>
+                            <f:message key="cz.bbmri.action.entities.User.allUsers"/>
                         </s:link>
                     </li>
                 </security:allowed>

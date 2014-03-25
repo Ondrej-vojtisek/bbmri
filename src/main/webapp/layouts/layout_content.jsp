@@ -75,11 +75,17 @@
 
                     <c:if test="${primarymenu == 'patient'}">
 
+                        <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
+                                         record="${actionBean.biobank}"/>
+
                         <s:layout-render name="/layouts/ternaryMenu/patient_ter_menu.jsp"/>
 
                     </c:if>
 
                     <c:if test="${primarymenu == 'sample'}">
+
+                        <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
+                                         record="${actionBean.biobank}"/>
 
                         <s:layout-render name="/layouts/ternaryMenu/sample_ter_menu.jsp"/>
 
@@ -126,7 +132,7 @@
 
 
     </script>
-        <s:layout-component name="script"/>
+    <s:layout-component name="script"/>
     </body>
 
     </html>

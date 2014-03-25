@@ -28,7 +28,8 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     private BiobankFacade biobankFacade;
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
-        return new Breadcrumb(BiobankActionBean.class.getName(), "allBiobanks", false, "biobanks", active);
+        return new Breadcrumb(BiobankActionBean.class.getName(), "allBiobanks", false, "" +
+                "cz.bbmri.entities.Biobank.biobanks", active);
     }
 
     public static Breadcrumb getDetailBreadcrumb(boolean active, Long biobankId, Biobank biobank) {
