@@ -35,11 +35,13 @@ public class Biobank implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
-
+    private String abbreviation;
 
     private String name;
 
-    private String address;
+    private String street;
+
+    private String city;
 
     @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
@@ -61,12 +63,28 @@ public class Biobank implements Serializable {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getName() {
@@ -131,9 +149,11 @@ public class Biobank implements Serializable {
     @Override
     public String toString() {
         return "Biobank{" +
-                "id=" + id +
+                "abbreviation='" + abbreviation + '\'' +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", id=" + id +
                 '}';
     }
 

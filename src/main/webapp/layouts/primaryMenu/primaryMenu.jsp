@@ -116,7 +116,7 @@
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean"
                                         event="detail">
                                     <s:param name="biobankId" value="${ba.biobank.id}"/>
-                                    ${ba.biobank.name}
+                                    ${ba.biobank.abbreviation}
                                 </s:link>
                             </security:allowed>
                         </li>

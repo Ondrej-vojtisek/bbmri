@@ -5,8 +5,10 @@
 
     <thead>
     <tr>
+        <th><f:message key="cz.bbmri.entities.Biobank.abbreviation"/></th>
         <th><f:message key="cz.bbmri.entities.Biobank.name"/></th>
-        <th><f:message key="cz.bbmri.entities.Biobank.address"/></th>
+        <th><f:message key="cz.bbmri.entities.Biobank.street"/></th>
+        <th><f:message key="cz.bbmri.entities.Biobank.city"/></th>
     </tr>
     </thead>
 

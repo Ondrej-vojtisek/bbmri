@@ -17,6 +17,13 @@
                 <legend><f:message key="cz.bbmri.action.biobank.CreateActionBean.thirdStep"/></legend>
 
                 <div class="control-group">
+                    <s:label for="cz.bbmri.entities.Biobank.abbreviation" class="control-label"/>
+                    <div class="controls">
+                        <s:text name="biobank.abbreviation" readonly="true"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
                     <div class="controls">
                         <s:text name="biobank.name" readonly="true"/>
@@ -24,9 +31,16 @@
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.Biobank.address" class="control-label"/>
+                    <s:label for="cz.bbmri.entities.Biobank.city" class="control-label"/>
                     <div class="controls">
-                        <s:text name="biobank.address" readonly="true"/>
+                        <s:text name="biobank.city" readonly="true"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <s:label for="cz.bbmri.entities.Biobank.street" class="control-label"/>
+                    <div class="controls">
+                        <s:text name="biobank.street" readonly="true"/>
                     </div>
                 </div>
 

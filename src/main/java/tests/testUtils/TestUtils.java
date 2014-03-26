@@ -32,7 +32,7 @@ public class TestUtils {
     protected Biobank createTestBiobank(int i) {
         Biobank biobank = new Biobank();
         biobank.setName("Biobank" + i);
-        biobank.setAddress("Address" + i);
+      //  biobank.setAddress("Address" + i);
         return biobank;
     }
 

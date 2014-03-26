@@ -3,8 +3,10 @@
 
 <s:layout-definition>
 
+    <td>${record.abbreviation}</td>
     <td>${record.name}</td>
-    <td>${record.address}</td>
+    <td>${record.street}</td>
+    <td>${record.city}</td>
 
 </s:layout-definition>
 

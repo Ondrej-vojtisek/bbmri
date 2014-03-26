@@ -35,7 +35,7 @@ public class BiobankServiceTest extends AbstractServiceTest {
         /* ********* GIVEN ********** */
         Biobank biobank = new Biobank();
         biobank.setName("Biobank");
-        biobank.setAddress("Address");
+       // biobank.setAddress("Address");
         biobank.setId(new Long(1));
         when(biobankDao.get(new Long(1)))
                        .thenReturn(biobank);
@@ -50,7 +50,7 @@ public class BiobankServiceTest extends AbstractServiceTest {
 
         assertEquals(result.getId(), biobank2.getId());
         assertEquals(result.getName(), biobank2.getName());
-        assertEquals(result.getAddress(), biobank.getAddress());
+       // assertEquals(result.getAddress(), biobank.getAddress());
     }
 
 //    @Test(expected=IllegalArgumentException.class)

@@ -18,10 +18,10 @@ import javax.persistence.Query;
 @Repository
 public class BiobankDaoImpl extends BasicDaoImpl<Biobank, Long> implements BiobankDao {
 
-    public Biobank getBiobankByName(String name) {
-        notNull(name);
-        Query query = em.createQuery("SELECT p FROM Biobank p where p.name = :nameParam");
-        query.setParameter("nameParam", name);
+    public Biobank getBiobankByAbbreviation(String abbreviation) {
+        notNull(abbreviation);
+        Query query = em.createQuery("SELECT p FROM Biobank p where p.abbreviation = :abbreviationParam");
+        query.setParameter("abbreviationParam", abbreviation);
 
         try {
             return (Biobank) query.getSingleResult();

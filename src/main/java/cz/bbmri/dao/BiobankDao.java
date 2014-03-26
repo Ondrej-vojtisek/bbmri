@@ -11,6 +11,6 @@ import cz.bbmri.entities.Biobank;
  */
 public interface BiobankDao extends BasicDao<Biobank, Long> {
 
-    Biobank getBiobankByName(String name);
+    Biobank getBiobankByAbbreviation(String abbreviation);
 
 }

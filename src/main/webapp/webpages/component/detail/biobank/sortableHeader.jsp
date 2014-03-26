@@ -7,14 +7,28 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entities.Biobank.abbreviation"
+                             column="abbreviation"
+                             pagination="${pagination}"/>
+        </th>
+
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entities.Biobank.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
+
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.address"
-                             column="address"
+                             msgKey="cz.bbmri.entities.Biobank.street"
+                             column="street"
+                             pagination="${pagination}"/>
+        </th>
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entities.Biobank.city"
+                             column="city"
                              pagination="${pagination}"/>
         </th>
     </tr>

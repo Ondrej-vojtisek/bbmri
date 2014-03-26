@@ -25,16 +25,6 @@ import java.util.Set;
 @Service("biobankService")
 public class BiobankServiceImpl extends BasicServiceImpl implements BiobankService {
 
-    /*
-    TODO
-    Dodat:
-    @Override
-    @Transactional(readOnly = true)
-
-    @SpringBean zamenit misto @Autowired
-    Pokud se nelinkne tak @Repository(biobankDao)
-     */
-
     @Autowired
     private BiobankDao biobankDao;
 
@@ -64,9 +54,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             return null;
         }
 
-        if (biobankDao.getBiobankByName(biobank.getName()) != null) {
-            throw new DuplicitBiobankException("Biobank with name: "
-                    + biobank.getName() + " already exists! Name must be unique.");
+        if (biobankDao.getBiobankByAbbreviation(biobank.getAbbreviation()) != null) {
+            throw new DuplicitBiobankException("Biobank with abbreviation: "
+                    + biobank.getAbbreviation() + " already exists! Abbreviation must be unique.");
         }
 
         biobankDao.create(biobank);
@@ -134,8 +124,13 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             return null;
         }
 
-        if (biobank.getAddress() != null) {
-            biobankDB.setAddress(biobank.getAddress());
+        // Abbreativion is final
+
+        if (biobank.getStreet() != null) {
+            biobankDB.setStreet(biobank.getStreet());
+        }
+        if (biobank.getCity() != null) {
+            biobankDB.setCity(biobank.getCity());
         }
         if (biobank.getName() != null) {
             biobankDB.setName(biobank.getName());
