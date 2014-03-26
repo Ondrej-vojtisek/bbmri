@@ -17,6 +17,8 @@ public class SampleNos implements Serializable {
 
     private Integer availableSamplesNo;
 
+    private Integer originalSamplesNo;
+
     public Integer getSamplesNo() {
         return samplesNo;
     }
@@ -31,6 +33,14 @@ public class SampleNos implements Serializable {
 
     public void setAvailableSamplesNo(Integer availableSamplesNo) {
         this.availableSamplesNo = availableSamplesNo;
+    }
+
+    public Integer getOriginalSamplesNo() {
+        return originalSamplesNo;
+    }
+
+    public void setOriginalSamplesNo(Integer originalSamplesNo) {
+        this.originalSamplesNo = originalSamplesNo;
     }
 
     private boolean checkAmount(int requestedAmount) {

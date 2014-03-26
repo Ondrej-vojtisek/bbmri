@@ -10,5 +10,6 @@
     <td>${record.materialType}</td>
     <td>${record.sampleNos.availableSamplesNo}</td>
     <td>${record.sampleNos.samplesNo}</td>
+    <td>${record.sampleNos.originalSamplesNo}</td>
 
 </s:layout-definition>

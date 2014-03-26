@@ -5,6 +5,7 @@ import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.field.MaterialType;
 import cz.bbmri.entities.sample.field.SampleIdentification;
 import cz.bbmri.entities.sample.field.SampleNos;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ public class Sample implements Serializable, Comparable<Sample> {
     private Retrieved retrieved;
 
     /* Cut time in case of tissue, in other cases it is taking date */
+    @Type(type = "timestamp")
     private Date takingDate;
 
     @Embedded

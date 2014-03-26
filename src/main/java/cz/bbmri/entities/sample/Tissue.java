@@ -4,6 +4,7 @@ import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.field.Morphology;
 import cz.bbmri.entities.sample.field.PTNM;
 import cz.bbmri.entities.sample.field.TNM;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -33,6 +34,7 @@ public class Tissue extends Sample {
     @Column(name = "morphology")
     private Morphology morphology;
 
+    @Type(type = "timestamp")
     private Date freezeDate;
 
     public TNM getTnm() {
@@ -58,7 +60,6 @@ public class Tissue extends Sample {
     public void setMorphology(Morphology morphology) {
         this.morphology = morphology;
     }
-
 
 
     public Date getFreezeDate() {

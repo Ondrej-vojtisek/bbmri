@@ -35,6 +35,7 @@ public class Biobank implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    @Column(unique=true, length = 6)
     private String abbreviation;
 
     private String name;

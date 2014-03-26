@@ -17,11 +17,6 @@ import java.util.List;
 @Entity
 public class ModuleSTS extends Module {
 
-//    @OneToMany(mappedBy = "module")
-//    private List<Sample> samples = new ArrayList<Sample>();
-
-
-
     public String getType(){
         return "ModuleSTS";
     }

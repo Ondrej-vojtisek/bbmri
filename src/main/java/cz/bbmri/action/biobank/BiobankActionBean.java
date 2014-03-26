@@ -33,7 +33,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     }
 
     public static Breadcrumb getDetailBreadcrumb(boolean active, Long biobankId, Biobank biobank) {
-        return new Breadcrumb(BiobankActionBean.class.getName(), "detail", true, biobank.getName(),
+        return new Breadcrumb(BiobankActionBean.class.getName(), "detail", true, biobank.getAbbreviation(),
                 active, "biobankId", biobankId);
     }
 

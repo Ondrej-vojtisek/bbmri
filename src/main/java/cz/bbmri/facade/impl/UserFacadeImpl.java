@@ -14,9 +14,6 @@ import cz.bbmri.service.NotificationService;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -299,7 +296,10 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     }
 
     public boolean markAsRead(List<Long> notificationsId) {
-        notNull(notificationsId);
+        if (notificationsId == null) {
+            // not error
+            return false;
+        }
         if (notificationsId.isEmpty()) {
             return false;
         }
@@ -311,7 +311,11 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     }
 
     public boolean deleteNotifications(List<Long> notificationsId) {
-        notNull(notificationsId);
+        if (notificationsId == null) {
+            // not error
+            return false;
+        }
+
         if (notificationsId.isEmpty()) {
             return false;
         }
@@ -325,89 +329,5 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
     public List<User> allOrderedBy(String orderByParam, boolean desc) {
         return userService.allOrderedBy(orderByParam, desc);
     }
-
-//    public String getJSON(Long userId) {
-//        JSONObject output = new JSONObject();
-//        JSONObject timeline = new JSONObject();
-//        try {
-//            timeline.put("headline", "Headline");
-//            timeline.put("type", "default");
-//            timeline.put("startDate", "2011");
-//            // timeline.put("text", "<p>Intro body text goes here, some HTML is ok</p>");
-//
-//            JSONObject asset = new JSONObject();
-//            // asset.put("media", "http://twitter.com/ArjunaSoriano/status/164181156147900416");
-//            // asset.put("credit", "Credit Name Goes Here ORI");
-//            // asset.put("caption", "Caption text goes here ORI");
-//            timeline.put("asset", asset);
-//
-//        } catch (JSONException ex) {
-//            logger.debug("ERA JSON exception");
-//            return null;
-//        }
-//
-//        JSONArray dateArray = new JSONArray();
-//        try {
-//
-//            JSONObject date = new JSONObject();
-//            date.put("startDate", "2011,12,10");
-//        //    date.put("endDate", "2011,12,30");
-//            date.put("headline", "Prvni udalost");
-//            date.put("text", "<p> Pri prvni udalosti doslo ... </p>");
-//            date.put("tag", "This is Optional tag");
-//            // date.put("classname", "optionaluniqueclassnamecanbeaddedhere");
-//
-//            JSONObject asset = new JSONObject();
-//            //  asset.put("media", "http://twitter.com/ArjunaSoriano/status/164181156147900416");
-//            asset.put("thumbnail", "optional-32x32px.jpg");
-//            asset.put("credit", "Credit Name Goes Here");
-//            asset.put("caption", "Caption text goes here");
-//            date.put("asset", asset);
-//            dateArray.put(date);
-//
-//
-//            JSONObject date2 = new JSONObject();
-//            date2.put("startDate", "2011,12,24");
-//          //  date2.put("endDate", "2011,1,5");
-//            date2.put("headline", "Druha udalost");
-//            date2.put("text", "<p> Pri druhe udalosti doslo ... </p>");
-//            date2.put("tag", "This is Optional tag");
-//            // date.put("classname", "optionaluniqueclassnamecanbeaddedhere");
-//
-//            JSONObject asset2 = new JSONObject();
-//            //  asset.put("media", "http://twitter.com/ArjunaSoriano/status/164181156147900416");
-//            asset2.put("thumbnail", "optional-32x32px.jpg");
-//            asset2.put("credit", "Credit Name Goes Here");
-//            asset2.put("caption", "Caption text goes here");
-//            date2.put("asset", asset2);
-//            dateArray.put(date2);
-//
-//            JSONObject date3 = new JSONObject();
-//            date3.put("startDate", "2012,3,9");
-//         //   date3.put("endDate", "2012,10,8");
-//            date3.put("headline", "Treti udalost");
-//            date3.put("text", "<p> Pri druhe udalosti doslo ... </p>");
-//            date3.put("tag", "This is Optional tag");
-//            // date.put("classname", "optionaluniqueclassnamecanbeaddedhere");
-//
-//            JSONObject asset3 = new JSONObject();
-//            //  asset.put("media", "http://twitter.com/ArjunaSoriano/status/164181156147900416");
-//            asset3.put("thumbnail", "optional-32x32px.jpg");
-//            asset3.put("credit", "Credit Name Goes Here");
-//            asset3.put("caption", "Caption text goes here");
-//            date3.put("asset", asset3);
-//            dateArray.put(date3);
-//
-//            timeline.put("date", dateArray);
-//
-//            output.put("timeline", timeline);
-//
-//        } catch (JSONException ex) {
-//            logger.debug("DATE JSON exception");
-//            return null;
-//        }
-//
-//        return output.toString();
-//    }
 
 }

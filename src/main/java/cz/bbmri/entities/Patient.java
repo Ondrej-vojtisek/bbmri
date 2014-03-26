@@ -28,6 +28,7 @@ public class Patient implements Serializable {
     @Column(name = "ID", nullable = false)
     private Long id;
 
+    @Column(unique=true, length = 10)
     private String institutionId;
 
     @Enumerated(EnumType.STRING)

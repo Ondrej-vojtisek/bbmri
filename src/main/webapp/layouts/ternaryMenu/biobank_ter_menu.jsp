@@ -68,7 +68,7 @@
     <li <c:if test="${ternarymenu == 'infrastructure'}"> class="active" </c:if>>
         <s:link beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean" event="all">
             <s:param name="biobankId" value="${actionBean.biobankId}"/>
-            <f:message key="cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy"/>
+            <f:message key="cz.bbmri.entities.infrastructure.Infrastructure.infrastructure"/>
         </s:link>
     </li>
 

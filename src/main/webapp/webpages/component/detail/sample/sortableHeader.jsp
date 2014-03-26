@@ -47,6 +47,13 @@
                              column="sampleNos.samplesNo"
                              pagination="${pagination}"/>
         </th>
+
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entities.sample.field.SampleNos.originalSamplesNo"
+                             column="sampleNos.originalSamplesNo"
+                             pagination="${pagination}"/>
+        </th>
     </tr>
     </thead>
 

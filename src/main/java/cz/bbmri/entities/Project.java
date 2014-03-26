@@ -50,6 +50,7 @@ public class Project implements Serializable {
     /*Which member of ethical committee approved project*/
     private String approvedBy;
 
+    @Type(type = "timestamp")
     private Date approvalDate;
 
     private String principalInvestigator;

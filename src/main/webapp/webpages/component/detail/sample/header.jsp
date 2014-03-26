@@ -12,6 +12,7 @@
         <th><f:message key="cz.bbmri.entities.Sample.materialType"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.samplesNo"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.originalSamplesNo"/></th>
     </tr>
     </thead>
 

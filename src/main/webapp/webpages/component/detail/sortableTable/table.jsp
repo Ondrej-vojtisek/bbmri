@@ -37,7 +37,12 @@
         </tbody>
     </table>
 
-    <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+    <%--show pagination only if list contains some data--%>
+    <c:if test="${not empty pagination.myPageList}">
+
+        <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
                      pagination="${pagination}"/>
+
+    </c:if>
 
 </s:layout-definition>

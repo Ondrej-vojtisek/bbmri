@@ -2,6 +2,7 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.service.SampleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,9 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
                 return null;
             }
             sample.setModule(moduleDB);
+
+            // Original number of samples - it won't be changed during any update
+            sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
         }
 
         sampleDao.create(sample);
@@ -76,14 +80,6 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         if (sampleDB == null) {
             return false;
         }
-
-   /*     Patient patientDB = patientDao.get(sampleDB.getPatient().getId());
-        if (patientDB != null) {
-            patientDB.getSamples().remove(sampleDB);
-            patientDao.update(patientDB);
-            sampleDB.setPatient(null);
-        }
-        */
 
         List<Request> requests = sampleDB.getRequests();
         if (requests != null) {

@@ -33,7 +33,6 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
     @SpringBean
     private UserFacade userFacade;
 
-
     private Notification notification;
 
     @Validate(on = {"markAsRead", "deleteSelected"}, required = true)
@@ -65,7 +64,6 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
         this.selectedNotifications = selectedNotifications;
     }
 
-    @PermitAll
     @DontValidate
     @DefaultHandler
     public Resolution display() {
@@ -74,46 +72,35 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
         return new ForwardResolution(DASHBOARD);
     }
 
-//    public List<Notification> getNotifications() {
-//        return userFacade.getUnreadNotifications(getContext().getMyId());
-//    }
-
-    @DontValidate
-    @HandlesEvent("markAsRead")
-    public Resolution markAsRead() {
-
-
-        return new RedirectResolution(this.getClass());
-    }
-
-
     @DontValidate
     @HandlesEvent("deleteSelected")
     public Resolution deleteSelected() {
+
         if (selectedNotifications == null || selectedNotifications.isEmpty()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.DashboardActionBean.nothingSelected"));
+            return new RedirectResolution(this.getClass());
         }
 
-        if (!userFacade.deleteNotifications(selectedNotifications)) {
-            return new ForwardResolution(this.getClass());
+        if (userFacade.deleteNotifications(selectedNotifications)) {
+            successMsg(null);
         }
 
-        successMsg(null);
         return new RedirectResolution(this.getClass());
     }
 
     @DontValidate
     @HandlesEvent("markSelectedAsRead")
     public Resolution markSelectedAsRead() {
+
         if (selectedNotifications == null || selectedNotifications.isEmpty()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.DashboardActionBean.nothingSelected"));
+            return new RedirectResolution(this.getClass());
         }
 
-        if (!userFacade.markAsRead(selectedNotifications)) {
-            return new ForwardResolution(this.getClass());
+        if (userFacade.markAsRead(selectedNotifications)) {
+            successMsg(null);
         }
 
-        successMsg(null);
         return new RedirectResolution(this.getClass());
     }
 

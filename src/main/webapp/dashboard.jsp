@@ -3,7 +3,6 @@
 
 <f:message key="cz.bbmri.entities.Notification.notifications" var="title"/>
 
-<s:useActionBean var="actionBean" beanclass="cz.bbmri.action.DashboardActionBean"/>
 <s:layout-render name="/layouts/layout_content.jsp"
                  title="${title}" primarymenu="home">
 
@@ -25,8 +24,12 @@
 
             </c:forEach>
 
-            <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
-                             pagination="${actionBean.pagination}"/>
+            <c:if test="${not empty actionBean.pagination.myPageList}">
+
+                <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                                 pagination="${actionBean.pagination}"/>
+
+            </c:if>
 
             <div class="form-actions">
                 <s:submit name="deleteSelected" class="btn btn-primary btnMargin"/>

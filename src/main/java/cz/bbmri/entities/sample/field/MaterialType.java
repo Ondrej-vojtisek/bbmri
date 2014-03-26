@@ -44,8 +44,6 @@ public class MaterialType implements Serializable {
 
     @Override
     public String toString() {
-        return "MaterialType{" +
-                "type='" + type + '\'' +
-                '}';
+        return type;
     }
 }

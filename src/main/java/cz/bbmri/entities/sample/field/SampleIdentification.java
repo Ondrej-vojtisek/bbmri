@@ -1,5 +1,6 @@
 package cz.bbmri.entities.sample.field;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -13,15 +14,12 @@ import java.io.Serializable;
 @Embeddable
 public class SampleIdentification implements Serializable {
 
-    private String year;
+    private Integer year;
 
-    private String number;
+    private Integer number;
 
+    @Column(nullable = false, unique=true, length = 32)
     private String sampleId;
-
-    public String getYear() {
-        return year;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,15 +38,19 @@ public class SampleIdentification implements Serializable {
         return sampleId.hashCode();
     }
 
-    public void setYear(String year) {
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 

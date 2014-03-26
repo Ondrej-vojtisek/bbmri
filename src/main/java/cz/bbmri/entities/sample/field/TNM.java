@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Embeddable
 public class TNM implements Serializable {
 
-    @Column(name="tnm")
+    @Column(name="tnm", length = 7)
     String classification;
 
     public String getClassification() {
@@ -45,8 +45,6 @@ public class TNM implements Serializable {
 
     @Override
     public String toString() {
-        return "TNM{" +
-                "classification='" + classification + '\'' +
-                '}';
+        return classification;
     }
 }

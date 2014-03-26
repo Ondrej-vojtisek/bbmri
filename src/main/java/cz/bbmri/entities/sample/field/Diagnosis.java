@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Embeddable
 public class Diagnosis implements Serializable {
 
-    @Column(name="diagnosis")
+    @Column(name="diagnosis", length = 5)
     String classification;
 
     public String getClassification() {
@@ -45,8 +45,6 @@ public class Diagnosis implements Serializable {
 
     @Override
     public String toString() {
-        return "Diagnosis{" +
-                "classification='" + classification + '\'' +
-                '}';
+        return classification;
     }
 }

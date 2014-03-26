@@ -30,12 +30,15 @@ public class User implements Serializable /*, Comparable<User>*/ {
     private Long id;
 
     /* eppn in Shibboleth*/
+    @Column(unique = true)
     private String eppn;
 
     /* targeted-id in Shibboleth*/
+    @Column(unique = true)
     private String targetedId;
 
     /* persistent-id in Shibboleth*/
+    @Column(unique = true)
     private String persistentId;
 
     /* GivenName in Shibboleth*/
@@ -52,9 +55,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
 
     /* displayName in Shibboleth*/
     private String displayName;
-
-    /* mefaPerson in Shibboleth*/
-    private boolean mefaPerson;
 
     /* affiliation in Shibboleth*/
     private String affiliation;
@@ -240,14 +240,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
         this.displayName = displayName;
     }
 
-    public boolean isMefaPerson() {
-        return mefaPerson;
-    }
-
-    public void setMefaPerson(boolean mefaPerson) {
-        this.mefaPerson = mefaPerson;
-    }
-
     public String getAffiliation() {
         return affiliation;
     }
@@ -333,7 +325,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
                 ", email='" + email + '\'' +
                 ", organization='" + organization + '\'' +
                 ", displayName='" + displayName + '\'' +
-                ", mefaPerson=" + mefaPerson +
                 ", affiliation='" + affiliation + '\'' +
                 '}';
     }

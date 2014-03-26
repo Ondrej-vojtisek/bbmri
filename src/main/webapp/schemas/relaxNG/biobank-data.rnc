@@ -30,7 +30,7 @@ tissue =
         sampleIdentification,
         sampleNos,
         materialType,
-        element TNM { xsd:string { maxLength = "7" } },
+        element TNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
         ## grading is a part of mophology and is used as fallback here
         ( morphology | grading ),

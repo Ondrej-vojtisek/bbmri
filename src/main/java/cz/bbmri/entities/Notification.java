@@ -1,6 +1,7 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.NotificationType;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -36,8 +37,8 @@ public class Notification implements Serializable {
     private NotificationType notificationType;
 
     private Long objectId;
-//
-//    private String objectName;
+
+    private String pokus;
 
     private String message;
 
@@ -108,6 +109,14 @@ public class Notification implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getPokus() {
+        return pokus;
+    }
+
+    public void setPokus(String pokus) {
+        this.pokus = pokus;
     }
 
     @Override

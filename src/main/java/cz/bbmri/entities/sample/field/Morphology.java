@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Embeddable
 public class Morphology implements Serializable {
 
-    @Column(name="morphology")
+    @Column(name="morphology", length = 7)
     String classification;
 
     Integer grading;
@@ -55,9 +55,6 @@ public class Morphology implements Serializable {
 
     @Override
     public String toString() {
-        return "Morphology{" +
-                "classification='" + classification + '\'' +
-                ", grading=" + grading +
-                '}';
+        return classification;
     }
 }

@@ -527,12 +527,12 @@ public class PatientDataParser extends AbstractParser {
         Sample sample = new Sample();
         sample.setSampleIdentification(new SampleIdentification());
 
-        if (year != null) {
-            sample.getSampleIdentification().setYear(year);
+        if (notNullnotEmpty(year)) {
+            sample.getSampleIdentification().setYear(Integer.parseInt(year));
         }
 
-        if (number != null) {
-            sample.getSampleIdentification().setNumber(number);
+        if (notNullnotEmpty(number)) {
+            sample.getSampleIdentification().setNumber(Integer.parseInt(number));
         }
 
         if (sampleId != null) {
