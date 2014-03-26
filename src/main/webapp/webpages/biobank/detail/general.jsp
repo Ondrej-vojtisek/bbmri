@@ -17,6 +17,14 @@
 
         <s:form beanclass="${actionBean.name}" class="form-horizontal">
 
+
+            <div class="control-group">
+                <s:label for="cz.bbmri.entities.Biobank.abbreviation" class="control-label"/>
+                <div class="controls">
+                    <s:text name="biobank.abbreviation" readonly="${readonly}"/>
+                </div>
+            </div>
+
             <div class="control-group">
                 <s:label for="cz.bbmri.entities.Biobank.name" class="control-label"/>
                 <div class="controls">
@@ -25,9 +33,16 @@
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Biobank.address" class="control-label"/>
+                <s:label for="cz.bbmri.entities.Biobank.street" class="control-label"/>
                 <div class="controls">
-                    <s:text name="biobank.address" readonly="${readonly}"/>
+                    <s:text name="biobank.street" readonly="${readonly}"/>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <s:label for="cz.bbmri.entities.Biobank.city" class="control-label"/>
+                <div class="controls">
+                    <s:text name="biobank.city" readonly="${readonly}"/>
                 </div>
             </div>
 
