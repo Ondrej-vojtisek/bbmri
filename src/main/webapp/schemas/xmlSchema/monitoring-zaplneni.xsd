@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/monitoring/bankoccupancy" xmlns:b="http://www.bbmri.cz/schemas/monitoring/bankoccupancy">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd"
+           xmlns:b="http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd">
     <xs:element name="biobank">
         <xs:complexType>
             <xs:sequence>
@@ -23,7 +26,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="b:location"/>
-                <xs:element name="capacity" type="xs:int">
+                <xs:element ref="b:capacity">
                     <xs:annotation>
                         <xs:documentation>max number of stands in container</xs:documentation>
                     </xs:annotation>
@@ -60,7 +63,7 @@
     <xs:element name="rack">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="capacity" type="xs:int">
+                <xs:element ref="b:capacity">
                     <xs:annotation>
                         <xs:documentation>max number of box in stand</xs:documentation>
                     </xs:annotation>
@@ -87,7 +90,7 @@
     <xs:element name="box">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="capacity" type="xs:int">
+                <xs:element ref="b:capacity">
                     <xs:annotation>
                         <xs:documentation>capacity of the box</xs:documentation>
                     </xs:annotation>
@@ -152,5 +155,16 @@
             <xs:attribute name="row" use="required" type="xs:int"/>
             <xs:attribute name="column" use="required" type="xs:int"/>
         </xs:complexType>
+    </xs:element>
+    <xs:element name="capacity">
+        <xs:annotation>
+            <xs:documentation>expected that none of infrastructure element will have more than 1000 child nodes</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="1"/>
+                <xs:maxInclusive value="1000"/>
+            </xs:restriction>
+        </xs:simpleType>
     </xs:element>
 </xs:schema>

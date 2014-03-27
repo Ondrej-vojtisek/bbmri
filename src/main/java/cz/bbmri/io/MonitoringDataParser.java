@@ -20,6 +20,8 @@ import java.util.List;
  */
 public class MonitoringDataParser extends AbstractParser {
 
+    private static final String MONITORING_XSD_URL = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd";
+
     public MonitoringDataParser(String path) throws Exception {
         super(path);
     }
@@ -34,6 +36,10 @@ public class MonitoringDataParser extends AbstractParser {
             return null;
         }
         return biobankId;
+    }
+
+    public boolean validate(){
+        return validateDocument(MONITORING_XSD_URL);
     }
 
     public List<Container> getContainers() {

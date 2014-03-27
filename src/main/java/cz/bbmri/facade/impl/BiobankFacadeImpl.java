@@ -565,6 +565,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return boxService.getSortedRackBoxes(rackId, orderByParam, desc);
     }
 
+
+
     // triggers at 0:01 each day
     //@Scheduled(cron = "1 0 * * * *")
     //@Scheduled(cron = "1 * * * * *")
@@ -598,6 +600,8 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
             }
         }
     }
+
+
 
     // TODO - update to lower frequency
     // triggers at 0:05 each day
@@ -644,6 +648,11 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         } catch (Exception ex) {
             logger.debug("MonitoringDataParser failed");
             ex.printStackTrace();
+            return NOT_SUCCESS;
+        }
+
+        if(!parser.validate()){
+            logger.debug("Document is NOT valid. Document path was: " + path);
             return NOT_SUCCESS;
         }
 
@@ -795,6 +804,11 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         } catch (Exception ex) {
             logger.debug("PatientDataParser failed");
             ex.printStackTrace();
+            return NOT_SUCCESS;
+        }
+
+        if(!parser.validate()){
+            logger.debug("Document is NOT valid. Document path was: " + path);
             return NOT_SUCCESS;
         }
 

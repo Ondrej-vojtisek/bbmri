@@ -24,7 +24,6 @@
                             <s:link beanclass="${targetBean}" event="${eventName}"
                                     class="btn btn-info btnMargin">
 
-
                                 <%--which parameter to access event--%>
                                 <s:param name="${paramName}" value="${item.id}"/>
                                 <f:message key="detail"/>

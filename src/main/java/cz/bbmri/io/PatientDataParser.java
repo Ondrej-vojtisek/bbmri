@@ -11,18 +11,12 @@ import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.entities.sample.field.*;
 import org.apache.axis2.databinding.types.xsd.DateTime;
 import org.apache.axis2.databinding.types.xsd.GYear;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.XMLConstants;
 import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -35,8 +29,14 @@ import java.util.List;
  */
 public class PatientDataParser extends AbstractParser {
 
+    private static final String PATIENT_XSD_URL = "http://www.bbmri.cz/schemas/biobank/data.xsd";
+
     public PatientDataParser(String path) throws Exception {
         super(path);
+    }
+
+    public boolean validate() {
+        return validateDocument(PATIENT_XSD_URL);
     }
 
     public String getBiobankId() {
@@ -45,7 +45,7 @@ public class PatientDataParser extends AbstractParser {
 
         try {
 
-              biobankId = executeXPath("/patient/@biobank", document);
+            biobankId = executeXPath("/patient/@biobank", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -96,7 +96,7 @@ public class PatientDataParser extends AbstractParser {
         /* Use validity check from GYear factory */
         GYear gYear = null;
         try {
-            gYear = GYear.Factory.fromString(birthYear, NAMESPACE);
+            gYear = GYear.Factory.fromString(birthYear, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         } catch (NumberFormatException ex) {
             System.err.println("Birth year of imported patient is not valid");
@@ -307,7 +307,7 @@ public class PatientDataParser extends AbstractParser {
         if (freezeTime != null) {
 
             // xsd:DateTime
-            DateTime dt = DateTime.Factory.fromString(freezeTime, NAMESPACE);
+            DateTime dt = DateTime.Factory.fromString(freezeTime, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             // xsd:DateTime->Calendar->Date
 
@@ -498,7 +498,7 @@ public class PatientDataParser extends AbstractParser {
 
             //            Attributes
 
-            year =  executeXPath("@year", node);
+            year = executeXPath("@year", node);
 
             number = executeXPath("@number", node);
 
@@ -569,7 +569,7 @@ public class PatientDataParser extends AbstractParser {
         if (takingDate != null) {
 
             // xsd:DateTime
-            DateTime dt = DateTime.Factory.fromString(takingDate, NAMESPACE);
+            DateTime dt = DateTime.Factory.fromString(takingDate, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
             // xsd:DateTime->Calendar->Date
 

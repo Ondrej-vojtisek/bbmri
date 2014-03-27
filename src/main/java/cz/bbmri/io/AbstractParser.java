@@ -2,10 +2,21 @@ package cz.bbmri.io;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import javax.xml.xpath.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,14 +27,16 @@ import javax.xml.xpath.*;
  */
 public abstract class AbstractParser {
 
-    protected static final String NAMESPACE = "http://www.w3.org/2001/XMLSchema";
-
     //    XML document - data import
     protected Document document;
+
+    protected String xmlFilePath;
 
     protected XPathFactory xpathFactory;
 
     public AbstractParser(String path) throws Exception {
+
+        this.xmlFilePath = path;
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
@@ -40,8 +53,8 @@ public abstract class AbstractParser {
 
     abstract String getBiobankId();
 
-    private void logger(String xPathQuery){
-      //  System.out.println("XPathQuery: " + xPathQuery);
+    private void logger(String xPathQuery) {
+        //  System.out.println("XPathQuery: " + xPathQuery);
     }
 
     protected Object executeXPathForNodeSet(String xPathQuery, Node node) throws XPathExpressionException {
@@ -61,12 +74,52 @@ public abstract class AbstractParser {
     }
 
     // tests if string not null and not empty
-    protected boolean notNullnotEmpty(String s){
-        if(s == null){
+    protected boolean notNullnotEmpty(String s) {
+        if (s == null) {
             return false;
         }
 
         return !s.isEmpty();
+    }
+
+    protected boolean validateDocument(String xsdURL) {
+        URL schemaFile = null;
+
+        try {
+            schemaFile = new URL(xsdURL);
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        Source xmlFile = new StreamSource(new File(xmlFilePath));
+        SchemaFactory schemaFactory = SchemaFactory
+                .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema schema = null;
+        try {
+            schema = schemaFactory.newSchema(schemaFile);
+        } catch (SAXException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        Validator validator = schema.newValidator();
+        try {
+            validator.validate(xmlFile);
+
+        } catch (SAXException e) {
+            System.out.println(xmlFile.getSystemId() + " is NOT valid");
+            System.out.println("Reason: " + e.getLocalizedMessage());
+            return false;
+        } catch (IOException ex) {
+            System.out.println(xmlFile.getSystemId() + " is NOT valid 2");
+            System.out.println("Reason: " + ex.getLocalizedMessage());
+            return false;
+        }
+
+        return true;
 
     }
+
+    abstract boolean validate();
+
 }

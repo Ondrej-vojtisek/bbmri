@@ -44,8 +44,6 @@ public class Container implements Serializable {
 
     private Float tempMax;
 
-
-
     public Long getId() {
         return id;
     }
