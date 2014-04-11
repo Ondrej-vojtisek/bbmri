@@ -6,6 +6,7 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.extension.context.TheActionBeanContext;
@@ -121,6 +122,7 @@ public class BasicActionBean extends Links implements ActionBean {
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();
+
         return userFacade.get(id);
     }
 

@@ -590,5 +590,9 @@ public class BiobankFacadeImpl extends BasicFacade implements BiobankFacade {
         return boxService.getSortedRackBoxes(rackId, orderByParam, desc);
     }
 
+    public Biobank getBiobankByAbbreviation(String abbreviation){
+        return biobankService.getBiobankByAbbreviation(abbreviation);
+    }
+
 
 }

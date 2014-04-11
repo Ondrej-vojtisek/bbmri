@@ -44,10 +44,10 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     private Long containerId;
 
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long rackId) {
+    public static Breadcrumb getBreadcrumb(boolean active, Long rackId, String rackName) {
         return new Breadcrumb(RackActionBean.class.getName(),
                 "detail", false, "cz.bbmri.entities.infrastructure.Rack.rack", active,
-                "rackId", rackId);
+                "rackId", rackId, rackName);
     }
 
     public RackActionBean() {
@@ -99,8 +99,8 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
         getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
-        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false, getRack().getContainer().getId()));
-        getBreadcrumbs().add(RackActionBean.getBreadcrumb(true, rackId));
+        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false, getRack().getContainer().getId(), getRack().getContainer().getName()));
+        getBreadcrumbs().add(RackActionBean.getBreadcrumb(true, rackId, getRack().getName()));
 
         initiatePagination();
         getPagination().setEvent("detail");

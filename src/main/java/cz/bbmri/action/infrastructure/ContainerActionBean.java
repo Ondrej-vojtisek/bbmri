@@ -53,10 +53,10 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
 
     private Infrastructure infrastructure;
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long containerId) {
+    public static Breadcrumb getBreadcrumb(boolean active, Long containerId, String containerName) {
         return new Breadcrumb(ContainerActionBean.class.getName(),
                 "detail", false, "cz.bbmri.entities.infrastructure.Container.container", active,
-                "containerId", containerId);
+                "containerId", containerId, containerName);
     }
 
     public static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
@@ -122,7 +122,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
         getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(false, biobankId));
-        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(true, containerId));
+        getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(true, containerId, getContainer().getName()));
 
         initiatePagination();
         getPagination().setEvent("detail");

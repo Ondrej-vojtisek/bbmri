@@ -61,10 +61,10 @@ public class BoxActionBean extends PermissionActionBean<Position> {
 
     private Long rackId;
 
-    public static Breadcrumb getBoxBreadcrumb(boolean active, Long boxId) {
+    public static Breadcrumb getBoxBreadcrumb(boolean active, Long boxId, String boxName) {
         return new Breadcrumb(BoxActionBean.class.getName(),
                 "detail", false, "cz.bbmri.entities.infrastructure.Box.box", active,
-                "boxId", boxId);
+                "boxId", boxId, boxName);
     }
 
     public BoxActionBean() {
@@ -168,12 +168,12 @@ public class BoxActionBean extends PermissionActionBean<Position> {
 
         if (getIsRackBox()) {
             getBreadcrumbs().add(ContainerActionBean.getBreadcrumb(false,
-                    getRackBox().getRack().getContainer().getId()));
+                    getRackBox().getRack().getContainer().getId(), getRackBox().getRack().getContainer().getName()));
             getBreadcrumbs().add(RackActionBean.getBreadcrumb(false,
-                    getRackBox().getRack().getId()));
+                    getRackBox().getRack().getId(), getRackBox().getRack().getName()));
         }
 
-        getBreadcrumbs().add(BoxActionBean.getBoxBreadcrumb(true, boxId));
+        getBreadcrumbs().add(BoxActionBean.getBoxBreadcrumb(true, boxId, getBox().getName()));
 
         getPagination().setEvent("detail");
         getPagination().setSource(new ArrayList<Position>(getBox().getPositions()));

@@ -250,4 +250,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return biobankDao.nOrderedBy(orderByParam, desc, number);
     }
 
+    public Biobank getBiobankByAbbreviation(String abbreviation){
+        return biobankDao.getBiobankByAbbreviation(abbreviation);
+    }
+
 }

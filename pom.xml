@@ -108,6 +108,12 @@
             <version>1.0.6</version>
         </dependency>
 
+        <!-- Library containing method to detect non ASCII string -->
+        <dependency>
+        	<groupId>com.google.guava</groupId>
+        	<artifactId>guava</artifactId>
+        	<version>r09</version>
+        </dependency>
 
         <!--
         JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)

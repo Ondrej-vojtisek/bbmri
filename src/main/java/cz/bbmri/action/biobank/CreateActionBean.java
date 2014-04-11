@@ -1,5 +1,6 @@
 package cz.bbmri.action.biobank;
 
+import com.google.common.base.CharMatcher;
 import cz.bbmri.action.FindActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.User;
@@ -8,8 +9,7 @@ import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.BiobankFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.Validate;
-import net.sourceforge.stripes.validation.ValidateNestedProperties;
+import net.sourceforge.stripes.validation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ import javax.annotation.security.RolesAllowed;
  */
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
-public class CreateActionBean extends FindActionBean {
+public class CreateActionBean extends FindActionBean{
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -37,6 +37,7 @@ public class CreateActionBean extends FindActionBean {
     private Long adminId;
 
     @ValidateNestedProperties(value = {
+            @Validate(on = {"confirmStep1", "done"}, field = "abbreviation", required = true),
             @Validate(on = {"confirmStep1", "done"}, field = "name", required = true),
             @Validate(on = {"confirmStep1", "done"}, field = "address", required = true)
     })
@@ -134,6 +135,22 @@ public class CreateActionBean extends FindActionBean {
         return new ForwardResolution(BIOBANK_CREATE_ADMINISTRATORS)
                 .addParameter("UserFind", getUserFind());
     }
+
+
+    @ValidationMethod
+    public void validateAbbreviation(ValidationErrors errors) {
+
+        if(!CharMatcher.ASCII.matchesAllOf(biobank.getAbbreviation())){
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.notAscii"));
+        }
+
+        if(biobankFacade.getBiobankByAbbreviation(biobank.getAbbreviation()) != null){
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.abbreviationExists"));
+        }
+
+    }
+
+
 
 
 }

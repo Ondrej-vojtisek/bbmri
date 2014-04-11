@@ -17,4 +17,11 @@
 
     </c:if>
 
+    <%--For instance to print Rack A instead of only Rack--%>
+    <c:if test="${not empty item.objectName}">
+
+         ${" " + item.objectName}
+
+     </c:if>
+
 </s:layout-definition>

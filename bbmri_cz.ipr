@@ -94,6 +94,7 @@
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.6" />
             <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.6" />
             <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.5" />
+            <element id="library" level="project" name="Maven: com.google.guava:guava:r09" />
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-core:3.1.2.RELEASE" />
@@ -598,6 +599,17 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/ch/qos/logback/logback-core/1.0.6/logback-core-1.0.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: com.google.guava:guava:r09">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r09/guava-r09.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r09/guava-r09-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/r09/guava-r09-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-collections:commons-collections:3.1">

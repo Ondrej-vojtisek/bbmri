@@ -29,6 +29,10 @@
 
             <c:forEach var="item" items="${actionBean.pagination.myPageList}">
                 <tr>
+
+                        <%--To distinguish if this is my record --%>
+                    <c:set target="${actionBean}" property="userId" value="${item.user.id}"/>
+
                     <td>${item.user.wholeName}</td>
                     <td class="action">
                         <security:allowed event="setPermission">
@@ -52,10 +56,6 @@
                             ${item.permission}
                         </security:notAllowed>
                     </td>
-
-                        <%--To distinguish if this is my record --%>
-                    <c:set target="${actionBean}" property="userId" value="${item.user.id}"/>
-
                     <td class="action">
                         <security:allowed event="removeAdministrator">
                             <s:form beanclass="${actionBean.name}">

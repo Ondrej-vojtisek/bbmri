@@ -55,11 +55,15 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         notification.setObjectId(objectId);
 
         Locale locale = null;
-        if(user.getUserSetting() == null){
-                UserSetting userSetting = new UserSetting();
-                userSetting.setUser(user);
-                userSettingDao.create(userSetting);
-                user = userDao.get(user.getId());
+
+        if (user.getUserSetting() == null) {
+            logger.debug("UserSettings is null");
+            return false;
+        }
+
+        if (user.getUserSetting().getLocale() == null) {
+            logger.debug("UserSettings Locale is null");
+            return false;
         }
 
         locale = user.getUserSetting().getLocale();
@@ -90,7 +94,7 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         for (User user : users) {
 
             // TODO: mail notification here
-            if(!createNotification(user, notificationType, localizableMessage, objectId)){
+            if (!createNotification(user, notificationType, localizableMessage, objectId)) {
                 result = false;
             }
         }
