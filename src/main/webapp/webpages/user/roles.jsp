@@ -3,10 +3,6 @@
 
 <f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
 
-<%--<s:useActionBean var="userBean" beanclass="cz.bbmri.action.user.UserActionBean"/>--%>
-<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
-<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>
-
 <s:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="user"
                  ternarymenu="roles">
@@ -41,9 +37,6 @@
                                   onclick="return confirm('${questionAdministrator}')"/>
                         <s:param name="userId" value="${actionBean.userId}"/>
                     </s:form>
-                        <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
-                        <%--event="removeAdministratorRole">--%>
-                        <%--<f:message key="remove"/></s:link>--%>
                     </c:if>
                     </security:allowed>
 
@@ -58,10 +51,6 @@
                                   onclick="return confirm('${questionDeveloper}')"/>
                         <s:param name="userId" value="${actionBean.userId}"/>
                     </s:form>
-
-                        <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
-                        <%--event="removeDeveloperRole">--%>
-                        <%--<f:message key="remove"/></s:link>--%>
                     </c:if>
                     </security:allowed>
                 <td>
@@ -86,10 +75,6 @@
                     </div>
                 </s:form>
 
-                    <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
-                    <%--event="setDeveloperRole">--%>
-                    <%--<f:message key="set"/></s:link>--%>
-
             </fieldset>
         </security:allowed>
     </c:if>
@@ -108,10 +93,6 @@
                         </s:submit>
                     </div>
                 </s:form>
-
-                    <%--<s:link beanclass="cz.bbmri.action.user.UserActionBean"--%>
-                    <%--event="setAdministratorRole">--%>
-                    <%--<f:message key="set"/></s:link>--%>
             </fieldset>
         </security:allowed>
     </c:if>
@@ -130,20 +111,13 @@
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.userRoles}"/>
+                             collection="${actionBean.user.biobankAdministrators}"/>
 
-            <c:forEach items="${actionBean.userRoles}" var="roleDTO">
-                <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.BiobankAdministrator'}">
+            <c:forEach items="${actionBean.user.biobankAdministrators}" var="ba">
                     <tr>
-                        <td>${roleDTO.subject}</td>
-                        <td>${roleDTO.permission}</td>
-
-                            <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
+                        <td>${ba.biobank.abbreviation}</td>
+                        <td>${ba.permission}</td>
                         <td class="action">
-
-                                <%--Need to set id for each row of a table to set properly ACL--%>
-
-                            <c:set target="${biobankBean}" property="biobankId" value="${roleDTO.referenceId}"/>
 
                             <security:allowed bean="biobankBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
@@ -155,7 +129,6 @@
 
                         </td>
                     </tr>
-                </c:if>
             </c:forEach>
             </tbody>
         </table>
@@ -176,22 +149,14 @@
             <tbody>
 
             <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
-                             collection="${actionBean.userRoles}"/>
+                             collection="${actionBean.user.projectAdministrators}"/>
 
-            <c:forEach items="${actionBean.userRoles}" var="roleDTO">
-                <c:if test="${roleDTO.type.name == 'cz.bbmri.entities.ProjectAdministrator'}">
+            <c:forEach items="${actionBean.user.projectAdministrators}" var="pa">
                     <tr>
-                        <td>${roleDTO.subject}</td>
-                        <td>${roleDTO.permission}</td>
+                        <td>${pa.project.name}</td>
+                        <td>${pa.permission}</td>
 
                         <td class="action">
-
-                                <%--Necessary to distinguish between BiobankAdministrator and ProjectAdministrator--%>
-
-
-                                <%--Need to set id for each row of a table to set properly ACL--%>
-
-                            <c:set target="${projectBean}" property="projectId" value="${roleDTO.referenceId}"/>
 
                             <security:allowed bean="projectBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
@@ -203,7 +168,6 @@
 
                         </td>
                     </tr>
-                </c:if>
             </c:forEach>
             </tbody>
         </table>

@@ -2,9 +2,10 @@ package cz.bbmri.action.support;
 
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class SupportActionBean extends ComponentActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    private UserService userService;
 
     public SupportActionBean() {
         setComponentManager(new ComponentManager());
@@ -47,10 +48,10 @@ public class SupportActionBean extends ComponentActionBean {
     }
 
     public List<User> getAllAdministrators() {
-        return userFacade.getAdministrators();
+        return userService.getAllByRole(SystemRole.ADMINISTRATOR);
     }
 
     public List<User> getAllDevelopers() {
-        return userFacade.getDevelopers();
+        return userService.getAllByRole(SystemRole.DEVELOPER);
     }
 }

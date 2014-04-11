@@ -66,7 +66,7 @@ public class CreateActionBean extends FindActionBean{
 
     public User getNewAdministrator() {
         if (adminId != null) {
-            return userFacade.get(adminId);
+            return userService.get(adminId);
         }
         return null;
     }

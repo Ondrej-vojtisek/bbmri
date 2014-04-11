@@ -5,7 +5,8 @@ import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.NotificationService;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -33,7 +34,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    private NotificationService notificationService;
 
     private Notification notification;
 
@@ -70,7 +71,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
     @DefaultHandler
     public Resolution display() {
         initiatePagination();
-        getPagination().setSource(userFacade.getUnreadNotifications(getContext().getMyId()));
+        getPagination().setSource(notificationService.getUnreadNotifications(getContext().getMyId()));
         return new ForwardResolution(DASHBOARD);
     }
 
@@ -83,7 +84,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
             return new RedirectResolution(this.getClass());
         }
 
-        if (userFacade.deleteNotifications(selectedNotifications)) {
+        if (notificationService.deleteNotifications(selectedNotifications)) {
             successMsg(null);
         }
 
@@ -99,7 +100,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
             return new RedirectResolution(this.getClass());
         }
 
-        if (userFacade.markAsRead(selectedNotifications)) {
+        if (notificationService.markAsRead(selectedNotifications)) {
             successMsg(null);
         }
 

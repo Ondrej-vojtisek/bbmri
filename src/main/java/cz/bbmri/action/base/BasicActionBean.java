@@ -12,8 +12,8 @@ import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
 import cz.bbmri.facade.ProjectFacade;
-import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class BasicActionBean extends Links implements ActionBean {
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserFacade userFacade;
+    private UserService userService;
 
     private TheActionBeanContext ctx;
 
@@ -86,7 +86,7 @@ public class BasicActionBean extends Links implements ActionBean {
         Long id = null;
 
         try {
-            id = userFacade.loginShibbolethUser(user, getContext().getLocale());
+            id = userService.loginShibbolethUser(user, getContext().getLocale());
             logger.debug("User have sufficient rights to access BBMRI - " +
                     "user: " + user + "affiliation: " + user.getAffiliation());
         } catch (AuthorizationException ex) {
@@ -123,12 +123,12 @@ public class BasicActionBean extends Links implements ActionBean {
     public User getLoggedUser() {
         Long id = ctx.getMyId();
 
-        return userFacade.get(id);
+        return userService.get(id);
     }
 
     public Set<SystemRole> getRoles() {
         Long id = ctx.getMyId();
-        return userFacade.get(id).getSystemRoles();
+        return userService.get(id).getSystemRoles();
 
     }
 

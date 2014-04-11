@@ -2,7 +2,7 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.User;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.*;
@@ -29,7 +29,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     private static final String INDEX = "/index.jsp";
 
     @SpringBean
-    private UserFacade userFacade;
+    private UserService userService;
 
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1)
@@ -95,7 +95,7 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
         if (id != null && password != null) {
 
-            user = userFacade.login(id, password);
+            user = userService.login(id, password);
         }
         if (user == null) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));

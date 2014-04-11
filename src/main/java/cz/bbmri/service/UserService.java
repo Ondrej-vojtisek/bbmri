@@ -1,8 +1,11 @@
 package cz.bbmri.service;
 
 import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.User;
+import cz.bbmri.facade.exceptions.AuthorizationException;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 import java.util.Locale;
@@ -14,18 +17,21 @@ import java.util.Locale;
  * Time: 12:55
  * To change this template use File | Settings | File Templates.
  */
-public interface UserService extends BasicService<User>{
+public interface UserService {
 
-    User create(User user, Locale locale);
+    List<User> all();
 
-    User changeAdministrator(Long oldAdminId, Long newAdminId);
+    User get(Long id);
 
-    User setRole(Long userId, SystemRole systemRole);
+    boolean remove(Long id);
 
-    User removeRole(Long userId, SystemRole systemRole);
+    boolean update(User t);
 
-    /* Dummy - tohle musi byt udelano jinym zpusobem. Kontrolou zda dany uzivatel muze byt administrator */
-    List<User> getNonAdministratorUsers();
+    Integer count();
+
+    List<User> allOrderedBy(String orderByParam, boolean desc);
+
+    boolean create(User user, Locale locale);
 
     boolean setSystemRole(Long userId, SystemRole systemRole);
 
@@ -36,5 +42,17 @@ public interface UserService extends BasicService<User>{
     List<User> find(User user, int requiredResults);
 
     User get(String eppn, String targetedId, String persistentId);
+
+    boolean setAsDeveloper(Long userId, ValidationErrors errors);
+
+    boolean setAsAdministrator(Long userId, ValidationErrors errors);
+
+    boolean removeAdministratorRole(Long userId, ValidationErrors errors);
+
+    boolean removeDeveloperRole(Long userId, ValidationErrors errors);
+
+    User login(Long id, String password);
+
+    Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException;
 
 }

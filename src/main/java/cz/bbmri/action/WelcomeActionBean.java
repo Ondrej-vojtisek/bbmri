@@ -2,8 +2,8 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.User;
-import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -24,7 +24,7 @@ public class WelcomeActionBean extends BasicActionBean {
     private String name;
 
     @SpringBean
-    private UserFacade userFacade;
+    private UserService userService;
 
     public String getName() {
         return name;
@@ -53,12 +53,12 @@ public class WelcomeActionBean extends BasicActionBean {
             User user = initializeUser();
             Long id = null;
             try{
-                id = userFacade.loginShibbolethUser(user, getContext().getLocale());
+                id = userService.loginShibbolethUser(user, getContext().getLocale());
             }catch(AuthorizationException ex){
                 return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
             }
 
-            user = userFacade.get(id);
+            user = userService.get(id);
 
             if (user != null) {
                 getContext().setLoggedUser(user);

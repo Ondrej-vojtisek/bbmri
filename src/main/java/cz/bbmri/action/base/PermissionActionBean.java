@@ -6,7 +6,6 @@ import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.facade.ProjectFacade;
-import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -28,8 +27,6 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     @SpringBean
     private ProjectFacade projectFacade;
 
-    @SpringBean
-    private UserFacade userFacade;
 
     protected Long biobankId;
 

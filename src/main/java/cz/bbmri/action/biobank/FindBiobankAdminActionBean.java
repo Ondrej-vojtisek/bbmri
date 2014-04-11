@@ -5,7 +5,7 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
 
     @SpringBean
-    protected UserFacade userFacade;
+    protected UserService userService;
 
     @SpringBean
     protected BiobankFacade biobankFacade;
@@ -56,7 +56,7 @@ public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
         if (userFind == null) {
             return null;
         }
-        return userFacade.find(userFind, 5);
+        return userService.find(userFind, 5);
     }
 
     @DefaultHandler

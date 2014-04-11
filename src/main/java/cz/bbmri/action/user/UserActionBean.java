@@ -6,8 +6,7 @@ import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.entities.webEntities.RoleDTO;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -23,7 +22,7 @@ import java.util.List;
 public class UserActionBean extends ComponentActionBean<User> {
 
     @SpringBean
-    private UserFacade userFacade;
+    private UserService userService;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"create", "update"},
@@ -89,7 +88,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     public User getUser() {
         if (user == null) {
             if (userId != null) {
-                user = userFacade.get(userId);
+                user = userService.get(userId);
             }
         }
         return user;
@@ -106,14 +105,6 @@ public class UserActionBean extends ComponentActionBean<User> {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-
-    public List<RoleDTO> getUserRoles() {
-        return userFacade.getRoles(userId);
-    }
-
-//    public Set<SystemRole> getSystemRoles() {
-//        return getUser().getSystemRoles();
-//    }
 
 
     public boolean getIsMyAccount() {
@@ -165,7 +156,7 @@ public class UserActionBean extends ComponentActionBean<User> {
             getPagination().setDesc(false);
         }
         getPagination().setEvent("display");
-        getPagination().setSource(userFacade.allOrderedBy(
+        getPagination().setSource(userService.allOrderedBy(
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
         return new ForwardResolution(USER_ALL);
@@ -181,7 +172,7 @@ public class UserActionBean extends ComponentActionBean<User> {
 
     @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
-        if (!userFacade.create(user, getContext().getLocale())) {
+        if (!userService.create(user, getContext().getLocale())) {
             return new ForwardResolution(this.getClass(), "display");
         }
         successMsg(null);
@@ -192,7 +183,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("remove")
     @RolesAllowed({"administrator", "developer"})
     public Resolution remove() {
-        if (!userFacade.remove(userId)) {
+        if (!userService.remove(userId)) {
             return new ForwardResolution(this.getClass(), "display");
         }
         successMsg(null);
@@ -233,7 +224,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
-        if (!userFacade.removeAdministratorRole(userId, getContext().getValidationErrors())) {
+        if (!userService.removeAdministratorRole(userId, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -243,7 +234,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
-        if (!userFacade.removeDeveloperRole(userId, getContext().getValidationErrors())) {
+        if (!userService.removeDeveloperRole(userId, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -253,7 +244,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
-        if (!userFacade.setAsAdministrator(userId, getContext().getValidationErrors())) {
+        if (!userService.setAsAdministrator(userId, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -263,7 +254,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
-        if (!userFacade.setAsDeveloper(userId, getContext().getValidationErrors())) {
+        if (!userService.setAsDeveloper(userId, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -274,7 +265,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("update")
     @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution update() {
-        if (!userFacade.update(user)) {
+        if (!userService.update(user)) {
             return new ForwardResolution(UserActionBean.class, "detail").addParameter("userId", userId);
         }
         successMsg(null);
@@ -288,7 +279,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     public Resolution changePassword() {
         if (password.equals(password2)) {
             user.setPassword(password);
-            userFacade.update(user);
+            userService.update(user);
             getContext().getMessages().add(
                     new SimpleMessage("Password was changed")
             );

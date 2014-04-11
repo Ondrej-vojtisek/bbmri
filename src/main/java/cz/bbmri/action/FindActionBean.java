@@ -4,7 +4,7 @@ import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.User;
-import cz.bbmri.facade.UserFacade;
+import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.HttpCache;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class FindActionBean extends PermissionActionBean {
     private static int FIND_RESULTS = 5;
 
     @SpringBean
-    protected UserFacade userFacade;
+    protected UserService userService;
 
     private User userFind;
 
@@ -40,6 +40,6 @@ public class FindActionBean extends PermissionActionBean {
         if (userFind == null) {
             return null;
         }
-        return userFacade.find(userFind, FIND_RESULTS);
+        return userService.find(userFind, FIND_RESULTS);
     }
 }

@@ -190,5 +190,40 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         return notificationDao.nOrderedBy(orderByParam, desc, number);
     }
 
+    public List<Notification> getUnreadNotifications(Long loggedUserId) {
+            notNull(loggedUserId);
+            return getUnread(loggedUserId);
+        }
+
+        public boolean markAsRead(List<Long> notificationsId) {
+            if (notificationsId == null) {
+                // not error
+                return false;
+            }
+            if (notificationsId.isEmpty()) {
+                return false;
+            }
+            for (Long id : notificationsId) {
+               markAsRead(id);
+            }
+
+            return true;
+        }
+
+        public boolean deleteNotifications(List<Long> notificationsId) {
+            if (notificationsId == null) {
+                // not error
+                return false;
+            }
+
+            if (notificationsId.isEmpty()) {
+                return false;
+            }
+            for (Long id : notificationsId) {
+                remove(id);
+            }
+
+            return true;
+        }
 
 }

@@ -24,4 +24,10 @@ public interface NotificationService extends BasicService<Notification>{
 
     boolean markAsRead(Long notificationId);
 
+    List<Notification> getUnreadNotifications(Long loggedUserId);
+
+    boolean markAsRead(List<Long> notificationsId);
+
+    boolean deleteNotifications(List<Long> notificationsId);
+
 }
