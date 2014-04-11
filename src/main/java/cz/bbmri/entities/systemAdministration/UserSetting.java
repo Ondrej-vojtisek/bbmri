@@ -4,6 +4,7 @@ import cz.bbmri.entities.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +17,7 @@ import java.io.Serializable;
 public class UserSetting implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final String DEFAULT_LOCALE = "cs";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -26,6 +28,10 @@ public class UserSetting implements Serializable {
     private User user;
 
     private int numberOfRecordsPerPage;
+
+    private boolean sendNotificationToEmail;
+
+    private String locale;
 
     public Long getId() {
         return id;
@@ -49,6 +55,26 @@ public class UserSetting implements Serializable {
 
     public void setNumberOfRecordsPerPage(int numberOfRecordsPerPage) {
         this.numberOfRecordsPerPage = numberOfRecordsPerPage;
+    }
+
+    public boolean isSendNotificationToEmail() {
+        return sendNotificationToEmail;
+    }
+
+    public void setSendNotificationToEmail(boolean sendNotificationToEmail) {
+        this.sendNotificationToEmail = sendNotificationToEmail;
+    }
+
+    public Locale getLocale() {
+        if(locale == null){
+            return new Locale(DEFAULT_LOCALE);
+        }else{
+            return new Locale(locale);
+        }
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 
     @Override

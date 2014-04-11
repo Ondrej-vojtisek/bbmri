@@ -1,5 +1,6 @@
 package cz.bbmri.io;
 
+import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Box;
 import cz.bbmri.entities.infrastructure.Container;
@@ -21,16 +22,25 @@ import java.util.List;
 public class MonitoringDataParser extends AbstractParser {
 
     private static final String MONITORING_XSD_URL = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd";
+    private static final String DEFAULT_NAMESPACE = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy";
+    private static final String NAMESPACE_PREFIX = "def";
+    private static final String NAMESPACE_PREFIX_COLONS = NAMESPACE_PREFIX + ":";
+    private static final String NAMESPACE_PREFIX_SLASHED = "/" + NAMESPACE_PREFIX_COLONS;
+    private static final String ROOT_ELEMENT =  NAMESPACE_PREFIX_SLASHED + "biobank";
+
+
 
     public MonitoringDataParser(String path) throws Exception {
-        super(path);
+        super(path, new NamespaceContextMap(
+                                  NAMESPACE_PREFIX, DEFAULT_NAMESPACE));
     }
 
     public String getBiobankId() {
 
         String biobankId = null;
         try {
-            biobankId = executeXPath("/biobank/@id", document);
+            biobankId = executeXPath(ROOT_ELEMENT + "/@id", document);
+            setBiobankPrefix(biobankId);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -48,7 +58,7 @@ public class MonitoringDataParser extends AbstractParser {
         NodeList nodes = null;
 
         try {
-            nodes = (NodeList) executeXPathForNodeSet("/biobank/container", document);
+            nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + "container", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -70,8 +80,9 @@ public class MonitoringDataParser extends AbstractParser {
         NodeList nodes = null;
 
         try {
-            nodes = (NodeList) executeXPathForNodeSet("/biobank/container[@id='" +
-                    container.getName() + "']/rack", document);
+            nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
+                    NAMESPACE_PREFIX_SLASHED + "container[@id='" +container.getName() + "']" +
+                    NAMESPACE_PREFIX_SLASHED + " rack", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -92,7 +103,8 @@ public class MonitoringDataParser extends AbstractParser {
         NodeList nodes = null;
 
         try {
-            nodes = (NodeList) executeXPathForNodeSet("/biobank/box", document);
+            nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
+                    NAMESPACE_PREFIX_SLASHED + "box", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -114,10 +126,10 @@ public class MonitoringDataParser extends AbstractParser {
         NodeList nodes = null;
 
         try {
-            nodes = (NodeList) executeXPathForNodeSet("/" +
-                    "biobank/container[@id='" + container.getName() + "']/" +
-                    "rack[@id='" + rack.getName() + "']/" +
-                    "box", document);
+            nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
+                    NAMESPACE_PREFIX_SLASHED + "container[@id='" + container.getName() + "']" +
+                    NAMESPACE_PREFIX_SLASHED + "rack[@id='" + rack.getName() + "']" +
+                    NAMESPACE_PREFIX_SLASHED + "box", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -217,13 +229,13 @@ public class MonitoringDataParser extends AbstractParser {
 
             // Child elements
 
-            location = executeXPath("location", node);
+            location = executeXPath(NAMESPACE_PREFIX_COLONS + "location", node);
 
-            capacity = executeXPath("capacity", node);
+            capacity = executeXPath(NAMESPACE_PREFIX_COLONS + "capacity", node);
 
-            tempMin = executeXPath("tempMin", node);
+            tempMin = executeXPath(NAMESPACE_PREFIX_COLONS + "tempMin", node);
 
-            tempMax = executeXPath("tempMax", node);
+            tempMax = executeXPath(NAMESPACE_PREFIX_COLONS + "tempMax", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -277,7 +289,7 @@ public class MonitoringDataParser extends AbstractParser {
 
             // Child elements
 
-            capacity = executeXPath("capacity", node);
+            capacity = executeXPath(NAMESPACE_PREFIX_COLONS + "capacity", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -319,11 +331,11 @@ public class MonitoringDataParser extends AbstractParser {
 
             //            Child elements
 
-            capacity = executeXPath("capacity", node);
+            capacity = executeXPath(NAMESPACE_PREFIX_COLONS + "capacity", node);
 
-            tempMin = executeXPath("tempMin", node);
+            tempMin = executeXPath(NAMESPACE_PREFIX_COLONS + "tempMin", node);
 
-            tempMax = executeXPath("tempMax", node);
+            tempMax = executeXPath(NAMESPACE_PREFIX_COLONS + "tempMax", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -366,10 +378,10 @@ public class MonitoringDataParser extends AbstractParser {
 
             try {
                 // /biobank[@id=...]/box[@id=...]
-                nodes = (NodeList) executeXPathForNodeSet("/" +
-                        "biobank[@id='" + biobank.getName() + "']/" +
-                        "box[@id='" + box.getName() + "']/" +
-                        "occupiedPosition", document);
+                nodes = (NodeList) executeXPathForNodeSet(
+                        ROOT_ELEMENT + "[@id='" + biobank.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "box[@id='" + box.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "occupiedPosition", document);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -380,12 +392,12 @@ public class MonitoringDataParser extends AbstractParser {
 
             try {
                 // /biobank[@id=...]/container[@id=...]/rack[@id=...]/box[@id=...]
-                nodes = (NodeList) executeXPathForNodeSet("/" +
-                        "biobank[@id='" + biobank.getName() + "']/" +
-                        "container[@id='" + container.getName() + "']/" +
-                        "rack[@id='" + rack.getName() + "']/" +
-                        "box[@id='" + box.getName() + "']/" +
-                        "occupiedPosition", document);
+                nodes = (NodeList) executeXPathForNodeSet(
+                        ROOT_ELEMENT + "[@id='" + biobank.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "container[@id='" + container.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "rack[@id='" + rack.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "box[@id='" + box.getName() + "']" +
+                        NAMESPACE_PREFIX_SLASHED + "occupiedPosition", document);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -434,13 +446,13 @@ public class MonitoringDataParser extends AbstractParser {
 
             //            Child elements
 
-            sampleId = executeXPath("sampleId", node);
+            sampleId = executeXPath(NAMESPACE_PREFIX_COLONS + "sampleId", node);
 
-            row = executeXPath("matrixPosition/@row", node);
+            row = executeXPath(NAMESPACE_PREFIX_COLONS + "matrixPosition/@row", node);
 
-            column = executeXPath("matrixPosition/@column", node);
+            column = executeXPath(NAMESPACE_PREFIX_COLONS + "matrixPosition/@column", node);
 
-            seqPosition = executeXPath("sequentialPosition/@position", node);
+            seqPosition = executeXPath(NAMESPACE_PREFIX_COLONS + "sequentialPosition/@position", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -449,7 +461,17 @@ public class MonitoringDataParser extends AbstractParser {
         }
 
         if (sampleId != null) {
-            position.setSampleId(sampleId);
+            if(getBiobankPrefix() == null){
+                System.out.println("BiobankPrefix null");
+                return null;
+            }
+            // Must have prefix of biobank if not prepend it
+            if(hasPrefix(sampleId)){
+                position.setSampleId(sampleId);
+            }else{
+                position.setSampleId(getBiobankPrefix() + sampleId);
+            }
+
         } else {
             System.err.println("SampleId is necessary");
             return null;

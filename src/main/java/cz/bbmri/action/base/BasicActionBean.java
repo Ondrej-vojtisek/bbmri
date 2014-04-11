@@ -40,6 +40,8 @@ public class BasicActionBean extends Links implements ActionBean {
 
     private TheActionBeanContext ctx;
 
+
+
     @Override
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (TheActionBeanContext) ctx;
@@ -83,7 +85,7 @@ public class BasicActionBean extends Links implements ActionBean {
         Long id = null;
 
         try {
-            id = userFacade.loginShibbolethUser(user);
+            id = userFacade.loginShibbolethUser(user, getContext().getLocale());
             logger.debug("User have sufficient rights to access BBMRI - " +
                     "user: " + user + "affiliation: " + user.getAffiliation());
         } catch (AuthorizationException ex) {

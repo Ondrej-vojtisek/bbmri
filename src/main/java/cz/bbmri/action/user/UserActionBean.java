@@ -48,7 +48,7 @@ public class UserActionBean extends ComponentActionBean<User> {
 
     public static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(UserActionBean.class.getName(),
-                "display", false, "cz.bbmri.action.user.UserActionBean.all", active);
+                "display", false, "cz.bbmri.entities.User.users", active);
     }
 
     public static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
@@ -181,7 +181,7 @@ public class UserActionBean extends ComponentActionBean<User> {
 
     @RolesAllowed({"administrator", "developer"})
     public Resolution create() {
-        if (!userFacade.create(user)) {
+        if (!userFacade.create(user, getContext().getLocale())) {
             return new ForwardResolution(this.getClass(), "display");
         }
         successMsg(null);

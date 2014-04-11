@@ -229,12 +229,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.ws.commons.axiom</groupId>
-            <artifactId>axiom</artifactId>
-            <version>1.2.11</version>
-        </dependency>
-
-        <dependency>
         	<groupId>stax</groupId>
         	<artifactId>stax-api</artifactId>
         	<version>1.0.1</version>

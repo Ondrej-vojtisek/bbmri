@@ -112,7 +112,9 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
     public Resolution setPermission() {
-        if (!projectFacade.changeAdministratorPermission(adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!projectFacade.changeAdministratorPermission(adminId, permission,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("projectId", projectId);
         }
@@ -127,7 +129,9 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @RolesAllowed({"project_team_member if ${allowedProjectManager or isMyAccount}"})
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
-        if (!projectFacade.removeAdministrator(adminId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!projectFacade.removeAdministrator(adminId,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("projectId", projectId);
         }
@@ -147,7 +151,9 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
-        if (!projectFacade.assignAdministrator(projectId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!projectFacade.assignAdministrator(projectId, adminId, permission,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("projectId", projectId);
         }

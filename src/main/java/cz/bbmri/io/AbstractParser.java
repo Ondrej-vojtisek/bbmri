@@ -5,6 +5,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
@@ -34,7 +35,19 @@ public abstract class AbstractParser {
 
     protected XPathFactory xpathFactory;
 
-    public AbstractParser(String path) throws Exception {
+    private NamespaceContext namespaceContext;
+
+    private String biobankPrefix;
+
+    public String getBiobankPrefix() {
+        return biobankPrefix;
+    }
+
+    public void setBiobankPrefix(String biobankPrefix) {
+        this.biobankPrefix = biobankPrefix;
+    }
+
+    public AbstractParser(String path, NamespaceContextMap contextMap) throws Exception {
 
         this.xmlFilePath = path;
 
@@ -49,6 +62,9 @@ public abstract class AbstractParser {
 
         xpathFactory = XPathFactory.newInstance();
 
+        // namespace context
+        namespaceContext = contextMap;
+
     }
 
     abstract String getBiobankId();
@@ -61,6 +77,7 @@ public abstract class AbstractParser {
         logger(xPathQuery);
 
         XPath xpath = xpathFactory.newXPath();
+        xpath.setNamespaceContext(namespaceContext);
         XPathExpression expr = xpath.compile(xPathQuery);
         return expr.evaluate(node, XPathConstants.NODESET);
     }
@@ -69,6 +86,7 @@ public abstract class AbstractParser {
         logger(xPathQuery);
 
         XPath xpath = xpathFactory.newXPath();
+        xpath.setNamespaceContext(namespaceContext);
         XPathExpression expr = xpath.compile(xPathQuery);
         return (String) expr.evaluate(node, XPathConstants.STRING);
     }
@@ -107,17 +125,30 @@ public abstract class AbstractParser {
             validator.validate(xmlFile);
 
         } catch (SAXException e) {
-            System.out.println(xmlFile.getSystemId() + " is NOT valid");
+            System.out.println(xmlFile.getSystemId() + " XML is NOT valid");
             System.out.println("Reason: " + e.getLocalizedMessage());
             return false;
         } catch (IOException ex) {
-            System.out.println(xmlFile.getSystemId() + " is NOT valid 2");
+            System.out.println(xmlFile.getSystemId() + " XML IOException");
             System.out.println("Reason: " + ex.getLocalizedMessage());
             return false;
         }
 
         return true;
 
+    }
+
+    //    Identifier must start with biobank prefix. Otherwise false is returned
+    protected boolean hasPrefix(String identifier) {
+        if (identifier == null) return false;
+
+        for (int i = 0; i < getBiobankPrefix().length(); i++) {
+            if (identifier.charAt(i) != getBiobankPrefix().charAt(i)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     abstract boolean validate();

@@ -6,21 +6,20 @@ import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.entities.webEntities.RoleDTO;
 import cz.bbmri.facade.UserFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.NotificationService;
 import cz.bbmri.service.UserService;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -42,6 +41,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
     @Autowired
     private NotificationService notificationService;
+
 
     public List<RoleDTO> getRoles(Long userId) {
         notNull(userId);
@@ -93,10 +93,10 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return userService.all();
     }
 
-    public boolean create(User user) {
+    public boolean create(User user, Locale locale) {
         notNull(user);
         user.setShibbolethUser(false);
-        user = userService.create(user);
+        user = userService.create(user, locale);
 
         if (user == null) {
             return false;
@@ -127,10 +127,11 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         boolean result = userService.setSystemRole(userId, SystemRole.DEVELOPER);
         if (result) {
-            String msg = "Developer permission was given to user: " + userDB.getWholeName();
+
+            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleAdded", userDB.getWholeName());
 
             notificationService.create(getDevelopers(),
-                    NotificationType.USER_SUPPORT, msg, null);
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
         }
         return result;
     }
@@ -146,10 +147,11 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         boolean result = userService.setSystemRole(userId, SystemRole.ADMINISTRATOR);
         if (result) {
-            String msg = "Administrator permission was given to user: " + userDB.getWholeName();
+
+            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleAdded", userDB.getWholeName());
 
             notificationService.create(getAdministrators(),
-                    NotificationType.USER_SUPPORT, msg, null);
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
         }
         return result;
     }
@@ -176,10 +178,11 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         if (result) {
 
-            String msg = "Administrator permission was taken from user: " + userDB.getWholeName() + ".";
+
+            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleRemoved", userDB.getWholeName());
 
             notificationService.create(getAdministrators(),
-                    NotificationType.USER_SUPPORT, msg, null);
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
         }
 
         return result;
@@ -200,10 +203,10 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
 
         if (result) {
 
-            String msg = "Developer permission was taken from user: " + userDB.getWholeName() + ".";
+            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleRemoved", userDB.getWholeName());
 
             notificationService.create(getDevelopers(),
-                    NotificationType.USER_SUPPORT, msg, null);
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
 
         }
 
@@ -241,6 +244,12 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
             return null;
         }
 
+        if(userDB.getUserSetting() == null){
+            UserSetting setting = new UserSetting();
+            setting.setUser(userDB);
+
+        }
+
         userDB.setLastLogin(new Date());
         userService.update(userDB);
         return userDB;
@@ -263,7 +272,7 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         return userService.get(eppn, targetedId, persitentId);
     }
 
-    public Long loginShibbolethUser(User user) throws AuthorizationException {
+    public Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException {
 
         if (user == null) {
             logger.debug("Object can't be a null object -> User ");
@@ -277,8 +286,9 @@ public class UserFacadeImpl extends BasicFacade implements UserFacade {
         User userDB = userService.get(user.getEppn(), user.getTargetedId(), user.getPersistentId());
 
         if (userDB == null) {
-            userDB = userService.create(user);
+            userDB = userService.create(user, locale);
             user.setId(userDB.getId());
+
         } else {
             /* If user changed its credentials in system of IdentityProvider then we want to
             * make local user stored in database up-to-date. */

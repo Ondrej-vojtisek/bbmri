@@ -25,13 +25,6 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
-    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="org.postgresql.Driver"/>-->
-        <!--<property name="url" value="jdbc:postgresql://localhost:5432/bbmri"/>-->
-        <!--<property name="username" value="${username}"/>-->
-        <!--<property name="password" value="hanako"/>-->
-    <!--</bean>-->
-
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
@@ -49,8 +42,9 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
         <property name="persistenceUnitName" value="MyPersistenceUnit"/>
         <property name="jpaPropertyMap">
         			<map>
-        				<entry key="hibernate.connection.username" value="postgres" />
-                        <entry key="hibernate.connection.password" value="hanako" />
+<!-- use credentials from my.properties -->
+        				<entry key="hibernate.connection.username" value="${username}" />
+                        <entry key="hibernate.connection.password" value="${password}" />
                         <entry key="hibernate.connection.url" value="${db}" />
         			</map>
         </property>

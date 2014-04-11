@@ -8,6 +8,7 @@ import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,7 +52,6 @@ public interface RequestFacade {
 
     boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
 
-    void checkReservationValidity();
 
     List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc);
 

@@ -3,6 +3,7 @@ package cz.bbmri.service;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.NotificationType;
+import net.sourceforge.stripes.action.LocalizableMessage;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ import java.util.List;
  */
 public interface NotificationService extends BasicService<Notification>{
 
-    boolean create(Long userId, NotificationType notificationType, String message, Long objectId);
+    boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
 
-    boolean create(List<User> users, NotificationType notificationType, String message, Long objectId);
+    boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
 
     List<Notification> getUnread(Long userId);
 

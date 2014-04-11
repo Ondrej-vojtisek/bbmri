@@ -119,7 +119,8 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution update() {
-        if (!projectFacade.updateProject(project, getContext().getMyId())) {
+        if (!projectFacade.updateProject(project,
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
         successMsg(null);
@@ -151,7 +152,9 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectFacade.approveProject(projectId, getContext().getMyId(), getContext().getValidationErrors())) {
+        if (!projectFacade.approveProject(projectId,
+                getContext().getMyId(),
+                getContext().getValidationErrors())) {
 
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
@@ -168,7 +171,9 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectFacade.denyProject(projectId, getContext().getMyId(), getContext().getValidationErrors())) {
+        if (!projectFacade.denyProject(projectId,
+                getContext().getMyId(),
+                getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
         successMsg(null);

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           elementFormDefault="qualified"
-           targetNamespace="http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd"
-           xmlns:b="http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://www.bbmri.cz/schemas/monitoring/bankoccupancy"
+           xmlns:b="http://www.bbmri.cz/schemas/monitoring/bankoccupancy">
     <xs:element name="biobank">
         <xs:complexType>
             <xs:sequence>

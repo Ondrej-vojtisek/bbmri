@@ -171,11 +171,9 @@ public class FacadeUtils extends BasicFacade {
 
         File destinationFile = new File(destination + File.separator + source.getName());
 
-        System.out.println("Copy file");
-        System.out.println("Source: " + source + " destination: " + destinationFile);
+        System.out.println("Copy file - Source: " + source + " destination: " + destinationFile);
 
         if (!source.exists()) {
-            System.out.println("dir doesn't exist");
             System.err.println("dir doesn't exist");
 
             // not success
@@ -185,7 +183,6 @@ public class FacadeUtils extends BasicFacade {
             FileUtils.copyFile(source, destinationFile);
         }catch(IOException ex){
             ex.printStackTrace();
-            System.out.println("JavaIOException during copy File");
             System.err.println("JavaIOException during copy File");
             return NOT_SUCCESS;
         }

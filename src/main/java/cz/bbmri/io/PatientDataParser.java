@@ -30,9 +30,17 @@ import java.util.List;
 public class PatientDataParser extends AbstractParser {
 
     private static final String PATIENT_XSD_URL = "http://www.bbmri.cz/schemas/biobank/data.xsd";
+    private static final String DEFAULT_NAMESPACE = "http://www.bbmri.cz/schemas/biobank/data";
+    private static final String NAMESPACE_PREFIX = "def";
+    private static final String NAMESPACE_PREFIX_COLONS = NAMESPACE_PREFIX + ":";
+    private static final String NAMESPACE_PREFIX_SLASHED = "/" + NAMESPACE_PREFIX_COLONS;
+    private static final String ROOT_ELEMENT = NAMESPACE_PREFIX_SLASHED + "patient";
+
 
     public PatientDataParser(String path) throws Exception {
-        super(path);
+
+        super(path, new NamespaceContextMap(
+                NAMESPACE_PREFIX, DEFAULT_NAMESPACE));
     }
 
     public boolean validate() {
@@ -45,7 +53,8 @@ public class PatientDataParser extends AbstractParser {
 
         try {
 
-            biobankId = executeXPath("/patient/@biobank", document);
+            biobankId = executeXPath(ROOT_ELEMENT + "/@biobank", document);
+            setBiobankPrefix(biobankId);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -64,15 +73,16 @@ public class PatientDataParser extends AbstractParser {
 
         try {
 
-            patientId = executeXPath("/patient/@id", document);
 
-            birthYear = executeXPath("/patient/@year", document);
+            patientId = executeXPath(ROOT_ELEMENT + "/@id", document);
 
-            birthMonth = executeXPath("/patient/@month", document);
+            birthYear = executeXPath(ROOT_ELEMENT + "/@year", document);
 
-            sex = executeXPath("/patient/@sex", document);
+            birthMonth = executeXPath(ROOT_ELEMENT + "/@month", document);
 
-            consent = executeXPath("/patient/@consent", document);
+            sex = executeXPath(ROOT_ELEMENT + "/@sex", document);
+
+            consent = executeXPath(ROOT_ELEMENT + "/@consent", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -96,6 +106,7 @@ public class PatientDataParser extends AbstractParser {
         /* Use validity check from GYear factory */
         GYear gYear = null;
         try {
+            System.err.println("birthYear: " + birthYear);
             gYear = GYear.Factory.fromString(birthYear, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         } catch (NumberFormatException ex) {
@@ -113,9 +124,12 @@ public class PatientDataParser extends AbstractParser {
 //        MONTH
 
         if (birthMonth != null) {
-            // expect format --02 or --02--
-            int month = Integer.parseInt(birthMonth.substring(2, 4));
-
+            // for format of gMonth
+            if (birthMonth.length() > 2) {
+                // expect format --02 or --02--
+                birthMonth = birthMonth.substring(2, 4);
+            }
+            int month = Integer.parseInt(birthMonth);
             // month
             if (month > 12 || month < 1) {
                 System.err.println("Birth month of imported patient is not valid");
@@ -143,7 +157,18 @@ public class PatientDataParser extends AbstractParser {
             return null;
         }
 
-        patient.setInstitutionId(patientId);
+        if (getBiobankPrefix() == null) {
+            System.err.println("BiobankPrefix not set");
+            return null;
+        }
+
+//        Patientid must be prefixed with institutional abbreviation
+        if (!hasPrefix(patientId)) {
+            // set biobankId as prefix
+            patient.setInstitutionId(getBiobankPrefix() + patientId);
+        } else {
+            patient.setInstitutionId(patientId);
+        }
 
         return patient;
     }
@@ -155,7 +180,7 @@ public class PatientDataParser extends AbstractParser {
 
         try {
             // all child nodes of LTS module
-            result = executeXPathForNodeSet("/patient/LTS/*", document);
+            result = executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + "LTS/*", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -172,7 +197,7 @@ public class PatientDataParser extends AbstractParser {
 
         try {
             // all child nodes of STS module
-            result = executeXPathForNodeSet("/patient/STS/*", document);
+            result = executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + "STS/*", document);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -244,19 +269,19 @@ public class PatientDataParser extends AbstractParser {
         try {
 
 //            Child elements
-            samplesNo = executeXPath("samplesNo", node);
+            samplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "samplesNo", node);
 
-            availableSamplesNo = executeXPath("availableSamplesNo", node);
+            availableSamplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "availableSamplesNo", node);
 
-            TNM = executeXPath("TNM", node);
+            TNM = executeXPath(NAMESPACE_PREFIX_COLONS + "TNM", node);
 
-            pTNM = executeXPath("pTNM", node);
+            pTNM = executeXPath(NAMESPACE_PREFIX_COLONS + "pTNM", node);
 
-            morphology = executeXPath("morphology", node);
+            morphology = executeXPath(NAMESPACE_PREFIX_COLONS + "morphology", node);
 
-            grading = executeXPath("grading", node);
+            grading = executeXPath(NAMESPACE_PREFIX_COLONS + "grading", node);
 
-            freezeTime = executeXPath("freezeTime", node);
+            freezeTime = executeXPath(NAMESPACE_PREFIX_COLONS + "freezeTime", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -332,9 +357,9 @@ public class PatientDataParser extends AbstractParser {
         try {
 
             //            Child elements
-            samplesNo = executeXPath("samplesNo", node);
+            samplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "samplesNo", node);
 
-            availableSamplesNo = executeXPath("availableSamplesNo", node);
+            availableSamplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "availableSamplesNo", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -378,14 +403,14 @@ public class PatientDataParser extends AbstractParser {
 
             //            Child elements
 
-            samplesNo = executeXPath("samplesNo", node);
+            samplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "samplesNo", node);
 
-            availableSamplesNo = executeXPath("availableSamplesNo", node);
+            availableSamplesNo = executeXPath(NAMESPACE_PREFIX_COLONS + "availableSamplesNo", node);
 
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.err.println("Failed to parse Tissue");
+            System.err.println("Failed to parse Genome");
             return null;
         }
 
@@ -423,11 +448,11 @@ public class PatientDataParser extends AbstractParser {
         try {
 
             //            Child elements
-            diagnosis = executeXPath("diagnosis", node);
+            diagnosis = executeXPath(NAMESPACE_PREFIX_COLONS + "diagnosis", node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.err.println("Failed to parse Tissue");
+            System.err.println("Failed to parse Diagnosis material");
             return null;
         }
 
@@ -506,16 +531,16 @@ public class PatientDataParser extends AbstractParser {
 
             // child elements
 
-            materialType = executeXPath("materialType", node);
+            materialType = executeXPath(NAMESPACE_PREFIX_COLONS + "materialType", node);
 
-            retrieved = executeXPath("retrieved", node);
+            retrieved = executeXPath(NAMESPACE_PREFIX_COLONS + "retrieved", node);
 
             // cut time for tissue
             if (tissue) {
-                takingDate = executeXPath("cutTime", node);
+                takingDate = executeXPath(NAMESPACE_PREFIX_COLONS + "cutTime", node);
             } else {
                 // taking date for other types
-                takingDate = executeXPath("takingDate", node);
+                takingDate = executeXPath(NAMESPACE_PREFIX_COLONS + "takingDate", node);
             }
 
         } catch (Exception ex) {
@@ -535,8 +560,22 @@ public class PatientDataParser extends AbstractParser {
             sample.getSampleIdentification().setNumber(Integer.parseInt(number));
         }
 
-        if (sampleId != null) {
+        if (sampleId == null) {
+            System.err.println("SampleId is null");
+            return null;
+        }
+
+        if (getBiobankPrefix() == null) {
+            System.err.println("BiobankPrefix not set");
+            return null;
+        }
+
+        // If has prefix than ok
+        if (hasPrefix(sampleId)) {
             sample.getSampleIdentification().setSampleId(sampleId);
+        }else{
+            // otherwise prepend prefix of biobank
+            sample.getSampleIdentification().setSampleId(getBiobankPrefix() + sampleId);
         }
 
         sample.setMaterialType(new MaterialType());
@@ -579,4 +618,6 @@ public class PatientDataParser extends AbstractParser {
         return sample;
 
     }
+
+
 }

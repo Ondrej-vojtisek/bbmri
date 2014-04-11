@@ -9,6 +9,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.

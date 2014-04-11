@@ -41,7 +41,7 @@
                             <s:layout-render name="/webpages/component/detail/user/row.jsp" record="${user}"/>
                             <td class="action">
 
-                                <s:form beanclass="${actionBean.name}">
+                                <s:form beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean">
                                     <s:select name="permission">
                                         <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                                     </s:select>

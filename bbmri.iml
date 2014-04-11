@@ -85,7 +85,6 @@
     <orderEntry type="library" name="Maven: jaxen:jaxen:1.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.axis2:axis2:1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ws.commons.axiom:axiom:1.2.11" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
   </component>
 </module>

@@ -7,6 +7,7 @@ import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.facade.UserFacade;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.

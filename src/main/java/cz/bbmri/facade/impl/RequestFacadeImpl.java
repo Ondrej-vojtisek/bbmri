@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,7 +86,7 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         }
 
         if (!sampleQuestionDB.getRequestState().equals(RequestState.NEW)) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantApproveThisRequestState"));
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantDenyThisRequestState"));
             return false;
         }
 
@@ -95,20 +96,20 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " was denied";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.changedState",
+                          sampleQuestionDB.getId(), RequestState.DENIED);
 
             // Notification for all users involved in project
 
             if (sampleQuestionDB instanceof SampleRequest) {
                 notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), loggedUserId),
-                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                        NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
             }
 
             // Notification for the user who etnered the reservation
 
             else if (sampleQuestionDB instanceof SampleReservation) {
-                notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
             }
         }
 
@@ -143,20 +144,20 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
 
         if (sampleQuestionDB instanceof SampleRequest) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " is finished. Check if sample set suits your requirements. ";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.changedState",
+                                    sampleQuestionDB.getId(), RequestState.CLOSED);
 
             notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(),
                     loggedUserId),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                    NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
         }
 
         if (sampleQuestionDB instanceof SampleReservation) {
 
-            String msg = "Sample reservation with id: " + sampleQuestionDB.getId() +
-                    " is finished. Check if sample set suits your requirements. ";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.reservationChangedState",
+                                             sampleQuestionDB.getId(), RequestState.CLOSED);
 
-            notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, msg,
+            notificationService.create(loggedUserId, NotificationType.SAMPLE_REQUEST_DETAIL, locMsg,
                     sampleQuestionDB.getId());
         }
 
@@ -202,11 +203,11 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " was agreed by project administrator " + loggedUser.getWholeName() + ". Please prepare set of samples. ";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.confirmed",
+                                                       sampleQuestionDB.getId(), RequestState.CLOSED);
 
             notificationService.create(getOtherBiobankAdministrators(sampleQuestionDB.getBiobank(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                    NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -250,12 +251,11 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " wasn't confirmed by project administrator " + loggedUser.getWholeName() + ". Please contant him:" +
-                    " on " + loggedUser.getEmail();
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.denied",
+                                                       sampleQuestionDB.getId(), RequestState.CLOSED);
 
             notificationService.create(getOtherBiobankAdministrators(sampleQuestionDB.getBiobank(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                    NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -299,11 +299,11 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         boolean result = sampleQuestionService.update(sampleQuestionDB) != null;
         if (result) {
 
-            String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                    " was delivered by: " + loggedUser.getWholeName();
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.changedState",
+                                    sampleQuestionDB.getId(), RequestState.DELIVERED);
 
             notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), null),
-                    NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleQuestionDB.getId());
+                    NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleQuestionDB.getId());
         }
 
         return result;
@@ -323,12 +323,13 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
             return false;
         }
 
-        String msg = "Sample request with id: " + sampleQuestionDB.getId() +
-                " was deleted";
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.deleted",
+                                 sampleQuestionDB.getId());
+
 
         if (sampleQuestionDB instanceof SampleRequest) {
             notificationService.create(getOtherProjectWorkers(((SampleRequest) sampleQuestionDB).getProject(), loggedUserId),
-                    NotificationType.PROJECT_DETAIL, msg, ((SampleRequest) sampleQuestionDB).getProject().getId());
+                    NotificationType.PROJECT_DETAIL, locMsg, ((SampleRequest) sampleQuestionDB).getProject().getId());
 
         }
 
@@ -342,12 +343,8 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
     }
 
     public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
-        logger.debug("Facade - createRequests");
-        logger.debug("SampleIds: " + sampleIds);
-        logger.debug("SampleQuestionId: " + sampleQuestionId);
 
         int result = -1;
-
         try {
             result = requestService.createRequests(sampleIds, sampleQuestionId);
         } catch (InsuficientAmountOfSamplesException ex) {
@@ -439,49 +436,6 @@ public class RequestFacadeImpl extends BasicFacade implements RequestFacade {
         return true;
     }
 
-    private void setReservationAsExpired(SampleReservation sampleReservation) {
-        logger.debug("CRON - checkReservationValidity. SampleReservatino: " + sampleReservation.getId() +
-                "was set as EXPIRED");
-        sampleReservation.setRequestState(RequestState.EXPIRED);
-        sampleQuestionService.update(sampleReservation);
-
-        // delete all request - alocated samples are free
-        for (Request request : sampleReservation.getRequests()) {
-            requestService.remove(request.getId());
-        }
-    }
-
-    // triggers at 0:10 each day
-    @Scheduled(cron = "10 0 * * * *")
-    public void checkReservationValidity() {
-        logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
-
-        Date date = new Date();
-        boolean firstValid = false;
-        for (SampleReservation sampleReservation : sampleQuestionService.getSampleReservationsOrderedByDate()) {
-            // if this date (today) is after sampleReservation.getValidity
-            // then validity is over
-
-            if (firstValid) break;
-
-            if (date.after(sampleReservation.getValidity())) {
-                setReservationAsExpired(sampleReservation);
-
-                String msg = "Sample reservation with id: " + sampleReservation.getId() +
-                        " expired.";
-
-                notificationService.create(sampleReservation.getUser().getId(),
-                        NotificationType.SAMPLE_REQUEST_DETAIL, msg, sampleReservation.getId());
-            } else {
-                // reservations are sorted from oldest to newest
-                // if first one is valid, that all next will be also valid
-                firstValid = true;
-            }
-
-        }
-
-
-    }
 
     public List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc) {
         if (biobankId == null) {

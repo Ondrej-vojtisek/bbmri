@@ -9,6 +9,7 @@ import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -24,7 +25,7 @@ public interface UserFacade {
 
     boolean update(User user);
 
-    boolean create(User user);
+    boolean create(User user, Locale locale);
 
     boolean remove(Long userId);
 
@@ -52,7 +53,7 @@ public interface UserFacade {
 
     User get(String eppn, String targetedId, String persistentId);
 
-    Long loginShibbolethUser(User user) throws AuthorizationException;
+    Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException;
 
     List<Notification> getUnreadNotifications(Long loggedUserId);
 

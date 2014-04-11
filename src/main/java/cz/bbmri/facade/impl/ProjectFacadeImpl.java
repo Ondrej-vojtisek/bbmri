@@ -8,6 +8,7 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.service.*;
 import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -22,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -71,10 +73,12 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         }
         // Project can't be null - otherwise projectService.approve would have failed
         Project project = projectService.get(projectId);
-        String msg = "Project: " + project.getName() + " was approved.";
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                           project.getName(), ProjectState.APPROVED);
 
         notificationService.create(getProjectAdministratorsUsers(projectId),
-                NotificationType.PROJECT_DETAIL, msg, project.getId());
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
 
         return true;
     }
@@ -91,10 +95,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
         Project project = projectService.get(projectId);
         if (project != null) {
 
-            String msg = "Project: " + project.getName() + " was denied.";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                                      project.getName(), ProjectState.DENIED);
 
             notificationService.create(getProjectAdministratorsUsers(projectId),
-                    NotificationType.PROJECT_DETAIL, msg, project.getId());
+                    NotificationType.PROJECT_DETAIL, locMsg, project.getId());
         }
 
         return true;
@@ -133,7 +138,7 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
     }
 
-    private boolean createFolderStructure( Project project, ValidationErrors errors) {
+    private boolean createFolderStructure(Project project, ValidationErrors errors) {
 
         String projectPath = storagePath + Attachment.PROJECT_FOLDER;
         String thisProjectPath = storagePath + Attachment.PROJECT_FOLDER_PATH + project.getId().toString();
@@ -172,10 +177,10 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             return false;
         }
 
-        String msg = "Project: " + project.getName() + " was updated.";
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.projectUpdated", project.getName());
 
         notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                NotificationType.PROJECT_DETAIL, msg, project.getId());
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
 
         return true;
     }
@@ -195,9 +200,10 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             return false;
         }
 
-        String msg = "Project: " + project.getName() + " was removed.";
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.projectRemoved",
+                project.getName());
 
-        notificationService.create(users, NotificationType.PROJECT_DELETE, msg, project.getId());
+        notificationService.create(users, NotificationType.PROJECT_DELETE, locMsg, project.getId());
 
         boolean result = FacadeUtils.recursiveDeleteFolder(storagePath +
                 Attachment.PROJECT_FOLDER_PATH +
@@ -230,12 +236,15 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
         boolean result = projectService.assignAdministrator(projectDB, newAdministratorId, permission);
 
+        User userDB = userService.get(newAdministratorId);
+
         if (result) {
 
-            String msg = newAdmin.getWholeName() + " was assigned as administrator with permission: " + permission + " to project: " + projectDB.getName() + ".";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.assignedAdministrator",
+                    projectDB.getName(), userDB.getWholeName(), permission);
 
             notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
-                    NotificationType.PROJECT_ADMINISTRATOR, msg, projectDB.getId());
+                    NotificationType.PROJECT_ADMINISTRATOR, locMsg, projectDB.getId());
         }
 
         return result;
@@ -316,10 +325,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
             attachmentService.update(attachment);
         }
 
-        String msg = "New attachment was uploaded to project: " + projectDB.getName() + ".";
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentUploaded",
+                projectDB.getName());
 
         notificationService.create(getOtherProjectWorkers(projectDB, loggedUserId),
-                NotificationType.PROJECT_ATTACHMENT, msg, projectDB.getId());
+                NotificationType.PROJECT_ATTACHMENT, locMsg, projectDB.getId());
 
         if (overwrite) {
             return 1;
@@ -353,10 +363,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
             Project project = attachment.getProject();
 
-            String msg = "Attachment: " + attachment.getFileName() + " from project: " + project.getName() + " was deleted.";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
+                    attachment.getFileName(), project.getName());
 
             notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_ATTACHMENT, msg, project.getId());
+                    NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
 
             return attachmentService.remove(attachmentId);
         }
@@ -421,10 +432,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
             User user = pa.getUser();
 
-            String msg = "Permission of " + user.getWholeName() + " was changed to: " + permission;
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.permissionChanged",
+                    project.getName(), user.getWholeName(), permission);
 
             notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_ADMINISTRATOR, msg, project.getId());
+                    NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
         }
         return result;
     }
@@ -510,10 +522,11 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
 
             Project project = projectService.get(projectId);
 
-            String msg = "State of project: " + project.getName() + " was changed to finished.";
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                    project.getName(), ProjectState.FINISHED);
 
             notificationService.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_DETAIL, msg, project.getId());
+                    NotificationType.PROJECT_DETAIL, locMsg, project.getId());
         }
 
         return result;
@@ -538,14 +551,14 @@ public class ProjectFacadeImpl extends BasicFacade implements ProjectFacade {
     }
 
     public List<Project> allOrderedBy(String orderByParam, boolean desc) {
-         return projectService.allOrderedBy(orderByParam, desc);
-     }
+        return projectService.allOrderedBy(orderByParam, desc);
+    }
 
-    public List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc){
+    public List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc) {
         return projectService.getMyProjectsSorted(userId, orderByParam, desc);
     }
 
-    public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc){
+    public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
         return attachmentService.getSortedAttachments(projectId, orderByParam, desc);
     }
 

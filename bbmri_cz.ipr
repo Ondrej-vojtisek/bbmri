@@ -128,7 +128,6 @@
             <element id="library" level="project" name="Maven: jaxen:jaxen:1.1.1" />
             <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:1.0.1" />
             <element id="library" level="project" name="Maven: org.apache.axis2:axis2:1.4" />
-            <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom:1.2.11" />
             <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
           </element>
         </element>
@@ -819,17 +818,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/ws/commons/axiom/axiom-api/1.2.11/axiom-api-1.2.11-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.apache.ws.commons.axiom:axiom:1.2.11">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ws/commons/axiom/axiom/1.2.11/axiom-1.2.11.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ws/commons/axiom/axiom/1.2.11/axiom-1.2.11-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/ws/commons/axiom/axiom/1.2.11/axiom-1.2.11-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.hamcrest:hamcrest-core:1.3">

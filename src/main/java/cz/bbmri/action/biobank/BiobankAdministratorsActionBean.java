@@ -110,7 +110,8 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     public Resolution setPermission() {
 
         if (!biobankFacade.changeAdministratorPermission(adminId, permission,
-                getContext().getValidationErrors(), getContext().getMyId())) {
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("biobankId", biobankId);
         }
@@ -128,7 +129,8 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
         boolean myAccount = getIsMyAccount();
 
         if (!biobankFacade.removeAdministrator(adminId,
-                getContext().getValidationErrors(), getContext().getMyId())) {
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("biobankId", biobankId);
         }
@@ -154,7 +156,9 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution addAdministrator() {
 
-        if (!biobankFacade.assignAdministrator(biobankId, adminId, permission, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!biobankFacade.assignAdministrator(biobankId, adminId, permission,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("biobankId", biobankId);
         }

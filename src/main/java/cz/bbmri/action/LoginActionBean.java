@@ -98,7 +98,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
             user = userFacade.login(id, password);
         }
         if (user == null) {
-
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
         }
     }

@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,11 +47,19 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Autowired
     private UserSettingDao userSettingDao;
 
-    public User create(User user) {
+    public User create(User user, Locale locale) {
         user.setCreated(new Date());
         user.getSystemRoles().add(SystemRole.USER);
-        user.setUserSetting(new UserSetting());
         userDao.create(user);
+
+        UserSetting userSetting = new UserSetting();
+        if(locale != null){
+            // Set locale during first sign in
+            userSetting.setLocale(locale.getLanguage());
+        }
+
+        userSetting.setUser(user);
+        userSettingDao.create(userSetting);
         return user;
     }
 

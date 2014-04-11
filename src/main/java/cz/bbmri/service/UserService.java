@@ -5,6 +5,7 @@ import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.User;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface UserService extends BasicService<User>{
 
-    User create(User user);
+    User create(User user, Locale locale);
 
     User changeAdministrator(Long oldAdminId, Long newAdminId);
 

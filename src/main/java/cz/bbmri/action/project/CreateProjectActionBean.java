@@ -173,7 +173,9 @@ public class CreateProjectActionBean extends PermissionActionBean {
 
         int result = projectFacade.createAttachment(attachmentFileBean,
                 AttachmentType.MATERIAL_TRANSFER_AGREEMENT,
-                project.getId(), getContext().getValidationErrors(), getContext().getMyId());
+                project.getId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId());
 
         if(result < 0){
             return new ForwardResolution(PROJECT_CREATE_MTA);

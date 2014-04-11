@@ -25,8 +25,10 @@ public class Biobank implements Serializable {
     private final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
     private final static String PATIENT_DATA_FOLDER = "patient_data";
     private final static String MONITORING_DATA_FOLDER = "monitoring_data";
+    private final static String TEMPERATURE_FOLDER = "temperature_data";
     private final static String PATIENT_DATA_ARCHIVE_FOLDER = "patient_data_archive";
     private final static String MONITORING_DATA_ARCHIVE_FOLDER = "monitoring_data_archive";
+    private final static String TEMPERATURE_ARCHIVE_FOLDER = "temperature_data_archive";
 
     private static final long serialVersionUID = 1L;
 
@@ -192,6 +194,20 @@ public class Biobank implements Serializable {
             return null;
         }
         return getBiobankFolderPath() + File.separator + Biobank.PATIENT_DATA_ARCHIVE_FOLDER;
+    }
+
+    public String getBiobankTemperatureFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.TEMPERATURE_FOLDER;
+    }
+
+    public String getBiobankTemperatureArchiveFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.TEMPERATURE_ARCHIVE_FOLDER;
     }
 
 //    public int compareTo(Biobank compareBiobank) {

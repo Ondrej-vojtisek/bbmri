@@ -2,10 +2,13 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.UserDao;
+import cz.bbmri.dao.UserSettingDao;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.NotificationType;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.service.NotificationService;
+import net.sourceforge.stripes.action.LocalizableMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,16 +38,12 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
     @Autowired
     private NotificationDao notificationDao;
 
-    public boolean create(Long userId, NotificationType notificationType, String message, Long objectId) {
-        notNull(userId);
+    @Autowired
+    private UserSettingDao userSettingDao;
+
+
+    private boolean createNotification(User user, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
         notNull(notificationType);
-
-        User userDB = userDao.get(userId);
-
-        if(userDB == null){
-            logger.debug("UserDB can't be null");
-            return false;
-        }
 
         Date created = new Date();
 
@@ -51,35 +51,50 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         notification.setCreated(created);
         notification.setNotificationType(notificationType);
         notification.setRead(false);
-        notification.setUser(userDB);
+        notification.setUser(user);
         notification.setObjectId(objectId);
-        notification.setMessage(message);
+
+        Locale locale = null;
+        if(user.getUserSetting() == null){
+                UserSetting userSetting = new UserSetting();
+                userSetting.setUser(user);
+                userSettingDao.create(userSetting);
+                user = userDao.get(user.getId());
+        }
+
+        locale = user.getUserSetting().getLocale();
+        notification.setMessage(localizableMessage.getMessage(locale));
         notificationDao.create(notification);
 
         return true;
     }
 
-    public boolean create(List<User> users, NotificationType notificationType, String message, Long objectId) {
+    public boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
+        notNull(userId);
+        User userDB = userDao.get(userId);
+
+        if (userDB == null) {
+            logger.debug("UserDB can't be null");
+            return false;
+        }
+
+        return createNotification(userDB, notificationType, localizableMessage, objectId);
+    }
+
+    public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
         notNull(users);
         notNull(notificationType);
 
         Date created = new Date();
-
+        boolean result = true;
         for (User user : users) {
 
             // TODO: mail notification here
-
-            Notification notification = new Notification();
-            notification.setCreated(created);
-            notification.setNotificationType(notificationType);
-            notification.setRead(false);
-            notification.setUser(user);
-            notification.setObjectId(objectId);
-            notification.setMessage(message);
-            notificationDao.create(notification);
+            if(!createNotification(user, notificationType, localizableMessage, objectId)){
+                result = false;
+            }
         }
-
-        return true;
+        return result;
     }
 
     public boolean markAsRead(Long notificationId) {

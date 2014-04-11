@@ -1,6 +1,5 @@
 default namespace = "http://www.bbmri.cz/schemas/biobank/data"
 
-## root element: description of a whole biobank of one institution
 start =
 	element patient {
 		## identifier of a patient (interni identifikator pacienta)
@@ -32,7 +31,7 @@ tissue =
         materialType,
         element TNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
-        ## grading is a part of mophology and is used as fallback here
+        ## grading is a part of morphology and is used as fallback here
         ( morphology | grading ),
         element cutTime { xsd:dateTime },
 		element freezeTime { xsd:dateTime },

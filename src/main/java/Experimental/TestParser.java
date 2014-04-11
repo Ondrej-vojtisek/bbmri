@@ -24,13 +24,17 @@ public class TestParser {
 
         PatientDataParser parser = null;
         try {
+
             parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\biobank-data.xsd.xml");
+            //parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\BBM140402162126-0001.XML");
         } catch (Exception ex) {
             ex.printStackTrace();
             return;
         }
 
-        parser.getBiobankId();
+        System.out.println("Is valid "  + parser.validate() );
+
+        System.out.println("Biobank Id: "  + parser.getBiobankId() );
 
         Patient patient = parser.getPatient();
 

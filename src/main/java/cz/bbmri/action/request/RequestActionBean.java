@@ -120,7 +120,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("deny")
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
     public Resolution deny() {
-        if (!requestFacade.denySampleRequest(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.denySampleRequest(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -135,7 +137,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("delete")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionNew}"})
     public Resolution delete() {
-        if (!requestFacade.deleteSampleQuestion(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.deleteSampleQuestion(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -210,7 +214,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution changeStateToClosed() {
 
-        if (!requestFacade.closeSampleRequest(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.closeSampleRequest(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -226,7 +232,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("confirmChosenSet")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution confirmChosenSet() {
-        if (!requestFacade.confirmChosenSet(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.confirmChosenSet(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -242,7 +250,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution denyChosenSet() {
 
-        if (!requestFacade.denyChosenSet(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.denyChosenSet(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -259,7 +269,9 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionAgreed}"})
     public Resolution setAsDelivered() {
 
-        if (!requestFacade.setAsDelivered(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!requestFacade.setAsDelivered(getSampleQuestionId(),
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);

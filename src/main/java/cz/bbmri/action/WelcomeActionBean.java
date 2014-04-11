@@ -53,7 +53,7 @@ public class WelcomeActionBean extends BasicActionBean {
             User user = initializeUser();
             Long id = null;
             try{
-                id = userFacade.loginShibbolethUser(user);
+                id = userFacade.loginShibbolethUser(user, getContext().getLocale());
             }catch(AuthorizationException ex){
                 return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
             }

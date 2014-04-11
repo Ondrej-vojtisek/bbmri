@@ -132,7 +132,9 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @HandlesEvent("deleteAttachment")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution deleteAttachment() {
-        if (!projectFacade.deleteAttachment(attachmentId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!projectFacade.deleteAttachment(attachmentId,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
         }
         successMsg(null);
@@ -158,7 +160,9 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     public Resolution attachmentUpload() {
 
         int result = projectFacade.createAttachment(attachmentFileBean,
-                attachmentType, projectId, getContext().getValidationErrors(), getContext().getMyId());
+                attachmentType, projectId,
+                getContext().getValidationErrors(),
+                getContext().getMyId());
 
         if (result < 0) {
             return new ForwardResolution(this.getClass(), "addAttachment").addParameter("projectId", projectId);
