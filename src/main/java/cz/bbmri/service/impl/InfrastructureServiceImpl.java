@@ -35,15 +35,10 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
     @Autowired
     private BoxDao boxDao;
 
-    @Autowired
-    private BiobankDao biobankDao;
-
 
     public Infrastructure initialize(Biobank biobank) {
-        if (biobank == null) {
-            logger.debug("Object is null");
-            return null;
-        }
+        if (isNull(biobank, "biobank", null)) return null;
+
         if (biobank.getInfrastructure() != null) {
             logger.debug("Biobank already has infrastructure");
             return biobank.getInfrastructure();
@@ -56,11 +51,10 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
     }
 
     public boolean remove(Long id) {
+        if (isNull(id, "id", null)) return false;
         Infrastructure infrastructureDB = infrastructureDao.get(id);
-        if (infrastructureDB == null) {
-            logger.debug("Infrastructure doens't exist");
-            return true;
-        }
+        if (isNull(infrastructureDB, "infrastructureDB", null)) return false;
+
         if (!infrastructureDB.getStandaloneBoxes().isEmpty()) {
             for (StandaloneBox box : infrastructureDB.getStandaloneBoxes()) {
                 boxDao.remove(box);
@@ -74,7 +68,6 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
         }
 
         infrastructureDB.getBiobank().setInfrastructure(null);
-
         infrastructureDB.setBiobank(null);
 
         infrastructureDao.remove(infrastructureDB);
@@ -82,57 +75,11 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
         return true;
     }
 
-    public Infrastructure update(Infrastructure infrastructure) {
-        if (infrastructure == null) {
-            logger.debug("Infrastructure can't be null");
-            return null;
-        }
-        Infrastructure infrastructureDB = infrastructureDao.get(infrastructure.getId());
-
-        if (infrastructureDB == null) {
-            logger.debug("InfrastructureDB can't be null");
-            return null;
-        }
-
-        if (infrastructure.getContainers() != null) infrastructureDB.setContainers(infrastructure.getContainers());
-        if (infrastructure.getStandaloneBoxes() != null)
-            infrastructureDB.setStandaloneBoxes(infrastructure.getStandaloneBoxes());
-
-        infrastructureDao.update(infrastructureDB);
-        return infrastructureDB;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Infrastructure> all() {
-        return infrastructureDao.all();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return infrastructureDao.count();
-    }
-
     @Transactional(readOnly = true)
     public Infrastructure get(Long id) {
-        notNull(id);
+        if (isNull(id, "id", null)) return null;
         return infrastructureDao.get(id);
     }
 
-    @Transactional(readOnly = true)
-    public List<Infrastructure> allOrderedBy(String orderByParam, boolean desc) {
-        return infrastructureDao.allOrderedBy(orderByParam, desc);
-    }
-
-    public boolean create(Long biobankId) {
-        Infrastructure infrastructure = initialize(biobankDao.get(biobankId));
-        // This method is not caused intentionally by user so there is no need to create any un-success messages
-
-        if (infrastructure == null) {
-            logger.debug("Infrastructure was not created");
-            return false;
-        }
-
-        return true;
-    }
 
 }

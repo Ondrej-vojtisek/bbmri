@@ -10,9 +10,11 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
  * Time: 12:00
  * To change this template use File | Settings | File Templates.
  */
-public interface InfrastructureService extends BasicService<Infrastructure> {
-
-    boolean create(Long biobankId);
+public interface InfrastructureService  {
 
     Infrastructure initialize(Biobank biobank);
+
+    Infrastructure get(Long id);
+
+    boolean remove(Long id);
 }

@@ -15,13 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ContainerService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ContainerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/InfrastructureActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/InfrastructureActionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/InfrastructureService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/InfrastructureService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/InfrastructureServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/InfrastructureServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.iws" afterPath="$PROJECT_DIR$/bbmri_cz.iws" />
     </list>
     <ignored path="cancer-strike.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397507348481" ignored="false" />
+    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397510955158" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/plugin_ui.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/mavenVersion.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/code.style.schemes.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
@@ -541,7 +542,7 @@
     <file path="/Rack.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420912457" ignored="false" />
     <file path="/Box.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392571204700" ignored="false" />
     <file path="/Position.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392419590869" ignored="false" />
-    <file path="/InfrastructureActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470980104" ignored="false" />
+    <file path="/InfrastructureActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397513153677" ignored="false" />
     <file path="/PatientActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470045775" ignored="false" />
     <file path="/patient_ter_menu.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395230092329" ignored="false" />
     <file path="/modulelts.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394727815336" ignored="false" />
@@ -556,7 +557,7 @@
     <file path="/reservations.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394743636861" ignored="false" />
     <file path="/InfrastructureDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392245036867" ignored="false" />
     <file path="/InfrastructureDaoImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392245074460" ignored="false" />
-    <file path="/InfrastructureServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397472231763" ignored="false" />
+    <file path="/InfrastructureServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397513026973" ignored="false" />
     <file path="/BoxDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395701778490" ignored="false" />
     <file path="/RackDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394718566752" ignored="false" />
     <file path="/ContainerDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395698920381" ignored="false" />
@@ -569,7 +570,7 @@
     <file path="/createBox.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392555968393" ignored="false" />
     <file path="/ContainerService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395702544992" ignored="false" />
     <file path="/ContainerServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397510805658" ignored="false" />
-    <file path="/InfrastructureService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395702178376" ignored="false" />
+    <file path="/InfrastructureService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397513094962" ignored="false" />
     <file path="/RackService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394719210108" ignored="false" />
     <file path="/RackServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397472092188" ignored="false" />
     <file path="/BoxService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397505810772" ignored="false" />
@@ -780,28 +781,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ContainerServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ContainerServiceImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="34" selection-start="2324" selection-end="2347" vertical-scroll-proportion="1.0823245">
+            <state line="55" column="90" selection-start="1715" selection-end="1784" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BoxServiceImpl.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java">
+      <file leaf-file-name="InfrastructureService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/InfrastructureService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="12" selection-start="1444" selection-end="1602" vertical-scroll-proportion="0.0">
+            <state line="16" column="31" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContainerService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/ContainerService.java">
+      <file leaf-file-name="InfrastructureServiceImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/InfrastructureServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="34" selection-start="380" selection-end="380" vertical-scroll-proportion="0.0">
+            <state line="35" column="26" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InfrastructureActionBean.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/InfrastructureActionBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="157" column="72" selection-start="4929" selection-end="4929" vertical-scroll-proportion="0.46126342">
               <folding />
             </state>
           </provider>
@@ -833,9 +843,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankAdministratorServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ServiceUtils.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankService.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/PermissionActionBean.java" />
@@ -849,6 +856,9 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ContainerService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/InfrastructureService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/InfrastructureServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/InfrastructureActionBean.java" />
       </list>
     </option>
   </component>
@@ -2349,7 +2359,11 @@
       <created>1397507366553</created>
       <updated>1397507366553</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="ContainerService refactored">
+      <created>1397510962893</created>
+      <updated>1397510962893</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -2447,7 +2461,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Box service refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="ContainerService refactored" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2477,6 +2491,7 @@
     <MESSAGE value="zaloha pred refaktoringem servisní vrstvy&#10;" />
     <MESSAGE value="BiobankService refactored" />
     <MESSAGE value="Box service refactored" />
+    <MESSAGE value="ContainerService refactored" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -2524,30 +2539,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BasicServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="683" selection-end="745" vertical-scroll-proportion="0.2675545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ServiceUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="32" selection-start="881" selection-end="881" vertical-scroll-proportion="0.5762712">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4602#4608#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="354" selection-end="354" vertical-scroll-proportion="0.30393326">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/PermissionActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="102" column="42" selection-start="2581" selection-end="2581" vertical-scroll-proportion="0.15031056">
@@ -2636,7 +2627,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="34" selection-start="2324" selection-end="2347" vertical-scroll-proportion="1.0823245">
+        <state line="55" column="90" selection-start="1715" selection-end="1784" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/InfrastructureService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="31" selection-start="390" selection-end="390" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/InfrastructureServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="26" selection-start="1067" selection-end="1067" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/InfrastructureActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="72" selection-start="4929" selection-end="4929" vertical-scroll-proportion="0.46126342">
           <folding />
         </state>
       </provider>

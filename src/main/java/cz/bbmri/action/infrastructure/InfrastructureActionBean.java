@@ -143,7 +143,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
         getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(true, biobankId));
 
         if (getBiobank().getInfrastructure() == null) {
-            infrastructureService.create(biobankId);
+            infrastructureService.initialize(getBiobank());
             return new RedirectResolution(INFRASTRUCTURE_DETAIL)
                     .addParameter("biobankId", biobankId);
         }
