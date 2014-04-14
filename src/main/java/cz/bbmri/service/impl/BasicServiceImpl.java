@@ -122,7 +122,7 @@ public class BasicServiceImpl {
         Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
 
         if (excludedUserId != null) {
-            BiobankAdministrator baExclude = biobankAdministratorService.get(biobank.getId(), excludedUserId);
+            BiobankAdministrator baExclude = biobankAdministratorDao.get(biobankDao.get(biobank.getId()), userDao.get(excludedUserId));
                   
             if (biobankAdministrators.contains(baExclude)) {
                 biobankAdministrators.remove(baExclude);
