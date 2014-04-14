@@ -1,10 +1,12 @@
 package cz.bbmri.facade.impl;
 
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
+import cz.bbmri.service.impl.ServiceUtils;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -23,11 +25,6 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 public class BasicFacade {
-
-    protected static final int SUCCESS = 0;
-    protected static final int NOT_SUCCESS = -1;
-
-    protected static final int MAXIMUM_FIND_RESULTS = 5;
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -110,6 +107,8 @@ public class BasicFacade {
 
         return users;
     }
+
+
 
 
 }

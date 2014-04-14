@@ -4,6 +4,8 @@ import cz.bbmri.dao.*;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.*;
 import cz.bbmri.service.BoxService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,30 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
 
     @Autowired
     private BiobankDao biobankDao;
+
+    public boolean createBox(Long rackId, RackBox box, ValidationErrors errors) {
+        notNull(rackId);
+        notNull(box);
+        notNull(errors);
+
+        if (createRackBox(rackId, box) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
+            return false;
+        }
+        return true;
+    }
+
+    public boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors) {
+        notNull(infrastructureId);
+        notNull(box);
+        notNull(errors);
+
+        if (createStandaloneBox(infrastructureId, box) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
+            return false;
+        }
+        return true;
+    }
 
 
     public RackBox createRackBox(Long rackId, RackBox rackBox) {
@@ -137,11 +163,6 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
     @Transactional(readOnly = true)
     public List<Box> allOrderedBy(String orderByParam, boolean desc) {
         return boxDao.allOrderedBy(orderByParam, desc);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Box> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return boxDao.nOrderedBy(orderByParam, desc, number);
     }
 
     public List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc) {

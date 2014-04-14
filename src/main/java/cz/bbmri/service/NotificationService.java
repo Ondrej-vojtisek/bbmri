@@ -14,11 +14,11 @@ import java.util.List;
  * Time: 13:33
  * To change this template use File | Settings | File Templates.
  */
-public interface NotificationService extends BasicService<Notification>{
+public interface NotificationService /*extends BasicService<Notification> */ {
 
-    boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
+ //   boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
 
-    boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
+ //   boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
 
     List<Notification> getUnread(Long userId);
 
@@ -29,5 +29,11 @@ public interface NotificationService extends BasicService<Notification>{
     boolean markAsRead(List<Long> notificationsId);
 
     boolean deleteNotifications(List<Long> notificationsId);
+
+    Notification get(Long id);
+
+    boolean remove(Long id);
+
+    Notification update(Notification notification);
 
 }

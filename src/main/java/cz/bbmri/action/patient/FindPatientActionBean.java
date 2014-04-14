@@ -5,10 +5,12 @@ import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.action.biobank.BiobankPatientsActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -31,8 +33,10 @@ public class FindPatientActionBean extends PermissionActionBean<Patient> {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private BiobankService biobankService;
 
+    @SpringBean
+    private PatientService patientService;
 
     private Patient patient;
 
@@ -63,7 +67,7 @@ public class FindPatientActionBean extends PermissionActionBean<Patient> {
     public Biobank getBiobank() {
         if (biobank == null) {
             if (biobankId != null) {
-                biobank = biobankFacade.get(biobankId);
+                biobank = biobankService.get(biobankId);
             }
         }
         return biobank;
@@ -81,7 +85,7 @@ public class FindPatientActionBean extends PermissionActionBean<Patient> {
 
         // Find only in my biobank!
         patient.setBiobank(biobank);
-        return biobankFacade.find(patient, 5);
+        return patientService.find(patient, Constant.MAXIMUM_FIND_RESULTS);
     }
 
     @DontValidate

@@ -9,8 +9,7 @@ import cz.bbmri.entities.comparator.sample.*;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.SampleFacade;
+import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -33,10 +32,8 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private PatientService patientService;
 
-    @SpringBean
-    private SampleFacade sampleFacade;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
@@ -80,7 +77,7 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     public Patient getPatient() {
         if (patient == null) {
             if (patientId != null) {
-                patient = biobankFacade.getPatient(patientId);
+                patient = patientService.get(patientId);
             }
         }
         return patient;

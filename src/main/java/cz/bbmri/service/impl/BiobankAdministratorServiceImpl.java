@@ -141,10 +141,5 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         return biobankAdministratorDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<BiobankAdministrator> nOrderedBy(String orderByParam, boolean desc, int number){
-        return biobankAdministratorDao.nOrderedBy(orderByParam, desc, number);
-    }
-
 
 }

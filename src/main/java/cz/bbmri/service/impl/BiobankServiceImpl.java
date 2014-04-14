@@ -2,11 +2,16 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.constant.Constant;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.exceptions.DuplicitBiobankException;
 import cz.bbmri.service.exceptions.LastManagerException;
+import net.sourceforge.stripes.action.LocalizableMessage;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +47,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
     @Autowired
     private PatientDao patientDao;
+
+    @Autowired
+    private NotificationDao notificationDao;
 
 
     public Biobank create(Biobank biobank, Long newAdministratorId) throws DuplicitBiobankException {
@@ -245,13 +253,326 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return biobankDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Biobank> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return biobankDao.nOrderedBy(orderByParam, desc, number);
-    }
-
-    public Biobank getBiobankByAbbreviation(String abbreviation){
+    public Biobank getBiobankByAbbreviation(String abbreviation) {
         return biobankDao.getBiobankByAbbreviation(abbreviation);
     }
+
+    public boolean assignAdministrator(Long objectId,
+                                       Long newAdministratorId,
+                                       Permission permission,
+                                       ValidationErrors errors,
+                                       Long loggedUserId) {
+        notNull(objectId);
+        notNull(newAdministratorId);
+        notNull(permission);
+        notNull(errors);
+        notNull(loggedUserId);
+
+        Biobank biobankDB = biobankDao.get(objectId);
+        User newAdmin = userDao.get(newAdministratorId);
+
+        if (biobankDB == null || newAdmin == null) {
+            fatalError(errors);
+            return false;
+        }
+
+        if (biobankAdministratorDao.get(biobankDao.get(objectId), userDao.get(newAdministratorId)) != null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.adminAlreadyExists"));
+            return false;
+        }
+
+        boolean result = false;
+
+        try {
+            result = assignAdministrator(biobankDB, newAdministratorId, permission);
+        } catch (Exception ex) {
+            fatalError(errors);
+            return false;
+        }
+
+        if (result) {
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.adminAssigned",
+                    biobankDB.getAbbreviation(), newAdmin.getWholeName(), permission);
+
+            notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobankDB.getId());
+
+        }
+
+        return result;
+
+    }
+
+    public boolean changeAdministratorPermission(Long objectAdministratorId,
+                                                 Permission permission,
+                                                 ValidationErrors errors, Long loggedUserId) {
+        notNull(objectAdministratorId);
+        notNull(permission);
+        notNull(errors);
+        notNull(errors);
+
+        BiobankAdministrator ba = biobankAdministratorDao.get(objectAdministratorId);
+
+        if (ba == null) {
+            fatalError(errors);
+            return false;
+        }
+
+        boolean result = false;
+
+        try {
+            result = changeAdministratorPermission(ba, permission);
+        } catch (LastManagerException ex) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
+            return false;
+        } catch (Exception ex) {
+            fatalError(errors);
+            return false;
+        }
+
+        if (result) {
+            Biobank biobank = ba.getBiobank();
+
+            User user = ba.getUser();
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.permissionChanged",
+                    biobank.getAbbreviation(), user.getWholeName(), permission);
+
+            notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobank.getId());
+        }
+        return result;
+    }
+
+    public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId) {
+        notNull(objectAdministratorId);
+        notNull(errors);
+
+        BiobankAdministrator ba = biobankAdministratorDao.get(objectAdministratorId);
+        if (ba == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.dbg.null"));
+            return false;
+        }
+
+        boolean result = false;
+
+        try {
+            result = removeAdministrator(ba);
+        } catch (LastManagerException ex) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
+            return false;
+        }
+
+        if (result) {
+            Biobank biobank = ba.getBiobank();
+
+            User user = ba.getUser();
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.adminDeleted",
+                    user.getWholeName(), biobank.getAbbreviation());
+
+            notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
+                    NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobank.getId());
+        }
+
+        return result;
+    }
+
+    public boolean hasPermission(Permission permission, Long objectId, Long userId) {
+        notNull(permission);
+        notNull(objectId);
+        notNull(userId);
+
+        BiobankAdministrator ba = biobankAdministratorDao.get(biobankDao.get(objectId), userDao.get(userId));
+
+        if (ba == null) {
+            return false;
+        }
+
+        return ba.getPermission().include(permission);
+    }
+
+    public boolean removeBiobank(Long biobankId, ValidationErrors errors, Long loggedUserId) {
+          notNull(biobankId);
+          notNull(errors);
+
+          boolean result = false;
+
+          Biobank biobankDB = get(biobankId);
+
+          try {
+
+              if (remove(biobankId)) {
+                  result = ServiceUtils.recursiveDeleteFolder(storagePath + biobankDB.getBiobankFolderPath(), errors) == Constant.SUCCESS;
+              }
+
+          } catch (Exception ex) {
+
+              // Return DBG info that something went wrong. In final version there should be logging instead.
+              fatalError(errors);
+              return false;
+
+          }
+
+          if (result) {
+              LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.biobankRemoved", biobankDB.getAbbreviation());
+
+              notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
+                      NotificationType.BIOBANK_DELETE, localizableMessage, biobankDB.getId());
+          }
+
+          return result;
+
+
+      }
+
+        public boolean createBiobank(Biobank biobank, Long newAdministratorId, ValidationErrors errors) {
+
+            notNull(biobank);
+            notNull(newAdministratorId);
+            notNull(errors);
+
+            logger.debug("CreateBiobank - controle");
+
+            try {
+                biobank = create(biobank, newAdministratorId);
+
+                logger.debug("CreateBiobank - created");
+
+            } catch (DuplicitBiobankException ex) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.duplicitBiobankException"));
+                return false;
+
+            } catch (Exception ex) {
+                // Return DBG info that something went wrong. In final version there should be logging instead.
+                fatalError(errors);
+                return false;
+            }
+
+            logger.debug("CreateBiobank - create folders");
+
+            // Base folder
+            if (!ServiceUtils.folderExists(storagePath)) {
+
+                if (ServiceUtils.createFolder(storagePath, errors) != Constant.SUCCESS) {
+
+                    logger.debug("CreateBiobank - Create Base folder failed");
+
+                    remove(biobank.getId());
+                    return false;
+                }
+            }
+
+            // Biobanks folder
+            if (!ServiceUtils.folderExists(storagePath + Biobank.BIOBANK_FOLDER)) {
+                if (ServiceUtils.createFolder(storagePath + Biobank.BIOBANK_FOLDER, errors) != Constant.SUCCESS) {
+
+                    logger.debug("CreateBiobank - Create Biobank folder failed");
+
+                    remove(biobank.getId());
+                    return false;
+                }
+            }
+
+            // Folder for the biobank
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankFolderPath(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for specific biobank failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/monitoring_data
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankMonitoringFolder(), errors) != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for monitoring data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/patient_data
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankPatientDataFolder(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for patient data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/temperature_data
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankTemperatureFolder(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for temperature monitoring data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/monitoring_data_archive
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankMonitoringArchiveFolder(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for archive of patient data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/patient_data_archive
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankPatientArchiveDataFolder(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for archive of monitoring data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            // Folder for the biobank/temperature_data_archive
+            if (ServiceUtils.createFolder(storagePath + biobank.getBiobankTemperatureArchiveFolder(), errors)
+                    != Constant.SUCCESS) {
+
+                logger.debug("CreateBiobank - Create folder for archive of temperature monitoring data failed");
+
+                remove(biobank.getId());
+                return false;
+            }
+
+            return true;
+        }
+
+    public boolean updateBiobank(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
+         notNull(biobank);
+         notNull(errors);
+         notNull(loggedUserId);
+
+         try {
+
+             update(biobank);
+
+             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.biobankUpdated", biobank.getAbbreviation());
+
+             notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
+                     NotificationType.BIOBANK_DETAIL, localizableMessage, biobank.getId());
+
+             return true;
+
+         } catch (Exception ex) {
+
+             // Return DBG info that something went wrong. In final version there should be logging instead.
+
+             fatalError(errors);
+
+             return false;
+         }
+     }
+
+
 
 }

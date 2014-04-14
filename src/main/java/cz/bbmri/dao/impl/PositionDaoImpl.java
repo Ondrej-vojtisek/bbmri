@@ -20,30 +20,25 @@ public class PositionDaoImpl extends BasicDaoImpl<Position, Long> implements Pos
 
     public Position getByCoordinates(Box box, Integer seqPosition, Integer column, Integer row) {
         notNull(box);
-        Query query = null;
         if (seqPosition == null) {
-            query = em.createQuery("SELECT p FROM Position p WHERE " +
+            typedQuery = em.createQuery("SELECT p FROM Position p WHERE " +
                     "p.box = :boxParam AND " +
                     "p.row = :rowParam AND " +
-                    "p.column = :columnParam ");
+                    "p.column = :columnParam ", Position.class);
 
-            query.setParameter("rowParam", row);
-            query.setParameter("columnParam", column);
+            typedQuery.setParameter("rowParam", row);
+            typedQuery.setParameter("columnParam", column);
         } else if (column == null && row == null) {
-            query = em.createQuery("SELECT p FROM Position p WHERE " +
+            typedQuery = em.createQuery("SELECT p FROM Position p WHERE " +
                     "p.box = :boxParam AND " +
-                    "p.sequentialPosition = :seqParam");
-            query.setParameter("seqParam", seqPosition);
+                    "p.sequentialPosition = :seqParam", Position.class);
+            typedQuery.setParameter("seqParam", seqPosition);
         } else {
             logger.debug("Matrix position and sequential position is null");
             return null;
         }
-        query.setParameter("boxParam", box);
+        typedQuery.setParameter("boxParam", box);
 
-        try {
-            return (Position) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 }

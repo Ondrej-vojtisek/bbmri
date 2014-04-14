@@ -9,7 +9,7 @@ import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class ProjectAdministratorsActionBean extends PermissionActionBean<ProjectAdministrator> {
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
 
     private Permission permission;
 
@@ -112,7 +112,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
     public Resolution setPermission() {
-        if (!projectFacade.changeAdministratorPermission(adminId, permission,
+        if (!projectService.changeAdministratorPermission(adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -129,7 +129,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @RolesAllowed({"project_team_member if ${allowedProjectManager or isMyAccount}"})
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
-        if (!projectFacade.removeAdministrator(adminId,
+        if (!projectService.removeAdministrator(adminId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -151,7 +151,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
-        if (!projectFacade.assignAdministrator(projectId, adminId, permission,
+        if (!projectService.assignAdministrator(projectId, adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")

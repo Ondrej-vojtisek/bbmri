@@ -20,7 +20,6 @@ import java.util.List;
 public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements ContainerDao {
 
     public List<Container> getSorted(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -32,26 +31,22 @@ public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements C
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT container FROM Container container WHERE " +
+        typedQuery = em.createQuery("SELECT container FROM Container container WHERE " +
                 "container.infrastructure.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, Container.class);
+        typedQuery.setParameter("biobank", biobank);
+        return typedQuery.getResultList();
     }
 
     public Container getByName(Biobank biobank, String name) {
         notNull(biobank);
         notNull(name);
-        Query query = em.createQuery("SELECT p FROM Container p WHERE " +
+        typedQuery = em.createQuery("SELECT p FROM Container p WHERE " +
                 "p.infrastructure.biobank = :biobankParam AND " +
-                "p.name = :nameParam");
-        query.setParameter("biobankParam", biobank);
-        query.setParameter("nameParam", name);
+                "p.name = :nameParam", Container.class);
+        typedQuery.setParameter("biobankParam", biobank);
+        typedQuery.setParameter("nameParam", name);
 
-        try {
-            return (Container) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 }

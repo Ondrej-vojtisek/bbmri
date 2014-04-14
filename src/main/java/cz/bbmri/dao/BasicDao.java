@@ -76,6 +76,6 @@ public interface BasicDao<T, E> {
      * @param number - number of objects which will be returned (if possible)
      * @return List of n instances of type T ordered by given parameter.
      */
-    List<T> nOrderedBy(String orderByParam, boolean desc, int number);
+    // List<T> nOrderedBy(String orderByParam, boolean desc, int number);
 
 }

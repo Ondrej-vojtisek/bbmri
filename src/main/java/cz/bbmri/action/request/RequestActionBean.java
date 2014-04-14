@@ -1,25 +1,20 @@
 package cz.bbmri.action.request;
 
-import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.action.project.ProjectRequestActionBean;
 import cz.bbmri.action.reservation.ReservationActionBean;
-import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.Request;
-import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.ProjectFacade;
-import cz.bbmri.facade.RequestFacade;
+import cz.bbmri.service.ProjectService;
+import cz.bbmri.service.RequestService;
+import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -35,13 +30,13 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     private static final int STEP_INCREASE_REQUEST_AMOUNT = 1;
 
     @SpringBean
-    private RequestFacade requestFacade;
+    private RequestService requestService;
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private SampleQuestionService sampleQuestionService;
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
 
     private Long requestId;
 
@@ -68,7 +63,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     }
 
     public List<Project> getMyApprovedProjects() {
-        return projectFacade.getProjects(getContext().getMyId(), ProjectState.APPROVED);
+        return projectService.getProjects(getContext().getMyId(), ProjectState.APPROVED);
     }
 
     public Long getRequestId() {
@@ -105,7 +100,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("approve")
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
     public Resolution approve() {
-        if (!requestFacade.approveSampleRequest(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!sampleQuestionService.approveSampleRequest(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
@@ -120,7 +115,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("deny")
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
     public Resolution deny() {
-        if (!requestFacade.denySampleRequest(getSampleQuestionId(),
+        if (!sampleQuestionService.denySampleRequest(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
@@ -137,7 +132,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("delete")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionNew}"})
     public Resolution delete() {
-        if (!requestFacade.deleteSampleQuestion(getSampleQuestionId(),
+        if (!sampleQuestionService.deleteSampleQuestion(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
@@ -165,7 +160,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution decreaseAmount() {
 
-        if (!requestFacade.changeRequestedAmount(requestId, false, STEP_INCREASE_REQUEST_AMOUNT,
+        if (!requestService.changeRequestedAmount(requestId, false, STEP_INCREASE_REQUEST_AMOUNT,
                 getContext().getValidationErrors())) {
 
             return new ForwardResolution(this.getClass(), "detail")
@@ -182,7 +177,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution increaseAmount() {
 
-        if (!requestFacade.changeRequestedAmount(requestId, true, STEP_INCREASE_REQUEST_AMOUNT,
+        if (!requestService.changeRequestedAmount(requestId, true, STEP_INCREASE_REQUEST_AMOUNT,
                 getContext().getValidationErrors())) {
 
             return new ForwardResolution(this.getClass(), "detail")
@@ -198,7 +193,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("removeRequest")
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution removeRequest() {
-        if (!requestFacade.deleteRequest(requestId, getContext().getValidationErrors())) {
+        if (!requestService.deleteRequest(requestId, getContext().getValidationErrors())) {
 
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId)
@@ -214,7 +209,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionApproved}"})
     public Resolution changeStateToClosed() {
 
-        if (!requestFacade.closeSampleRequest(getSampleQuestionId(),
+        if (!sampleQuestionService.closeSampleRequest(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
@@ -232,7 +227,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @HandlesEvent("confirmChosenSet")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution confirmChosenSet() {
-        if (!requestFacade.confirmChosenSet(getSampleQuestionId(),
+        if (!sampleQuestionService.confirmChosenSet(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
@@ -250,7 +245,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution denyChosenSet() {
 
-        if (!requestFacade.denyChosenSet(getSampleQuestionId(),
+        if (!sampleQuestionService.denyChosenSet(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
@@ -269,7 +264,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionAgreed}"})
     public Resolution setAsDelivered() {
 
-        if (!requestFacade.setAsDelivered(getSampleQuestionId(),
+        if (!sampleQuestionService.setAsDelivered(getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
@@ -311,7 +306,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"project_team_member if ${isSampleQuestionClosed}"})
     public Resolution assignToProject() {
 
-        if (!requestFacade.assignReservationToProject(getSampleQuestionId(), projectId, getContext().getValidationErrors())) {
+        if (!sampleQuestionService.assignReservationToProject(getSampleQuestionId(), projectId, getContext().getValidationErrors())) {
             return new ForwardResolution(ReservationActionBean.class);
         }
         successMsg(null);

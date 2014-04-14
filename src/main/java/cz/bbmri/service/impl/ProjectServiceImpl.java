@@ -2,11 +2,16 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.constant.Constant;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.service.ProjectService;
 import cz.bbmri.service.exceptions.LastManagerException;
+import net.sourceforge.stripes.action.LocalizableMessage;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +32,7 @@ import java.util.Set;
 @Service("projectService")
 public class ProjectServiceImpl extends BasicServiceImpl implements ProjectService {
 
+
     @Autowired
     private UserDao userDao;
 
@@ -44,6 +50,9 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
     @Autowired
     private SampleDao sampleDao;
+
+    @Autowired
+    private NotificationDao notificationDao;
 
     public Project create(Project project, Long userId) {
         notNull(project);
@@ -382,10 +391,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Project> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return projectDao.nOrderedBy(orderByParam, desc, number);
-    }
 
     public List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc) {
         if (userId == null) {
@@ -415,6 +420,266 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         }
 
         return projectDao.getProjectsBySample(sampleDB, orderByParam, desc);
+    }
+
+    public boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
+        notNull(projectId);
+        notNull(loggedUserId);
+
+        if (!approve(projectId, loggedUserId)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ApproveFailed"));
+            return false;
+        }
+        // Project can't be null - otherwise projectService.approve would have failed
+        Project project = get(projectId);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                project.getName(), ProjectState.APPROVED);
+
+        notificationDao.create(getProjectAdministratorsUsers(projectId),
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
+
+        return true;
+    }
+
+    public boolean denyProject(Long projectId, Long loggedUserId, ValidationErrors errors) {
+        notNull(projectId);
+        notNull(loggedUserId);
+
+        if (!deny(projectId, loggedUserId)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.DenyFailed"));
+            return false;
+        }
+
+        Project project = get(projectId);
+        if (project != null) {
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                    project.getName(), ProjectState.DENIED);
+
+            notificationDao.create(getProjectAdministratorsUsers(projectId),
+                    NotificationType.PROJECT_DETAIL, locMsg, project.getId());
+        }
+
+        return true;
+    }
+
+    public Project createProject(Project project,
+                                 Long loggedUserId,
+                                 ValidationErrors errors) {
+        notNull(project);
+        notNull(loggedUserId);
+        notNull(errors);
+
+        project = create(project, loggedUserId);
+
+        if (project != null) {
+
+            // If this is the first created instance of Project and Biobank than create cz.bbmri general folder
+            if (!createFolderStructure(project, errors)) {
+                remove(project.getId());
+                return null;
+            }
+        }
+
+        return project;
+
+    }
+
+    public boolean updateProject(Project project, Long loggedUserId) {
+        notNull(project);
+        notNull(loggedUserId);
+
+        if (update(project) == null) {
+            return false;
+        }
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.projectUpdated", project.getName());
+
+        notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
+
+        return true;
+    }
+
+    public boolean removeProject(Long projectId, ValidationErrors errors, Long loggedUserId) {
+        notNull(projectId);
+        notNull(errors);
+        notNull(loggedUserId);
+
+        Project project = get(projectId);
+
+        // Necessary to be able to send notification to all project members after delete
+
+        List<User> users = getOtherProjectWorkers(project, loggedUserId);
+
+        if (!remove(projectId)) {
+            return false;
+        }
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.projectRemoved",
+                project.getName());
+
+        notificationDao.create(users, NotificationType.PROJECT_DELETE, locMsg, project.getId());
+
+        boolean result = ServiceUtils.recursiveDeleteFolder(
+                storagePath +
+                project.getProjectFolderPath()
+                , errors) == Constant.SUCCESS;
+
+        return result;
+
+    }
+
+    public boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId) {
+        notNull(objectId);
+        notNull(newAdministratorId);
+        notNull(permission);
+        notNull(errors);
+        notNull(loggedUserId);
+
+        Project projectDB = get(objectId);
+        User newAdmin = userDao.get(newAdministratorId);
+
+        if (projectDB == null || newAdmin == null) {
+            return false;
+        }
+
+        // TODO: kontrola zda uz novyAdministrator neni k projektu prirazen
+
+        if (projectAdministratorDao.get(projectDao.get(objectId), userDao.get(newAdministratorId)) != null) {
+            //TODO: exception - he is already admin
+            return false;
+        }
+
+        boolean result = assignAdministrator(projectDB, newAdministratorId, permission);
+
+        User userDB = userDao.get(newAdministratorId);
+
+        if (result) {
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.assignedAdministrator",
+                    projectDB.getName(), userDB.getWholeName(), permission);
+
+            notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
+                    NotificationType.PROJECT_ADMINISTRATOR, locMsg, projectDB.getId());
+        }
+
+        return result;
+
+    }
+
+
+    public boolean hasPermission(Permission permission, Long objectId, Long userId) {
+        notNull(permission);
+        notNull(objectId);
+        notNull(userId);
+
+        ProjectAdministrator pa = projectAdministratorDao.get(projectDao.get(objectId), userDao.get(userId));
+
+        if (pa == null) {
+            return false;
+        }
+
+        return pa.getPermission().include(permission);
+    }
+
+    public boolean changeAdministratorPermission(Long objectAdministrator,
+                                                 Permission permission,
+                                                 ValidationErrors errors,
+                                                 Long loggedUserId) {
+        notNull(objectAdministrator);
+        notNull(permission);
+        notNull(errors);
+        notNull(loggedUserId);
+
+        ProjectAdministrator pa = projectAdministratorDao.get(objectAdministrator);
+        if (pa == null) {
+            return false;
+            // TODO: exception
+        }
+
+        // TODO: There must solved situation of last administrator remove
+
+        pa.setPermission(permission);
+        projectAdministratorDao.update(pa);
+        Project project = pa.getProject();
+
+        User user = pa.getUser();
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.permissionChanged",
+                project.getName(), user.getWholeName(), permission);
+
+        notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
+        return true;
+    }
+
+    public boolean removeAdministrator(Long objectAdministrator, ValidationErrors errors, Long loggedUserId) {
+        notNull(objectAdministrator);
+        notNull(errors);
+        notNull(loggedUserId);
+
+        ProjectAdministrator pa = projectAdministratorDao.get(objectAdministrator);
+        if (pa == null) {
+            return false;
+            // TODO: exception
+        }
+
+        // TODO: There must solved situation of last administrator remove
+
+        //        projectAdministratorService.remove(pa.getId());
+        //        userDB = userService.eagerGet(userDB.getId(), false, false, true);
+        //        if (userDB.getProjectAdministrators().size() < 1) {
+        //            // If userDB doesn't manage other Biobank than the deleted one -> remove its system role
+        //            userService.removeSystemRole(userDB.getId(), SystemRole.PROJECT_TEAM_MEMBER);
+        //        }
+
+        // TODO: NOTIFICATION
+        //        Project project = pa.getProject();
+        //
+        //        notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+        //                NotificationType.PROJECT_REMOVE_ADMINISTRATOR, pa.getUser().getWholeName(), project.getId());
+
+        return true;
+    }
+
+    public List<Project> getProjects(Long userId, ProjectState projectState) {
+        if (userId == null) {
+            logger.debug("UserId can't be null");
+            return null;
+        }
+
+        if (projectState == null) {
+            logger.debug("projectState can't be null");
+            return null;
+        }
+
+        return getAllByUserAndProjectState(projectState, userId);
+    }
+
+    public boolean markAsFinished(Long projectId, Long loggedUserId) {
+        notNull(projectId);
+        notNull(loggedUserId);
+
+        boolean result = changeState(projectId, ProjectState.FINISHED) != null;
+        if (result) {
+
+            Project project = get(projectId);
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
+                    project.getName(), ProjectState.FINISHED);
+
+            notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_DETAIL, locMsg, project.getId());
+        }
+
+        return result;
+    }
+
+    public ProjectAdministrator getProjectAdministrator(Long projectAdministratorId) {
+        notNull(projectAdministratorId);
+        return projectAdministratorDao.get(projectAdministratorId);
     }
 
 }

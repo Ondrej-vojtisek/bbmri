@@ -252,7 +252,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleAdded", userDB.getWholeName());
 
-            notificationService.create(getAllByRole(SystemRole.DEVELOPER),
+            notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
         }
         return result;
@@ -272,7 +272,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleAdded", userDB.getWholeName());
 
-            notificationService.create(getAllByRole(SystemRole.ADMINISTRATOR),
+            notificationDao.create(getAllByRole(SystemRole.ADMINISTRATOR),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
         }
         return result;
@@ -297,7 +297,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleRemoved", userDB.getWholeName());
 
-            notificationService.create(getAllByRole(SystemRole.ADMINISTRATOR),
+            notificationDao.create(getAllByRole(SystemRole.ADMINISTRATOR),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
         }
 
@@ -321,7 +321,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleRemoved", userDB.getWholeName());
 
-            notificationService.create(getAllByRole(SystemRole.DEVELOPER),
+            notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
 
         }

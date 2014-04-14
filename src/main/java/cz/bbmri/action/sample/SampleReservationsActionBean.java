@@ -6,7 +6,9 @@ import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
+import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
  */
 @UrlBinding("/sample/reservations/{$event}/{sampleId}")
 public class SampleReservationsActionBean extends AbstractSampleActionBean<SampleReservation> {
+
+    @SpringBean
+    private SampleQuestionService sampleQuestionService;
 
     public SampleReservationsActionBean() {
         setPagination(new MyPagedListHolder<SampleReservation>(new ArrayList<SampleReservation>()));
@@ -55,7 +60,7 @@ public class SampleReservationsActionBean extends AbstractSampleActionBean<Sampl
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("reservations");
-        getPagination().setSource(sampleFacade.getSampleReservationsBySample(
+        getPagination().setSource(sampleQuestionService.getSampleReservationsBySample(
                 getSampleId(),
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));

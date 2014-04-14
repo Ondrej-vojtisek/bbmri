@@ -11,7 +11,6 @@ import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
-import cz.bbmri.facade.ProjectFacade;
 import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;

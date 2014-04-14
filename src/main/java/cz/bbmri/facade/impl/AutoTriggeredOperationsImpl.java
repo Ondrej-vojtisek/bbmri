@@ -1,6 +1,8 @@
 package cz.bbmri.facade.impl;
 
+import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.entities.infrastructure.*;
@@ -9,6 +11,7 @@ import cz.bbmri.facade.AutoTriggeredOperations;
 import cz.bbmri.io.MonitoringDataParser;
 import cz.bbmri.io.PatientDataParser;
 import cz.bbmri.service.*;
+import cz.bbmri.service.impl.ServiceUtils;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.controller.StripesFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +62,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
     private PatientService patientService;
 
     @Autowired
-    private NotificationService notificationService;
+    private NotificationDao notificationDao;
 
     @Autowired
     private SampleQuestionService sampleQuestionService;
@@ -83,12 +86,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             logger.debug("Biobank: " + biobank.getName());
 
             // Scan all patient data files in biobank folder
-            List<File> files = FacadeUtils.getFiles(storagePath + biobank.getBiobankMonitoringFolder());
+            List<File> files = ServiceUtils.getFiles(storagePath + biobank.getBiobankMonitoringFolder());
 
             for (File file : files) {
                 logger.debug("Biobank: " + biobank.getName() + " file: " + file);
 
-                if (parseMonitoringImport(file.getPath(), biobank) != SUCCESS) {
+                if (parseMonitoringImport(file.getPath(), biobank) != Constant.SUCCESS) {
                     logger.debug("Parse of file : " + file + " failed. ");
 
                     // Don't copy and remove file in case that something went wrong
@@ -117,12 +120,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             logger.debug("Biobank: " + biobank.getName());
 
             // Scan all patient data files in biobank folder
-            List<File> files = FacadeUtils.getFiles(storagePath + biobank.getBiobankPatientDataFolder());
+            List<File> files = ServiceUtils.getFiles(storagePath + biobank.getBiobankPatientDataFolder());
 
             for (File file : files) {
                 logger.debug("Biobank: " + biobank.getName() + " file: " + file);
 
-                if (parsePatientImport(file.getPath(), biobank) != SUCCESS) {
+                if (parsePatientImport(file.getPath(), biobank) != Constant.SUCCESS) {
                     logger.debug("Parse of file : " + file + " failed. ");
 
                     // Don't copy and remove file in case that something went wrong
@@ -149,12 +152,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
         } catch (Exception ex) {
             logger.debug("MonitoringDataParser failed");
             ex.printStackTrace();
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         if (!parser.validate()) {
             logger.debug("Document is NOT valid. Document path was: " + path);
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         String biobankName = parser.getBiobankId();
@@ -163,7 +166,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
         if (!biobankName.equals(biobank.getName())) {
             logger.debug("Biobank identifier doesn't match");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         // Parse standalone boxes
@@ -184,9 +187,9 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             }
 
             // for standalonebox container and rack is null
-            if (parseBoxPositions(parser, biobank, null, null, box) != SUCCESS) {
+            if (parseBoxPositions(parser, biobank, null, null, box) != Constant.SUCCESS) {
                 logger.debug("Parse positions failed");
-                return NOT_SUCCESS;
+                return Constant.NOT_SUCCESS;
             }
 
 
@@ -203,7 +206,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
                 if (biobank.getInfrastructure() == null) {
                     logger.debug("Infrastructure of biobank must not be null");
-                    return NOT_SUCCESS;
+                    return Constant.NOT_SUCCESS;
                 }
 
                 // create it
@@ -251,16 +254,16 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                         box = boxService.update(box);
                     }
 
-                    if (parseBoxPositions(parser, biobank, container, rack, box) != SUCCESS) {
+                    if (parseBoxPositions(parser, biobank, container, rack, box) != Constant.SUCCESS) {
                         logger.debug("Parse positions failed");
-                        return NOT_SUCCESS;
+                        return Constant.NOT_SUCCESS;
                     }
                 }
             }
         }
 
 
-        return SUCCESS;
+        return Constant.SUCCESS;
     }
 
     private int parseBoxPositions(MonitoringDataParser parser, Biobank biobank, Container container,
@@ -276,7 +279,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
             if (sampleDB == null) {
                 logger.debug("Sample identifier doesn't match");
-                return NOT_SUCCESS;
+                return Constant.NOT_SUCCESS;
             }
 
             // Create new position from DTO
@@ -292,7 +295,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                 positionNew = positionService.update(positionNew);
             }
         }
-        return SUCCESS;
+        return Constant.SUCCESS;
     }
 
     private int parsePatientImport(String path, Biobank biobank) {
@@ -305,25 +308,25 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
         } catch (Exception ex) {
             logger.debug("PatientDataParser failed");
             ex.printStackTrace();
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         if (!parser.validate()) {
             logger.debug("Document is NOT valid. Document path was: " + path);
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         String biobankAbbreviation = parser.getBiobankId();
         if (!biobankAbbreviation.equals(biobank.getAbbreviation())) {
             logger.debug("Biobank abbreviation (identifier in export) doesn't match");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         Patient patient = parser.getPatient();
 
         if (patient == null) {
             logger.debug("Patient is null");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
         Patient patientDB = patientService.getByInstitutionalId(patient.getInstitutionId());
         if (patientDB == null) {
@@ -337,49 +340,49 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
         if (patient.getModuleLTS() == null) {
             logger.debug("Patient module null");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         // Parse LTS module
         List<Sample> samples = parser.getPatientLtsSamples();
         if (samples == null) {
             logger.debug("Parse of LTS module from import failed");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
-        if (manageImportedSamples(samples, patient.getModuleLTS()) != SUCCESS) {
+        if (manageImportedSamples(samples, patient.getModuleLTS()) != Constant.SUCCESS) {
             logger.debug("ManageImportedSamples for LTS module failed");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         // Parse STS module
         samples = parser.getPatientStsSamples();
         if (samples == null) {
             logger.debug("Parse of STS module from import failed");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
-        if (manageImportedSamples(samples, patient.getModuleSTS()) != SUCCESS) {
+        if (manageImportedSamples(samples, patient.getModuleSTS()) != Constant.SUCCESS) {
             logger.debug("ManageImportedSamples for STS module failed");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
-        return SUCCESS;
+        return Constant.SUCCESS;
     }
 
     private int manageImportedSamples(List<Sample> samples, Module module) {
 
         if (module == null) {
             logger.debug("Module must not be null");
-            return NOT_SUCCESS;
+            return Constant.NOT_SUCCESS;
         }
 
         for (Sample sample : samples) {
 
             if (sample.getSampleIdentification() == null) {
-                return NOT_SUCCESS;
+                return Constant.NOT_SUCCESS;
             }
             if (sample.getSampleIdentification().getSampleId() == null) {
-                return NOT_SUCCESS;
+                return Constant.NOT_SUCCESS;
             }
 
             // Set module
@@ -397,7 +400,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             }
         }
 
-        return SUCCESS;
+        return Constant.SUCCESS;
     }
 
     private void setReservationAsExpired(SampleReservation sampleReservation) {
@@ -428,7 +431,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
                    LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.AutoTriggeredOperationsImpl.reservationExpired");
 
-                   notificationService.create(sampleReservation.getUser().getId(),
+                   notificationDao.create(sampleReservation.getUser(),
                            NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleReservation.getId());
                } else {
                    // reservations are sorted from oldest to newest

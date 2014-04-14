@@ -4,12 +4,9 @@ import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.Tissue;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -25,31 +22,29 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
 
 
     public List<Sample> getSorted(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
-        if(orderByParam != null){
+        if (orderByParam != null) {
             orderParam = "ORDER BY sample." + orderByParam;
 
         }
         // ORDER BY p.name DESC
-        if(desc){
+        if (desc) {
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT sample FROM Sample sample WHERE " +
+        typedQuery = em.createQuery("SELECT sample FROM Sample sample WHERE " +
                 "sample.module.patient.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, Sample.class);
+        typedQuery.setParameter("biobank", biobank);
+        return typedQuery.getResultList();
     }
 
     public List<Sample> getSelected(Sample question, Biobank biobank, Patient patient,
                                     boolean lts) {
         notNull(question);
-        Query query = null;
 
-        query = em.createQuery("SELECT sample FROM Sample sample WHERE " +
+        typedQuery = em.createQuery("SELECT sample FROM Sample sample WHERE " +
                 "sample.module.patient.biobank = :biobank " +
 //                "AND Type(sample.module) IN (ModuleLTS) " ) ; // +
                 "AND (sample.module.patient.birthMonth = :birthMonth  OR :birthMonth IS NULL ) " +
@@ -60,33 +55,33 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
                 "AND sample.retrieved = :retrieved " +
                 "AND sample.sampleIdentification.number LIKE :numberParam " +
                 "AND sample.sampleIdentification.year LIKE :year " +
-                "AND sample.sampleIdentification.sampleId LIKE :sampleId ");
+                "AND sample.sampleIdentification.sampleId LIKE :sampleId ", Sample.class);
 
 
-        query.setParameter("biobank", biobank);
+        typedQuery.setParameter("biobank", biobank);
         //  query.setParameter("module", (lts ? ModuleLTS.class : ModuleSTS.class));
-        query.setParameter("birthMonth", (patient.getBirthMonth() != null ? patient.getBirthMonth() : null));
-        query.setParameter("birthYear", (patient.getBirthYear() != null ? patient.getBirthYear() : null));
-        query.setParameter("consent", patient.isConsent());
-        query.setParameter("sex", (patient.getSex() != null ? patient.getSex() : "*"));
-        query.setParameter("materialType", (question.getMaterialType() != null ?
+        typedQuery.setParameter("birthMonth", (patient.getBirthMonth() != null ? patient.getBirthMonth() : null));
+        typedQuery.setParameter("birthYear", (patient.getBirthYear() != null ? patient.getBirthYear() : null));
+        typedQuery.setParameter("consent", patient.isConsent());
+        typedQuery.setParameter("sex", (patient.getSex() != null ? patient.getSex() : "*"));
+        typedQuery.setParameter("materialType", (question.getMaterialType() != null ?
                 question.getMaterialType().getType() : "%"));
-        query.setParameter("retrieved", (question.getRetrieved() != null ? question.getRetrieved() : "*"));
+        typedQuery.setParameter("retrieved", (question.getRetrieved() != null ? question.getRetrieved() : "*"));
 
         if (question.getSampleIdentification() == null) {
-            query.setParameter("numberParam", "%");
-            query.setParameter("year", "%");
-            query.setParameter("sampleId", "%");
+            typedQuery.setParameter("numberParam", "%");
+            typedQuery.setParameter("year", "%");
+            typedQuery.setParameter("sampleId", "%");
         } else {
-            query.setParameter("numberParam", (question.getSampleIdentification().getNumber() != null ?
+            typedQuery.setParameter("numberParam", (question.getSampleIdentification().getNumber() != null ?
                     question.getSampleIdentification().getNumber() : "%"));
-            query.setParameter("year", (question.getSampleIdentification().getYear() != null ?
+            typedQuery.setParameter("year", (question.getSampleIdentification().getYear() != null ?
                     question.getSampleIdentification().getYear() : "%"));
-            query.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
+            typedQuery.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
                     question.getSampleIdentification().getSampleId() : "%"));
         }
 
-        return query.getResultList();
+        return typedQuery.getResultList();
     }
 
     public List<Sample> getSelected(Sample question, Biobank biobank) {
@@ -166,14 +161,10 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
 
 
     public Sample getByInstitutionalId(String id) {
-          notNull(id);
-          Query query = em.createQuery("SELECT p FROM Sample p WHERE p.sampleIdentification.sampleId = :idParam");
-          query.setParameter("idParam", id);
+        notNull(id);
+        typedQuery = em.createQuery("SELECT p FROM Sample p WHERE p.sampleIdentification.sampleId = :idParam", Sample.class);
+        typedQuery.setParameter("idParam", id);
 
-          try {
-              return (Sample) query.getSingleResult();
-          } catch (NoResultException ex) {
-              return null;
-          }
-      }
+        return getSingleResult();
+    }
 }

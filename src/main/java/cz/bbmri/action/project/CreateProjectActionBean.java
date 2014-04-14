@@ -1,22 +1,18 @@
 package cz.bbmri.action.project;
 
-import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
+import cz.bbmri.service.AttachmentService;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,12 +29,15 @@ public class CreateProjectActionBean extends PermissionActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
+
+    @SpringBean
+    private AttachmentService attachmentService;
 
     public CreateProjectActionBean() {
-          //default
-          setComponentManager(new ComponentManager());
-      }
+        //default
+        setComponentManager(new ComponentManager());
+    }
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"confirmStep2"},
@@ -56,7 +55,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
                     required = true),
             @Validate(on = {"confirmStep3"}, field = "approvalStorage",
                     required = true),
-           @Validate(on = {"confirmStep3"}, field = "approvalDate",
+            @Validate(on = {"confirmStep3"}, field = "approvalDate",
                     required = true),
             @Validate(on = {"confirmStep4"}, field = "annotation",
                     required = true)
@@ -150,7 +149,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
 //        project = projectFacade.createProject(project, getContext().getMyId(),
 //                getContext().getPropertiesStoragePath(),
 //                getContext().getValidationErrors());
-      //  return new RedirectResolution(this.getClass(), "mta").addParameter("id", project.getId());
+        //  return new RedirectResolution(this.getClass(), "mta").addParameter("id", project.getId());
         return new ForwardResolution(PROJECT_CREATE_MTA);
     }
 
@@ -164,29 +163,29 @@ public class CreateProjectActionBean extends PermissionActionBean {
     @HandlesEvent("confirmStep6")
     public Resolution confirmStep6() {
 
-        project = projectFacade.createProject(project, getContext().getMyId(),
-                      getContext().getValidationErrors());
+        project = projectService.createProject(project, getContext().getMyId(),
+                getContext().getValidationErrors());
 
-        if(project == null){
+        if (project == null) {
             return new ForwardResolution(this.getClass(), "mta");
         }
 
-        int result = projectFacade.createAttachment(attachmentFileBean,
+        int result = attachmentService.createAttachment(attachmentFileBean,
                 AttachmentType.MATERIAL_TRANSFER_AGREEMENT,
                 project.getId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId());
 
-        if(result < 0){
+        if (result < 0) {
             return new ForwardResolution(PROJECT_CREATE_MTA);
         }
 
-        if(result == 1){
+        if (result == 1) {
             getContext().getMessages().add(new LocalizableMessage("bbmri.action.CreateProjectActionBean.AttachmentOverwritten"));
             return new ForwardResolution(PROJECT_CREATE_MTA);
         }
 
-        if(result == 0){
+        if (result == 0) {
             successMsg(null);
         }
 

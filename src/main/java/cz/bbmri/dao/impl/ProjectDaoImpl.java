@@ -21,31 +21,27 @@ import java.util.List;
 @Repository
 public class ProjectDaoImpl extends BasicDaoImpl<Project, Long> implements ProjectDao {
 
-    @SuppressWarnings("unchecked")
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);
-        Query query = em.createQuery("SELECT p FROM Project p where p.projectState = :param");
-        query.setParameter("param", projectState);
-        return query.getResultList();
+        typedQuery = em.createQuery("SELECT p FROM Project p where p.projectState = :param", Project.class);
+        typedQuery.setParameter("param", projectState);
+        return typedQuery.getResultList();
     }
 
     //select b.fname, b.lname from Users b JOIN b.groups c where c.groupName = :groupName
-
-    @SuppressWarnings("unchecked")
     public List<Project> getAllByUserAndProjectState(User user, ProjectState projectState) {
         notNull(projectState);
-        Query query = em.createQuery("" +
+        typedQuery  = em.createQuery("" +
                 "SELECT project FROM Project project JOIN project.projectAdministrators admin JOIN admin.user user " +
                 "WHERE project.projectState = :stateParam " +
-                "and user = :userParam ");
-        query.setParameter("stateParam", projectState);
-        query.setParameter("userParam", user);
+                "and user = :userParam ", Project.class);
+        typedQuery .setParameter("stateParam", projectState);
+        typedQuery .setParameter("userParam", user);
 
-        return query.getResultList();
+        return typedQuery .getResultList();
     }
 
     public List<Project> getMyProjectsSorted(User user, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -57,16 +53,15 @@ public class ProjectDaoImpl extends BasicDaoImpl<Project, Long> implements Proje
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT project FROM Project project JOIN project.projectAdministrators admin " +
+        typedQuery  = em.createQuery("SELECT project FROM Project project JOIN project.projectAdministrators admin " +
                 "JOIN admin.user user " +
                 "WHERE user = :userParam " +
-                orderParam);
-        query.setParameter("userParam", user);
-        return query.getResultList();
+                orderParam, Project.class);
+        typedQuery .setParameter("userParam", user);
+        return typedQuery .getResultList();
     }
 
     public List<Project> getProjectsBySample(Sample sample, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -78,12 +73,12 @@ public class ProjectDaoImpl extends BasicDaoImpl<Project, Long> implements Proje
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT project FROM Project project JOIN project.sampleRequests sampleRequest " +
+        typedQuery  = em.createQuery("SELECT project FROM Project project JOIN project.sampleRequests sampleRequest " +
                 "JOIN sampleRequest.requests request " +
                 "WHERE request.sample = :sample " +
-                orderParam);
-        query.setParameter("sample", sample);
-        return query.getResultList();
+                orderParam, Project.class);
+        typedQuery .setParameter("sample", sample);
+        return typedQuery .getResultList();
     }
 
 }

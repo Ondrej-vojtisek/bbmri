@@ -7,8 +7,8 @@ import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.RequestFacade;
-import cz.bbmri.facade.SampleFacade;
+import cz.bbmri.service.RequestService;
+import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -30,10 +30,10 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private RequestFacade requestFacade;
+    private RequestService requestService;
 
     @SpringBean
-    private SampleFacade sampleFacade;
+    private SampleService sampleService;
 
     private Sample sample;
 
@@ -91,7 +91,7 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
             return null;
         }
 
-        return sampleFacade.findSamples(sample, biobankId, patient, moduleLTS);
+        return sampleService.findSamples(sample, biobankId, patient, moduleLTS);
     }
 
     @DontValidate
@@ -131,7 +131,7 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
         logger.debug("SelectedSamples: " + selectedSamples);
         logger.debug("sampleQuestionId: " + getSampleQuestionId());
 
-        if (!requestFacade.createRequests(selectedSamples,
+        if (!requestService.createRequests(selectedSamples,
                 getSampleQuestionId(),
                 getContext().getValidationErrors(),
                 getContext().getMessages())) {

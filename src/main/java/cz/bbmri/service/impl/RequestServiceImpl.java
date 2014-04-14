@@ -8,6 +8,10 @@ import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
 import cz.bbmri.service.RequestService;
+import net.sourceforge.stripes.action.LocalizableMessage;
+import net.sourceforge.stripes.action.Message;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -245,12 +249,60 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return requestDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Request> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return requestDao.nOrderedBy(orderByParam, desc, number);
-    }
+    public boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors) {
+            Request requestDB = get(requestId);
+            if (requestDB == null) {
+                logger.debug("RequestDB can't be null");
+                return false;
+            }
+
+            int newValue = requestDB.getNumOfRequested();
+            if (increase) {
+                newValue += difference;
+
+            } else {
+                newValue -= difference;
+            }
+
+            requestDB.setNumOfRequested(newValue);
+
+            if (update(requestDB) == null) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.changeNumberFailed"));
+                return false;
+            }
+            return true;
+        }
 
 
+        public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
+
+            int result = -1;
+            try {
+                result = createRequests(sampleIds, sampleQuestionId);
+            } catch (InsuficientAmountOfSamplesException ex) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
+                return false;
+            }
+
+            if (result < 0) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.requestCreateFailed"));
+                return false;
+            }
+            if (result == 0) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.noRequestWasCreated"));
+                return true;
+            }
+            messages.add(new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.createRequestSuccess", result));
+            return true;
+        }
+
+        public boolean deleteRequest(Long requestId, ValidationErrors errors) {
+            if (!remove(requestId)) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.failedToRemoveRequest"));
+                return false;
+            }
+            return true;
+        }
 
 
 }

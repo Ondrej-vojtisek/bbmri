@@ -2,15 +2,16 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
-import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.service.SampleService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,37 +40,65 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     @Autowired
     private BiobankDao biobankDao;
 
+    @Autowired
+    private SampleQuestionDao sampleQuestionDao;
+
+    @Autowired
+    private ProjectDao projectDao;
+
+
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    /*
-    public Sample create(Sample sample) {
-        notNull(sample);
-        sampleDao.create(sample);
-        return sample;
-    }
-    */
-
-    public Sample create(Sample sample, Long moduleId) {
+    public boolean create(Sample sample, Long moduleId) {
         notNull(sample);
 
         if (sample.getModule() == null) {
             if (moduleId == null) {
                 logger.debug("Module must be defined during sample create");
-                return null;
+                return false;
             }
             Module moduleDB = moduleDao.get(moduleId);
             if (moduleDB == null) {
                 logger.debug("ModuleDB can't be null");
-                return null;
+                return false;
             }
             sample.setModule(moduleDB);
 
             // Original number of samples - it won't be changed during any update
             sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
         }
-
         sampleDao.create(sample);
-        return sample;
+
+        return true;
+    }
+
+
+    public boolean create(Sample sample, Long moduleId, ValidationErrors errors) {
+        notNull(sample);
+
+        if (sample.getModule() == null) {
+            if (moduleId == null) {
+                logger.debug("Module must be defined during sample create");
+                return false;
+            }
+            Module moduleDB = moduleDao.get(moduleId);
+            if (moduleDB == null) {
+                logger.debug("ModuleDB can't be null");
+                return false;
+            }
+            sample.setModule(moduleDB);
+
+            // Original number of samples - it won't be changed during any update
+            sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
+        }
+        try {
+            sampleDao.create(sample);
+        } catch (DataAccessException ex) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
+            return false;
+        }
+
+        return true;
     }
 
     public boolean remove(Long id) {
@@ -159,22 +188,6 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public List<Sample> getSamplesByQuery(Sample sample, Long biobankId, Patient patient, boolean lts) {
-        notNull(sample);
-
-        logger.debug("Service findSamples sample: " + sample + " biobankId: " + biobankId + " Patient: " + patient
-                + " LTS: " + lts);
-
-        Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            logger.debug("Biobank can't be null");
-            return null;
-        }
-
-        return sampleDao.getSelected(sample, biobankDB, patient, lts);
-    }
-
-    @Transactional(readOnly = true)
     public Integer count() {
         return sampleDao.count();
     }
@@ -191,19 +204,14 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public List<Sample> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return sampleDao.nOrderedBy(orderByParam, desc, number);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc){
-        if(biobankId == null){
+    public List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc) {
+        if (biobankId == null) {
             logger.debug("biobankId is null");
             return null;
         }
 
         Biobank biobankDB = biobankDao.get(biobankId);
-        if(biobankDB == null){
+        if (biobankDB == null) {
             logger.debug("BiobankDB can´t be null");
             return null;
         }
@@ -212,8 +220,14 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     }
 
     @Transactional(readOnly = true)
-    public Sample getByInstitutionalId(String id){
+    public Sample getByInstitutionalId(String id) {
         return sampleDao.getByInstitutionalId(id);
+    }
+
+    public List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts) {
+        logger.debug("Facade findSamples sample: " + sample + " biobankId: " + biobankId + " Patient: " + patient
+                + " LTS: " + lts);
+        return sampleDao.getSelected(sample, biobankDao.get(biobankId), patient, lts);
     }
 
 }

@@ -3,6 +3,7 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.UserSettingDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.systemAdministration.UserSetting;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,12 +16,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserSettingDaoImpl implements UserSettingDao {
 
-    public void create (UserSetting userSetting){}
+    public void create (UserSetting userSetting){
+        throw new NotYetImplementedException("");
+    }
 
-    public UserSetting get(User user){return null;}
+    public UserSetting get(User user){
+        throw new NotYetImplementedException("");
+    }
 
-    public void set(UserSetting userSetting){}
+    public void set(UserSetting userSetting){
+        throw new NotYetImplementedException("");
+    }
 
-    public void remove (UserSetting userSetting){}
+    public void remove (UserSetting userSetting){
+        throw new NotYetImplementedException("");
+    }
 
 }

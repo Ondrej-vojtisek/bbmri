@@ -9,6 +9,8 @@ import cz.bbmri.entities.ModuleLTS;
 import cz.bbmri.entities.ModuleSTS;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.service.PatientService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,11 +135,6 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     }
 
     @Transactional(readOnly = true)
-    public List<Patient> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return patientDao.nOrderedBy(orderByParam, desc, number);
-    }
-
-    @Transactional(readOnly = true)
     public List<Patient> find(Patient patient, int requiredResults) {
         notNull(patient);
 
@@ -169,6 +166,15 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
 
     public Patient getByInstitutionalId(String id){
         return patientDao.getByInstitutionalId(id);
+    }
+
+    public boolean create(Patient patient, Long biobankId, ValidationErrors errors){
+        notNull(patient);
+        if (create(patient, biobankId) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
+            return false;
+        }
+        return true;
     }
 
 }

@@ -23,7 +23,6 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements Patie
 
 
     public List<Patient> getSorted(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         String descString = "";
           // ORDER BY p.name DESC
@@ -33,7 +32,6 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements Patie
 
         // ORDER BY p.name
         if (orderByParam != null) {
-
             // sort by age
             // ORDER BY patient.birthYear DESC, patient.birthMonth DESC
             if(orderByParam.equals("birthYear")){
@@ -43,23 +41,19 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements Patie
             else{
                 orderParam = "ORDER BY patient." + orderByParam + " " + descString;
             }
-
         }
 
-
-        query = em.createQuery("SELECT patient FROM Patient patient WHERE " +
+        typedQuery = em.createQuery("SELECT patient FROM Patient patient WHERE " +
                 "patient.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, Patient.class);
+        typedQuery.setParameter("biobank", biobank);
+        return typedQuery.getResultList();
     }
 
     public List<Patient> findPatient(Patient patient) {
 
-        logger.debug("FindPatient: patient: " + patient);
-
         notNull(patient);
-        Query query = em.createQuery("" +
+        typedQuery = em.createQuery("" +
                 "SELECT p " +
                 "FROM Patient p WHERE " +
                 "p.biobank = :biobankParam " +
@@ -79,27 +73,23 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements Patie
                 "ELSE 0 " +
                 "END " +
                 "DESC"
-        );
+        , Patient.class);
 
-        query.setParameter("institutionIdParam", (patient.getInstitutionId() != null ?
+        typedQuery.setParameter("institutionIdParam", (patient.getInstitutionId() != null ?
                 "%" + patient.getInstitutionId() + "%" : ""));
-        query.setParameter("birthYearParam", (patient.getBirthYear() != null ? patient.getBirthYear() : null));
-        query.setParameter("birthMonthParam", (patient.getBirthMonth() != null ? patient.getBirthMonth() : null));
-        query.setParameter("biobankParam", patient.getBiobank());
-        query.setParameter("sexParam", (patient.getSex() != null ? patient.getSex() : ""));
+        typedQuery.setParameter("birthYearParam", (patient.getBirthYear() != null ? patient.getBirthYear() : null));
+        typedQuery.setParameter("birthMonthParam", (patient.getBirthMonth() != null ? patient.getBirthMonth() : null));
+        typedQuery.setParameter("biobankParam", patient.getBiobank());
+        typedQuery.setParameter("sexParam", (patient.getSex() != null ? patient.getSex() : ""));
 
-        return query.getResultList();
+        return typedQuery.getResultList();
     }
 
     public Patient getByInstitutionalId(String id){
         notNull(id);
-        Query query = em.createQuery("SELECT p FROM Patient p WHERE p.institutionId = :idParam");
-        query.setParameter("idParam", id);
+        typedQuery = em.createQuery("SELECT p FROM Patient p WHERE p.institutionId = :idParam", Patient.class);
+        typedQuery.setParameter("idParam", id);
 
-        try {
-            return (Patient) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 }

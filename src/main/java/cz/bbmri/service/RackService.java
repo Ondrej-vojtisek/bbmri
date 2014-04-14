@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface RackService extends BasicService<Rack>{
+
+    boolean create(Long containerId, Rack rack, ValidationErrors errors);
 
     List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc);
 

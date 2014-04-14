@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -21,7 +22,6 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
 
 
     public List<StandaloneBox> getSorted(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
 
@@ -39,15 +39,14 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
+        TypedQuery<StandaloneBox> typedQuery1 = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
                 "box.infrastructure.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, StandaloneBox.class);
+        typedQuery1.setParameter("biobank", biobank);
+        return typedQuery1.getResultList();
     }
 
     public List<RackBox> getSorted(Rack rack, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -59,11 +58,11 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT box FROM RackBox box WHERE " +
+        TypedQuery<RackBox> typedQuery1 = em.createQuery("SELECT box FROM RackBox box WHERE " +
                 "box.rack = :rack " +
-                orderParam);
-        query.setParameter("rack", rack);
-        return query.getResultList();
+                orderParam, RackBox.class);
+        typedQuery1.setParameter("rack", rack);
+        return typedQuery1.getResultList();
     }
 
     public Box getByName(Biobank biobank, Rack rack, String name) {
@@ -92,11 +91,7 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
 
         query.setParameter("nameParam", name);
 
-        try {
-            return (Box) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
 
     }
 }

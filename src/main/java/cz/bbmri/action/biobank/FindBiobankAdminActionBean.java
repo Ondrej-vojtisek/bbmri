@@ -4,7 +4,6 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.BiobankFacade;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -24,9 +23,6 @@ public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
 
     @SpringBean
     protected UserService userService;
-
-    @SpringBean
-    protected BiobankFacade biobankFacade;
 
     private User userFind;
 

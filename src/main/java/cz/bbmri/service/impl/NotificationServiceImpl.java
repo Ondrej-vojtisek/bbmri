@@ -42,64 +42,34 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
     private UserSettingDao userSettingDao;
 
 
-    private boolean createNotification(User user, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-        notNull(notificationType);
 
-        Date created = new Date();
-
-        Notification notification = new Notification();
-        notification.setCreated(created);
-        notification.setNotificationType(notificationType);
-        notification.setRead(false);
-        notification.setUser(user);
-        notification.setObjectId(objectId);
-
-        Locale locale = null;
-
-        if (user.getUserSetting() == null) {
-            logger.debug("UserSettings is null");
-            return false;
-        }
-
-        if (user.getUserSetting().getLocale() == null) {
-            logger.debug("UserSettings Locale is null");
-            return false;
-        }
-
-        locale = user.getUserSetting().getLocale();
-        notification.setMessage(localizableMessage.getMessage(locale));
-        notificationDao.create(notification);
-
-        return true;
-    }
-
-    public boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-        notNull(userId);
-        User userDB = userDao.get(userId);
-
-        if (userDB == null) {
-            logger.debug("UserDB can't be null");
-            return false;
-        }
-
-        return createNotification(userDB, notificationType, localizableMessage, objectId);
-    }
-
-    public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-        notNull(users);
-        notNull(notificationType);
-
-        Date created = new Date();
-        boolean result = true;
-        for (User user : users) {
-
-            // TODO: mail notification here
-            if (!createNotification(user, notificationType, localizableMessage, objectId)) {
-                result = false;
-            }
-        }
-        return result;
-    }
+//    public boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
+//        notNull(userId);
+//        User userDB = userDao.get(userId);
+//
+//        if (userDB == null) {
+//            logger.debug("UserDB can't be null");
+//            return false;
+//        }
+//
+//        return createNotification(userDB, notificationType, localizableMessage, objectId);
+//    }
+//
+//    public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
+//        notNull(users);
+//        notNull(notificationType);
+//
+//        Date created = new Date();
+//        boolean result = true;
+//        for (User user : users) {
+//
+//            // TODO: mail notification here
+//            if (!createNotification(user, notificationType, localizableMessage, objectId)) {
+//                result = false;
+//            }
+//        }
+//        return result;
+//    }
 
     public boolean markAsRead(Long notificationId) {
         notNull(notificationId);
@@ -127,17 +97,6 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         }
 
         return notificationDao.getUnread(userDB);
-    }
-
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return notificationDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Notification> all() {
-        return notificationDao.all();
     }
 
     @Transactional(readOnly = true)
@@ -178,16 +137,6 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
 
         notificationDao.update(notificationDB);
         return notificationDB;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Notification> allOrderedBy(String orderByParam, boolean desc) {
-        return notificationDao.allOrderedBy(orderByParam, desc);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Notification> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return notificationDao.nOrderedBy(orderByParam, desc, number);
     }
 
     public List<Notification> getUnreadNotifications(Long loggedUserId) {

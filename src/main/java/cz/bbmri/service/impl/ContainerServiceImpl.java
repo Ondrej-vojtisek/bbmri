@@ -9,6 +9,8 @@ import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.service.ContainerService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,11 +123,6 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
         return containerDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Container> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return containerDao.nOrderedBy(orderByParam, desc, number);
-    }
-
     public List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc) {
         if (biobankId == null) {
             logger.debug("biobankId is null");
@@ -142,6 +139,19 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     }
 
     public Container getContainerByName(Biobank biobank, String name) {
-        return containerDao.getByName(biobank,  name);
+        return containerDao.getByName(biobank, name);
+    }
+
+    public boolean create(Long infrastructureId, Container container, ValidationErrors errors) {
+        notNull(infrastructureId);
+        notNull(container);
+        notNull(errors);
+
+        if (create(infrastructureId, container) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
+            return false;
+        }
+        return true;
+
     }
 }

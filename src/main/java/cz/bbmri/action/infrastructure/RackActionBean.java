@@ -8,7 +8,8 @@ import cz.bbmri.entities.infrastructure.RackBox;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.ContainerService;
+import cz.bbmri.service.RackService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.IntegerTypeConverter;
@@ -29,7 +30,10 @@ import java.util.ArrayList;
 public class RackActionBean extends PermissionActionBean<RackBox> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private RackService rackService;
+
+    @SpringBean
+    private ContainerService containerService;
 
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
@@ -62,7 +66,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     public Rack getRack() {
         if (rack == null) {
             if (rackId != null) {
-                rack = biobankFacade.getRack(rackId);
+                rack = rackService.get(rackId);
             }
         }
         return rack;
@@ -116,7 +120,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackResolution() {
         // biobank ribbon
-        Container container = biobankFacade.getContainer(containerId);
+        Container container = containerService.get(containerId);
         if (container != null) {
             setBiobankId(container.getInfrastructure().getBiobank().getId());
         }
@@ -127,7 +131,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     @HandlesEvent("createRack")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRack() {
-        if (!biobankFacade.createRack(containerId, rack, getContext().getValidationErrors())) {
+        if (!rackService.create(containerId, rack, getContext().getValidationErrors())) {
             return new ForwardResolution(ContainerActionBean.class, "detail")
                     .addParameter("containerId", containerId);
         }

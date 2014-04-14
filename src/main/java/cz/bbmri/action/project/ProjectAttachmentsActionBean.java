@@ -6,7 +6,8 @@ import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
+import cz.bbmri.service.AttachmentService;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -24,8 +25,9 @@ import java.util.ArrayList;
 @UrlBinding("/project/attachments/{$event}/{projectId}")
 public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachment> {
 
+
     @SpringBean
-    private ProjectFacade projectFacade;
+    private AttachmentService attachmentService;
 
     public ProjectAttachmentsActionBean() {
         setPagination(new MyPagedListHolder<Attachment>(new ArrayList<Attachment>()));
@@ -108,7 +110,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
             getPagination().setOrderParam("fileName");
         }
         getPagination().setEvent("attachmentsResolution");
-        getPagination().setSource(projectFacade.getSortedAttachments(
+        getPagination().setSource(attachmentService.getSortedAttachments(
                 projectId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
@@ -119,7 +121,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectVisitor}"})
     public Resolution downloadAttachment() {
         try {
-            return projectFacade.downloadFile(attachment.getId());
+            return attachmentService.downloadFile(attachment.getId());
         } catch (FileNotFoundException ex) {
             getContext().getMessages().add(
                     new SimpleMessage("File does not exist.")
@@ -132,7 +134,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @HandlesEvent("deleteAttachment")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution deleteAttachment() {
-        if (!projectFacade.deleteAttachment(attachmentId,
+        if (!attachmentService.deleteAttachment(attachmentId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
@@ -159,7 +161,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectEditor}"})
     public Resolution attachmentUpload() {
 
-        int result = projectFacade.createAttachment(attachmentFileBean,
+        int result = attachmentService.createAttachment(attachmentFileBean,
                 attachmentType, projectId,
                 getContext().getValidationErrors(),
                 getContext().getMyId());

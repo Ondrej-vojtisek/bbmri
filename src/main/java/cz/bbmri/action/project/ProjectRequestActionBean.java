@@ -6,8 +6,7 @@ import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
-import cz.bbmri.facade.RequestFacade;
+import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest> {
 
     @SpringBean
-    private RequestFacade requestFacade;
+    private SampleQuestionService sampleQuestionService;
 
     public ProjectRequestActionBean() {
         setPagination(new MyPagedListHolder<SampleRequest>(new ArrayList<SampleRequest>()));
@@ -62,7 +61,7 @@ public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("sampleRequestsResolution");
-        getPagination().setSource(requestFacade.getSortedSampleRequest(
+        getPagination().setSource(sampleQuestionService.getSortedSampleRequest(
                 projectId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));

@@ -10,7 +10,6 @@ import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.SampleFacade;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -28,8 +27,6 @@ import java.util.List;
 @UrlBinding("/sample/{$event}/{sampleId}")
 public class SampleActionBean extends AbstractSampleActionBean<Sample> {
 
-    @SpringBean
-    private SampleFacade sampleFacade;
 
     public SampleActionBean() {
         setComponentManager(new ComponentManager(

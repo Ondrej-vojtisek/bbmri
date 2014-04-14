@@ -9,6 +9,8 @@ import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.entities.infrastructure.RackBox;
 import cz.bbmri.service.RackService;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,11 +122,6 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
         return rackDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Rack> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return rackDao.nOrderedBy(orderByParam, desc, number);
-    }
-
     public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc) {
         if (biobankId == null) {
             logger.debug("biobankId is null");
@@ -142,6 +139,19 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
 
     public Rack getRackByName(Container container, String name){
         return rackDao.getByName(container, name);
+    }
+
+    public boolean create(Long containerId, Rack rack, ValidationErrors errors){
+        notNull(containerId);
+        notNull(rack);
+        notNull(errors);
+
+        if (create(containerId, rack) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.rackcreatefailed"));
+            return false;
+        }
+        return true;
+
     }
 
 }

@@ -21,7 +21,6 @@ import java.util.List;
 public class RackDaoImpl extends BasicDaoImpl<Rack, Long> implements RackDao {
 
     public List<Rack> getSorted(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -33,26 +32,22 @@ public class RackDaoImpl extends BasicDaoImpl<Rack, Long> implements RackDao {
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT rack FROM Rack rack WHERE " +
+        typedQuery  = em.createQuery("SELECT rack FROM Rack rack WHERE " +
                 "rack.container.infrastructure.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, Rack.class);
+        typedQuery .setParameter("biobank", biobank);
+        return typedQuery .getResultList();
     }
 
     public Rack getByName(Container container, String name) {
         notNull(container);
         notNull(name);
-        Query query = em.createQuery("SELECT p FROM Rack p WHERE " +
+        typedQuery  = em.createQuery("SELECT p FROM Rack p WHERE " +
                 "p.container = :containerParam AND " +
-                "p.name = :nameParam");
-        query.setParameter("containerParam", container);
-        query.setParameter("nameParam", name);
+                "p.name = :nameParam", Rack.class);
+        typedQuery .setParameter("containerParam", container);
+        typedQuery .setParameter("nameParam", name);
 
-        try {
-            return (Rack) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 }

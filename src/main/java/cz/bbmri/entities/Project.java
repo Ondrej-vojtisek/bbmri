@@ -4,6 +4,7 @@ import cz.bbmri.entities.enumeration.ProjectState;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -18,6 +19,9 @@ import java.util.*;
 @Entity
 public class Project implements Serializable {
 
+    public final static String PROJECT_FOLDER = File.separator + "project_files";
+    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,7 +31,7 @@ public class Project implements Serializable {
 
     private String name;
 
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String annotation;
 
     private String fundingOrganization;
@@ -72,8 +76,8 @@ public class Project implements Serializable {
     }
 
     public String getHomeInstitution() {
-         return homeInstitution;
-     }
+        return homeInstitution;
+    }
 
     public void setHomeInstitution(String homeInstitution) {
         this.homeInstitution = homeInstitution;
@@ -212,4 +216,12 @@ public class Project implements Serializable {
                 ", projectState=" + projectState +
                 '}';
     }
+
+    public String getProjectFolderPath() {
+           if (this.getId() == null) {
+               return null;
+           }
+
+           return Project.PROJECT_FOLDER_PATH + this.getId().toString();
+       }
 }

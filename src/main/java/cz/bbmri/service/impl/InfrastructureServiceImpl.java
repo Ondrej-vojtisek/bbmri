@@ -1,5 +1,6 @@
 package cz.bbmri.service.impl;
 
+import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.BoxDao;
 import cz.bbmri.dao.ContainerDao;
 import cz.bbmri.dao.InfrastructureDao;
@@ -33,6 +34,9 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
 
     @Autowired
     private BoxDao boxDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
 
 
     public Infrastructure initialize(Biobank biobank) {
@@ -91,7 +95,8 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
         }
 
         if (infrastructure.getContainers() != null) infrastructureDB.setContainers(infrastructure.getContainers());
-        if (infrastructure.getStandaloneBoxes() != null) infrastructureDB.setStandaloneBoxes(infrastructure.getStandaloneBoxes());
+        if (infrastructure.getStandaloneBoxes() != null)
+            infrastructureDB.setStandaloneBoxes(infrastructure.getStandaloneBoxes());
 
         infrastructureDao.update(infrastructureDB);
         return infrastructureDB;
@@ -118,9 +123,16 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
         return infrastructureDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<Infrastructure> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return infrastructureDao.nOrderedBy(orderByParam, desc, number);
+    public boolean create(Long biobankId) {
+        Infrastructure infrastructure = initialize(biobankDao.get(biobankId));
+        // This method is not caused intentionally by user so there is no need to create any un-success messages
+
+        if (infrastructure == null) {
+            logger.debug("Infrastructure was not created");
+            return false;
+        }
+
+        return true;
     }
 
 }

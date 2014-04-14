@@ -105,10 +105,4 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
         return projectAdministratorDao.allOrderedBy(orderByParam, desc);
     }
 
-    @Transactional(readOnly = true)
-    public List<ProjectAdministrator> nOrderedBy(String orderByParam, boolean desc, int number){
-        return projectAdministratorDao.nOrderedBy(orderByParam, desc, number);
-    }
-
-
 }

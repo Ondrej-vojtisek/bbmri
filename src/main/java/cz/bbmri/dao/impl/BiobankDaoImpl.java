@@ -20,14 +20,10 @@ public class BiobankDaoImpl extends BasicDaoImpl<Biobank, Long> implements Bioba
 
     public Biobank getBiobankByAbbreviation(String abbreviation) {
         notNull(abbreviation);
-        Query query = em.createQuery("SELECT p FROM Biobank p where p.abbreviation = :abbreviationParam");
-        query.setParameter("abbreviationParam", abbreviation);
+        typedQuery = em.createQuery("SELECT p FROM Biobank p where p.abbreviation = :abbreviationParam", Biobank.class);
+        typedQuery.setParameter("abbreviationParam", abbreviation);
 
-        try {
-            return (Biobank) query.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 
   }

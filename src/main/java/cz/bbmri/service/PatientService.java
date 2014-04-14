@@ -4,6 +4,7 @@ package cz.bbmri.service;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.infrastructure.Position;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface PatientService  extends BasicService<Patient> {
+
+    boolean create(Patient patient, Long biobankId, ValidationErrors errors);
 
     Patient create(Patient patient, Long biobankId);
 

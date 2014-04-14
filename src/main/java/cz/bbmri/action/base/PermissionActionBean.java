@@ -4,8 +4,8 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
-import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.ProjectFacade;
+import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
@@ -22,10 +22,10 @@ import org.slf4j.LoggerFactory;
 public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private BiobankService biobankService;
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
 
 
     protected Long biobankId;
@@ -55,7 +55,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
         if (project == null) {
             if (projectId != null) {
-                project = projectFacade.get(projectId);
+                project = projectService.get(projectId);
             }
         }
 
@@ -73,7 +73,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     public Biobank getBiobank() {
         if (biobank == null) {
             if (biobankId != null) {
-                biobank = biobankFacade.get(biobankId);
+                biobank = biobankService.get(biobankId);
             }
         }
         return biobank;
@@ -94,44 +94,44 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getAllowedBiobankManager() {
-        return biobankFacade.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
+        return biobankService.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankEditor() {
-        return biobankFacade.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
+        return biobankService.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankExecutor() {
         logger.debug("AllowedBiobankExecutor_ ");
         logger.debug("BiobankId: " + biobankId);
 
-        logger.debug("AllowedBiobankExecutor_ " + biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
-        return biobankFacade.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
+        logger.debug("AllowedBiobankExecutor_ " + biobankService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
+        return biobankService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankVisitor() {
-        return biobankFacade.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
+        return biobankService.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
     }
 
 
     /* When the project is marked as finished than it can't be edited or changes in any way */
     public boolean getAllowedProjectManager() {
-        return projectFacade.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
+        return projectService.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectEditor() {
-        return projectFacade.hasPermission(Permission.EDITOR, projectId, getContext().getMyId()) && !isFinished();
+        return projectService.hasPermission(Permission.EDITOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectExecutor() {
         logger.debug("GetAllowedProjectExecutor");
         logger.debug("ProjectId: " + projectId);
 
-        return projectFacade.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
+        return projectService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectVisitor() {
-        return projectFacade.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
+        return projectService.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
     }
 
 

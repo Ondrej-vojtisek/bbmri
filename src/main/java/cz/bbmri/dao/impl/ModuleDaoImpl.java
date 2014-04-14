@@ -14,5 +14,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ModuleDaoImpl extends BasicDaoImpl<Module, Long> implements ModuleDao {
 
-
 }

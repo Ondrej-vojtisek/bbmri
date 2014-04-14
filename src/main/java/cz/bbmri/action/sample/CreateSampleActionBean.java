@@ -12,8 +12,8 @@ import cz.bbmri.entities.sample.Serum;
 import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.BiobankFacade;
-import cz.bbmri.facade.SampleFacade;
+import cz.bbmri.service.ModuleService;
+import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -45,10 +45,10 @@ public class CreateSampleActionBean extends PermissionActionBean {
      }
 
     @SpringBean
-    private SampleFacade sampleFacade;
+    private SampleService sampleService;
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private ModuleService moduleService;
 
     private Long sampleId;
 
@@ -120,7 +120,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
     public Module getModule() {
         if (module == null) {
             if (moduleId != null) {
-                module = sampleFacade.getModule(moduleId);
+                module = moduleService.get(moduleId);
             }
         }
         return module;
@@ -268,7 +268,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
 
         Object object = sampleOUT;
 
-        if(!sampleFacade.create(sampleOUT, getContext().getValidationErrors())){
+        if(!sampleService.create(sampleOUT, null)){
             return new RedirectResolution(PatientActionBean.class, "detail")
                     .addParameter("patientId", getPatient().getId())
                     .addParameter("biobankId", biobankId);

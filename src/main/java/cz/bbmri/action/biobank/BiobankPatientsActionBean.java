@@ -5,7 +5,7 @@ import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class BiobankPatientsActionBean extends PermissionActionBean<Patient> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private PatientService patientService;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(BiobankPatientsActionBean.class.getName(),
@@ -59,7 +59,7 @@ public class BiobankPatientsActionBean extends PermissionActionBean<Patient> {
             getPagination().setOrderParam("institutionId");
         }
         getPagination().setEvent("display");
-        getPagination().setSource(biobankFacade.getSortedPatients(biobankId,
+        getPagination().setSource(patientService.getSorted(biobankId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
         return new ForwardResolution(BIOBANK_DETAIL_PATIENTS);

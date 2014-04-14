@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface ContainerService extends BasicService<Container>{
+
+    boolean create(Long infrastructureId, Container container, ValidationErrors errors);
 
     Container create(Long infrastructureId, Container container);
 

@@ -6,6 +6,7 @@ import cz.bbmri.entities.enumeration.RequestState;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -19,7 +20,6 @@ import java.util.List;
 public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> implements SampleQuestionDao {
 
     public List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -31,11 +31,11 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT sampleQuestion FROM SampleQuestion sampleQuestion WHERE " +
+        typedQuery = em.createQuery("SELECT sampleQuestion FROM SampleQuestion sampleQuestion WHERE " +
                 "sampleQuestion.biobank = :biobank " +
-                orderParam);
-        query.setParameter("biobank", biobank);
-        return query.getResultList();
+                orderParam, SampleQuestion.class);
+        typedQuery.setParameter("biobank", biobank);
+        return typedQuery.getResultList();
     }
 
 
@@ -54,33 +54,32 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
      */
     @SuppressWarnings("unchecked")
     private List<SampleQuestion> getByBiobankAndState(Biobank biobank, RequestState requestState, String typeParam) {
-        Query query = em.createQuery("SELECT p FROM SampleQuestion p " +
+        typedQuery = em.createQuery("SELECT p FROM SampleQuestion p " +
                 "where p.biobank = :bioParam " +
                 "and (p.requestState = :requestStateParam OR :requestStateParam IS NULL) " +
                 "and p.class LIKE :typeParam" +
-                "");
+                "", SampleQuestion.class);
 
-        query.setParameter("bioParam", biobank);
-        query.setParameter("typeParam", typeParam);
-        query.setParameter("requestStateParam", requestState);
+        typedQuery.setParameter("bioParam", biobank);
+        typedQuery.setParameter("typeParam", typeParam);
+        typedQuery.setParameter("requestStateParam", requestState);
 
-        return query.getResultList();
+        return typedQuery.getResultList();
     }
 
     @SuppressWarnings("unchecked")
     public List<SampleReservation> getSampleReservationsOrderedByDate() {
-        Query query = em.createQuery("SELECT p FROM SampleReservation p " +
+        TypedQuery<SampleReservation> typedQuery1 = em.createQuery("SELECT p FROM SampleReservation p " +
                 "WHERE p.requestState = 'CLOSED' " +
                 "AND p.class LIKE 'SampleReservation' " +
                 "ORDER BY p.validity" +
-                "");
+                "", SampleReservation.class);
 
-        return query.getResultList();
+        return typedQuery1.getResultList();
     }
 
 
     public List<SampleRequest> getSampleRequestsSorted(Project project, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -92,15 +91,14 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT sampleRequest FROM SampleRequest sampleRequest WHERE " +
+        TypedQuery<SampleRequest> typedQuery1 = em.createQuery("SELECT sampleRequest FROM SampleRequest sampleRequest WHERE " +
                 "sampleRequest.project = :project " +
-                orderParam);
-        query.setParameter("project", project);
-        return query.getResultList();
+                orderParam, SampleRequest.class);
+        typedQuery1.setParameter("project", project);
+        return typedQuery1.getResultList();
     }
 
     public List<SampleReservation> getSampleReservationsSorted(User user, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -112,15 +110,14 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation WHERE " +
+        TypedQuery<SampleReservation> typedQuery1 = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation WHERE " +
                 "sampleReservation.user = :user " +
-                orderParam);
-        query.setParameter("user", user);
-        return query.getResultList();
+                orderParam, SampleReservation.class);
+        typedQuery1.setParameter("user", user);
+        return typedQuery1.getResultList();
     }
 
     public List<SampleReservation> getSampleReservationsBySample(Sample sample, String orderByParam, boolean desc) {
-        Query query = null;
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -132,12 +129,12 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
             orderParam = orderParam + " DESC";
         }
 
-        query = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation JOIN " +
+        TypedQuery<SampleReservation> typedQuery1  = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation JOIN " +
                 "sampleReservation.requests request WHERE " +
                 "request.sample = :sample " +
-                orderParam);
-        query.setParameter("sample", sample);
-        return query.getResultList();
+                orderParam, SampleReservation.class);
+        typedQuery1.setParameter("sample", sample);
+        return typedQuery1.getResultList();
     }
 
 

@@ -5,6 +5,7 @@ import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.enumeration.RequestState;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 
@@ -31,9 +32,32 @@ public interface SampleQuestionService extends BasicService<SampleQuestion>{
 
     List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc);
 
-    List<SampleRequest> getSortedSampleRequests(Long projectId, String orderByParam, boolean desc);
-
     List<SampleReservation> getSortedSampleReservations(Long userId, String orderByParam, boolean desc);
 
     List<SampleReservation> getSampleReservationsBySample(Long sampleId, String orderByParam, boolean desc);
+
+    boolean approveSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean denySampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean closeSampleRequest(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean deleteSampleQuestion(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean denyChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean confirmChosenSet(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean setAsDelivered(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId, ValidationErrors errors);
+
+    boolean createSampleQuestion(SampleQuestion sampleQuestion, Long biobankId,
+                                           ValidationErrors errors);
+
+    boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
+
+    List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc);
+
+
 }

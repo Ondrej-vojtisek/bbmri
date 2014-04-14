@@ -17,8 +17,8 @@ import java.io.Serializable;
 @Entity
 public class Attachment implements Serializable {
 
-    public final static String PROJECT_FOLDER = File.separator + "project_files";
-    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
+//    public final static String PROJECT_FOLDER = File.separator + "project_files";
+//    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
 
     private static final long serialVersionUID = 1L;
 

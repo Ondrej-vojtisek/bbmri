@@ -1,9 +1,7 @@
 package cz.bbmri.service;
 
-import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.*;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
 
@@ -14,18 +12,20 @@ import java.util.List;
  * Time: 0:22
  * To change this template use File | Settings | File Templates.
  */
-public interface SampleService extends BasicService<Sample>{
+public interface SampleService extends BasicService<Sample> {
 
-     Sample create(Sample sample, Long moduleId);
+    boolean create(Sample sample, Long moduleId);
 
-     Sample getByInstitutionalId(String id);
+    boolean create(Sample sample, Long moduleId, ValidationErrors errors);
 
-     Sample decreaseCount(Long sampleId, Integer requested);
+    Sample getByInstitutionalId(String id);
 
-     Sample withdrawSample(Long sampleId, Integer requested);
+    Sample decreaseCount(Long sampleId, Integer requested);
 
-     List<Sample> getSamplesByQuery(Sample sample, Long biobankId, Patient patient, boolean lts);
+    Sample withdrawSample(Long sampleId, Integer requested);
 
     List<Sample> getSortedSamples(Long biobankId, String orderByParam, boolean desc);
+
+     List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
 
 }

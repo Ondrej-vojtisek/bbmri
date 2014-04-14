@@ -1,14 +1,28 @@
 package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.AttachmentDao;
+import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
+import cz.bbmri.entities.constant.Constant;
+import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.service.AttachmentService;
+import net.sourceforge.stripes.action.FileBean;
+import net.sourceforge.stripes.action.LocalizableMessage;
+import net.sourceforge.stripes.action.StreamingResolution;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,54 +42,135 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     @Autowired
     private AttachmentDao attachmentDao;
 
+    @Autowired
+    private NotificationDao notificationDao;
+
+    @Transactional(readOnly = true)
     public Attachment get(Long id) {
         notNull(id);
         return attachmentDao.get(id);
     }
 
-    public Attachment create(Long projectId, Attachment attachment) {
-        notNull(projectId);
-        notNull(attachment);
+    public int createAttachment(FileBean fileBean,
+                                AttachmentType attachmentType,
+                                Long projectId,
+                                ValidationErrors errors,
+                                Long loggedUserId) {
+        // Null errors will throw exception
+        notNull(errors);
+
+        // Null fields will inform user
+        if (isNull(fileBean, "fileBean", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(attachmentType, "attachmentType", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(projectId, "projectId", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return Constant.NOT_SUCCESS;
 
         Project projectDB = projectDao.get(projectId);
+
         if (projectDB == null) {
-            return null;
-            // TODO: exception
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ProjectDoesntExist"));
+            return Constant.NOT_SUCCESS;
+        }
+        // Create folder structure of projectDB
+        if (!createFolderStructure(projectDB, errors)) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.CantCreateFolderStructure"));
+            return Constant.NOT_SUCCESS;
         }
 
+        // Create new attachment
+        Attachment attachment = new Attachment();
+        attachment.setFileName(fileBean.getFileName());
+        attachment.setContentType(fileBean.getContentType());
+        attachment.setSize(fileBean.getSize());
+        attachment.setAttachmentType(attachmentType);
         attachment.setProject(projectDB);
-        attachmentDao.create(attachment);
-        projectDB.getAttachments().add(attachment);
-        projectDao.update(projectDB);
-        return attachment;
+        attachment.setAbsolutePath(
+                storagePath +
+                projectDB.getProjectFolderPath() +
+                File.separator +
+                fileBean.getFileName());
+
+        // Create file on server
+        File file = new File(attachment.getAbsolutePath());
+
+        boolean overwrite = false;
+
+        if (file.exists()) {
+            // file exists and will be overwriten
+            overwrite = true;
+        }
+
+        try {
+            // upload data to server
+            fileBean.save(file);
+        } catch (IOException e) {
+            // info for user
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.IOException"));
+            // info for developer
+            developerMsg(e);
+            return Constant.NOT_SUCCESS;
+        }
+
+        //      Create DB record only if file is new
+        if (!overwrite) {
+
+            try {
+                attachmentDao.create(attachment);
+            } catch (DataAccessException ex) {
+                // info for user
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.FileUploadedButDatabaseRecordNotCreated"));
+                // info for developer
+                developerMsg(ex);
+                return Constant.NOT_SUCCESS;
+            }
+        } else {
+            // File is not new - it is enough to update
+            update(attachment);
+        }
+
+        // notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentUploaded",
+                projectDB.getName());
+
+        notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
+                NotificationType.PROJECT_ATTACHMENT, locMsg, projectDB.getId());
+
+        // return different value to distinguish on actionBean between success and overwrite
+        if (overwrite) {
+            return Constant.OVERWRITTEN;
+        }
+        return Constant.SUCCESS;
     }
+
 
     @Transactional(readOnly = true)
     public List<Attachment> all() {
         return attachmentDao.all();
     }
 
-    public boolean remove(Long id) {
-        notNull(id);
-        Attachment attachment = attachmentDao.get(id);
-
-        if (attachment == null) {
-            return false;
-        }
-        attachmentDao.remove(attachment);
-        return true;
-    }
-
     public Attachment update(Attachment attachment) {
         notNull(attachment);
         Attachment attachmentDB = attachmentDao.getAttachmentByPath(attachment.getAbsolutePath());
+        // get object from db with the same identifier
         if (attachmentDB == null) {
+            objectNotFound(null, null, "Attachment");
             return null;
         }
-        attachmentDB.setAttachmentType(attachment.getAttachmentType());
-        attachmentDB.setContentType(attachment.getContentType());
-        attachmentDB.setFileName(attachment.getFileName());
-        attachmentDB.setSize(attachment.getSize());
+
+        if (attachment.getAttachmentType() != null) {
+            attachmentDB.setAttachmentType(attachment.getAttachmentType());
+        }
+        if (attachment.getContentType() != null) {
+            attachmentDB.setContentType(attachment.getContentType());
+        }
+        if (attachment.getFileName() != null) {
+            attachmentDB.setFileName(attachment.getFileName());
+        }
+        if (attachment.getSize() != null) {
+            attachmentDB.setSize(attachment.getSize());
+        }
+
+        // store
         attachmentDao.update(attachmentDB);
         return attachmentDB;
     }
@@ -87,33 +182,72 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
     @Transactional(readOnly = true)
     public List<Attachment> getAttachmentsByProject(Long projectId) {
-        Project projectDB = projectDao.get(projectId);
-        notNull(projectDB);
-        return attachmentDao.getAttachmentsByProject(projectDB);
+        // throw exception if null
+        notNull(projectId);
+        return attachmentDao.getAttachmentsByProject(projectDao.get(projectId));
     }
 
     @Transactional(readOnly = true)
-    public List<Attachment> allOrderedBy(String orderByParam, boolean desc) {
-        return attachmentDao.allOrderedBy(orderByParam, desc);
-    }
-
-    @Transactional(readOnly = true)
-    public List<Attachment> nOrderedBy(String orderByParam, boolean desc, int number) {
-        return attachmentDao.nOrderedBy(orderByParam, desc, number);
-    }
-
     public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
-        if (projectId == null) {
-            logger.debug("projectId is null");
+        // throw exception if null
+        notNull(projectId);
+
+        try {
+            return attachmentDao.getAttachmentSorted(projectDao.get(projectId), orderByParam, desc);
+        } catch (DataAccessException ex) {
+            developerMsg(ex);
             return null;
         }
-
-        Project projectDB = projectDao.get(projectId);
-        if (projectDB == null) {
-            logger.debug("projectDB can´t be null");
-            return null;
-        }
-
-        return attachmentDao.getAttachmentSorted(projectDB, orderByParam, desc);
     }
+
+
+    public boolean deleteAttachment(Long attachmentId, ValidationErrors errors, Long loggedUserId) {
+        // Null errors will throw exception
+        notNull(errors);
+
+        // Null fields will inform user
+        if (isNull(attachmentId, "attachmentId", errors)) return false;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return false;
+
+        Attachment attachment = attachmentDao.get(attachmentId);
+        if (attachment == null) {
+            objectNotFound(errors, new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"), "Attachment");
+            return false;
+        }
+        if (ServiceUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) == Constant.SUCCESS) {
+
+            Project project = attachment.getProject();
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
+                    attachment.getFileName(), project.getName());
+
+            notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
+
+            try {
+                attachmentDao.remove(attachment);
+            } catch (DataAccessException ex) {
+                developerMsg(ex);
+                return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    @Transactional(readOnly = true)
+    public StreamingResolution downloadFile(Long attachmentId) throws FileNotFoundException {
+        notNull(attachmentId);
+
+        Attachment attachment = get(attachmentId);
+        if (attachment == null) {
+            objectNotFound(null, null, "Attachment");
+            return null;
+        }
+        FileInputStream fis = new FileInputStream(attachment.getAbsolutePath());
+        return new StreamingResolution(attachment.getContentType(), fis).setFilename(attachment.getFileName());
+    }
+
+
 }

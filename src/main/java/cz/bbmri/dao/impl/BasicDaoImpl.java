@@ -1,12 +1,12 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.BasicDao;
+import cz.bbmri.entities.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -27,6 +27,7 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 
     private Class<T> entityClass;
 
+    protected TypedQuery<T> typedQuery;
 
     public BasicDaoImpl() {
         entityClass = (Class<T>) ((ParameterizedType) getClass()
@@ -56,14 +57,24 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 
     public List<T> all() {
         String stringQuery = "SELECT p FROM " + entityClass.getSimpleName() + " p";
-        Query query = em.createQuery(stringQuery);
-        return query.getResultList();
+        typedQuery = em.createQuery(stringQuery, entityClass);
+        return typedQuery.getResultList();
     }
 
     public Integer count() {
+
         String stringQuery = "SELECT COUNT (p) FROM " + entityClass.getSimpleName() + " p";
-        Query query = em.createQuery(stringQuery);
-        return Integer.parseInt(query.getSingleResult().toString());
+        int result = 0;
+        try{
+            Query query = em.createQuery(stringQuery);
+            result = Integer.parseInt(query.getSingleResult().toString());
+        }catch(DataAccessException ex){
+            // message for developer
+            logger.error("" + ex.getLocalizedMessage());
+            // to make bad result significant to front-end
+            result = -1;
+        }
+        return result;
     }
 
     public static void notNull(final Object o) throws IllegalArgumentException {
@@ -121,34 +132,42 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 
         }
 
-        Query query = em.createQuery(stringQuery);
+        typedQuery = em.createQuery(stringQuery, entityClass);
 
-        return query.getResultList();
+        return typedQuery.getResultList();
     }
 
-    public List<T> nOrderedBy(String orderByParam, boolean desc, int number) {
-        if (orderByParam == null) {
-            logger.debug("Given orderBy parameter was null");
+//    public List<T> nOrderedBy(String orderByParam, boolean desc, int number) {
+//        if (orderByParam == null) {
+//            logger.debug("Given orderBy parameter was null");
+//            return null;
+//        }
+//
+//        if (number <= 0) {
+//            logger.debug("Requested zero or less objects from database");
+//            return null;
+//        }
+//
+//        List<T> list = allOrderedBy(orderByParam, desc).subList(0, number);
+//
+//        // Are there less results than requested amount? If yes - return all in DB
+//
+//        if(list.size() < (number -1) ){
+//            return list;
+//        }
+//
+//        // Return only requested amount
+//
+//        return list.subList(0, number -1);
+//
+//    }
+
+    protected T getSingleResult(){
+        try {
+            return typedQuery.getSingleResult();
+        } catch (NoResultException ex) {
             return null;
         }
-
-        if (number <= 0) {
-            logger.debug("Requested zero or less objects from database");
-            return null;
-        }
-
-        List<T> list = allOrderedBy(orderByParam, desc).subList(0, number);
-
-        // Are there less results than requested amount? If yes - return all in DB
-
-        if(list.size() < (number -1) ){
-            return list;
-        }
-
-        // Return only requested amount
-
-        return list.subList(0, number -1);
-
     }
 
 }

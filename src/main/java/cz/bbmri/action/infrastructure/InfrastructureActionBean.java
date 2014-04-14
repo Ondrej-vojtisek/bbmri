@@ -8,7 +8,9 @@ import cz.bbmri.entities.infrastructure.StandaloneBox;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.BoxService;
+import cz.bbmri.service.ContainerService;
+import cz.bbmri.service.InfrastructureService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -26,7 +28,14 @@ import java.util.ArrayList;
 public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private InfrastructureService infrastructureService;
+
+    @SpringBean
+    private BoxService boxService;
+
+    @SpringBean
+    private ContainerService containerService;
+
 
     private Infrastructure infrastructure;
 
@@ -37,7 +46,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(InfrastructureActionBean.class.getName(),
                 "all", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy", active,
-        "biobankId", biobankId);
+                "biobankId", biobankId);
     }
 
     public ComponentManager getBoxComponentManager() {
@@ -107,7 +116,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     public Infrastructure getInfrastructure() {
         if (infrastructure == null) {
-            infrastructure = biobankFacade.getInfrastructure(getInfrastructureId());
+            infrastructure = infrastructureService.get(getInfrastructureId());
         }
         return infrastructure;
     }
@@ -134,7 +143,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
         getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(true, biobankId));
 
         if (getBiobank().getInfrastructure() == null) {
-            biobankFacade.createInfrastructure(biobankId);
+            infrastructureService.create(biobankId);
             return new RedirectResolution(INFRASTRUCTURE_DETAIL)
                     .addParameter("biobankId", biobankId);
         }
@@ -159,12 +168,12 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
         }
 
         getPagination().setEvent("all");
-        getPagination().setSource(biobankFacade.getSortedContainers(biobankId,
+        getPagination().setSource(containerService.getSortedContainers(biobankId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
 
         boxesPagination.setEvent("all");
-        boxesPagination.setSource(biobankFacade.getSortedStandAloneBoxes(biobankId,
+        boxesPagination.setSource(boxService.getSortedStandAloneBoxes(biobankId,
                 boxesPagination.getOrderParam(),
                 boxesPagination.getDesc()));
 

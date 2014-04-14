@@ -4,7 +4,7 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
-import cz.bbmri.facade.RequestFacade;
+import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
@@ -17,7 +17,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 public class AbstractSampleQuestionActionBean extends PermissionActionBean {
 
     @SpringBean
-    private RequestFacade requestFacade;
+    private SampleQuestionService sampleQuestionService;
 
     private SampleQuestion sampleQuestion;
 
@@ -53,7 +53,7 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
         if (sampleQuestion == null) {
 
             if (sampleQuestionId != null) {
-                sampleQuestion = requestFacade.getSampleQuestion(sampleQuestionId);
+                sampleQuestion = sampleQuestionService.get(sampleQuestionId);
 
 //                    // is instanceof SampleRequest
 //                    if (getIsSampleRequest()) {

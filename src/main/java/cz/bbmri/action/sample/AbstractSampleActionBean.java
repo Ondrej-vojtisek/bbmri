@@ -2,7 +2,7 @@ package cz.bbmri.action.sample;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Sample;
-import cz.bbmri.facade.SampleFacade;
+import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
@@ -15,14 +15,14 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 public abstract class AbstractSampleActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean
-    protected SampleFacade sampleFacade;
+    protected SampleService sampleService;
 
     private Sample sample;
 
     public Sample getSample() {
         if (sample == null) {
             if (sampleId != null) {
-                sample = sampleFacade.get(sampleId);
+                sample = sampleService.get(sampleId);
             }
         }
         return sample;

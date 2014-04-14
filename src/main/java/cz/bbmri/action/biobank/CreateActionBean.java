@@ -6,7 +6,7 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.*;
@@ -31,7 +31,7 @@ public class CreateActionBean extends FindActionBean{
    /* Variables */
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private BiobankService biobankService;
 
     @Validate(on = {"addAdministrator", "done"}, required = true)
     private Long adminId;
@@ -106,7 +106,7 @@ public class CreateActionBean extends FindActionBean{
     @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
     public Resolution confirmStep3() {
-        if (!biobankFacade.createBiobank(biobank, adminId, getContext().getValidationErrors())) {
+        if (!biobankService.createBiobank(biobank, adminId, getContext().getValidationErrors())) {
             return new ForwardResolution(BiobankActionBean.class);
         }
 
@@ -144,7 +144,7 @@ public class CreateActionBean extends FindActionBean{
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.notAscii"));
         }
 
-        if(biobankFacade.getBiobankByAbbreviation(biobank.getAbbreviation()) != null){
+        if(biobankService.getBiobankByAbbreviation(biobank.getAbbreviation()) != null){
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.abbreviationExists"));
         }
 

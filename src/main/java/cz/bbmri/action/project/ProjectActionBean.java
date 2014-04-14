@@ -5,7 +5,7 @@ import cz.bbmri.entities.Project;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -29,7 +29,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
 
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
 
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
@@ -76,7 +76,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             getPagination().setOrderParam("name");
         }
         getPagination().setEvent("display");
-        getPagination().setSource(projectFacade.allOrderedBy(getPagination().getOrderParam(),
+        getPagination().setSource(projectService.allOrderedBy(getPagination().getOrderParam(),
                 getPagination().getDesc()));
         return new ForwardResolution(PROJECT_ALL);
     }
@@ -91,7 +91,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
 
         initiatePagination();
         getPagination().setEvent("myProjects");
-        getPagination().setSource(projectFacade.getMyProjectsSorted(
+        getPagination().setSource(projectService.getMyProjectsSorted(
                 getContext().getMyId(),
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
@@ -119,7 +119,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution update() {
-        if (!projectFacade.updateProject(project,
+        if (!projectService.updateProject(project,
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
@@ -132,7 +132,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @RolesAllowed({"developer"})
     public Resolution delete() {
 
-        if (!projectFacade.removeProject(projectId,
+        if (!projectService.removeProject(projectId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass());
@@ -152,7 +152,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectFacade.approveProject(projectId,
+        if (!projectService.approveProject(projectId,
                 getContext().getMyId(),
                 getContext().getValidationErrors())) {
 
@@ -171,7 +171,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectFacade.denyProject(projectId,
+        if (!projectService.denyProject(projectId,
                 getContext().getMyId(),
                 getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
@@ -183,7 +183,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("markAsFinished")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution markAsFinished() {
-        if (!projectFacade.markAsFinished(projectId, getContext().getMyId())) {
+        if (!projectService.markAsFinished(projectId, getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
         successMsg(null);

@@ -6,7 +6,9 @@ import cz.bbmri.entities.Project;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
+import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
+import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
  */
 @UrlBinding("/sample/projects/{$event}/{sampleId}")
 public class SampleProjectsActionBean extends AbstractSampleActionBean<Project> {
+
+    @SpringBean
+    private ProjectService projectService;
 
     public SampleProjectsActionBean() {
         setPagination(new MyPagedListHolder<Project>(new ArrayList<Project>()));
@@ -56,7 +61,7 @@ public class SampleProjectsActionBean extends AbstractSampleActionBean<Project> 
             getPagination().setOrderParam("name");
         }
         getPagination().setEvent("projects");
-        getPagination().setSource(sampleFacade.getProjectsBySample(getSampleId(),
+        getPagination().setSource(projectService.getProjectsBySample(getSampleId(),
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
 

@@ -12,5 +12,7 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
  */
 public interface InfrastructureService extends BasicService<Infrastructure> {
 
+    boolean create(Long biobankId);
+
     Infrastructure initialize(Biobank biobank);
 }

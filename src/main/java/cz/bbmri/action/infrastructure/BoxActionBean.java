@@ -6,7 +6,8 @@ import cz.bbmri.entities.infrastructure.*;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.BoxService;
+import cz.bbmri.service.RackService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.FloatTypeConverter;
@@ -29,7 +30,10 @@ import java.util.Set;
 public class BoxActionBean extends PermissionActionBean<Position> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private BoxService boxService;
+
+    @SpringBean
+    private RackService rackService;
 
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
@@ -100,7 +104,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     public RackBox getRackBox() {
         if (rackBox == null) {
             if (boxId != null) {
-                rackBox = (RackBox) biobankFacade.getBox(boxId);
+                rackBox = (RackBox) boxService.get(boxId);
             }
         }
         return rackBox;
@@ -109,7 +113,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     public StandaloneBox getStandaloneBox() {
         if (standaloneBox == null) {
             if (boxId != null) {
-                standaloneBox = (StandaloneBox) biobankFacade.getBox(boxId);
+                standaloneBox = (StandaloneBox) boxService.get(boxId);
             }
         }
         return standaloneBox;
@@ -118,7 +122,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     public Box getBox() {
         if (box == null) {
             if (boxId != null) {
-                box = biobankFacade.getBox(boxId);
+                box = boxService.get(boxId);
             }
         }
         return box;
@@ -191,7 +195,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     @HandlesEvent("createRackBoxResolution")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackBoxResolution() {
-        Rack rack = biobankFacade.getRack(rackId);
+        Rack rack = rackService.get(rackId);
         if (rack != null) {
             setBiobankId(rack.getContainer().getInfrastructure().getBiobank().getId());
         }
@@ -204,7 +208,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     public Resolution createStandaloneBox() {
         Infrastructure infrastructure = getBiobank().getInfrastructure();
 
-        if (!biobankFacade.createStandaloneBox(infrastructure.getId(), standaloneBox, getContext().getValidationErrors())) {
+        if (!boxService.createStandaloneBox(infrastructure.getId(), standaloneBox, getContext().getValidationErrors())) {
             return new ForwardResolution(InfrastructureActionBean.class, "all")
                     .addParameter("biobankId", biobankId);
         }
@@ -216,7 +220,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     @HandlesEvent("createRackBox")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackBox() {
-        if (!biobankFacade.createBox(rackId, rackBox, getContext().getValidationErrors())) {
+        if (!boxService.createBox(rackId, rackBox, getContext().getValidationErrors())) {
             return new ForwardResolution(RackActionBean.class, "detail")
                     .addParameter("rackId", rackId);
         }

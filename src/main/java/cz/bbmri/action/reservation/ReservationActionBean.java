@@ -5,8 +5,8 @@ import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.ProjectFacade;
-import cz.bbmri.facade.RequestFacade;
+import cz.bbmri.service.ProjectService;
+import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -28,10 +28,10 @@ public class ReservationActionBean extends PermissionActionBean<SampleReservatio
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private ProjectFacade projectFacade;
+    private ProjectService projectService;
 
     @SpringBean
-    private RequestFacade requestFacade;
+    private SampleQuestionService sampleQuestionService;
 
     public ReservationActionBean() {
         setPagination(new MyPagedListHolder<SampleReservation>(new ArrayList<SampleReservation>()));
@@ -61,7 +61,7 @@ public class ReservationActionBean extends PermissionActionBean<SampleReservatio
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("all");
-        getPagination().setSource(requestFacade.getSortedSampleReservation(
+        getPagination().setSource(sampleQuestionService.getSortedSampleReservations(
                 getContext().getMyId(),
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));

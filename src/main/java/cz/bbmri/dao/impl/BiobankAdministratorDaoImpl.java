@@ -7,7 +7,8 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -27,33 +28,28 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
 
     }
 
-    //@SuppressWarnings("unchecked")
     public BiobankAdministrator get(Biobank biobank, User user) {
-        Query query = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
+        typedQuery = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
                 "p.biobank = :biobankParam " +
-                "and p.user = :userParam ");
-        query.setParameter("biobankParam", biobank);
-        query.setParameter("userParam", user);
+                "and p.user = :userParam ", BiobankAdministrator.class);
+        typedQuery.setParameter("biobankParam", biobank);
+        typedQuery.setParameter("userParam", user);
 
-        List<BiobankAdministrator> list = query.getResultList();
-        if (list == null) {
+        try {
+            return typedQuery.getSingleResult();
+        } catch (NoResultException ex) {
             return null;
         }
-        if (!list.isEmpty()) {
-            return (BiobankAdministrator) query.getSingleResult();
-        }
-        return null;
     }
 
-    //@SuppressWarnings("unchecked")
     public List<BiobankAdministrator> get(Biobank biobank, Permission permission) {
-        Query query = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
+        typedQuery = em.createQuery("SELECT p FROM BiobankAdministrator p where " +
                 "p.biobank = :biobankParam " +
-                "and p.permission = :permissionParam ");
-        query.setParameter("biobankParam", biobank);
-        query.setParameter("permissionParam", permission);
+                "and p.permission = :permissionParam ", BiobankAdministrator.class);
+        typedQuery.setParameter("biobankParam", biobank);
+        typedQuery.setParameter("permissionParam", permission);
 
-        return query.getResultList();
+        return typedQuery.getResultList();
     }
 
     /**
@@ -62,10 +58,9 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
      * @param user
      * @return
      */
-    //@SuppressWarnings("unchecked")
     public Permission getHighestPermission(User user) {
 
-        Query query = em.createQuery("" +
+        TypedQuery<Permission> typedQuery1 = em.createQuery("" +
                 "SELECT p.permission " +
                 "FROM BiobankAdministrator p WHERE " +
                 "p.user = :userParam " +
@@ -77,21 +72,17 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
                 "WHEN (p.permission = :visitorPermission) THEN 1" +
                 "ELSE 0 " +
                 "END " +
-                "DESC");
-        query.setParameter("userParam", user);
-        query.setParameter("managerPermission", Permission.MANAGER);
-        query.setParameter("editorPermission", Permission.EDITOR);
-        query.setParameter("executorPermission", Permission.EXECUTOR);
-        query.setParameter("visitorPermission", Permission.VISITOR);
+                "DESC", Permission.class);
+        typedQuery1.setParameter("userParam", user);
+        typedQuery1.setParameter("managerPermission", Permission.MANAGER);
+        typedQuery1.setParameter("editorPermission", Permission.EDITOR);
+        typedQuery1.setParameter("executorPermission", Permission.EXECUTOR);
+        typedQuery1.setParameter("visitorPermission", Permission.VISITOR);
 
-        List<Permission> list = query.getResultList();
-        if (list == null) {
+        try {
+            return typedQuery1.getSingleResult();
+        } catch (NoResultException ex) {
             return null;
         }
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        return (Permission) query.getSingleResult();
     }
 }

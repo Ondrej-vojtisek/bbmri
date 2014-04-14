@@ -2,7 +2,7 @@ package cz.bbmri.action.patient;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -27,7 +27,7 @@ public class CreatePatientActionBean extends PermissionActionBean {
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private PatientService patientService;
 
 
     @ValidateNestedProperties(value = {
@@ -60,7 +60,7 @@ public class CreatePatientActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createPatient() {
         logger.debug("Patient: " + patient);
-        if (!biobankFacade.createPatient(patient, biobankId, getContext().getValidationErrors())) {
+        if (!patientService.create(patient, biobankId, getContext().getValidationErrors())) {
             return new ForwardResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                     .addParameter("biobankId", biobankId);
         }

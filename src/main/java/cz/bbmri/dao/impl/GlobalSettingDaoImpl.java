@@ -51,8 +51,6 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
         logger.debug("Key: " + key);
         logger.debug("Value: " + value);
 
-
-
         GlobalSetting globalSetting = null;
         boolean existed = false;
 

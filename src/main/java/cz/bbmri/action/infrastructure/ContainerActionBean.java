@@ -8,7 +8,7 @@ import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.facade.BiobankFacade;
+import cz.bbmri.service.ContainerService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.FloatTypeConverter;
@@ -31,7 +31,7 @@ import java.util.Set;
 public class ContainerActionBean extends PermissionActionBean<Rack> {
 
     @SpringBean
-    private BiobankFacade biobankFacade;
+    private ContainerService containerService;
 
     @ValidateNestedProperties(value = {
             @Validate(field = "name",
@@ -92,7 +92,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     public Container getContainer() {
         if (container == null) {
             if (containerId != null) {
-                container = biobankFacade.getContainer(containerId);
+                container = containerService.get(containerId);
             }
         }
         return container;
@@ -148,7 +148,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createContainer() {
         infrastructure = getBiobank().getInfrastructure();
-        if (!biobankFacade.createContainer(infrastructure.getId(), container, getContext().getValidationErrors())) {
+        if (!containerService.create(infrastructure.getId(), container, getContext().getValidationErrors())) {
             return new ForwardResolution(InfrastructureActionBean.class, "all")
                     .addParameter("biobankId", biobankId);
         }
