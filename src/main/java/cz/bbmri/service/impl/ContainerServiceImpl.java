@@ -12,6 +12,7 @@ import cz.bbmri.service.ContainerService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,33 +41,40 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     @Autowired
     private BiobankDao biobankDao;
 
+    public boolean create(Long infrastructureId, Container container, ValidationErrors errors) {
+        notNull(errors);
+
+        if (create(infrastructureId, container) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
+            return false;
+        }
+        return true;
+
+    }
+
     public Container create(Long infrastructureId, Container container) {
-        if (infrastructureId == null) {
-            logger.debug("InfrastructureId can't be null");
-            return null;
-        }
-        if (container == null) {
-            logger.debug("container can't be null");
-            return null;
-        }
+        if (isNull(infrastructureId, "infrastructureId", null)) return null;
+        if (isNull(container, "container", null)) return null;
 
         Infrastructure infrastructureDB = infrastructureDao.get(infrastructureId);
-        if (infrastructureDB == null) {
-            logger.debug("infrastructureDB can't be null");
-            return null;
-        }
+        if (isNull(infrastructureDB, "infrastructureDB", null)) return null;
 
         container.setInfrastructure(infrastructureDB);
         containerDao.create(container);
+        try {
+            containerDao.create(container);
+        } catch (DataAccessException ex) {
+            operationFailed(null, ex);
+            return null;
+        }
         return container;
     }
 
     public boolean remove(Long id) {
+        if (isNull(id, "id", null)) return false;
         Container containerDB = containerDao.get(id);
-        if (containerDB == null) {
-            logger.debug("Container doens't exist");
-            return true;
-        }
+        if (isNull(containerDB, "containerDB", null)) return false;
+
         if (!containerDB.getRacks().isEmpty()) {
             for (Rack rack : containerDB.getRacks()) {
                 rackDao.remove(rack);
@@ -79,16 +87,9 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     }
 
     public Container update(Container container) {
-        if (container == null) {
-            logger.debug("Container can't be null");
-            return null;
-        }
+        if (isNull(container, "container", null)) return null;
         Container containerDB = containerDao.get(container.getId());
-
-        if (containerDB == null) {
-            logger.debug("ContainerDB can't be null");
-            return null;
-        }
+        if (isNull(containerDB, "containerDB", null)) return null;
 
         if (container.getLocation() != null) containerDB.setLocation(container.getLocation());
         if (container.getName() != null) containerDB.setName(container.getName());
@@ -96,62 +97,29 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
         if (container.getTempMax() != null) containerDB.setTempMax(container.getTempMax());
         if (container.getTempMin() != null) containerDB.setTempMin(container.getTempMin());
 
-        if (container.getRacks() != null) containerDB.setRacks(container.getRacks());
-
         containerDao.update(containerDB);
         return containerDB;
     }
 
     @Transactional(readOnly = true)
-    public List<Container> all() {
-        return containerDao.all();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return containerDao.count();
-    }
-
-    @Transactional(readOnly = true)
     public Container get(Long id) {
-        notNull(id);
+        if (isNull(id, "id", null)) return null;
         return containerDao.get(id);
     }
 
     @Transactional(readOnly = true)
-    public List<Container> allOrderedBy(String orderByParam, boolean desc) {
-        return containerDao.allOrderedBy(orderByParam, desc);
-    }
-
     public List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc) {
-        if (biobankId == null) {
-            logger.debug("biobankId is null");
-            return null;
-        }
-
+        if (isNull(biobankId, "biobankId", null)) return null;
         Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            logger.debug("BiobankDB can´t be null");
-            return null;
-        }
+        if (isNull(biobankDB, "biobankDB", null)) return null;
 
         return containerDao.getSorted(biobankDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public Container getContainerByName(Biobank biobank, String name) {
         return containerDao.getByName(biobank, name);
     }
 
-    public boolean create(Long infrastructureId, Container container, ValidationErrors errors) {
-        notNull(infrastructureId);
-        notNull(container);
-        notNull(errors);
 
-        if (create(infrastructureId, container) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
-            return false;
-        }
-        return true;
-
-    }
 }

@@ -13,13 +13,19 @@ import java.util.List;
  * Time: 17:14
  * To change this template use File | Settings | File Templates.
  */
-public interface ContainerService extends BasicService<Container>{
+public interface ContainerService {
+
+    Container get(Long id);
+
+    List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc);
+
+    Container update(Container container);
+
+    boolean remove(Long id);
 
     boolean create(Long infrastructureId, Container container, ValidationErrors errors);
 
     Container create(Long infrastructureId, Container container);
-
-    List<Container> getSortedContainers(Long biobankId, String orderByParam, boolean desc);
 
     Container getContainerByName(Biobank biobank, String name);
 
