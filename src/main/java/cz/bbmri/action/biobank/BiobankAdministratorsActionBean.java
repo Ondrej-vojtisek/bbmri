@@ -9,6 +9,7 @@ import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
+import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -29,7 +30,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
 
 
     @SpringBean
-    private BiobankService biobankService;
+    private BiobankAdministratorService biobankAdministratorService;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(BiobankAdministratorsActionBean.class.getName(),
@@ -109,7 +110,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution setPermission() {
 
-        if (!biobankService.changeAdministratorPermission(adminId, permission,
+        if (!biobankAdministratorService.changeAdministratorPermission(adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -128,7 +129,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
 
         boolean myAccount = getIsMyAccount();
 
-        if (!biobankService.removeAdministrator(adminId,
+        if (!biobankAdministratorService.removeAdministrator(adminId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -156,7 +157,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     @RolesAllowed({"biobank_operator if ${allowedBiobankManager}"})
     public Resolution addAdministrator() {
 
-        if (!biobankService.assignAdministrator(biobankId, adminId, permission,
+        if (!biobankAdministratorService.assignAdministrator(biobankId, adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")

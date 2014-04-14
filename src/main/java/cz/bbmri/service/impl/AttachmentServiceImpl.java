@@ -1,13 +1,13 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.AttachmentDao;
-import cz.bbmri.dao.NotificationDao;
-import cz.bbmri.dao.ProjectDao;
+import cz.bbmri.dao.*;
 import cz.bbmri.entities.Attachment;
+import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.NotificationType;
+import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.service.AttachmentService;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.LocalizableMessage;
@@ -44,6 +44,15 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
     @Autowired
     private NotificationDao notificationDao;
+
+    @Autowired
+    private BiobankAdministratorDao biobankAdministratorDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Transactional(readOnly = true)
     public Attachment get(Long id) {
@@ -107,7 +116,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             // info for user
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.IOException"));
             // info for developer
-            developerMsg(e);
+            operationFailed(null, e);
             return Constant.NOT_SUCCESS;
         }
 
@@ -120,7 +129,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
                 // info for user
                 errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.FileUploadedButDatabaseRecordNotCreated"));
                 // info for developer
-                developerMsg(ex);
+                operationFailed(null, ex);
                 return Constant.NOT_SUCCESS;
             }
         } else {
@@ -148,14 +157,27 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         return attachmentDao.all();
     }
 
+    public boolean hasPermission(Permission permission, Long objectId, Long userId) {
+        if(isNull(permission, "permission", null)) return false;
+        if(isNull(objectId, "objectId", null)) return false;
+        if(isNull(userId, "userId", null)) return false;
+
+        BiobankAdministrator ba = biobankAdministratorDao.get(biobankDao.get(objectId), userDao.get(userId));
+
+        if (ba == null) {
+            return false;
+        }
+
+        return ba.getPermission().include(permission);
+    }
+
+
     public Attachment update(Attachment attachment) {
-        notNull(attachment);
+        if(isNull(attachment, "attachment", null)) return null;
+
         Attachment attachmentDB = attachmentDao.getAttachmentByPath(attachment.getAbsolutePath());
         // get object from db with the same identifier
-        if (attachmentDB == null) {
-            objectNotFound(null, null, "Attachment");
-            return null;
-        }
+        isNull(attachmentDB, "attachmentDB", null);
 
         if (attachment.getAttachmentType() != null) {
             attachmentDB.setAttachmentType(attachment.getAttachmentType());
@@ -182,20 +204,18 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
     @Transactional(readOnly = true)
     public List<Attachment> getAttachmentsByProject(Long projectId) {
-        // throw exception if null
-        notNull(projectId);
+        if(isNull(projectId, "projectId", null)) return null;
         return attachmentDao.getAttachmentsByProject(projectDao.get(projectId));
     }
 
     @Transactional(readOnly = true)
     public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
-        // throw exception if null
-        notNull(projectId);
+        if(isNull(projectId, "projectId", null)) return null;
 
         try {
             return attachmentDao.getAttachmentSorted(projectDao.get(projectId), orderByParam, desc);
         } catch (DataAccessException ex) {
-            developerMsg(ex);
+            operationFailed(null, ex);
             return null;
         }
     }
@@ -210,10 +230,8 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         if (isNull(loggedUserId, "loggedUserId", errors)) return false;
 
         Attachment attachment = attachmentDao.get(attachmentId);
-        if (attachment == null) {
-            objectNotFound(errors, new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"), "Attachment");
-            return false;
-        }
+        if(isNull(attachment, "attachment", errors)) return false;
+
         if (ServiceUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) == Constant.SUCCESS) {
 
             Project project = attachment.getProject();
@@ -227,7 +245,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             try {
                 attachmentDao.remove(attachment);
             } catch (DataAccessException ex) {
-                developerMsg(ex);
+                operationFailed(errors, ex);
                 return false;
             }
             return true;
@@ -241,10 +259,8 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         notNull(attachmentId);
 
         Attachment attachment = get(attachmentId);
-        if (attachment == null) {
-            objectNotFound(null, null, "Attachment");
-            return null;
-        }
+        if(isNull(attachment, "attachment", null)) return null;
+
         FileInputStream fis = new FileInputStream(attachment.getAbsolutePath());
         return new StreamingResolution(attachment.getContentType(), fis).setFilename(attachment.getFileName());
     }

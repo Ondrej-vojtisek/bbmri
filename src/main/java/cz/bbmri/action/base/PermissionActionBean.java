@@ -4,13 +4,12 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +22,9 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     @SpringBean
     private BiobankService biobankService;
+
+    @SpringBean
+    private BiobankAdministratorService biobankAdministratorService;
 
     @SpringBean
     private ProjectService projectService;
@@ -94,23 +96,23 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getAllowedBiobankManager() {
-        return biobankService.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
+        return biobankAdministratorService.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankEditor() {
-        return biobankService.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
+        return biobankAdministratorService.hasPermission(Permission.EDITOR, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankExecutor() {
         logger.debug("AllowedBiobankExecutor_ ");
         logger.debug("BiobankId: " + biobankId);
 
-        logger.debug("AllowedBiobankExecutor_ " + biobankService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
-        return biobankService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
+        logger.debug("AllowedBiobankExecutor_ " + biobankAdministratorService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
+        return biobankAdministratorService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankVisitor() {
-        return biobankService.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
+        return biobankAdministratorService.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
     }
 
 

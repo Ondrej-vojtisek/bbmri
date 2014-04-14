@@ -4,8 +4,9 @@ import com.google.common.base.CharMatcher;
 import cz.bbmri.action.FindActionBean;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.User;
-import cz.bbmri.entities.webEntities.Breadcrumb;
+import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -24,7 +25,7 @@ import javax.annotation.security.RolesAllowed;
  */
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
-public class CreateActionBean extends FindActionBean{
+public class CreateActionBean extends FindActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -32,6 +33,9 @@ public class CreateActionBean extends FindActionBean{
 
     @SpringBean
     private BiobankService biobankService;
+
+    @SpringBean
+    private BiobankAdministratorService biobankAdministratorService;
 
     @Validate(on = {"addAdministrator", "done"}, required = true)
     private Long adminId;
@@ -44,9 +48,9 @@ public class CreateActionBean extends FindActionBean{
     private Biobank biobank;
 
     public CreateActionBean() {
-             //default
-             setComponentManager(new ComponentManager());
-         }
+        //default
+        setComponentManager(new ComponentManager());
+    }
 
     public Biobank getBiobank() {
         return biobank;
@@ -106,10 +110,19 @@ public class CreateActionBean extends FindActionBean{
     @HandlesEvent("confirmStep3")
     @RolesAllowed({"administrator", "developer"})
     public Resolution confirmStep3() {
-        if (!biobankService.createBiobank(biobank, adminId, getContext().getValidationErrors())) {
-            return new ForwardResolution(BiobankActionBean.class);
+        boolean result = false;
+        // create biobank
+        result = biobankService.create(biobank, getContext().getValidationErrors());
+        if(result){
+            Biobank biobankDB = biobankService.getBiobankByAbbreviation(biobank.getAbbreviation());
+            // Assign first admin
+            result = biobankAdministratorService.assignAdministrator(biobankDB.getId(),
+                    adminId, Permission.MANAGER, getContext().getValidationErrors(), getContext().getMyId());
         }
 
+        if(!result){
+            return new ForwardResolution(BiobankActionBean.class);
+        }
         successMsg(null);
         return new RedirectResolution(BiobankActionBean.class);
     }
@@ -140,17 +153,15 @@ public class CreateActionBean extends FindActionBean{
     @ValidationMethod
     public void validateAbbreviation(ValidationErrors errors) {
 
-        if(!CharMatcher.ASCII.matchesAllOf(biobank.getAbbreviation())){
+        if (!CharMatcher.ASCII.matchesAllOf(biobank.getAbbreviation())) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.notAscii"));
         }
 
-        if(biobankService.getBiobankByAbbreviation(biobank.getAbbreviation()) != null){
+        if (biobankService.getBiobankByAbbreviation(biobank.getAbbreviation()) != null) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.biobank.CreateActionBean.abbreviationExists"));
         }
 
     }
-
-
 
 
 }

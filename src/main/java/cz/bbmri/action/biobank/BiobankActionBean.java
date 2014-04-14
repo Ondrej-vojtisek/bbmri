@@ -88,7 +88,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @HandlesEvent("update")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution update() {
-        if (!biobankService.updateBiobank(getBiobank(), getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!biobankService.update(getBiobank(), getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId);
         }
@@ -101,7 +101,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @HandlesEvent("delete")
     @RolesAllowed({"developer"})
     public Resolution delete() {
-        if (!biobankService.removeBiobank(biobankId, getContext().getValidationErrors(), getContext().getMyId())) {
+        if (!biobankService.remove(biobankId, getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(this.getClass(),"allBiobanks");
         }
 

@@ -3,10 +3,6 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.constant.Constant;
-import cz.bbmri.service.BiobankAdministratorService;
-import cz.bbmri.service.BiobankService;
-import cz.bbmri.service.ProjectAdministratorService;
-import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -48,40 +44,33 @@ public class BasicServiceImpl {
     @Autowired
     private UserDao userDao;
 
+    /* Necessary condition - use for situation like ValidationErrors = null. If this is true than even methods like isNull will
+    * fail. */
     public static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object must not be null!");
         }
     }
 
-    public static boolean isNull(final Object o, String varName, ValidationErrors errors) throws IllegalArgumentException {
+    /* Check for null value. Used for argument and also for objects retrieved from DB. */
+    public boolean isNull(final Object o, String varName, ValidationErrors errors) {
         if (o == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.ilegalArguments", varName));
+            operationFailed(errors, null);
+            logger.error("Variable: " + varName + " is null");
+            //errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.ilegalArguments", varName));
             return true;
         }
         return false;
     }
 
-    public void developerMsg(Exception ex) {
-        logger.error(ex.getLocalizedMessage());
-    }
-
-    public void objectNotFound(ValidationErrors errors, LocalizableError error, String objectName) throws IllegalArgumentException {
+    /* Indication for user that operation failed and for developer note to log*/
+    public void operationFailed(ValidationErrors errors, Exception ex) {
         if (errors != null) {
-            // if errors set
-            if (error != null) {
-                // if specific message set
-                errors.addGlobalError(error);
-            } else {
-
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.objectNotPresentInDB", objectName));
-            }
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.fail"));
         }
-        logger.error("Searched object " + objectName + " was not present in DB");
-    }
-
-    public static void fatalError(ValidationErrors errors) {
-        errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.dbg.fatal"));
+        if (ex != null) {
+            logger.error(ex.getLocalizedMessage());
+        }
     }
 
     /* Definition here because it is useful at more facades when we need to send notification */
@@ -123,7 +112,7 @@ public class BasicServiceImpl {
 
         if (excludedUserId != null) {
             BiobankAdministrator baExclude = biobankAdministratorDao.get(biobankDao.get(biobank.getId()), userDao.get(excludedUserId));
-                  
+
             if (biobankAdministrators.contains(baExclude)) {
                 biobankAdministrators.remove(baExclude);
             }

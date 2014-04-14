@@ -14,7 +14,7 @@ import java.util.List;
  * Time: 18:15
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectService extends BasicService<Project>, PermissionService<Project, ProjectAdministrator> {
+public interface ProjectService extends BasicService<Project> {
 
     List<Project> allOrderedBy(String orderByParam, boolean desc);
 
