@@ -13,15 +13,21 @@ import java.util.List;
  * Time: 17:37
  * To change this template use File | Settings | File Templates.
  */
-public interface BoxService extends BasicService<Box> {
+public interface BoxService {
 
-    boolean createBox(Long rackId, RackBox box, ValidationErrors errors);
+    boolean remove(Long id);
+
+    Box update(Box box);
+
+    Box get(Long id);
+
+    boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors);
 
     boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors);
 
     RackBox createRackBox(Long rackId, RackBox rackBox);
 
-    StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBoxBox);
+    StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBox);
 
     List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc);
 

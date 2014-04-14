@@ -7,6 +7,7 @@ import cz.bbmri.service.BoxService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,9 +39,24 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
     @Autowired
     private BiobankDao biobankDao;
 
-    public boolean createBox(Long rackId, RackBox box, ValidationErrors errors) {
-        notNull(rackId);
-        notNull(box);
+    // method for automatized imports - so there are no errors
+    public RackBox createRackBox(Long rackId, RackBox rackBox) {
+        if (isNull(rackId, "rackId", null)) return null;
+        if (isNull(rackBox, "box", null)) return null;
+
+        Rack rackDB = rackDao.get(rackId);
+        if (isNull(rackDB, "rackDB", null)) return null;
+        rackBox.setRack(rackDB);
+        try {
+            boxDao.create(rackBox);
+        } catch (DataAccessException ex) {
+            operationFailed(null, ex);
+            return null;
+        }
+        return rackBox;
+    }
+
+    public boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors) {
         notNull(errors);
 
         if (createRackBox(rackId, box) == null) {
@@ -50,9 +66,24 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return true;
     }
 
+    // method for automatized imports - so there are no errors
+    public StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBox) {
+        if (isNull(infrastructureId, "infrastructureId", null)) return null;
+        if (isNull(standaloneBox, "standaloneBox", null)) return null;
+
+        Infrastructure infrastructureDB = infrastructureDao.get(infrastructureId);
+        if (isNull(infrastructureDB, "infrastructureDB", null)) return null;
+        standaloneBox.setInfrastructure(infrastructureDB);
+        try {
+            boxDao.create(standaloneBox);
+        } catch (DataAccessException ex) {
+            operationFailed(null, ex);
+            return null;
+        }
+        return standaloneBox;
+    }
+
     public boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors) {
-        notNull(infrastructureId);
-        notNull(box);
         notNull(errors);
 
         if (createStandaloneBox(infrastructureId, box) == null) {
@@ -62,57 +93,14 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return true;
     }
 
-
-    public RackBox createRackBox(Long rackId, RackBox rackBox) {
-        if (rackId == null) {
-            logger.debug("RackId can't be null");
-            return null;
-        }
-        if (rackBox == null) {
-            logger.debug("rackBox can't be null");
-            return null;
-        }
-
-        Rack rackDB = rackDao.get(rackId);
-        if (rackDB == null) {
-            logger.debug("rackDB can't be null");
-            return null;
-        }
-
-        rackBox.setRack(rackDB);
-        boxDao.create(rackBox);
-
-        return rackBox;
-    }
-
-    public StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBox) {
-        if (infrastructureId == null) {
-            logger.debug("infrastructureId can't be null");
-            return null;
-        }
-        if (standaloneBox == null) {
-            logger.debug("standaloneBox can't be null");
-            return null;
-        }
-
-        Infrastructure infrastructureDB = infrastructureDao.get(infrastructureId);
-        if (infrastructureDB == null) {
-            logger.debug("infrastructureDB can't be null");
-            return null;
-        }
-
-        standaloneBox.setInfrastructure(infrastructureDB);
-        boxDao.create(standaloneBox);
-        return standaloneBox;
-    }
-
     public boolean remove(Long id) {
+        if (isNull(id, "id", null)) return false;
+
         Box boxDB = boxDao.get(id);
-        if (boxDB == null) {
-            logger.debug("Box doesn't exist");
-            return true;
-        }
+        if (isNull(boxDB, "boxDB", null)) return false;
+
         if (!boxDB.getPositions().isEmpty()) {
+            // remove all positions
             for (Position position : boxDB.getPositions()) {
                 positionDao.remove(position);
             }
@@ -122,75 +110,41 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
     }
 
     public Box update(Box box) {
-        if (box == null) {
-            logger.debug("Box can't be null");
-            return null;
-        }
+        if (isNull(box, "box", null)) return null;
+
         Box boxDB = boxDao.get(box.getId());
 
-        if (boxDB == null) {
-            logger.debug("BoxDB can't be null");
-            return null;
-        }
+        if (isNull(boxDB, "boxDB", null)) return null;
 
         if (box.getCapacity() != null) boxDB.setCapacity(box.getCapacity());
         if (box.getName() != null) boxDB.setName(box.getName());
         if (box.getTempMax() != null) boxDB.setTempMax(box.getTempMax());
         if (box.getTempMin() != null) boxDB.setTempMin(box.getTempMin());
 
-        if (box.getPositions() != null) boxDB.setPositions(box.getPositions());
-
         boxDao.update(boxDB);
         return boxDB;
     }
 
     @Transactional(readOnly = true)
-    public List<Box> all() {
-        return boxDao.all();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return boxDao.count();
-    }
-
-    @Transactional(readOnly = true)
     public Box get(Long id) {
-        notNull(id);
+        if (isNull(id, "id", null)) return null;
         return boxDao.get(id);
     }
 
-    @Transactional(readOnly = true)
-    public List<Box> allOrderedBy(String orderByParam, boolean desc) {
-        return boxDao.allOrderedBy(orderByParam, desc);
-    }
-
     public List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc) {
-        if (rackId == null) {
-            logger.debug("rackId is null");
-            return null;
-        }
+        if (isNull(rackId, "rackId", null)) return null;
 
         Rack rackDB = rackDao.get(rackId);
-        if (rackDB == null) {
-            logger.debug("rackDB can´t be null");
-            return null;
-        }
+        if (isNull(rackDB, "rackDB", null)) return null;
 
         return boxDao.getSorted(rackDB, orderByParam, desc);
     }
 
     public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc) {
-        if (biobankId == null) {
-            logger.debug("biobankId is null");
-            return null;
-        }
+        if (isNull(biobankId, "biobankId", null)) return null;
 
         Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            logger.debug("BiobankDB can´t be null");
-            return null;
-        }
+        if (isNull(biobankDB, "biobankDB", null)) return null;
 
         return boxDao.getSorted(biobankDB, orderByParam, desc);
     }

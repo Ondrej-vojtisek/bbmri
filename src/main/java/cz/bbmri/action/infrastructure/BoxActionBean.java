@@ -220,7 +220,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     @HandlesEvent("createRackBox")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackBox() {
-        if (!boxService.createBox(rackId, rackBox, getContext().getValidationErrors())) {
+        if (!boxService.createRackBox(rackId, rackBox, getContext().getValidationErrors())) {
             return new ForwardResolution(RackActionBean.class, "detail")
                     .addParameter("rackId", rackId);
         }

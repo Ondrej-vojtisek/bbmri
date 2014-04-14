@@ -15,27 +15,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\java\cz\bbmri\service\PermissionService.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BasicServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BasicServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/BiobankActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/BiobankActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankAdministratorService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankAdministratorService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankAdministratorServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankAdministratorServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/BiobankAdministratorsActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/BiobankAdministratorsActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tests/serviceTest/BiobankServiceTest.java" afterPath="$PROJECT_DIR$/src/main/java/tests/serviceTest/BiobankServiceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/CreateActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/CreateActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/PermissionActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/PermissionActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ProjectService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ProjectService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ServiceUtils.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ServiceUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/BoxActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/BoxActionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BoxService.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BoxService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.iws" afterPath="$PROJECT_DIR$/bbmri_cz.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/translations/errors.properties" afterPath="$PROJECT_DIR$/src/main/resources/translations/errors.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/translations/errors_cs.properties" afterPath="$PROJECT_DIR$/src/main/resources/translations/errors_cs.properties" />
     </list>
     <ignored path="cancer-strike.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397496805791" ignored="false" />
+    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397505375375" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/plugin_ui.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/mavenVersion.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/code.style.schemes.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
@@ -586,8 +573,8 @@
     <file path="/InfrastructureService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395702178376" ignored="false" />
     <file path="/RackService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394719210108" ignored="false" />
     <file path="/RackServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397472092188" ignored="false" />
-    <file path="/BoxService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394719271187" ignored="false" />
-    <file path="/BoxServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397472404092" ignored="false" />
+    <file path="/BoxService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397505810772" ignored="false" />
+    <file path="/BoxServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397507135433" ignored="false" />
     <file path="/PositionDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395704391439" ignored="false" />
     <file path="/PositionDaoImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397483128665" ignored="false" />
     <file path="/PositionService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395743484710" ignored="false" />
@@ -681,7 +668,7 @@
     <file path="/ContainerActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397471048955" ignored="false" />
     <file path="/tablePaginationSpecified.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394668307669" ignored="false" />
     <file path="/RackActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470752979" ignored="false" />
-    <file path="/BoxActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470216745" ignored="false" />
+    <file path="/BoxActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397506176805" ignored="false" />
     <file path="/BasicBiobankDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394718546561" ignored="false" />
     <file path="/SampleIdComparator.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394726058165" ignored="false" />
     <file path="/YearComparator.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394726140499" ignored="false" />
@@ -794,13 +781,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BiobankServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="BiobankServiceImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="55" selection-start="6417" selection-end="6417" vertical-scroll-proportion="3.4782083">
+            <state line="169" column="55" selection-start="6417" selection-end="6417" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContainerServiceImpl.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="13" selection-start="921" selection-end="921" vertical-scroll-proportion="0.2675545">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -831,9 +827,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankAdministratorService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/translations/errors.properties" />
         <option value="$PROJECT_DIR$/src/main/resources/translations/errors_cs.properties" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BasicServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java" />
@@ -847,6 +840,9 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/BiobankAdministratorsActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/biobank/CreateActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/ProjectService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/BoxActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/BoxService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -2339,7 +2335,11 @@
       <created>1397497137056</created>
       <updated>1397497137056</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="BiobankService refactored">
+      <created>1397505396438</created>
+      <updated>1397505396438</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -2437,7 +2437,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="zaloha pred refaktoringem servisní vrstvy&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="BiobankService refactored" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2465,6 +2465,7 @@
     <MESSAGE value="UserService prvotni refactoring&#10;" />
     <MESSAGE value="backup pri refactoringu - odstraneny unchecked z DAO, odstranena fasada" />
     <MESSAGE value="zaloha pred refaktoringem servisní vrstvy&#10;" />
+    <MESSAGE value="BiobankService refactored" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -2512,47 +2513,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/errors_cs.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="0" selection-start="6943" selection-end="6980" vertical-scroll-proportion="-27.8">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/errors.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="0" selection-start="7253" selection-end="7290" vertical-scroll-proportion="-27.8">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="262" column="8" selection-start="9396" selection-end="9396" vertical-scroll-proportion="0.73244554">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/BiobankAdministratorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="4" selection-start="385" selection-end="458" vertical-scroll-proportion="0.2675545">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ProjectServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="572" column="1" selection-start="18161" selection-end="18562" vertical-scroll-proportion="0.32459426">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankAdministratorServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="278" column="26" selection-start="10473" selection-end="10473" vertical-scroll-proportion="-184.6">
@@ -2628,12 +2588,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BoxServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="0" selection-start="4389" selection-end="4389" vertical-scroll-proportion="2.5726392">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/BoxService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="27" selection-start="365" selection-end="365" vertical-scroll-proportion="0.22288439">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/facade/impl/AutoTriggeredOperationsImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="190" column="65" selection-start="6347" selection-end="6347" vertical-scroll-proportion="0.54600483">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/infrastructure/BoxActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="222" column="34" selection-start="7733" selection-end="7733" vertical-scroll-proportion="0.6912833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/BiobankServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="55" selection-start="6417" selection-end="6417" vertical-scroll-proportion="3.4782083">
+        <state line="169" column="55" selection-start="6417" selection-end="6417" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/ContainerServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="13" selection-start="921" selection-end="921" vertical-scroll-proportion="0.2675545">
+          <folding />
         </state>
       </provider>
     </entry>
