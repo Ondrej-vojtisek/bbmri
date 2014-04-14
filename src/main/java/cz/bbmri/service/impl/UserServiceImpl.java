@@ -5,6 +5,7 @@ import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.systemAdministration.UserSetting;
@@ -39,13 +40,8 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    protected static final int MAXIMUM_FIND_RESULTS = 5;
-
     @Autowired
     private UserDao userDao;
-
-    @Autowired
-    private BiobankDao biobankDao;
 
     @Autowired
     private BiobankAdministratorDao biobankAdministratorDao;
@@ -58,12 +54,6 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Autowired
     private UserSettingDao userSettingDao;
-
-    @Autowired
-    private BiobankAdministratorService biobankAdministratorService;
-
-    @Autowired
-    private NotificationService notificationService;
 
 
     public boolean create(User user, Locale locale) {
@@ -212,7 +202,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         notNull(user);
 
         if (requiredResults < 1) {
-            requiredResults = MAXIMUM_FIND_RESULTS;
+            requiredResults = Constant.MAXIMUM_FIND_RESULTS;
         }
 
         List<User> users = userDao.findUser(user);

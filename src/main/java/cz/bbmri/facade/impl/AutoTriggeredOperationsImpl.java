@@ -14,6 +14,8 @@ import cz.bbmri.service.*;
 import cz.bbmri.service.impl.ServiceUtils;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.controller.StripesFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,6 +35,8 @@ import java.util.Locale;
  */
 @Controller("autoTriggeredOperations")
 public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTriggeredOperations {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Value("${StoragePath}")
     private String storagePath;
