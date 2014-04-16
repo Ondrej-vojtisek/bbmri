@@ -1,8 +1,9 @@
 package cz.bbmri.entities.infrastructure;
 
+import cz.bbmri.entities.Sample;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import cz.bbmri.entities.Sample;
 
 
 /**
@@ -12,13 +13,15 @@ import cz.bbmri.entities.Sample;
  * Time: 15:48
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "BoxPosition")
+@Table
 @Entity
 public class Position implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @ManyToOne
@@ -28,10 +31,10 @@ public class Position implements Serializable {
     private Sample sample;
 
 //    Matrix position
-    @Column(name = "positionrow")
+    @Column
     private Integer row;
 
-    @Column(name = "positioncolumn")
+    @Column
     private Integer column;
 
 //    Sequential position

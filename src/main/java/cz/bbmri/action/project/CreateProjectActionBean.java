@@ -4,8 +4,10 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.AttachmentService;
+import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -30,6 +32,9 @@ public class CreateProjectActionBean extends PermissionActionBean {
 
     @SpringBean
     private ProjectService projectService;
+
+    @SpringBean
+    private ProjectAdministratorService projectAdministratorService;
 
     @SpringBean
     private AttachmentService attachmentService;
@@ -163,10 +168,20 @@ public class CreateProjectActionBean extends PermissionActionBean {
     @HandlesEvent("confirmStep6")
     public Resolution confirmStep6() {
 
-        project = projectService.createProject(project, getContext().getMyId(),
-                getContext().getValidationErrors());
+        boolean resultBool;
 
-        if (project == null) {
+        if (!projectService.create(project,
+                        getContext().getValidationErrors())) {
+            return new ForwardResolution(this.getClass(), "mta");
+        }
+
+        resultBool = projectAdministratorService.assignAdministrator(project.getId(),
+                getContext().getMyId(),
+                Permission.MANAGER,
+                getContext().getValidationErrors(),
+                getContext().getMyId());
+
+        if(!resultBool){
             return new ForwardResolution(this.getClass(), "mta");
         }
 

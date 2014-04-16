@@ -6,6 +6,7 @@ import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.service.BiobankAdministratorService;
 import cz.bbmri.service.BiobankService;
+import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -28,6 +29,9 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     @SpringBean
     private ProjectService projectService;
+
+    @SpringBean
+    private ProjectAdministratorService projectAdministratorService;
 
 
     protected Long biobankId;
@@ -118,22 +122,22 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     /* When the project is marked as finished than it can't be edited or changes in any way */
     public boolean getAllowedProjectManager() {
-        return projectService.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
+        return projectAdministratorService.hasPermission(Permission.MANAGER, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectEditor() {
-        return projectService.hasPermission(Permission.EDITOR, projectId, getContext().getMyId()) && !isFinished();
+        return projectAdministratorService.hasPermission(Permission.EDITOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectExecutor() {
         logger.debug("GetAllowedProjectExecutor");
         logger.debug("ProjectId: " + projectId);
 
-        return projectService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
+        return projectAdministratorService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
     public boolean getAllowedProjectVisitor() {
-        return projectService.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
+        return projectAdministratorService.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
     }
 
 

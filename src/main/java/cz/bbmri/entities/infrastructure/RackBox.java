@@ -1,6 +1,7 @@
 package cz.bbmri.entities.infrastructure;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +12,8 @@ import javax.persistence.*;
  */
 @Entity
 public class RackBox extends Box {
+
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne
     private Rack rack;

@@ -17,7 +17,7 @@ import java.util.*;
  */
 
 @Entity
-@Table(name = "Users")
+@Table
 public class User implements Serializable /*, Comparable<User>*/ {
 
     private static final String AFFILIATION_EMPLOYEE = "employee@";
@@ -62,7 +62,8 @@ public class User implements Serializable /*, Comparable<User>*/ {
     //naive temporal prosthesis
     private String password;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @PrimaryKeyJoinColumn
     private UserSetting userSetting;
 
     @OneToMany(mappedBy = "user")
@@ -328,61 +329,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
                 ", affiliation='" + affiliation + '\'' +
                 '}';
     }
-
-//    public int compareTo(User compareUser) {
-//
-//        if (this.getId() > compareUser.getId())
-//            return 1;
-//        else if (this.getId() < compareUser.getId())
-//            return -1;
-//        else
-//            return 0;
-//    }
-
-
-//    public static Comparator<User> UserIdComparator
-//            = new Comparator<User>() {
-//
-//        public int compare(User user1, User user2) {
-//
-//            Long userAtr1 = user1.getId();
-//            Long userAtr2 = user2.getId();
-//
-//            //ascending order
-//            return userAtr1.compareTo(userAtr2);
-//
-//        }
-//
-//    };
-//
-//    public static Comparator<User> UserSurnameComparator
-//            = new Comparator<User>() {
-//
-//        public int compare(User user1, User user2) {
-//
-//            String userAtr1 = user1.getSurname();
-//            String userAtr2 = user2.getSurname();
-//
-//            //ascending order
-//            return userAtr1.compareTo(userAtr2);
-//        }
-//
-//    };
-//
-//    public static Comparator<User> UserOrganizationComparator
-//            = new Comparator<User>() {
-//
-//        public int compare(User user1, User user2) {
-//
-//            String userAtr1 = user1.getOrganization();
-//            String userAtr2 = user2.getOrganization();
-//
-//            //ascending order
-//            return userAtr1.compareTo(userAtr2);
-//        }
-//
-//    };
-
 }
 
 

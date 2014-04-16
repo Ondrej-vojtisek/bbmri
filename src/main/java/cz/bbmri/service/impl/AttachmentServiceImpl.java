@@ -1,13 +1,13 @@
 package cz.bbmri.service.impl;
 
-import cz.bbmri.dao.*;
+import cz.bbmri.dao.AttachmentDao;
+import cz.bbmri.dao.NotificationDao;
+import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.AttachmentType;
 import cz.bbmri.entities.enumeration.NotificationType;
-import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.service.AttachmentService;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.LocalizableMessage;
@@ -45,15 +45,6 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     @Autowired
     private NotificationDao notificationDao;
 
-    @Autowired
-    private BiobankAdministratorDao biobankAdministratorDao;
-
-    @Autowired
-    private BiobankDao biobankDao;
-
-    @Autowired
-    private UserDao userDao;
-
     @Transactional(readOnly = true)
     public Attachment get(Long id) {
         notNull(id);
@@ -80,8 +71,13 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ProjectDoesntExist"));
             return Constant.NOT_SUCCESS;
         }
-        // Create folder structure of projectDB
-        if (!createFolderStructure(projectDB, errors)) {
+
+        int result = ServiceUtils.createFolders(storagePath, errors,
+                storagePath, // base folder
+                storagePath + Project.PROJECT_FOLDER, // Projects folder
+                storagePath + projectDB.getProjectFolderPath() // Folder for the project
+        );
+        if (result != Constant.SUCCESS) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.CantCreateFolderStructure"));
             return Constant.NOT_SUCCESS;
         }
@@ -95,9 +91,9 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         attachment.setProject(projectDB);
         attachment.setAbsolutePath(
                 storagePath +
-                projectDB.getProjectFolderPath() +
-                File.separator +
-                fileBean.getFileName());
+                        projectDB.getProjectFolderPath() +
+                        File.separator +
+                        fileBean.getFileName());
 
         // Create file on server
         File file = new File(attachment.getAbsolutePath());
@@ -151,29 +147,8 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         return Constant.SUCCESS;
     }
 
-
-    @Transactional(readOnly = true)
-    public List<Attachment> all() {
-        return attachmentDao.all();
-    }
-
-    public boolean hasPermission(Permission permission, Long objectId, Long userId) {
-        if(isNull(permission, "permission", null)) return false;
-        if(isNull(objectId, "objectId", null)) return false;
-        if(isNull(userId, "userId", null)) return false;
-
-        BiobankAdministrator ba = biobankAdministratorDao.get(biobankDao.get(objectId), userDao.get(userId));
-
-        if (ba == null) {
-            return false;
-        }
-
-        return ba.getPermission().include(permission);
-    }
-
-
     public Attachment update(Attachment attachment) {
-        if(isNull(attachment, "attachment", null)) return null;
+        if (isNull(attachment, "attachment", null)) return null;
 
         Attachment attachmentDB = attachmentDao.getAttachmentByPath(attachment.getAbsolutePath());
         // get object from db with the same identifier
@@ -198,19 +173,8 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     }
 
     @Transactional(readOnly = true)
-    public Integer count() {
-        return attachmentDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Attachment> getAttachmentsByProject(Long projectId) {
-        if(isNull(projectId, "projectId", null)) return null;
-        return attachmentDao.getAttachmentsByProject(projectDao.get(projectId));
-    }
-
-    @Transactional(readOnly = true)
     public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
-        if(isNull(projectId, "projectId", null)) return null;
+        if (isNull(projectId, "projectId", null)) return null;
 
         try {
             return attachmentDao.getAttachmentSorted(projectDao.get(projectId), orderByParam, desc);
@@ -230,7 +194,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         if (isNull(loggedUserId, "loggedUserId", errors)) return false;
 
         Attachment attachment = attachmentDao.get(attachmentId);
-        if(isNull(attachment, "attachment", errors)) return false;
+        if (isNull(attachment, "attachment", errors)) return false;
 
         if (ServiceUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) == Constant.SUCCESS) {
 
@@ -259,7 +223,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         notNull(attachmentId);
 
         Attachment attachment = get(attachmentId);
-        if(isNull(attachment, "attachment", null)) return null;
+        if (isNull(attachment, "attachment", null)) return null;
 
         FileInputStream fis = new FileInputStream(attachment.getAbsolutePath());
         return new StreamingResolution(attachment.getContentType(), fis).setFilename(attachment.getFileName());

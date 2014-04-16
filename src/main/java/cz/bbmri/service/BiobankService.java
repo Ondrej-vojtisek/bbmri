@@ -1,6 +1,9 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Biobank;
+import cz.bbmri.service.simpleService.All;
+import cz.bbmri.service.simpleService.Count;
+import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -12,14 +15,7 @@ import java.util.List;
  * Time: 20:02
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankService {
-
-
-    List<Biobank> all();
-
-    Integer count();
-
-    Biobank get(Long id);
+public interface BiobankService extends All<Biobank>, Get<Biobank>, Count {
 
     public List<Biobank> allOrderedBy(String orderByParam, boolean desc);
 

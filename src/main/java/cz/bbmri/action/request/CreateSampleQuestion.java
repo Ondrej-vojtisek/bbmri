@@ -11,14 +11,12 @@ import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.BiobankService;
-import cz.bbmri.service.RequestService;
-import cz.bbmri.service.SampleQuestionService;
+import cz.bbmri.service.SampleRequestService;
+import cz.bbmri.service.SampleReservationService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
@@ -37,7 +35,10 @@ public class CreateSampleQuestion extends PermissionActionBean {
     private BiobankService biobankService;
 
     @SpringBean
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
+
+    @SpringBean
+    private SampleReservationService sampleReservationService;
 
     @ValidateNestedProperties(value = {
             @Validate(field = "specification",
@@ -90,7 +91,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
         sampleRequest.setProject(getProject());
         sampleRequest.setSpecification(sampleQuestion.getSpecification());
 
-        if (!sampleQuestionService.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
+        if (!sampleRequestService.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
             return new ForwardResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                     .addParameter("projectId", projectId);
         }
@@ -114,7 +115,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
         sampleReservation.setUser(getLoggedUser());
         sampleReservation.setSpecification(sampleQuestion.getSpecification());
 
-        if (!sampleQuestionService.createSampleQuestion(sampleReservation, biobankId, getContext().getValidationErrors())) {
+        if (!sampleReservationService.createSampleReservation(sampleReservation, biobankId, getLoggedUser(), getContext().getValidationErrors())) {
             return new ForwardResolution(ReservationActionBean.class, "all");
         }
         successMsg(null);

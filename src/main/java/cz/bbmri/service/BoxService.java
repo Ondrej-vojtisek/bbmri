@@ -1,7 +1,14 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.infrastructure.*;
+import cz.bbmri.entities.infrastructure.Box;
+import cz.bbmri.entities.infrastructure.Rack;
+import cz.bbmri.entities.infrastructure.RackBox;
+import cz.bbmri.entities.infrastructure.StandaloneBox;
+import cz.bbmri.service.exceptions.DuplicitEntityException;
+import cz.bbmri.service.simpleService.Get;
+import cz.bbmri.service.simpleService.Remove;
+import cz.bbmri.service.simpleService.Update;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -13,21 +20,15 @@ import java.util.List;
  * Time: 17:37
  * To change this template use File | Settings | File Templates.
  */
-public interface BoxService {
-
-    boolean remove(Long id);
-
-    Box update(Box box);
-
-    Box get(Long id);
+public interface BoxService extends Remove, Update<Box>, Get<Box> {
 
     boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors);
 
     boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors);
 
-    RackBox createRackBox(Long rackId, RackBox rackBox);
+    RackBox createRackBox(Long rackId, RackBox rackBox) throws DuplicitEntityException;
 
-    StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBox);
+    StandaloneBox createStandaloneBox(Long infrastructureId, StandaloneBox standaloneBox) throws DuplicitEntityException;
 
     List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc);
 

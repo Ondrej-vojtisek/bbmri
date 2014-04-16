@@ -91,7 +91,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
 
         initiatePagination();
         getPagination().setEvent("myProjects");
-        getPagination().setSource(projectService.getMyProjectsSorted(
+        getPagination().setSource(projectService.getProjectsSortedByUser(
                 getContext().getMyId(),
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
@@ -119,7 +119,8 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("update")
     @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
     public Resolution update() {
-        if (!projectService.updateProject(project,
+        if (!projectService.update(project,
+                getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
@@ -132,7 +133,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @RolesAllowed({"developer"})
     public Resolution delete() {
 
-        if (!projectService.removeProject(projectId,
+        if (!projectService.remove(projectId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass());
@@ -152,7 +153,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectService.approveProject(projectId,
+        if (!projectService.approve(projectId,
                 getContext().getMyId(),
                 getContext().getValidationErrors())) {
 
@@ -171,7 +172,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        if (!projectService.denyProject(projectId,
+        if (!projectService.deny(projectId,
                 getContext().getMyId(),
                 getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
@@ -183,7 +184,9 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
     @HandlesEvent("markAsFinished")
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution markAsFinished() {
-        if (!projectService.markAsFinished(projectId, getContext().getMyId())) {
+        if (!projectService.finish(projectId,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
         successMsg(null);

@@ -40,27 +40,17 @@ public class PositionServiceImpl extends BasicServiceImpl implements PositionSer
     }
 
     public Position create(Position position, Long boxId, Long sampleId) {
-        notNull(boxId);
-        notNull(sampleId);
-
-        if (position == null) {
-            logger.debug("Object can't null");
-            return null;
-        }
+        if (isNull(position, "position", null)) return null;
+        if (isNull(boxId, "boxId", null)) return null;
+        if (isNull(sampleId, "sampleId", null)) return null;
 
         Box boxDB = boxDao.get(boxId);
 
-        if (boxDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return null;
-        }
+        if (isNull(boxDB, "boxDB", null)) return null;
 
         Sample sampleDB = sampleDao.get(sampleId);
 
-        if (sampleDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return null;
-        }
+        if (isNull(sampleDB, "sampleDB", null)) return null;
 
         position.setBox(boxDB);
         position.setSample(sampleDB);
@@ -70,23 +60,17 @@ public class PositionServiceImpl extends BasicServiceImpl implements PositionSer
     }
 
     public Position update(Position position) {
-            if (position == null) {
-                logger.debug("Position can't be null");
-                return null;
-            }
-            Position positionDB = positionDao.get(position.getId());
+        if (isNull(position, "position", null)) return null;
+        Position positionDB = positionDao.get(position.getId());
 
-            if (positionDB == null) {
-                logger.debug("ContainerDB can't be null");
-                return null;
-            }
+        if (isNull(positionDB, "positionDB", null)) return null;
 
-            if(position.getSample() != null ){
-                if(!position.getSample().equals(positionDB.getSample()))
+        if (position.getSample() != null) {
+            if (!position.getSample().equals(positionDB.getSample()))
                 positionDB.setSample(position.getSample());
-            }
-
-            positionDao.update(positionDB);
-            return positionDB;
         }
+
+        positionDao.update(positionDB);
+        return positionDB;
+    }
 }

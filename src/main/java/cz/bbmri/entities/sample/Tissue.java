@@ -22,16 +22,18 @@ import java.util.Date;
 @Entity
 public class Tissue extends Sample {
 
+    private static final long serialVersionUID = 1L;
+
     @Embedded
-    @Column(name = "tnm")
+    @Column
     private TNM tnm;
 
     @Embedded
-    @Column(name = "ptnm")
+    @Column
     private PTNM ptnm;
 
     @Embedded
-    @Column(name = "morphology")
+    @Column
     private Morphology morphology;
 
     @Type(type = "timestamp")

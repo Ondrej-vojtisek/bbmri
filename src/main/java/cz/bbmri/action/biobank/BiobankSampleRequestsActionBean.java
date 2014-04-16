@@ -5,7 +5,7 @@ import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.service.SampleQuestionService;
+import cz.bbmri.service.SampleRequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
@@ -27,7 +27,7 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId){
         return new Breadcrumb(BiobankSampleRequestsActionBean.class.getName(), "display",
@@ -64,7 +64,7 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("display");
-        getPagination().setSource(sampleQuestionService.getSortedSampleQuestions(biobankId,
+        getPagination().setSource(sampleRequestService.getSortedSampleRequest(biobankId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_REQUESTS);

@@ -14,13 +14,15 @@ import java.util.List;
  * Time: 14:01
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Monitoring")
+@Table
 @Entity
 public class Monitoring implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @OneToOne

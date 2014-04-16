@@ -9,6 +9,7 @@ import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.service.ContainerService;
+import cz.bbmri.service.exceptions.DuplicitEntityException;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +45,24 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     public boolean create(Long infrastructureId, Container container, ValidationErrors errors) {
         notNull(errors);
 
-        if (create(infrastructureId, container) == null) {
+        Container newContainer;
+
+        try {
+            newContainer = create(infrastructureId, container);
+        } catch (DuplicitEntityException ex) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.service.impl.BasicServiceImpl.duplicateEntity"));
+            return false;
+        }
+
+        if (newContainer == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
             return false;
         }
-        return true;
 
+        return true;
     }
 
-    public Container create(Long infrastructureId, Container container) {
+    public Container create(Long infrastructureId, Container container) throws DuplicitEntityException {
         if (isNull(infrastructureId, "infrastructureId", null)) return null;
         if (isNull(container, "container", null)) return null;
 
@@ -60,6 +70,13 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
         if (isNull(infrastructureDB, "infrastructureDB", null)) return null;
 
         container.setInfrastructure(infrastructureDB);
+
+        // Container with the same name already exists in biobank
+        if (containerDao.getByName(infrastructureDB.getBiobank(), container.getName()) != null) {
+            throw new DuplicitEntityException("Container with name: " + container.getName() + " already exists in biobank: " +
+                    infrastructureDB.getBiobank().getAbbreviation());
+        }
+
         containerDao.create(container);
         try {
             containerDao.create(container);

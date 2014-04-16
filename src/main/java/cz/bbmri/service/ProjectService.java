@@ -1,8 +1,9 @@
 package cz.bbmri.service;
 
-import cz.bbmri.entities.*;
-import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.Project;
 import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.service.simpleService.All;
+import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -14,54 +15,26 @@ import java.util.List;
  * Time: 18:15
  * To change this template use File | Settings | File Templates.
  */
-public interface ProjectService extends BasicService<Project> {
+public interface ProjectService extends Get<Project>, All<Project> {
 
     List<Project> allOrderedBy(String orderByParam, boolean desc);
 
-    Project create(Project project, Long userId);
+    List<Project> allByProjectStateAndUser(Long userId, ProjectState projectState);
 
-    boolean approve(Long projectId, Long userId);
-
-    boolean deny(Long projectId, Long userId);
-
-    List<Project> getAllByProjectState(ProjectState projectState);
-
-    List<Project> getAllByUserAndProjectState(ProjectState projectState, Long userId);
-
-    List<Project> getEagerByUserWithRequests(Long userId);
-
-    Project changeState(Long projectId, ProjectState projectState);
-
-    List<Project> getMyProjectsSorted(Long userId, String orderByParam, boolean desc);
+    List<Project> getProjectsSortedByUser(Long userId, String orderByParam, boolean desc);
 
     List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc);
 
-    boolean hasPermission(Permission permission, Long objectId, Long userId);
+    boolean approve(Long projectId, Long loggedUserId, ValidationErrors errors);
 
-    boolean changeAdministratorPermission(Long objectAdministratorId, Permission permission, ValidationErrors errors,
-                                          Long loggedUserId);
+    boolean deny(Long projectId, Long loggedUserId, ValidationErrors errors);
 
-    boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId);
+    boolean create(Project project, ValidationErrors errors);
 
-    boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors,
-                                Long loggedUserId);
+    boolean update(Project project, ValidationErrors errors, Long loggedUserId);
 
-    boolean approveProject(Long projectId, Long loggedUserId, ValidationErrors errors);
+    boolean remove(Long projectId, ValidationErrors errors, Long loggedUserId);
 
-    boolean denyProject(Long projectId, Long loggedUserId, ValidationErrors errors);
-
-    Project createProject(Project project,
-                          Long loggedUserId,
-                          ValidationErrors errors);
-
-    boolean updateProject(Project project, Long loggedUserId);
-
-    boolean removeProject(Long projectId, ValidationErrors errors, Long loggedUserId);
-
-    List<Project> getProjects(Long userId, ProjectState projectState);
-
-    boolean markAsFinished(Long projectId, Long loggedUserId);
-
-    ProjectAdministrator getProjectAdministrator(Long projectAdministratorId);
+    boolean finish(Long projectId, ValidationErrors errors, Long loggedUserId);
 
 }

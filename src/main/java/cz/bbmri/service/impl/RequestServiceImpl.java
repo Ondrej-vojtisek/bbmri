@@ -13,11 +13,9 @@ import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,97 +38,112 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
     @Autowired
     private SampleQuestionDao sampleQuestionDao;
 
-    public int createRequests(List<Long> sampleIds, Long sampleQuestionId) throws InsuficientAmountOfSamplesException {
-        if (sampleIds == null) {
-            logger.debug("sampleIds can't be null");
-            return -1;
-        }
+    public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
+        notNull(errors);
+        notNull(messages);
+
+        if (isNull(sampleIds, "sampleIds", errors)) return false;
+        if (isNull(sampleQuestionId, "sampleQuestionId", errors)) return false;
 
         if (sampleIds.isEmpty()) {
-            logger.debug("sampleIds can't be empty");
-            return -1;
-        }
-
-        if (sampleQuestionId == null) {
-            logger.debug("sampleQuestionId can't be null");
-            return -1;
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.requestCreateFailed"));
+            return false;
         }
 
         SampleQuestion sampleQuestionDB = sampleQuestionDao.get(sampleQuestionId);
-
-        if (sampleQuestionDB == null) {
-            logger.debug("sampleRequestDB can't be null");
-            return -1;
-        }
-
-        int result = 0;
+        if (isNull(sampleQuestionDB, "sampleQuestionDB", errors)) return false;
+        // counter of succesfully added requests
+        int numberOfAdded = 0;
 
         for (Long sampleId : sampleIds) {
             Sample sampleDB = sampleDao.get(sampleId);
-            if (sampleDB == null) {
-                logger.debug("sampleDB can't be null - sampleId was: " + sampleId);
+            boolean result;
+            try {
+                result = createRequest(sampleDB, sampleQuestionDB);
+
+            } catch (InsuficientAmountOfSamplesException ex) {
+                logger.debug(ex.getMessage());
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
                 continue;
             }
 
-            if (sampleDB.getSampleNos() == null) {
-                logger.debug("sampleDB.sampleNos can't be null: " + sampleId);
-                continue;
+            if (result) {
+                numberOfAdded++;
+            } else {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.requestCreateFailed"));
+                // TODO erase created requests
+                return false;
             }
-
-            // There must be more available samples than IMPLICIT_REQUESTED_SAMPLES
-
-            if (sampleDB.getSampleNos().getAvailableSamplesNo() < Request.IMPLICIT_REQUESTED_SAMPLES) {
-
-                logger.debug("Sample with sampleId: " + sampleId + " can't be requested because number of available " +
-                        "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
-
-                throw new InsuficientAmountOfSamplesException("Sample with sampleId: " + sampleId +
-                        " can't be requested because number of available " +
-                        "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
-            }
-
-            Request request = new Request();
-            request.setSample(sampleDB);
-            request.setNumOfRequested(Request.IMPLICIT_REQUESTED_SAMPLES);
-            request.setSampleQuestion(sampleQuestionDB);
-            requestDao.create(request);
-
-            if (!sampleDB.getSampleNos().decreaseAmount(Request.IMPLICIT_REQUESTED_SAMPLES)) {
-                logger.debug("Decrease sample nos failed");
-                throw new InsuficientAmountOfSamplesException("Sample with sampleId: " + sampleId +
-                        " can't be requested because number of available " +
-                        "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
-            }
-
-            sampleDao.update(sampleDB);
-            result++;
         }
-
-        return result;
+        // no exception of hard fail but no request created
+        if (numberOfAdded == 0) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.noRequestWasCreated"));
+            return true;
+        }
+        // Succ msg
+        messages.add(new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.createRequestSuccess", numberOfAdded));
+        return true;
     }
 
-    public boolean remove(Long id) {
-        notNull(id);
-        Request requestDB = requestDao.get(id);
-        if (requestDB == null) {
-            logger.debug("requestDB can't be null");
-            return false;
+    private boolean createRequest(Sample sample, SampleQuestion sampleQuestionDB) throws InsuficientAmountOfSamplesException {
+        // check
+        if (isNull(sampleQuestionDB, "sampleQuestionDB", null)) return false;
+        if (isNull(sample, "sample", null)) return false;
+        // known number of samples
+        if (isNull(sample.getSampleNos(), "sample.getSampleNos", null)) return false;
+
+        // There must be more available samples than IMPLICIT_REQUESTED_SAMPLES
+        if (sample.getSampleNos().getAvailableSamplesNo() < Request.IMPLICIT_REQUESTED_SAMPLES) {
+            throw new InsuficientAmountOfSamplesException("Sample with sampleId: " + sample.getId() +
+                    " can't be requested because number of available " +
+                    "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
         }
 
-        // Delete sample allocation - return to previous state before request
+        // new Request
+        Request request = new Request();
+        request.setSample(sample);
+        request.setNumOfRequested(Request.IMPLICIT_REQUESTED_SAMPLES);
+        request.setSampleQuestion(sampleQuestionDB);
 
+
+        // decrease
+        if (!sample.getSampleNos().decreaseAmount(Request.IMPLICIT_REQUESTED_SAMPLES)) {
+            throw new InsuficientAmountOfSamplesException("Sample with sampleId: " + sample.getId() +
+                    " can't be requested because number of available " +
+                    "samples is less then " + Request.IMPLICIT_REQUESTED_SAMPLES);
+        }
+        requestDao.create(request);
+
+        sampleDao.update(sample);
+        return true;
+    }
+
+    public boolean remove(Long requestId, ValidationErrors errors) {
+
+        // errors can be null - automatized delete of reservations
+
+        if (isNull(requestId, "requestId", errors)) return false;
+
+        Request requestDB = requestDao.get(requestId);
+        if (isNull(requestDB, "requestDB", errors)) return false;
+
+        notNull(requestDB.getSample());
         Sample sampleDB = requestDB.getSample();
+        if (isNull(sampleDB, "sampleDB", errors)) return false;
+        if (isNull(sampleDB.getSampleNos(), "sampleDB.getSampleNos", errors)) return false;
+
         if (!sampleDB.getSampleNos().increaseAmount(requestDB.getNumOfRequested())) {
-            logger.debug("decrease failed");
+            if(errors != null){
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.failedToRemoveRequest"));
+            }else{
+                logger.error("Failed to remove request");
+            }
             return false;
         }
-
+        // update number of samples
         sampleDao.update(sampleDB);
 
-        if (requestDB.getSample() != null) {
-            requestDB.setSample(null);
-        }
-
+        requestDB.setSample(null);
         if (requestDB.getSampleQuestion() != null) {
             requestDB.setSampleQuestion(null);
         }
@@ -139,170 +152,67 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return true;
     }
 
-    public Request update(Request request) {
-        notNull(request);
-        Request requestDB = requestDao.get(request.getId());
-        if (requestDB == null) {
-            logger.debug("requestDB can't be null");
-            return null;
-        }
-        /* nothing is changed */
-        if (request.getNumOfRequested() == null) {
-            return requestDB;
-        }
+    public boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors) {
+        notNull(errors);
+        if (isNull(requestId, "requestId", errors)) return false;
 
-        if (request.getNumOfRequested() < 0) {
+        Request requestDB = get(requestId);
+        if (isNull(requestDB, "requestDB", errors)) return false;
+
+        if (difference < 0) {
+            noEffect(errors);
             logger.debug("Number of requested can't be lower than zero");
-            return null;
+            return false;
         }
 
-        // New - old value
-
-        int difference = request.getNumOfRequested() - requestDB.getNumOfRequested();
-
-        if (difference == 0) {
-            return requestDB;
-        }
-
+        int newValue = requestDB.getNumOfRequested();
 
         Sample sampleDB = requestDB.getSample();
-
-        // check if sampleNos is not null
-
-        if (sampleDB.getSampleNos() == null) {
-            logger.debug("sample.SampleNos is null");
-            return null;
-        }
-
-        if (sampleDB.getSampleNos().getAvailableSamplesNo() == null) {
-            logger.debug("sample.SampleNos.availableSamplesNo is null");
-            return null;
-        }
+        // check of fields
+        if (isNull(sampleDB, "sampleDB", errors)) return false;
+        if (isNull(sampleDB.getSampleNos(), "sampleDB.getSampleNos", errors)) return false;
 
         int availableSamples = sampleDB.getSampleNos().getAvailableSamplesNo();
 
-        int samplesNo = sampleDB.getSampleNos().getSamplesNo();
-
-        // try to increase number of requested
-
-        if (difference > 0) {
-
-           /* request can be increased - so decrease availablesamplesNo*/
+        // try to increase required samples
+        if (increase) {
+            newValue += difference;
 
             if (difference < availableSamples) {
-
+                // there is enough available samples to fulfill request
+                // lower number of available samples
                 sampleDB.getSampleNos().decreaseAmount(difference);
-
             } else {
-
-                 /* request can't be arised */
-
-                logger.debug("Number of requested can't be higher than available samples");
-                return null;
+                 // there is not enough available samples to fulfill request
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
+                return false;
             }
-
-            // try to decrease
-
         } else {
-
-            sampleDB.getSampleNos().increaseAmount(requestDB.getNumOfRequested() - request.getNumOfRequested());
+            // try to decrease of required samples
+            newValue -= difference;
+            // higher number of available samples - less samples is requested than before
+            sampleDB.getSampleNos().increaseAmount(difference);
 
             if (sampleDB.getSampleNos().getAvailableSamplesNo() > sampleDB.getSampleNos().getSamplesNo()) {
-
-                /* Higher amount of available samples then total number*/
-
-                logger.debug("This should never happen");
-
-                return null;
+                logger.error("Fatal error");
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.changeNumberFailed"));
+                return false;
             }
         }
-
-        // save new number of available samples
-
-        sampleDao.update(sampleDB);
-
+        // set new value to request
+        requestDB.setNumOfRequested(newValue);
         // save updates to the request
-
         requestDao.update(requestDB);
-
-        return requestDB;
+        // save new number of available samples
+        sampleDao.update(sampleDB);
+        return true;
     }
 
-    @Transactional(readOnly = true)
-    public List<Request> all() {
-        return requestDao.all();
-    }
 
     @Transactional(readOnly = true)
     public Request get(Long id) {
         notNull(id);
         return requestDao.get(id);
     }
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return requestDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Request> allOrderedBy(String orderByParam, boolean desc) {
-        return requestDao.allOrderedBy(orderByParam, desc);
-    }
-
-    public boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors) {
-            Request requestDB = get(requestId);
-            if (requestDB == null) {
-                logger.debug("RequestDB can't be null");
-                return false;
-            }
-
-            int newValue = requestDB.getNumOfRequested();
-            if (increase) {
-                newValue += difference;
-
-            } else {
-                newValue -= difference;
-            }
-
-            requestDB.setNumOfRequested(newValue);
-
-            if (update(requestDB) == null) {
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.changeNumberFailed"));
-                return false;
-            }
-            return true;
-        }
-
-
-        public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
-
-            int result = -1;
-            try {
-                result = createRequests(sampleIds, sampleQuestionId);
-            } catch (InsuficientAmountOfSamplesException ex) {
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
-                return false;
-            }
-
-            if (result < 0) {
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.requestCreateFailed"));
-                return false;
-            }
-            if (result == 0) {
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.noRequestWasCreated"));
-                return true;
-            }
-            messages.add(new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.createRequestSuccess", result));
-            return true;
-        }
-
-        public boolean deleteRequest(Long requestId, ValidationErrors errors) {
-            if (!remove(requestId)) {
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.failedToRemoveRequest"));
-                return false;
-            }
-            return true;
-        }
-
 
 }

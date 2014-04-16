@@ -11,4 +11,6 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class PTNM extends TNM {
+
+    private static final long serialVersionUID = 1L;
 }

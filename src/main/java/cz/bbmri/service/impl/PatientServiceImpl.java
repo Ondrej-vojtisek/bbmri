@@ -3,7 +3,6 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.ModuleDao;
 import cz.bbmri.dao.PatientDao;
-import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.ModuleLTS;
 import cz.bbmri.entities.ModuleSTS;
@@ -39,9 +38,6 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     private BiobankDao biobankDao;
 
     @Autowired
-    private SampleDao sampleDao;
-
-    @Autowired
     private ModuleDao moduleDao;
 
     @Transactional(readOnly = true)
@@ -55,26 +51,32 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patientDao.get(id);
     }
 
-    public Patient create(Patient patient, Long biobankId) {
-        if (patient == null) {
-            logger.debug("Object can't null");
-            return null;
+    public boolean create(Patient patient, Long biobankId, ValidationErrors errors) {
+        notNull(errors);
+        if (create(patient, biobankId) == null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
+            return false;
         }
+        return true;
+    }
+
+    public Patient create(Patient patient, Long biobankId) {
+        if (isNull(patient, "patient", null)) return null;
+        if (isNull(biobankId, "biobankId", null)) return null;
 
         Biobank biobankDB = biobankDao.get(biobankId);
+        if (isNull(biobankDB, "biobankDB", null)) return null;
 
-        if (biobankDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return null;
-        }
-
+        // Biobank relationship
         patient.setBiobank(biobankDB);
         patientDao.create(patient);
 
+        // STS
         ModuleSTS modulests = new ModuleSTS();
         modulests.setPatient(patient);
         moduleDao.create(modulests);
 
+        // LTS
         ModuleLTS modulelts = new ModuleLTS();
         modulelts.setPatient(patient);
         moduleDao.create(modulelts);
@@ -83,17 +85,11 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     }
 
     public boolean remove(Long id) {
-        notNull(id);
+        if (isNull(id, "id", null)) return false;
         Patient patientDB = patientDao.get(id);
-        if (patientDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return false;
-        }
+        if (isNull(patientDB, "patientDB", null)) return false;
 
         if (patientDB.getBiobank() != null) {
-            Biobank biobank = patientDB.getBiobank();
-            biobank.getPatients().remove(patientDB);
-            biobankDao.update(biobank);
             patientDB.setBiobank(null);
         }
 
@@ -110,9 +106,11 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     }
 
     public Patient update(Patient patient) {
-        notNull(patient);
+        if (isNull(patient, "patient", null)) return null;
 
         Patient patientDB = patientDao.get(patient.getId());
+
+        if (isNull(patientDB, "patientDB", null)) return null;
 
         if (patient.getSex() != null) patientDB.setSex(patient.getSex());
         if (patient.getBirthMonth() != null) patientDB.setBirthMonth(patient.getBirthMonth());
@@ -123,20 +121,9 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patientDB;
     }
 
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return patientDao.count();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Patient> allOrderedBy(String orderByParam, boolean desc) {
-        return patientDao.allOrderedBy(orderByParam, desc);
-    }
-
     @Transactional(readOnly = true)
     public List<Patient> find(Patient patient, int requiredResults) {
-        notNull(patient);
+        if (isNull(patient, "patient", null)) return null;
 
         List<Patient> patients = patientDao.findPatient(patient);
         if (patients == null) {
@@ -150,31 +137,18 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
 
     @Transactional(readOnly = true)
     public List<Patient> getSorted(Long biobankId, String orderByParam, boolean desc) {
-        if (biobankId == null) {
-            logger.debug("biobankId is null");
-            return null;
-        }
+        if (isNull(biobankId, "biobankId", null)) return null;
 
         Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            logger.debug("BiobankDB can´t be null");
-            return null;
-        }
+        if (isNull(biobankDB, "biobankDB", null)) return null;
 
         return patientDao.getSorted(biobankDB, orderByParam, desc);
     }
 
-    public Patient getByInstitutionalId(String id){
+    public Patient getByInstitutionalId(String id) {
+        if (isNull(id, "id", null)) return null;
         return patientDao.getByInstitutionalId(id);
     }
 
-    public boolean create(Patient patient, Long biobankId, ValidationErrors errors){
-        notNull(patient);
-        if (create(patient, biobankId) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
-            return false;
-        }
-        return true;
-    }
 
 }

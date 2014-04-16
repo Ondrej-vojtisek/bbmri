@@ -14,13 +14,15 @@ import java.util.Set;
  * Time: 15:49
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Infrastructure")
+@Table
 @Entity
 public class Infrastructure implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @OneToOne

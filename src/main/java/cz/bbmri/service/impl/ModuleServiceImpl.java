@@ -22,18 +22,10 @@ public class ModuleServiceImpl extends BasicServiceImpl implements ModuleService
     private ModuleDao moduleDao;
 
     public Module get(Long moduleId) {
-        if (moduleId == null) {
-            logger.debug("ModuleId can't be null");
-            return null;
-        }
+        if(isNull(moduleId, "moduleId", null)) return null;
+
         Module moduleDB = moduleDao.get(moduleId);
-
-        if (moduleDB == null) {
-            logger.debug("ModuleDB can't be null");
-            return null;
-        }
-
-        logger.debug("Module: " + moduleDB.getSamples());
+        if(isNull(moduleDB, "moduleDB", null)) return null;
 
         return moduleDB;
     }

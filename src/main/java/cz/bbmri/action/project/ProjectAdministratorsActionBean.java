@@ -1,7 +1,6 @@
 package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.ProjectAdministrator;
 import cz.bbmri.entities.comparator.PermissionComparator;
 import cz.bbmri.entities.comparator.PermissionUserComparator;
@@ -9,7 +8,7 @@ import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.service.ProjectService;
+import cz.bbmri.service.ProjectAdministratorService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 public class ProjectAdministratorsActionBean extends PermissionActionBean<ProjectAdministrator> {
 
     @SpringBean
-    private ProjectService projectService;
+    private ProjectAdministratorService projectAdministratorService;
 
     private Permission permission;
 
@@ -112,7 +111,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("setPermission")
     @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
     public Resolution setPermission() {
-        if (!projectService.changeAdministratorPermission(adminId, permission,
+        if (!projectAdministratorService.changeAdministratorPermission(adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -129,7 +128,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @RolesAllowed({"project_team_member if ${allowedProjectManager or isMyAccount}"})
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
-        if (!projectService.removeAdministrator(adminId,
+        if (!projectAdministratorService.removeAdministrator(adminId,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")
@@ -151,7 +150,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
-        if (!projectService.assignAdministrator(projectId, adminId, permission,
+        if (!projectAdministratorService.assignAdministrator(projectId, adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "administratorsResolution")

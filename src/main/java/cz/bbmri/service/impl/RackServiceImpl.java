@@ -9,6 +9,7 @@ import cz.bbmri.entities.infrastructure.Container;
 import cz.bbmri.entities.infrastructure.Rack;
 import cz.bbmri.entities.infrastructure.RackBox;
 import cz.bbmri.service.RackService;
+import cz.bbmri.service.exceptions.DuplicitEntityException;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +43,37 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
     @Autowired
     private BiobankDao biobankDao;
 
-    public Rack create(Long containerId, Rack rack) {
-        if (containerId == null) {
-            logger.debug("InfrastructureId can't be null");
-            return null;
-        }
-        if (rack == null) {
-            logger.debug("rack can't be null");
-            return null;
+    //  errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.rackcreatefailed"));
+    public boolean create(Long containerId, Rack rack, ValidationErrors errors) {
+        notNull(errors);
+
+        if (isNull(containerId, "containerId", errors)) return false;
+        if (isNull(rack, "rack", errors)) return false;
+
+        try {
+            create(containerId, rack);
+        } catch (DuplicitEntityException ex) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.service.impl.BasicServiceImpl.duplicateEntity"));
+            return false;
         }
 
+        return true;
+
+    }
+
+    // method for automatized create not triggered from frontend
+    public Rack create(Long containerId, Rack rack) throws DuplicitEntityException {
+
+        if (isNull(containerId, "containerId", null)) return null;
+        if (isNull(rack, "rack", null)) return null;
+
         Container containerDB = containerDao.get(containerId);
-        if (containerDB == null) {
-            logger.debug("infrastructureDB can't be null");
-            return null;
+        if (isNull(containerDB, "containerDB", null)) return null;
+
+        // Rack with the same name already exists in container
+        if (rackDao.getByName(containerDB, rack.getName()) != null) {
+            throw new DuplicitEntityException("Rack with name: " + rack.getName() + " already exists in container: " +
+                    containerDB);
         }
 
         rack.setContainer(containerDB);
@@ -64,11 +82,10 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
     }
 
     public boolean remove(Long id) {
+        if (isNull(id, "id", null)) return false;
         Rack rackDB = rackDao.get(id);
-        if (rackDB == null) {
-            logger.debug("Rack doens't exist");
-            return true;
-        }
+        if (isNull(rackDB, "rackDB", null)) return false;
+
         if (!rackDB.getRackBoxes().isEmpty()) {
             for (RackBox box : rackDB.getRackBoxes()) {
                 boxDao.remove(box);
@@ -81,77 +98,38 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
     }
 
     public Rack update(Rack rack) {
-        if (rack == null) {
-            logger.debug("Rack can't be null");
-            return null;
-        }
-        Rack rackDB = rackDao.get(rack.getId());
+        if (isNull(rack, "rack", null)) return null;
 
-        if (rackDB == null) {
-            logger.debug("RackDB can't be null");
-            return null;
-        }
+        Rack rackDB = rackDao.get(rack.getId());
+        if (isNull(rackDB, "rackDB", null)) return null;
 
         if (rack.getCapacity() != null) rackDB.setCapacity(rack.getCapacity());
         if (rack.getName() != null) rackDB.setName(rack.getName());
-
-        if (rack.getRackBoxes() != null) rackDB.setRackBoxes(rack.getRackBoxes());
 
         rackDao.update(rackDB);
         return rackDB;
     }
 
     @Transactional(readOnly = true)
-    public List<Rack> all() {
-        return rackDao.all();
-    }
-
-    @Transactional(readOnly = true)
-    public Integer count() {
-        return rackDao.count();
-    }
-
-    @Transactional(readOnly = true)
     public Rack get(Long id) {
-        notNull(id);
+        if (isNull(id, "id", null)) return null;
         return rackDao.get(id);
     }
 
-    @Transactional(readOnly = true)
-    public List<Rack> allOrderedBy(String orderByParam, boolean desc) {
-        return rackDao.allOrderedBy(orderByParam, desc);
-    }
-
     public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc) {
-        if (biobankId == null) {
-            logger.debug("biobankId is null");
-            return null;
-        }
+        if (isNull(biobankId, "biobankId", null)) return null;
 
         Biobank biobankDB = biobankDao.get(biobankId);
-        if (biobankDB == null) {
-            logger.debug("BiobankDB can´t be null");
-            return null;
-        }
+        if (isNull(biobankDB, "biobankDB", null)) return null;
 
         return rackDao.getSorted(biobankDB, orderByParam, desc);
     }
 
-    public Rack getRackByName(Container container, String name){
+    public Rack getRackByName(Container container, String name) {
+        if (isNull(container, "container", null)) return null;
+        if (isNull(name, "name", null)) return null;
+
         return rackDao.getByName(container, name);
-    }
-
-    public boolean create(Long containerId, Rack rack, ValidationErrors errors){
-        notNull(containerId);
-        notNull(rack);
-        notNull(errors);
-
-        if (create(containerId, rack) == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.rackcreatefailed"));
-            return false;
-        }
-        return true;
-
     }
 
 }

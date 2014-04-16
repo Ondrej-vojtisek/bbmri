@@ -1,6 +1,5 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.entities.User;
 import cz.bbmri.entities.systemAdministration.UserSetting;
 
 /**
@@ -14,7 +13,7 @@ public interface UserSettingDao {
 
     void create (UserSetting userSetting);
 
-    UserSetting get(User user);
+    UserSetting get(Long id);
 
     void set(UserSetting userSetting);
 

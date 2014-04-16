@@ -1,6 +1,7 @@
 package cz.bbmri.entities.systemAdministration;
 
 import cz.bbmri.entities.User;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,12 +20,20 @@ public class UserSetting implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String DEFAULT_LOCALE = "cs";
 
+    // This annotation is to avoid identifier of userSetting
+    // Identifier is not needed here bcs is oneToOne relationship with user
+
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue(generator = "customForeignGenerator")
+    @org.hibernate.annotations.GenericGenerator(
+            name = "customForeignGenerator",
+            strategy = "foreign",
+            parameters = @Parameter(name = "property", value = "user")
+    )
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "userSetting")
+    @PrimaryKeyJoinColumn
     private User user;
 
     private int numberOfRecordsPerPage;
@@ -66,9 +75,9 @@ public class UserSetting implements Serializable {
     }
 
     public Locale getLocale() {
-        if(locale == null){
+        if (locale == null) {
             return new Locale(DEFAULT_LOCALE);
-        }else{
+        } else {
             return new Locale(locale);
         }
     }

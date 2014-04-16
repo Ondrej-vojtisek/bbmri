@@ -1,11 +1,11 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.GlobalSettingDao;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.systemAdministration.GlobalSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -28,7 +28,7 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-     public GlobalSetting get(String key) {
+     private GlobalSetting get(String key) {
         if (key == null) {
             logger.debug("Key can't be null");
             return null;
@@ -81,5 +81,19 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
         }
 
         return true;
+    }
+
+    public int getReservationValidity(){
+        GlobalSetting gl = get(GlobalSetting.RESERVATION_VALIDITY);
+        if(gl == null){
+            return Constant.DEFAULT_RESERVATION_VALIDITY;
+        }
+        int newValue = Integer.parseInt(gl.getValue());
+        if(newValue > 0) {
+            return newValue;
+        } else{
+            logger.error("Reservation validity global setting wasn't parsed correctly");
+        }
+        return Constant.DEFAULT_RESERVATION_VALIDITY;
     }
 }

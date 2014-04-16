@@ -11,7 +11,6 @@ import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.service.BiobankAdministratorService;
-import cz.bbmri.service.exceptions.LastManagerException;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -52,123 +51,65 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
     public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
-        if (isNull(objectAdministratorId, "objectAdministratorId", errors)) return false;
-        if (isNull(loggedUserId, "loggedUserId", errors)) return false;
+        if (isNull(objectAdministratorId, "objectAdministratorId", null)) return false;
+        if (isNull(loggedUserId, "loggedUserId", null)) return false;
 
         BiobankAdministrator ba = biobankAdministratorDao.get(objectAdministratorId);
         if (isNull(ba, "ba", errors)) return false;
 
         boolean result = false;
 
-        try {
-            result = remove(ba);
-        } catch (LastManagerException ex) {
+        if (isLastManager(ba)) {
+            // Enough to inform user
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
             return false;
-        } catch (Exception ex) {
-            operationFailed(errors, ex);
-            return false;
         }
+        User userDB = ba.getUser();
 
-        if (result) {
-            Biobank biobank = ba.getBiobank();
-
-            User user = ba.getUser();
-
-            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.adminDeleted",
-                    user.getWholeName(), biobank.getAbbreviation());
-
-            notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
-                    NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobank.getId());
-        }
-
-        return result;
-    }
-
-    private boolean remove(BiobankAdministrator objectAdministrator) throws LastManagerException {
-        notNull(objectAdministrator);
-
-        User userDB = objectAdministrator.getUser();
-        Biobank biobankDB = objectAdministrator.getBiobank();
-
-        if (userDB == null || biobankDB == null) {
-            logger.debug("Object retrieved from database is null - userBD or biobankDB");
-            return false;
-        }
-
-              /* Situation when we want to remove last manager. */
-        if (isLastManager(objectAdministrator)) {
-            throw new LastManagerException("User: " + userDB.getWholeName()
-                    + " is the only administrator with MANAGER permission associated to biobank: "
-                    + biobankDB.getName() + ". He can't be removed!");
-        }
-
-        if (userDB.getBiobankAdministrators().size() == 1 &&
+        // Remove system role
+        if (userDB.getProjectAdministrators().size() == 1 &&
                 userDB.getSystemRoles().contains(SystemRole.BIOBANK_OPERATOR)) {
             userDB.getSystemRoles().remove(SystemRole.BIOBANK_OPERATOR);
             userDao.update(userDB);
         }
 
-        biobankAdministratorDao.remove(objectAdministrator);
-        return true;
+        biobankAdministratorDao.remove(ba);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.adminDeleted",
+                userDB.getWholeName(), ba.getBiobank().getAbbreviation());
+
+        notificationDao.create(getOtherBiobankAdministrators(ba.getBiobank(), loggedUserId),
+                NotificationType.BIOBANK_ADMINISTRATOR, locMsg, ba.getBiobank().getId());
+
+        return result;
     }
 
 
     public boolean changeAdministratorPermission(Long objectAdministratorId,
                                                  Permission permission,
                                                  ValidationErrors errors, Long loggedUserId) {
-
         notNull(errors);
 
-        if (isNull(permission, "permission", errors)) return false;
-        if (isNull(objectAdministratorId, "objectAdministratorId", errors)) return false;
+        if (isNull(objectAdministratorId, "objectAdministratorId", null)) return false;
+        if (isNull(loggedUserId, "loggedUserId", null)) return false;
 
-        BiobankAdministrator ba = biobankAdministratorDao.get(objectAdministratorId);
+        BiobankAdministrator pa = biobankAdministratorDao.get(objectAdministratorId);
+        if (isNull(pa, "pa", errors)) return false;
 
-        if (isNull(ba, "ba", errors)) return false;
-
-        boolean result = false;
-
-        try {
-            result = update(ba, permission);
-        } catch (LastManagerException ex) {
-            // Specific error msg
+        if (!permission.equals(Permission.MANAGER) && isLastManager(pa)) {
+            // Enough to inform user
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
             return false;
-        } catch (Exception ex) {
-            // Unknown reason
-            operationFailed(errors, ex);
-            return false;
         }
 
-        if (result) {
-            Biobank biobank = ba.getBiobank();
+        pa.setPermission(permission);
+        biobankAdministratorDao.update(pa);
 
-            User user = ba.getUser();
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.permissionChanged",
+                pa.getBiobank().getName(), pa.getUser().getWholeName(), permission);
 
-            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.permissionChanged",
-                    biobank.getAbbreviation(), user.getWholeName(), permission);
-
-            notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
-                    NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobank.getId());
-        }
-        return result;
-    }
-
-    private boolean update(BiobankAdministrator ba, Permission permission) throws LastManagerException {
-        if (isNull(ba, "ba", null)) return false;
-        if (isNull(permission, "permission", null)) return false;
-
-         /* Situation when we want to remove last manager. */
-
-        if (!permission.equals(Permission.MANAGER) && isLastManager(ba)) {
-            throw new LastManagerException("User: " + ba.getUser().getWholeName()
-                    + " is the only administrator with MANAGER permission associated to biobank: "
-                    + ba.getBiobank().getName() + ". He can't be removed!");
-        }
-
-        ba.setPermission(permission);
-        biobankAdministratorDao.update(ba);
+        notificationDao.create(getOtherBiobankAdministrators(pa.getBiobank(), loggedUserId),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, pa.getBiobank().getId());
         return true;
     }
 
@@ -195,7 +136,6 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
             return false;
         }
 
-        boolean result = false;
         // New administrator role
         BiobankAdministrator ba = new BiobankAdministrator();
         ba.setPermission(permission);

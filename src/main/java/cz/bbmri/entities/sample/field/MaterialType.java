@@ -1,8 +1,6 @@
 package cz.bbmri.entities.sample.field;
 
-import cz.bbmri.entities.Sample;
-
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
@@ -14,6 +12,8 @@ import java.io.Serializable;
  */
 @Embeddable
 public class MaterialType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String type;
 

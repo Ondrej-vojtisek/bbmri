@@ -153,31 +153,19 @@ public class CreateSampleActionBean extends PermissionActionBean {
     }
 
     public boolean getIsTissue() {
-        if (sampleType == null) {
-            return false;
-        }
-        return sampleType.equals(SampleType.TISSUE);
+        return sampleType != null &&  sampleType.equals(SampleType.TISSUE);
     }
 
     public boolean getIsDiagnosisMaterial() {
-        if (sampleType == null) {
-            return false;
-        }
-        return sampleType.equals(SampleType.DIAGNOSIS_MATERIAL);
+        return sampleType != null && sampleType.equals(SampleType.DIAGNOSIS_MATERIAL);
     }
 
     public boolean getIsSerum() {
-        if (sampleType == null) {
-            return false;
-        }
-        return sampleType.equals(SampleType.SERUM);
+        return sampleType != null && sampleType.equals(SampleType.SERUM);
     }
 
     public boolean getIsGenome() {
-        if (sampleType == null) {
-            return false;
-        }
-        return sampleType.equals(SampleType.GENOME);
+        return sampleType != null && sampleType.equals(SampleType.GENOME);
     }
 
     /* Methods */
@@ -225,14 +213,14 @@ public class CreateSampleActionBean extends PermissionActionBean {
     @HandlesEvent("confirmStep4") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution confirmStep4() {
-        Sample sampleOUT = (Sample) tissue;
+        Sample sampleOUT = tissue;
 
         if (getIsTissue()) {
-            sampleOUT = (Sample) tissue;
+            sampleOUT = tissue;
         }
 
         if (getIsSerum()) {
-            sampleOUT = (Sample) serum;
+            sampleOUT = serum;
         }
 
         if (getIsDiagnosisMaterial()) {
@@ -248,11 +236,11 @@ public class CreateSampleActionBean extends PermissionActionBean {
             sample.getSampleNos().setAvailableSamplesNo(1);
             sample.getSampleNos().setSamplesNo(1);
 
-            sampleOUT = (Sample) diagnosisMaterial;
+            sampleOUT = diagnosisMaterial;
         }
 
         if (getIsGenome()) {
-            sampleOUT = (Sample) genome;
+            sampleOUT = genome;
         }
 
         logger.debug("Sample: " + sample);
@@ -266,9 +254,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         sampleOUT.setModule(getModule());
         sampleOUT.setSampleNos(sample.getSampleNos());
 
-        Object object = sampleOUT;
-
-        if(!sampleService.create(sampleOUT, null)){
+        if(!sampleService.create(sampleOUT, null, getContext().getValidationErrors())){
             return new RedirectResolution(PatientActionBean.class, "detail")
                     .addParameter("patientId", getPatient().getId())
                     .addParameter("biobankId", biobankId);

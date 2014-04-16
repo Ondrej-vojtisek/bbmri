@@ -1,12 +1,11 @@
 package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.service.SampleQuestionService;
+import cz.bbmri.service.SampleRequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest> {
 
     @SpringBean
-    private SampleQuestionService sampleQuestionService;
+    private SampleRequestService sampleRequestService;
 
     public ProjectRequestActionBean() {
         setPagination(new MyPagedListHolder<SampleRequest>(new ArrayList<SampleRequest>()));
@@ -61,7 +60,7 @@ public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("sampleRequestsResolution");
-        getPagination().setSource(sampleQuestionService.getSortedSampleRequest(
+        getPagination().setSource(sampleRequestService.getSortedSampleRequest(
                 projectId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));

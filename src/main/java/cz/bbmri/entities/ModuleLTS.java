@@ -1,7 +1,6 @@
 package cz.bbmri.entities;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,9 +9,11 @@ import java.io.Serializable;
  * Time: 13:48
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "module_lts")
+
 @Entity
 public class ModuleLTS extends Module {
+
+    private static final long serialVersionUID = 1L;
 
     public String getType(){
            return "ModuleLTS";

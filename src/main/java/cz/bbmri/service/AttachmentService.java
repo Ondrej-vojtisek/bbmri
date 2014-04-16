@@ -2,7 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.enumeration.AttachmentType;
-import cz.bbmri.service.simple.SimpleService;
+import cz.bbmri.service.simpleService.Update;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.StreamingResolution;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -17,7 +17,7 @@ import java.util.List;
  * Time: 15:59
  * To change this template use File | Settings | File Templates.
  */
-public interface AttachmentService extends SimpleService<Attachment> {
+public interface AttachmentService extends Update<Attachment> {
 
     int createAttachment(FileBean fileBean,
                           AttachmentType attachmentType,

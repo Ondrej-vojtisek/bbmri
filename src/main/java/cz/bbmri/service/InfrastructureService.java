@@ -15,6 +15,4 @@ public interface InfrastructureService  {
     Infrastructure initialize(Biobank biobank);
 
     Infrastructure get(Long id);
-
-    boolean remove(Long id);
 }

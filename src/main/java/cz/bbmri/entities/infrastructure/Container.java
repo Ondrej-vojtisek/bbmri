@@ -16,13 +16,15 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Container")
+@Table
 @Entity
 public class Container implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     private String name;

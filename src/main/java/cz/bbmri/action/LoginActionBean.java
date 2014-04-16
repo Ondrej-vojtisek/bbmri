@@ -5,12 +5,12 @@ import cz.bbmri.entities.User;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.*;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.LongTypeConverter;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidationMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.security.PermitAll;
-
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +22,7 @@ import javax.annotation.security.PermitAll;
 
 @HttpCache(allow = false)
 @UrlBinding("/login")
-public class LoginActionBean extends BasicActionBean implements ValidationErrorHandler {
+public class LoginActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -56,21 +56,6 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
         this.id = id;
     }
 
-//    private User initializeUser() {
-//        User user = new User();
-//        user.setDisplayName(getContext().getShibbolethDisplayName());
-//        user.setEmail(getContext().getShibbolethMail());
-//        user.setEppn(getContext().getShibbolethEppn());
-//        user.setTargetedId(getContext().getShibbolethTargetedId());
-//        user.setPersistentId(getContext().getShibbolethPersistentId());
-//        user.setOrganization(getContext().getShibbolethOrganization());
-//        user.setAffiliation(getContext().getShibbolethAffiliation());
-//        user.setName(getContext().getShibbolethGivenName());
-//        user.setSurname(getContext().getShibbolethSn());
-//        user.setShibbolethUser(true);
-//        return user;
-//    }
-
     @DontValidate
     @DefaultHandler
     public Resolution display() {
@@ -91,11 +76,11 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
 
 
     @ValidationMethod
-    public void validateUser(ValidationErrors errors) {
+    public void validateUser() {
 
         if (id != null && password != null) {
 
-            user = userService.login(id, password);
+            user = userService.login(id, password, getContext().getLocale());
         }
         if (user == null) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
@@ -106,23 +91,5 @@ public class LoginActionBean extends BasicActionBean implements ValidationErrorH
     public Resolution cancel() {
         return new ForwardResolution(INDEX);
     }
-
-    @Override
-    public Resolution handleValidationErrors(ValidationErrors errors) {
-
-        // When field erros occured
-//        if (errors.hasFieldErrors()) {
-//            // Display a global error message
-//            // errors.addGlobalError(new LocalizableError("allFieldsRequired"));
-//            getContext().getMessages().add(
-//                    new LocalizableError("allFieldsRequired")
-//            );
-//        }
-
-
-        // Implicit
-        return null;
-    }
-
 
 }

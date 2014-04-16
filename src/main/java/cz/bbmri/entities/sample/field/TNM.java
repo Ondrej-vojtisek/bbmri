@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Embeddable
 public class TNM implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name="tnm", length = 7)
     String classification;
 

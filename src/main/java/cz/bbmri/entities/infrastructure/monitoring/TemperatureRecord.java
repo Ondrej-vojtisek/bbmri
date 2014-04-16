@@ -12,13 +12,14 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "TemperatureRecord")
+@Table
 public class TemperatureRecord implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @ManyToOne

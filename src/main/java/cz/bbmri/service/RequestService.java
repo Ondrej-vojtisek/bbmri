@@ -1,8 +1,7 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Request;
-import cz.bbmri.entities.SampleRequest;
-import cz.bbmri.facade.exceptions.InsuficientAmountOfSamplesException;
+import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.action.Message;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
@@ -15,13 +14,12 @@ import java.util.List;
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
-public interface RequestService extends BasicService<Request> {
+public interface RequestService extends Get<Request> {
 
-    int createRequests(List<Long> sampleIds, Long sampleQuestionId) throws InsuficientAmountOfSamplesException;
+    boolean remove(Long requestId, ValidationErrors errors);
 
     boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages);
 
     boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors);
 
-    boolean deleteRequest(Long requestId, ValidationErrors errors);
 }

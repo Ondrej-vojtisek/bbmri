@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 /**
@@ -11,7 +12,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
  * Time: 11:53
  * To change this template use File | Settings | File Templates.
  */
-public interface BiobankAdministratorService {
+public interface BiobankAdministratorService extends Get<BiobankAdministrator> {
 
     boolean hasPermission(Permission permission, Long objectId, Long userId);
 
@@ -29,5 +30,4 @@ public interface BiobankAdministratorService {
 
     boolean hasSameOrHigherPermission(Long userId, Permission permission);
 
-    BiobankAdministrator get(Long id);
 }

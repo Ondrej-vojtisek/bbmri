@@ -7,7 +7,6 @@ import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import net.sourceforge.stripes.validation.IntegerTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
                @Validate(field = "value",
                        required = true, on = "saveValidity")
        })
-    private GlobalSetting validity;
+    private Integer validity;
 
     public GlobalSettingsActionBean(){
         setComponentManager(new ComponentManager());
@@ -45,14 +44,14 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
                 "all", false, "cz.bbmri.action.globalSettings.GlobalSettingsActionBean", active);
     }
 
-    public GlobalSetting getValidity() {
+    public int getValidity() {
         if (validity == null) {
-            validity = globalSettingDao.get(GlobalSetting.RESERVATION_VALIDITY);
+            validity = globalSettingDao.getReservationValidity();
         }
         return validity;
     }
 
-    public void setValidity(GlobalSetting validity) {
+    public void setValidity(Integer validity) {
         this.validity = validity;
     }
 
@@ -69,10 +68,10 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
     @HandlesEvent("saveValidity")
     @RolesAllowed("administrator")
     public Resolution saveValidity() {
-
-        if(!globalSettingDao.set(GlobalSetting.RESERVATION_VALIDITY, validity.getValue())){
-        return new ForwardResolution(this.getClass(), "all");
+        if(!globalSettingDao.set(GlobalSetting.RESERVATION_VALIDITY, validity.toString())){
+            return new ForwardResolution(this.getClass(), "all");
         }
+
         successMsg(null);
         return new RedirectResolution(this.getClass(), "all");
     }

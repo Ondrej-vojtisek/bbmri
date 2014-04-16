@@ -2,9 +2,7 @@ package cz.bbmri.entities.infrastructure;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,13 +13,15 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Rack")
+@Table
 @Entity
 public class Rack implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     private String name;

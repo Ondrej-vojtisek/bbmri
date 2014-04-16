@@ -1,7 +1,5 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.entities.systemAdministration.GlobalSetting;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -11,7 +9,7 @@ import cz.bbmri.entities.systemAdministration.GlobalSetting;
  */
 public interface GlobalSettingDao {
 
-    GlobalSetting get(String key);
-
     boolean set(String key, String value);
+
+    int getReservationValidity();
 }

@@ -1,10 +1,13 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.UserSettingDao;
-import cz.bbmri.entities.User;
 import cz.bbmri.entities.systemAdministration.UserSetting;
-import org.hibernate.cfg.NotYetImplementedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,20 +19,36 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserSettingDaoImpl implements UserSettingDao {
 
-    public void create (UserSetting userSetting){
-        throw new NotYetImplementedException("");
+    @PersistenceContext
+    protected EntityManager em;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
+
+    public static void notNull(final Object o) throws IllegalArgumentException {
+        if (o == null) {
+            throw new IllegalArgumentException("Object can't be a null object");
+        }
     }
 
-    public UserSetting get(User user){
-        throw new NotYetImplementedException("");
+    public void create(UserSetting userSetting) {
+        notNull(userSetting);
+        em.persist(userSetting);
     }
 
-    public void set(UserSetting userSetting){
-        throw new NotYetImplementedException("");
+    public UserSetting get(Long id) {
+        notNull(id);
+        return em.find(UserSetting.class, id);
     }
 
-    public void remove (UserSetting userSetting){
-        throw new NotYetImplementedException("");
+    public void set(UserSetting userSetting) {
+        notNull(userSetting);
+        em.merge(userSetting);
+    }
+
+    public void remove(UserSetting userSetting) {
+        notNull(userSetting);
+        em.remove(userSetting);
     }
 
 }

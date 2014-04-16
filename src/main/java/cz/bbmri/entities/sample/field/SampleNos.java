@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Embeddable
 public class SampleNos implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Integer samplesNo;
 
     private Integer availableSamplesNo;
@@ -47,10 +49,8 @@ public class SampleNos implements Serializable {
         if (requestedAmount < 1) {
             return false;
         }
-        if (requestedAmount > samplesNo) {
-            return false;
-        }
-        return true;
+
+        return requestedAmount <= samplesNo;
     }
 
     // decrease amount of samples, both available and total amount

@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Embeddable
 public class SampleIdentification implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Integer year;
 
     private Integer number;

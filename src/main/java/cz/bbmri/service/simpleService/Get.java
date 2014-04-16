@@ -1,6 +1,4 @@
-package cz.bbmri.service.simple;
-
-import java.util.List;
+package cz.bbmri.service.simpleService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,9 +7,7 @@ import java.util.List;
  * Time: 15:04
  * To change this template use File | Settings | File Templates.
  */
-public interface SimpleService<T> {
-
-    List<T> all();
+public interface Get<T> {
 
     T get(Long id);
 }

@@ -2,7 +2,8 @@ package cz.bbmri.entities;
 
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
@@ -14,6 +15,8 @@ import java.util.Date;
  */
 @Entity
 public class SampleReservation extends SampleQuestion {
+
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne
     private User user;

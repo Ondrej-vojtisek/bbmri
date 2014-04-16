@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class StandaloneBox extends Box {
 
+    private static final long serialVersionUID = 1L;
+
     @ManyToOne
     private Infrastructure infrastructure;
 

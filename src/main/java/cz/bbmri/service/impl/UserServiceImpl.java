@@ -10,8 +10,6 @@ import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.facade.exceptions.AuthorizationException;
-import cz.bbmri.service.BiobankAdministratorService;
-import cz.bbmri.service.NotificationService;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -55,32 +53,23 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     @Autowired
     private UserSettingDao userSettingDao;
 
-
+    // Create test user from front-end
     public boolean create(User user, Locale locale) {
-        notNull(user);
+        if (isNull(user, "user", null)) return false;
 
         user.setCreated(new Date());
         user.setShibbolethUser(false);
+        user.getSystemRoles().add(SystemRole.USER);
         userDao.create(user);
-        setSystemRole(user.getId(), SystemRole.USER);
 
-        UserSetting userSetting = new UserSetting();
-        if (locale != null) {
-            // Set locale during first sign in
-            userSetting.setLocale(locale.getLanguage());
-        }
-
-        userSetting.setUser(user);
-        userSettingDao.create(userSetting);
+        initiateUserSetting(user, locale);
         return true;
     }
 
     public boolean remove(Long id) {
+        if (isNull(id, "id", null)) return false;
         User userDB = userDao.get(id);
-        if (userDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return false;
-        }
+        if (isNull(userDB, "userDB", null)) return false;
 
         Set<BiobankAdministrator> biobankAdministrators = userDB.getBiobankAdministrators();
         if (biobankAdministrators != null) {
@@ -116,16 +105,45 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return true;
     }
 
-    public boolean update(User user) {
-        notNull(user);
+    public boolean updateShibbolethUser(User user) {
+        if (isNull(user, "user", null)) return false;
 
         User userDB = userDao.get(user.getId());
-        if (userDB == null) {
-            logger.debug("Object retrieved from database is null");
-            return false;
+        if (isNull(userDB, "userDB", null)) return false;
+
+        // eppn, targetedId, persistentId are considered as identifiers -> impossible to change them
+
+        if (user.getName() != null) userDB.setName(user.getName());
+        if (user.getSurname() != null) userDB.setSurname(user.getSurname());
+        if (user.getOrganization() != null) userDB.setOrganization(user.getOrganization());
+        if (user.getDisplayName() != null) userDB.setDisplayName(user.getDisplayName());
+        if (user.getAffiliation() != null) userDB.setAffiliation(user.getAffiliation());
+        if (user.getLastLogin() != null) userDB.setLastLogin(user.getLastLogin());
+
+        // Set mail only if user has no email set
+        // Don't replace already inserted email -> this allows user to change contact info using web interface
+        if (user.getEmail() != null){
+            // mail is not set
+            if(userDB.getEmail() == null){
+                userDB.setEmail(user.getEmail());
+            }else{
+               // mail is empty
+               if(userDB.getEmail().isEmpty()){
+                   userDB.setEmail(user.getEmail());
+               }
+            }
         }
 
-        // TODO: pridat i Shibboleti pole
+        userDao.update(userDB);
+        return true;
+    }
+
+    // Only fields changeable from web interface
+    public User update(User user) {
+        if (isNull(user, "user", null)) return null;
+
+        User userDB = userDao.get(user.getId());
+        if (isNull(userDB, "userDB", null)) return null;
 
         if (user.getName() != null) userDB.setName(user.getName());
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
@@ -134,7 +152,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (user.getEmail() != null) userDB.setEmail(user.getEmail());
 
         userDao.update(userDB);
-        return true;
+        return userDB;
     }
 
     @Transactional(readOnly = true)
@@ -144,6 +162,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
     @Transactional(readOnly = true)
     public User get(Long id) {
+        if (isNull(id, "id", null)) return null;
         return userDao.get(id);
     }
 
@@ -152,54 +171,105 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.count();
     }
 
-    public boolean setSystemRole(Long userId, SystemRole systemRole) {
-        notNull(userId);
-        notNull(systemRole);
+    public boolean setSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors) {
+        notNull(errors);
 
-        User userDB = userDao.get(userId);
+        if (isNull(userId, "userId", errors)) return false;
+        if (isNull(systemRole, "systemRole", errors)) return false;
 
-        if (userDB == null) {
+        User userDB = get(userId);
+        if (isNull(userDB, "userDB", errors)) return false;
+
+        // not ADMINISTRATOR and neither DEVELOPER
+        if (!systemRole.equals(SystemRole.ADMINISTRATOR) && !systemRole.equals(SystemRole.DEVELOPER)) {
+            logger.debug("Other system role can't be handled this way");
+            noEffect(errors);
             return false;
         }
 
         if (userDB.getSystemRoles().contains(systemRole)) {
+            logger.debug("User already has this role");
             return false;
         }
+
         userDB.getSystemRoles().add(systemRole);
         userDao.update(userDB);
+
+        LocalizableMessage localizableMessage = null;
+        if (systemRole.equals(SystemRole.DEVELOPER)) {
+            localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleAdded", userDB.getWholeName());
+        }
+
+        if (systemRole.equals(SystemRole.ADMINISTRATOR)) {
+            localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleAdded", userDB.getWholeName());
+        }
+        if (localizableMessage != null) {
+            notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
+        }
         return true;
     }
 
-    public boolean removeSystemRole(Long userId, SystemRole systemRole) {
-        notNull(userId);
-        notNull(systemRole);
+    public boolean removeSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors) {
+        notNull(errors);
 
-        User userDB = userDao.get(userId);
+        if (isNull(userId, "userId", null)) return false;
+        if (isNull(systemRole, "systemRole", null)) return false;
 
-        if (userDB == null) {
+        // not ADMINISTRATOR and neither DEVELOPER
+        if (!systemRole.equals(SystemRole.ADMINISTRATOR) && !systemRole.equals(SystemRole.DEVELOPER)) {
+            logger.debug("Other system role can't be handled this way");
+            noEffect(errors);
             return false;
-            // TODO: exception
         }
 
+        User userDB = userDao.get(userId);
+        if (isNull(userDB, "userDB", null)) return false;
+
         if (!userDB.getSystemRoles().contains(systemRole)) {
+            logger.debug("User does not contain the systemRole");
             return false;
-            // TODO: exception
+        }
+
+        // cant remove last developer or administrator
+        if (getAllByRole(systemRole).size() == 1) {
+            if (systemRole.equals(SystemRole.DEVELOPER)) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastDeveloperRemove"));
+            }
+            if (systemRole.equals(SystemRole.ADMINISTRATOR)) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastAdministratorRemove"));
+            }
+            return false;
         }
 
         userDB.getSystemRoles().remove(systemRole);
         userDao.update(userDB);
+        LocalizableMessage localizableMessage = null;
+
+        // inform other administrators and developers
+        if (systemRole.equals(SystemRole.DEVELOPER)) {
+            localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleRemoved", userDB.getWholeName());
+        }
+        if (systemRole.equals(SystemRole.ADMINISTRATOR)) {
+            localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleRemoved", userDB.getWholeName());
+        }
+        if (localizableMessage != null) {
+            notificationDao.create(getAllByRole(systemRole),
+                    NotificationType.USER_SUPPORT, localizableMessage, null);
+        }
+
         return true;
     }
 
     @Transactional(readOnly = true)
     public List<User> getAllByRole(SystemRole systemRole) {
-        notNull(systemRole);
+        if (isNull(systemRole, "systemRole", null)) return null;
         return userDao.getAllWithSystemRole(systemRole);
     }
 
     @Transactional(readOnly = true)
     public List<User> find(User user, int requiredResults) {
-        notNull(user);
+        if (isNull(user, "user", null)) return null;
 
         if (requiredResults < 1) {
             requiredResults = Constant.MAXIMUM_FIND_RESULTS;
@@ -225,117 +295,17 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.allOrderedBy(orderByParam, desc);
     }
 
-
-    ////
-
-    public boolean setAsDeveloper(Long userId, ValidationErrors errors) {
-        notNull(userId);
-
-        User userDB = get(userId);
-        if (userDB == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
-            return false;
-        }
-
-        boolean result = setSystemRole(userId, SystemRole.DEVELOPER);
-        if (result) {
-
-            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleAdded", userDB.getWholeName());
-
-            notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
-                    NotificationType.USER_SUPPORT, localizableMessage, null);
-        }
-        return result;
-    }
-
-    public boolean setAsAdministrator(Long userId, ValidationErrors errors) {
-        notNull(userId);
-
-        User userDB = get(userId);
-        if (userDB == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
-            return false;
-        }
-
-        boolean result = setSystemRole(userId, SystemRole.ADMINISTRATOR);
-        if (result) {
-
-            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleAdded", userDB.getWholeName());
-
-            notificationDao.create(getAllByRole(SystemRole.ADMINISTRATOR),
-                    NotificationType.USER_SUPPORT, localizableMessage, null);
-        }
-        return result;
-    }
-
-    public boolean removeAdministratorRole(Long userId, ValidationErrors errors) {
-        notNull(userId);
-        User userDB = get(userId);
-        if (userDB == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
-            return false;
-        }
-        if (getAllByRole(SystemRole.ADMINISTRATOR).size() == 1) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastAdministratorRemove"));
-            return false;
-        }
-
-        boolean result = removeSystemRole(userId, SystemRole.ADMINISTRATOR);
-
-        if (result) {
-
-
-            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.administratorRoleRemoved", userDB.getWholeName());
-
-            notificationDao.create(getAllByRole(SystemRole.ADMINISTRATOR),
-                    NotificationType.USER_SUPPORT, localizableMessage, null);
-        }
-
-        return result;
-    }
-
-    public boolean removeDeveloperRole(Long userId, ValidationErrors errors) {
-        notNull(userId);
-        User userDB = get(userId);
-        if (userDB == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.databaseRecordNotFound"));
-            return false;
-        }
-        if (getAllByRole(SystemRole.DEVELOPER).size() == 1) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.UserFacadeImpl.lastDeveloperRemove"));
-            return false;
-        }
-        boolean result = removeSystemRole(userId, SystemRole.DEVELOPER);
-
-        if (result) {
-
-            LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.UserFacadeImpl.developerRoleRemoved", userDB.getWholeName());
-
-            notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
-                    NotificationType.USER_SUPPORT, localizableMessage, null);
-
-        }
-
-        return result;
-    }
-
-    public User login(Long id, String password) {
-        notNull(id);
-        notNull(password);
+    public User login(Long id, String password, Locale locale) {
+        if (isNull(id, "id", null)) return null;
 
         User userDB = get(id);
-        if (userDB == null) {
-            return null;
-        }
+        if (isNull(userDB, "userDB", null)) return null;
         if (!userDB.getPassword().equals(password)) {
             return null;
         }
 
-        if (userDB.getUserSetting() == null) {
-            UserSetting setting = new UserSetting();
-            setting.setUser(userDB);
-
-        }
+        // hack to initiace userSetting for all test users during login
+        initiateUserSetting(userDB, locale);
 
         userDB.setLastLogin(new Date());
         update(userDB);
@@ -343,21 +313,18 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     }
 
     public Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException {
-
-        if (user == null) {
-            logger.debug("Object can't be a null object -> User ");
-            return null;
-        }
+        if (isNull(user, "user", null)) return null;
 
         if (!user.isEmployee()) {
             throw new AuthorizationException("Only employees are authorized to access");
         }
 
+        // Shibboleth identifiers of user
         User userDB = get(user.getEppn(), user.getTargetedId(), user.getPersistentId());
 
         if (userDB == null) {
+            // new user to system
             create(user, locale);
-
         } else {
                 /* If user changed its credentials in system of IdentityProvider then we want to
                 * make local user stored in database up-to-date. */
@@ -367,6 +334,19 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         user.setLastLogin(new Date());
         update(user);
         return user.getId();
+    }
+
+    private void initiateUserSetting(User user, Locale locale) {
+        if (isNull(user, "user", null)) return;
+        // Setting created
+        if (user.getUserSetting() == null) {
+            UserSetting setting = new UserSetting();
+            setting.setUser(user);
+            if (locale != null) {
+                setting.setLocale(locale.getLanguage());
+            }
+            userSettingDao.create(setting);
+        }
     }
 
 

@@ -2,7 +2,6 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
-import cz.bbmri.entities.constant.Constant;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -56,8 +55,16 @@ public class BasicServiceImpl {
     public boolean isNull(final Object o, String varName, ValidationErrors errors) {
         if (o == null) {
             operationFailed(errors, null);
-            logger.error("Variable: " + varName + " is null");
-            //errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.ilegalArguments", varName));
+
+            if(errors != null){
+                // If it is possible to print in on frontend
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.ilegalArguments", varName));
+            }else{
+                // if not - than note for developer
+                logger.error("Variable: " + varName + " is null");
+                // TODO: temporal but good for testing
+                throw new IllegalArgumentException("Variable: " + varName);
+            }
             return true;
         }
         return false;
@@ -70,6 +77,13 @@ public class BasicServiceImpl {
         }
         if (ex != null) {
             logger.error(ex.getLocalizedMessage());
+        }
+    }
+
+    /* Indication that operation didn't do anything*/
+    public void noEffect(ValidationErrors errors) {
+        if (errors != null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.noEffect"));
         }
     }
 
@@ -124,36 +138,6 @@ public class BasicServiceImpl {
         }
 
         return users;
-    }
-
-    protected boolean createFolderStructure(Project project, ValidationErrors errors) {
-
-        String projectPath = storagePath + Project.PROJECT_FOLDER;
-
-        if (!ServiceUtils.folderExists(storagePath)) {
-            if (ServiceUtils.createFolder(storagePath, errors) != Constant.SUCCESS) {
-                return false;
-            }
-        }
-
-        // If this is the first created project - create folder for all projects
-
-        if (!ServiceUtils.folderExists(projectPath)) {
-            if (ServiceUtils.createFolder(projectPath, errors) != Constant.SUCCESS) {
-                return false;
-            }
-        }
-
-        // Folder for the project
-
-        if (!ServiceUtils.folderExists(project.getProjectFolderPath())) {
-            if (ServiceUtils.createFolder(project.getProjectFolderPath(), errors) != Constant.SUCCESS) {
-                return false;
-            }
-        }
-
-        return true;
-
     }
 
 }

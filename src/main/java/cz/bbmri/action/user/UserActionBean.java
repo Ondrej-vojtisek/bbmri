@@ -15,7 +15,6 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
-import java.util.List;
 
 @HttpCache(allow = false)
 @UrlBinding("/user/{$event}/{userId}")
@@ -224,7 +223,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
-        if (!userService.removeAdministratorRole(userId, getContext().getValidationErrors())) {
+        if (!userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -234,7 +233,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
-        if (!userService.removeDeveloperRole(userId, getContext().getValidationErrors())) {
+        if (!userService.removeSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -244,7 +243,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
-        if (!userService.setAsAdministrator(userId, getContext().getValidationErrors())) {
+        if (!userService.setSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -254,7 +253,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
-        if (!userService.setAsDeveloper(userId, getContext().getValidationErrors())) {
+        if (!userService.setSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg(null);
@@ -265,7 +264,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("update")
     @RolesAllowed({"user if ${isMyAccount && !isShibbolethUser}"})
     public Resolution update() {
-        if (!userService.update(user)) {
+        if (userService.update(user) == null) {
             return new ForwardResolution(UserActionBean.class, "detail").addParameter("userId", userId);
         }
         successMsg(null);

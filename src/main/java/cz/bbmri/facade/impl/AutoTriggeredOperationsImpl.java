@@ -11,9 +11,9 @@ import cz.bbmri.facade.AutoTriggeredOperations;
 import cz.bbmri.io.MonitoringDataParser;
 import cz.bbmri.io.PatientDataParser;
 import cz.bbmri.service.*;
+import cz.bbmri.service.exceptions.DuplicitEntityException;
 import cz.bbmri.service.impl.ServiceUtils;
 import net.sourceforge.stripes.action.LocalizableMessage;
-import net.sourceforge.stripes.controller.StripesFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -48,9 +47,6 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
     private SampleService sampleService;
 
     @Autowired
-    private InfrastructureService infrastructureService;
-
-    @Autowired
     private ContainerService containerService;
 
     @Autowired
@@ -69,7 +65,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
     private NotificationDao notificationDao;
 
     @Autowired
-    private SampleQuestionService sampleQuestionService;
+    private SampleReservationService sampleReservationService;
 
     @Autowired
     private RequestService requestService;
@@ -150,7 +146,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
         logger.debug("ParseMonitoringImport");
 
-        MonitoringDataParser parser = null;
+        MonitoringDataParser parser;
         try {
             parser = new MonitoringDataParser(path);
         } catch (Exception ex) {
@@ -183,8 +179,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                 boxNew.setName(box.getName());
                 boxNew.setTempMax(box.getTempMax());
                 boxNew.setTempMin(box.getTempMin());
-
-                box = boxService.createStandaloneBox(biobank.getInfrastructure().getId(), boxNew);
+                try {
+                    box = boxService.createStandaloneBox(biobank.getInfrastructure().getId(), boxNew);
+                } catch (DuplicitEntityException ex) {
+                    logger.debug("Box with this name: " + box.getName() + " is already in DB");
+                    return Constant.NOT_SUCCESS;
+                }
             } else {
                 box.setId(boxDB.getId());
                 box = boxService.update(box);
@@ -214,7 +214,13 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                 }
 
                 // create it
-                container = containerService.create(biobank.getInfrastructure().getId(), container);
+                try {
+                    container = containerService.create(biobank.getInfrastructure().getId(), container);
+                } catch (DuplicitEntityException ex) {
+                    logger.debug("Container with this name: " + container.getName() + " is already in DB");
+                    return Constant.NOT_SUCCESS;
+                }
+
             } else {
                 // container is present
                 // set id for update method to recognize that container and containerDB are the during update
@@ -231,7 +237,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                 // rack in not in DB
                 if (rackDB == null) {
                     // create it
-                    rack = rackService.create(container.getId(), rack);
+                    try {
+                        rack = rackService.create(container.getId(), rack);
+                    } catch (DuplicitEntityException ex) {
+                        logger.debug("Rack with this name: " + rack.getName() + " is already in DB");
+                        return Constant.NOT_SUCCESS;
+                    }
                 } else {
                     // set id to make rack and rackDB equal during update
                     rack.setId(rackDB.getId());
@@ -250,8 +261,12 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
                         rackBox.setName(box.getName());
                         rackBox.setTempMin(box.getTempMin());
                         rackBox.setTempMax(box.getTempMax());
-
-                        box = boxService.createRackBox(rack.getId(), rackBox);
+                        try {
+                            box = boxService.createRackBox(rack.getId(), rackBox);
+                        } catch (DuplicitEntityException ex) {
+                            logger.debug("Box with this name: " + box.getName() + " is already in DB");
+                            return Constant.NOT_SUCCESS;
+                        }
                     } else {
                         // set id to make box and boxDB equal during update
                         box.setId(boxDB.getId());
@@ -293,10 +308,10 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             positionNew.setSequentialPosition(positionDTO.getSequentialPosition());
 
             if (positionDB == null) {
-                positionNew = positionService.create(positionNew, box.getId(), sampleDB.getId());
+                positionService.create(positionNew, box.getId(), sampleDB.getId());
             } else {
                 positionNew.setId(positionDB.getId());
-                positionNew = positionService.update(positionNew);
+                positionService.update(positionNew);
             }
         }
         return Constant.SUCCESS;
@@ -306,7 +321,7 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
 
         logger.debug("ParsePatientImport");
 
-        PatientDataParser parser = null;
+        PatientDataParser parser;
         try {
             parser = new PatientDataParser(path);
         } catch (Exception ex) {
@@ -395,12 +410,15 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
             Sample sampleDB = sampleService.getByInstitutionalId(sample.getSampleIdentification().getSampleId());
 
             if (sampleDB == null) {
-                sampleService.create(sample, sample.getModule().getId());
+                // sample is not in DB
+                sampleService.create(sample, sample.getModule().getId(), null);
             } else {
                 // set primary identifier
                 sample.setId(sampleDB.getId());
                 // number of aliquotes might have changed - so update record
-                sampleService.update(sample);
+                if(sampleService.update(sample) == null){
+                    return Constant.NOT_SUCCESS;
+                }
             }
         }
 
@@ -408,45 +426,50 @@ public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTrig
     }
 
     private void setReservationAsExpired(SampleReservation sampleReservation) {
-           sampleReservation.setRequestState(RequestState.EXPIRED);
-           sampleQuestionService.update(sampleReservation);
+        sampleReservation.setRequestState(RequestState.EXPIRED);
+        // if succ
+        if (sampleReservationService.setAsExpired(sampleReservation.getId())) {
 
-           // delete all request - alocated samples are free
-           for (Request request : sampleReservation.getRequests()) {
-               requestService.remove(request.getId());
-           }
-       }
+            // delete all request - alocated samples are free
+            for (Request request : sampleReservation.getRequests()) {
+                requestService.remove(request.getId(), null);
+            }
+        }
+        else{
+            logger.error("Set reservation as expired failed");
+        }
+    }
 
-       // triggers at 0:10 each day
-       @Scheduled(cron = "10 0 * * * *")
-       public void checkReservationValidity() {
-           logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
+    // triggers at 0:10 each day
+    @Scheduled(cron = "10 0 * * * *")
+    public void checkReservationValidity() {
+        logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
 
-           Date date = new Date();
-           boolean firstValid = false;
-           for (SampleReservation sampleReservation : sampleQuestionService.getSampleReservationsOrderedByDate()) {
-               // if this date (today) is after sampleReservation.getValidity
-               // then validity is over
+        Date date = new Date();
+        boolean firstValid = false;
+        for (SampleReservation sampleReservation : sampleReservationService.getSampleReservationsOrderedByDate()) {
+            // if this date (today) is after sampleReservation.getValidity
+            // then validity is over
 
-               if (firstValid) break;
+            if (firstValid) break;
 
-               if (date.after(sampleReservation.getValidity())) {
-                   setReservationAsExpired(sampleReservation);
+            if (date.after(sampleReservation.getValidity())) {
+                setReservationAsExpired(sampleReservation);
 
-                   LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.AutoTriggeredOperationsImpl.reservationExpired");
+                LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.AutoTriggeredOperationsImpl.reservationExpired");
 
-                   notificationDao.create(sampleReservation.getUser(),
-                           NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleReservation.getId());
-               } else {
-                   // reservations are sorted from oldest to newest
-                   // if first one is valid, that all next will be also valid
-                   firstValid = true;
-               }
+                notificationDao.create(sampleReservation.getUser(),
+                        NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleReservation.getId());
+            } else {
+                // reservations are sorted from oldest to newest
+                // if first one is valid, that all next will be also valid
+                firstValid = true;
+            }
 
-           }
+        }
 
 
-       }
+    }
 
 
 }
