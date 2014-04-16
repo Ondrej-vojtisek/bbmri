@@ -20,7 +20,7 @@ public enum SystemRole {
       PROJECT_TEAM_MEMBER("project_team_member"),
       DEVELOPER("developer");
 
-      private String state;
+      private final String state;
 
       private SystemRole(String state) {
           this.state = state;

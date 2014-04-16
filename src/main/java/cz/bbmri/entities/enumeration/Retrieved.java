@@ -14,7 +14,7 @@ public enum Retrieved {
     POST("post"),
     UNKNOWN("unknown");
 
-    private String state;
+    private final String state;
 
     private Retrieved(String state) {
         this.state = state;

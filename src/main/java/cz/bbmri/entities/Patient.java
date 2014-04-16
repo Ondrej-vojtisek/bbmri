@@ -4,10 +4,8 @@ import cz.bbmri.entities.enumeration.Sex;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +15,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Patient")
+@Table
 @Entity
 public class Patient implements Serializable {
 
@@ -25,7 +23,7 @@ public class Patient implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(unique=true, length = 10)
@@ -130,9 +128,6 @@ public class Patient implements Serializable {
 
         int year = 0;
         int month = 0;
-        int day = 1;
-
-        Calendar calendar = Calendar.getInstance();
 
         if (birthMonth != null) {
             month = birthMonth;

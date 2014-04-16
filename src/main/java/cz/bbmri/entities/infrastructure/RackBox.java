@@ -29,7 +29,7 @@ public class RackBox extends Box {
         this.rack = rack;
     }
 
-    public String getType() {
-        return "RackBox";
-    }
+//    public String getType() {
+//        return "RackBox";
+//    }
 }

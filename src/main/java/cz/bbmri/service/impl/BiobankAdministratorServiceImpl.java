@@ -173,7 +173,7 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
 
 
     @Transactional(readOnly = true)
-    public boolean isLastManager(BiobankAdministrator objectAdministrator) {
+    boolean isLastManager(BiobankAdministrator objectAdministrator) {
         if (!objectAdministrator.getPermission().equals(Permission.MANAGER)) {
             return false;
         }

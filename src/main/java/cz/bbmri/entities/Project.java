@@ -15,12 +15,12 @@ import java.util.*;
  * Time: 21:18
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Project")
+@Table
 @Entity
 public class Project implements Serializable {
 
     public final static String PROJECT_FOLDER = File.separator + "project_files";
-    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
+    private final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
 
     private static final long serialVersionUID = 1L;
 
@@ -200,7 +200,7 @@ public class Project implements Serializable {
             return false;
         }
         Project other = (Project) object;
-        if (this.id == null || (this.id != null && !this.id.equals(other.id))) {
+        if (this.id == null || (!this.id.equals(other.id))) {
             return false;
         }
         return true;

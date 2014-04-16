@@ -17,7 +17,7 @@ import javax.annotation.security.PermitAll;
 @PermitAll
 @UrlBinding("/editRequest")
 @HttpCache(allow = false)
-public class EditRequestActionBean extends BasicActionBean {
+class EditRequestActionBean extends BasicActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     private static final String REQUEST_DETAIL = "/requestDetail.jsp";

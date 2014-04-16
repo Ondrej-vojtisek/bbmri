@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -28,11 +27,11 @@ import java.util.Locale;
 public class NotificationDaoImpl implements NotificationDao {
 
     @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public static void notNull(final Object o) throws IllegalArgumentException {
+    private static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object can't be a null object");
         }
@@ -68,7 +67,7 @@ public class NotificationDaoImpl implements NotificationDao {
         notification.setUser(user);
         notification.setObjectId(objectId);
 
-        Locale locale = null;
+        Locale locale;
 
         if (user.getUserSetting().getLocale() == null) {
             logger.debug("UserSettings Locale is null");

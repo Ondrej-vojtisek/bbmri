@@ -27,7 +27,7 @@ import java.util.List;
 @UrlBinding("/createrequests/{$event}/{sampleQuestionId}")
 public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private RequestService requestService;
@@ -47,7 +47,7 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
         setComponentManager(new ComponentManager());
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long sampleQuestionId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long sampleQuestionId) {
         return new Breadcrumb(CreateRequestsActionBean.class.getName(),
                 "initial", false, "cz.bbmri.action.request.CreateRequests.create", active,
                 "sampleQuestionId", sampleQuestionId);

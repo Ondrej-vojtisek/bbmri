@@ -59,7 +59,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
                 "containerId", containerId, containerName);
     }
 
-    public static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
+    private static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(InfrastructureActionBean.class.getName(),
                 "createContainerResolution", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.createContainer",
                 active, "biobankId", biobankId);
@@ -89,7 +89,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
         this.infrastructureId = infrastructureId;
     }
 
-    public Container getContainer() {
+    Container getContainer() {
         if (container == null) {
             if (containerId != null) {
                 container = containerService.get(containerId);
@@ -153,7 +153,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
                     .addParameter("biobankId", biobankId);
         }
 
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(InfrastructureActionBean.class, "all")
                 .addParameter("biobankId", biobankId);
     }

@@ -59,7 +59,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         project.setCreated(new Date());
         projectDao.create(project);
 
-        int result = ServiceUtils.createFolders(storagePath, errors,
+        int result = ServiceUtils.createFolders(errors,
                 storagePath, // base folder
                 storagePath + Project.PROJECT_FOLDER, // Projects folder
                 storagePath + project.getProjectFolderPath() // Folder for the project

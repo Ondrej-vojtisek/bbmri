@@ -1,14 +1,8 @@
 package cz.bbmri.io;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
+import java.util.*;
 
 /**
  * An implementation of <a
@@ -17,7 +11,7 @@ import javax.xml.namespace.NamespaceContext;
  * 
  * @author McDowell
  */
-public final class NamespaceContextMap implements NamespaceContext {
+final class NamespaceContextMap implements NamespaceContext {
 
   private final Map<String, String> prefixMap;
   private final Map<String, Set<String>> nsMap;
@@ -31,8 +25,8 @@ public final class NamespaceContextMap implements NamespaceContext {
    * @param prefixMappings
    *          a map of prefix:namespaceURI values
    */
-  public NamespaceContextMap(
-      Map<String, String> prefixMappings) {
+  private NamespaceContextMap(
+          Map<String, String> prefixMappings) {
     prefixMap = createPrefixMap(prefixMappings);
     nsMap = createNamespaceMap(prefixMap);
   }

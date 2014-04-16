@@ -17,17 +17,17 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@Table(name = "SampleQuestion")
+@Table
 public class SampleQuestion implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
-    @Column(name = "SPECIFICATION", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String specification;
 
     @ManyToOne
@@ -102,10 +102,7 @@ public class SampleQuestion implements Serializable {
     }
 
     private boolean checkState(RequestState requestState) {
-        if (getRequestState() == null) {
-            return false;
-        }
-        return getRequestState().equals(requestState);
+        return getRequestState() != null && getRequestState().equals(requestState);
     }
 
     public boolean isApproved() {

@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class Diagnosis implements Serializable {
 
     @Column(name="diagnosis", length = 5)
+    private
     String classification;
 
     public String getClassification() {

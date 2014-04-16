@@ -32,15 +32,15 @@ import java.lang.reflect.Method;
  * @see cz.bbmri.extension.security.SecurityHandler
  */
 @Intercepts({LifecycleStage.BindingAndValidation, LifecycleStage.CustomValidation, LifecycleStage.EventHandling, LifecycleStage.ResolutionExecution})
-public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
+class SecurityInterceptor implements Interceptor, ConfigurableComponent {
     // Key used to store the security manager before processing resolutions
-    public static final String MANAGER = java.lang.SecurityManager.class.getName();
+    private static final String MANAGER = java.lang.SecurityManager.class.getName();
 
 
     private static final String LOCALHOST_INDEX = "/index.jsp";
     private static final String SERVER_INDEX = "/auth/";
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     // Prepare the instance of logger class for current interceptor
     //  private static Logger log = LoggerFactory.getLogger(SecurityInterceptor.class);
@@ -124,7 +124,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptBindingAndValidation(ExecutionContext executionContext) throws Exception {
+    Resolution interceptBindingAndValidation(ExecutionContext executionContext) throws Exception {
 
         Resolution resolution = executionContext.proceed();
 
@@ -149,7 +149,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptEventHandling(ExecutionContext executionContext) throws Exception {
+    Resolution interceptEventHandling(ExecutionContext executionContext) throws Exception {
 
         // If user is accessing index and is using shibboleth than redirect him to dashboard
 
@@ -190,7 +190,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
      * @return the resulting {@link net.sourceforge.stripes.action.Resolution}; returns {@link ExecutionContext#proceed()} if all is well
      * @throws Exception on error
      */
-    protected Resolution interceptResolutionExecution(ExecutionContext executionContext) throws Exception {
+    Resolution interceptResolutionExecution(ExecutionContext executionContext) throws Exception {
 
 
         logger.debug("INTERCEPT: interceptResolutionExecution");
@@ -211,7 +211,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
      * @param executionContext the current execution context
      * @return whether or not the security manager allows access, if a decision can be made
      */
-    protected Boolean getAccessAllowed(ExecutionContext executionContext) {
+    Boolean getAccessAllowed(ExecutionContext executionContext) {
         logger.debug("Checking access for " + executionContext + " at " + executionContext.getLifecycleStage());
 
         Boolean accessAllowed;
@@ -238,7 +238,7 @@ public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
      * @param handler the event handler to which access was denied
      * @return the Resolution to be executed when access has been denied
      */
-    protected Resolution handleAccessDenied(ActionBean bean, Method handler) {
+    Resolution handleAccessDenied(ActionBean bean, Method handler) {
         Resolution resolution;
         if (securityManager instanceof SecurityHandler) {
             logger.debug("HandleAccessDenied");

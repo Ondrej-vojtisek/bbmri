@@ -14,7 +14,7 @@ public enum AttachmentType {
     RESULT("result"),
     OTHER("other");
 
-    private String state;
+    private final String state;
 
     private AttachmentType(String state) {
         this.state = state;

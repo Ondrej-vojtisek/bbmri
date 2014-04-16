@@ -1,9 +1,6 @@
 package cz.bbmri.service;
 
 import cz.bbmri.entities.Notification;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.enumeration.NotificationType;
-import net.sourceforge.stripes.action.LocalizableMessage;
 
 import java.util.List;
 

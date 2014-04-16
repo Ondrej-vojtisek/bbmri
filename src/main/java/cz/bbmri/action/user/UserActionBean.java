@@ -44,34 +44,34 @@ public class UserActionBean extends ComponentActionBean<User> {
         setComponentManager(new ComponentManager(ComponentManager.USER_DETAIL));
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "display", false, "cz.bbmri.entities.User.users", active);
     }
 
-    public static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
+    private static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "display", true, user.getWholeName(), active, "userId", user.getId());
     }
 
-    public static Breadcrumb getMyDetailBreadcrumb(boolean active, User user) {
+    private static Breadcrumb getMyDetailBreadcrumb(boolean active, User user) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "display", false, "logged_user", active, "userId", user.getId());
     }
 
-    public static Breadcrumb getRoleBreadcrumb(boolean active, Long userId) {
+    private static Breadcrumb getRoleBreadcrumb(boolean active, Long userId) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "rolesView", false, "cz.bbmri.action.user.UserActionBean.roles", active,
                 "userId", userId);
     }
 
-    public static Breadcrumb getPasswordBreadcrumb(boolean active, Long userId) {
+    private static Breadcrumb getPasswordBreadcrumb(boolean active, Long userId) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "changePasswordView", false, "cz.bbmri.action.user.UserActionBean.password", active,
                 "userId", userId);
     }
 
-    public static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
+    private static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
           return new Breadcrumb(UserActionBean.class.getName(),
                   "mySettingResolution", false, "cz.bbmri.action.user.UserActionBean.setting", active,
                   "userId", userId);
@@ -84,7 +84,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     private String password2;
 
 
-    public User getUser() {
+    User getUser() {
         if (user == null) {
             if (userId != null) {
                 user = userService.get(userId);
@@ -106,7 +106,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     }
 
 
-    public boolean getIsMyAccount() {
+    boolean getIsMyAccount() {
         return getContext().getMyId().equals(userId);
     }
 
@@ -174,7 +174,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.create(user, getContext().getLocale())) {
             return new ForwardResolution(this.getClass(), "display");
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -185,7 +185,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.remove(userId)) {
             return new ForwardResolution(this.getClass(), "display");
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "display");
     }
 
@@ -226,7 +226,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
@@ -236,7 +236,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.removeSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
@@ -246,7 +246,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.setSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
@@ -256,7 +256,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (!userService.setSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "rolesView").addParameter("userId", userId);
     }
 
@@ -267,7 +267,7 @@ public class UserActionBean extends ComponentActionBean<User> {
         if (userService.update(user) == null) {
             return new ForwardResolution(UserActionBean.class, "detail").addParameter("userId", userId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(UserActionBean.class, "detail").addParameter("userId", userId);
     }
 

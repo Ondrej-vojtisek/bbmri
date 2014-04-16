@@ -36,7 +36,7 @@ public class FindProjectAdminActionBean extends FindActionBean {
                 ComponentManager.PROJECT_DETAIL));
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
            return new Breadcrumb(FindProjectAdminActionBean.class.getName(),
                    "display", false, "cz.bbmri.action.project.ProjectActionBean.addAdministrator",
                    active, "projectId", projectId);

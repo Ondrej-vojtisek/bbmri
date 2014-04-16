@@ -37,7 +37,7 @@ public class FindUserActionBean extends FindActionBean {
          setComponentManager(new ComponentManager());
      }
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
             return new Breadcrumb(FindUserActionBean.class.getName(),
                     "find", false, "cz.bbmri.action.user.UserActionBean.findUser", active);
         }

@@ -12,14 +12,14 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
  * Time: 18:27
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractSampleActionBean<T> extends PermissionActionBean<T> {
+abstract class AbstractSampleActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean
-    protected SampleService sampleService;
+    private SampleService sampleService;
 
     private Sample sample;
 
-    public Sample getSample() {
+    Sample getSample() {
         if (sample == null) {
             if (sampleId != null) {
                 sample = sampleService.get(sampleId);
@@ -30,7 +30,7 @@ public abstract class AbstractSampleActionBean<T> extends PermissionActionBean<T
 
     private Long sampleId;
 
-    public Long getSampleId() {
+    Long getSampleId() {
         return sampleId;
     }
 

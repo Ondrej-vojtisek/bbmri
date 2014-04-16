@@ -1,6 +1,5 @@
 package cz.bbmri.io;
 
-import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Box;
 import cz.bbmri.entities.infrastructure.Container;
@@ -37,7 +36,7 @@ public class MonitoringDataParser extends AbstractParser {
 
     public String getBiobankId() {
 
-        String biobankId = null;
+        String biobankId;
         try {
             biobankId = executeXPath(ROOT_ELEMENT + "/@id", document);
             setBiobankPrefix(biobankId);
@@ -53,9 +52,8 @@ public class MonitoringDataParser extends AbstractParser {
     }
 
     public List<Container> getContainers() {
-        List<Container> containers = new ArrayList<Container>();
 
-        NodeList nodes = null;
+        NodeList nodes;
 
         try {
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + "container", document);
@@ -75,9 +73,8 @@ public class MonitoringDataParser extends AbstractParser {
     }
 
     public List<Rack> getRacks(Container container) {
-        List<Rack> racks = new ArrayList<Rack>();
 
-        NodeList nodes = null;
+        NodeList nodes;
 
         try {
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
@@ -98,9 +95,7 @@ public class MonitoringDataParser extends AbstractParser {
     }
 
     public List<Box> getStandaloneBoxes() {
-        List<Box> boxes = new ArrayList<Box>();
-
-        NodeList nodes = null;
+        NodeList nodes;
 
         try {
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
@@ -121,9 +116,8 @@ public class MonitoringDataParser extends AbstractParser {
     }
 
     public List<Box> getRackBoxes(Container container, Rack rack) {
-        List<Box> boxes = new ArrayList<Box>();
 
-        NodeList nodes = null;
+        NodeList nodes;
 
         try {
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
@@ -155,7 +149,7 @@ public class MonitoringDataParser extends AbstractParser {
         for (int i = 0; i < nodes.getLength(); i++) {
 
             Node node = nodes.item(i);
-            Container container = null;
+            Container container;
             container = parseContainer(node);
             if (container == null) {
                 return null;
@@ -178,7 +172,7 @@ public class MonitoringDataParser extends AbstractParser {
         for (int i = 0; i < nodes.getLength(); i++) {
 
             Node node = nodes.item(i);
-            Rack rack = null;
+            Rack rack;
             rack = parseRack(node);
             if (rack == null) {
                 return null;
@@ -200,7 +194,7 @@ public class MonitoringDataParser extends AbstractParser {
         for (int i = 0; i < nodes.getLength(); i++) {
 
             Node node = nodes.item(i);
-            Box box = null;
+            Box box;
             box = parseBox(node);
             if (box == null) {
                 return null;
@@ -216,11 +210,11 @@ public class MonitoringDataParser extends AbstractParser {
     private Container parseContainer(Node node) {
         Container container = new Container();
 
-        String id = null;
-        String location = null;
-        String capacity = null;
-        String tempMin = null;
-        String tempMax = null;
+        String id;
+        String location;
+        String capacity;
+        String tempMin;
+        String tempMax;
 
         try {
             // attributes
@@ -279,8 +273,8 @@ public class MonitoringDataParser extends AbstractParser {
     private Rack parseRack(Node node) {
         Rack rack = new Rack();
 
-        String id = null;
-        String capacity = null;
+        String id;
+        String capacity;
 
         try {
             // attributes
@@ -319,10 +313,10 @@ public class MonitoringDataParser extends AbstractParser {
 
         Box box = new Box();
 
-        String id = null;
-        String capacity = null;
-        String tempMin = null;
-        String tempMax = null;
+        String id;
+        String capacity;
+        String tempMin;
+        String tempMax;
 
         try {
             // attributes
@@ -371,7 +365,7 @@ public class MonitoringDataParser extends AbstractParser {
 
     public List<PositionDTO> getBoxPositions(Biobank biobank, Container container, Rack rack, Box box) {
 
-        NodeList nodes = null;
+        NodeList nodes;
 
         // standalone box
         if (container == null && rack == null) {
@@ -389,6 +383,10 @@ public class MonitoringDataParser extends AbstractParser {
             }
             // rack box
         } else {
+
+            if(container == null){
+                return null;
+            }
 
             try {
                 // /biobank[@id=...]/container[@id=...]/rack[@id=...]/box[@id=...]
@@ -422,7 +420,7 @@ public class MonitoringDataParser extends AbstractParser {
         // for-each not applicable
         for (int i = 0; i < nodes.getLength(); i++) {
             Node nodeItem = nodes.item(i);
-            PositionDTO position = null;
+            PositionDTO position;
             position = parsePosition(nodeItem);
             if (position == null) {
                 return null;
@@ -437,10 +435,10 @@ public class MonitoringDataParser extends AbstractParser {
     private PositionDTO parsePosition(Node node) {
         PositionDTO position = new PositionDTO();
 
-        String sampleId = null;
-        String seqPosition = null;
-        String row = null;
-        String column = null;
+        String sampleId;
+        String seqPosition;
+        String row;
+        String column;
 
         try {
 

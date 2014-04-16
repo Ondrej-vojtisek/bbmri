@@ -1,22 +1,5 @@
 package cz.bbmri.facade.impl;
 
-import cz.bbmri.entities.*;
-import cz.bbmri.entities.constant.Constant;
-import cz.bbmri.service.BiobankAdministratorService;
-import cz.bbmri.service.BiobankService;
-import cz.bbmri.service.ProjectAdministratorService;
-import cz.bbmri.service.ProjectService;
-import cz.bbmri.service.impl.ServiceUtils;
-import net.sourceforge.stripes.validation.LocalizableError;
-import net.sourceforge.stripes.validation.ValidationErrors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -24,7 +7,7 @@ import java.util.Set;
  * Time: 16:20
  * To change this template use File | Settings | File Templates.
  */
-public class BasicFacade {
+class BasicFacade {
 
 //  protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 //

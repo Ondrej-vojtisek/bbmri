@@ -26,28 +26,28 @@ import java.net.URL;
  * Time: 14:32
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractParser {
+abstract class AbstractParser {
 
     //    XML document - data import
-    protected Document document;
+    Document document;
 
-    protected String xmlFilePath;
+    private final String xmlFilePath;
 
-    protected XPathFactory xpathFactory;
+    XPathFactory xpathFactory;
 
     private NamespaceContext namespaceContext;
 
     private String biobankPrefix;
 
-    public String getBiobankPrefix() {
+    String getBiobankPrefix() {
         return biobankPrefix;
     }
 
-    public void setBiobankPrefix(String biobankPrefix) {
+    void setBiobankPrefix(String biobankPrefix) {
         this.biobankPrefix = biobankPrefix;
     }
 
-    public AbstractParser(String path, NamespaceContextMap contextMap) throws Exception {
+    AbstractParser(String path, NamespaceContextMap contextMap) throws Exception {
 
         this.xmlFilePath = path;
 
@@ -73,7 +73,7 @@ public abstract class AbstractParser {
         //  System.out.println("XPathQuery: " + xPathQuery);
     }
 
-    protected Object executeXPathForNodeSet(String xPathQuery, Node node) throws XPathExpressionException {
+    Object executeXPathForNodeSet(String xPathQuery, Node node) throws XPathExpressionException {
         logger(xPathQuery);
 
         XPath xpath = xpathFactory.newXPath();
@@ -82,7 +82,7 @@ public abstract class AbstractParser {
         return expr.evaluate(node, XPathConstants.NODESET);
     }
 
-    protected String executeXPath(String xPathQuery, Node node) throws XPathExpressionException {
+    String executeXPath(String xPathQuery, Node node) throws XPathExpressionException {
         logger(xPathQuery);
 
         XPath xpath = xpathFactory.newXPath();
@@ -92,16 +92,13 @@ public abstract class AbstractParser {
     }
 
     // tests if string not null and not empty
-    protected boolean notNullnotEmpty(String s) {
-        if (s == null) {
-            return false;
-        }
+    boolean notNullnotEmpty(String s) {
+        return s != null && !s.isEmpty();
 
-        return !s.isEmpty();
     }
 
-    protected boolean validateDocument(String xsdURL) {
-        URL schemaFile = null;
+    boolean validateDocument(String xsdURL) {
+        URL schemaFile;
 
         try {
             schemaFile = new URL(xsdURL);
@@ -112,7 +109,7 @@ public abstract class AbstractParser {
         Source xmlFile = new StreamSource(new File(xmlFilePath));
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = null;
+        Schema schema;
         try {
             schema = schemaFactory.newSchema(schemaFile);
         } catch (SAXException ex) {
@@ -139,7 +136,7 @@ public abstract class AbstractParser {
     }
 
     //    Identifier must start with biobank prefix. Otherwise false is returned
-    protected boolean hasPrefix(String identifier) {
+    boolean hasPrefix(String identifier) {
         if (identifier == null) return false;
 
         for (int i = 0; i < getBiobankPrefix().length(); i++) {

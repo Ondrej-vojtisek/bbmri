@@ -39,9 +39,9 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     private Infrastructure infrastructure;
 
-    private MyPagedListHolder<StandaloneBox> boxesPagination;
+    private final MyPagedListHolder<StandaloneBox> boxesPagination;
 
-    private ComponentManager boxComponentManager;
+    private final ComponentManager boxComponentManager;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(InfrastructureActionBean.class.getName(),
@@ -104,7 +104,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     }
 
-    public Long getInfrastructureId() {
+    Long getInfrastructureId() {
         if (getBiobank() == null) {
             return null;
         }
@@ -121,7 +121,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
         return infrastructure;
     }
 
-    public void initiatePaginationBoxes() {
+    void initiatePaginationBoxes() {
         if (page2 != null) {
             boxesPagination.setCurrentPage(page2);
         }

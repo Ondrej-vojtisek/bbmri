@@ -53,8 +53,8 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
                 "AND sample.module.patient.sex = :sex " +
                 "AND sample.materialType.type LIKE :materialType " +
                 "AND sample.retrieved = :retrieved " +
-                "AND sample.sampleIdentification.number LIKE :numberParam " +
-                "AND sample.sampleIdentification.year LIKE :year " +
+                "AND sample.sampleIdentification.number = :numberParam OR :numberParam IS NULL " +
+                "AND sample.sampleIdentification.year = :year OR :year IS NULL " +
                 "AND sample.sampleIdentification.sampleId LIKE :sampleId ", Sample.class);
 
 
@@ -73,10 +73,10 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
             typedQuery.setParameter("year", "%");
             typedQuery.setParameter("sampleId", "%");
         } else {
-            typedQuery.setParameter("numberParam", (question.getSampleIdentification().getNumber() != null ?
-                    question.getSampleIdentification().getNumber() : "%"));
-            typedQuery.setParameter("year", (question.getSampleIdentification().getYear() != null ?
-                    question.getSampleIdentification().getYear() : "%"));
+            typedQuery.setParameter("numberParam", (question.getSampleIdentification().getNumber()
+                                != null ? question.getSampleIdentification().getNumber() : null));
+            typedQuery.setParameter("year", (question.getSampleIdentification().getYear()
+                    != null ? question.getSampleIdentification().getYear() : null));
             typedQuery.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
                     question.getSampleIdentification().getSampleId() : "%"));
         }
@@ -84,47 +84,10 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleD
         return typedQuery.getResultList();
     }
 
-    public List<Sample> getSelected(Sample question, Biobank biobank) {
-//        notNull(question);
-//        Query query = null;
-//
-//        if (biobank == null) {
-//            //logger.debug("Biobank null grading not null" );
-//            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-//                    "p.diagnosis LIKE :diagnosisParam " +
-//                    "AND p.morphology LIKE :morphologyParam " +
-//                    "AND p.pTNM LIKE :pTNMParam " +
-//                    "AND p.tissueType LIKE :tissueTypeParam " +
-//                    "AND p.TNM LIKE :TNMParam ");
-//        } else {
-//            query = em.createQuery("SELECT p FROM Sample p WHERE " +
-//                    "p.diagnosis LIKE :diagnosisParam " +
-//                    "AND p.patient.biobank = :biobankParam " +
-//                    "AND p.morphology LIKE :morphologyParam " +
-//                    "AND p.pTNM LIKE :pTNMParam " +
-//                    "AND p.tissueType LIKE :tissueTypeParam " +
-//                    "AND p.TNM LIKE :TNMParam ");
-//        }
-//
-//        if (biobank != null) {
-//            query.setParameter("biobankParam", biobank);
-//        }
-//
-//        query.setParameter("diagnosisParam", (question.getDiagnosis() != null ? question.getDiagnosis() : "%"));
-//        query.setParameter("morphologyParam", (question.getMorphology() != null ? question.getMorphology() : "%"));
-//        query.setParameter("pTNMParam", (question.getpTNM() != null ? question.getpTNM() : "%"));
-//        query.setParameter("tissueTypeParam", (question.getTissueType() != null ? question.getTissueType() : "%"));
-//        query.setParameter("TNMParam", (question.getTNM() != null ? question.getTNM() : "%"));
-
-//        return query.getResultList();
-
-        return null;
-    }
-
     /* With wildcards
 
     public List<Sample> getSelected2(Sample question) {
-           Query query = null;
+           Query query;
            if (question.getBiobank() == null) {
                query = em.createQuery("SELECT p FROM Sample p WHERE p.diagnosis LIKE :diagnosisParam " +
                        "AND p.morphology LIKE :morphologyParam " +

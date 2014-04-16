@@ -92,7 +92,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("biobankId", biobankId);
 
@@ -105,7 +105,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
             return new ForwardResolution(this.getClass(),"allBiobanks");
         }
 
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(),"allBiobanks");
     }
 

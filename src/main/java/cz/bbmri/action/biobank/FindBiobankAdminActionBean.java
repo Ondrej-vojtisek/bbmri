@@ -8,7 +8,6 @@ import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
@@ -22,11 +21,11 @@ import java.util.List;
 public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
 
     @SpringBean
-    protected UserService userService;
+    private UserService userService;
 
     private User userFind;
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(FindBiobankAdminActionBean.class.getName(),
                 "display", false, "cz.bbmri.action.biobank.BiobankActionBean.addAdministrator",
                 active, "biobankId", biobankId);
@@ -40,7 +39,7 @@ public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
     }
 
 
-    public User getUserFind() {
+    User getUserFind() {
         return userFind;
     }
 

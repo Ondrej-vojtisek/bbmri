@@ -25,7 +25,7 @@ public class BasicServiceImpl {
     @Value("${StoragePath}")
     protected String storagePath;
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
     @Autowired
@@ -45,14 +45,14 @@ public class BasicServiceImpl {
 
     /* Necessary condition - use for situation like ValidationErrors = null. If this is true than even methods like isNull will
     * fail. */
-    public static void notNull(final Object o) throws IllegalArgumentException {
+    static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object must not be null!");
         }
     }
 
     /* Check for null value. Used for argument and also for objects retrieved from DB. */
-    public boolean isNull(final Object o, String varName, ValidationErrors errors) {
+    boolean isNull(final Object o, String varName, ValidationErrors errors) {
         if (o == null) {
             operationFailed(errors, null);
 
@@ -71,7 +71,7 @@ public class BasicServiceImpl {
     }
 
     /* Indication for user that operation failed and for developer note to log*/
-    public void operationFailed(ValidationErrors errors, Exception ex) {
+    void operationFailed(ValidationErrors errors, Exception ex) {
         if (errors != null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.fail"));
         }
@@ -81,14 +81,14 @@ public class BasicServiceImpl {
     }
 
     /* Indication that operation didn't do anything*/
-    public void noEffect(ValidationErrors errors) {
+    void noEffect(ValidationErrors errors) {
         if (errors != null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.noEffect"));
         }
     }
 
     /* Definition here because it is useful at more facades when we need to send notification */
-    public List<User> getProjectAdministratorsUsers(Long projectId) {
+    List<User> getProjectAdministratorsUsers(Long projectId) {
         Project projectDB = projectDao.get(projectId);
         // Project projectDB = projectService.eagerGet(projectId, true, false, false);
         List<User> users = new ArrayList<User>();
@@ -99,7 +99,7 @@ public class BasicServiceImpl {
     }
 
     /* Definition here because it is useful at more facades when we need to send notification */
-    public List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
+    List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
         Project projectDB = projectDao.get(project.getId());
         //  Project projectDB = projectService.eagerGet(project.getId(), true, false, false);
         Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
@@ -120,7 +120,7 @@ public class BasicServiceImpl {
         return users;
     }
 
-    public List<User> getOtherBiobankAdministrators(Biobank biobank, Long excludedUserId) {
+    List<User> getOtherBiobankAdministrators(Biobank biobank, Long excludedUserId) {
         Biobank biobankDB = biobankDao.get(biobank.getId());
         Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
 

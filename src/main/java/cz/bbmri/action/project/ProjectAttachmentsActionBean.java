@@ -7,7 +7,6 @@ import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.service.AttachmentService;
-import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -38,13 +37,13 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
         getPagination().setIdentifierParam("projectId");
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
         return new Breadcrumb(ProjectAttachmentsActionBean.class.getName(),
                 "attachmentsResolution", false, "cz.bbmri.entities.Attachment.attachments",
                 active, "projectId", projectId);
     }
 
-    public static Breadcrumb getAddAttachmentBreadcrumb(boolean active, Long projectId) {
+    private static Breadcrumb getAddAttachmentBreadcrumb(boolean active, Long projectId) {
         return new Breadcrumb(ProjectAttachmentsActionBean.class.getName(),
                 "addAttachment", false, "cz.bbmri.action.project.ProjectActionBean.addAttachment",
                 active, "projectId", projectId);
@@ -139,7 +138,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);
     }
 
@@ -175,7 +174,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
         }
 
         if (result == 0) {
-            successMsg(null);
+            successMsg();
         }
 
         return new RedirectResolution(this.getClass(), "attachmentsResolution").addParameter("projectId", projectId);

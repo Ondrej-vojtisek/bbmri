@@ -6,13 +6,13 @@ import net.sourceforge.stripes.config.DontAutoLoad;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.stripesstuff.plugin.security.SecurityManager;
 
 import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import org.stripesstuff.plugin.security.SecurityManager;
 
 /**
  * Security manager that implements the J2EE security annotations.
@@ -26,7 +26,7 @@ import org.stripesstuff.plugin.security.SecurityManager;
  * @version
  */
 @DontAutoLoad
-public class J2EESecurityManager implements SecurityManager
+class J2EESecurityManager implements SecurityManager
 {
 
     @SpringBean
@@ -36,7 +36,7 @@ public class J2EESecurityManager implements SecurityManager
     /**
      * Logger for this class.
      */
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     /**
      * Determines if access for the given execution context is allowed. The security manager is used to determine if
@@ -101,7 +101,7 @@ public class J2EESecurityManager implements SecurityManager
      * @see javax.annotation.security.PermitAll
      * @see javax.annotation.security.RolesAllowed
      */
-    protected Boolean determineAccessOnElement(ActionBean bean, Method handler, AnnotatedElement element){
+    Boolean determineAccessOnElement(ActionBean bean, Method handler, AnnotatedElement element){
 
         // Default decision: none
         Boolean allowed = null;
@@ -164,7 +164,7 @@ public class J2EESecurityManager implements SecurityManager
      * @param handler the current event handler; used for security decisions
      * @return {@link Boolean#TRUE TRUE} if the user is authenticated, {@link Boolean#FALSE FALSE} if not, and {@code null} if undecided
      */
-    protected Boolean isUserAuthenticated(ActionBean bean, Method handler){
+    Boolean isUserAuthenticated(ActionBean bean, Method handler){
         logger.error("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         //return bean.getContext().getRequest().getUserPrincipal() != null;
         return Boolean.FALSE;
@@ -179,7 +179,7 @@ public class J2EESecurityManager implements SecurityManager
      * @param role    the role to check
      * @return {@code true} if the user has the role, and {@code false} otherwise
      */
-    protected Boolean hasRole(ActionBean bean, Method handler, String role){
+    Boolean hasRole(ActionBean bean, Method handler, String role){
         logger.error("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         //return bean.getContext().getRequest().isUserInRole(role);
         return Boolean.FALSE;

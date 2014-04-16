@@ -34,7 +34,7 @@ public class SampleProjectsActionBean extends AbstractSampleActionBean<Project> 
         getPagination().setIdentifierParam("sampleId");
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
         return new Breadcrumb(SampleProjectsActionBean.class.getName(),
                 "projects", false, "cz.bbmri.entities.Project.projects",
                 active, "sampleId", sampleId);

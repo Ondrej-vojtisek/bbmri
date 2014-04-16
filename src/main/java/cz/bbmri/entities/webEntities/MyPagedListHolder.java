@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class MyPagedListHolder<E> extends PagedListHolder {
 
-    public static final int PAGE_SIZE = 10;
-    public static final int MAX_PAGING_WIDTH = 6;
+    private static final int PAGE_SIZE = 10;
+    private static final int MAX_PAGING_WIDTH = 6;
 
     private String orderParam;
 
@@ -34,6 +34,7 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     // if we need more pagination on one page - we need to distinguish between parameters in URL
     private String webParamDiscriminator = "";
 
+    @SuppressWarnings("unchecked")
     public MyPagedListHolder(List<E> source) {
         super(source);
         setPageSize(PAGE_SIZE);
@@ -131,8 +132,7 @@ public class MyPagedListHolder<E> extends PagedListHolder {
             return result;
         }
 
-        List<E> result = getPageList();
-        return result;
+        return (List<E>) getPageList();
     }
 
 

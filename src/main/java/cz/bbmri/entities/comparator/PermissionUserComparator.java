@@ -2,7 +2,6 @@ package cz.bbmri.entities.comparator;
 
 import cz.bbmri.entities.BiobankAdministrator;
 import cz.bbmri.entities.ProjectAdministrator;
-import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,7 @@ import java.util.Comparator;
  */
 public class PermissionUserComparator implements Comparator<Object> {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
        public int compare(Object admin1, Object admin2) {
 

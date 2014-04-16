@@ -88,7 +88,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     /* Action of project administrator - decision if the sample set is suitable or not
 //    * */
-    public boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleQuestionId", null)) return false;
@@ -159,7 +159,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     //    /* Action of project administrator - decision if the sample set is suitable or not
     //        * */
-    public boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleRequestId", null)) return false;
@@ -188,7 +188,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     //    /* Action of project administrator - decision if the sample set is suitable or not
     //      * */
-    public boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
+    public boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleRequestId", null)) return false;

@@ -12,7 +12,7 @@ public enum Sex {
     MALE("male"),
     FEMALE("female");
 
-    private String state;
+    private final String state;
 
     private Sex(String state) {
         this.state = state;

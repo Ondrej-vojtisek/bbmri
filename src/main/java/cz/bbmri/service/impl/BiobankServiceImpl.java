@@ -59,7 +59,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         }
         biobankDao.create(biobank);
         //base folder, biobanks folder, biobank folder, ...
-        int result = ServiceUtils.createFolders(storagePath, errors,
+        int result = ServiceUtils.createFolders(errors,
                 storagePath,
                 storagePath + Biobank.BIOBANK_FOLDER, // Biobanks folder
                 storagePath + biobank.getBiobankFolderPath(), // Folder for the biobank
@@ -87,7 +87,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         notNull(biobankId);
         notNull(errors);
 
-        boolean result = false;
+        boolean result;
 
         Biobank biobankDB = get(biobankId);
         if (isNull(biobankDB, "biobankDB", errors)) return false;

@@ -32,14 +32,14 @@ public class SamplePositionsActionBean extends AbstractSampleActionBean<Position
         getPagination().setIdentifierParam("sampleId");
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
         return new Breadcrumb(SamplePositionsActionBean.class.getName(),
                 "positions", false, "cz.bbmri.entities.infrastructure.Position.positions",
                 active, "sampleId", sampleId);
     }
 
 
-    public void choosePositionComparator() {
+    void choosePositionComparator() {
         if (getOrderParam() != null) {
             if (getOrderParam().equals("row")) {
                 getPagination().setComparator(new MatrixComparator());

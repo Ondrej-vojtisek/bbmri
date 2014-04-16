@@ -41,7 +41,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     private BiobankDao biobankDao;
 
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public boolean create(Sample sample, Long moduleId, ValidationErrors errors) {
         notNull(errors);

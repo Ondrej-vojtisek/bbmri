@@ -15,7 +15,7 @@ public enum ProjectState {
     CANCELED("canceled"),
     DENIED("denied"),
     FINISHED("finished");
-    private String state;
+    private final String state;
 
     private ProjectState(String state) {
         this.state = state;

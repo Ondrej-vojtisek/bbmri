@@ -22,7 +22,7 @@ public enum Permission {
     EXECUTOR("executor"),
     VISITOR("visitor");
 
-    private String state;
+    private final String state;
 
     private Permission(String state) {
         this.state = state;

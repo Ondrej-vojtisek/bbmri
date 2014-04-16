@@ -30,7 +30,7 @@ import java.util.List;
 @UrlBinding("/biobank/patient/findpatient/{biobankId}/{patientId}")
 public class FindPatientActionBean extends PermissionActionBean<Patient> {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private BiobankService biobankService;
@@ -50,7 +50,7 @@ public class FindPatientActionBean extends PermissionActionBean<Patient> {
 
     private Biobank biobank;
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(FindPatientActionBean.class.getName(),
                 "findResolution", false, "cz.bbmri.action.patient.FindPatientActionBean.findPatient", active);
     }

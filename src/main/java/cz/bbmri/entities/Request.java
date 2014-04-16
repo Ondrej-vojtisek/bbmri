@@ -10,7 +10,7 @@ import javax.persistence.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@Table(name = "Request")
+@Table
 @Entity
 public class Request {
 
@@ -20,7 +20,7 @@ public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @ManyToOne

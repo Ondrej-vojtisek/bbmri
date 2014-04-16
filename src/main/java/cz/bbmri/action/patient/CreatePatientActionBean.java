@@ -24,7 +24,7 @@ import javax.annotation.security.RolesAllowed;
 @UrlBinding("/createpatient/{biobankId}/{patientId}")
 public class CreatePatientActionBean extends PermissionActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private PatientService patientService;
@@ -64,7 +64,7 @@ public class CreatePatientActionBean extends PermissionActionBean {
             return new ForwardResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                 .addParameter("biobankId", biobankId);
     }

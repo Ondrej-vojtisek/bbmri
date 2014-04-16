@@ -35,7 +35,7 @@ public class SupportActionBean extends ComponentActionBean {
         setComponentManager(new ComponentManager());
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(SupportActionBean.class.getName(),
                 "display", false, "cz.bbmri.action.support.SupportActionBean.contacts", active);
     }

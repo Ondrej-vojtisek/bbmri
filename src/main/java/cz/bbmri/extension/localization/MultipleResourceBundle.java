@@ -9,8 +9,6 @@ package cz.bbmri.extension.localization;
  */
 
 import net.sourceforge.stripes.localization.DefaultLocalizationBundleFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -20,9 +18,7 @@ import java.util.*;
  * @author DJDaveMark
  * @author Fred Daoud
  */
-public class MultipleResourceBundle extends ResourceBundle {
-
-
+class MultipleResourceBundle extends ResourceBundle {
 
     private Locale locale;
     private List<String> bundleNames;

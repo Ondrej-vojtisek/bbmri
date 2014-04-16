@@ -127,7 +127,7 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
     }
 
     @Transactional(readOnly = true)
-    public boolean isLastManager(ProjectAdministrator objectAdministrator) {
+    boolean isLastManager(ProjectAdministrator objectAdministrator) {
         if (isNull(objectAdministrator, "objectAdministrator", null)) return false;
 
         // Not manager

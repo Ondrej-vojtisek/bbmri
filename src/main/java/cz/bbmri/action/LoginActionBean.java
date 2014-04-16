@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 @UrlBinding("/login")
 public class LoginActionBean extends BasicActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private static final String INDEX = "/index.jsp";
 

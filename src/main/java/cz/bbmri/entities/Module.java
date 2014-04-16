@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 14:00
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "module")
+@Table
 @Entity
 public class Module implements Serializable {
 
@@ -20,7 +20,7 @@ public class Module implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @OneToOne

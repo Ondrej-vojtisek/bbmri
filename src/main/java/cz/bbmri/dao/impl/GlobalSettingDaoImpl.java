@@ -24,9 +24,9 @@ import java.util.Date;
 public class GlobalSettingDaoImpl implements GlobalSettingDao {
 
     @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
      private GlobalSetting get(String key) {
         if (key == null) {
@@ -51,7 +51,7 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
         logger.debug("Key: " + key);
         logger.debug("Value: " + value);
 
-        GlobalSetting globalSetting = null;
+        GlobalSetting globalSetting;
         boolean existed = false;
 
         if(get(key) == null){

@@ -1,14 +1,10 @@
 package cz.bbmri.action;
 
-import cz.bbmri.action.base.BasicActionBean;
-import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.service.UserService;
-import net.sourceforge.stripes.action.HttpCache;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -21,14 +17,12 @@ import java.util.List;
  */
 public class FindActionBean extends PermissionActionBean {
 
-    private static int FIND_RESULTS = 5;
-
     @SpringBean
     protected UserService userService;
 
     private User userFind;
 
-    public User getUserFind() {
+    protected User getUserFind() {
         return userFind;
     }
 
@@ -40,6 +34,6 @@ public class FindActionBean extends PermissionActionBean {
         if (userFind == null) {
             return null;
         }
-        return userService.find(userFind, FIND_RESULTS);
+        return userService.find(userFind, Constant.MAXIMUM_FIND_RESULTS);
     }
 }

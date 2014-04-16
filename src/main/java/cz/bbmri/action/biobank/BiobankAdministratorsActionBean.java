@@ -10,7 +10,6 @@ import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.service.BiobankAdministratorService;
-import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -116,7 +115,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "administratorsResolution")
                 .addParameter("biobankId", biobankId);
 
@@ -136,7 +135,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
                     .addParameter("biobankId", biobankId);
         }
 
-        successMsg(null);
+        successMsg();
 
         // I've just deleted myself - I don't have access to this biobank anymore
         if (getIsMyAccount()) {
@@ -163,7 +162,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "administratorsResolution")
                 .addParameter("biobankId", biobankId);
 

@@ -26,7 +26,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     private User user;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private User getUser(ActionBean bean) {
 

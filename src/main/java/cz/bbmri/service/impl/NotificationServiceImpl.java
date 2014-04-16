@@ -5,19 +5,14 @@ import cz.bbmri.dao.UserDao;
 import cz.bbmri.dao.UserSettingDao;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
-import cz.bbmri.entities.enumeration.NotificationType;
-import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.service.NotificationService;
-import net.sourceforge.stripes.action.LocalizableMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,7 +25,7 @@ import java.util.Locale;
 @Service("notificationService")
 public class NotificationServiceImpl extends BasicServiceImpl implements NotificationService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     private UserDao userDao;

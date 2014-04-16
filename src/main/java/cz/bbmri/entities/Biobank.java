@@ -17,7 +17,7 @@ import java.util.Set;
  * Time: 21:20
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Biobank")
+@Table
 @Entity
 public class Biobank implements Serializable {
 
@@ -34,7 +34,7 @@ public class Biobank implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Column(unique=true, length = 6)

@@ -16,8 +16,6 @@ import java.util.List;
  */
 public interface SampleDao extends BasicBiobankDao<Sample>{
 
-    List<Sample> getSelected(Sample question, Biobank biobank);
-
     List<Sample> getSelected(Sample question, Biobank biobank, Patient patient, boolean lts);
 
     void create(Tissue tissue);

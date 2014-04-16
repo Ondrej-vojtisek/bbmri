@@ -3,7 +3,6 @@ package cz.bbmri.entities;
 import cz.bbmri.entities.enumeration.AttachmentType;
 
 import javax.persistence.*;
-import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -13,7 +12,7 @@ import java.io.Serializable;
  * Time: 21:23
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Attachment")
+@Table
 @Entity
 public class Attachment implements Serializable {
 
@@ -24,7 +23,7 @@ public class Attachment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)

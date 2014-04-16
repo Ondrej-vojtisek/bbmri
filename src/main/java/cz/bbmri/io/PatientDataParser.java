@@ -49,7 +49,7 @@ public class PatientDataParser extends AbstractParser {
 
     public String getBiobankId() {
 
-        String biobankId = null;
+        String biobankId;
 
         try {
 
@@ -65,11 +65,11 @@ public class PatientDataParser extends AbstractParser {
 
     public Patient getPatient() {
 
-        String patientId = null;
-        String birthYear = null;
-        String birthMonth = null;
-        String sex = null;
-        String consent = null;
+        String patientId;
+        String birthYear;
+        String birthMonth;
+        String sex;
+        String consent;
 
         try {
 
@@ -104,7 +104,7 @@ public class PatientDataParser extends AbstractParser {
 //        YEAR
 
         /* Use validity check from GYear factory */
-        GYear gYear = null;
+        GYear gYear;
         try {
             System.err.println("birthYear: " + birthYear);
             gYear = GYear.Factory.fromString(birthYear, XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -176,7 +176,7 @@ public class PatientDataParser extends AbstractParser {
     public List<Sample> getPatientLtsSamples() {
         System.out.println("GetPatientLTSSample");
 
-        Object result = null;
+        Object result;
 
         try {
             // all child nodes of LTS module
@@ -193,7 +193,7 @@ public class PatientDataParser extends AbstractParser {
 
     public List<Sample> getPatientStsSamples() {
 
-        Object result = null;
+        Object result;
 
         try {
             // all child nodes of STS module
@@ -257,14 +257,14 @@ public class PatientDataParser extends AbstractParser {
         }
 
         // child elements
-        String samplesNo = null;
-        String availableSamplesNo = null;
-        String TNM = null;
-        String pTNM = null;
-        String morphology = null;
-        String grading = null;
+        String samplesNo;
+        String availableSamplesNo;
+        String TNM;
+        String pTNM;
+        String morphology;
+        String grading;
 
-        String freezeTime = null;
+        String freezeTime;
 
         try {
 
@@ -292,7 +292,7 @@ public class PatientDataParser extends AbstractParser {
         Tissue tissue = new Tissue();
 
 //      Set all shared atributes
-        setSharedAtributes(sample, (Sample) tissue);
+        setSharedAtributes(sample, tissue);
 
 //      Number of samples
         tissue.setSampleNos(new SampleNos());
@@ -351,8 +351,8 @@ public class PatientDataParser extends AbstractParser {
             return null;
         }
 
-        String samplesNo = null;
-        String availableSamplesNo = null;
+        String samplesNo;
+        String availableSamplesNo;
 
         try {
 
@@ -370,7 +370,7 @@ public class PatientDataParser extends AbstractParser {
         Serum serum = new Serum();
 
         //      Set all shared atributes
-        setSharedAtributes(sample, (Sample) serum);
+        setSharedAtributes(sample, serum);
 
 
         //      Number of samples
@@ -396,8 +396,8 @@ public class PatientDataParser extends AbstractParser {
             return null;
         }
 
-        String samplesNo = null;
-        String availableSamplesNo = null;
+        String samplesNo;
+        String availableSamplesNo;
 
         try {
 
@@ -417,7 +417,7 @@ public class PatientDataParser extends AbstractParser {
         Genome genome = new Genome();
 
         //      Set all shared atributes
-        setSharedAtributes(sample, (Sample) genome);
+        setSharedAtributes(sample, genome);
 
         //      Number of samples
         genome.setSampleNos(new SampleNos());
@@ -443,7 +443,7 @@ public class PatientDataParser extends AbstractParser {
             return null;
         }
 
-        String diagnosis = null;
+        String diagnosis;
 
         try {
 
@@ -460,7 +460,7 @@ public class PatientDataParser extends AbstractParser {
         DiagnosisMaterial diagnosisMaterial = new DiagnosisMaterial();
 
         //      Set all shared atributes
-        setSharedAtributes(sample, (Sample) diagnosisMaterial);
+        setSharedAtributes(sample, diagnosisMaterial);
 
         diagnosisMaterial.setDiagnosis(new Diagnosis());
         if (diagnosis != null) {
@@ -510,14 +510,14 @@ public class PatientDataParser extends AbstractParser {
 
     private Sample parseSharedAtributes(Node node, boolean tissue) {
         // attributes
-        String year = null;
-        String number = null;
-        String sampleId = null;
+        String year;
+        String number;
+        String sampleId;
 
         // child elements
-        String materialType = null;
-        String retrieved = null;
-        String takingDate = null;
+        String materialType;
+        String retrieved;
+        String takingDate;
 
         try {
 

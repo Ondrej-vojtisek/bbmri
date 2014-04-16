@@ -35,7 +35,7 @@ import java.util.List;
 @Controller("autoTriggeredOperations")
 public class AutoTriggeredOperationsImpl extends BasicFacade implements AutoTriggeredOperations {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Value("${StoragePath}")
     private String storagePath;

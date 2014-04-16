@@ -31,7 +31,7 @@ public enum RequestState {
      * Pripadne ze navrzena sada neni dostatecna pro nas vyzkum
      * */
 
-    private String state;
+    private final String state;
 
     private RequestState(String state) {
         this.state = state;

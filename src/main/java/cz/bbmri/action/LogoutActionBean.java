@@ -19,7 +19,7 @@ import javax.annotation.security.PermitAll;
 @UrlBinding("/logout")
 public class LogoutActionBean extends BasicActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @PermitAll
     @DontValidate

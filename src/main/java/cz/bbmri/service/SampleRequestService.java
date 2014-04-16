@@ -23,11 +23,11 @@ public interface SampleRequestService extends SampleQuestionService {
 
     List<SampleQuestion> getSampleRequests(Long biobankId, RequestState requestState);
 
-    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors);
 
-    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors);
 
-    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
+    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors);
 
     List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc);
 }

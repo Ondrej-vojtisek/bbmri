@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  * Time: 17:14
  * To change this template use File | Settings | File Templates.
  */
-public class TheResourceBundle extends ResourceBundle
+class TheResourceBundle extends ResourceBundle
 {
     // Hold assigned instance
     // of appropriate logger
@@ -46,7 +46,7 @@ public class TheResourceBundle extends ResourceBundle
     /**
      * Additional class constructor.
      */
-    public TheResourceBundle(Locale locale, String source, String shared)
+    private TheResourceBundle(Locale locale, String source, String shared)
     {
         this(locale, null, source, shared);
     }

@@ -1,8 +1,7 @@
 package cz.bbmri.action.base;
+
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
 
     private List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
-    public List<Breadcrumb> getBreadcrumbs() {
+    protected List<Breadcrumb> getBreadcrumbs() {
         return breadcrumbs;
     }
 
@@ -34,7 +33,7 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
         this.breadcrumbs = breadcrumbs;
     }
 
-    public void initiatePagination() {
+    protected void initiatePagination() {
         if (getPage() != null) {
             getPagination().setCurrentPage(getPage());
         }
@@ -44,15 +43,15 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
         getPagination().setDesc(isDesc());
     }
 
-    public MyPagedListHolder<T> getPagination() {
+    protected MyPagedListHolder<T> getPagination() {
         return pagination;
     }
 
-    public void setPagination(MyPagedListHolder<T> pagination) {
+    protected void setPagination(MyPagedListHolder<T> pagination) {
         this.pagination = pagination;
     }
 
-    public boolean isDesc() {
+    boolean isDesc() {
         return desc;
     }
 
@@ -60,15 +59,15 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
         this.desc = desc;
     }
 
-    public String getOrderParam() {
+    protected String getOrderParam() {
         return orderParam;
     }
 
-    public void setOrderParam(String orderParam) {
+    protected void setOrderParam(String orderParam) {
         this.orderParam = orderParam;
     }
 
-    public Integer getPage() {
+    Integer getPage() {
         return page;
     }
 

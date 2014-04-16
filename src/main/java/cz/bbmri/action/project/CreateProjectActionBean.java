@@ -201,7 +201,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
         }
 
         if (result == 0) {
-            successMsg(null);
+            successMsg();
         }
 
         return new RedirectResolution(ProjectActionBean.class);

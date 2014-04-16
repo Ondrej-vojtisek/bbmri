@@ -20,12 +20,12 @@ import javax.persistence.PersistenceContext;
 public class UserSettingDaoImpl implements UserSettingDao {
 
     @PersistenceContext
-    protected EntityManager em;
+    private EntityManager em;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
-    public static void notNull(final Object o) throws IllegalArgumentException {
+    private static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object can't be a null object");
         }

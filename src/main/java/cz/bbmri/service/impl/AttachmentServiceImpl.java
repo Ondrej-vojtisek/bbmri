@@ -46,7 +46,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     private NotificationDao notificationDao;
 
     @Transactional(readOnly = true)
-    public Attachment get(Long id) {
+    Attachment get(Long id) {
         notNull(id);
         return attachmentDao.get(id);
     }
@@ -72,7 +72,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             return Constant.NOT_SUCCESS;
         }
 
-        int result = ServiceUtils.createFolders(storagePath, errors,
+        int result = ServiceUtils.createFolders(errors,
                 storagePath, // base folder
                 storagePath + Project.PROJECT_FOLDER, // Projects folder
                 storagePath + projectDB.getProjectFolderPath() // Folder for the project

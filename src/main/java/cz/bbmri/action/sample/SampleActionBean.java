@@ -1,7 +1,6 @@
 package cz.bbmri.action.sample;
 
 import cz.bbmri.action.biobank.BiobankActionBean;
-import cz.bbmri.action.biobank.BiobankSampleRequestsActionBean;
 import cz.bbmri.action.biobank.BiobankSamplesActionBean;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.sample.DiagnosisMaterial;
@@ -11,7 +10,6 @@ import cz.bbmri.entities.sample.Tissue;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -43,31 +41,19 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
     }
 
     public boolean getIsTissue() {
-        if (getSample() == null) {
-            return false;
-        }
-        return getSample() instanceof Tissue;
+        return getSample() != null && getSample() instanceof Tissue;
     }
 
     public boolean getIsSerum() {
-        if (getSample() == null) {
-            return false;
-        }
-        return getSample() instanceof Serum;
+        return getSample() != null && getSample() instanceof Serum;
     }
 
     public boolean getIsDiagnosisMaterial() {
-        if (getSample() == null) {
-            return false;
-        }
-        return getSample() instanceof DiagnosisMaterial;
+        return getSample() != null && getSample() instanceof DiagnosisMaterial;
     }
 
     public boolean getIsGenome() {
-        if (getSample() == null) {
-            return false;
-        }
-        return getSample() instanceof Genome;
+        return getSample() != null && getSample() instanceof Genome;
     }
 
     public Tissue getTissue() {

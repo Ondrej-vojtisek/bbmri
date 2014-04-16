@@ -20,7 +20,7 @@ import java.util.List;
 public class ServiceUtils extends BasicServiceImpl {
 
 
-    public static int createFolders(String storagePath, ValidationErrors errors, String... paths) {
+    public static int createFolders(ValidationErrors errors, String... paths) {
         for (String s : paths) {
             // if doesn't exist
             if (!ServiceUtils.folderExists(s)) {
@@ -79,7 +79,7 @@ public class ServiceUtils extends BasicServiceImpl {
     }
 
 
-    public static int deleteFile(String path, ValidationErrors errors) {
+    private static int deleteFile(String path, ValidationErrors errors) {
 
         File file = new File(path);
 
@@ -131,7 +131,7 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
-    public static int createFolder(String path, ValidationErrors errors) {
+    private static int createFolder(String path, ValidationErrors errors) {
 
         File dir = new File(path);
 
@@ -206,7 +206,7 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
-    public static boolean folderExists(String path) {
+    private static boolean folderExists(String path) {
         File dir = new File(path);
         if (!dir.exists()) {
             return false;

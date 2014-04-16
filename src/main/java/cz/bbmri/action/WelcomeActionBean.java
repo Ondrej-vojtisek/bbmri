@@ -7,7 +7,6 @@ import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
-import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -32,7 +31,6 @@ public class WelcomeActionBean extends BasicActionBean {
 
     private User initializeUser() {
         User user = new User();
-        user = new User();
         user.setDisplayName(getContext().getShibbolethDisplayName());
         user.setEmail(getContext().getShibbolethMail());
         user.setEppn(getContext().getShibbolethEppn());
@@ -51,7 +49,7 @@ public class WelcomeActionBean extends BasicActionBean {
         if (getContext().getIsShibbolethSession()) {
 
             User user = initializeUser();
-            Long id = null;
+            Long id ;
             try{
                 id = userService.loginShibbolethUser(user, getContext().getLocale());
             }catch(AuthorizationException ex){

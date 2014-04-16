@@ -11,7 +11,7 @@ import javax.persistence.*;
  * Time: 14:31
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "ProjectAdministrator")
+@Table
 @Entity
 public class ProjectAdministrator {
 
@@ -19,7 +19,7 @@ public class ProjectAdministrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)

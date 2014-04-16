@@ -14,7 +14,7 @@ import java.util.Comparator;
  * Time: 15:35
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "BiobankAdministrator")
+@Table
 @Entity
 public class BiobankAdministrator implements Serializable, Comparable<BiobankAdministrator> {
 
@@ -22,7 +22,7 @@ public class BiobankAdministrator implements Serializable, Comparable<BiobankAdm
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -53,7 +53,7 @@ public class BiobankAdministrator implements Serializable, Comparable<BiobankAdm
     }
 
 
-    public Long getId() {
+    Long getId() {
         return id;
     }
 

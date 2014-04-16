@@ -63,7 +63,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     }
 
 
-    public Rack getRack() {
+    Rack getRack() {
         if (rack == null) {
             if (rackId != null) {
                 rack = rackService.get(rackId);
@@ -135,7 +135,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
             return new ForwardResolution(ContainerActionBean.class, "detail")
                     .addParameter("containerId", containerId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(ContainerActionBean.class, "detail")
                 .addParameter("containerId", containerId);
     }

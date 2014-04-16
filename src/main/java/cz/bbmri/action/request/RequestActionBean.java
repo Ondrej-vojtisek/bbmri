@@ -60,7 +60,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
                 "sampleQuestionId", sampleQuestionId);
     }
 
-    public static Breadcrumb getAssignToProjectBreadcrumb(boolean active, Long sampleQuestionId) {
+    private static Breadcrumb getAssignToProjectBreadcrumb(boolean active, Long sampleQuestionId) {
         return new Breadcrumb(RequestActionBean.class.getName(),
                 "assignToProjectResolution", false, "cz.bbmri.action.request.RequestActionBean.assignToProject", active,
                 "sampleQuestionId", sampleQuestionId);
@@ -109,7 +109,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(RequestActionBean.class)
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -126,7 +126,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(RequestActionBean.class)
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -146,7 +146,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId)
                 .addParameter("biobankId", biobankId);
@@ -223,7 +223,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -235,13 +235,12 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     @RolesAllowed({"project_team_member if ${allowedProjectExecutor and isSampleQuestionClosed}"})
     public Resolution confirmChosenSet() {
         if (!sampleRequestService.confirmChosenSet(getSampleQuestionId(),
-                getContext().getValidationErrors(),
-                getContext().getMyId())) {
+                getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -253,13 +252,12 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     public Resolution denyChosenSet() {
 
         if (!sampleRequestService.denyChosenSet(getSampleQuestionId(),
-                getContext().getValidationErrors(),
-                getContext().getMyId())) {
+                getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -272,13 +270,12 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     public Resolution setAsDelivered() {
 
         if (!sampleRequestService.setAsDelivered(getSampleQuestionId(),
-                getContext().getValidationErrors(),
-                getContext().getMyId())) {
+                getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail")
                     .addParameter("sampleQuestionId", getSampleQuestionId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail")
                 .addParameter("sampleQuestionId", getSampleQuestionId())
                 .addParameter("biobankId", biobankId);
@@ -316,7 +313,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
         if (!sampleReservationService.assignReservationToProject(getSampleQuestionId(), projectId, getContext().getValidationErrors())) {
             return new ForwardResolution(ReservationActionBean.class);
         }
-        successMsg(null);
+        successMsg();
 
         return new RedirectResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId);

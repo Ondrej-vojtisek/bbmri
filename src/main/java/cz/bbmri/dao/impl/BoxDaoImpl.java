@@ -2,10 +2,12 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.BoxDao;
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.infrastructure.*;
+import cz.bbmri.entities.infrastructure.Box;
+import cz.bbmri.entities.infrastructure.Rack;
+import cz.bbmri.entities.infrastructure.RackBox;
+import cz.bbmri.entities.infrastructure.StandaloneBox;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -69,7 +71,7 @@ public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
         notNull(biobank);
         notNull(name);
 
-        Query query = null;
+        Query query;
 
         if (rack == null) {
 

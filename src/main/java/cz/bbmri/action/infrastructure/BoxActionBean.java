@@ -65,7 +65,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
 
     private Long rackId;
 
-    public static Breadcrumb getBoxBreadcrumb(boolean active, Long boxId, String boxName) {
+    private static Breadcrumb getBoxBreadcrumb(boolean active, Long boxId, String boxName) {
         return new Breadcrumb(BoxActionBean.class.getName(),
                 "detail", false, "cz.bbmri.entities.infrastructure.Box.box", active,
                 "boxId", boxId, boxName);
@@ -87,21 +87,21 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         this.rackBox = rackBox;
     }
 
-    public boolean getIsStandAloneBox() {
+    boolean getIsStandAloneBox() {
         if (getBox() != null) {
             return box instanceof StandaloneBox;
         }
         return false;
     }
 
-    public boolean getIsRackBox() {
+    boolean getIsRackBox() {
         if (getBox() != null) {
             return box instanceof RackBox;
         }
         return false;
     }
 
-    public RackBox getRackBox() {
+    RackBox getRackBox() {
         if (rackBox == null) {
             if (boxId != null) {
                 rackBox = (RackBox) boxService.get(boxId);
@@ -110,7 +110,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         return rackBox;
     }
 
-    public StandaloneBox getStandaloneBox() {
+    StandaloneBox getStandaloneBox() {
         if (standaloneBox == null) {
             if (boxId != null) {
                 standaloneBox = (StandaloneBox) boxService.get(boxId);
@@ -119,7 +119,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         return standaloneBox;
     }
 
-    public Box getBox() {
+    Box getBox() {
         if (box == null) {
             if (boxId != null) {
                 box = boxService.get(boxId);
@@ -212,7 +212,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
             return new ForwardResolution(InfrastructureActionBean.class, "all")
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(InfrastructureActionBean.class, "all")
                 .addParameter("biobankId", biobankId);
     }
@@ -224,7 +224,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
             return new ForwardResolution(RackActionBean.class, "detail")
                     .addParameter("rackId", rackId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(RackActionBean.class, "detail")
                 .addParameter("rackId", rackId);
     }

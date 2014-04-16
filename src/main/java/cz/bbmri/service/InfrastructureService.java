@@ -12,7 +12,7 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
  */
 public interface InfrastructureService  {
 
-    Infrastructure initialize(Biobank biobank);
+    void initialize(Biobank biobank);
 
     Infrastructure get(Long id);
 }

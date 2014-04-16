@@ -35,19 +35,19 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     private PatientService patientService;
 
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
                 "display", false, "cz.bbmri.entities.Patient.patient",
                 active, "patientId", patientId);
     }
 
-    public static Breadcrumb getSTSBreadcrumb(boolean active, Long patientId) {
+    private static Breadcrumb getSTSBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
                 "modulests", false, "cz.bbmri.action.patient.PatientActionBean.modulests",
                 active, "patientId", patientId);
     }
 
-    public static Breadcrumb getLTSBreadcrumb(boolean active, Long patientId) {
+    private static Breadcrumb getLTSBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
                 "modulelts", false, "cz.bbmri.action.patient.PatientActionBean.modulelts",
                 active, "patientId", patientId);
@@ -74,7 +74,7 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
         this.patientId = patientId;
     }
 
-    public Patient getPatient() {
+    Patient getPatient() {
         if (patient == null) {
             if (patientId != null) {
                 patient = patientService.get(patientId);
@@ -83,7 +83,7 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
         return patient;
     }
 
-    public void selectSampleComparator() {
+    void selectSampleComparator() {
         if (getOrderParam() != null) {
             if (getOrderParam().equals("sampleIdentification.year")) {
                 getPagination().setComparator(new YearComparator());

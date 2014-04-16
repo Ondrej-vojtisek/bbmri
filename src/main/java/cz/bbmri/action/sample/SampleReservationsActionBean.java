@@ -34,7 +34,7 @@ public class SampleReservationsActionBean extends AbstractSampleActionBean<Sampl
         getPagination().setIdentifierParam("sampleId");
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
+    private static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
         return new Breadcrumb(SampleReservationsActionBean.class.getName(),
                 "reservations", false, "cz.bbmri.entities.SampleReservation.sampleReservations",
                 active, "sampleId", sampleId);

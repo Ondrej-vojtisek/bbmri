@@ -118,7 +118,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
                     .addParameter("projectId", projectId);
         }
         // It changes data - redirect necessary
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "administratorsResolution")
                 .addParameter("projectId", projectId);
     }
@@ -134,7 +134,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "administratorsResolution")
                 .addParameter("projectId", projectId);
     }
@@ -156,7 +156,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
             return new ForwardResolution(this.getClass(), "administratorsResolution")
                     .addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "administratorsResolution")
                 .addParameter("projectId", projectId);
     }

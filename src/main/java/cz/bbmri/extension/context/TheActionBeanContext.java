@@ -3,17 +3,11 @@ package cz.bbmri.extension.context;
 import cz.bbmri.entities.Project;
 import cz.bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
-import net.sourceforge.stripes.validation.LocalizableError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Properties;
 
 /**
  * Created by IntelliJ IDEA.
@@ -51,7 +45,7 @@ public class TheActionBeanContext extends ActionBeanContext {
      * @param key   Attribute key
      * @param value Stored value
      */
-    protected void setCurrent(String key, Object value) {
+    void setCurrent(String key, Object value) {
         // Retrieve the session instance and set attribute
         getRequest().getSession().setAttribute(key, value);
     }
@@ -63,7 +57,7 @@ public class TheActionBeanContext extends ActionBeanContext {
      * @param defaultValue Default value
      * @return Loaded value or null
      */
-    protected <T> T getCurrent(String key, T defaultValue) {
+    <T> T getCurrent(String key, T defaultValue) {
         // Load the attribute from retrieved session instance
         T value = (T) getRequest().getSession().getAttribute(key);
 
@@ -101,7 +95,7 @@ public class TheActionBeanContext extends ActionBeanContext {
         return getCurrent(MY_ID, null);
     }
 
-    public void dropMyId() {
+    void dropMyId() {
         setCurrent(MY_ID, null);
     }
 
@@ -126,7 +120,7 @@ public class TheActionBeanContext extends ActionBeanContext {
     }
 
 
-    public String getHeaderParam(String param) {
+    String getHeaderParam(String param) {
         String paramText = getRequest().getHeader(param);
         if (paramText != null)
             try {

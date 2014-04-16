@@ -40,7 +40,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         return biobankId;
     }
 
-    public void setBiobankId(Long biobankId) {
+    protected void setBiobankId(Long biobankId) {
         this.biobankId = biobankId;
     }
 
@@ -57,7 +57,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     private Project project;
 
-    public Project getProject() {
+    protected Project getProject() {
 
         if (project == null) {
             if (projectId != null) {
@@ -76,7 +76,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     })
     private Biobank biobank;
 
-    public Biobank getBiobank() {
+    protected Biobank getBiobank() {
         if (biobank == null) {
             if (biobankId != null) {
                 biobank = biobankService.get(biobankId);
@@ -136,16 +136,13 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         return projectAdministratorService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
-    public boolean getAllowedProjectVisitor() {
+    protected boolean getAllowedProjectVisitor() {
         return projectAdministratorService.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
     }
 
 
     public boolean getIsNew() {
-        if (getProject() == null) {
-            return false;
-        }
-        return getProject().getProjectState().equals(ProjectState.NEW);
+        return getProject() != null && getProject().getProjectState().equals(ProjectState.NEW);
     }
 
     public boolean getIsApproved() {
@@ -156,10 +153,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getIsStarted() {
-        if (getProject() == null) {
-            return false;
-        }
-        return getProject().getProjectState().equals(ProjectState.STARTED);
+        return getProject() != null && getProject().getProjectState().equals(ProjectState.STARTED);
     }
 
     private boolean isFinished() {
@@ -169,7 +163,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         return getProject().getProjectState().equals(ProjectState.FINISHED);
     }
 
-    public boolean getIsMyAccount() {
+    protected boolean getIsMyAccount() {
         return getContext().getMyId().equals(userId);
     }
 

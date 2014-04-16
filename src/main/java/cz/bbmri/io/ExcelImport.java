@@ -1,9 +1,10 @@
 package cz.bbmri.io;
 
 import cz.bbmri.entities.User;
-//import org.apache.poi.ss.usermodel.*;
 
 import java.util.List;
+
+//import org.apache.poi.ss.usermodel.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,11 +13,11 @@ import java.util.List;
  * Time: 12:41
  * To change this template use File | Settings | File Templates.
  */
-public class ExcelImport {
+class ExcelImport {
 
     public List<User> parseExcelUserTable(String fileName) throws Exception {
        /* List<User> users = new ArrayList<User>();
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(fileName);
 

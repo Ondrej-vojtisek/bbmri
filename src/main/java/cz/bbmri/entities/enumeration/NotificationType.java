@@ -6,7 +6,6 @@ import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.action.project.ProjectAdministratorsActionBean;
 import cz.bbmri.action.project.ProjectAttachmentsActionBean;
 import cz.bbmri.action.request.RequestActionBean;
-import cz.bbmri.entities.Project;
 
 /**
  * Created with IntelliJ IDEA.
@@ -41,11 +40,11 @@ public enum NotificationType {
 
 
 
-    private String actionBeanName;
+    private final String actionBeanName;
 
-    private String confirmEvent;
+    private final String confirmEvent;
 
-    private String parameter;
+    private final String parameter;
 
   //  private String denyEvent;
 

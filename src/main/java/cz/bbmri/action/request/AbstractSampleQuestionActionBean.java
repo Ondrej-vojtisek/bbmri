@@ -33,7 +33,7 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
     }
 
 
-    public boolean getIsSampleRequest() {
+    boolean getIsSampleRequest() {
 
         if (getSampleQuestion() == null) {
             return false;
@@ -41,7 +41,7 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
         return sampleQuestion instanceof SampleRequest;
     }
 
-    public boolean getIsSampleReservation() {
+    boolean getIsSampleReservation() {
 
         if (getSampleQuestion() == null) {
             return false;
@@ -49,7 +49,7 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
         return sampleQuestion instanceof SampleReservation;
     }
 
-    public SampleQuestion getSampleQuestion() {
+    SampleQuestion getSampleQuestion() {
         if (sampleQuestion == null) {
 
             if (sampleQuestionId != null) {
@@ -69,7 +69,7 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
         return sampleQuestion;
     }
 
-    public SampleRequest getSampleRequest() {
+    SampleRequest getSampleRequest() {
         if (getSampleQuestion() == null) {
             logger.debug("getSampleRequest - getSampleQuestion Null");
             return null;

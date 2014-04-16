@@ -1,7 +1,6 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.NotificationType;
-import net.sourceforge.stripes.action.LocalizableMessage;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -16,7 +15,7 @@ import java.util.Date;
  * Time: 20:36
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Notification")
+@Table
 @Entity
 public class Notification implements Serializable {
 
@@ -25,7 +24,7 @@ public class Notification implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(name = "ID", nullable = false)
+    @Column(nullable = false)
     private Long id;
 
     @Type(type = "timestamp")

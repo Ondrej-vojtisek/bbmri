@@ -36,7 +36,7 @@ import javax.annotation.security.RolesAllowed;
 @UrlBinding("/createSample/{$event}/{biobankId}/{sampleId}")
 public class CreateSampleActionBean extends PermissionActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
 
     public CreateSampleActionBean() {
@@ -117,7 +117,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         this.diagnosisMaterial = diagnosisMaterial;
     }
 
-    public Module getModule() {
+    Module getModule() {
         if (module == null) {
             if (moduleId != null) {
                 module = moduleService.get(moduleId);
@@ -126,7 +126,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         return module;
     }
 
-    public Patient getPatient() {
+    Patient getPatient() {
         if (patient == null) {
             if (getModule() != null) {
                 patient = getModule().getPatient();
@@ -152,19 +152,19 @@ public class CreateSampleActionBean extends PermissionActionBean {
         this.sampleType = sampleType;
     }
 
-    public boolean getIsTissue() {
+    boolean getIsTissue() {
         return sampleType != null &&  sampleType.equals(SampleType.TISSUE);
     }
 
-    public boolean getIsDiagnosisMaterial() {
+    boolean getIsDiagnosisMaterial() {
         return sampleType != null && sampleType.equals(SampleType.DIAGNOSIS_MATERIAL);
     }
 
-    public boolean getIsSerum() {
+    boolean getIsSerum() {
         return sampleType != null && sampleType.equals(SampleType.SERUM);
     }
 
-    public boolean getIsGenome() {
+    boolean getIsGenome() {
         return sampleType != null && sampleType.equals(SampleType.GENOME);
     }
 
@@ -259,7 +259,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
                     .addParameter("patientId", getPatient().getId())
                     .addParameter("biobankId", biobankId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(PatientActionBean.class, "detail")
                 .addParameter("patientId", getPatient().getId())
                 .addParameter("biobankId", biobankId);

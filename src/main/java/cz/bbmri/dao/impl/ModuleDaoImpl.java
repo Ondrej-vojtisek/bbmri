@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class ModuleDaoImpl extends BasicDaoImpl<Module, Long> implements ModuleDao {
+class ModuleDaoImpl extends BasicDaoImpl<Module, Long> implements ModuleDao {
 
 }

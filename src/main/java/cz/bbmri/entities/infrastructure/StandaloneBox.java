@@ -26,7 +26,7 @@ public class StandaloneBox extends Box {
         this.infrastructure = infrastructure;
     }
 
-    public String getType(){
-         return "StandaloneBox";
-     }
+//    public String getType(){
+//         return "StandaloneBox";
+//     }
 }

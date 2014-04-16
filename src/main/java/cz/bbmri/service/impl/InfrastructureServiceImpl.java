@@ -22,18 +22,17 @@ public class InfrastructureServiceImpl extends BasicServiceImpl implements Infra
     @Autowired
     private InfrastructureDao infrastructureDao;
 
-    public Infrastructure initialize(Biobank biobank) {
-        if (isNull(biobank, "biobank", null)) return null;
+    public void initialize(Biobank biobank) {
+        if (isNull(biobank, "biobank", null)) return;
 
         if (biobank.getInfrastructure() != null) {
             logger.debug("Biobank already has infrastructure");
-            return biobank.getInfrastructure();
+            return;
         }
 
         Infrastructure infrastructure = new Infrastructure();
         infrastructure.setBiobank(biobank);
         infrastructureDao.create(infrastructure);
-        return infrastructure;
     }
 
     @Transactional(readOnly = true)

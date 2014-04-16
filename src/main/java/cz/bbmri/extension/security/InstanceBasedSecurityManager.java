@@ -37,7 +37,7 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
     /**
      * Logger for this class.
      */
-    Logger logger = LoggerFactory.getLogger(InstanceBasedSecurityManager.class);
+    private final Logger logger = LoggerFactory.getLogger(InstanceBasedSecurityManager.class);
 
 
     /**
@@ -98,7 +98,7 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
      * @param roleName the name of the role to check
      * @return {@code true} if the user has the role, and {@code false} otherwise
      */
-    protected Boolean hasRoleName(ActionBean bean, Method handler, String roleName) {
+    Boolean hasRoleName(ActionBean bean, Method handler, String roleName) {
         // Let our superclass check if the user has the required role.
         return super.hasRole(bean, handler, roleName);
     }

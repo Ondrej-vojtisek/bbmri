@@ -13,7 +13,7 @@ public enum SampleType {
     SERUM("Serum"),
     TISSUE("Tissue");
 
-    private String state;
+    private final String state;
 
     private SampleType(String state) {
         this.state = state;

@@ -124,7 +124,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
@@ -138,7 +138,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass());
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass());
     }
 
@@ -160,7 +160,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
 
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
@@ -177,7 +177,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
                 getContext().getValidationErrors())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 
@@ -189,7 +189,7 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
                 getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "detail").addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "detail").addParameter("projectId", projectId);
     }
 

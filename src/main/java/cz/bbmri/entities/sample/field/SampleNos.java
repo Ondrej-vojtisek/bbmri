@@ -46,11 +46,9 @@ public class SampleNos implements Serializable {
     }
 
     private boolean checkAmount(int requestedAmount) {
-        if (requestedAmount < 1) {
-            return false;
-        }
 
-        return requestedAmount <= samplesNo;
+        return requestedAmount >= 1 && requestedAmount <= samplesNo;
+
     }
 
     // decrease amount of samples, both available and total amount

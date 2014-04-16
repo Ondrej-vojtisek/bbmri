@@ -47,7 +47,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
     })
     private SampleQuestion sampleQuestion;
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(CreateSampleQuestion.class.getName(),
                 "createSampleRequest", false, "cz.bbmri.action.request.CreateSampleQuestion.createSampleRequest.breadcrumb",
                 active);
@@ -95,7 +95,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
             return new ForwardResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                     .addParameter("projectId", projectId);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                 .addParameter("projectId", projectId);
     }
@@ -118,7 +118,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
         if (!sampleReservationService.createSampleReservation(sampleReservation, biobankId, getLoggedUser(), getContext().getValidationErrors())) {
             return new ForwardResolution(ReservationActionBean.class, "all");
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(ReservationActionBean.class, "all");
     }
 }

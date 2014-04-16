@@ -28,7 +28,7 @@ import java.util.Set;
 @HttpCache(allow = false)
 public class BasicActionBean extends Links implements ActionBean {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private UserService userService;
@@ -57,7 +57,7 @@ public class BasicActionBean extends Links implements ActionBean {
         return componentManager;
     }
 
-    public void setComponentManager(ComponentManager componentManager) {
+    protected void setComponentManager(ComponentManager componentManager) {
         this.componentManager = componentManager;
     }
 
@@ -131,13 +131,9 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
 
-    protected void successMsg(String msg) {
-        if (msg == null) {
+    protected void successMsg() {
             getContext().getMessages().add(
                     new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.success"));
-            return;
-        }
-        getContext().getMessages().add(new LocalizableMessage("msg"));
     }
 
     public String getLastUrl() {

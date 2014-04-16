@@ -7,8 +7,6 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.Permission;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -33,7 +31,6 @@ public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrat
         typedQuery.setParameter("projectParam", project);
         typedQuery.setParameter("userParam", user);
 
-        List<ProjectAdministrator> list = typedQuery.getResultList();
         return getSingleResult();
     }
 

@@ -27,7 +27,7 @@ import javax.annotation.security.RolesAllowed;
 @UrlBinding("/biobank/create/{$event}")
 public class CreateActionBean extends FindActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
    /* Variables */
 
@@ -123,7 +123,7 @@ public class CreateActionBean extends FindActionBean {
         if(!result){
             return new ForwardResolution(BiobankActionBean.class);
         }
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(BiobankActionBean.class);
     }
 

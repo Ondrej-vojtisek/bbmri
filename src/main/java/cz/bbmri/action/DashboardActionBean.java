@@ -6,9 +6,7 @@ import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.service.NotificationService;
-import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
-import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
@@ -18,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -85,7 +82,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
         }
 
         if (notificationService.deleteNotifications(selectedNotifications)) {
-            successMsg(null);
+            successMsg();
         }
 
         return new RedirectResolution(this.getClass());
@@ -101,7 +98,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
         }
 
         if (notificationService.markAsRead(selectedNotifications)) {
-            successMsg(null);
+            successMsg();
         }
 
         return new RedirectResolution(this.getClass());

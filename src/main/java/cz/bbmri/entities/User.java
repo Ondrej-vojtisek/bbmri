@@ -17,7 +17,7 @@ import java.util.*;
  */
 
 @Entity
-@Table
+@Table(name="users") // table _user_ is used by PostgreSQL by default
 public class User implements Serializable /*, Comparable<User>*/ {
 
     private static final String AFFILIATION_EMPLOYEE = "employee@";
@@ -283,8 +283,7 @@ public class User implements Serializable /*, Comparable<User>*/ {
 
     /* Only employee is taken into account now */
     public boolean isEmployee() {
-        if (affiliation == null) return false;
-        return affiliation.contains(AFFILIATION_EMPLOYEE);
+        return affiliation != null && affiliation.contains(AFFILIATION_EMPLOYEE);
     }
 
     public UserSetting getUserSetting() {
@@ -308,7 +307,7 @@ public class User implements Serializable /*, Comparable<User>*/ {
             return false;
         }
         User other = (User) object;
-        if (this.id == null || (this.id != null && !this.id.equals(other.id))) {
+        if (this.id == null || (!this.id.equals(other.id))) {
             return false;
         }
         return true;

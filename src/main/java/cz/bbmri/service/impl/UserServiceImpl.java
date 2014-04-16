@@ -36,7 +36,7 @@ import java.util.Set;
 @Service("userService")
 public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Autowired
     private UserDao userDao;

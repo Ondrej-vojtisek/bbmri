@@ -39,7 +39,7 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
         setComponentManager(new ComponentManager());
     }
 
-    public static Breadcrumb getBreadcrumb(boolean active) {
+    private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(GlobalSettingsActionBean.class.getName(),
                 "all", false, "cz.bbmri.action.globalSettings.GlobalSettingsActionBean", active);
     }
@@ -72,7 +72,7 @@ public class GlobalSettingsActionBean extends PermissionActionBean {
             return new ForwardResolution(this.getClass(), "all");
         }
 
-        successMsg(null);
+        successMsg();
         return new RedirectResolution(this.getClass(), "all");
     }
 }

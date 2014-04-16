@@ -18,7 +18,7 @@ import java.util.Comparator;
 
 public class PermissionComparator implements Comparator<Object> {
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     public int compare(Object admin1, Object admin2) {
 

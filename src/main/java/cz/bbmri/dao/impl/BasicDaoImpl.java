@@ -1,7 +1,6 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.BasicDao;
-import cz.bbmri.entities.Attachment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -21,15 +20,15 @@ import java.util.List;
 public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 
     @PersistenceContext
-    protected EntityManager em;
+    EntityManager em;
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private Class<T> entityClass;
 
-    protected TypedQuery<T> typedQuery;
+    TypedQuery<T> typedQuery;
 
-    public BasicDaoImpl() {
+    BasicDaoImpl() {
         entityClass = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass())
                 .getActualTypeArguments()[0];
@@ -77,7 +76,7 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
         return result;
     }
 
-    public static void notNull(final Object o) throws IllegalArgumentException {
+    static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object can't be a null object");
         }
@@ -162,7 +161,7 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
 //
 //    }
 
-    protected T getSingleResult(){
+    T getSingleResult(){
         try {
             return typedQuery.getSingleResult();
         } catch (NoResultException ex) {
