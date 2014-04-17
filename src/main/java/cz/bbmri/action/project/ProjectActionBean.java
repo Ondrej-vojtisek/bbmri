@@ -90,6 +90,10 @@ public class ProjectActionBean extends PermissionActionBean<Project> {
         getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(true));
 
         initiatePagination();
+        if (getOrderParam() == null) {
+                   // default
+                   getPagination().setOrderParam("name");
+               }
         getPagination().setEvent("myProjects");
         getPagination().setSource(projectService.getProjectsSortedByUser(
                 getContext().getMyId(),

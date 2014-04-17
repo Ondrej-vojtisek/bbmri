@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 18:42
  * To change this template use File | Settings | File Templates.
  */
-class MyExceptionHandler extends DefaultExceptionHandler {
+public class MyExceptionHandler extends DefaultExceptionHandler {
     private static final String NON_SPECIFIED_ERROR = "/errors/unspecified.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());

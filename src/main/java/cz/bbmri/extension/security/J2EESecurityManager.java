@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * @version
  */
 @DontAutoLoad
-class J2EESecurityManager implements SecurityManager
+public class J2EESecurityManager implements SecurityManager
 {
 
     @SpringBean

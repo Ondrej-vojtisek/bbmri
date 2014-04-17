@@ -18,7 +18,9 @@ import java.util.*;
  * @author DJDaveMark
  * @author Fred Daoud
  */
-class MultipleResourceBundle extends ResourceBundle {
+public class MultipleResourceBundle extends ResourceBundle {
+
+
 
     private Locale locale;
     private List<String> bundleNames;

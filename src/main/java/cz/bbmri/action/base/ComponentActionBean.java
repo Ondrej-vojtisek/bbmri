@@ -25,7 +25,7 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
 
     private List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
-    protected List<Breadcrumb> getBreadcrumbs() {
+    public List<Breadcrumb> getBreadcrumbs() {
         return breadcrumbs;
     }
 
@@ -43,11 +43,11 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
         getPagination().setDesc(isDesc());
     }
 
-    protected MyPagedListHolder<T> getPagination() {
+    public MyPagedListHolder<T> getPagination() {
         return pagination;
     }
 
-    protected void setPagination(MyPagedListHolder<T> pagination) {
+    public void setPagination(MyPagedListHolder<T> pagination) {
         this.pagination = pagination;
     }
 
@@ -59,15 +59,15 @@ public abstract class ComponentActionBean<T> extends BasicActionBean {
         this.desc = desc;
     }
 
-    protected String getOrderParam() {
+    public String getOrderParam() {
         return orderParam;
     }
 
-    protected void setOrderParam(String orderParam) {
+    public void setOrderParam(String orderParam) {
         this.orderParam = orderParam;
     }
 
-    Integer getPage() {
+    public Integer getPage() {
         return page;
     }
 

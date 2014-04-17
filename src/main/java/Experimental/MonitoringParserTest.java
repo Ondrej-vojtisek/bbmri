@@ -23,7 +23,7 @@ public class MonitoringParserTest {
 
 
 
-        MonitoringDataParser parser = null;
+        MonitoringDataParser parser;
         try {
             parser = new MonitoringDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\monitoring_data\\monitoring-zaplneni.xsd.xml");
         } catch (Exception ex) {

@@ -32,13 +32,9 @@ import java.lang.reflect.Method;
  * @see cz.bbmri.extension.security.SecurityHandler
  */
 @Intercepts({LifecycleStage.BindingAndValidation, LifecycleStage.CustomValidation, LifecycleStage.EventHandling, LifecycleStage.ResolutionExecution})
-class SecurityInterceptor implements Interceptor, ConfigurableComponent {
+public class SecurityInterceptor implements Interceptor, ConfigurableComponent {
     // Key used to store the security manager before processing resolutions
     private static final String MANAGER = java.lang.SecurityManager.class.getName();
-
-
-    private static final String LOCALHOST_INDEX = "/index.jsp";
-    private static final String SERVER_INDEX = "/auth/";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

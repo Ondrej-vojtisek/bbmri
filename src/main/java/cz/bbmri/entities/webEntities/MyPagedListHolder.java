@@ -34,7 +34,6 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     // if we need more pagination on one page - we need to distinguish between parameters in URL
     private String webParamDiscriminator = "";
 
-    @SuppressWarnings("unchecked")
     public MyPagedListHolder(List<E> source) {
         super(source);
         setPageSize(PAGE_SIZE);

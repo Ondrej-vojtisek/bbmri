@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  * Time: 14:56
  * To change this template use File | Settings | File Templates.
  */
-class CustomLocalizationBundleFactory implements LocalizationBundleFactory
+public class CustomLocalizationBundleFactory implements LocalizationBundleFactory
 {
     // Hold the instance of logger class for resource usage dubugging
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());

@@ -3,9 +3,6 @@ package experimental;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
 import cz.bbmri.io.PatientDataParser;
-import cz.bbmri.service.PatientService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class TestParser {
 
         System.out.println("ParsePatientImport");
 
-        PatientDataParser parser = null;
+        PatientDataParser parser;
         try {
 
             parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\biobank-data.xsd.xml");

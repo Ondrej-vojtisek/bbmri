@@ -63,7 +63,7 @@ public class HelloWorld {
     public static List<User> parseUserFile(String filename) throws Exception {
           /*
         List<User> users = new ArrayList<User>();
-        FileInputStream fis = null;
+        FileInputStream fis;
            try {
                     fis = new FileInputStream(filename);
 
@@ -150,7 +150,7 @@ public class HelloWorld {
     public static List<Sample> parseSampleFile(String filename) throws Exception {
 
         /*List<Sample> samples = new ArrayList<Sample>();
-           FileInputStream fis = null;
+           FileInputStream fis;
               try {
                          fis = new FileInputStream(filename);
 
