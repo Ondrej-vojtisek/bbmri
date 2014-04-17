@@ -1,12 +1,12 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 19.2.14
- * Time: 15:11
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public enum SampleType {
     DIAGNOSIS_MATERIAL("Diagnosis material"),
     GENOME("Genome"),

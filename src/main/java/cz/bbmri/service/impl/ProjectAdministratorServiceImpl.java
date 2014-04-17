@@ -19,11 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.11.13
- * Time: 16:44
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 @Transactional
 @Service("projectAdministratorService")

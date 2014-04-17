@@ -5,12 +5,12 @@ import cz.bbmri.entities.Notification;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 15.12.13
- * Time: 13:33
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface NotificationService /*extends BasicService<Notification> */ {
 
  //   boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);

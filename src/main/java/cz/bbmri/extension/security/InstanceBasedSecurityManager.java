@@ -18,6 +18,13 @@ import java.util.regex.Pattern;
 
 
 /**
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
+ */
+
+/**
  * Security manager for the Stripes framework that handles the J2EE security annotations, but also
  * applies instance based security.
  * <p/>

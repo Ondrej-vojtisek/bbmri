@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 12.2.14
- * Time: 12:07
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/sample/{$event}/{sampleId}")
 public class SampleActionBean extends AbstractSampleActionBean<Sample> {
 

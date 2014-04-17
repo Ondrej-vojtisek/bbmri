@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 6.3.14
- * Time: 19:58
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public abstract class ComponentActionBean<T> extends BasicActionBean {
 
     private Integer page;

@@ -19,12 +19,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 17.11.12
- * Time: 20:49
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @HttpCache(allow = false)
 public class BasicActionBean extends Links implements ActionBean {
 

@@ -13,12 +13,12 @@ import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 22.12.13
- * Time: 12:45
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @PermitAll
 @HttpCache(allow = false)
 @UrlBinding("/notAuthorized")

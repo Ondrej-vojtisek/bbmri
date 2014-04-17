@@ -11,12 +11,12 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 29.8.13
- * Time: 15:59
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface AttachmentService extends Update<Attachment> {
 
     int createAttachment(FileBean fileBean,

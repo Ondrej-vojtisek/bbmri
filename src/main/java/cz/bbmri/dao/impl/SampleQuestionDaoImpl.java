@@ -5,17 +5,15 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 2.4.13
- * Time: 20:34
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> implements SampleQuestionDao {
 

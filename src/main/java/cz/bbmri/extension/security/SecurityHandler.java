@@ -1,17 +1,16 @@
 package cz.bbmri.extension.security;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 18.7.13
- * Time: 11:49
- * To change this template use File | Settings | File Templates.
- */
-
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.Resolution;
 
 import java.lang.reflect.Method;
+
+/**
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
+ */
 
 /**
  * Optional interface that can be implemented by a SecurityManager to determine

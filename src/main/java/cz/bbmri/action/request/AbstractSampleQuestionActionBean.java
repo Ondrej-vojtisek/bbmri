@@ -8,12 +8,12 @@ import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 16.3.14
- * Time: 17:41
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class AbstractSampleQuestionActionBean extends PermissionActionBean {
 
     @SpringBean

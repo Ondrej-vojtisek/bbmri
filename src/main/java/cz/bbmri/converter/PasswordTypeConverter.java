@@ -1,12 +1,5 @@
 package cz.bbmri.converter;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 17.4.14
- * Time: 12:22
- * To change this template use File | Settings | File Templates.
- */
 
 import net.sourceforge.stripes.util.Base64;
 import net.sourceforge.stripes.validation.TypeConverter;
@@ -17,41 +10,29 @@ import org.slf4j.LoggerFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
-import java.util.Formatter;
 import java.util.Locale;
 
 /**
- * Password converter in order to store the passwords hashed.
+ * Password converter in order to store the passwords in database hashed.
+ * SHA-256 algorithm is used as hash function.
  *
- * @author Sochi
- * @version 0.1
+ * Password is used only for local testing only. There is used another authentication mechanism
+ * in real application deployment (authentication based on federations).
+ *
+ * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class PasswordTypeConverter implements TypeConverter<String> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Override
     public String convert(String input, Class<? extends String> name, Collection<ValidationError> errors) {
-        logger.debug("HASHED PASSWORD: " + hash(input));
         return hash(input);
     }
-
-    public String hex(String input) {
-        // Create new instance of formatter
-        Formatter formatter = new Formatter();
-
-        // Load the prepared bytes
-        byte[] hash = prepare(input);
-
-        // Iterate through
-        for (byte b : hash) {
-            formatter.format("%02x", b);
-        }
-
-        // Return the complete string
-        return formatter.toString();
-    }
-
+    //TODO
     /**
      * Hashes the given input using SHA-1 algorithm.
      *
@@ -67,7 +48,7 @@ public class PasswordTypeConverter implements TypeConverter<String> {
             throw new IllegalArgumentException(e);
         }
     }
-
+    //TODO
     /**
      * Returns the hash based on the input given.
      *
@@ -79,6 +60,7 @@ public class PasswordTypeConverter implements TypeConverter<String> {
         return Base64.encodeBytes(prepare(password));
     }
 
+    //TODO
     @Override
     public void setLocale(Locale locale) {
         // Nothing to be done here

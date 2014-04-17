@@ -18,11 +18,10 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 21.1.14
- * Time: 13:24
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @UrlBinding("/samplerequest/{$event}/{biobankId}/{sampleQuestionId}")

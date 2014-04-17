@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.RolesAllowed;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 15.10.13
- * Time: 16:25
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
 public class CreateActionBean extends FindActionBean {

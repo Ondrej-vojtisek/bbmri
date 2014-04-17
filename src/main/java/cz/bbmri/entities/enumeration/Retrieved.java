@@ -1,12 +1,12 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 11.2.14
- * Time: 13:09
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public enum Retrieved {
 
     PREOPERATIONAL("preoperational"),

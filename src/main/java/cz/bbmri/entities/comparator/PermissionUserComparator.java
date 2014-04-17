@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 12.3.14
- * Time: 14:44
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class PermissionUserComparator implements Comparator<Object> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());

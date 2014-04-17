@@ -15,12 +15,12 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.RolesAllowed;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.3.14
- * Time: 14:59
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/globalsettings/{$event}")
 public class GlobalSettingsActionBean extends PermissionActionBean {
 

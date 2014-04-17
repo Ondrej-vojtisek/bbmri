@@ -1,6 +1,6 @@
 package cz.bbmri.dao.impl;
 
-import cz.bbmri.dao.BasicDao;
+import cz.bbmri.dao.simple.BasicDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -11,13 +11,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.8.13
- * Time: 16:33
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
+
+public abstract class BasicDaoImpl<T, E> implements BasicDao<T> {
 
     @PersistenceContext
     EntityManager em;
@@ -49,7 +48,7 @@ public abstract class BasicDaoImpl<T, E> implements BasicDao<T, E> {
         em.merge(t);
     }
 
-    public T get(E id) {
+    public T get(Long id) {
         notNull(id);
         return em.find(entityClass, id);
     }

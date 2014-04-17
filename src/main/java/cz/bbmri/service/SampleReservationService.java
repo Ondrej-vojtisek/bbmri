@@ -9,12 +9,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 16.4.14
- * Time: 0:17
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface SampleReservationService extends SampleQuestionService {
 
     boolean setAsExpired(Long Id);

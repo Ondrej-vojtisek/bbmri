@@ -5,17 +5,14 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.infrastructure.Container;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.2.14
- * Time: 15:08
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements ContainerDao {
 

@@ -14,12 +14,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 15.2.14
- * Time: 17:37
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface BoxService extends Remove, Update<Box>, Get<Box> {
 
     boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors);

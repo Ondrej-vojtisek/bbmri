@@ -5,11 +5,9 @@ import cz.bbmri.entities.Module;
 import org.springframework.stereotype.Repository;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 19.2.14
- * Time: 13:37
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
 @Repository
 class ModuleDaoImpl extends BasicDaoImpl<Module, Long> implements ModuleDao {

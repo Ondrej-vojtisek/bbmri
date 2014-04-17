@@ -17,11 +17,9 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 15.12.13
- * Time: 12:56
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
 @Repository
 public class NotificationDaoImpl implements NotificationDao {

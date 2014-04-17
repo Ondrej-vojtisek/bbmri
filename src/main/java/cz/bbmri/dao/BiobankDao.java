@@ -1,15 +1,14 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.Biobank;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 11.10.12
- * Time: 12:14
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public interface BiobankDao extends BasicDao<Biobank, Long> {
+public interface BiobankDao extends BasicDao<Biobank> {
 
     Biobank getBiobankByAbbreviation(String abbreviation);
 

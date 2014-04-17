@@ -12,12 +12,11 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 24.9.13
- * Time: 13:12
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrator, Long>
         implements BiobankAdministratorDao {

@@ -10,11 +10,10 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 24.10.12
- * Time: 0:45
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 public class TheActionBeanContext extends ActionBeanContext {

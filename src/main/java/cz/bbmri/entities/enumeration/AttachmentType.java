@@ -1,12 +1,12 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.3.13
- * Time: 11:14
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public enum AttachmentType {
     PATIENT_AGREEMENT("patient"),
     ETHICAL_AGREEMENT("ethical"),

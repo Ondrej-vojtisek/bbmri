@@ -15,12 +15,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 12.3.14
- * Time: 9:32
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/project/attachments/{$event}/{projectId}")
 public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachment> {
 

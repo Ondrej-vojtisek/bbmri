@@ -6,12 +6,12 @@ import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 18:27
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 abstract class AbstractSampleActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean

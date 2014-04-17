@@ -8,12 +8,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 7.11.12
- * Time: 0:22
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface SampleService extends All<Sample>, Count, Get<Sample>, Remove, Update<Sample> {
 
     boolean create(Sample sample, Long moduleId, ValidationErrors errors);

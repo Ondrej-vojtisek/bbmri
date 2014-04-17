@@ -15,12 +15,12 @@ import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 18.12.13
- * Time: 12:58
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @PermitAll
 @UrlBinding("/support")
 @HttpCache(allow = false)

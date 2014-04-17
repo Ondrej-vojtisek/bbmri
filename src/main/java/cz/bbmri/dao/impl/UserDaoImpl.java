@@ -5,17 +5,14 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 11.10.12
- * Time: 12:26
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class UserDaoImpl extends BasicDaoImpl<User, Long> implements UserDao {
 

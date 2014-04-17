@@ -3,11 +3,10 @@ package cz.bbmri.entities;
 import javax.persistence.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 21.11.12
- * Time: 9:55
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Table

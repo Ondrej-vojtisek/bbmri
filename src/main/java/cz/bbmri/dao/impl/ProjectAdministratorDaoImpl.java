@@ -10,12 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 27.9.13
- * Time: 9:43
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrator, Long> implements ProjectAdministratorDao {
 

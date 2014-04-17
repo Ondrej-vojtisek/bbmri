@@ -9,12 +9,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 2.11.12
- * Time: 18:15
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface ProjectService extends Get<Project>, All<Project> {
 
     List<Project> allOrderedBy(String orderByParam, boolean desc);

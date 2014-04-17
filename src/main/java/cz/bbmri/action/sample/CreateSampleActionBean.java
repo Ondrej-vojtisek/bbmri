@@ -24,11 +24,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.RolesAllowed;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 12.2.14
- * Time: 13:51
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @HttpCache(allow = false)

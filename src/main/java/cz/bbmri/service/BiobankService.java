@@ -9,12 +9,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 5.11.12
- * Time: 20:02
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface BiobankService extends All<Biobank>, Get<Biobank>, Count {
 
     public List<Biobank> allOrderedBy(String orderByParam, boolean desc);

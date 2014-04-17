@@ -1,15 +1,16 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
+
 import javax.persistence.Entity;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 10.2.14
- * Time: 18:17
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Entity
 public class Serum extends Sample {
 }

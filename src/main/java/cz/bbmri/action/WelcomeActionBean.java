@@ -10,12 +10,12 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 12.11.13
- * Time: 16:06
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/welcome")
 @HttpCache(allow = false)
 public class WelcomeActionBean extends BasicActionBean {

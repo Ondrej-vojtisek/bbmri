@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 18:48
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class SampleComparator implements Comparator<Position> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());

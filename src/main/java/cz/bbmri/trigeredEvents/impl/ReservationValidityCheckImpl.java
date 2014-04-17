@@ -15,12 +15,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 17.4.14
- * Time: 11:53
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class ReservationValidityCheckImpl extends Basic implements ReservationValidityCheck {
 
     @Autowired

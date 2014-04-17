@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 25.7.13
- * Time: 16:50
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @PermitAll
 @UrlBinding("/editRequest")
 @HttpCache(allow = false)

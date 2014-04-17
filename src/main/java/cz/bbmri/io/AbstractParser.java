@@ -20,11 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 24.3.14
- * Time: 14:32
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 abstract class AbstractParser {
 

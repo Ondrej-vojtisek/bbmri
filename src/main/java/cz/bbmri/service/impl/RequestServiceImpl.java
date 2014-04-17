@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 21.11.12
- * Time: 10:18
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Transactional
 @Service("requestService")
 public class RequestServiceImpl extends BasicServiceImpl implements RequestService {

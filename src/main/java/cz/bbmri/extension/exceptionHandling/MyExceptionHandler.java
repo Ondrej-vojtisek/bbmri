@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 22.12.13
- * Time: 18:42
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class MyExceptionHandler extends DefaultExceptionHandler {
     private static final String NON_SPECIFIED_ERROR = "/errors/unspecified.jsp";
 

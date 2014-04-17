@@ -9,13 +9,11 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 10.10.12
- * Time: 21:10
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
-
 @Entity
 @Table(name="users") // table _user_ is used by PostgreSQL by default
 public class User implements Serializable /*, Comparable<User>*/ {

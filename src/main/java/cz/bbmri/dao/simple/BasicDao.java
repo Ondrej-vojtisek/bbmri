@@ -1,17 +1,16 @@
-package cz.bbmri.dao;
+package cz.bbmri.dao.simple;
 
 import java.util.List;
 
 /**
  * Generic DAO (Data Access Object) interface which is used to define basic operation on each defined entities.
- * It is used to achieve basic CRUD operations without relationship between objects.
+ * It is used to achieve basic CRUD operations without relationship between objects and basic SQL queries. Type T
+ * represents entity (e.g. User, Biobank, Project etc, ...) which the implementation will manage.
  *
- *
- * User: Ori
- * Date: 22.7.13
- * Time: 12:52
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public interface BasicDao<T, E> {
+
+public interface BasicDao<T> {
 
     /**
      * Retrieves all objects of given type stored in database - SELECT * FROM T;
@@ -27,7 +26,7 @@ public interface BasicDao<T, E> {
      * @param id - unique identifier of object which we want to retrieve from DB
      * @return object of given type T
      */
-      T get(E id);
+      T get(Long id);
 
     /**
      * Insert instance of object T into database.
@@ -66,16 +65,5 @@ public interface BasicDao<T, E> {
      * @return List of all instances of type T ordered by given parameter.
      */
     List<T> allOrderedBy(String orderByParam, boolean desc);
-
-
-    /**
-     * Return n instances of type T ordered by given parameter. Boolean changes if it is ordered DESC or ASC. Number = n.
-     *
-     * @param orderByParam - name of object atribute e.g. "name" which will be used for order
-     * @param desc - flag determining if order will be DESC or default ASC
-     * @param number - number of objects which will be returned (if possible)
-     * @return List of n instances of type T ordered by given parameter.
-     */
-    // List<T> nOrderedBy(String orderByParam, boolean desc, int number);
 
 }

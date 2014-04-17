@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 2.4.13
- * Time: 20:44
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Transactional
 @Service("sampleQuestionService")
 class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuestionService {

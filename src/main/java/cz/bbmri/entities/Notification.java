@@ -7,14 +7,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 14.12.13
- * Time: 20:36
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Table
 @Entity
 public class Notification implements Serializable {

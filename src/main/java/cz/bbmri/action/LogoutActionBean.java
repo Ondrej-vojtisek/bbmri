@@ -8,11 +8,10 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.PermitAll;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 28.1.14
- * Time: 17:03
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @HttpCache(allow = false)

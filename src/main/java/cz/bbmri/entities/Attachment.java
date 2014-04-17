@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 25.2.13
- * Time: 21:23
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Table
 @Entity
 public class Attachment implements Serializable {

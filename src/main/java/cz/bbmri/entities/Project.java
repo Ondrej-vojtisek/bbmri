@@ -9,12 +9,12 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 10.10.12
- * Time: 21:18
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Table
 @Entity
 public class Project implements Serializable {

@@ -5,16 +5,12 @@ import cz.bbmri.entities.infrastructure.Box;
 import cz.bbmri.entities.infrastructure.Position;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 14.2.14
- * Time: 23:51
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class PositionDaoImpl extends BasicDaoImpl<Position, Long> implements PositionDao {
 

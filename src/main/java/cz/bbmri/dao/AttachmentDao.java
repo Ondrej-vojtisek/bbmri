@@ -1,19 +1,18 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.User;
 
 import java.util.List;
 
 /**
+ * TODO
  *
- * User: Ori
- * Date: 25.2.13
- * Time: 21:51
- * To change this template use File | Settings | File Templates.
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public interface AttachmentDao extends BasicDao<Attachment, Long> {
+
+public interface AttachmentDao extends BasicDao<Attachment> {
 
     List<Attachment> getAttachmentsByProject(Project project);
 

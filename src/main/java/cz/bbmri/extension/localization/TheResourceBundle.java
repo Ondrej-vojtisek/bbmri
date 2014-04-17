@@ -8,11 +8,11 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 15.12.13
- * Time: 17:14
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author sochi
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 public class TheResourceBundle extends ResourceBundle
 {

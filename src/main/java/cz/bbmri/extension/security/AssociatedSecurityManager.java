@@ -13,6 +13,14 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+
+/**
+ * TODO
+ *
+ * @author sochi
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
+ */
 public class AssociatedSecurityManager extends InstanceBasedSecurityManager implements SecurityHandler {
 
     /*
@@ -21,8 +29,6 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     * employee
     *
     * */
-    private static final String AFFILIATION_EMPLOYEE = "employee@";
-
 
     private User user;
 

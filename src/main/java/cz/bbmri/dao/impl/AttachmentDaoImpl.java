@@ -5,18 +5,14 @@ import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 25.2.13
- * Time: 21:51
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class AttachmentDaoImpl extends BasicDaoImpl<Attachment, Long> implements AttachmentDao {
 

@@ -18,12 +18,12 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 11.3.14
- * Time: 23:49
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/biobank/administrators/{$event}/{biobankId}")
 public class BiobankAdministratorsActionBean extends PermissionActionBean<BiobankAdministrator> {
 

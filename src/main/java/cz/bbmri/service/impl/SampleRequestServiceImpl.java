@@ -22,12 +22,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 16.4.14
- * Time: 0:46
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Transactional
 @Service("sampleRequestService")
 public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implements SampleRequestService {

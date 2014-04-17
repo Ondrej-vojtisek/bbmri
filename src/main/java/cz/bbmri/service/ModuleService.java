@@ -4,12 +4,12 @@ import cz.bbmri.entities.Module;
 import cz.bbmri.service.simpleService.Get;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 19.2.14
- * Time: 14:10
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface ModuleService extends Get<Module> {
 
 }

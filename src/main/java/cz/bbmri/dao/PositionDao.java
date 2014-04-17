@@ -1,16 +1,15 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.infrastructure.Box;
 import cz.bbmri.entities.infrastructure.Position;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 14.2.14
- * Time: 23:50
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public interface PositionDao extends BasicDao<Position, Long> {
+public interface PositionDao extends BasicDao<Position> {
 
     Position getByCoordinates(Box box, Integer seqPosition, Integer column, Integer row);
 

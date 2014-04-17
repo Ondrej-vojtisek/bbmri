@@ -8,12 +8,12 @@ import java.util.Comparator;
 
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 18.9.13
- * Time: 15:35
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Table
 @Entity
 public class BiobankAdministrator implements Serializable, Comparable<BiobankAdministrator> {

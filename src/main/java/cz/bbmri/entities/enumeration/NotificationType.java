@@ -8,12 +8,12 @@ import cz.bbmri.action.project.ProjectAttachmentsActionBean;
 import cz.bbmri.action.request.RequestActionBean;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 14.12.13
- * Time: 20:43
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public enum NotificationType {
 
     /* ProjectFacade notifications */

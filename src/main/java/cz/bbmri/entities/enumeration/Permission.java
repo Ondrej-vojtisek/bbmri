@@ -1,12 +1,12 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 18.9.13
- * Time: 15:40
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public enum Permission {
 
     /*

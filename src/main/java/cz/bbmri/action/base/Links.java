@@ -1,12 +1,12 @@
 package cz.bbmri.action.base;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.12.13
- * Time: 16:54
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class Links {
 
     /**

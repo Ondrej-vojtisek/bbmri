@@ -22,12 +22,12 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 27.2.14
- * Time: 11:53
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/samplequestion/{$event}/{sampleQuestionId}")
 public class CreateSampleQuestion extends PermissionActionBean {
 

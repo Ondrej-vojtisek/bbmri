@@ -1,20 +1,18 @@
 package cz.bbmri.entities.sample;
 
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.enumeration.SampleType;
 import cz.bbmri.entities.sample.field.Diagnosis;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 10.2.14
- * Time: 18:18
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Entity
 public class DiagnosisMaterial extends Sample {
 

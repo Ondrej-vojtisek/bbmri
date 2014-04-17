@@ -13,12 +13,12 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 30.1.14
- * Time: 14:20
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     @SpringBean

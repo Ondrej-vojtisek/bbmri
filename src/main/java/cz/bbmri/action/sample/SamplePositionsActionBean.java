@@ -15,12 +15,12 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 17:42
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/sample/positions/{$event}/{sampleId}")
 public class SamplePositionsActionBean extends AbstractSampleActionBean<Position> {
 

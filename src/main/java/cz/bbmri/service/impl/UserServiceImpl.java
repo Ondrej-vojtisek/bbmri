@@ -26,12 +26,12 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 2.11.12
- * Time: 13:05
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Transactional
 @Service("userService")
 public class UserServiceImpl extends BasicServiceImpl implements UserService {

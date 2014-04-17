@@ -1,11 +1,10 @@
 package cz.bbmri.service.exceptions;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 3.12.13
- * Time: 16:27
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 public class AuthorizationException extends Exception {
 

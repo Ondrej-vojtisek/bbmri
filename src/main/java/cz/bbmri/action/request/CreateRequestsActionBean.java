@@ -18,12 +18,12 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 20.2.14
- * Time: 15:12
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/createrequests/{$event}/{sampleQuestionId}")
 public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
 

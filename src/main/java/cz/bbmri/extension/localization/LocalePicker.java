@@ -7,12 +7,12 @@ import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 14.12.13
- * Time: 17:12
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class LocalePicker extends DefaultLocalePicker {
 
     public static final String LOCALE = "locale";

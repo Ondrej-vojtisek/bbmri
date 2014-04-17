@@ -12,11 +12,10 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 10.2.14
- * Time: 18:15
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Entity

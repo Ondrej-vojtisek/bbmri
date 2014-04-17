@@ -7,15 +7,12 @@ import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.ProjectState;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 11.10.12
- * Time: 12:26
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
 
 @Repository

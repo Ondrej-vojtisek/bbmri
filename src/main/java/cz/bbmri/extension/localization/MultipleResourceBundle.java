@@ -1,16 +1,15 @@
 package cz.bbmri.extension.localization;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 22.7.13
- * Time: 14:58
- * To change this template use File | Settings | File Templates.
- */
-
 import net.sourceforge.stripes.localization.DefaultLocalizationBundleFactory;
 
 import java.util.*;
+
+/**
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
+ */
 
 /**
  * With thanks to Freddy's Stripes Book http://www.pragprog.com/titles/fdstr

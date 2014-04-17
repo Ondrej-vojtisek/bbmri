@@ -17,12 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.11.13
- * Time: 16:36
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @HttpCache(allow = false)
 @Wizard(startEvents = {"initial", "mta"})
 @UrlBinding("/project/create/{$event}/{projectId}")

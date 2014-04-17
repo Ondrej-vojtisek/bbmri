@@ -20,12 +20,12 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 0:36
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/biobank/infrastructure/container/rack/{$event}/{rackId}")
 public class RackActionBean extends PermissionActionBean<RackBox> {
 

@@ -1,11 +1,9 @@
 package cz.bbmri.dao;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.3.14
- * Time: 14:30
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
 public interface GlobalSettingDao {
 

@@ -5,12 +5,12 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 11.2.14
- * Time: 11:37
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Embeddable
 public class SampleIdentification implements Serializable {
 

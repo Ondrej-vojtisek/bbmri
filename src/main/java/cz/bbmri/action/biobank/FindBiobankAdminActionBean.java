@@ -11,12 +11,12 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.11.13
- * Time: 10:08
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/biobank/administrators/addAdministrator/{$event}/{id}")
 public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
 

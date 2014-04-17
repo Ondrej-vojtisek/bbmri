@@ -13,12 +13,11 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 16.2.14
- * Time: 10:19
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
+
 @Repository
 public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
 

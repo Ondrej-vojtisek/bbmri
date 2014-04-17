@@ -5,12 +5,12 @@ import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.service.simpleService.Update;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 25.3.14
- * Time: 11:17
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface PositionService extends Update<Position> {
 
     Position getByCoordinates(Box box, Integer seqPosition, Integer column, Integer row);

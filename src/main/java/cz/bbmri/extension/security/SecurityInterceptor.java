@@ -20,6 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 /**
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
+ */
+
+/**
  * Security interceptor for the Stripes framework. Determines if handling the event
  * for the current execution context is allowed. Execution is allowed if there is no
  * security manager, or if the security manager allows it. The implementation based

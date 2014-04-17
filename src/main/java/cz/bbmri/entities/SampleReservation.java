@@ -7,12 +7,12 @@ import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 24.2.14
- * Time: 17:18
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Entity
 public class SampleReservation extends SampleQuestion {
 

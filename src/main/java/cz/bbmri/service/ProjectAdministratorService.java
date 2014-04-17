@@ -6,12 +6,12 @@ import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.11.13
- * Time: 16:43
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface ProjectAdministratorService extends Get<ProjectAdministrator>{
 
     ProjectAdministrator get(Long projectId, Long userId);

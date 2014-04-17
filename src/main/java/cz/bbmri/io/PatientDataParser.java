@@ -21,12 +21,12 @@ import java.util.List;
 
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 21.3.14
- * Time: 14:27
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class PatientDataParser extends AbstractParser {
 
     private static final String PATIENT_XSD_URL = "http://www.bbmri.cz/schemas/biobank/data.xsd";

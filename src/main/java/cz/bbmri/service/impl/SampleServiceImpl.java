@@ -18,12 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 7.11.12
- * Time: 0:22
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @Transactional
 @Service("sampleService")
 public class SampleServiceImpl extends BasicServiceImpl implements SampleService {

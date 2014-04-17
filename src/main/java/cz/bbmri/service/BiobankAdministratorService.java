@@ -6,12 +6,12 @@ import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 25.9.13
- * Time: 11:53
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface BiobankAdministratorService extends Get<BiobankAdministrator> {
 
     boolean hasPermission(Permission permission, Long objectId, Long userId);

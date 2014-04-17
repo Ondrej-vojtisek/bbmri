@@ -1,12 +1,12 @@
 package cz.bbmri.entities.webEntities;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 6.3.14
- * Time: 19:05
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class ComponentManager {
     /* all path names for ribbon, header etc.*/
     public static final String ATTACHMENT_DETAIL = "attachment";

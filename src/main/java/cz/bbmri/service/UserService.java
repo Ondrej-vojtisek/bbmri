@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by IntelliJ IDEA.
- * User: Ori
- * Date: 2.11.12
- * Time: 12:55
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface UserService extends All<User>, Get<User>, Remove, Update<User>, Count {
 
     boolean updateShibbolethUser(User user);

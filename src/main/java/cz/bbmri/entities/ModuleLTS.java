@@ -3,13 +3,11 @@ package cz.bbmri.entities;
 import javax.persistence.Entity;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 6.2.14
- * Time: 13:48
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
-
 @Entity
 public class ModuleLTS extends Module {
 

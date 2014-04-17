@@ -16,11 +16,10 @@ import java.io.File;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 17.4.14
- * Time: 11:48
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 public class MonitoringDataCheckImpl extends Basic implements MonitoringDataCheck {
 

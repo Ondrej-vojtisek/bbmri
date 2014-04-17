@@ -13,11 +13,9 @@ import javax.persistence.PersistenceContext;
 import java.util.Date;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 4.3.14
- * Time: 14:32
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
 @Transactional
 @Repository

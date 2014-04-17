@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 0:37
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/biobank/infrastructure/box/{$event}/{boxId}")
 public class BoxActionBean extends PermissionActionBean<Position> {
 

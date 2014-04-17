@@ -21,12 +21,12 @@ import java.util.ArrayList;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 0:33
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 @UrlBinding("/biobank/infrastructure/container/{$event}/{containerId}")
 public class ContainerActionBean extends PermissionActionBean<Rack> {
 

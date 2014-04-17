@@ -1,13 +1,12 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.Module;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 19.2.14
- * Time: 13:37
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  */
-public interface ModuleDao extends BasicDao<Module, Long> {
+public interface ModuleDao extends BasicDao<Module> {
 }

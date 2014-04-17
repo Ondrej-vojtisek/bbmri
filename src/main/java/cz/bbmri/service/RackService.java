@@ -11,12 +11,12 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.2.14
- * Time: 21:17
- * To change this template use File | Settings | File Templates.
+ * TODO
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public interface RackService extends Get<Rack>, Update<Rack>, Remove {
 
     boolean create(Long containerId, Rack rack, ValidationErrors errors);
