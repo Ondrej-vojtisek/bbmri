@@ -2,8 +2,8 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.entities.User;
-import cz.bbmri.facade.exceptions.AuthorizationException;
 import cz.bbmri.service.UserService;
+import cz.bbmri.service.exceptions.AuthorizationException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 

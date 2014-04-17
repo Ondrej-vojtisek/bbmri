@@ -2,7 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
-import cz.bbmri.facade.exceptions.AuthorizationException;
+import cz.bbmri.service.exceptions.AuthorizationException;
 import cz.bbmri.service.simpleService.*;
 import net.sourceforge.stripes.validation.ValidationErrors;
 

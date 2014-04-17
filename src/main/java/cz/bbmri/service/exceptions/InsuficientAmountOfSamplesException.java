@@ -1,4 +1,4 @@
-package cz.bbmri.facade.exceptions;
+package cz.bbmri.service.exceptions;
 
 /**
  * Created with IntelliJ IDEA.
