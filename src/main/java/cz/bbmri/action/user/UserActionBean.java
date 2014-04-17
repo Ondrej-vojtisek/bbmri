@@ -1,6 +1,7 @@
 package cz.bbmri.action.user;
 
 import cz.bbmri.action.base.ComponentActionBean;
+import cz.bbmri.converter.PasswordTypeConverter;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.Breadcrumb;
@@ -77,10 +78,9 @@ public class UserActionBean extends ComponentActionBean<User> {
                   "userId", userId);
       }
 
-
-    @Validate(on = {"changePassword"}, required = true)
+    @Validate(on = {"changePassword"}, required = true, converter = PasswordTypeConverter.class)
     private String password;
-    @Validate(on = {"changePassword"}, required = true)
+    @Validate(on = {"changePassword"}, required = true, converter = PasswordTypeConverter.class)
     private String password2;
 
 

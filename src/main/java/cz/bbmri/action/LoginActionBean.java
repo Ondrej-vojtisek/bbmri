@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.converter.PasswordTypeConverter;
 import cz.bbmri.entities.User;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
@@ -32,10 +33,10 @@ public class LoginActionBean extends BasicActionBean {
     private UserService userService;
 
     @Validate(converter = LongTypeConverter.class,
-            required = true, minvalue = 1)
+            required = true, minvalue = 1, on = "login")
     private Long id;
 
-    @Validate(required = true)
+    @Validate(required = true, converter = PasswordTypeConverter.class, on = "login")
     private String password;
 
     private User user;
@@ -59,12 +60,11 @@ public class LoginActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution display() {
-
-        logger.debug("Login display");
         getContext().dropUser();
         return new ForwardResolution(LOGIN);
     }
 
+    @HandlesEvent("login")
     public Resolution login() {
         if (user != null) {
             getContext().setLoggedUser(user);
@@ -88,8 +88,9 @@ public class LoginActionBean extends BasicActionBean {
     }
 
     @DontValidate
+    @HandlesEvent("cancel")
     public Resolution cancel() {
-        return new ForwardResolution(INDEX);
+        return new RedirectResolution(LoginActionBean.class, "display");
     }
 
 }
