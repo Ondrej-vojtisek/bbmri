@@ -49,10 +49,10 @@ public class WelcomeActionBean extends BasicActionBean {
         if (getContext().getIsShibbolethSession()) {
 
             User user = initializeUser();
-            Long id ;
-            try{
+            Long id;
+            try {
                 id = userService.loginShibbolethUser(user, getContext().getLocale());
-            }catch(AuthorizationException ex){
+            } catch (AuthorizationException ex) {
                 return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
             }
 
@@ -61,6 +61,11 @@ public class WelcomeActionBean extends BasicActionBean {
             if (user != null) {
                 getContext().setLoggedUser(user);
                 getContext().getMessages().add(new SimpleMessage("Succesfull login"));
+
+                // Switch language to one prefered by user - and stored in DB
+                if (!user.getUserSetting().getLocale().equals(getContext().getLocale())) {
+                    return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getUserSetting().getLocale());
+                }
             }
 
             return new ForwardResolution(DashboardActionBean.class);

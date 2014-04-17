@@ -69,6 +69,12 @@ public class LoginActionBean extends BasicActionBean {
         if (user != null) {
             getContext().setLoggedUser(user);
             getContext().getMessages().add(new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.loginSuccess"));
+
+            // Switch language to one prefered by user - and stored in DB
+            if (!user.getUserSetting().getLocale().equals(getContext().getLocale())) {
+                return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getUserSetting().getLocale());
+            }
+
         }
 
         return new RedirectResolution(DashboardActionBean.class);

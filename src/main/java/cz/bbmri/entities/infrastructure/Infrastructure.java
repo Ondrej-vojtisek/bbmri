@@ -21,11 +21,16 @@ public class Infrastructure implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @Column(nullable = false)
+    @GeneratedValue(generator = "customForeignGenerator")
+    @org.hibernate.annotations.GenericGenerator(
+            name = "customForeignGenerator",
+            strategy = "foreign",
+            parameters = @org.hibernate.annotations.Parameter(name = "property", value = "biobank")
+    )
     private Long id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "infrastructure")
+    @PrimaryKeyJoinColumn
     private Biobank biobank;
 
     @OneToMany(mappedBy = "infrastructure")

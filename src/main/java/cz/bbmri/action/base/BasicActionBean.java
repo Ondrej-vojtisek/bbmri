@@ -35,8 +35,6 @@ public class BasicActionBean extends Links implements ActionBean {
 
     private TheActionBeanContext ctx;
 
-
-
     @Override
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (TheActionBeanContext) ctx;
@@ -113,10 +111,16 @@ public class BasicActionBean extends Links implements ActionBean {
         return new RedirectResolution(DashboardActionBean.class);
     }
 
+//    private void checkLanguageSettingOfUser(User user){
+//        id(user == null){
+//                   user.getUserSetting().getLocale().equals(getContext().get)
+//                   <s:link href="${actionBean.lastUrl}">
+//                                 <s:param name="locale" value="en"/>
+//               }
+//    }
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();
-
         return userService.get(id);
     }
 
@@ -137,6 +141,7 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
     public String getLastUrl() {
+
         HttpServletRequest req = getContext().getRequest();
         StringBuilder sb = new StringBuilder();
 
@@ -165,6 +170,7 @@ public class BasicActionBean extends Links implements ActionBean {
         // Append the parameters to the URL
         for (String key : map.keySet()) {
             String[] values = map.get(key);
+
             for (String value : values) {
                 sb.append(key).append('=').append(value).append('&');
             }

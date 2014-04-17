@@ -20,14 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/converter/PasswordTypeConverter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/Biobank.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/Biobank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/user/UserActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/user/UserActionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/ProjectAdministratorDao.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/ProjectAdministratorDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/UserDao.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/UserDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/WelcomeActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/WelcomeActionBean.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.iws" afterPath="$PROJECT_DIR$/bbmri_cz.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" />
     </list>
     <ignored path="cancer-strike.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397731657198" ignored="false" />
+    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397732673066" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/plugin_ui.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/mavenVersion.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/code.style.schemes.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
@@ -118,7 +123,7 @@
     <file path="/NotificationDAOImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362526330315" ignored="false" />
     <file path="/NotificationServiceImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397238228667" ignored="false" />
     <file path="/NotificationService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1387144732606" ignored="false" />
-    <file path="/LoginActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397732556691" ignored="false" />
+    <file path="/LoginActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397736770205" ignored="false" />
     <file path="/NotificationActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1362525422611" ignored="false" />
     <file path="/biobank_edit.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374799716181" ignored="false" />
     <file path="/StripesResources_en.properties" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365442047193" ignored="false" />
@@ -155,7 +160,7 @@
     <file path="/requestGroup_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1365349597959" ignored="false" />
     <file path="/requestGroup_all.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1378988335884" ignored="false" />
     <file path="/SampleService.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397676990629" ignored="false" />
-    <file path="/BasicActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397684150407" ignored="false" />
+    <file path="/BasicActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397735126839" ignored="false" />
     <file path="/my_account.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1380717800072" ignored="false" />
     <file path="/sample_create.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374656727711" ignored="false" />
     <file path="/sample_withdraw.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1374754441407" ignored="false" />
@@ -457,7 +462,7 @@
     <file path="/2_general.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1387710407536" ignored="false" />
     <file path="/3_financed.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1386858121829" ignored="false" />
     <file path="/logout.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1387041180690" ignored="false" />
-    <file path="/navbar.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397130757199" ignored="false" />
+    <file path="/navbar.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397735984436" ignored="false" />
     <file path="/login.css" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1387048350824" ignored="false" />
     <file path="/NotificationType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394632985160" ignored="false" />
     <file path="/NotificationDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397405790000" ignored="false" />
@@ -808,26 +813,7 @@
     <favorites_list name="bbmri_cz" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="LoginActionBean.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="8" selection-start="2120" selection-end="2120" vertical-scroll-proportion="1.2469734">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Function.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/Function.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="13" selection-start="325" selection-end="325" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -853,13 +839,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/AutoTriggeredOperationsImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/BiobankMonitoring.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/BiobankPatientData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/PatientDataCheck.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/AutoTriggeredOperations.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/ReservationValidityCheck.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/BiobankMonitoring.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/AutoTriggeredOperationsImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/ReservationValidityCheckImpl.java" />
@@ -868,7 +847,14 @@
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/converter/PasswordTypeConverter.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/user/UserActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/WelcomeActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/ProjectAdministratorDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/UserDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/Biobank.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java" />
       </list>
     </option>
   </component>
@@ -1117,6 +1103,66 @@
               <option name="myItemId" value="webpages" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="request" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1354,6 +1400,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="layouts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="navigation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="img" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1476,7 +1552,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
+              <option name="myItemId" value="entities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1506,11 +1582,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
+              <option name="myItemId" value="entities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
+              <option name="myItemId" value="systemAdministration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1540,7 +1616,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
+              <option name="myItemId" value="entities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="infrastructure" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2276,7 +2356,11 @@
       <created>1397729420944</created>
       <updated>1397729420944</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Login cancel opraveno, pridano hashovani hesla">
+      <created>1397732677288</created>
+      <updated>1397732677288</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -2301,7 +2385,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40093604" sideWeight="0.49675852" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2322,7 +2406,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28687197" sideWeight="0.24277456" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32601157" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31118315" sideWeight="0.24277456" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25850892" sideWeight="0.24277456" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.75722545" sideWeight="0.42915308" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
@@ -2374,7 +2458,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Facade odstranena" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login cancel opraveno, pridano hashovani hesla" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2409,6 +2493,7 @@
     <MESSAGE value="Service refactored" />
     <MESSAGE value="Analyza kodu&#10;" />
     <MESSAGE value="Facade odstranena" />
+    <MESSAGE value="Login cancel opraveno, pridano hashovani hesla" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -2456,96 +2541,114 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/ReservationValidityCheck.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/PatientDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="4" selection-start="232" selection-end="232" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/MonitoringDataCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="282" selection-end="282" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/PatientDataCheck.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="35" selection-start="279" selection-end="279" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="40" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/ReservationValidityCheckImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="42" selection-start="1054" selection-end="1054" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/Basic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="86" selection-start="155" selection-end="155" vertical-scroll-proportion="0.10131109" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="15" selection-start="778" selection-end="778" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/io/MonitoringDataParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="58" selection-start="983" selection-end="983" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/MonitoringDataCheckImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="3" selection-start="723" selection-end="723" vertical-scroll-proportion="-1.8317192" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/io/NamespaceContextMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="54" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.020262217">
+        <state line="14" column="17" selection-start="281" selection-end="281" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/AttachmentServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/NotificationDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="32" selection-start="1839" selection-end="1862" vertical-scroll-proportion="0.020581113">
+        <state line="16" column="17" selection-start="398" selection-end="398" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/service/impl/UserServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/ModuleDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="51" selection-start="1974" selection-end="1974" vertical-scroll-proportion="0.55569005">
+        <state line="11" column="17" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/converter/PasswordTypeConverter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/InfrastructureDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="65" selection-start="537" selection-end="537" vertical-scroll-proportion="0.16209774">
+        <state line="12" column="17" selection-start="280" selection-end="280" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/user/UserActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/GlobalSettingDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="25" selection-start="2170" selection-end="2170" vertical-scroll-proportion="0.90807456">
+        <state line="9" column="17" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/Function.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/ContainerDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="325" selection-end="325" vertical-scroll-proportion="0.0">
+        <state line="15" column="17" selection-start="332" selection-end="332" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/BoxDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="8" selection-start="2120" selection-end="2120" vertical-scroll-proportion="1.2469734">
+        <state line="14" column="17" selection-start="291" selection-end="291" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/BiobankDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="17" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/BiobankAdministratorDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="17" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/BasicBiobankDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="17" selection-start="299" selection-end="299" vertical-scroll-proportion="0.22288439">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/BasicDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="17" selection-start="320" selection-end="320" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="0" selection-start="1485" selection-end="1524" vertical-scroll-proportion="0.99284863">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/systemAdministration/UserSetting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="4" selection-start="961" selection-end="1022" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Position.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="13" selection-start="313" selection-end="313" vertical-scroll-proportion="0.22288439">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/Biobank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="41" selection-start="1900" selection-end="1914" vertical-scroll-proportion="0.28367105">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="5" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.7091776">
           <folding />
         </state>
       </provider>

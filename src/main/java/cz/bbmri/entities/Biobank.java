@@ -55,7 +55,8 @@ public class Biobank implements Serializable {
     @OneToMany(mappedBy = "biobank")
     private List<Patient> patients = new ArrayList<Patient>();
 
-    @OneToOne(mappedBy = "biobank")
+    @OneToOne
+    @PrimaryKeyJoinColumn
     private Infrastructure infrastructure;
 
     public Long getId() {
