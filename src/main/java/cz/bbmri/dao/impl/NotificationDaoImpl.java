@@ -5,12 +5,8 @@ import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.NotificationType;
 import net.sourceforge.stripes.action.LocalizableMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -20,20 +16,10 @@ import java.util.Locale;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 @Repository
-public class NotificationDaoImpl implements NotificationDao {
-
-    @PersistenceContext
-    private EntityManager em;
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
-    private static void notNull(final Object o) throws IllegalArgumentException {
-        if (o == null) {
-            throw new IllegalArgumentException("Object can't be a null object");
-        }
-    }
+public class NotificationDaoImpl extends BaseForDao implements NotificationDao {
 
     public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId){
         notNull(users);

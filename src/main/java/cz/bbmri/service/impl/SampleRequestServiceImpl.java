@@ -75,7 +75,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
     }
 
     @Transactional(readOnly = true)
-    public List<SampleQuestion> getSampleRequests(Long biobankId, RequestState requestState) {
+    public List<SampleRequest> getSampleRequests(Long biobankId, RequestState requestState) {
         if (isNull(biobankId, "biobankId", null)) return null;
 
         Biobank biobankDB = biobankDao.get(biobankId);

@@ -9,10 +9,11 @@ import org.springframework.stereotype.Repository;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class PositionDaoImpl extends BasicDaoImpl<Position, Long> implements PositionDao {
+public class PositionDaoImpl extends BasicDaoImpl<Position> implements PositionDao {
 
     public Position getByCoordinates(Box box, Integer seqPosition, Integer column, Integer row) {
         notNull(box);

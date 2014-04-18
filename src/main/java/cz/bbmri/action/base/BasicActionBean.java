@@ -111,14 +111,6 @@ public class BasicActionBean extends Links implements ActionBean {
         return new RedirectResolution(DashboardActionBean.class);
     }
 
-//    private void checkLanguageSettingOfUser(User user){
-//        id(user == null){
-//                   user.getUserSetting().getLocale().equals(getContext().get)
-//                   <s:link href="${actionBean.lastUrl}">
-//                                 <s:param name="locale" value="en"/>
-//               }
-//    }
-
     public User getLoggedUser() {
         Long id = ctx.getMyId();
         return userService.get(id);

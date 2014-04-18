@@ -12,10 +12,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class PatientDaoImpl extends BasicDaoImpl<Patient, Long> implements PatientDao {
+public class PatientDaoImpl extends BasicDaoImpl<Patient> implements PatientDao {
 
 
     public List<Patient> getSorted(Biobank biobank, String orderByParam, boolean desc) {

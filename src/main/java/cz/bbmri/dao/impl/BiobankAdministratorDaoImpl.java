@@ -12,13 +12,14 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * TODO
+ * Implementation for interface handling instances of BiobankAdministrator. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrator, Long>
+public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrator>
         implements BiobankAdministratorDao {
 
     public boolean contains(Biobank biobank, User user) {

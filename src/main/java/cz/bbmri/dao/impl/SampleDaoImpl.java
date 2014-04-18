@@ -13,10 +13,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class SampleDaoImpl extends BasicDaoImpl<Sample, Long> implements SampleDao {
+public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
 
     public List<Sample> getSorted(Biobank biobank, String orderByParam, boolean desc) {

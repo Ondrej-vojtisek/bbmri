@@ -11,10 +11,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class UserDaoImpl extends BasicDaoImpl<User, Long> implements UserDao {
+public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
     public List<User> findUser(User user){
 

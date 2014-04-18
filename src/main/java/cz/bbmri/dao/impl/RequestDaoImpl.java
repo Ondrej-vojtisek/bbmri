@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-class RequestDaoImpl extends BasicDaoImpl<Request, Long> implements RequestDao {
+class RequestDaoImpl extends BasicDaoImpl<Request> implements RequestDao {
 
 }

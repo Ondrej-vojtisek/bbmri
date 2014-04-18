@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 
 @Repository
-public class BiobankDaoImpl extends BasicDaoImpl<Biobank, Long> implements BiobankDao {
+public class BiobankDaoImpl extends BasicDaoImpl<Biobank> implements BiobankDao {
 
     public Biobank getBiobankByAbbreviation(String abbreviation) {
         notNull(abbreviation);

@@ -1,6 +1,5 @@
 package cz.bbmri.service;
 
-import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.enumeration.RequestState;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -21,7 +20,7 @@ public interface SampleRequestService extends SampleQuestionService {
     boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
                                 ValidationErrors errors);
 
-    List<SampleQuestion> getSampleRequests(Long biobankId, RequestState requestState);
+    List<SampleRequest> getSampleRequests(Long biobankId, RequestState requestState);
 
     boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors);
 

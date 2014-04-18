@@ -11,10 +11,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class ContainerDaoImpl extends BasicDaoImpl<Container, Long> implements ContainerDao {
+public class ContainerDaoImpl extends BasicDaoImpl<Container> implements ContainerDao {
 
     public List<Container> getSorted(Biobank biobank, String orderByParam, boolean desc) {
         String orderParam = "";

@@ -12,10 +12,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class RackDaoImpl extends BasicDaoImpl<Rack, Long> implements RackDao {
+public class RackDaoImpl extends BasicDaoImpl<Rack> implements RackDao {
 
     public List<Rack> getSorted(Biobank biobank, String orderByParam, boolean desc) {
         String orderParam = "";

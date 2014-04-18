@@ -8,23 +8,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Attachment. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class AttachmentDaoImpl extends BasicDaoImpl<Attachment, Long> implements AttachmentDao {
-
-    public List<Attachment> getAttachmentsByProject(Project project) {
-        notNull(project);
-        // Typed query instead of query to avoid unchecked assignment
-        typedQuery = em.createQuery("SELECT p FROM Attachment p where p.project = :projectParam",
-                Attachment.class);
-        typedQuery.setParameter("projectParam", project);
-
-        return typedQuery.getResultList();
-    }
+public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements AttachmentDao {
 
     public Attachment getAttachmentByPath(String path) {
         notNull(path);

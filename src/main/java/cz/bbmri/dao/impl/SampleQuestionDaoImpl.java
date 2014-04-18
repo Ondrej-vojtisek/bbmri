@@ -12,10 +12,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> implements SampleQuestionDao {
+public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion> implements SampleQuestionDao {
 
     public List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc) {
         String orderParam = "";
@@ -37,35 +38,28 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
     }
 
 
-    public List<SampleQuestion> getSampleRequests(Biobank biobank, RequestState requestState) {
-        return getByBiobankAndState(biobank, requestState, "SampleRequest");
-    }
-
-    public List<SampleQuestion> getSampleReservations(Biobank biobank, RequestState requestState) {
-        return getByBiobankAndState(biobank, requestState, "SampleReservation");
-    }
-
-
-    /**
-     * Hack - comparing specialized class like string. This is probably bug in hibernate. I wasn't able to
-     * make this working with .getClass or with Type(p) = :param ...
-     */
-    @SuppressWarnings("unchecked")
-    private List<SampleQuestion> getByBiobankAndState(Biobank biobank, RequestState requestState, String typeParam) {
-        typedQuery = em.createQuery("SELECT p FROM SampleQuestion p " +
+    public List<SampleRequest> getSampleRequests(Biobank biobank, RequestState requestState) {
+        TypedQuery typedQuery1 = em.createQuery("SELECT p FROM SampleReservation p " +
                 "where p.biobank = :bioParam " +
-                "and (p.requestState = :requestStateParam OR :requestStateParam IS NULL) " +
-                "and p.class LIKE :typeParam" +
-                "", SampleQuestion.class);
+                "and (p.requestState = :requestStateParam OR :requestStateParam IS NULL)", SampleRequest.class);
 
-        typedQuery.setParameter("bioParam", biobank);
-        typedQuery.setParameter("typeParam", typeParam);
-        typedQuery.setParameter("requestStateParam", requestState);
+        typedQuery1.setParameter("bioParam", biobank);
+        typedQuery1.setParameter("requestStateParam", requestState);
 
-        return typedQuery.getResultList();
+        return typedQuery1.getResultList();
     }
 
-    @SuppressWarnings("unchecked")
+    public List<SampleReservation> getSampleReservations(Biobank biobank, RequestState requestState) {
+        TypedQuery typedQuery1 = em.createQuery("SELECT p FROM SampleReservation p " +
+                "where p.biobank = :bioParam " +
+                "and (p.requestState = :requestStateParam OR :requestStateParam IS NULL)", SampleReservation.class);
+
+        typedQuery1.setParameter("bioParam", biobank);
+        typedQuery1.setParameter("requestStateParam", requestState);
+
+        return typedQuery1.getResultList();
+    }
+
     public List<SampleReservation> getSampleReservationsOrderedByDate() {
         TypedQuery<SampleReservation> typedQuery1 = em.createQuery("SELECT p FROM SampleReservation p " +
                 "WHERE p.requestState = 'CLOSED' " +
@@ -127,7 +121,7 @@ public class SampleQuestionDaoImpl extends BasicDaoImpl<SampleQuestion, Long> im
             orderParam = orderParam + " DESC";
         }
 
-        TypedQuery<SampleReservation> typedQuery1  = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation JOIN " +
+        TypedQuery<SampleReservation> typedQuery1 = em.createQuery("SELECT sampleReservation FROM SampleReservation sampleReservation JOIN " +
                 "sampleReservation.requests request WHERE " +
                 "request.sample = :sample " +
                 orderParam, SampleReservation.class);

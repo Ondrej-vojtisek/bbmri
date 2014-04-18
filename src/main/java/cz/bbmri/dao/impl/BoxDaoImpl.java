@@ -16,10 +16,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class BoxDaoImpl extends BasicDaoImpl<Box, Long> implements BoxDao {
+public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
 
 
     public List<StandaloneBox> getSorted(Biobank biobank, String orderByParam, boolean desc) {

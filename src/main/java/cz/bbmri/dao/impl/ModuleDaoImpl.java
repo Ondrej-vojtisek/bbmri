@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 @Repository
-class ModuleDaoImpl extends BasicDaoImpl<Module, Long> implements ModuleDao {
+class ModuleDaoImpl extends BasicDaoImpl<Module> implements ModuleDao {
 
 }

@@ -16,6 +16,7 @@ import java.util.Date;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 @Transactional
 @Repository

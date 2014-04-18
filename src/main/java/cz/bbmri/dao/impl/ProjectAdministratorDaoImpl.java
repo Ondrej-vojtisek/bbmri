@@ -13,10 +13,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrator, Long> implements ProjectAdministratorDao {
+public class ProjectAdministratorDaoImpl extends BasicDaoImpl<ProjectAdministrator> implements ProjectAdministratorDao {
 
     public boolean contains(Project project, User user) {
         ProjectAdministrator pa = get(project, user);

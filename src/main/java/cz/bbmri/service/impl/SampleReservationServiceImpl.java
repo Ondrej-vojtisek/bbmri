@@ -113,7 +113,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
 
 
     @Transactional(readOnly = true)
-    public List<SampleQuestion> getSampleReservations(Long biobankId, RequestState requestState) {
+    public List<SampleReservation> getSampleReservations(Long biobankId, RequestState requestState) {
         if (isNull(biobankId, "biobankId", null)) return null;
         if (isNull(requestState, "requestState", null)) return null;
 

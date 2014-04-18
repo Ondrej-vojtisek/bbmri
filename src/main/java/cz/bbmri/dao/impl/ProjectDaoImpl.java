@@ -13,10 +13,11 @@ import java.util.List;
  * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
 
 @Repository
-public class ProjectDaoImpl extends BasicDaoImpl<Project, Long> implements ProjectDao {
+public class ProjectDaoImpl extends BasicDaoImpl<Project> implements ProjectDao {
 
     public List<Project> getAllByProjectState(ProjectState projectState) {
         notNull(projectState);

@@ -1,6 +1,5 @@
 package cz.bbmri.service;
 
-import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.RequestState;
@@ -26,7 +25,7 @@ public interface SampleReservationService extends SampleQuestionService {
     boolean createSampleReservation(SampleReservation sampleReservation, Long biobankId, User user,
                                     ValidationErrors errors);
 
-    List<SampleQuestion> getSampleReservations(Long biobankId, RequestState requestState);
+    List<SampleReservation> getSampleReservations(Long biobankId, RequestState requestState);
 
     boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
 
