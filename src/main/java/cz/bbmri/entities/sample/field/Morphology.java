@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Classification based on ICD-O-2 (MKN-O-2)
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -20,6 +20,10 @@ public class Morphology implements Serializable {
     private
     String classification;
 
+    /**
+     * Grading is a part of morphology classification. Here it is defined as a fallback for situation when hospital
+     * IS stores only grading but not morphology
+     */
     private Integer grading;
 
     public String getClassification() {

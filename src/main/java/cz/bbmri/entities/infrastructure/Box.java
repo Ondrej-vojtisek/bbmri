@@ -6,7 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO
+ * Box is part of biobank infrastructure hierarchy. It can be located inside rack or stand alone in non-structured
+ * container. Box has predefined capacity (amount of sample aliquotes which can be stored inside). It is possible to set
+ * recomended temperature conditions asociated with it.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -14,7 +16,7 @@ import java.util.Set;
 
 @Table
 @Entity
-public class Box implements Serializable  {
+public class Box implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,20 +25,38 @@ public class Box implements Serializable  {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Unique identification of box from original institution
+     */
     private String name;
+
+    /**
+     * Each box has specific volume. This volume is defined by capacity. Each position represents one "slot" which
+     * can be used as a storage of sample.
+     */
+
+    // TODO musim byt nejake omezeni aby box nemel viz definovanych pozic nezli je jeho kapacita
 
     @OneToMany(mappedBy = "box", fetch = FetchType.EAGER)
     private Set<Position> positions = new HashSet<Position>();
 
+    /**
+     * Defined volume of box - number of positions
+     */
     private Integer capacity;
 
+    /**
+     * Minimal temperature in which the box must be stored. Not required attribute.
+     */
     private Float tempMin;
 
+    /**
+     * Maximal temperature in which the box must be stored. Not required attribute.
+     */
     private Float tempMax;
 
     public Box() {
     }
-
 
     public Long getId() {
         return id;
@@ -86,8 +106,8 @@ public class Box implements Serializable  {
         this.tempMax = tempMax;
     }
 
-    public Integer getNumberOfPositions(){
-        if(positions == null){
+    public Integer getNumberOfPositions() {
+        if (positions == null) {
             return null;
         }
         return positions.size();

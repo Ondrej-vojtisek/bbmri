@@ -5,7 +5,7 @@ import cz.bbmri.entities.Sample;
 import javax.persistence.Entity;
 
 /**
- * TODO
+ * Specialized type of sample
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

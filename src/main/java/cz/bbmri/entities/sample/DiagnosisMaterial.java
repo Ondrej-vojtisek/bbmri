@@ -7,7 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 /**
- * TODO
+ * Specialized type of sample with diagnosis data.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

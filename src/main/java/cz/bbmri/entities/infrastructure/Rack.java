@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO
+ * Rack is part of container - typically one stand in dewar container. It consist of boxes (RackBox).
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -23,14 +23,26 @@ public class Rack implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Rack identification from original institution
+     */
     private String name;
 
+    /**
+     * Where is rack situated - in which container
+     */
     @ManyToOne
     private Container container;
 
+    /**
+     * Boxes stores inside the rack
+     */
     @OneToMany(mappedBy = "rack")
     private Set<RackBox> rackBoxes = new HashSet<RackBox>();
 
+    /**
+     * maximal number of boxes which can be located inside the rack
+     */
     private Integer capacity;
 
     public Long getId() {

@@ -3,7 +3,7 @@ package cz.bbmri.entities.sample.field;
 import javax.persistence.Embeddable;
 
 /**
- * TODO
+ * pTNM classification
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

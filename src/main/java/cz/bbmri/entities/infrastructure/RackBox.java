@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 /**
- * TODO
+ * Specific version of Box (extending "basic" Box) describing only boxes located inside rack.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

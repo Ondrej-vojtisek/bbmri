@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Data which allows to track sample in original IS.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -16,11 +16,20 @@ public class SampleIdentification implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Bioptical report - year
+     */
     private Integer year;
 
+    /**
+     * Bioptical report - number during year
+     */
     private Integer number;
 
-    @Column(nullable = false, unique=true, length = 32)
+    /**
+     * Institutional Id
+     */
+    @Column(nullable = false, unique = true, length = 32)
     private String sampleId;
 
     @Override
@@ -75,7 +84,7 @@ public class SampleIdentification implements Serializable {
 
     public int compareTo(SampleIdentification compareSampleIndentification) {
 
-       return this.getSampleId().compareTo(compareSampleIndentification.getSampleId());
+        return this.getSampleId().compareTo(compareSampleIndentification.getSampleId());
     }
 
 }

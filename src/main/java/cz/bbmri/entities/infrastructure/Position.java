@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 
 /**
- * TODO
+ * Position represent one slot of box. One piece of sample (aliquote) can be stored at position.
+ * Position can be identified in two ways - by its order - 1,2,3, .. or by its row and column conbination.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

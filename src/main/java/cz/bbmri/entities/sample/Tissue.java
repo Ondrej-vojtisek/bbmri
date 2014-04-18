@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 /**
- * TODO
+ * Specialized type of sample - tissue
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -61,7 +61,6 @@ public class Tissue extends Sample {
     public void setMorphology(Morphology morphology) {
         this.morphology = morphology;
     }
-
 
     public Date getFreezeDate() {
         return freezeDate;

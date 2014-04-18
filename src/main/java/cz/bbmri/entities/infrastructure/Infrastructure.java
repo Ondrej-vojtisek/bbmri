@@ -8,7 +8,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO
+ * Infrastructure represents physical structure of biobank repository. There are basically two types of objects in repository
+ * dewar containers and low temperature "fridges". Container (dewar) is structured into racks.
+ *
+ * Fridges constain boxes of samples - these boxes are (in context of application) called standalone boxes.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -33,9 +36,17 @@ public class Infrastructure implements Serializable {
     @PrimaryKeyJoinColumn
     private Biobank biobank;
 
+
+    /**
+     * Representing dewar container which can be found in repository
+     */
     @OneToMany(mappedBy = "infrastructure")
     private Set<Container> containers = new HashSet<Container>();
 
+    /**
+     * Representing any boxes that are not situated in dewar containers. It is expected that these boxes are unique
+     * identified by its name.
+     */
     @OneToMany(mappedBy = "infrastructure")
     private Set<StandaloneBox> standaloneBoxes = new HashSet<StandaloneBox>();
 

@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Diagnosis data - based on ICD-10 classification (MKN-10 in Czech)
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

@@ -20,33 +20,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/AttachmentType.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/AttachmentType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/AvailableSamplesComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/AvailableSamplesComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/constant/Constant.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/constant/Constant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/MaterialTypeComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/MaterialTypeComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/MatrixComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/MatrixComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/NotificationType.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/NotificationType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/NumberComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/NumberComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Permission.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Permission.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionUserComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionUserComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/ProjectState.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/ProjectState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/RequestState.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/RequestState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Retrieved.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Retrieved.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/SampleComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/SampleComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/SampleIdComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/SampleIdComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SampleType.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SampleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/SequentialComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/position/SequentialComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Sex.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Sex.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SystemRole.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SystemRole.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/TakingDateComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/TakingDateComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/TotalSampleNumberComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/TotalSampleNumberComparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/YearComparator.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/YearComparator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Box.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Box.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Container.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Container.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Diagnosis.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Diagnosis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/DiagnosisMaterial.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/DiagnosisMaterial.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Genome.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Genome.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Infrastructure.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/MaterialType.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/MaterialType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Morphology.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Morphology.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/PTNM.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/PTNM.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Position.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Position.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Rack.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Rack.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/RackBox.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/RackBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/SampleIdentification.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/SampleIdentification.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Serum.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Serum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/StandaloneBox.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/StandaloneBox.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/TNM.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/TNM.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Tissue.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Tissue.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.iws" afterPath="$PROJECT_DIR$/bbmri_cz.iws" />
     </list>
     <ignored path="cancer-strike.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397851263028" ignored="false" />
+    <file path="/Dummy.txt" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397851460701" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/plugin_ui.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/mavenVersion.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
     <file path="$USER_HOME$/.IntelliJIdea12/config/options/code.style.schemes.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1361033848443" ignored="false" />
@@ -553,19 +548,19 @@
     <file path="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/webEntities/JSONotification.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1391770924005" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/webEntities/JSONObject/java.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1391772498879" ignored="false" />
     <file path="/TimelineActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392042706948" ignored="false" />
-    <file path="/DiagnosisMaterial.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392820074523" ignored="false" />
-    <file path="/Tissue.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395850167758" ignored="false" />
+    <file path="/DiagnosisMaterial.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854197933" ignored="false" />
+    <file path="/Tissue.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854266536" ignored="false" />
     <file path="/DNA.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392114780014" ignored="false" />
     <file path="/SampleIdentificator.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392115716594" ignored="false" />
     <file path="/TissueType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392116623547" ignored="false" />
     <file path="/Retrieved.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397829988360" ignored="false" />
     <file path="/Aliquotes.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392121184337" ignored="false" />
-    <file path="/Morphology.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392121407418" ignored="false" />
-    <file path="/Infrastructure.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420882353" ignored="false" />
-    <file path="/Container.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395235845654" ignored="false" />
-    <file path="/Rack.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420912457" ignored="false" />
-    <file path="/Box.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392571204700" ignored="false" />
-    <file path="/Position.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392419590869" ignored="false" />
+    <file path="/Morphology.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854445657" ignored="false" />
+    <file path="/Infrastructure.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397852380427" ignored="false" />
+    <file path="/Container.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397853638627" ignored="false" />
+    <file path="/Rack.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397853755108" ignored="false" />
+    <file path="/Box.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397853657360" ignored="false" />
+    <file path="/Position.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854125126" ignored="false" />
     <file path="/InfrastructureActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397513153677" ignored="false" />
     <file path="/PatientActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470045775" ignored="false" />
     <file path="/patient_ter_menu.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395230092329" ignored="false" />
@@ -612,7 +607,7 @@
     <file path="/rackDetail.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394709100436" ignored="false" />
     <file path="/Hovno.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392416172998" ignored="false" />
     <file path="/BoxPosition.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392417824360" ignored="false" />
-    <file path="/RackBox.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392571909588" ignored="false" />
+    <file path="/RackBox.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397853841987" ignored="false" />
     <file path="/RackBoxDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420523126" ignored="false" />
     <file path="/RackBoxDaoImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420575689" ignored="false" />
     <file path="/StandAloneBoxDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392420616793" ignored="false" />
@@ -637,7 +632,7 @@
     <file path="/2_type.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394207857884" ignored="false" />
     <file path="/3_clasifications.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394207864541" ignored="false" />
     <file path="/SampleType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397830064769" ignored="false" />
-    <file path="/Genome.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392820083335" ignored="false" />
+    <file path="/Genome.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854236536" ignored="false" />
     <file path="/Serum.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392820089638" ignored="false" />
     <file path="/createDiagnosisMaterial.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1392844213617" ignored="false" />
     <file path="/createGenome.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1393419766589" ignored="false" />
@@ -678,7 +673,7 @@
     <file path="/table.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395854730660" ignored="false" />
     <file path="/WebPageCompomentActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394132594780" ignored="false" />
     <file path="/BiobankSamplesActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397248246131" ignored="false" />
-    <file path="/SampleIdentification.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395847944941" ignored="false" />
+    <file path="/SampleIdentification.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854537851" ignored="false" />
     <file path="/pagination.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1394533679069" ignored="false" />
     <file path="/BiobankPatientsActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397470389670" ignored="false" />
     <file path="/BiobankSampleRequestsActionBean.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397651467240" ignored="false" />
@@ -730,8 +725,8 @@
     <file path="/1_general.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395831261544" ignored="false" />
     <file path="/3_confirm.jsp" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395831343504" ignored="false" />
     <file path="/TNM.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395848253611" ignored="false" />
-    <file path="/Diagnosis.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395848430683" ignored="false" />
-    <file path="/PTNM.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395850152528" ignored="false" />
+    <file path="/Diagnosis.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854318612" ignored="false" />
+    <file path="/PTNM.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854454758" ignored="false" />
     <file path="/monitoring-zaplneni2.xsd.xml" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395930719635" ignored="false" />
     <file path="/DummyFile.xpath" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1395934642637" ignored="false" />
     <file path="/patient.rnc" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1396385798454" ignored="false" />
@@ -766,6 +761,8 @@
     <file path="/File Header.txt.ft" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397738427349" ignored="false" />
     <file path="/BaseForDao.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397775247808" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/BoxDaoImpl.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397822001328" ignored="false" />
+    <file path="/StandaloneBox.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397853884157" ignored="false" />
+    <file path="/MaterialType.java" changelist="5823b519-c35d-4e66-ae83-a1f328cda8f5" time="1397854351642" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -829,91 +826,91 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AttachmentType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/AttachmentType.java">
+      <file leaf-file-name="Genome.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Genome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="32" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0">
+            <state line="7" column="51" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NotificationType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/NotificationType.java">
+      <file leaf-file-name="Serum.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Serum.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="0" selection-start="2127" selection-end="2127" vertical-scroll-proportion="0.0">
+            <state line="7" column="29" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Permission.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Permission.java">
+      <file leaf-file-name="Tissue.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Tissue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="36" selection-start="2176" selection-end="2176" vertical-scroll-proportion="0.0">
+            <state line="63" column="0" selection-start="1228" selection-end="1228" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProjectState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/ProjectState.java">
+      <file leaf-file-name="Diagnosis.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Diagnosis.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="50" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
+            <state line="7" column="3" selection-start="148" selection-end="213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/RequestState.java">
+      <file leaf-file-name="MaterialType.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/MaterialType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="23" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
+            <state line="6" column="57" selection-start="169" selection-end="169" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Retrieved.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Retrieved.java">
+      <file leaf-file-name="Morphology.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Morphology.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="43" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+            <state line="24" column="48" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SampleType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SampleType.java">
+      <file leaf-file-name="PTNM.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/PTNM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="13" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
+            <state line="5" column="3" selection-start="86" selection-end="105" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sex.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Sex.java">
+      <file leaf-file-name="TNM.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/TNM.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="34" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+            <state line="7" column="3" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SystemRole.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SystemRole.java">
+      <file leaf-file-name="SampleIdentification.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/SampleIdentification.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="33" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.86744964">
+            <state line="29" column="23" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateSampleActionBean.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/sample/CreateSampleActionBean.java">
+      <file leaf-file-name="GlobalSetting.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/systemAdministration/GlobalSetting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="154" column="66" selection-start="3943" selection-end="3943" vertical-scroll-proportion="0.0">
+            <state line="20" column="12" selection-start="401" selection-end="401" vertical-scroll-proportion="0.3905724">
               <folding />
             </state>
           </provider>
@@ -945,22 +942,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/NumberComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/MaterialTypeComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/AvailableSamplesComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/YearComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionUserComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionComparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/constant/Constant.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/NotificationType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/AttachmentType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Permission.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/ProjectState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/RequestState.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Retrieved.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SampleType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Sex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SystemRole.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Container.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Box.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Rack.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/RackBox.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/StandaloneBox.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Position.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/DiagnosisMaterial.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Genome.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Serum.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Tissue.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Diagnosis.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/MaterialType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Morphology.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/PTNM.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/TNM.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/SampleIdentification.java" />
       </list>
     </option>
   </component>
@@ -1267,7 +1264,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="enumeration" />
+              <option name="myItemId" value="systemAdministration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="entities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2066,7 +2097,11 @@
       <created>1397822000992</created>
       <updated>1397822000992</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Doxygen komentare">
+      <created>1397851466298</created>
+      <updated>1397851466298</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2105,6 +2140,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2556818" sideWeight="0.7033604" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.503888" sideWeight="0.49027553" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21996753" sideWeight="0.73757225" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3213873" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28814936" sideWeight="0.75260115" order="1" side_tool="true" content_ui="tabs" />
@@ -2119,7 +2155,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.483237" sideWeight="0.49348533" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.503888" sideWeight="0.49027553" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.39513326" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60486674" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -2164,7 +2199,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Komantare dao implementaci" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doxygen komentare" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -2177,7 +2212,6 @@
     <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Oprava nekolika chybejicich kontruktoru v actionBeanech, pridana struktura pro uzivatelske nastaveni, pridata struktura pro monitoring" />
     <MESSAGE value="Import pacientských dat a import dat k monitoringu zaplnění ban" />
     <MESSAGE value="Upravy prekladu, dodelani drobeckove navigace v sample detailu .." />
     <MESSAGE value="databazova data v properties souboru" />
@@ -2202,6 +2236,7 @@
     <MESSAGE value="Zmena templatu popisu trid" />
     <MESSAGE value="Popis ke vsem DAO rozhranim&#10;" />
     <MESSAGE value="Komantare dao implementaci" />
+    <MESSAGE value="Doxygen komentare" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -2249,102 +2284,116 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/AvailableSamplesComparator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Rack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="57" selection-start="368" selection-end="368" vertical-scroll-proportion="0.0" />
+        <state line="43" column="67" selection-start="994" selection-end="994" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#905#914#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/TotalSampleNumberComparator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/RackBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="215" selection-end="388" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/sample/YearComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="90" selection-start="322" selection-end="322" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="52" selection-start="309" selection-end="309" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/comparator/PermissionUserComparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="3" selection-start="467" selection-end="467" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/constant/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="70" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/NotificationType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="2127" selection-end="2127" vertical-scroll-proportion="0.0">
+        <state line="5" column="92" selection-start="116" selection-end="210" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/AttachmentType.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/StandaloneBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="32" selection-start="515" selection-end="515" vertical-scroll-proportion="0.0">
+        <state line="6" column="108" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Permission.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/Position.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="36" selection-start="2176" selection-end="2176" vertical-scroll-proportion="0.0">
+        <state line="10" column="106" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/ProjectState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/infrastructure/monitoring/Monitoring.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="50" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
+        <state line="18" column="13" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/RequestState.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/DiagnosisMaterial.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="23" selection-start="979" selection-end="979" vertical-scroll-proportion="0.0">
+        <state line="9" column="3" selection-start="194" selection-end="242" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Retrieved.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Genome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="43" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+        <state line="7" column="51" selection-start="158" selection-end="158" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/sample/CreateSampleActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Serum.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="66" selection-start="3943" selection-end="3943" vertical-scroll-proportion="0.0">
+        <state line="7" column="29" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SampleType.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/Tissue.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="233" selection-end="233" vertical-scroll-proportion="0.0">
+        <state line="63" column="0" selection-start="1228" selection-end="1228" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/Sex.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Diagnosis.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="34" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+        <state line="7" column="3" selection-start="148" selection-end="213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/enumeration/SystemRole.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/MaterialType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="33" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.86744964">
+        <state line="6" column="57" selection-start="169" selection-end="169" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/Morphology.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="48" selection-start="640" selection-end="640" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/PTNM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="3" selection-start="86" selection-end="105" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/TNM.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="3" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/sample/field/SampleIdentification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="23" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entities/systemAdministration/GlobalSetting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="12" selection-start="401" selection-end="401" vertical-scroll-proportion="0.3905724">
           <folding />
         </state>
       </provider>

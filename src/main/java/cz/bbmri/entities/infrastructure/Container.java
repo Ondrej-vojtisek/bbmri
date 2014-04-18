@@ -9,7 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO
+ * Instance of Container represents one dewar container from real world. It has limited capacity (number of racks),
+ * recommended temperature and information about location.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -26,23 +27,45 @@ public class Container implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Unique identification from original institution
+     */
     private String name;
 
     @ManyToOne
     private Infrastructure infrastructure;
 
+    /**
+     * Racks located inside container
+     */
     @OneToMany(mappedBy = "container", fetch = FetchType.EAGER)
     private Set<Rack> racks = new HashSet<Rack>();
 
+    /**
+     * Monitoring of physical conditions
+     */
     @OneToOne(mappedBy = "container")
     private Monitoring monitoring;
 
+    /**
+     * Description where the container is situated. Not required.
+     */
     private String location;
 
+    /**
+     * How many racks is inside
+     */
+    // TODO kontrola aby stojanu nebylo vice nez je kapacita
     private Integer capacity;
 
+    /**
+     * Recommended minimal temperature for samples storaged in the container. Not required.
+     */
     private Float tempMin;
 
+    /**
+     * Recommended maximal temperature for samples storaged in the container. Not required.
+     */
     private Float tempMax;
 
     public Long getId() {

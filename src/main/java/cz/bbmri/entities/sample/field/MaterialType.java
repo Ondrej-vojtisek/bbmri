@@ -4,7 +4,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Internal codebook of material types for usage in BBMRI
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

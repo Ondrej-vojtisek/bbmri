@@ -5,7 +5,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * TNM classification
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
