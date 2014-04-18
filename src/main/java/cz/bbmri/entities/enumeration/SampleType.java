@@ -1,7 +1,7 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * Sample categorization for implementation of system. Enum is used to distinguish between types.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

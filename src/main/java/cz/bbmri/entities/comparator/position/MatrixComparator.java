@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 
 /**
- * TODO
+ * Implementation of Position comparator to sort list of positions by its matrix coordinates
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -19,6 +19,7 @@ public class MatrixComparator implements Comparator<Position> {
 
     public int compare(Position position1, Position position2) {
 
+        // Rows are compared primarily
         Integer atr1 = position1.getRow();
         Integer atr2 = position2.getRow();
 
@@ -39,7 +40,7 @@ public class MatrixComparator implements Comparator<Position> {
             return atr1.compareTo(atr2);
         }
 
-        // rows are equal
+        // rows are equal -> compare columns
 
         atr1 = position1.getColumn();
         atr2 = position2.getColumn();

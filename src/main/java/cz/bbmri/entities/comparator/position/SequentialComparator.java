@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 
 /**
- * TODO
+ * Implementation of Position comparator to sort list of positions by its sequential order
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

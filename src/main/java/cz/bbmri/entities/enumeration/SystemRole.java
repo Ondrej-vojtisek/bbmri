@@ -1,16 +1,17 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * General system role of user.
+ * USER - anyone who is authorized to access system (who fullfill authorization requirements to acces)
+ * implicit role
+ * ADMINISTRATOR - administrator of system. He has access to global settings of BBMRI, can browse everything
+ * DEVELOPER - programmer responsible for maintenance of system
+ * BIOBANK_OPERATOR - user managing at least one biobank
+ * PROJECT_TEAM_WORKER - user working on at leat one project which is upload to system
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-
-/*
-    Security annotation without role specification is not working for example. So that's why there is an implicit role USER;
-    @RolesAllowed({"if ${isMyAccount}"})
-*/
 
 public enum SystemRole {
       USER("user"),

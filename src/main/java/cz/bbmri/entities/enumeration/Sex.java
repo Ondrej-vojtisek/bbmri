@@ -1,7 +1,7 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * Sex of patient. Male of female.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

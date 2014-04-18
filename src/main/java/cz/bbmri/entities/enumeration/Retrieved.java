@@ -1,7 +1,12 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * Description about origination of sample.
+ *
+ * PREOPERATIONAL - before operation
+ * OPERATIONAL - it was taken during operation
+ * POST - after operation
+ * UNKNOWN - the information is not stored in hospital information system
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

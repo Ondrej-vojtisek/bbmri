@@ -1,21 +1,21 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * Defines levels of permission which can be given to user access project or biobank.
+ *
+ * MANAGER - Can do everything including changing permissions of other administrators. If user uploads project than he is
+ * a manager by default. If user is selected as a first administrator of biobank than he is a manager.
+ * EDITOR - Can change changeable attributes of object (e.g. project specification, ...). Can do everything what EXECUTOR
+ * can
+ * EXECUTOR - Can execute confirmation or denial. For instance confirm uploaded project etc.
+ * VISITOR - Can only access object, but can't change anything. This permission is only for presentation - for instance
+ * when we want to show someone possibilities of system.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 
 public enum Permission {
-
-    /*
-    * MANAGER - can do everything including changing permissions of other administrators.
-    *           If user creates biobank he is MANAGER by default.
-    * EDITOR - can change attributes of biobank e.g. name, address
-    * CONFIRM - can confirm requests and projects
-    * VISITOR - can't do anything, except the access of biobank administrators pages
-    * */
 
     MANAGER("manager"),
     EDITOR("editor"),
@@ -33,11 +33,17 @@ public enum Permission {
         return this.state;
     }
 
-
-    /*
-    * Checks if this includes permission of _permission_. Manager include all, visitor include only visitor etc.
-    * */
+    /**
+     * Checks if given permission this.permission includes given permission. Visitor is included in any permission,
+     * executor is included in editor and manager etc...
+     *
+     * @param permission
+     * @return true if this.permission includes given permission
+     */
     public boolean include(Permission permission) {
+        if(permission == null){
+            return false;
+        }
 
         switch (permission) {
             case VISITOR:
@@ -58,14 +64,13 @@ public enum Permission {
     }
 
     public static int compare(Permission e1, Permission e2) {
-
         if (e1 == e2) {
             return 0;
         }
+        // order is based on include
         if (e1.include(e2)){
             return 1;
         }
-
         return -1;
     }
 }

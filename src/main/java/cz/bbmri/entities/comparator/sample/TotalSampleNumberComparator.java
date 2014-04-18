@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Comparator;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Ori
- * Date: 13.3.14
- * Time: 17:01
- * To change this template use File | Settings | File Templates.
+ * Implementation of Sample comparator to sort list of samples by total number of aliquotes
+ *
+ * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
+ * @version 1.0
  */
+
 public class TotalSampleNumberComparator implements Comparator<Sample> {
 
     protected Logger logger = LoggerFactory.getLogger(this.getClass().getName());

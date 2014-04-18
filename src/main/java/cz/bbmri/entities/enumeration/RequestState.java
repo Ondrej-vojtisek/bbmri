@@ -1,7 +1,17 @@
 package cz.bbmri.entities.enumeration;
 
 /**
- * TODO
+ * RequestState describes present state of sample request or sample reservation.
+ *
+ * NEW - SampleRequest or SampleReservation was created
+ * APPROVED - biobank administrator approved request/reservation - it means that bioban can fullfill the request
+ * DENIED - biobank can't fullfill request
+ * CLOSED - set of samples was attached to request/reservation and this set was finished
+ * AGREED - check of project worker whether the set of samples fullfill his requirements  - set agreed
+ *        - if not agreed then change the state info CLOSED again
+ * DELIVERED - sample set was delivered to reseacher
+ * EXPIRED - when reservation is older than expiration date
+ *
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -16,20 +26,6 @@ public enum RequestState {
     AGREED("agreed"),
     DELIVERED("delivered"),
     EXPIRED("expired");
-
-    /**
-     * Workflow - project worker creates sample request for the project.
-     * It can be approved or denied. If approved than biobank operator prepares
-     * sample group - e.g. set of samples which will be released
-     * If this set is prepared then change to prepared
-     * If samples were given to applicant then change state to delivered
-     * */
-
-    /**
-     * Maybe canceled state would be also useful ... pokud zademe dve banky o stejne vzorky
-     * obe pripravi sadu vzorku a nam staci jedna.. abychom to mohli zrusit.
-     * Pripadne ze navrzena sada neni dostatecna pro nas vyzkum
-     * */
 
     private final String state;
 
