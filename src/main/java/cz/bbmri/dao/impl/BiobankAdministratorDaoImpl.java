@@ -25,7 +25,6 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
     public boolean contains(Biobank biobank, User user) {
         BiobankAdministrator pa = get(biobank, user);
         return pa != null;
-
     }
 
     public BiobankAdministrator get(Biobank biobank, User user) {
@@ -35,11 +34,7 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
         typedQuery.setParameter("biobankParam", biobank);
         typedQuery.setParameter("userParam", user);
 
-        try {
-            return typedQuery.getSingleResult();
-        } catch (NoResultException ex) {
-            return null;
-        }
+        return getSingleResult();
     }
 
     public List<BiobankAdministrator> get(Biobank biobank, Permission permission) {
@@ -52,12 +47,6 @@ public class BiobankAdministratorDaoImpl extends BasicDaoImpl<BiobankAdministrat
         return typedQuery.getResultList();
     }
 
-    /**
-     * Return the highest permission of user to any biobank.
-     *
-     * @param user
-     * @return
-     */
     public Permission getHighestPermission(User user) {
 
         TypedQuery<Permission> typedQuery1 = em.createQuery("" +

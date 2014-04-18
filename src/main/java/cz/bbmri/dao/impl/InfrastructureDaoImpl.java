@@ -5,11 +5,12 @@ import cz.bbmri.entities.infrastructure.Infrastructure;
 import org.springframework.stereotype.Repository;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Infrastructure.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 @Repository
 class InfrastructureDaoImpl extends BasicDaoImpl<Infrastructure> implements InfrastructureDao {
+
 }

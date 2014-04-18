@@ -5,7 +5,7 @@ import cz.bbmri.entities.Biobank;
 import org.springframework.stereotype.Repository;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Biobank. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

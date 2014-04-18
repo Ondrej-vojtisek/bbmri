@@ -81,10 +81,7 @@ public abstract class BasicDaoImpl<T> extends BaseForDao implements BasicDao<T> 
         }
 
         // All attributes of class T
-
         Field[] fields = entityClass.getDeclaredFields();
-
-        // String orderByParam;
 
         boolean result = false;
 
@@ -92,33 +89,25 @@ public abstract class BasicDaoImpl<T> extends BaseForDao implements BasicDao<T> 
 
         for (Field f : fields) {
             result = f.getName().equals(orderByParam);
-
             // There is a match!
-
             if (result) break;
         }
 
         // Not any match!
-
         if (!result) {
             return null;
         }
 
         // p represents object. Must match with SELECT _ FROM ...
-
         orderByParam = "p." + orderByParam;
 
         String stringQuery = "";
 
         if (desc) {
-
             // DESC order by
-
             stringQuery = "SELECT p FROM " + entityClass.getSimpleName() + " p ORDER BY " + orderByParam + " DESC";
         } else {
-
             // default order by
-
             stringQuery = "SELECT p FROM " + entityClass.getSimpleName() + " p ORDER BY " + orderByParam;
 
         }

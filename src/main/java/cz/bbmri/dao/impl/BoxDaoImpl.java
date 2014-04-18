@@ -8,12 +8,11 @@ import cz.bbmri.entities.infrastructure.RackBox;
 import cz.bbmri.entities.infrastructure.StandaloneBox;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Box. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -26,7 +25,6 @@ public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
     public List<StandaloneBox> getSorted(Biobank biobank, String orderByParam, boolean desc) {
         String orderParam = "";
         // ORDER BY p.name
-
 
         if (orderByParam != null) {
 
@@ -53,7 +51,6 @@ public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
         // ORDER BY p.name
         if (orderByParam != null) {
             orderParam = "ORDER BY box." + orderByParam;
-
         }
         // ORDER BY p.name DESC
         if (desc) {
@@ -71,27 +68,21 @@ public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
         notNull(biobank);
         notNull(name);
 
-        Query query;
-
         if (rack == null) {
-
             // Standalone box
-
-            query = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
+            typedQuery = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
                     "box.infrastructure.biobank = :biobankParam AND " +
-                    "box.name = :nameParam");
-            query.setParameter("biobankParam", biobank);
+                    "box.name = :nameParam", Box.class);
+            typedQuery.setParameter("biobankParam", biobank);
         } else {
-
             // rack box
-
-            query = em.createQuery("SELECT box FROM RackBox box WHERE " +
+            typedQuery = em.createQuery("SELECT box FROM RackBox box WHERE " +
                     "box.rack = :rackParam AND " +
-                    "box.name = :nameParam");
-            query.setParameter("rackParam", rack);
+                    "box.name = :nameParam", Box.class);
+            typedQuery.setParameter("rackParam", rack);
         }
 
-        query.setParameter("nameParam", name);
+        typedQuery.setParameter("nameParam", name);
 
         return getSingleResult();
 

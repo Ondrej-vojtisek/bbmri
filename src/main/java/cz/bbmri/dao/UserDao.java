@@ -16,7 +16,7 @@ import java.util.List;
 public interface UserDao extends BasicDao<User> {
 
     /**
-     * Find similar user to one given as argument.
+     * Find similar user to one given as argument. NOT case sensitive search.
      *
      * @param user - search criteria
      * @return list of users similar to given one

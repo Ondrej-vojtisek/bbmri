@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Patient. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -48,7 +48,6 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient> implements PatientDao 
     }
 
     public List<Patient> findPatient(Patient patient) {
-
         notNull(patient);
         typedQuery = em.createQuery("" +
                 "SELECT p " +

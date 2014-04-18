@@ -5,7 +5,7 @@ import cz.bbmri.entities.Module;
 import org.springframework.stereotype.Repository;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Module.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

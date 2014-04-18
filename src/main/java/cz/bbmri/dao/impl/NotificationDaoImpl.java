@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Notification. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

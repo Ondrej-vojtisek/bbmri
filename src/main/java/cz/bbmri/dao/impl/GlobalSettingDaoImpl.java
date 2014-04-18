@@ -13,14 +13,14 @@ import javax.persistence.PersistenceContext;
 import java.util.Date;
 
 /**
- * TODO
+ * Implementation for interface handling instances of GlobalSetting. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 @Transactional
 @Repository
-public class GlobalSettingDaoImpl implements GlobalSettingDao {
+public class GlobalSettingDaoImpl extends BaseForDao implements GlobalSettingDao {
 
     @PersistenceContext
     private EntityManager em;
@@ -28,37 +28,22 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
      private GlobalSetting get(String key) {
-        if (key == null) {
-            logger.debug("Key can't be null");
-            return null;
-        }
+        notNull(key);
 
         return em.find(GlobalSetting.class, key);
     }
 
     public boolean set(String key, String value) {
-        if (key == null) {
-            logger.debug("Key can't be null");
-            return false;
-        }
-
-        if (value == null) {
-            logger.debug("Value can't be null");
-            return false;
-        }
-
-        logger.debug("Key: " + key);
-        logger.debug("Value: " + value);
+        notNull(key);
+        notNull(value);
 
         GlobalSetting globalSetting;
         boolean existed = false;
 
         if(get(key) == null){
-
             // brand new
             globalSetting = new GlobalSetting();
         }else{
-
             //  retrieved from db
             globalSetting = get(key);
             existed = true;
@@ -68,7 +53,6 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
         globalSetting.setValue(value);
         globalSetting.setLastModification(new Date());
 
-        logger.debug("globalSettings: " + globalSetting);
         em.merge(globalSetting);
 
         if(existed){
@@ -85,6 +69,7 @@ public class GlobalSettingDaoImpl implements GlobalSettingDao {
     public int getReservationValidity(){
         GlobalSetting gl = get(GlobalSetting.RESERVATION_VALIDITY);
         if(gl == null){
+            // return default value, because there is no explicit defined
             return Constant.DEFAULT_RESERVATION_VALIDITY;
         }
         int newValue = Integer.parseInt(gl.getValue());

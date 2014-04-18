@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * TODO
+ *  Implementation for interface handling instances of User. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -20,9 +20,6 @@ public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
     public List<User> findUser(User user){
 
         notNull(user);
-/*
-NOT case sensitive user search with priority match. If complete match on mail then higher priority than complete match on name
-*/
         typedQuery = em.createQuery("" +
                 "SELECT p " +
                 "FROM User p WHERE " +
@@ -51,25 +48,24 @@ NOT case sensitive user search with priority match. If complete match on mail th
         if(eppn != null){
             typedQuery = em.createQuery("SELECT p FROM User p WHERE p.eppn = :eppnParam", User.class);
             typedQuery.setParameter("eppnParam", eppn);
+            return getSingleResult();
         }
 
 //        secondary shibboleth identifier
         else if(targetedId != null){
             typedQuery = em.createQuery("SELECT p FROM User p WHERE p.targetedId = :targetedIdParam", User.class);
             typedQuery.setParameter("targetedIdParam", targetedId);
+            return getSingleResult();
         }
 
 //        ternary shibboleth identifier
         else if(persistentId != null){
             typedQuery = em.createQuery("SELECT p FROM User p WHERE p.eppn = :persistentIdParam", User.class);
             typedQuery.setParameter("persistentIdParam", persistentId);
+            return getSingleResult();
         }
 
-        if(typedQuery == null){
-            return null;
-        }
-
-        return getSingleResult();
+        return null;
     }
 
     public List<User> getAllWithSystemRole(SystemRole systemRole){

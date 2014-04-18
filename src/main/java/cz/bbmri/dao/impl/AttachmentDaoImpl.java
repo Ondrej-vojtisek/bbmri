@@ -29,6 +29,7 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
 
     public List<Attachment> getAttachmentSorted(Project project, String orderByParam, boolean desc) {
         notNull(project);
+
         String orderParam = "";
 
         // ORDER BY p.name

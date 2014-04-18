@@ -4,13 +4,12 @@ import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Sample;
-import cz.bbmri.entities.sample.Tissue;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * TODO
+ * Implementation for interface handling instances of Sample. Implementation is using JPQL.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -82,45 +81,6 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
         return typedQuery.getResultList();
     }
-
-    /* With wildcards
-
-    public List<Sample> getSelected2(Sample question) {
-           Query query;
-           if (question.getBiobank() == null) {
-               query = em.createQuery("SELECT p FROM Sample p WHERE p.diagnosis LIKE :diagnosisParam " +
-                       "AND p.morphology LIKE :morphologyParam " +
-                       "AND p.pTNM LIKE :pTNMParam " +
-                       "AND p.tissueType LIKE :tissueTypeParam " +
-                       "AND p.TNM LIKE :TNMParam " +
-                       "AND p.grading = :gradingParam ");
-
-           } else {
-               query = em.createQuery("SELECT p FROM Sample p WHERE p.biobank = :biobankParam " +
-                       "AND p.morphology LIKE :morphologyParam " +
-                       "AND p.pTNM LIKE :pTNMParam " +
-                       "AND p.tissueType LIKE :tissueTypeParam " +
-                       "AND p.TNM LIKE :TNMParam " +
-                       "AND p.grading = :gradingParam ");
-               query.setParameter("biobankParam", question.getBiobank());
-           }
-
-           query.setParameter("diagnosisParam", (question.getDiagnosis() != null ? question.getDiagnosis() : "%"));
-           query.setParameter("morphologyParam", (question.getMorphology() != null ? question.getMorphology() : "") + "%");
-           query.setParameter("pTNMParam", (question.getMorphology() != null ? question.getpTNM() : "") + "%");
-           query.setParameter("tissueTypeParam", (question.getMorphology() != null ? question.getTissueType() : "") + "%");
-           query.setParameter("TNMParam", (question.getMorphology() != null ? question.getTNM() : "") + "%");
-           query.setParameter("gradingParam", (question.getGrading() != null ? question.getGrading() : "*"));
-
-           return query.getResultList();
-       }
-       */
-
-    public void create(Tissue tissue) {
-        notNull(tissue);
-        em.persist(tissue);
-    }
-
 
     public Sample getByInstitutionalId(String id) {
         notNull(id);
