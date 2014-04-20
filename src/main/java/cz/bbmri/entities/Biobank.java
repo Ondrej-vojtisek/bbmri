@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO
+ * Institution involved in project - biobank, hospital, third party sample storage.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -21,6 +21,11 @@ import java.util.Set;
 @Entity
 public class Biobank implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Folder names on server
+     */
     public final static String BIOBANK_FOLDER = File.separator + "biobank_files";
     private final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
     private final static String PATIENT_DATA_FOLDER = "patient_data";
@@ -30,23 +35,35 @@ public class Biobank implements Serializable {
     private final static String MONITORING_DATA_ARCHIVE_FOLDER = "monitoring_data_archive";
     private final static String TEMPERATURE_ARCHIVE_FOLDER = "temperature_data_archive";
 
-    private static final long serialVersionUID = 1L;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Identifier to match source of data imports. Abbreviation must be ASCII only.
+     */
     @Column(unique=true, length = 6)
     private String abbreviation;
 
+    /**
+     * Name of institution
+     */
     private String name;
 
+    /**
+     * Address
+     */
     private String street;
 
+    /**
+     * Address
+     */
     private String city;
 
-    @OneToMany(mappedBy = "biobank", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "biobank")
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
     @OneToMany(mappedBy = "biobank")

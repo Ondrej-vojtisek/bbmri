@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * TODO
+ * Attachment of project
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -16,9 +16,6 @@ import java.io.Serializable;
 @Entity
 public class Attachment implements Serializable {
 
-//    public final static String PROJECT_FOLDER = File.separator + "project_files";
-//    public final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -26,15 +23,33 @@ public class Attachment implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Type of attachment - flag to make attachment list more clear
+     */
     @Enumerated(EnumType.STRING)
     private AttachmentType attachmentType;
 
     @ManyToOne
     private Project project;
 
+    /**
+     * File name
+     */
     private String fileName;
+
+    /**
+     *  File size
+     */
     private Long size;
+
+    /**
+     * Type of content
+     */
     private String contentType;
+
+    /**
+     * Path to data storage on server
+     */
     private String absolutePath;
 
     public Long getId() {
@@ -91,14 +106,6 @@ public class Attachment implements Serializable {
 
     public void setAbsolutePath(String absolutePath) {
         this.absolutePath = absolutePath;
-    }
-
-    public String getParentFolder(){
-        if(absolutePath == null || fileName == null){
-            return null;
-        }
-        String s = absolutePath;
-        return s.substring(0, s.lastIndexOf(fileName));
     }
 
     @Override

@@ -10,7 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * TODO
+ * Universal object for sample requesting. User specify which samples he need for research. Biobank administrator then
+ * add set of samples which fullfill requirements.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -27,21 +28,33 @@ public class SampleQuestion implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Description of required samples
+     */
     @Column(columnDefinition = "TEXT")
     private String specification;
 
     @ManyToOne
     private Biobank biobank;
 
+    /**
+     * State of request/reservation
+     */
     @Enumerated(EnumType.STRING)
     private RequestState requestState;
 
     @Type(type = "timestamp")
     private Date created;
 
+    /**
+     * Date and time of last change
+     */
     @Type(type = "timestamp")
     private Date lastModification;
 
+    /**
+     * Set of samples alocated to this sample question
+     */
     @OneToMany(mappedBy = "sampleQuestion")
     private Set<Request> requests = new HashSet<Request>();
 

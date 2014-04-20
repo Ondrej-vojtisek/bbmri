@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * TODO
+ * Message to user that certain event happened. Message has link to provide about information about event. Link is defined
+ * by notificationType (providing combination of actionBean and event) and objectId (value of param).
+ * Text of notification is localized - translation is based on language setting of recipient.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -26,18 +28,31 @@ public class Notification implements Serializable {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Date and time when notification was created
+     */
     @Type(type = "timestamp")
     private Date created;
 
+    /**
+     * Recipient have seen the notification or not?
+     */
     private boolean read;
 
+    /**
+     * Type of message - defines actionBean, event and name of param
+     */
     @Enumerated(EnumType.STRING)
     private NotificationType notificationType;
 
+    /**
+     * Value of param user in URL for more details
+     */
     private Long objectId;
 
-    private String pokus;
-
+    /**
+     * Localized message (message is localized before storage in database)
+     */
     private String message;
 
     @ManyToOne
@@ -93,28 +108,12 @@ public class Notification implements Serializable {
         this.objectId = objectId;
     }
 
-//    public String getObjectName() {
-//        return objectName;
-//    }
-//
-//    public void setObjectName(String objectName) {
-//        this.objectName = objectName;
-//    }
-
     public String getMessage() {
         return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getPokus() {
-        return pokus;
-    }
-
-    public void setPokus(String pokus) {
-        this.pokus = pokus;
     }
 
     @Override

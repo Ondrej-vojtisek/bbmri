@@ -3,7 +3,7 @@ package cz.bbmri.entities;
 import javax.persistence.Entity;
 
 /**
- * TODO
+ * Long term module of patient
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

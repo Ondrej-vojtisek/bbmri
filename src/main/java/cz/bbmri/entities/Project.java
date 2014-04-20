@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * TODO
+ * Research Project uploaded into system
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -19,18 +19,24 @@ import java.util.*;
 @Entity
 public class Project implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     public final static String PROJECT_FOLDER = File.separator + "project_files";
     private final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Project name
+     */
     private String name;
 
+    /**
+     * What is the goal of the project
+     */
     @Column(columnDefinition = "TEXT")
     private String annotation;
 
@@ -42,6 +48,9 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
+    /**
+     * Who approved/denied project in system
+     */
     @ManyToOne
     private User judgedByUser;
 

@@ -5,7 +5,7 @@ import cz.bbmri.entities.enumeration.Permission;
 import javax.persistence.*;
 
 /**
- * TODO
+ * Relationship between Project and User
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -22,6 +22,9 @@ public class ProjectAdministrator {
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Level of user authorization to project
+     */
     @Enumerated(EnumType.STRING)
     private Permission permission;
 

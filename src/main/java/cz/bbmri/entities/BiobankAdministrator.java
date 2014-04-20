@@ -4,11 +4,10 @@ import cz.bbmri.entities.enumeration.Permission;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Comparator;
 
 
 /**
- * TODO
+ * Relationship between biobank and user
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -16,7 +15,7 @@ import java.util.Comparator;
 
 @Table
 @Entity
-public class BiobankAdministrator implements Serializable, Comparable<BiobankAdministrator> {
+public class BiobankAdministrator implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +24,9 @@ public class BiobankAdministrator implements Serializable, Comparable<BiobankAdm
     @Column(nullable = false)
     private Long id;
 
+    /**
+     * Permission of user to biobank. Defines what he is authorized to do.
+     */
     @Enumerated(EnumType.STRING)
     private Permission permission;
 
@@ -33,8 +35,6 @@ public class BiobankAdministrator implements Serializable, Comparable<BiobankAdm
 
     @ManyToOne
     private User user;
-
-    // public BiobankAdministrator(){}
 
     public Biobank getBiobank() {
         return biobank;
@@ -95,77 +95,5 @@ public class BiobankAdministrator implements Serializable, Comparable<BiobankAdm
                 '}';
     }
 
-    public int compareTo(BiobankAdministrator compareAdministrator) {
-
-        if (this.getId() > compareAdministrator.getId())
-            return 1;
-        else if (this.getId() < compareAdministrator.getId())
-            return -1;
-        else
-            return 0;
-    }
-
-    public static Comparator<BiobankAdministrator> NameComparator
-            = new Comparator<BiobankAdministrator>() {
-
-        public int compare(BiobankAdministrator admin1, BiobankAdministrator admin2) {
-
-            User atr1 = admin1.getUser();
-            User atr2 = admin2.getUser();
-
-            if (atr1 == null) {
-                if (atr2 == null) {
-                    return 0;
-                } else {
-                    return Integer.MIN_VALUE;
-                }
-            }
-
-            if (atr2 == null) {
-                return Integer.MAX_VALUE;
-            }
-
-            if (atr1.getSurname() == null) {
-                if (atr2.getSurname() == null) {
-                    return 0;
-                } else {
-                    return Integer.MIN_VALUE;
-                }
-            }
-
-            if (atr2.getSurname() == null) {
-                return Integer.MAX_VALUE;
-            }
-
-            return atr1.getSurname().compareTo(atr2.getSurname());
-        }
-
-    };
-
-    public static Comparator<BiobankAdministrator> PermissionComparator
-            = new Comparator<BiobankAdministrator>() {
-
-        public int compare(BiobankAdministrator admin1, BiobankAdministrator admin2) {
-
-            Permission atr1 = admin1.getPermission();
-            Permission atr2 = admin2.getPermission();
-
-            if (atr1 == null) {
-                if (atr2 == null) {
-                    return 0;
-                } else {
-                    return Integer.MIN_VALUE;
-                }
-            }
-
-            if (atr2 == null) {
-                return Integer.MAX_VALUE;
-            }
-
-            return Permission.compare(atr1, atr2);
-
-        }
-
-    };
 
 }

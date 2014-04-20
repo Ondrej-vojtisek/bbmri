@@ -3,7 +3,7 @@ package cz.bbmri.entities;
 import javax.persistence.*;
 
 /**
- * TODO
+ * Request defines which sample and how many pieces (aliquotes) is alocated with sample question (reservation or request)
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -13,9 +13,12 @@ import javax.persistence.*;
 @Entity
 public class Request {
 
-    public static final int IMPLICIT_REQUESTED_SAMPLES = 1;
-
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Default number of requested samples is this
+     */
+    public static final int IMPLICIT_REQUESTED_SAMPLES = 1;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)

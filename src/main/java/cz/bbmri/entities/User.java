@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * TODO
+ * Anyone with access to system
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -18,9 +18,12 @@ import java.util.*;
 @Table(name="users") // table _user_ is used by PostgreSQL by default
 public class User implements Serializable /*, Comparable<User>*/ {
 
-    private static final String AFFILIATION_EMPLOYEE = "employee@";
-
     private static final long serialVersionUID = 1L;
+
+    /**
+     * EduId defines few values of vield affiliation. In BBMRI only users with employee@ are allowed to access
+     */
+    private static final String AFFILIATION_EMPLOYEE = "employee@";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -57,7 +60,7 @@ public class User implements Serializable /*, Comparable<User>*/ {
     /* affiliation in Shibboleth*/
     private String affiliation;
 
-    //naive temporal prosthesis
+    // Stored as SHA-256 hash
     private String password;
 
     @OneToOne
@@ -91,10 +94,10 @@ public class User implements Serializable /*, Comparable<User>*/ {
     @Type(type = "timestamp")
     private Date lastLogin;
 
+    /**
+     * Flag about the origin of user
+     */
     private boolean shibbolethUser;
-
-    public User() {
-    }
 
     public User(String name, String surname) {
         this.name = name;

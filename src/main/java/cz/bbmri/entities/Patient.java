@@ -8,7 +8,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * TODO
+ * Patient who agreed to use his biological material (rest after his treatment) for research purpose. Data must be anonymized
+ * thats why only month and year of birth are stored. Also only institutionId is stored instead of national ID.
+ *
+ * Structure:
+ * Biobank
+ *      - Patient
+ *          - LTS module
+ *              - Samples
+ *          - STS module
+ *              - Samples
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -25,16 +34,31 @@ public class Patient implements Serializable {
     @Column(nullable = false)
     private Long id;
 
-    @Column(unique=true, length = 10)
+    /**
+     * ID from hospital, where patient was treated
+     */
+    @Column(unique = true, length = 10)
     private String institutionId;
 
+    /**
+     * Male of female
+     */
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    /**
+     * Year of birth
+     */
     private Integer birthYear;
 
+    /**
+     * Month of birth
+     */
     private Integer birthMonth;
 
+    /**
+     * Patient's agreement that he allows to use treatment data (and biological material) for research
+     */
     private boolean consent;
 
     @OneToOne(mappedBy = "patient")
