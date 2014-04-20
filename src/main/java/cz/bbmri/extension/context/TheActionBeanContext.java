@@ -1,6 +1,5 @@
 package cz.bbmri.extension.context;
 
-import cz.bbmri.entities.Project;
 import cz.bbmri.entities.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import org.slf4j.Logger;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 
 /**
- * TODO
+ * Context of all actionBeans
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -20,8 +19,10 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    /* Shibboleth attributes */
-
+    /**
+     * Shibboleth attributes
+     * - all attributes which are retrived from shibboleth header
+     */
     private static final String SHIB_SESSION_ID = "Shib-Session-ID";
     private static final String SHIB_EPPN = "eppn";
     private static final String SHIB_TARGETED_ID = "targeted-id";
@@ -33,16 +34,14 @@ public class TheActionBeanContext extends ActionBeanContext {
     private static final String SHIB_ORGANIZATION = "o";
     private static final String SHIB_MAIL = "mail";
     private static final String SHIB_DISPLAY_NAME = "displayName";
-    private static final String SHIB_MEFAPERSON = "mefaperson";
-
 
     private static final String MY_ID = "myId";
 
     /**
-     * Stores the given attribute in session.
+     * Stores the given attribute in session
      *
-     * @param key   Attribute key
-     * @param value Stored value
+     * @param key   - Attribute key
+     * @param value - Stored value
      */
     void setCurrent(String key, Object value) {
         // Retrieve the session instance and set attribute
@@ -50,10 +49,10 @@ public class TheActionBeanContext extends ActionBeanContext {
     }
 
     /**
-     * Searches for an attribute in session according to given key.
+     * Searches for an attribute in session by the given key
      *
-     * @param key          Session attribute key
-     * @param defaultValue Default value
+     * @param key          - Session attribute key
+     * @param defaultValue - Default value
      * @return Loaded value or null
      */
     <T> T getCurrent(String key, T defaultValue) {
@@ -74,7 +73,7 @@ public class TheActionBeanContext extends ActionBeanContext {
     }
 
     public void dropUser() {
-        // Forget the value
+        // Forget the logged user
         dropMyId();
         // When logged
         // Retrieve the session instance
@@ -109,16 +108,13 @@ public class TheActionBeanContext extends ActionBeanContext {
         }
     }
 
-
-    public Project getProject() {
-        return (Project) getRequest().getSession().getAttribute("project");
-    }
-
-    public void setProject(Project project) {
-        getRequest().getSession().setAttribute("project", project);
-    }
-
-
+    /**
+     * Hack to parse data from shibboleth headers in UTF-8. HTTP header is encoded using iso-8859-1 but without explicit
+     * specification application would try to parse it as UTF-8.
+     *
+     * @param param - Attribute to search in header
+     * @return text in UTF-8
+     */
     String getHeaderParam(String param) {
         String paramText = getRequest().getHeader(param);
         if (paramText != null)
@@ -137,9 +133,7 @@ public class TheActionBeanContext extends ActionBeanContext {
     }
 
     public boolean getIsShibbolethSession() {
-        if (getShibbolethSession() == null) return false;
-
-        return true;
+        return getShibbolethSession() != null;
     }
 
     public String getShibbolethEppn() {
@@ -172,11 +166,6 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public String getShibbolethMail() {
         return getHeaderParam(SHIB_MAIL);
-    }
-
-    /*TODO: String -> Boolean or boolean*/
-    public String getShibbolethMefaPerson() {
-        return getHeaderParam(SHIB_MEFAPERSON);
     }
 
     public String getShibbolethOrganization() {

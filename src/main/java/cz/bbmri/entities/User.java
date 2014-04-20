@@ -99,6 +99,9 @@ public class User implements Serializable /*, Comparable<User>*/ {
      */
     private boolean shibbolethUser;
 
+    public User() {
+        }
+
     public User(String name, String surname) {
         this.name = name;
         this.surname = surname;

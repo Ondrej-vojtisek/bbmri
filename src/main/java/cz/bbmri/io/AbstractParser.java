@@ -20,22 +20,26 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * TODO
+ * Base for parsers in IO package. Provides validation and evaluates queries for xml document using xpath.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 abstract class AbstractParser {
 
-    //    XML document - data import
+    // XML document - data import
     Document document;
 
+    // Path of file
     private final String xmlFilePath;
 
     XPathFactory xpathFactory;
 
+    // Instance of http://java.sun.com/javase/6/docs/api/javax/xml/namespace/NamespaceContext.html
+    // Map of prexifes and namespaces (URI)
     private NamespaceContext namespaceContext;
 
+    // Unique biobank prefix - biobank.abbreviation
     private String biobankPrefix;
 
     String getBiobankPrefix() {
@@ -46,32 +50,56 @@ abstract class AbstractParser {
         this.biobankPrefix = biobankPrefix;
     }
 
+    /**
+     * Initialize
+     *
+     * @param path       - path to XML file
+     * @param contextMap - map of namespaces and prefixes
+     * @throws Exception
+     */
     AbstractParser(String path, NamespaceContextMap contextMap) throws Exception {
 
         this.xmlFilePath = path;
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-        factory.setNamespaceAware(true); // never forget this!
+        // Support for XML namespace
+        factory.setNamespaceAware(true);
 
         DocumentBuilder builder = factory.newDocumentBuilder();
-
         // initiate document
         document = builder.parse(path);
-
+        // initiate XPath
         xpathFactory = XPathFactory.newInstance();
-
         // namespace context
         namespaceContext = contextMap;
 
     }
 
-    abstract String getBiobankId();
+    /**
+     * Return biobank abbreviation.
+     *
+     * @return biobank abbretivaion or null
+     */
+    abstract String getBiobankAbbreviation();
 
+    /**
+     * Single point to turn off logging of XPath
+     *
+     * @param xPathQuery
+     */
     private void logger(String xPathQuery) {
         //  System.out.println("XPathQuery: " + xPathQuery);
     }
 
+    /**
+     * Execute XPath query on given node
+     *
+     * @param xPathQuery
+     * @param node
+     * @return result of XPath on a node - NodeSet is returned
+     * @throws XPathExpressionException
+     */
     Object executeXPathForNodeSet(String xPathQuery, Node node) throws XPathExpressionException {
         logger(xPathQuery);
 
@@ -81,6 +109,14 @@ abstract class AbstractParser {
         return expr.evaluate(node, XPathConstants.NODESET);
     }
 
+    /**
+     * Execute XPath query on a given node, return String
+     *
+     * @param xPathQuery
+     * @param node
+     * @return String value of query result
+     * @throws XPathExpressionException
+     */
     String executeXPath(String xPathQuery, Node node) throws XPathExpressionException {
         logger(xPathQuery);
 
@@ -90,12 +126,23 @@ abstract class AbstractParser {
         return (String) expr.evaluate(node, XPathConstants.STRING);
     }
 
-    // tests if string not null and not empty
+    /**
+     * String is not null and not empty
+     *
+     * @param s
+     * @return
+     */
     boolean notNullnotEmpty(String s) {
         return s != null && !s.isEmpty();
 
     }
 
+    /**
+     * Validation of document against given xsdURL
+     *
+     * @param xsdURL - URL of XML schema
+     * @return true, false (error during validation), exception if not valid
+     */
     boolean validateDocument(String xsdURL) {
         URL schemaFile;
 
@@ -105,6 +152,7 @@ abstract class AbstractParser {
             ex.printStackTrace();
             return false;
         }
+        // Initiate source file
         Source xmlFile = new StreamSource(new File(xmlFilePath));
         SchemaFactory schemaFactory = SchemaFactory
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -129,12 +177,17 @@ abstract class AbstractParser {
             System.out.println("Reason: " + ex.getLocalizedMessage());
             return false;
         }
-
+        // XML is valid
         return true;
 
     }
 
-    //    Identifier must start with biobank prefix. Otherwise false is returned
+    /**
+     * Checks if given indentifier starts with biobankPrefix.
+     *
+     * @param identifier
+     * @return true if starts with biobankPrefix
+     */
     boolean hasPrefix(String identifier) {
         if (identifier == null) return false;
 
@@ -148,5 +201,4 @@ abstract class AbstractParser {
     }
 
     abstract boolean validate();
-
 }

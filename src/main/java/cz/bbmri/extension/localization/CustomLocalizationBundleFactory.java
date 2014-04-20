@@ -11,12 +11,12 @@ import java.util.ResourceBundle;
 /**
  * TODO
  *
- * @author Sochi
+ * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public class CustomLocalizationBundleFactory implements LocalizationBundleFactory
-{
+public class CustomLocalizationBundleFactory implements LocalizationBundleFactory {
+
     // Hold the instance of logger class for resource usage dubugging
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -38,8 +38,7 @@ public class CustomLocalizationBundleFactory implements LocalizationBundleFactor
     private String shareBundleName;
 
     @Override
-    public void init(Configuration configuration)
-    {
+    public void init(Configuration configuration) {
         // Load the appropriate localization resource configuration
         errorBundleName = configuration.getBootstrapPropertyResolver().getProperty(ERROR);
         fieldBundleName = configuration.getBootstrapPropertyResolver().getProperty(FIELD);

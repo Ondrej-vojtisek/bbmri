@@ -13,22 +13,23 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Method;
 import java.util.Set;
 
+/***
+ * Excerpted from "Stripes: and Java Web Development is Fun Again",
+ * published by The Pragmatic Bookshelf.
+ * Copyrights apply to this code. It may not be used to create training material,
+ * courses, books, articles, and the like. Contact us if you are in doubt.
+ * We make no guarantees that this code is fit for any purpose.
+ * Visit http://www.pragmaticprogrammer.com/titles/fdstr for more book information.
+***/
 
 /**
- * TODO
+ * Checks if user is authenticated and if he is authorized (has role) to access specific resources.
  *
- * @author sochi
+ * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 public class AssociatedSecurityManager extends InstanceBasedSecurityManager implements SecurityHandler {
-
-    /*
-    * Explanations of affiliation values is on http://www.eduid.cz/cs/tech/eduperson
-    * Used values are: faculty (teacher), student, staff (not teacher personal), alum, member, affiliate (external employee),
-    * employee
-    *
-    * */
 
     private User user;
 
@@ -54,7 +55,6 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         // When no identifier and shibboleth user
         // This solves the situation when shibboleth user tries to access direct URL inside bbmri
         // instead of index
-
         else if (!set && basicBean.isShibbolethUser()) {
 
             // Sign in should return true on success
@@ -78,6 +78,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     }
 
     private Set<SystemRole> getRoles(ActionBean bean) {
+        // get roles of logged uesr
         return ((BasicActionBean) bean).getRoles();
     }
 
@@ -103,6 +104,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     @Override
     public Resolution handleAccessDenied(ActionBean bean, Method handler) {
         logger.debug("HandleAccessDenied");
+
         // If not authenticated user
         if (!isUserAuthenticated(bean, handler)) {
             logger.debug("Return to login form");
@@ -113,7 +115,6 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         // Display the error message
 
         //return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
-
         return new ForwardResolution("/errors/not_authorized_to_access.jsp");
     }
 }

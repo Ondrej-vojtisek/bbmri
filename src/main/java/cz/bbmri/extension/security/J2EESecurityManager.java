@@ -1,9 +1,7 @@
 package cz.bbmri.extension.security;
 
-import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.config.DontAutoLoad;
-import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.stripesstuff.plugin.security.SecurityManager;
@@ -17,6 +15,7 @@ import java.lang.reflect.Method;
 /**
  * TODO
  *
+ * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -33,12 +32,7 @@ import java.lang.reflect.Method;
  * @version
  */
 @DontAutoLoad
-public class J2EESecurityManager implements SecurityManager
-{
-
-    @SpringBean
-    private UserService userService;
-
+public class J2EESecurityManager implements SecurityManager {
 
     /**
      * Logger for this class.
@@ -62,8 +56,7 @@ public class J2EESecurityManager implements SecurityManager
      * @see SecurityManager#getAccessAllowed(ActionBean, java.lang.reflect.Method)
      */
     @Override
-    public Boolean getAccessAllowed(ActionBean bean, Method handler)
-    {
+    public Boolean getAccessAllowed(ActionBean bean, Method handler){
         // Determine if the event handler allows access
         logger.debug("Determining if access is allowed for " + handler.getName() + " on " + bean.toString());
         Boolean allowed = determineAccessOnElement(bean, handler, handler);
@@ -73,11 +66,8 @@ public class J2EESecurityManager implements SecurityManager
         // Rinse and repeat for all superclasses
         Class<?> beanClass = bean.getClass();
 
-
-
         // Iterate through the class nesting
-        while(allowed == null && beanClass != null)
-        {
+        while(allowed == null && beanClass != null) {
             logger.debug("Allowed: " + allowed);
             logger.debug("beanClass: " + beanClass);
 
@@ -88,8 +78,7 @@ public class J2EESecurityManager implements SecurityManager
 
         // If the event handler nor the action bean class decided, allow access
         // This default allows access if no security annotations are used
-        if(allowed == null)
-        {
+        if(allowed == null) {
             allowed = true;
         }
 
@@ -108,48 +97,41 @@ public class J2EESecurityManager implements SecurityManager
      * @see javax.annotation.security.PermitAll
      * @see javax.annotation.security.RolesAllowed
      */
-    Boolean determineAccessOnElement(ActionBean bean, Method handler, AnnotatedElement element){
+    Boolean determineAccessOnElement(ActionBean bean, Method handler, AnnotatedElement element) {
 
         // Default decision: none
         Boolean allowed = null;
 
-        if(element.isAnnotationPresent(DenyAll.class))
-        {
+        if(element.isAnnotationPresent(DenyAll.class)) {
             // The element denies access
             allowed = false;
             logger.debug("DenyAll");
         }
-        else if(element.isAnnotationPresent(PermitAll.class))
-        {
+        else if(element.isAnnotationPresent(PermitAll.class)) {
             // The element allows access to all security roles (i.e. any authenticated user)
             allowed = isUserAuthenticated(bean, handler);
             logger.debug("User: Result:" + allowed);
             logger.debug("PermitAll");
         }
-        else
-        {
+        else{
             logger.debug("Try to get which roles are allowed");
             RolesAllowed rolesAllowed = element.getAnnotation(RolesAllowed.class);
-            if(rolesAllowed != null)
-            {
+            if(rolesAllowed != null) {
                 // Still need to check if the users is authorized
                 allowed = isUserAuthenticated(bean, handler);
 
                 logger.debug("Is userAuthenticated: " + allowed);
 
-                if(allowed == null || allowed.booleanValue())
-                {
+                if(allowed == null || allowed.booleanValue()) {
                     // The element allows access
                     // if the user has one of
                     // the specified roles
                     allowed = false;
 
-                    for(String role : rolesAllowed.value())
-                    {
+                    for(String role : rolesAllowed.value()) {
                         Boolean hasRole = hasRole(bean, handler, role);
 
-                        if(hasRole != null && hasRole)
-                        {
+                        if(hasRole != null && hasRole) {
                             allowed = true;
                             break;
                         }

@@ -6,13 +6,6 @@ import net.sourceforge.stripes.action.ActionBean;
 import java.lang.reflect.Method;
 
 /**
- * TODO
- *
- * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
- * @version 1.0
- */
-
-/**
  * Security manager for the Stripes framework. Determines if handling the event for the current
  * execution context is possible or allowed. This is done as follows:<ul>
  * <li>If the security manager allows access, both validation errors and events are allowed.</li>

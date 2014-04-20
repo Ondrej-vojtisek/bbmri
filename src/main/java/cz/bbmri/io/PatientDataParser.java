@@ -21,7 +21,7 @@ import java.util.List;
 
 
 /**
- * TODO
+ * Parses import about samples stored in biobank. Imports are based on http://www.bbmri.cz/schemas/monitoring/data.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -29,9 +29,12 @@ import java.util.List;
 
 public class PatientDataParser extends AbstractParser {
 
+    // Reference XML schema to validate imports
     private static final String PATIENT_XSD_URL = "http://www.bbmri.cz/schemas/biobank/data.xsd";
+    // Default namespace of biobank data import
     private static final String DEFAULT_NAMESPACE = "http://www.bbmri.cz/schemas/biobank/data";
     private static final String NAMESPACE_PREFIX = "def";
+    // Simplification of XPath
     private static final String NAMESPACE_PREFIX_COLONS = NAMESPACE_PREFIX + ":";
     private static final String NAMESPACE_PREFIX_SLASHED = "/" + NAMESPACE_PREFIX_COLONS;
     private static final String ROOT_ELEMENT = NAMESPACE_PREFIX_SLASHED + "patient";
@@ -47,7 +50,7 @@ public class PatientDataParser extends AbstractParser {
         return validateDocument(PATIENT_XSD_URL);
     }
 
-    public String getBiobankId() {
+    public String getBiobankAbbreviation() {
 
         String biobankId;
 

@@ -20,7 +20,7 @@ import java.util.*;
 
 @Table
 @Entity
-public class Sample implements Serializable {
+public class Sample implements Serializable, Comparable<Sample> {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -154,6 +154,16 @@ public class Sample implements Serializable {
                 ", module=" + module +
                 ", requests=" + requests +
                 '}';
+    }
+
+    public int compareTo(Sample compareSample) {
+
+        if (this.getId() > compareSample.getId())
+            return 1;
+        else if (this.getId() < compareSample.getId())
+            return -1;
+        else
+            return 0;
     }
 
 }

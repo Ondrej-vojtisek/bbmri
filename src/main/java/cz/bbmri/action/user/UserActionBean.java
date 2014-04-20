@@ -36,6 +36,9 @@ public class UserActionBean extends ComponentActionBean<User> {
                     required = true)
     })
     private User user;
+
+// TODO - sifrovani parametru, ktery se pouziva v URL
+//    @Validate(encrypted=true)
     private Long userId;
 
 

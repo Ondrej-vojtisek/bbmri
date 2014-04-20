@@ -18,13 +18,6 @@ import java.util.regex.Pattern;
 
 
 /**
- * TODO
- *
- * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
- * @version 1.0
- */
-
-/**
  * Security manager for the Stripes framework that handles the J2EE security annotations, but also
  * applies instance based security.
  * <p/>
@@ -41,9 +34,7 @@ import java.util.regex.Pattern;
  */
 @DontAutoLoad
 public class InstanceBasedSecurityManager extends J2EESecurityManager {
-    /**
-     * Logger for this class.
-     */
+
     private final Logger logger = LoggerFactory.getLogger(InstanceBasedSecurityManager.class);
 
 
@@ -130,12 +121,6 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
             ValidationErrors errors = new ValidationErrors();
 
             ExpressionValidator.evaluate(bean, name, values, metadata, errors);
-
-//            logger.debug("Bean: '" + bean + '\'');
-//            logger.debug("Name: '" + name + '\'');
-//            logger.debug("Values: '" + values + '\'');
-//            logger.debug("Metadata: '" + metadata + '\'');
-//            logger.debug("Errors: '" + errors + '\'');
 
             return errors.isEmpty();
         } catch (Exception exc) {

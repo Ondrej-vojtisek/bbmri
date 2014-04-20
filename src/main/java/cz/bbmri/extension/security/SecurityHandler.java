@@ -6,13 +6,6 @@ import net.sourceforge.stripes.action.Resolution;
 import java.lang.reflect.Method;
 
 /**
- * TODO
- *
- * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
- * @version 1.0
- */
-
-/**
  * Optional interface that can be implemented by a SecurityManager to determine
  * what to do when access has been denied.
  *

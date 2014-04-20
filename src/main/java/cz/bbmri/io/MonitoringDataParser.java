@@ -12,16 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO
+ * Parses import about biobank occupancy. Imports are based on http://www.bbmri.cz/schemas/monitoring/bankoccupancy.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 public class MonitoringDataParser extends AbstractParser {
 
+    /* Reference XML schema for validation */
     private static final String MONITORING_XSD_URL = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy.xsd";
+    /* Default namespace of biobank occupancy import*/
     private static final String DEFAULT_NAMESPACE = "http://www.bbmri.cz/schemas/monitoring/bankoccupancy";
     private static final String NAMESPACE_PREFIX = "def";
+    /* Simplification of XPATH queries */
     private static final String NAMESPACE_PREFIX_COLONS = NAMESPACE_PREFIX + ":";
     private static final String NAMESPACE_PREFIX_SLASHED = "/" + NAMESPACE_PREFIX_COLONS;
     private static final String ROOT_ELEMENT =  NAMESPACE_PREFIX_SLASHED + "biobank";
@@ -33,7 +36,7 @@ public class MonitoringDataParser extends AbstractParser {
                                   NAMESPACE_PREFIX, DEFAULT_NAMESPACE));
     }
 
-    public String getBiobankId() {
+    public String getBiobankAbbreviation() {
 
         String biobankId;
         try {
@@ -50,11 +53,17 @@ public class MonitoringDataParser extends AbstractParser {
         return validateDocument(MONITORING_XSD_URL);
     }
 
+    /**
+     * Return all containers from given XML file
+     *
+     * @return list of containers or null
+     */
     public List<Container> getContainers() {
 
         NodeList nodes;
 
         try {
+            // Return all nodes of type container
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + "container", document);
 
         } catch (Exception ex) {
@@ -67,17 +76,26 @@ public class MonitoringDataParser extends AbstractParser {
             return null;
         }
 
+        // Parse each container
         return parseContainerList(nodes);
 
     }
 
+    /**
+     * Return all racks of given container
+     *
+     * @param container
+     * @return list of racks
+     */
     public List<Rack> getRacks(Container container) {
 
         NodeList nodes;
 
         try {
+
+            // get all nodes of type rack under container with specified id
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
-                    NAMESPACE_PREFIX_SLASHED + "container[@id='" +container.getName() + "']" +
+                    NAMESPACE_PREFIX_SLASHED + "container[@id='" + container.getName() + "']" +
                     NAMESPACE_PREFIX_SLASHED + " rack", document);
 
         } catch (Exception ex) {
@@ -89,14 +107,22 @@ public class MonitoringDataParser extends AbstractParser {
             System.err.println("Nodes null");
             return null;
         }
+
+        // parse each rack
         return parseRackList(nodes);
 
     }
 
+    /**
+     * Return all standalone boxes of biobank from xml
+     *
+     * @return list of boxes found in nonstructured part of biobank
+     */
     public List<Box> getStandaloneBoxes() {
         NodeList nodes;
 
         try {
+            // all nodes of type box found in root node
             nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT +
                     NAMESPACE_PREFIX_SLASHED + "box", document);
 
@@ -110,10 +136,18 @@ public class MonitoringDataParser extends AbstractParser {
             return null;
         }
 
+        // parse each standalone box
         return parseBoxNodeList(nodes);
 
     }
 
+    /**
+     * Return all boxes from given container and rack
+     *
+     * @param container
+     * @param rack
+     * @return list of rack boxes
+     */
     public List<Box> getRackBoxes(Container container, Rack rack) {
 
         NodeList nodes;
@@ -140,7 +174,6 @@ public class MonitoringDataParser extends AbstractParser {
 
 
     private List<Container> parseContainerList(NodeList nodes) {
-        System.out.println("ParseContainerList");
 
         List<Container> containers = new ArrayList<Container>();
 
@@ -206,6 +239,12 @@ public class MonitoringDataParser extends AbstractParser {
         return boxes;
     }
 
+    /**
+     * Parse one element of type container. Creates instance of Container by found data in XML
+     *
+     * @param node
+     * @return instance of Container or null
+     */
     private Container parseContainer(Node node) {
         Container container = new Container();
 
@@ -488,6 +527,7 @@ public class MonitoringDataParser extends AbstractParser {
             position.setSequentialPosition(null);
             // or failed
         } else {
+            // at least one method of positioning must be defined
             System.err.println("Sequential or matrix position is necessary");
             return null;
         }

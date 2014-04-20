@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO
+ * Exception handler - what to do if anything on presentation layer fails
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 
 public class MyExceptionHandler extends DefaultExceptionHandler {
+
     private static final String NON_SPECIFIED_ERROR = "/errors/unspecified.jsp";
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -29,7 +30,9 @@ public class MyExceptionHandler extends DefaultExceptionHandler {
         return new ErrorResolution(HttpServletResponse.SC_NOT_FOUND);
     }
 
-
+    /**
+     * Not good for testing
+     */
 //    public Resolution catchAll(Throwable exc, HttpServletRequest req,
 //        HttpServletResponse resp){
 //        exc.printStackTrace();
