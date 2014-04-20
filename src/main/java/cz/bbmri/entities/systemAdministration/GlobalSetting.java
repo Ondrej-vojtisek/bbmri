@@ -9,7 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * TODO
+ * Settings affecting behaviour of whole system. Setting is structure as set of key + value. Each has different meaning and
+ * changes behaviour of different part of system. System administrators (user with ADMINISTRATOR system role) can change
+ * values of global settings.
+ *
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -18,6 +21,10 @@ import java.util.Date;
 @Entity
 public class GlobalSetting implements Serializable {
 
+    /**
+     * Global setting with the key RESERVATION_VALIDITY defines how long is reservation preserved in system before
+     * expiration.
+     */
     public static final String RESERVATION_VALIDITY = "RESERVATION_VALIDITY";
 
     @Id

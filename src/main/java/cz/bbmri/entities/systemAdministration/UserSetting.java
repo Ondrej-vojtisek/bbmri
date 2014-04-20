@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.Locale;
 
 /**
- * TODO
+ * Setting which is associated with particular user (each user has his own setting). Each attribute of object defines
+ * unique behaviour capability.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -36,10 +37,19 @@ public class UserSetting implements Serializable {
     @PrimaryKeyJoinColumn
     private User user;
 
+    /**
+    * Number of records on page which user want to view on a page
+    * */
     private int numberOfRecordsPerPage;
 
+    /**
+     * If user want to accept notification on email (user.email)
+     */
     private boolean sendNotificationToEmail;
 
+    /**
+     * Language setting of user. Set during his first login. Affects language of notification messages.
+     */
     private String locale;
 
     public Long getId() {

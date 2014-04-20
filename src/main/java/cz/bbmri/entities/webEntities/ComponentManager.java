@@ -1,14 +1,17 @@
 package cz.bbmri.entities.webEntities;
 
 /**
- * TODO
+ * Manager of component printed on .jsp pages. Components are used the minimize of copied code of .jsp pages. During
+ * call of actionBean constructor also the component managed is initialized.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 
 public class ComponentManager {
-    /* all path names for ribbon, header etc.*/
+    /**
+     * Name of folders with components
+     */
     public static final String ATTACHMENT_DETAIL = "attachment";
     public static final String BIOBANK_DETAIL = "biobank";
     public static final String BOX_DETAIL = "box";
@@ -27,32 +30,66 @@ public class ComponentManager {
     public static final String TISSUE_DETAIL = "tissue";
     public static final String USER_DETAIL = "user";
 
+    /**
+     * Path to component structure
+     */
     private static final String COMPONENT_PATH = "/webpages/component/detail/";
 
+    /**
+     * Table header of given type
+     */
     private static final String HEADER = "/header.jsp";
 
+    /**
+     * One one-row table of ribbon - combination of table header and data about one instance
+     */
     private static final String RIBBON = "/ribbon.jsp";
 
+    /**
+     * Row of table
+     */
     private static final String ROW = "/row.jsp";
 
+    /**
+     * Table header with active header which allows to sort by clicking
+     */
     private static final String SORTABLE_HEADER = "/sortableHeader.jsp";
 
+    /**
+     * Breadcrumb component
+     */
     private static final String BREADCRUMBS = "/webpages/component/detail/breadcrumb/breadcrumb.jsp";
 
-
-    // for instance view of all Samples
+    /**
+     * Name of primary object used in .jsp managed by actionBean
+     */
     private String primaryObjectName;
 
-    // for instance banner of biobank
+    /**
+     * Name of secondary object used in .jsp managed by actionBean. For instance on sample detail we want to print
+     * component with sample data as primary component and data about patient as secondary
+     */
     private String secondaryObjectName;
 
     // In create wizard there is no need to define any object name
-    public ComponentManager() {}
+    public ComponentManager() {
+    }
 
+    /**
+     * PrimaryObject is enough
+     *
+     * @param primaryObjectName
+     */
     public ComponentManager(String primaryObjectName) {
         this.primaryObjectName = primaryObjectName;
     }
 
+    /**
+     * Both objects primary and secondary are defined
+     *
+     * @param primaryObjectName
+     * @param secondaryObjectName
+     */
     public ComponentManager(String primaryObjectName, String secondaryObjectName) {
         this.primaryObjectName = primaryObjectName;
         this.secondaryObjectName = secondaryObjectName;
@@ -74,6 +111,9 @@ public class ComponentManager {
         this.secondaryObjectName = secondaryObjectName;
     }
 
+/*
+Way how to easily access component from component
+ */
     public String getTableHeader() {
 
         return COMPONENT_PATH + primaryObjectName + HEADER;
@@ -96,8 +136,8 @@ public class ComponentManager {
     }
 
     public String getBreadcrumbsComponent() {
-            return BREADCRUMBS;
-        }
+        return BREADCRUMBS;
+    }
 
 
 }

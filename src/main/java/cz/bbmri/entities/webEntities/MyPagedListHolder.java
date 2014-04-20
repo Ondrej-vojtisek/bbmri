@@ -7,7 +7,9 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * TODO
+ * Manager of paged listed view of entities.
+ * Component extending PagedListHolder (org.springframework.beans.support.PagedListHolder) to add data about ordering
+ * and to store context necessary to get data from DB.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -18,25 +20,50 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     private static final int PAGE_SIZE = 10;
     private static final int MAX_PAGING_WIDTH = 6;
 
+
+    /**
+     * Which column of table was chosen to sort them
+     */
     private String orderParam;
 
+    /**
+     * Order of sort ASC, DESC
+     */
     private boolean desc;
 
+    /**
+     * Event definition - which event of actionBean is triggered
+     */
     private String event;
 
+    /**
+     * When we don't want to have method on service layer providing sorted data by all meaningful parameter combinations
+     * it is possible to set comparator to sort data collection
+     */
     private Comparator comparator;
 
-    // if necessary to store context - for instance biobank or project
+    /**
+     * Context of data (e.g. biobank identifier when we want to print biobank administrators)
+     */
     private Long identifier;
 
+    /**
+     * Name of identifier - part of URL
+     */
     private String identifierParam;
 
-    // if we need more pagination on one page - we need to distinguish between parameters in URL
+    /**
+     * If we need more than one pagination on one page it is necessary to distinguish between parameters. Otherwise
+     * we would sort both tables be clicking on any header. Web param allows to create params with suffix
+     * like descA, orderParamA
+     */
     private String webParamDiscriminator = "";
 
     public MyPagedListHolder(List<E> source) {
         super(source);
+        // default page size
         setPageSize(PAGE_SIZE);
+        // default paging width
         setMaxLinkedPages(MAX_PAGING_WIDTH);
         setDesc(false);
     }
@@ -65,7 +92,6 @@ public class MyPagedListHolder<E> extends PagedListHolder {
         this.desc = desc;
     }
 
-
     public int getCurrentPage() {
         // getPage is indexed from 0
         return getPage() + 1;
@@ -77,10 +103,12 @@ public class MyPagedListHolder<E> extends PagedListHolder {
     }
 
     public int getMyFirstLinkedPage() {
+        // getPage is indexed from 0
         return getFirstLinkedPage() + 1;
     }
 
     public int getMyLastLinkedPage() {
+        // getPage is indexed from 0
         return getLastLinkedPage() + 1;
     }
 
@@ -121,6 +149,7 @@ public class MyPagedListHolder<E> extends PagedListHolder {
 
         // Not SQL in memory sort
         // used for smaller collections
+        // only when comparator is defined
         if (comparator != null) {
             List<E> result = getPageList();
             Collections.sort(result, comparator);
