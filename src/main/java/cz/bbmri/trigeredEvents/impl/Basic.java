@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.util.Date;
 
 /**
- * TODO
+ * Basic class for all class managing auto triggered events. All methods used in more than one class is defined here.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -24,7 +24,11 @@ abstract class Basic {
         logger.debug("CRON fired at: " + new Date() + " with: " + msg);
     }
 
-    // Testing logger  - single point to turn of logging
+    /**
+     * Testing logger - single point to turn it off/on
+     *
+     * @param msg
+     */
     protected void log(String msg) {
         logger.debug(msg);
     }
