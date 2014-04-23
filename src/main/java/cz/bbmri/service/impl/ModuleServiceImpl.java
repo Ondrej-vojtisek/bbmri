@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -20,6 +19,7 @@ public class ModuleServiceImpl extends BasicServiceImpl implements ModuleService
     @Autowired
     private ModuleDao moduleDao;
 
+    @Transactional(readOnly = true)
     public Module get(Long moduleId) {
         if(isNull(moduleId, "moduleId", null)) return null;
 

@@ -6,8 +6,6 @@ import cz.bbmri.service.SampleService;
 import cz.bbmri.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Ori
@@ -186,7 +184,6 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 
     public void getEagerGetTest3() {
                 /* ********* GIVEN ********** */
-        // TODO Test relationship to SampleQuestion
                /* ********* WHEN ********** */
 
                /* ********* THEN ********** */
@@ -210,7 +207,6 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 //        biobankService.removeAdministratorFromBiobank(user.getId(), biobank.getId());
 //
 //        /* ********* THEN ********** */
-//        // TODO  should throw exception. User is only administrator and he can't be removed
 //
 //        BiobankAdministrator ba = biobankAdministratorService.get(biobank.getId(), user.getId());
 //

@@ -14,18 +14,19 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO
+ * Class providing basic operations used in more than one service implementation
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 public class BasicServiceImpl {
-
+    /**
+     * StoragePath is retrieved from my.properties file
+     */
     @Value("${StoragePath}")
     protected String storagePath;
 
     final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
 
     @Autowired
     private ProjectDao projectDao;
@@ -44,23 +45,40 @@ public class BasicServiceImpl {
 
     /* Necessary condition - use for situation like ValidationErrors = null. If this is true than even methods like isNull will
     * fail. */
+
+    /**
+     * Necessary condition of methods. If object o is null, method is interrupted with exception. Situation when situation
+     * is certainly caused by implementation bug and not by user.
+     *
+     * @param o
+     * @throws IllegalArgumentException
+     */
     static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object must not be null!");
         }
     }
 
-    /* Check for null value. Used for argument and also for objects retrieved from DB. */
+    /**
+     * Shared method for handling null params of methods. If o is null - inform user that operation was unsuccessful.
+     * If method doesn't have ValidationErrors among arguments, than send message to logger.
+     * <p/>
+     * Temporal throw IllegalArgumentException for testing and debugging.
+     *
+     * @param o       - tested object
+     * @param varName - name of variable
+     * @param errors  - signalization to user
+     * @return true - is null, false not null
+     */
     boolean isNull(final Object o, String varName, ValidationErrors errors) {
         if (o == null) {
-            operationFailed(errors, null);
-
-            if(errors != null){
+            if (errors != null) {
                 // If it is possible to print in on frontend
                 errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.ilegalArguments", varName));
-            }else{
-                // if not - than note for developer
+            } else {
+                // if not - than note inform at least developer
                 logger.error("Variable: " + varName + " is null");
+
                 // TODO: temporal but good for testing
                 throw new IllegalArgumentException("Variable: " + varName);
             }
@@ -69,7 +87,12 @@ public class BasicServiceImpl {
         return false;
     }
 
-    /* Indication for user that operation failed and for developer note to log*/
+    /**
+     * How to handle exceptions - print then for user if possible or ad then to logger.
+     *
+     * @param errors
+     * @param ex
+     */
     void operationFailed(ValidationErrors errors, Exception ex) {
         if (errors != null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.fail"));
@@ -79,28 +102,46 @@ public class BasicServiceImpl {
         }
     }
 
-    /* Indication that operation didn't do anything*/
+    /**
+     * Indication that operation had no effect
+     *
+     * @param errors
+     */
     void noEffect(ValidationErrors errors) {
         if (errors != null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.noEffect"));
         }
     }
 
-    /* Definition here because it is useful at more facades when we need to send notification */
+    /**
+     * Return all users associated with project
+     *
+     * @param projectId - Id of project
+     * @return list of users associated with project
+     */
     List<User> getProjectAdministratorsUsers(Long projectId) {
         Project projectDB = projectDao.get(projectId);
-        // Project projectDB = projectService.eagerGet(projectId, true, false, false);
+        if (isNull(projectDB, "projectDB", null)) return null;
+
         List<User> users = new ArrayList<User>();
+
         for (ProjectAdministrator projectAdministrator : projectDB.getProjectAdministrators()) {
             users.add(projectAdministrator.getUser());
         }
         return users;
     }
 
-    /* Definition here because it is useful at more facades when we need to send notification */
+    /**
+     * Return all users associated with project except the given one. It enables to send notification as broadcast
+     *
+     * @param project
+     * @param excludedUserId - initiator of event will be excluded from recipients
+     * @return list of users associated with project except one
+     */
     List<User> getOtherProjectWorkers(Project project, Long excludedUserId) {
         Project projectDB = projectDao.get(project.getId());
-        //  Project projectDB = projectService.eagerGet(project.getId(), true, false, false);
+        if (isNull(projectDB, "projectDB", null)) return null;
+
         Set<ProjectAdministrator> projectAdministrators = projectDB.getProjectAdministrators();
 
         if (excludedUserId != null) {
@@ -119,8 +160,17 @@ public class BasicServiceImpl {
         return users;
     }
 
+    /**
+     * Return all users associated with biobank except the given one. It enables to send notification as broadcast
+     *
+     * @param biobank
+     * @param excludedUserId - initiator of event will be excluded from recipients
+     * @return list of users associated with biobank except one
+     */
     List<User> getOtherBiobankAdministrators(Biobank biobank, Long excludedUserId) {
         Biobank biobankDB = biobankDao.get(biobank.getId());
+        if (isNull(biobankDB, "biobankDB", null)) return null;
+
         Set<BiobankAdministrator> biobankAdministrators = biobankDB.getBiobankAdministrators();
 
         if (excludedUserId != null) {

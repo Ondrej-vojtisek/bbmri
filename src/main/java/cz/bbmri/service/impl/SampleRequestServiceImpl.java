@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -116,6 +115,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     }
 
+    @Transactional(readOnly = true)
     public SampleRequest get(Long id) {
         if (isNull(id, "id", null)) return null;
         SampleQuestion sampleQuestion = sampleQuestionDao.get(id);
@@ -213,6 +213,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
         return true;
     }
 
+    @Transactional(readOnly = true)
     public List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc) {
         if (isNull(projectId, "projectId", null)) return null;
         Project projectDB = projectDao.get(projectId);

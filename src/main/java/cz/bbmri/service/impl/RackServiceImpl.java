@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -115,6 +114,7 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
         return rackDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Rack> getSortedRacks(Long biobankId, String orderByParam, boolean desc) {
         if (isNull(biobankId, "biobankId", null)) return null;
 
@@ -124,6 +124,7 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
         return rackDao.getSorted(biobankDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public Rack getRackByName(Container container, String name) {
         if (isNull(container, "container", null)) return null;
         if (isNull(name, "name", null)) return null;

@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -251,7 +250,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.allOrderedBy(orderByParam, desc);
     }
 
-
+    @Transactional(readOnly = true)
     public List<Project> getProjectsSortedByUser(Long userId, String orderByParam, boolean desc) {
         if (isNull(userId, "userId", null)) return null;
         if (isNull(orderByParam, "orderByParam", null)) return null;
@@ -263,6 +262,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.getMyProjectsSorted(userDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public List<Project> getProjectsBySample(Long sampleId, String orderByParam, boolean desc) {
         if (isNull(sampleId, "sampleId", null)) return null;
         if (isNull(orderByParam, "orderByParam", null)) return null;
@@ -274,6 +274,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         return projectDao.getProjectsBySample(sampleDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public List<Project> allByProjectStateAndUser(Long userId, ProjectState projectState) {
         if (isNull(userId, "userId", null)) return null;
         if (isNull(projectState, "projectState", null)) return null;

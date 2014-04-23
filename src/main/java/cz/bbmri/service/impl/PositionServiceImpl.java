@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -34,6 +33,7 @@ public class PositionServiceImpl extends BasicServiceImpl implements PositionSer
     @Autowired
     private SampleDao sampleDao;
 
+    @Transactional(readOnly = true)
     public Position getByCoordinates(Box box, Integer seqPosition, Integer column, Integer row) {
         return positionDao.getByCoordinates(box, seqPosition, column, row);
     }

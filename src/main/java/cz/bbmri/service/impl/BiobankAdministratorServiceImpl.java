@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -219,14 +218,6 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         return ba.getPermission().include(permission);
     }
 
-
-    /**
-     * Return true if user has at least one permission same or higher then given parameter.
-     *
-     * @param userId
-     * @param permission
-     * @return
-     */
     @Transactional(readOnly = true)
     public boolean hasSameOrHigherPermission(Long userId, Permission permission) {
         if (isNull(permission, "permission", null)) return false;

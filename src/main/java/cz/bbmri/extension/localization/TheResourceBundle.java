@@ -114,7 +114,7 @@ public class TheResourceBundle extends ResourceBundle {
 
         if (logger != null) {
             // Display a debugger message in case a logger instance has been supplied
-            logger.debug("Resource " + source + " (" + locale + ") using '" + key + "' results into '" + result + "'");
+            // logger.debug("Resource " + source + " (" + locale + ") using '" + key + "' results into '" + result + "'");
         }
 
         // Return the result

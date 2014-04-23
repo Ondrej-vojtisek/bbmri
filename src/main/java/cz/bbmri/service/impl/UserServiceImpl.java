@@ -26,7 +26,6 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -336,6 +335,12 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return user.getId();
     }
 
+    /**
+     * Initiate user setting for those who doesn't have user setting initiated.
+     *
+     * @param user - instance of user without setting initiated
+     * @param locale - current browser language setting - considered as default
+     */
     private void initiateUserSetting(User user, Locale locale) {
         if (isNull(user, "user", null)) return;
         // Setting created

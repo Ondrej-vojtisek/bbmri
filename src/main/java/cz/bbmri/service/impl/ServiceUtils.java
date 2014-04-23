@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO
+ * Collections of method used in more than one service implementation. All set as static.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -19,7 +19,13 @@ import java.util.List;
 
 public class ServiceUtils extends BasicServiceImpl {
 
-
+    /**
+     * Create folders for all given paths, where folder isn't alredy present
+     *
+     * @param errors - in case of error, error messages will be stored into errors
+     * @param paths  - paths of new folders
+     * @return SUCCESS/NOT_SUCCESS
+     */
     public static int createFolders(ValidationErrors errors, String... paths) {
         for (String s : paths) {
             // if doesn't exist
@@ -34,6 +40,13 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
+    /**
+     * Delete folder at given path recursively
+     *
+     * @param path - path to folder
+     * @param errors - in case of error, error messages will be stored into errors
+     * @return SUCCESS/NOT_SUCCESS
+     */
     public static int recursiveDeleteFolder(String path, ValidationErrors errors) {
         File dir = new File(path);
 
@@ -62,6 +75,12 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
+    /**
+     * Delete single file
+     *
+     * @param file - path to file
+     * @return SUCCESS/NOT_SUCCESS
+     */
     public static int deleteFile(File file) {
 
         // Exists?
@@ -78,7 +97,13 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
-
+    /**
+     * Delete single file
+     *
+     * @param path - path to file
+     * @param errors - in case of error, error messages will be stored into errors
+     * @return SUCCESS/NOT_SUCCESS
+     */
     private static int deleteFile(String path, ValidationErrors errors) {
 
         File file = new File(path);
@@ -100,6 +125,14 @@ public class ServiceUtils extends BasicServiceImpl {
     }
 
     /* If file is the last in folder then delete also parent folder*/
+
+    /**
+     * Delete file and delete parent folder if the file was the last one in the folder
+     *
+     * @param path - path to file
+     * @param errors - in case of error, error messages will be stored into errors
+     * @return SUCCESS/NOT_SUCCESS
+     */
     public static int deleteFileAndParentFolder(String path, ValidationErrors errors) {
 
         if (deleteFile(path, errors) != 0) {
@@ -131,6 +164,13 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
+    /**
+     * Create single folder
+     *
+     * @param path - path to new folder
+     * @param errors - in case of error, error messages will be stored into errors
+     * @return SUCCESS/NOT_SUCCESS
+     */
     private static int createFolder(String path, ValidationErrors errors) {
 
         File dir = new File(path);
@@ -145,33 +185,29 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
-
+    /**
+     * Return all files in folder
+     *
+     * @param path - path to folder
+     * @return list of files
+     */
     public static List<File> getFiles(String path) {
-
-        System.out.println("Get Files of path: " + path);
-
 
         File dir = new File(path);
         List<File> files = new ArrayList<File>();
         if (!dir.exists()) {
-
             System.err.println("dir doesnt exist");
-
             // not success
             return files;
         }
 
         if (!dir.isDirectory()) {
-
-            System.out.println("not directory");
-
+            System.err.println("not directory");
             // not success
             return files;
         }
 
-
         for (File file : dir.listFiles()) {
-
             // only files not directories
             if (file.isFile()) {
 
@@ -182,12 +218,16 @@ public class ServiceUtils extends BasicServiceImpl {
         return files;
     }
 
+    /**
+     * Copy file from source to destination
+     *
+     * @param source - path to source file
+     * @param destination - path to new destination
+     * @return SUCCESS/NOT_SUCCESS
+     */
     public static int copyFile(File source, String destination) {
 
-
         File destinationFile = new File(destination + File.separator + source.getName());
-
-        System.out.println("Copy file - Source: " + source + " destination: " + destinationFile);
 
         if (!source.exists()) {
             System.err.println("dir doesn't exist");
@@ -206,8 +246,15 @@ public class ServiceUtils extends BasicServiceImpl {
         return Constant.SUCCESS;
     }
 
+    /**
+     * Check if folder exist or not
+     *
+     * @param path - path to folder
+     * @return true if folder exists
+     */
     private static boolean folderExists(String path) {
         File dir = new File(path);
+
         if (!dir.exists()) {
             return false;
 

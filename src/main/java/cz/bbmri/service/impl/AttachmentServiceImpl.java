@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * TODO
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -70,12 +68,13 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ProjectDoesntExist"));
             return Constant.NOT_SUCCESS;
         }
-
+        // create folder structure if it doesn't exist
         int result = ServiceUtils.createFolders(errors,
                 storagePath, // base folder
                 storagePath + Project.PROJECT_FOLDER, // Projects folder
                 storagePath + projectDB.getProjectFolderPath() // Folder for the project
         );
+        // problem during folder creation
         if (result != Constant.SUCCESS) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.CantCreateFolderStructure"));
             return Constant.NOT_SUCCESS;
@@ -136,6 +135,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentUploaded",
                 projectDB.getName());
 
+        // send notification to all other project workers
         notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
                 NotificationType.PROJECT_ATTACHMENT, locMsg, projectDB.getId());
 
@@ -195,26 +195,30 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         Attachment attachment = attachmentDao.get(attachmentId);
         if (isNull(attachment, "attachment", errors)) return false;
 
-        if (ServiceUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) == Constant.SUCCESS) {
-
-            Project project = attachment.getProject();
-
-            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
-                    attachment.getFileName(), project.getName());
-
-            notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
-                    NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
-
-            try {
-                attachmentDao.remove(attachment);
-            } catch (DataAccessException ex) {
-                operationFailed(errors, ex);
-                return false;
-            }
-            return true;
+        // Delete file and in situation of last file in folder delete also the folder
+        if (ServiceUtils.deleteFileAndParentFolder(attachment.getAbsolutePath(), errors) != Constant.SUCCESS) {
+            // not success
+            return false;
         }
 
-        return false;
+        Project project = attachment.getProject();
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
+                attachment.getFileName(), project.getName());
+
+        notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
+
+        try {
+            // remove record in DB about attachment
+            attachmentDao.remove(attachment);
+        } catch (DataAccessException ex) {
+            operationFailed(errors, ex);
+            return false;
+        }
+        return true;
+
+
     }
 
     @Transactional(readOnly = true)

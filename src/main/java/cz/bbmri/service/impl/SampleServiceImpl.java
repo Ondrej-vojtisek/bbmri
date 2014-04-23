@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -122,6 +121,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sampleDao.getByInstitutionalId(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts) {
         if (isNull(biobankId, "biobankId", null)) return null;
         Biobank biobankDB = biobankDao.get(biobankId);

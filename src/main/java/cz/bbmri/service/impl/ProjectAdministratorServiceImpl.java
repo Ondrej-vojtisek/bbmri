@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -45,20 +44,6 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
         if (isNull(id, "id", null)) return null;
         return projectAdministratorDao.get(id);
     }
-
-//    public ProjectAdministrator update(ProjectAdministrator projectAdministrator) {
-//        if (isNull(projectAdministrator, "projectAdministrator", null)) return null;
-//
-//        ProjectAdministrator pa = projectAdministratorDao.get(projectAdministrator.getId());
-//        if (isNull(pa, "pa", null)) return null;
-//
-//        // Only permission can be updated
-//        if (projectAdministrator.getPermission() != null) pa.setPermission(projectAdministrator.getPermission());
-//
-//        projectAdministratorDao.update(pa);
-//
-//        return pa;
-//    }
 
     @Transactional(readOnly = true)
     public ProjectAdministrator get(Long projectId, Long userId) {
@@ -214,6 +199,8 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
                 NotificationType.PROJECT_ADMINISTRATOR, locMsg, projectDB.getId());
         return true;
     }
+
+    @Transactional(readOnly = true)
     public boolean hasPermission(Permission permission, Long objectId, Long userId) {
         if (isNull(objectId, "objectId", null)) return false;
         if (isNull(userId, "userId", null)) return false;

@@ -1,7 +1,7 @@
 package cz.bbmri.service.exceptions;
 
 /**
- * TODO
+ * There is at least one attribute of entity which is unique but has duplicity in DB.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

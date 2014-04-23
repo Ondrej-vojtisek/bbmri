@@ -1,5 +1,7 @@
 package cz.bbmri.service.simpleService;
 
+import java.util.List;
+
 /**
  * There is no shared API on service layer because it is not intended to implement every method provided on DAO also on
  * service layer. Interface provides shared definition of single function.
@@ -7,14 +9,14 @@ package cz.bbmri.service.simpleService;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-
-public interface Count {
+public interface AllOrderedBy<T> {
 
     /**
-     * Return count of all instances
+     * Returns all instances of type T. Output is sorted by given params.
      *
-     * @return count
+     * @param orderByParam
+     * @param desc
+     * @return
      */
-    Integer count();
-
+    List<T> allOrderedBy(String orderByParam, boolean desc);
 }

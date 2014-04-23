@@ -1,7 +1,7 @@
 package cz.bbmri.service.exceptions;
 
 /**
- * TODO
+ * Not enough aliquotes of requested sample
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

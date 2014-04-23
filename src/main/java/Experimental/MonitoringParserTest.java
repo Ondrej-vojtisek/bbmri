@@ -38,7 +38,7 @@ public class MonitoringParserTest {
         Biobank biobank = new Biobank();
         biobank.setName("MOU");
 
-        String biobankId = parser.getBiobankId();
+        String biobankId = parser .getBiobankAbbreviation();
 
         System.out.println("BiobankId is:" + biobankId);
 

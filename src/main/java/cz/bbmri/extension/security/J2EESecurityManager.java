@@ -13,14 +13,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 
 /**
- * TODO
- *
- * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
- * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
- * @version 1.0
- */
-
-/**
  * Security manager that implements the J2EE security annotations.
  * In this, method level annotations override class level annotations. Apart from that:<ol>
  * <li>@{@link javax.annotation.security.DenyAll} denies access,</li>

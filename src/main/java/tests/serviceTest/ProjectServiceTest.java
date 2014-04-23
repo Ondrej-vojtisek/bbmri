@@ -13,10 +13,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class ProjectServiceTest extends AbstractServiceTest {
 
-    /*
-    * TODO: Napsat test pro assignUser testujici podminku na contains. Napsat podminku na vyhozeni vyjimky pokud project uzivatele neobsahuje
-    * */
-
 
     @Test
        public void notImplementedYet(){

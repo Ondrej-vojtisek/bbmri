@@ -9,7 +9,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * TODO
+ * CustomLocalizationBundleFactory allows to specify more resource bundles. Bundles are divided into error, field and shared
+ *  - errors are used for validation errors, error messages sended from service layer etc.
+ *  - fields are used for submit buttons localization - localization is matched by actionBean of form and event name
+ *  - shared bundle for shared keys used in both if them
+ *
  *
  * @author Jan Sochor (jan.sochor@icebolt.info) - THALAMOSS project thalamoss-data.ics.muni.cz
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
@@ -17,7 +21,6 @@ import java.util.ResourceBundle;
  */
 public class CustomLocalizationBundleFactory implements LocalizationBundleFactory {
 
-    // Hold the instance of logger class for resource usage dubugging
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     // The configuration parameter for changing the error message resource bundle

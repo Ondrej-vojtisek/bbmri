@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -144,6 +143,7 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patientDao.getSorted(biobankDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public Patient getByInstitutionalId(String id) {
         if (isNull(id, "id", null)) return null;
         return patientDao.getByInstitutionalId(id);

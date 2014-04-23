@@ -8,7 +8,7 @@ import net.sourceforge.stripes.validation.ValidationErrors;
 import java.util.List;
 
 /**
- * TODO
+ * API for handling Requests
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -16,10 +16,37 @@ import java.util.List;
 
 public interface RequestService extends Get<Request> {
 
+    /**
+     * Remove request identified by given ID. Allocated sample aliquots are freed (number of available samples are
+     * returned to state before request).
+     *
+     * @param requestId - ID of request
+     * @param errors    - in case of error, error messages will be stored into errors
+     * @return true/false
+     */
     boolean remove(Long requestId, ValidationErrors errors);
 
+    /**
+     * Create request for all samples given in sampleIds. All request is initiated with default amount of requested
+     * aliquots.
+     *
+     * @param sampleIds        - list of sample identifiers. For each sample will be created one request
+     * @param sampleQuestionId - set of requested samples is associated with this sampleQuestion
+     * @param errors           - in case of error, error messages will be stored into errors
+     * @param messages         - where store details about operation
+     * @return true/false
+     */
     boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages);
 
+    /**
+     * Change amount of requested aliquots
+     *
+     * @param requestId  - ID of request which number of requested aliquots will be changed
+     * @param increase   - true means increase, false decrease
+     * @param difference - difference against previous number
+     * @param errors     - in case of error, error messages will be stored into errors
+     * @return true/false
+     */
     boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors);
 
 }

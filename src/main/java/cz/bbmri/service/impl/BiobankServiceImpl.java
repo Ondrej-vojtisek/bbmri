@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -187,6 +186,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         return biobankDao.allOrderedBy(orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public Biobank getBiobankByAbbreviation(String abbreviation) {
         if (isNull(abbreviation, "abbreviation", null)) return null;
         return biobankDao.getBiobankByAbbreviation(abbreviation);

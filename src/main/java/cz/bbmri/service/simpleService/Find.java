@@ -9,13 +9,14 @@ import java.util.List;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-
-public interface All<T> {
+public interface Find<T> {
 
     /**
-     * Return all entities of given type T stored in DB
+     * Find similar instances of T to given one. Search is implemented only by non null attributes of T.
      *
-     * @return list of all entities
+     * @param question        - instance of T
+     * @param requiredResults - maximal number of results
+     * @return list of similar patients to given one
      */
-    List<T> all();
+    List<T> find(T question, int requiredResults);
 }

@@ -16,8 +16,6 @@ import java.io.File;
 import java.util.List;
 
 /**
- * TODO
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -42,29 +40,39 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
     private SampleService sampleService;
 
 
-    // TODO - update to lower frequency
-    // triggers at 0:05 each day
-    //@Scheduled(cron = "5 0 * * * *")
+
+    /**
+     * Method should be fired once per day - 5 minutes after midnight.
+     * Scheduled(cron = "5 0 * * * *")
+     * For testing purpose is better to fire the method each minute.
+     */
+
     //@Scheduled(cron = "1 * * * * *")
     public void checkBiobankMonitoringData() {
-        logger("method checkBiobankMonitoringData");
-
+        log("method checkBiobankMonitoringData");
+        // for all biobank
         for (Biobank biobank : biobankService.all()) {
 
-            logger.debug("Biobank: " + biobank.getName());
+            log("Biobank: " + biobank.getName());
 
             // Scan all patient data files in biobank folder
             List<File> files = ServiceUtils.getFiles(storagePath + biobank.getBiobankMonitoringFolder());
 
+            // for each file - file means import about one patient - do
             for (File file : files) {
-                logger.debug("Biobank: " + biobank.getName() + " file: " + file);
 
+                log("Biobank: " + biobank.getName() + " file: " + file);
+
+                // parse data
                 if (parseMonitoringImport(file.getPath(), biobank) != Constant.SUCCESS) {
-                    logger.debug("Parse of file : " + file + " failed. ");
+                    logger.error("Parse of file : " + file + " failed. ");
 
                     // Don't copy and remove file in case that something went wrong
                     continue;
                 }
+                // if SUCCESS than copy file into ARCHIVE folder
+
+                //TODO enable
 
                 //                copy file if parsing was correct
                 //        if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankMonitoringArchiveFolder()) == SUCCESS) {
@@ -76,57 +84,77 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
         }
     }
 
+    /**
+     * Parse single file of patient data import.
+     *
+     * @param path    - path to .xml file
+     * @param biobank - biobank which is currently managed
+     * @return SUCCESS/NOT_SUCCESS
+     */
     private int parseMonitoringImport(String path, Biobank biobank) {
 
-        logger.debug("ParseMonitoringImport");
+        log("ParseMonitoringImport");
 
+        // instance of parser
         MonitoringDataParser parser;
         try {
             parser = new MonitoringDataParser(path);
         } catch (Exception ex) {
-            logger.debug("MonitoringDataParser failed");
+
+            // i.e. file not found, ...
+
+            logger.error("MonitoringDataParser failed");
             ex.printStackTrace();
             return Constant.NOT_SUCCESS;
         }
 
+        // document must be valit against .xsd schema
         if (!parser.validate()) {
-            logger.debug("Document is NOT valid. Document path was: " + path);
+            logger.error("Document is NOT valid. Document path was: " + path);
             return Constant.NOT_SUCCESS;
         }
 
-        String biobankName = parser.getBiobankId();
+        // get biobank abbreviation
+        String biobankName = parser.getBiobankAbbreviation();
 
-        logger.debug("BiobankName: " + biobankName);
+        log("BiobankName: " + biobankName);
 
+        // biobank ID from .xml must match abbreviation of given biobank
         if (!biobankName.equals(biobank.getName())) {
-            logger.debug("Biobank identifier doesn't match");
+            logger.error("Biobank identifier doesn't match");
             return Constant.NOT_SUCCESS;
         }
 
         // Parse standalone boxes
         for (Box box : parser.getStandaloneBoxes()) {
+
+            // find box by given name in biobank (not in rack)
             Box boxDB = boxService.getBoxByName(biobank, null, box.getName());
 
             if (boxDB == null) {
+                // doens't exist in DB - must be created first
                 StandaloneBox boxNew = new StandaloneBox();
                 boxNew.setCapacity(box.getCapacity());
                 boxNew.setName(box.getName());
                 boxNew.setTempMax(box.getTempMax());
                 boxNew.setTempMin(box.getTempMin());
+
                 try {
                     box = boxService.createStandaloneBox(biobank.getInfrastructure().getId(), boxNew);
                 } catch (DuplicitEntityException ex) {
-                    logger.debug("Box with this name: " + box.getName() + " is already in DB");
+                    logger.error("Box with this name: " + box.getName() + " is already in DB");
                     return Constant.NOT_SUCCESS;
                 }
             } else {
+
+                // instance of box is already stored in DB, but some attribute might have changed
                 box.setId(boxDB.getId());
                 box = boxService.update(box);
             }
 
             // for standalonebox container and rack is null
             if (parseBoxPositions(parser, biobank, null, null, box) != Constant.SUCCESS) {
-                logger.debug("Parse positions failed");
+                logger.error("Parse positions failed");
                 return Constant.NOT_SUCCESS;
             }
 
@@ -143,7 +171,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
             if (containerDB == null) {
 
                 if (biobank.getInfrastructure() == null) {
-                    logger.debug("Infrastructure of biobank must not be null");
+                    logger.error("Infrastructure of biobank must not be null");
                     return Constant.NOT_SUCCESS;
                 }
 
@@ -151,7 +179,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
                 try {
                     container = containerService.create(biobank.getInfrastructure().getId(), container);
                 } catch (DuplicitEntityException ex) {
-                    logger.debug("Container with this name: " + container.getName() + " is already in DB");
+                    logger.error("Container with this name: " + container.getName() + " is already in DB");
                     return Constant.NOT_SUCCESS;
                 }
 
@@ -174,7 +202,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
                     try {
                         rack = rackService.create(container.getId(), rack);
                     } catch (DuplicitEntityException ex) {
-                        logger.debug("Rack with this name: " + rack.getName() + " is already in DB");
+                        logger.error("Rack with this name: " + rack.getName() + " is already in DB");
                         return Constant.NOT_SUCCESS;
                     }
                 } else {
@@ -198,7 +226,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
                         try {
                             box = boxService.createRackBox(rack.getId(), rackBox);
                         } catch (DuplicitEntityException ex) {
-                            logger.debug("Box with this name: " + box.getName() + " is already in DB");
+                            logger.error("Box with this name: " + box.getName() + " is already in DB");
                             return Constant.NOT_SUCCESS;
                         }
                     } else {
@@ -208,7 +236,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
                     }
 
                     if (parseBoxPositions(parser, biobank, container, rack, box) != Constant.SUCCESS) {
-                        logger.debug("Parse positions failed");
+                        logger.error("Parse positions failed");
                         return Constant.NOT_SUCCESS;
                     }
                 }
@@ -219,19 +247,33 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
         return Constant.SUCCESS;
     }
 
+
+    /**
+     * For given box in biobank infrastructure parse all information about stored samples.
+     *
+     * @param parser    - instance of parser
+     * @param biobank   - currently checked biobank
+     * @param container - container in case of rackBox
+     * @param rack      - rack in case of rackBox
+     * @param box       - instance of box
+     * @return SUCCESS/NOT_SUCCESS
+     */
     private int parseBoxPositions(MonitoringDataParser parser, Biobank biobank, Container container,
                                   Rack rack, Box box) {
         // Parse positions of box
+        // PositionDTO is used instead of Position because it is easier to work only with sample identifier instead
+        // of instance if sample
         for (PositionDTO positionDTO : parser.getBoxPositions(biobank, container, rack, box)) {
 
             // Is this position in DB
             Position positionDB = positionService.getByCoordinates(box,
                     positionDTO.getSequentialPosition(), positionDTO.getColumn(), positionDTO.getRow());
 
+            // Is sample present in DB?
             Sample sampleDB = sampleService.getByInstitutionalId(positionDTO.getSampleId());
 
             if (sampleDB == null) {
-                logger.debug("Sample identifier doesn't match");
+                logger.error("Sample identifier doesn't match");
                 return Constant.NOT_SUCCESS;
             }
 

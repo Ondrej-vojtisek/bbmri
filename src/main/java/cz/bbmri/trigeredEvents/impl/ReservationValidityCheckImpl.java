@@ -4,18 +4,15 @@ import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.SampleReservation;
 import cz.bbmri.entities.enumeration.NotificationType;
-import cz.bbmri.entities.enumeration.RequestState;
 import cz.bbmri.service.RequestService;
 import cz.bbmri.service.SampleReservationService;
 import cz.bbmri.trigeredEvents.ReservationValidityCheck;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Date;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -32,20 +29,28 @@ public class ReservationValidityCheckImpl extends Basic implements ReservationVa
     @Autowired
     private RequestService requestService;
 
-    // triggers at 0:10 each day
-    @Scheduled(cron = "10 0 * * * *")
+    /**
+     * Method should be fired once per day - 10 minutes after midnight.
+     * Scheduled(cron = "10 0 * * * *")
+     * For testing purpose is better to fire the method each minute.
+     */
+
+    //@Scheduled(cron = "1 * * * * *")
     public void checkReservationValidity() {
-        logger.debug("CRON - checkReservationValidity auto triggered at: " + new Date());
+        log("CRON - checkReservationValidity auto triggered at: " + new Date());
 
         Date date = new Date();
         boolean firstValid = false;
         for (SampleReservation sampleReservation : sampleReservationService.getSampleReservationsOrderedByDate()) {
-            // if this date (today) is after sampleReservation.getValidity
-            // then validity is over
 
+            /* collection of reservations is sorted by date - so if first one (the oldest one) is valid, than all
+               reservations will be valid and method execution can be ended
+            */
             if (firstValid) break;
 
+            // if date is after reservation validity than validity is expired
             if (date.after(sampleReservation.getValidity())) {
+
                 setReservationAsExpired(sampleReservation);
 
                 LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.AutoTriggeredOperationsImpl.reservationExpired");
@@ -62,7 +67,6 @@ public class ReservationValidityCheckImpl extends Basic implements ReservationVa
 
 
     private void setReservationAsExpired(SampleReservation sampleReservation) {
-        sampleReservation.setRequestState(RequestState.EXPIRED);
         // if succ
         if (sampleReservationService.setAsExpired(sampleReservation.getId())) {
 
@@ -70,8 +74,7 @@ public class ReservationValidityCheckImpl extends Basic implements ReservationVa
             for (Request request : sampleReservation.getRequests()) {
                 requestService.remove(request.getId(), null);
             }
-        }
-        else{
+        } else {
             logger.error("Set reservation as expired failed");
         }
     }

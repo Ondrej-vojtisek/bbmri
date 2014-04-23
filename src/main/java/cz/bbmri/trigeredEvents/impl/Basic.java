@@ -24,4 +24,9 @@ abstract class Basic {
         logger.debug("CRON fired at: " + new Date() + " with: " + msg);
     }
 
+    // Testing logger  - single point to turn of logging
+    protected void log(String msg) {
+        logger.debug(msg);
+    }
+
 }

@@ -1,7 +1,7 @@
 package cz.bbmri.service.exceptions;
 
 /**
- * TODO
+ * User tries to access resources without sufficient permission
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

@@ -4,7 +4,7 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 /**
- * TODO
+ * How many pieces (aliquotes) of sample are present in biobank repository?
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -15,10 +15,19 @@ public class SampleNos implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Total number of aliquotes in repository
+     */
     private Integer samplesNo;
 
+    /**
+     * Number of aliquotes which can be provided for research. Must be less than samplesNo
+     */
     private Integer availableSamplesNo;
 
+    /**
+     * Original total count of aliquotes before any sample request was applied
+     */
     private Integer originalSamplesNo;
 
     public Integer getSamplesNo() {
@@ -45,13 +54,25 @@ public class SampleNos implements Serializable {
         this.originalSamplesNo = originalSamplesNo;
     }
 
+    /**
+     * Requested amount must be > 1 AND < total number of samples
+     *
+     * @param requestedAmount
+     * @return
+     */
     private boolean checkAmount(int requestedAmount) {
-
         return requestedAmount >= 1 && requestedAmount <= samplesNo;
 
     }
 
     // decrease amount of samples, both available and total amount
+
+    /**
+     * Decrease amount of samples. If we require more than present number -> return false.
+     *
+     * @param requestedAmount
+     * @return
+     */
     public boolean decreaseAmount(int requestedAmount) {
         if (!checkAmount(requestedAmount)) return false;
 
@@ -64,7 +85,12 @@ public class SampleNos implements Serializable {
         return true;
     }
 
-    // increase amount of samples, both available and total amount
+    /**
+     * Request of samples was canceled. Alocated samples are increased to previous state.
+     *
+     * @param requestedAmount
+     * @return
+     */
     public boolean increaseAmount(int requestedAmount) {
         if (!checkAmount(requestedAmount)) return false;
 
@@ -74,6 +100,13 @@ public class SampleNos implements Serializable {
 
     }
 
+    /**
+     * For internal usage inside institution it is possible to create request for all samples (both available and not
+     * available samples).
+     *
+     * @param requestedAmount
+     * @return
+     */
     // decrease amount - also not available samples can be withdrawn
     public boolean withdrawAmount(int requestedAmount) {
         if (!checkAmount(requestedAmount)) return false;

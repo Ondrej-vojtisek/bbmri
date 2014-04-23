@@ -2,7 +2,6 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.UserDao;
-import cz.bbmri.dao.UserSettingDao;
 import cz.bbmri.entities.Notification;
 import cz.bbmri.entities.User;
 import cz.bbmri.service.NotificationService;
@@ -15,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -31,39 +28,6 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
 
     @Autowired
     private NotificationDao notificationDao;
-
-    @Autowired
-    private UserSettingDao userSettingDao;
-
-
-
-//    public boolean create(Long userId, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-//        notNull(userId);
-//        User userDB = userDao.get(userId);
-//
-//        if (userDB == null) {
-//            logger.debug("UserDB can't be null");
-//            return false;
-//        }
-//
-//        return createNotification(userDB, notificationType, localizableMessage, objectId);
-//    }
-//
-//    public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-//        notNull(users);
-//        notNull(notificationType);
-//
-//        Date created = new Date();
-//        boolean result = true;
-//        for (User user : users) {
-//
-//            // TODO: mail notification here
-//            if (!createNotification(user, notificationType, localizableMessage, objectId)) {
-//                result = false;
-//            }
-//        }
-//        return result;
-//    }
 
     public boolean markAsRead(Long notificationId) {
         notNull(notificationId);
@@ -133,40 +97,41 @@ public class NotificationServiceImpl extends BasicServiceImpl implements Notific
         return notificationDB;
     }
 
+    @Transactional(readOnly = true)
     public List<Notification> getUnreadNotifications(Long loggedUserId) {
-            notNull(loggedUserId);
-            return getUnread(loggedUserId);
+        notNull(loggedUserId);
+        return getUnread(loggedUserId);
+    }
+
+    public boolean markAsRead(List<Long> notificationsId) {
+        if (notificationsId == null) {
+            // not error
+            return false;
+        }
+        if (notificationsId.isEmpty()) {
+            return false;
+        }
+        for (Long id : notificationsId) {
+            markAsRead(id);
         }
 
-        public boolean markAsRead(List<Long> notificationsId) {
-            if (notificationsId == null) {
-                // not error
-                return false;
-            }
-            if (notificationsId.isEmpty()) {
-                return false;
-            }
-            for (Long id : notificationsId) {
-               markAsRead(id);
-            }
+        return true;
+    }
 
-            return true;
+    public boolean deleteNotifications(List<Long> notificationsId) {
+        if (notificationsId == null) {
+            // not error
+            return false;
         }
 
-        public boolean deleteNotifications(List<Long> notificationsId) {
-            if (notificationsId == null) {
-                // not error
-                return false;
-            }
-
-            if (notificationsId.isEmpty()) {
-                return false;
-            }
-            for (Long id : notificationsId) {
-                remove(id);
-            }
-
-            return true;
+        if (notificationsId.isEmpty()) {
+            return false;
         }
+        for (Long id : notificationsId) {
+            remove(id);
+        }
+
+        return true;
+    }
 
 }

@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -77,6 +76,7 @@ class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuesti
         return true;
     }
 
+    @Transactional(readOnly = true)
     public SampleQuestion get(Long sampleQuestionId) {
         if (isNull(sampleQuestionId, "sampleQuestionId", null)) return null;
         return sampleQuestionDao.get(sampleQuestionId);

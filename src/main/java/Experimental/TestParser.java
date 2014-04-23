@@ -31,7 +31,7 @@ public class TestParser {
 
         System.out.println("Is valid "  + parser.validate() );
 
-        System.out.println("Biobank Id: "  + parser.getBiobankId() );
+        System.out.println("Biobank Id: "  + parser.getBiobankAbbreviation());
 
         Patient patient = parser.getPatient();
 

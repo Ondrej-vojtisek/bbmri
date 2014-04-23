@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -148,6 +147,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         return true;
     }
 
+    @Transactional(readOnly = true)
     public SampleReservation get(Long id) {
         if (isNull(id, "id", null)) return null;
         SampleQuestion sampleQuestion = sampleQuestionDao.get(id);
@@ -172,6 +172,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
 
         sampleReservationDB.setRequestState(RequestState.CLOSED);
         sampleReservationDB.setLastModification(new Date());
+        // validity is started
         sampleReservationDB.setValidity(validity());
 
         sampleQuestionDao.update(sampleReservationDB);
@@ -179,6 +180,12 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         return true;
     }
 
+    /**
+     * Return validity of new sampleReservation in month based on system setting
+     *
+     * @return expiration date of currently created sampleReservation
+     */
+    @Transactional(readOnly = true)
     private Date validity() {
 
         Date today = new Date();
@@ -207,7 +214,6 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
 
         sampleReservationDB.setRequestState(RequestState.EXPIRED);
         sampleReservationDB.setLastModification(new Date());
-        sampleReservationDB.setValidity(validity());
 
         sampleQuestionDao.update(sampleReservationDB);
 

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -164,6 +163,7 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return boxDao.get(id);
     }
 
+    @Transactional(readOnly = true)
     public List<RackBox> getSortedRackBoxes(Long rackId, String orderByParam, boolean desc) {
         if (isNull(rackId, "rackId", null)) return null;
 
@@ -173,6 +173,7 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return boxDao.getSorted(rackDB, orderByParam, desc);
     }
 
+    @Transactional(readOnly = true)
     public List<StandaloneBox> getSortedStandAloneBoxes(Long biobankId, String orderByParam, boolean desc) {
         if (isNull(biobankId, "biobankId", null)) return null;
 
