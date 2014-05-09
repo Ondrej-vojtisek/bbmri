@@ -19,32 +19,6 @@
                              eventName="detail"
                              paramName="sampleQuestionId"/>
 
-            <%--<table class="table table-hover table-striped">--%>
-
-            <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>--%>
-
-            <%--<tbody>--%>
-
-            <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
-            <%--collection="${biobankBean.biobank.sampleQuestions}"/>--%>
-
-            <%--<c:forEach items="${biobankBean.biobank.sampleQuestions}" var="sampleQuestion">--%>
-            <%--<tr>--%>
-
-            <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp" record="${sampleQuestion}"/>--%>
-
-            <%--<td class="action">--%>
-            <%--<s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"--%>
-            <%--class="btn btn-primary">--%>
-            <%--<s:param name="sampleQuestionId" value="${sampleQuestion.id}"/>--%>
-            <%--<s:param name="biobankId" value="${biobankBean.biobankId}"/>--%>
-            <%--<f:message key="detail"/>--%>
-            <%--</s:link>--%>
-            <%--</td>--%>
-            <%--</tr>--%>
-            <%--</c:forEach>--%>
-            <%--</tbody>--%>
-            <%--</table>--%>
         </s:layout-component>
 
     </s:layout-component>

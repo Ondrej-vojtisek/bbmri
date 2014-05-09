@@ -33,19 +33,18 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     @SpringBean
     private ProjectAdministratorService projectAdministratorService;
 
-
-    protected Long biobankId;
+    public Long biobankId;
 
     public Long getBiobankId() {
         return biobankId;
     }
 
-    protected void setBiobankId(Long biobankId) {
+    public void setBiobankId(Long biobankId) {
         this.biobankId = biobankId;
     }
 
     /* Project identifier */
-    protected Long projectId;
+    public Long projectId;
 
     public Long getProjectId() {
         return projectId;
@@ -57,7 +56,8 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
 
     private Project project;
 
-    protected Project getProject() {
+    // Must be public because of .jsp access
+    public Project getProject() {
 
         if (project == null) {
             if (projectId != null) {
@@ -76,7 +76,8 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     })
     private Biobank biobank;
 
-    protected Biobank getBiobank() {
+    // must be public due to .jsp
+    public Biobank getBiobank() {
         if (biobank == null) {
             if (biobankId != null) {
                 biobank = biobankService.get(biobankId);
@@ -89,7 +90,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         this.biobank = biobank;
     }
 
-    private Long userId;
+    public Long userId;
 
     public Long getUserId() {
         return userId;
@@ -108,11 +109,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getAllowedBiobankExecutor() {
-        logger.debug("AllowedBiobankExecutor_ ");
-        logger.debug("BiobankId: " + biobankId);
-
-        logger.debug("AllowedBiobankExecutor_ " + biobankAdministratorService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId()));
-        return biobankAdministratorService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
+         return biobankAdministratorService.hasPermission(Permission.EXECUTOR, biobankId, getContext().getMyId());
     }
 
     public boolean getAllowedBiobankVisitor() {
@@ -130,13 +127,10 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getAllowedProjectExecutor() {
-        logger.debug("GetAllowedProjectExecutor");
-        logger.debug("ProjectId: " + projectId);
-
-        return projectAdministratorService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
+          return projectAdministratorService.hasPermission(Permission.EXECUTOR, projectId, getContext().getMyId()) && !isFinished();
     }
 
-    protected boolean getAllowedProjectVisitor() {
+    public boolean getAllowedProjectVisitor() {
         return projectAdministratorService.hasPermission(Permission.VISITOR, projectId, getContext().getMyId());
     }
 
@@ -156,14 +150,14 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         return getProject() != null && getProject().getProjectState().equals(ProjectState.STARTED);
     }
 
-    private boolean isFinished() {
+    public boolean isFinished() {
         if (getProject() == null) {
             return false;
         }
         return getProject().getProjectState().equals(ProjectState.FINISHED);
     }
 
-    protected boolean getIsMyAccount() {
+    public boolean getIsMyAccount() {
         return getContext().getMyId().equals(userId);
     }
 

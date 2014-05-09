@@ -19,12 +19,12 @@
         <class>cz.bbmri.entities.infrastructure.Position</class>
         <class>cz.bbmri.entities.infrastructure.Rack</class>
         <class>cz.bbmri.entities.infrastructure.monitoring.Monitoring</class>
-        <class>cz.bbmri.entities.infrastructure.monitoring.TemperatureRecord</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.Record</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
-        <class>cz.bbmri.entities.Sample</class>
+        <class>cz.bbmri.entities.sample.Sample</class>
         <class>cz.bbmri.entities.sample.Tissue</class>
         <class>cz.bbmri.entities.sample.Genome</class>
         <class>cz.bbmri.entities.sample.Serum</class>
@@ -67,12 +67,12 @@
         <class>cz.bbmri.entities.infrastructure.Position</class>
         <class>cz.bbmri.entities.infrastructure.Rack</class>
         <class>cz.bbmri.entities.infrastructure.monitoring.Monitoring</class>
-        <class>cz.bbmri.entities.infrastructure.monitoring.TemperatureRecord</class>
+        <class>cz.bbmri.entities.infrastructure.monitoring.Record</class>
         <class>cz.bbmri.entities.Patient</class>
         <class>cz.bbmri.entities.Project</class>
         <class>cz.bbmri.entities.ProjectAdministrator</class>
         <class>cz.bbmri.entities.Request</class>
-        <class>cz.bbmri.entities.Sample</class>
+        <class>cz.bbmri.entities.sample.Sample</class>
         <class>cz.bbmri.entities.sample.Tissue</class>
         <class>cz.bbmri.entities.sample.Genome</class>
         <class>cz.bbmri.entities.sample.Serum</class>

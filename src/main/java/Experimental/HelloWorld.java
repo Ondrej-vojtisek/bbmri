@@ -1,7 +1,7 @@
 package experimental;
 
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.sample.Sample;
 
 import java.util.ArrayList;
 import java.util.Collections;

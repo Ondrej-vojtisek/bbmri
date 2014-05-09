@@ -17,8 +17,7 @@ public class TNM implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name="tnm", length = 7)
-    private
-    String classification;
+    private String classification;
 
     public String getClassification() {
         return classification;

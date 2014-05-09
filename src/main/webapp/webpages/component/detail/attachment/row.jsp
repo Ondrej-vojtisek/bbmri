@@ -5,6 +5,6 @@
 
     <td>${record.fileName}</td>
     <td>${record.size}</td>
-    <td><f:message key="AttachmentType.${record.attachmentType}"/></td>
+    <td><f:message key="cz.bbmri.entities.enumeration.AttachmentType.${record.attachmentType}"/></td>
 
 </s:layout-definition>

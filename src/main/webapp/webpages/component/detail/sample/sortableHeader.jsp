@@ -7,31 +7,31 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.sampleId"
+                             msgKey="cz.bbmri.entities.sample.Sample.sampleId"
                              column="sampleIdentification.sampleId"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.year"
+                             msgKey="cz.bbmri.entities.sample.Sample.year"
                              column="sampleIdentification.year"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.number"
+                             msgKey="cz.bbmri.entities.sample.Sample.number"
                              column="sampleIdentification.number"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.takingDate"
+                             msgKey="cz.bbmri.entities.sample.Sample.takingDate"
                              column="takingDate"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.materialType"
+                             msgKey="cz.bbmri.entities.sample.Sample.materialType"
                              column="materialType"
                              pagination="${pagination}"/>
         </th>

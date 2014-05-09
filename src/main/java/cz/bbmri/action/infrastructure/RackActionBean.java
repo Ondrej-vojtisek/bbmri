@@ -63,7 +63,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     }
 
 
-    Rack getRack() {
+    public Rack getRack() {
         if (rack == null) {
             if (rackId != null) {
                 rack = rackService.get(rackId);
@@ -92,6 +92,7 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
         this.containerId = containerId;
     }
 
+    @DefaultHandler
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution detail() {

@@ -45,10 +45,11 @@
                                     <s:select name="permission">
                                         <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                                     </s:select>
-                                    <s:submit name="addAdministrator" class="btn btn-primary">
-                                        <s:param name="biobankId" value="${actionBean.biobankId}"/>
-                                        <s:param name="adminId" value="${user.id}"/>
-                                    </s:submit>
+
+                                    <s:hidden name="biobankId"/>
+                                    <s:hidden name="adminId" value="${user.id}"/>
+
+                                    <s:submit name="addAdministrator" class="btn btn-primary"/>
                                 </s:form>
 
                             </td>

@@ -54,12 +54,12 @@ public class Biobank implements Serializable {
     private String name;
 
     /**
-     * Address
+     * Address - street
      */
     private String street;
 
     /**
-     * Address
+     * Address - city
      */
     private String city;
 
@@ -72,8 +72,7 @@ public class Biobank implements Serializable {
     @OneToMany(mappedBy = "biobank")
     private List<Patient> patients = new ArrayList<Patient>();
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "biobank")
     private Infrastructure infrastructure;
 
     public Long getId() {

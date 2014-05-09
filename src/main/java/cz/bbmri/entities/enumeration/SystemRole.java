@@ -8,6 +8,7 @@ package cz.bbmri.entities.enumeration;
  * DEVELOPER - programmer responsible for maintenance of system
  * BIOBANK_OPERATOR - user managing at least one biobank
  * PROJECT_TEAM_WORKER - user working on at leat one project which is upload to system
+ * PROJECT_TEAM_MEMBER_APPROVED - user working on at least one approved project
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -18,6 +19,7 @@ public enum SystemRole {
       ADMINISTRATOR("administrator"),
       BIOBANK_OPERATOR("biobank_operator"),
       PROJECT_TEAM_MEMBER("project_team_member"),
+      PROJECT_TEAM_MEMBER_APPROVED("project_team_member_approved"),
       DEVELOPER("developer");
 
       private final String state;

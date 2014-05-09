@@ -1,7 +1,7 @@
 package experimental;
 
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.io.PatientDataParser;
 
 import java.util.List;

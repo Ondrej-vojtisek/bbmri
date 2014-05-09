@@ -25,10 +25,10 @@ public class UserActionBean extends ComponentActionBean<User> {
     private UserService userService;
 
     @ValidateNestedProperties(value = {
-            @Validate(on = {"create", "update"},
+            @Validate(on = {"create"},
                     field = "name",
                     required = true),
-            @Validate(on = {"create", "update"},
+            @Validate(on = {"create"},
                     field = "surname",
                     required = true),
             @Validate(on = {"create"},
@@ -48,12 +48,12 @@ public class UserActionBean extends ComponentActionBean<User> {
         setComponentManager(new ComponentManager(ComponentManager.USER_DETAIL));
     }
 
-    private static Breadcrumb getBreadcrumb(boolean active) {
+    public static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "display", false, "cz.bbmri.entities.User.users", active);
     }
 
-    private static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
+    public static Breadcrumb getDetailBreadcrumb(boolean active, User user) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "display", true, user.getWholeName(), active, "userId", user.getId());
     }
@@ -63,19 +63,19 @@ public class UserActionBean extends ComponentActionBean<User> {
                 "display", false, "logged_user", active, "userId", user.getId());
     }
 
-    private static Breadcrumb getRoleBreadcrumb(boolean active, Long userId) {
+    public static Breadcrumb getRoleBreadcrumb(boolean active, Long userId) {
         return new Breadcrumb(UserActionBean.class.getName(),
-                "rolesView", false, "cz.bbmri.action.user.UserActionBean.roles", active,
+                "rolesView", false, "cz.bbmri.entities.enumeration.SystemRoles", active,
                 "userId", userId);
     }
 
-    private static Breadcrumb getPasswordBreadcrumb(boolean active, Long userId) {
+    public static Breadcrumb getPasswordBreadcrumb(boolean active, Long userId) {
         return new Breadcrumb(UserActionBean.class.getName(),
-                "changePasswordView", false, "cz.bbmri.action.user.UserActionBean.password", active,
+                "changePasswordView", false, "cz.bbmri.entities.User.password", active,
                 "userId", userId);
     }
 
-    private static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
+    public static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
           return new Breadcrumb(UserActionBean.class.getName(),
                   "mySettingResolution", false, "cz.bbmri.action.user.UserActionBean.setting", active,
                   "userId", userId);
@@ -87,7 +87,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     private String password2;
 
 
-    User getUser() {
+    public User getUser() {
         if (user == null) {
             if (userId != null) {
                 user = userService.get(userId);

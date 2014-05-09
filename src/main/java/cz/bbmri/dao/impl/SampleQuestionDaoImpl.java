@@ -3,6 +3,7 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
+import cz.bbmri.entities.sample.Sample;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;

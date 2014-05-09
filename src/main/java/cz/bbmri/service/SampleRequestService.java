@@ -38,7 +38,7 @@ public interface SampleRequestService extends SampleQuestionService {
                                 ValidationErrors errors);
 
     /**
-     * Change state of sampleRequest to denied
+     * Change state of sampleRequest again to approved. Set of samples is not enough for project
      *
      * @param sampleRequestId - ID of sampleRequest
      * @param errors          - in case of error, error messages will be stored into errors
@@ -74,4 +74,6 @@ public interface SampleRequestService extends SampleQuestionService {
      * @return sorted list of sampleRequests
      */
     List<SampleRequest> getSortedSampleRequest(Long projectId, String orderByParam, boolean desc);
+
+
 }

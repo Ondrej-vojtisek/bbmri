@@ -1,7 +1,5 @@
 package cz.bbmri.entities.sample;
 
-import cz.bbmri.entities.Sample;
-
 import javax.persistence.Entity;
 
 /**

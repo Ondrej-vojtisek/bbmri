@@ -5,6 +5,7 @@ import cz.bbmri.entities.*;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.infrastructure.Infrastructure;
 import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -46,6 +47,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     @Autowired
     private NotificationDao notificationDao;
 
+    @Autowired
+    private InfrastructureDao infrastructureDao;
+
+
     public boolean create(Biobank biobank, ValidationErrors errors) {
         notNull(errors);
 
@@ -72,6 +77,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
             biobankDao.remove(biobank);
             return false;
         }
+
+        Infrastructure infrastructure = new Infrastructure();
+        infrastructure.setBiobank(biobank);
+        infrastructureDao.create(infrastructure);
 
         return true;
     }

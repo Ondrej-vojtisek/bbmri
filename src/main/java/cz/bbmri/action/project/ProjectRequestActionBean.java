@@ -36,7 +36,7 @@ public class ProjectRequestActionBean extends PermissionActionBean<SampleRequest
 
     public static Breadcrumb getBreadcrumb(boolean active, Long projectId) {
             return new Breadcrumb(ProjectRequestActionBean.class.getName(),
-                    "sampleRequestsResolution", false, "cz.bbmri.action.entities.SampleRequest.sampleRequests",
+                    "sampleRequestsResolution", false, "cz.bbmri.entities.SampleRequest.sampleRequests",
                     active, "projectId", projectId);
         }
 

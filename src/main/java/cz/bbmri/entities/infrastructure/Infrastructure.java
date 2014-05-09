@@ -11,7 +11,7 @@ import java.util.Set;
  * Infrastructure represents physical structure of biobank repository. There are basically two types of objects in repository
  * dewar containers and low temperature "fridges". Container (dewar) is structured into racks.
  *
- * Fridges constain boxes of samples - these boxes are (in context of application) called standalone boxes.
+ * Fridges contain boxes of samples - these boxes are (in context of application) called standalone boxes.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -24,18 +24,11 @@ public class Infrastructure implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "customForeignGenerator")
-    @org.hibernate.annotations.GenericGenerator(
-            name = "customForeignGenerator",
-            strategy = "foreign",
-            parameters = @org.hibernate.annotations.Parameter(name = "property", value = "biobank")
-    )
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
-    @OneToOne(mappedBy = "infrastructure")
-    @PrimaryKeyJoinColumn
+    @OneToOne
     private Biobank biobank;
-
 
     /**
      * Representing dewar container which can be found in repository

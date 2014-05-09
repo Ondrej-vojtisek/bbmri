@@ -2,7 +2,7 @@ package cz.bbmri.dao;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 
 import java.util.List;
 

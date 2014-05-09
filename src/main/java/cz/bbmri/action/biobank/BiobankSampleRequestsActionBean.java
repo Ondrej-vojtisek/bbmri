@@ -5,6 +5,7 @@ import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
+import cz.bbmri.service.SampleQuestionService;
 import cz.bbmri.service.SampleRequestService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -28,6 +29,9 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
 
     @SpringBean
     private SampleRequestService sampleRequestService;
+
+    @SpringBean
+    private SampleQuestionService sampleQuestionService;
 
     private static Breadcrumb getBreadcrumb(boolean active, Long biobankId){
         return new Breadcrumb(BiobankSampleRequestsActionBean.class.getName(), "display",
@@ -64,7 +68,7 @@ public class BiobankSampleRequestsActionBean extends PermissionActionBean<Sample
             getPagination().setOrderParam("created");
         }
         getPagination().setEvent("display");
-        getPagination().setSource(sampleRequestService.getSortedSampleRequest(biobankId,
+        getPagination().setSource(sampleQuestionService.getSortedSampleQuestions(biobankId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
         return new ForwardResolution(BIOBANK_DETAIL_SAMPLE_REQUESTS);

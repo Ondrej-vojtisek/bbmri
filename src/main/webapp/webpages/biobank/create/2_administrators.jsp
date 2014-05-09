@@ -12,16 +12,35 @@
         <fieldset>
             <legend><f:message key="cz.bbmri.action.biobank.CreateActionBean.secondStep"/></legend>
             <fieldset>
-                <s:form beanclass="${actionBean.name}" class="form-horizontal">
+                <s:form beanclass="cz.bbmri.action.biobank.CreateActionBean" class="form-horizontal">
 
-                    <s:layout-render name="/webpages/component/form/userFindInput.jsp"/>
+                    <%--<s:layout-render name="/webpages/component/form/userFindInput.jsp"/>--%>
+
+                    <div class="control-group">
+                        <s:label for="cz.bbmri.entities.User.name" class="control-label"/>
+                        <div class="controls">
+                            <s:text name="userFind.name"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <s:label for="cz.bbmri.entities.User.surname" class="control-label"/>
+                        <div class="controls">
+                            <s:text name="userFind.surname"/>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <s:label for="cz.bbmri.entities.User.email" class="control-label"/>
+                        <div class="controls">
+                            <s:text name="userFind.email"/>
+                        </div>
+                    </div>
 
                     <div class="form-actions">
                         <s:submit name="find" class="btn btn-primary btnMargin"/>
 
-                        <s:form beanclass="${actionBean.name}">
-                            <s:submit name="backFromStep2" class="btn btn-inverse"/>
-                        </s:form>
+                        <%--<s:submit name="backFromStep2" class="btn btn-inverse"/>--%>
 
                     </div>
                 </s:form>

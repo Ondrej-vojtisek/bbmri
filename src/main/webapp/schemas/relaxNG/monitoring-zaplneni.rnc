@@ -22,7 +22,7 @@ container =
 		## container location description
 		element location { text },
   		## max number of stands in container
-  		capacity,
+  		element capacity { xsd:int { minInclusive = "1" maxInclusive = "10" }},
 		## minimum temperature allowed in the container
 		element tempMin { xsd:float }?,
 		## maximum temperature allowed in the container
@@ -37,7 +37,7 @@ rack =
          ## unique identifier of the box
          attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" } },
          ## max number of box in stand
-         capacity,
+         element capacity { xsd:int { minInclusive = "1" maxInclusive = "10" }},
          ## multiple boxes on different levels may be defined here
          ( box )+
     }
@@ -47,7 +47,7 @@ box =
         ## unique identifier of the box
         attribute id { xsd:string { pattern = "[a-zA-Z0-9]+" } },
         ## capacity of the box
-        capacity,
+        element capacity { xsd:int { minInclusive = "1" maxInclusive = "1000" }},
         ## minimum temperature allowed in the box
         element tempMin { xsd:float }?,
         ## maximum temperature allowed in the box
@@ -75,10 +75,6 @@ matrixPosition =
         attribute row { xsd:int },
         attribute column { xsd:int }
     }
-
-capacity =
-    ## expected that none of infrastructure element will have more than 1000 child nodes
-    element capacity { xsd:int { minInclusive = "1" maxInclusive = "1000" }}
 
 
 

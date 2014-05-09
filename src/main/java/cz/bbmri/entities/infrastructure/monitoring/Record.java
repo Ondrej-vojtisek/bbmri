@@ -2,6 +2,7 @@ package cz.bbmri.entities.infrastructure.monitoring;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * TODO
@@ -12,7 +13,7 @@ import java.io.Serializable;
 
 @Entity
 @Table
-public class TemperatureRecord implements Serializable {
+public class Record implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,6 +24,10 @@ public class TemperatureRecord implements Serializable {
 
     @ManyToOne
     private Monitoring monitoring;
+
+    private Date time;
+
+    private Double value;
 
     public Long getId() {
         return id;
@@ -40,12 +45,28 @@ public class TemperatureRecord implements Serializable {
         this.monitoring = monitoring;
     }
 
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TemperatureRecord that = (TemperatureRecord) o;
+        Record that = (Record) o;
 
         if (!id.equals(that.id)) return false;
 

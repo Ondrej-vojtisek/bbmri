@@ -23,7 +23,7 @@
         <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                 event="changePasswordView">
             <s:param name="userId" value="${userBean.userId}"/>
-            <f:message key="cz.bbmri.action.user.UserActionBean.password"/>
+            <f:message key="cz.bbmri.entities.User.password"/>
         </s:link>
     </li>
 </security:allowed>
@@ -35,7 +35,7 @@
         <s:link beanclass="cz.bbmri.action.user.UserActionBean"
                 event="rolesView">
             <s:param name="userId" value="${userBean.userId}"/>
-            <f:message key="cz.bbmri.action.user.UserActionBean.roles"/>
+            <f:message key="cz.bbmri.entities.enumeration.SystemRoles"/>
         </s:link>
     </li>
 </security:allowed>

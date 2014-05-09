@@ -2,8 +2,6 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import net.sourceforge.stripes.action.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 
@@ -19,7 +17,6 @@ import javax.annotation.security.PermitAll;
 @HttpCache(allow = false)
 class EditRequestActionBean extends BasicActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     private static final String REQUEST_DETAIL = "/requestDetail.jsp";
 
     @DefaultHandler

@@ -30,40 +30,5 @@
                          eventName="detail"
                          paramName="patientId"/>
 
-
-        <%--<table class="table table-hover table-striped">--%>
-
-        <%--<s:layout-render name="/webpages/component/detail/patient/header.jsp"/>--%>
-
-        <%--<tbody>--%>
-
-        <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
-        <%--collection="${biobankBean.patients}"/>--%>
-
-        <%--<c:forEach items="${biobankBean.patients}" var="patient">--%>
-        <%--<tr>--%>
-
-        <%--<s:layout-render name="/webpages/component/detail/patient/row.jsp" record="${patient}"/>--%>
-
-        <%--<c:set target="${patientBean}" property="biobankId" value="${biobankBean.biobankId}"/>--%>
-        <%--<td class="action">--%>
-        <%--<security:allowed bean="patientBean" event="detail">--%>
-        <%--<div class="tableAction">--%>
-        <%--<s:link beanclass="cz.bbmri.action.patient.PatientActionBean" event="detail"--%>
-        <%--class="btn btn-primary btnMargin">--%>
-        <%--<s:param name="biobankId" value="${biobankBean.biobankId}"/>--%>
-        <%--<s:param name="patientId" value="${patient.id}"/>--%>
-        <%--<f:message key="detail"/>--%>
-        <%--</s:link>--%>
-        <%--</div>--%>
-        <%--</security:allowed>--%>
-        <%--</td>--%>
-
-
-        <%--</tr>--%>
-        <%--</c:forEach>--%>
-        <%--</tbody>--%>
-        <%--</table>--%>
-
     </s:layout-component>
 </s:layout-render>

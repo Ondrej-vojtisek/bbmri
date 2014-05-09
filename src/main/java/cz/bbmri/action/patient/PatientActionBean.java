@@ -4,16 +4,14 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.action.biobank.BiobankPatientsActionBean;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.comparator.sample.*;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
@@ -29,11 +27,8 @@ import java.util.ArrayList;
 @UrlBinding("/biobank/patient/{$event}/{patientId}")
 public class PatientActionBean extends PermissionActionBean<Sample> {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
     @SpringBean
     private PatientService patientService;
-
 
     private static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
@@ -74,7 +69,7 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
         this.patientId = patientId;
     }
 
-    Patient getPatient() {
+    public Patient getPatient() {
         if (patient == null) {
             if (patientId != null) {
                 patient = patientService.get(patientId);

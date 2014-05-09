@@ -10,8 +10,6 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
@@ -27,8 +25,6 @@ import java.util.List;
 @PermitAll
 @UrlBinding("/dashboard")
 public class DashboardActionBean extends PermissionActionBean<Notification> {
-
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
     private NotificationService notificationService;
@@ -68,7 +64,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
     @DefaultHandler
     public Resolution display() {
         initiatePagination();
-        getPagination().setSource(notificationService.getUnreadNotifications(getContext().getMyId()));
+        getPagination().setSource(notificationService.getUnread(getContext().getMyId()));
         return new ForwardResolution(DASHBOARD);
     }
 
@@ -97,7 +93,7 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
             return new RedirectResolution(this.getClass());
         }
 
-        if (notificationService.markAsRead(selectedNotifications)) {
+        if (notificationService.markAsRead(selectedNotifications, getContext().getValidationErrors())) {
             successMsg();
         }
 

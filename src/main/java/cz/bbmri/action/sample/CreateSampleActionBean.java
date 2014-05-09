@@ -4,12 +4,8 @@ import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.action.patient.PatientActionBean;
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.enumeration.SampleType;
-import cz.bbmri.entities.sample.DiagnosisMaterial;
-import cz.bbmri.entities.sample.Genome;
-import cz.bbmri.entities.sample.Serum;
-import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.sample.*;
 import cz.bbmri.entities.sample.field.SampleNos;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.ModuleService;
@@ -116,7 +112,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         this.diagnosisMaterial = diagnosisMaterial;
     }
 
-    Module getModule() {
+    public Module getModule() {
         if (module == null) {
             if (moduleId != null) {
                 module = moduleService.get(moduleId);
@@ -125,7 +121,7 @@ public class CreateSampleActionBean extends PermissionActionBean {
         return module;
     }
 
-    Patient getPatient() {
+    public Patient getPatient() {
         if (patient == null) {
             if (getModule() != null) {
                 patient = getModule().getPatient();
@@ -151,19 +147,19 @@ public class CreateSampleActionBean extends PermissionActionBean {
         this.sampleType = sampleType;
     }
 
-    boolean getIsTissue() {
+    public boolean getIsTissue() {
         return sampleType != null &&  sampleType.equals(SampleType.TISSUE);
     }
 
-    boolean getIsDiagnosisMaterial() {
+    public boolean getIsDiagnosisMaterial() {
         return sampleType != null && sampleType.equals(SampleType.DIAGNOSIS_MATERIAL);
     }
 
-    boolean getIsSerum() {
+    public boolean getIsSerum() {
         return sampleType != null && sampleType.equals(SampleType.SERUM);
     }
 
-    boolean getIsGenome() {
+    public boolean getIsGenome() {
         return sampleType != null && sampleType.equals(SampleType.GENOME);
     }
 

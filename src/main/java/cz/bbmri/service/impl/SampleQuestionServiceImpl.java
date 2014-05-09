@@ -1,8 +1,10 @@
 package cz.bbmri.service.impl;
 
+import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.SampleQuestionDao;
 import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.entities.SampleRequest;
 import cz.bbmri.entities.SampleReservation;
@@ -17,9 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -33,6 +35,9 @@ class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuesti
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private BiobankDao biobankDao;
 
     @Autowired
     private NotificationDao notificationDao;
@@ -147,6 +152,13 @@ class SampleQuestionServiceImpl extends BasicServiceImpl implements SampleQuesti
         }
 
         return true;
+    }
+
+    public List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc) {
+        if (isNull(biobankId, "biobankId", null)) return null;
+        Biobank biobankDB = biobankDao.get(biobankId);
+        if (isNull(biobankDB, "biobankDB", null)) return null;
+        return sampleQuestionDao.getSortedSampleQuestions(biobankDB, orderByParam, desc);
     }
 
 }

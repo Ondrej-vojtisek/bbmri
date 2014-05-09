@@ -65,16 +65,19 @@ public class BoxDaoImpl extends BasicDaoImpl<Box> implements BoxDao {
     }
 
     public Box getByName(Biobank biobank, Rack rack, String name) {
-        notNull(biobank);
         notNull(name);
 
         if (rack == null) {
+
+            notNull(biobank);
+
             // Standalone box
             typedQuery = em.createQuery("SELECT box FROM StandaloneBox box WHERE " +
                     "box.infrastructure.biobank = :biobankParam AND " +
                     "box.name = :nameParam", Box.class);
             typedQuery.setParameter("biobankParam", biobank);
         } else {
+
             // rack box
             typedQuery = em.createQuery("SELECT box FROM RackBox box WHERE " +
                     "box.rack = :rackParam AND " +

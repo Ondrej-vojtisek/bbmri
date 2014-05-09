@@ -5,7 +5,7 @@
 
     <td>${record.name}</td>
     <td>${record.fundingOrganization}</td>
-    <td><f:message key="ProjectState.${record.projectState}"/></td>
+    <td><f:message key="cz.bbmri.entities.enumeration.ProjectState.${record.projectState}"/></td>
 
 </s:layout-definition>
 

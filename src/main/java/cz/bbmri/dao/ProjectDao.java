@@ -2,9 +2,9 @@ package cz.bbmri.dao;
 
 import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.entities.sample.Sample;
 
 import java.util.List;
 

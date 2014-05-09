@@ -56,11 +56,11 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
         this.permission = permission;
     }
 
-    public Long getId() {
+    public Long getAdminId() {
         return adminId;
     }
 
-    public void setId(Long adminId) {
+    public void setAdminId(Long adminId) {
         this.adminId = adminId;
     }
 
@@ -150,6 +150,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
     @HandlesEvent("addAdministrator")
     @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution addAdministrator() {
+
         if (!projectAdministratorService.assignAdministrator(projectId, adminId, permission,
                 getContext().getValidationErrors(),
                 getContext().getMyId())) {

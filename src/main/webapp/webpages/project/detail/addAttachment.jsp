@@ -9,8 +9,6 @@
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
-
         <s:form beanclass="cz.bbmri.action.project.ProjectAttachmentsActionBean" class="form-inline">
 
 
@@ -42,6 +40,8 @@
             </div>
 
         </s:form>
+
+        <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
 
     </s:layout-component>
 </s:layout-render>

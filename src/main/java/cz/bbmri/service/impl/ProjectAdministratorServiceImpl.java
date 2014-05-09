@@ -77,8 +77,8 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
     public boolean removeAdministrator(Long objectAdministratorId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
-        if (isNull(objectAdministratorId, "objectAdministratorId", null)) return false;
-        if (isNull(loggedUserId, "loggedUserId", null)) return false;
+        if (isNull(objectAdministratorId, "objectAdministratorId", errors)) return false;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return false;
 
         ProjectAdministrator pa = projectAdministratorDao.get(objectAdministratorId);
         if (isNull(pa, "pa", errors)) return false;
@@ -134,8 +134,8 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
                                                  Long loggedUserId) {
         notNull(errors);
 
-        if (isNull(objectAdministratorId, "objectAdministratorId", null)) return false;
-        if (isNull(loggedUserId, "loggedUserId", null)) return false;
+        if (isNull(objectAdministratorId, "objectAdministratorId", errors)) return false;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return false;
 
         ProjectAdministrator pa = projectAdministratorDao.get(objectAdministratorId);
         if (isNull(pa, "pa", errors)) return false;
@@ -161,16 +161,16 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
     public boolean assignAdministrator(Long objectId, Long newAdministratorId, Permission permission, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
-        if (isNull(objectId, "objectId", null)) return false;
-        if (isNull(loggedUserId, "loggedUserId", null)) return false;
-        if (isNull(newAdministratorId, "newAdministratorId", null)) return false;
-        if (isNull(permission, "permission", null)) return false;
+        if (isNull(objectId, "objectId", errors)) return false;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return false;
+        if (isNull(newAdministratorId, "newAdministratorId", errors)) return false;
+        if (isNull(permission, "permission", errors)) return false;
 
         Project projectDB = projectDao.get(objectId);
         User newAdmin = userDao.get(newAdministratorId);
 
-        if (isNull(projectDB, "projectDB", null)) return false;
-        if (isNull(newAdmin, "newAdmin", null)) return false;
+        if (isNull(projectDB, "projectDB", errors)) return false;
+        if (isNull(newAdmin, "newAdmin", errors)) return false;
 
         // He is already admin
         if (projectAdministratorDao.get(projectDB, newAdmin) != null) {

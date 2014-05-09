@@ -60,4 +60,12 @@ public interface ContainerService extends Get<Container>, Update<Container>, Rem
      */
     Container getContainerByName(Biobank biobank, String name);
 
+    /**
+     * Return all monitored containers of given biobank
+     *
+     * @param biobank - instace of biobank where containers are searched
+     * @return list of containers with monitoring
+     */
+    List<Container> getMonitoredContainers(Biobank biobank);
+
 }

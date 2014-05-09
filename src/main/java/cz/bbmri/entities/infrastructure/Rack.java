@@ -24,7 +24,7 @@ public class Rack implements Serializable {
     private Long id;
 
     /**
-     * Rack identification from original institution
+     * Rack identification
      */
     private String name;
 

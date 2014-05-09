@@ -25,7 +25,8 @@ import javax.annotation.security.RolesAllowed;
 
 @Wizard(startEvents = {"display"})
 @UrlBinding("/biobank/create/{$event}")
-public class CreateActionBean extends FindActionBean {
+public class CreateActionBean extends FindActionBean<Biobank> {
+
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

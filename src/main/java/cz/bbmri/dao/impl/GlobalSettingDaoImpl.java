@@ -53,8 +53,6 @@ public class GlobalSettingDaoImpl extends BaseForDao implements GlobalSettingDao
         globalSetting.setValue(value);
         globalSetting.setLastModification(new Date());
 
-        em.merge(globalSetting);
-
         if(existed){
             //update
             em.merge(globalSetting);

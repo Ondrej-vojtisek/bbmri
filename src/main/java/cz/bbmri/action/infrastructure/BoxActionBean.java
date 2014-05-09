@@ -87,21 +87,21 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         this.rackBox = rackBox;
     }
 
-    boolean getIsStandAloneBox() {
+    public boolean getIsStandAloneBox() {
         if (getBox() != null) {
             return box instanceof StandaloneBox;
         }
         return false;
     }
 
-    boolean getIsRackBox() {
+    public boolean getIsRackBox() {
         if (getBox() != null) {
             return box instanceof RackBox;
         }
         return false;
     }
 
-    RackBox getRackBox() {
+    public RackBox getRackBox() {
         if (rackBox == null) {
             if (boxId != null) {
                 rackBox = (RackBox) boxService.get(boxId);
@@ -110,7 +110,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         return rackBox;
     }
 
-    StandaloneBox getStandaloneBox() {
+    public StandaloneBox getStandaloneBox() {
         if (standaloneBox == null) {
             if (boxId != null) {
                 standaloneBox = (StandaloneBox) boxService.get(boxId);
@@ -119,7 +119,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         return standaloneBox;
     }
 
-    Box getBox() {
+    public Box getBox() {
         if (box == null) {
             if (boxId != null) {
                 box = boxService.get(boxId);
@@ -151,6 +151,7 @@ public class BoxActionBean extends PermissionActionBean<Position> {
         this.rackId = rackId;
     }
 
+    @DefaultHandler
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution detail() {

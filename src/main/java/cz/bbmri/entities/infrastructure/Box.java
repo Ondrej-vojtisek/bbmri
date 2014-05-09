@@ -26,7 +26,7 @@ public class Box implements Serializable {
     private Long id;
 
     /**
-     * Unique identification of box from original institution
+     * Unique identification of box
      */
     private String name;
 
@@ -37,7 +37,7 @@ public class Box implements Serializable {
 
     // TODO musim byt nejake omezeni aby box nemel viz definovanych pozic nezli je jeho kapacita
 
-    @OneToMany(mappedBy = "box", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "box")
     private Set<Position> positions = new HashSet<Position>();
 
     /**

@@ -21,7 +21,7 @@
             <div class="control-group">
                 <s:label for="cz.bbmri.entities.Project.name" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.name" readonly="${readonly}"/>
+                    <s:text name="project.name" readonly="true"/>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
             <div class="control-group">
                 <s:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.principalInvestigator" readonly="${readonly}"/>
+                    <s:text name="project.principalInvestigator" readonly="true"/>
                 </div>
             </div>
 

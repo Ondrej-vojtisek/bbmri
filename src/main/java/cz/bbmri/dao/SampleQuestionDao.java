@@ -3,6 +3,7 @@ package cz.bbmri.dao;
 import cz.bbmri.dao.simple.BasicDao;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
+import cz.bbmri.entities.sample.Sample;
 
 import java.util.List;
 
@@ -69,4 +70,14 @@ public interface SampleQuestionDao extends BasicDao<SampleQuestion> {
      * @return sorted list of all sampleReservation associated with specified sample
      */
     List<SampleReservation> getSampleReservationsBySample(Sample sample, String orderByParam, boolean desc);
+
+    /**
+     * Return sorted list of all sample question associated with given biobank.
+     *
+     * @param biobank
+     * @param orderByParam - select column by which will the result be sorted
+     * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
+     * @return sorted list of all sampleQuestions associated with specified biobank
+     */
+    List<SampleQuestion> getSortedSampleQuestions(Biobank biobank, String orderByParam, boolean desc);
 }

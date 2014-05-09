@@ -1,7 +1,7 @@
 package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
@@ -31,7 +31,7 @@ public class BiobankSamplesActionBean extends PermissionActionBean<Sample> {
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(BiobankSamplesActionBean.class.getName(),
-                "display", false, "cz.bbmri.entities.Sample.samples",
+                "display", false, "cz.bbmri.entities.sample.Sample.samples",
                 active, "biobankId", biobankId);
     }
 

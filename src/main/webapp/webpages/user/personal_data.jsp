@@ -1,9 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
-
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="user"
                  ternarymenu="personal_data">
 
@@ -64,19 +62,20 @@
             <div class="form-actions">
             <security:allowed event="update">
 
-                    <s:submit name="update" class="btn btn-primary"/>
+                    <s:submit name="update" class="btn btn-primary btnMargin"/>
                     <s:param name="userId" value="${actionBean.userId}"/>
 
             </security:allowed>
 
-            <security:allowed event="remove">
-                <s:form beanclass="cz.bbmri.action.user.UserActionBean">
-                    <f:message var="question" key="cz.bbmri.action.user.UserActionBean.questionDelete"/>
-                    <s:submit name="remove" class="btn btn-danger" onclick="return confirm('${question}')">
-                        <s:param name="userId" value="${user.id}"/>
-                    </s:submit>
-                </s:form>
-            </security:allowed>
+                <security:allowed event="remove">
+                    <s:form beanclass="cz.bbmri.action.user.UserActionBean">
+                        <f:message var="question" key="cz.bbmri.action.user.UserActionBean.questionDelete"/>
+                        <s:submit name="remove" class="btn btn-danger" onclick="return confirm('${question}')"
+                                  disabled="true">
+                            <s:param name="userId" value="${user.id}"/>
+                        </s:submit>
+                    </s:form>
+                </security:allowed>
             </div>
 
         </s:form>

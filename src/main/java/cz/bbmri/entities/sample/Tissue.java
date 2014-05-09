@@ -1,6 +1,5 @@
 package cz.bbmri.entities.sample;
 
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.field.Morphology;
 import cz.bbmri.entities.sample.field.PTNM;
 import cz.bbmri.entities.sample.field.TNM;

@@ -15,14 +15,15 @@ import java.util.List;
  * @version 1.0
  */
 
-public class FindActionBean extends PermissionActionBean {
+public class FindActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean
     protected UserService userService;
 
     private User userFind;
 
-    protected User getUserFind() {
+    // must be public bcs of .jsp
+    public User getUserFind() {
         return userFind;
     }
 

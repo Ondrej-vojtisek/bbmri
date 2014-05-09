@@ -7,13 +7,13 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.sampleId"
+                             msgKey="cz.bbmri.entities.sample.Sample.sampleId"
                              column="sample.sampleIdentification.sampleId"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Sample.tissueType"
+                             msgKey="cz.bbmri.entities.sample.Sample.tissueType"
                              column="sample.materialType.type"
                              pagination="${pagination}"/>
         </th>

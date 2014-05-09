@@ -39,7 +39,7 @@ public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
     }
 
 
-    User getUserFind() {
+    public User getUserFind() {
         return userFind;
     }
 

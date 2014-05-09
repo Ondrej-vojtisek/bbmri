@@ -3,6 +3,7 @@ package cz.bbmri.service.impl;
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
 import cz.bbmri.entities.enumeration.RequestState;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.service.SampleReservationService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;

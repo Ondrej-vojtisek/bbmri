@@ -53,7 +53,7 @@ public class BiobankAdministrator implements Serializable {
     }
 
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 

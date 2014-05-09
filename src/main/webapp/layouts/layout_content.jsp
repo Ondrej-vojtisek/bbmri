@@ -13,6 +13,7 @@
         <link rel="stylesheet" type="text/css" href="${context}/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/datepicker.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
+        <link rel="stylesheet" type="text/css" href="${context}/css/graph.css"/>
         <title>BBMRI CZ</title>
         <s:layout-component name="hlavicka"/>
     </head>
@@ -104,6 +105,11 @@
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
+
+    <script type="text/javascript" src="${context}/libs/jquery.flot.js"></script>
+    <script type="text/javascript" src="${context}/libs/jquery.flot.time.js"></script>
+    <script type="text/javascript" src="${context}/libs/jquery.flot.symbol.js"></script>
+
         <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
 
     <s:layout-component name="jsLibrary"/>
@@ -120,15 +126,6 @@
         $(function () {
             $(".alert").alert();
         });
-        //        $(document).ready(function () {
-        //            createStoryJS({
-        //                type: 'timeline',
-        //                width: '800',
-        //                height: '400',
-        //                source: '/libs/timeline.json',
-        //                embed_id: 'my-timeline'
-        //            });
-        //        });
 
 
     </script>

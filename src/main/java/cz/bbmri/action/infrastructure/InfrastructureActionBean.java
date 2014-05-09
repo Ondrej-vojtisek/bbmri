@@ -10,7 +10,6 @@ import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
 import cz.bbmri.service.BoxService;
 import cz.bbmri.service.ContainerService;
-import cz.bbmri.service.InfrastructureService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
@@ -29,9 +28,6 @@ import java.util.ArrayList;
 public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     @SpringBean
-    private InfrastructureService infrastructureService;
-
-    @SpringBean
     private BoxService boxService;
 
     @SpringBean
@@ -46,7 +42,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     public static Breadcrumb getBreadcrumb(boolean active, Long biobankId) {
         return new Breadcrumb(InfrastructureActionBean.class.getName(),
-                "all", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.occupancy", active,
+                "all", false, "cz.bbmri.entities.infrastructure.Infrastructure.infrastructure", active,
                 "biobankId", biobankId);
     }
 
@@ -105,24 +101,11 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
 
     }
 
-    Long getInfrastructureId() {
-        if (getBiobank() == null) {
-            return null;
-        }
-        if (getBiobank().getInfrastructure() == null) {
-            return null;
-        }
-        return getBiobank().getInfrastructure().getId();
-    }
-
     public Infrastructure getInfrastructure() {
-        if (infrastructure == null) {
-            infrastructure = infrastructureService.get(getInfrastructureId());
-        }
-        return infrastructure;
+        return getBiobank().getInfrastructure();
     }
 
-    void initiatePaginationBoxes() {
+    public void initiatePaginationBoxes() {
         if (page2 != null) {
             boxesPagination.setCurrentPage(page2);
         }
@@ -140,19 +123,11 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     public Resolution all() {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
-        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId.longValue(), getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
         getBreadcrumbs().add(InfrastructureActionBean.getBreadcrumb(true, biobankId));
 
-        if (getBiobank().getInfrastructure() == null) {
-            infrastructureService.initialize(getBiobank());
-            return new RedirectResolution(INFRASTRUCTURE_DETAIL)
-                    .addParameter("biobankId", biobankId);
-        }
-
-        if (biobankId != null) {
-            boxesPagination.setIdentifier(biobankId);
-            getPagination().setIdentifier(biobankId);
-        }
+        boxesPagination.setIdentifier(biobankId);
+        getPagination().setIdentifier(biobankId);
 
         initiatePagination();
         initiatePaginationBoxes();
@@ -178,7 +153,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
                 boxesPagination.getOrderParam(),
                 boxesPagination.getDesc()));
 
-        return new ForwardResolution(INFRASTRUCTURE_DETAIL).addParameter("biobankId", biobankId);
+        return new ForwardResolution(INFRASTRUCTURE_DETAIL_INFRASTRUCTURE).addParameter("biobankId", biobankId);
     }
 
 }

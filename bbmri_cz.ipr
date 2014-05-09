@@ -122,7 +122,6 @@
             <element id="library" level="project" name="Maven: org.springframework:spring-web:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
-            <element id="library" level="project" name="Maven: org.json:json:20090211" />
             <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom-api:1.2.11" />
             <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-activation_1.1_spec:1.0.2" />
             <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-javamail_1.4_spec:1.6" />
@@ -438,7 +437,7 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="RunManager">
@@ -912,17 +911,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/hsqldb/hsqldb/2.3.0/hsqldb-2.3.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.json:json:20090211">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20090211/json-20090211-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.mockito:mockito-core:1.9.5">

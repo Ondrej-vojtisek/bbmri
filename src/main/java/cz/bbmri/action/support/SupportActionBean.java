@@ -8,8 +8,6 @@ import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -26,8 +24,6 @@ import java.util.List;
 @HttpCache(allow = false)
 public class SupportActionBean extends ComponentActionBean {
 
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
-
     @SpringBean
     private UserService userService;
 
@@ -35,7 +31,7 @@ public class SupportActionBean extends ComponentActionBean {
         setComponentManager(new ComponentManager());
     }
 
-    private static Breadcrumb getBreadcrumb(boolean active) {
+    public static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(SupportActionBean.class.getName(),
                 "display", false, "cz.bbmri.action.support.SupportActionBean.contacts", active);
     }

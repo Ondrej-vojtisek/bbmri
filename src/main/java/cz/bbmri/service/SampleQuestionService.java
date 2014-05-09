@@ -4,6 +4,8 @@ import cz.bbmri.entities.SampleQuestion;
 import cz.bbmri.service.simpleService.Get;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
+import java.util.List;
+
 
 /**
  * API for handling SampleQuestions
@@ -46,4 +48,14 @@ public interface SampleQuestionService extends Get<SampleQuestion> {
      * @return true/false
      */
     boolean deny(Long sampleQuestionId, ValidationErrors errors, Long loggedUserId);
+
+    /**
+        * Return list of sorted sampleQuestions associated with biobank
+        *
+        * @param biobankId    - ID of project
+        * @param orderByParam
+        * @param desc
+        * @return sorted list of sampleRequests
+        */
+       List<SampleQuestion> getSortedSampleQuestions(Long biobankId, String orderByParam, boolean desc);
 }

@@ -13,7 +13,7 @@
 
         <fieldset>
             <s:form beanclass="${actionBean.name}" class="form-horizontal">
-                <s:hidden name="id"/>
+                <s:hidden name="projectId"/>
 
                 <s:layout-render name="/webpages/component/form/userFindInput.jsp"/>
 
@@ -45,10 +45,10 @@
                                         <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
                                     </s:select>
 
-                                    <s:submit name="addAdministrator" class="btn btn-primary">
-                                        <s:param name="id" value="${actionBean.id}"/>
-                                        <s:param name="adminId" value="${user.id}"/>
-                                    </s:submit>
+                                    <s:hidden name="projectId"/>
+                                    <s:hidden name="adminId" value="${user.id}"/>
+
+                                    <s:submit name="addAdministrator" class="btn btn-primary"/>
                                 </s:form>
                             </td>
                         </tr>

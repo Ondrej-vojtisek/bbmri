@@ -18,7 +18,6 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * TODO
@@ -49,8 +48,6 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
 
     private Long containerId;
 
-    private Long infrastructureId;
-
     private Infrastructure infrastructure;
 
     public static Breadcrumb getBreadcrumb(boolean active, Long containerId, String containerName) {
@@ -59,8 +56,8 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
                 "containerId", containerId, containerName);
     }
 
-    private static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
-        return new Breadcrumb(InfrastructureActionBean.class.getName(),
+    public static Breadcrumb getCreateContainerBreadcrumb(boolean active, Long biobankId) {
+        return new Breadcrumb(ContainerActionBean.class.getName(),
                 "createContainerResolution", false, "cz.bbmri.action.infrastructure.InfrastructureActionBean.createContainer",
                 active, "biobankId", biobankId);
     }
@@ -81,15 +78,8 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
         this.containerId = containerId;
     }
 
-    public Long getInfrastructureId() {
-        return infrastructureId;
-    }
 
-    public void setInfrastructureId(Long infrastructureId) {
-        this.infrastructureId = infrastructureId;
-    }
-
-    Container getContainer() {
+    public Container getContainer() {
         if (container == null) {
             if (containerId != null) {
                 container = containerService.get(containerId);
@@ -102,15 +92,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
         this.container = container;
     }
 
-    public Set<Rack> getRacks() {
-        if (getContainer() == null) {
-            logger.debug("Container null");
-            return null;
-        }
-
-        return getContainer().getRacks();
-    }
-
+    @DefaultHandler
     @HandlesEvent("detail")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution detail() {
@@ -157,6 +139,4 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
         return new RedirectResolution(InfrastructureActionBean.class, "all")
                 .addParameter("biobankId", biobankId);
     }
-
-
 }

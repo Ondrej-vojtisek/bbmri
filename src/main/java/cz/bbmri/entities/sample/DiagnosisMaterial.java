@@ -1,6 +1,5 @@
 package cz.bbmri.entities.sample;
 
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.sample.field.Diagnosis;
 
 import javax.persistence.Embedded;

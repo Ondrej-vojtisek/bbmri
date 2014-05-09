@@ -7,7 +7,7 @@ package cz.bbmri.entities.enumeration;
  * APPROVED - Project was successfully checked by biobank administrator and everything was correct
  * DENIED - Project was checked but there is some issue to solve (missing form, ...)
  * STARTED - Approved project with at least one sample request
- * CANCELED - Project was canceled - it was approved but in can fill sample requests
+ * CANCELED - Project was canceled - it was approved but it can't fill sample requests
  * FINISHED - Project was finished - it can't be changed now. It stays in system as archive.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)

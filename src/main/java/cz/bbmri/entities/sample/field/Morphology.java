@@ -17,8 +17,7 @@ public class Morphology implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name="morphology", length = 7)
-    private
-    String classification;
+    private String classification;
 
     /**
      * Grading is a part of morphology classification. Here it is defined as a fallback for situation when hospital

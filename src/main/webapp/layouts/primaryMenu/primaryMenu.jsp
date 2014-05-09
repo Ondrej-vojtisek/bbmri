@@ -135,7 +135,7 @@
     <security:allowed bean="userBean" event="display">
         <li class="dropdown <c:if test="${primarymenu == 'user'}"> active </c:if>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <f:message key="cz.bbmri.action.entities.User.users"/>
+                <f:message key="cz.bbmri.entities.User.users"/>
                 <b class="caret"></b></a>
             <ul class="dropdown-menu">
 

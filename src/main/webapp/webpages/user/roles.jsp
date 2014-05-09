@@ -1,9 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.user.UserActionBean.detail" var="title"/>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<s:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="user"
                  ternarymenu="roles">
 
@@ -119,13 +118,11 @@
                         <td>${ba.permission}</td>
                         <td class="action">
 
-                            <security:allowed bean="biobankBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                         class="btn btn-info">
                                     <s:param name="biobankId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
-                            </security:allowed>
 
                         </td>
                     </tr>
@@ -158,13 +155,11 @@
 
                         <td class="action">
 
-                            <security:allowed bean="projectBean" event="detail">
                                 <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                         class="btn btn-info">
                                     <s:param name="projectId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
-                            </security:allowed>
 
                         </td>
                     </tr>

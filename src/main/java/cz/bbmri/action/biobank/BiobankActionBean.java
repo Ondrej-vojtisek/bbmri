@@ -50,7 +50,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     @DontValidate
     @DefaultHandler
     @HandlesEvent("allBiobanks") /* Necessary for stripes security tag*/
-    @RolesAllowed({"administrator", "developer", "biobank_operator"})
+    @RolesAllowed("user")
     public Resolution allBiobanks() {
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
 

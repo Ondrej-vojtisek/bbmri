@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * TODO
+ * Base for all action beans
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -35,6 +35,7 @@ public class BasicActionBean extends Links implements ActionBean {
 
     private TheActionBeanContext ctx;
 
+    // context of application, stores logged user, ...
     @Override
     public void setContext(ActionBeanContext ctx) {
         this.ctx = (TheActionBeanContext) ctx;
@@ -43,10 +44,6 @@ public class BasicActionBean extends Links implements ActionBean {
     @Override
     public TheActionBeanContext getContext() {
         return ctx;
-    }
-
-    public boolean isShibbolethUser() {
-        return null != getContext().getShibbolethSession();
     }
 
     private ComponentManager componentManager;
@@ -59,6 +56,11 @@ public class BasicActionBean extends Links implements ActionBean {
         this.componentManager = componentManager;
     }
 
+    /**
+     * Get all attributes from shibboleth, which are stored in header for authentication of user
+     *
+     * @return instance of user with all shibboleth attributes set
+     */
     public User initializeShibbolethUser() {
         User user = new User();
         user.setDisplayName(getContext().getShibbolethDisplayName());
@@ -72,6 +74,10 @@ public class BasicActionBean extends Links implements ActionBean {
         user.setSurname(getContext().getShibbolethSn());
         user.setShibbolethUser(true);
         return user;
+    }
+
+    public boolean isShibbolethUser() {
+        return null != getContext().getShibbolethSession();
     }
 
     public boolean shibbolethSignIn(User user) {
@@ -125,7 +131,6 @@ public class BasicActionBean extends Links implements ActionBean {
     public String getName() {
         return this.getClass().getName();
     }
-
 
     protected void successMsg() {
             getContext().getMessages().add(

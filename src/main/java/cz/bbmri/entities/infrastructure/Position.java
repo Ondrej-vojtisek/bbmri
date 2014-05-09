@@ -1,6 +1,6 @@
 package cz.bbmri.entities.infrastructure;
 
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,8 +14,8 @@ import java.io.Serializable;
  * @version 1.0
  */
 
-@Table
 @Entity
+@Table(name = "boxposition") // position is already in use
 public class Position implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,10 +32,8 @@ public class Position implements Serializable {
     private Sample sample;
 
 //    Matrix position
-    @Column
     private Integer row;
 
-    @Column
     private Integer column;
 
 //    Sequential position

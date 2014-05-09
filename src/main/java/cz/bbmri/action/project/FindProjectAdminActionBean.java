@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  */
 
-@UrlBinding("/project/administrators/addAdministrator/{$event}/{id}")
+@UrlBinding("/project/administrators/addAdministrator/{$event}/{projectId}")
 public class FindProjectAdminActionBean extends FindActionBean {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());

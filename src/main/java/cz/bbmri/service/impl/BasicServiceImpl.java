@@ -80,7 +80,7 @@ public class BasicServiceImpl {
                 logger.error("Variable: " + varName + " is null");
 
                 // TODO: temporal but good for testing
-                throw new IllegalArgumentException("Variable: " + varName);
+                throw new IllegalArgumentException("Variable: " + varName + " is null. ");
             }
             return true;
         }

@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="/layouts/layout_content.jsp">
+
+<s:layout-render name="/layouts/layout_content.jsp"
+                 primarymenu="support"
+                 secondarymenu="settings">
 
     <s:layout-component name="body">
 
@@ -10,12 +13,11 @@
 
             <div class="form-actions">
 
-                <s:form beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean" class="form-horizontal">
+                <s:form beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean" class="form-inline">
                     <div class="controls">
-                        <s:text name="validity.value"/>
+                        <s:text name="validity.value" class="btnMargin"/>
+                        <s:submit name="saveValidity" class="btn btn-primary"/>
                     </div>
-
-                    <s:submit name="saveValidity" class="btn btn-primary"/>
                 </s:form>
 
             </div>

@@ -4,7 +4,7 @@ import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.action.project.ProjectRequestActionBean;
 import cz.bbmri.action.reservation.ReservationActionBean;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.RequestService;

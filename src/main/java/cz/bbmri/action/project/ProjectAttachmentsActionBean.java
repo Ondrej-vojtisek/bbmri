@@ -144,7 +144,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
 
     @DontValidate
     @HandlesEvent("addAttachment")
-    @RolesAllowed({"project_team_member if ${allowedProjectEditor}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectExecutor}"})
     public Resolution addAttachment() {
 
         getBreadcrumbs().add(ProjectActionBean.getProjectsBreadcrumb(false));
@@ -152,12 +152,27 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
         getBreadcrumbs().add(ProjectAttachmentsActionBean.getBreadcrumb(false, projectId));
         getBreadcrumbs().add(ProjectAttachmentsActionBean.getAddAttachmentBreadcrumb(true, projectId));
 
+        if (projectId != null) {
+            getPagination().setIdentifier(projectId);
+        }
+
+        initiatePagination();
+        if (getOrderParam() == null) {
+            // default
+            getPagination().setOrderParam("fileName");
+        }
+        getPagination().setEvent("addAttachment");
+        getPagination().setSource(attachmentService.getSortedAttachments(
+                projectId,
+                getPagination().getOrderParam(),
+                getPagination().getDesc()));
+
         return new ForwardResolution(PROJECT_DETAIL_ATTACHMENT_ADD);
     }
 
 
     @HandlesEvent("attachmentUpload")
-    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectEditor}"})
+    @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectExecutor}"})
     public Resolution attachmentUpload() {
 
         int result = attachmentService.createAttachment(attachmentFileBean,

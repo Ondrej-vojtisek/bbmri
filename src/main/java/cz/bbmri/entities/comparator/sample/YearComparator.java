@@ -1,6 +1,6 @@
 package cz.bbmri.entities.comparator.sample;
 
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.entities.sample.field.SampleIdentification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

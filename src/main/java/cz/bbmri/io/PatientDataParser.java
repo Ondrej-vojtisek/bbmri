@@ -1,13 +1,9 @@
 package cz.bbmri.io;
 
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.enumeration.Retrieved;
 import cz.bbmri.entities.enumeration.Sex;
-import cz.bbmri.entities.sample.DiagnosisMaterial;
-import cz.bbmri.entities.sample.Genome;
-import cz.bbmri.entities.sample.Serum;
-import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.sample.*;
 import cz.bbmri.entities.sample.field.*;
 import org.apache.axis2.databinding.types.xsd.DateTime;
 import org.apache.axis2.databinding.types.xsd.GYear;

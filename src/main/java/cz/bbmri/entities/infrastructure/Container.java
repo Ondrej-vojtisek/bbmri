@@ -5,7 +5,9 @@ import cz.bbmri.entities.infrastructure.monitoring.Monitoring;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,7 +30,7 @@ public class Container implements Serializable {
     private Long id;
 
     /**
-     * Unique identification from original institution
+     * Unique identification
      */
     private String name;
 
@@ -38,14 +40,14 @@ public class Container implements Serializable {
     /**
      * Racks located inside container
      */
-    @OneToMany(mappedBy = "container", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "container")
     private Set<Rack> racks = new HashSet<Rack>();
 
     /**
      * Monitoring of physical conditions
      */
-    @OneToOne(mappedBy = "container")
-    private Monitoring monitoring;
+    @OneToMany(mappedBy = "container")
+    private List<Monitoring> monitorings  = new ArrayList<Monitoring>();
 
     /**
      * Description where the container is situated. Not required.
@@ -139,12 +141,12 @@ public class Container implements Serializable {
         return racks.size();
     }
 
-    public Monitoring getMonitoring() {
-        return monitoring;
+    public List<Monitoring> getMonitorings() {
+        return monitorings;
     }
 
-    public void setMonitoring(Monitoring monitoring) {
-        this.monitoring = monitoring;
+    public void setMonitorings(List<Monitoring> monitorings) {
+        this.monitorings = monitorings;
     }
 
     @Override

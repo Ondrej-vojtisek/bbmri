@@ -1,9 +1,9 @@
 package cz.bbmri.trigeredEvents.impl;
 
 import cz.bbmri.entities.Biobank;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.infrastructure.*;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.entities.webEntities.PositionDTO;
 import cz.bbmri.io.MonitoringDataParser;
 import cz.bbmri.service.*;

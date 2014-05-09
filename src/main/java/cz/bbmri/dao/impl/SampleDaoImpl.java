@@ -3,7 +3,7 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.Sample;
+import cz.bbmri.entities.sample.Sample;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

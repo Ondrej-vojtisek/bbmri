@@ -6,6 +6,7 @@ import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.enumeration.NotificationType;
 import cz.bbmri.entities.enumeration.ProjectState;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.sample.Sample;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import net.sourceforge.stripes.validation.LocalizableError;

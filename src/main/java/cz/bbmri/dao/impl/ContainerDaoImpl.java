@@ -18,6 +18,8 @@ import java.util.List;
 public class ContainerDaoImpl extends BasicDaoImpl<Container> implements ContainerDao {
 
     public List<Container> getSorted(Biobank biobank, String orderByParam, boolean desc) {
+        notNull(biobank);
+
         String orderParam = "";
         // ORDER BY p.name
         if (orderByParam != null) {
@@ -27,6 +29,11 @@ public class ContainerDaoImpl extends BasicDaoImpl<Container> implements Contain
         // ORDER BY p.name DESC
         if (desc) {
             orderParam = orderParam + " DESC";
+        }
+
+        if(biobank.getInfrastructure() == null){
+            logger.debug("infrastructure null");
+            return null;
         }
 
         typedQuery = em.createQuery("SELECT container FROM Container container WHERE " +

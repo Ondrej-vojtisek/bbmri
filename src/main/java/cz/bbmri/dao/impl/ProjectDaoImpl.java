@@ -2,9 +2,9 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.ProjectDao;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.Sample;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.ProjectState;
+import cz.bbmri.entities.sample.Sample;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

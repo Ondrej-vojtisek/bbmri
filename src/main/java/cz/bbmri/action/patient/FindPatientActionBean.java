@@ -64,14 +64,6 @@ public class FindPatientActionBean extends PermissionActionBean<Patient> {
         getPagination().setIdentifierParam("patientId");
     }
 
-    public Biobank getBiobank() {
-        if (biobank == null) {
-            if (biobankId != null) {
-                biobank = biobankService.get(biobankId);
-            }
-        }
-        return biobank;
-    }
 
     public List<Patient> getPatients() {
         if (patient == null) {

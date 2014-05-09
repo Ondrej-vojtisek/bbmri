@@ -17,7 +17,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -134,6 +136,29 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     @Transactional(readOnly = true)
     public Container getContainerByName(Biobank biobank, String name) {
         return containerDao.getByName(biobank, name);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Container> getMonitoredContainers(Biobank biobank){
+        if (isNull(biobank, "biobank", null)) return null;
+
+        if (isNull(biobank.getInfrastructure(), "biobank.infrastructure", null)) return null;
+
+        Set<Container> containers = biobank.getInfrastructure().getContainers();
+        if (isNull(containers, "container", null)) return null;
+
+        List<Container> output = new ArrayList<Container>();
+
+        for(Container container : containers){
+            if(container.getMonitorings() != null){
+                if(!container.getMonitorings().isEmpty()){
+                    output.add(container);
+                }
+            }
+        }
+
+        return output;
+
     }
 
 

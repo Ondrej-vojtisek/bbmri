@@ -3,10 +3,7 @@ package cz.bbmri.action.sample;
 import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.action.biobank.BiobankSamplesActionBean;
 import cz.bbmri.entities.*;
-import cz.bbmri.entities.sample.DiagnosisMaterial;
-import cz.bbmri.entities.sample.Genome;
-import cz.bbmri.entities.sample.Serum;
-import cz.bbmri.entities.sample.Tissue;
+import cz.bbmri.entities.sample.*;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import net.sourceforge.stripes.action.*;
@@ -36,7 +33,7 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
 
     public static Breadcrumb getBreadcrumb(boolean active, Long sampleId) {
         return new Breadcrumb(SampleActionBean.class.getName(),
-                "detail", false, "cz.bbmri.entities.Sample.sample",
+                "detail", false, "cz.bbmri.entities.sample.Sample.sample",
                 active, "sampleId", sampleId);
     }
 

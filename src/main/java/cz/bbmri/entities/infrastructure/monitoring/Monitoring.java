@@ -1,5 +1,6 @@
 package cz.bbmri.entities.infrastructure.monitoring;
 
+import cz.bbmri.entities.enumeration.MeasurementType;
 import cz.bbmri.entities.infrastructure.Container;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO
+ * Represents monitoring of given type (temperature etc,..) for specific element of infrastructure.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -25,11 +26,20 @@ public class Monitoring implements Serializable {
     @Column(nullable = false)
     private Long id;
 
-    @OneToOne
+    /**
+     * What is measured with this monitoring
+     */
+    @ManyToOne
     private Container container;
 
+    @Enumerated(EnumType.STRING)
+    private MeasurementType measurementType;
+
     @OneToMany(mappedBy = "monitoring")
-    private List<TemperatureRecord> temperatureRecords = new ArrayList<TemperatureRecord>();
+    private List<Record> records = new ArrayList<Record>();
+
+    /* Label of monitoring - for instance if there are two different thermometers*/
+    private String name;
 
     public Long getId() {
         return id;
@@ -39,12 +49,12 @@ public class Monitoring implements Serializable {
         this.id = id;
     }
 
-    public List<TemperatureRecord> getTemperatureRecords() {
-        return temperatureRecords;
+    public List<Record> getRecords() {
+        return records;
     }
 
-    public void setTemperatureRecords(List<TemperatureRecord> temperatureRecords) {
-        this.temperatureRecords = temperatureRecords;
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
     public Container getContainer() {
@@ -53,6 +63,26 @@ public class Monitoring implements Serializable {
 
     public void setContainer(Container container) {
         this.container = container;
+    }
+
+    public MeasurementType getMeasurementType() {
+        return measurementType;
+    }
+
+    public void setMeasurementType(MeasurementType measurementType) {
+        this.measurementType = measurementType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription(){
+        return "" + measurementType + " " + name;
     }
 
     @Override
