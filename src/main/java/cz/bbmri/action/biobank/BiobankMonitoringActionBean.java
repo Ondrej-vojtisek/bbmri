@@ -13,7 +13,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- * TODO describe class
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -44,7 +43,7 @@ public class BiobankMonitoringActionBean extends PermissionActionBean<Biobank> {
 
     @DefaultHandler
     @HandlesEvent("display")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}", "project_team_member_confirmed"})
     public Resolution display() {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));

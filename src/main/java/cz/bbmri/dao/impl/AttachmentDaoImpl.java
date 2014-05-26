@@ -1,10 +1,10 @@
 package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.AttachmentDao;
-import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Project;
+import cz.bbmri.entities.*;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
 
     }
 
-    public List<Attachment> getAttachmentSorted(Project project, String orderByParam, boolean desc) {
+    public List<ProjectAttachment> getAttachmentSorted(Project project, String orderByParam, boolean desc) {
         notNull(project);
 
         String orderParam = "";
@@ -41,13 +41,35 @@ public class AttachmentDaoImpl extends BasicDaoImpl<Attachment> implements Attac
         if (desc) {
             orderParam = orderParam + " DESC";
         }
-
-        typedQuery = em.createQuery("SELECT attachment FROM Attachment attachment WHERE " +
+        TypedQuery<ProjectAttachment> typedQuery1 = em.createQuery("SELECT attachment FROM ProjectAttachment attachment WHERE " +
                 "attachment.project = :projectParam " +
-                orderParam, Attachment.class);
-        typedQuery.setParameter("projectParam", project);
+                orderParam, ProjectAttachment.class);
+        typedQuery1.setParameter("projectParam", project);
 
-        return typedQuery.getResultList();
+        return typedQuery1.getResultList();
+    }
+
+    public List<BiobankAttachment> getAttachmentSorted(Biobank biobank, String orderByParam, boolean desc) {
+        notNull(biobank);
+
+        String orderParam = "";
+
+        // ORDER BY p.name
+        if (orderByParam != null) {
+            orderParam = "ORDER BY attachment." + orderByParam;
+
+        }
+        // ORDER BY p.name DESC
+        if (desc) {
+            orderParam = orderParam + " DESC";
+        }
+
+        TypedQuery<BiobankAttachment> typedQuery1 = em.createQuery("SELECT attachment FROM BiobankAttachment attachment WHERE " +
+                "attachment.biobank = :biobankParam " +
+                orderParam, BiobankAttachment.class);
+        typedQuery1.setParameter("biobankParam", biobank);
+
+        return typedQuery1.getResultList();
     }
 
 

@@ -6,7 +6,6 @@ import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

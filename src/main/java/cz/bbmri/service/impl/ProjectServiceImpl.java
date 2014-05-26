@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -83,33 +82,20 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         // Necessary to be able to send notification to all project members after delete
         List<User> users = getOtherProjectWorkers(project, loggedUserId);
 
-        if (project.getJudgedByUser() != null) {
-            project.setJudgedByUser(null);
-        }
-
         if (project.getSampleRequests() != null) {
             for (SampleRequest sampleRequest : project.getSampleRequests()) {
                 sampleQuestionDao.remove(sampleRequest);
             }
         }
 
-        if (project.getAttachments() != null) {
-            for (Attachment attachment : project.getAttachments()) {
+        if (project.getProjectAttachments() != null) {
+            for (ProjectAttachment attachment : project.getProjectAttachments()) {
                 attachmentDao.remove(attachment);
             }
         }
 
         if (project.getProjectAdministrators() != null) {
             for (ProjectAdministrator pa : project.getProjectAdministrators()) {
-
-                User userDB = pa.getUser();
-                if (userDB.getProjectAdministrators().size() == 1 &&
-                        userDB.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
-
-                    userDB.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
-                    userDao.update(userDB);
-                }
-
                 pa.setUser(null);
                 pa.setProject(null);
                 projectAdministratorDao.remove(pa);
@@ -122,6 +108,11 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
                 project.getName());
 
         notificationDao.create(users, NotificationType.PROJECT_DELETE, locMsg, project.getId());
+
+        // remove system roles asociated with users
+        for(User user : users){
+            removeProjectSystemRoleOfUser(user);
+        }
 
         return ServiceUtils.recursiveDeleteFolder(
                 storagePath +
@@ -184,8 +175,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         User userDB = userDao.get(loggedUserId);
         if (isNull(userDB, "userDB", errors)) return false;
 
-        projectDB.setProjectState(ProjectState.APPROVED);
-        projectDB.setJudgedByUser(userDB);
+        projectDB.setProjectState(ProjectState.CONFIRMED);
         try {
             projectDao.update(projectDB);
         } catch (Exception ex) {
@@ -193,8 +183,15 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             return false;
         }
 
+        // For all users working on project set system role to PROJECT_TEAM_MEMBER_APPROVED
+        for (User user : getProjectAdministratorsUsers(projectId)) {
+            if (!user.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER_CONFIRMED)) {
+                user.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER_CONFIRMED);
+            }
+        }
+
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.changedState",
-                projectDB.getName(), ProjectState.APPROVED);
+                projectDB.getName(), ProjectState.CONFIRMED);
 
         notificationDao.create(getProjectAdministratorsUsers(projectId),
                 NotificationType.PROJECT_DETAIL, locMsg, projectDB.getId());
@@ -220,7 +217,6 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         if (isNull(userDB, "userDB", errors)) return false;
 
         projectDB.setProjectState(ProjectState.DENIED);
-        projectDB.setJudgedByUser(userDB);
         try {
             projectDao.update(projectDB);
         } catch (Exception ex) {
@@ -296,7 +292,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             return false;
         }
 
-        if (projectDB.getProjectState().equals(ProjectState.APPROVED)) {
+        if (projectDB.getProjectState().equals(ProjectState.CONFIRMED)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.onlyApprovedProjectMayBeFinished"));
             return false;
         }
@@ -310,7 +306,43 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
                 NotificationType.PROJECT_DETAIL, locMsg, projectDB.getId());
 
+
+        // remove system roles associated with users
+        // SystemRole.PROJECT_TEAM_MEMBER_APPROVED must be removed
+        for(User user : getProjectAdministratorsUsers(projectId)){
+            removeProjectSystemRoleOfUser(user);
+        }
+
         return true;
+    }
+
+    private void removeProjectSystemRoleOfUser(User user) {
+        notNull(user);
+
+        // User is project team member
+        if (user.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
+            // but for none projects
+            if (user.getProjectAdministrators().size() == 0) {
+                user.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER);
+                userDao.update(user);
+            }
+        }
+
+        // User is project team member with approved project
+        if (user.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER_CONFIRMED)) {
+            // but for none projects
+
+            List<Project> approvedProject = projectDao.getAllByUserAndProjectState(user, ProjectState.CONFIRMED);
+            notNull(approvedProject);
+
+            // User doesn't have any approved project
+            if (approvedProject.isEmpty()) {
+                user.getSystemRoles().remove(SystemRole.PROJECT_TEAM_MEMBER_CONFIRMED);
+                userDao.update(user);
+            }
+
+        }
+
     }
 
 }

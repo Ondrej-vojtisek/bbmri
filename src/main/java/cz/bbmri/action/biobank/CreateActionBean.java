@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.security.RolesAllowed;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -150,7 +149,7 @@ public class CreateActionBean extends FindActionBean<Biobank> {
                 .addParameter("UserFind", getUserFind());
     }
 
-
+    // Method to validate that abbreviation is ASCII only
     @ValidationMethod
     public void validateAbbreviation(ValidationErrors errors) {
 

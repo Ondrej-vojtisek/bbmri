@@ -123,8 +123,7 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
     public Set<SystemRole> getRoles() {
-        Long id = ctx.getMyId();
-        return userService.get(id).getSystemRoles();
+        return getLoggedUser().getSystemRoles();
 
     }
 

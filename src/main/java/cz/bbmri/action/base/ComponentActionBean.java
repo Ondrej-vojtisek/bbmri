@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO
+ * ActionBean handling general components.
+ * Components: pagination - list of entities with printed amount of pages. List (shown in table) should be sortable - attributes orderParam and desc are here to define ORDER BY and ASC/DESC order
+ *             breadcumbs - List of breadcrumb for navigation inside application
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

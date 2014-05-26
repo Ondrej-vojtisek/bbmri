@@ -13,7 +13,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

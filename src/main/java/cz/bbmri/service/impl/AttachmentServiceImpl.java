@@ -1,13 +1,14 @@
 package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.AttachmentDao;
+import cz.bbmri.dao.BiobankDao;
 import cz.bbmri.dao.NotificationDao;
 import cz.bbmri.dao.ProjectDao;
-import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Project;
+import cz.bbmri.entities.*;
 import cz.bbmri.entities.constant.Constant;
-import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.BiobankAttachmentType;
 import cz.bbmri.entities.enumeration.NotificationType;
+import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 import cz.bbmri.service.AttachmentService;
 import net.sourceforge.stripes.action.FileBean;
 import net.sourceforge.stripes.action.LocalizableMessage;
@@ -42,37 +43,39 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     @Autowired
     private NotificationDao notificationDao;
 
+    @Autowired
+    private BiobankDao biobankDao;
+
     @Transactional(readOnly = true)
     Attachment get(Long id) {
         notNull(id);
         return attachmentDao.get(id);
     }
 
-    public int createAttachment(FileBean fileBean,
-                                AttachmentType attachmentType,
-                                Long projectId,
-                                ValidationErrors errors,
-                                Long loggedUserId) {
+    public int createBiobankAttachment(FileBean fileBean,
+                                       BiobankAttachmentType biobankAttachmentType,
+                                       Long biobankId,
+                                       ValidationErrors errors,
+                                       Long loggedUserId) {
         // Null errors will throw exception
         notNull(errors);
 
         // Null fields will inform user
         if (isNull(fileBean, "fileBean", errors)) return Constant.NOT_SUCCESS;
-        if (isNull(attachmentType, "attachmentType", errors)) return Constant.NOT_SUCCESS;
-        if (isNull(projectId, "projectId", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(biobankAttachmentType, "biobankAttachmentType", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(biobankId, "biobankId", errors)) return Constant.NOT_SUCCESS;
         if (isNull(loggedUserId, "loggedUserId", errors)) return Constant.NOT_SUCCESS;
 
-        Project projectDB = projectDao.get(projectId);
+        Biobank biobankDB = biobankDao.get(biobankId);
 
-        if (projectDB == null) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.ProjectDoesntExist"));
-            return Constant.NOT_SUCCESS;
-        }
+        if (isNull(biobankDB, "biobankDB", errors)) return Constant.NOT_SUCCESS;
+
         // create folder structure if it doesn't exist
         int result = ServiceUtils.createFolders(errors,
-                storagePath, // base folder
-                storagePath + Project.PROJECT_FOLDER, // Projects folder
-                storagePath + projectDB.getProjectFolderPath() // Folder for the project
+                storagePath,
+                storagePath + Biobank.BIOBANK_FOLDER, // Biobanks folder
+                storagePath + biobankDB.getBiobankFolderPath(), // Folder for the biobank
+                storagePath + biobankDB.getBiobankCalibrationDataFolder()   // Folder for the biobank/calibration_data
         );
         // problem during folder creation
         if (result != Constant.SUCCESS) {
@@ -80,27 +83,40 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             return Constant.NOT_SUCCESS;
         }
 
-        // Create new attachment
-        Attachment attachment = new Attachment();
-        attachment.setFileName(fileBean.getFileName());
-        attachment.setContentType(fileBean.getContentType());
-        attachment.setSize(fileBean.getSize());
-        attachment.setAttachmentType(attachmentType);
-        attachment.setProject(projectDB);
-        attachment.setAbsolutePath(
+        BiobankAttachment biobankAttachment = new BiobankAttachment();
+        biobankAttachment.setFileName(fileBean.getFileName());
+        biobankAttachment.setContentType(fileBean.getContentType());
+        biobankAttachment.setSize(fileBean.getSize());
+        biobankAttachment.setBiobankAttachmentType(biobankAttachmentType);
+        biobankAttachment.setBiobank(biobankDB);
+        biobankAttachment.setAbsolutePath(
                 storagePath +
-                        projectDB.getProjectFolderPath() +
+                        biobankDB.getBiobankCalibrationDataFolder() +
                         File.separator +
                         fileBean.getFileName());
 
-        // Create file on server
-        File file = new File(attachment.getAbsolutePath());
+        if (createFile(fileBean, biobankAttachment.getAbsolutePath(), errors, biobankAttachment) != Constant.SUCCESS) {
+            return Constant.NOT_SUCCESS;
+        }
 
-        boolean overwrite = false;
+        // notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.fileUploaded",
+                biobankDB.getAbbreviation());
+
+        // send notification to all other project workers
+        notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
+                NotificationType.BIOBANK_DETAIL, locMsg, biobankDB.getId());
+
+        return Constant.SUCCESS;
+
+    }
+
+    private int createFile(FileBean fileBean, String path, ValidationErrors errors, Attachment attachment) {
+        File file = new File(path);
 
         if (file.exists()) {
-            // file exists and will be overwriten
-            overwrite = true;
+            errors.addGlobalError(new LocalizableError("cz.bbmri.service.impl.AttachmentServiceImpl.fileAlreadyExist"));
+            return Constant.NOT_SUCCESS;
         }
 
         try {
@@ -114,35 +130,76 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             return Constant.NOT_SUCCESS;
         }
 
-        //      Create DB record only if file is new
-        if (!overwrite) {
+        try {
+            attachmentDao.create(attachment);
+        } catch (DataAccessException ex) {
+            // info for user
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.FileUploadedButDatabaseRecordNotCreated"));
+            // info for developer
+            operationFailed(null, ex);
+            return Constant.NOT_SUCCESS;
+        }
 
-            try {
-                attachmentDao.create(attachment);
-            } catch (DataAccessException ex) {
-                // info for user
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.FileUploadedButDatabaseRecordNotCreated"));
-                // info for developer
-                operationFailed(null, ex);
-                return Constant.NOT_SUCCESS;
-            }
-        } else {
-            // File is not new - it is enough to update
-            update(attachment);
+
+        return Constant.SUCCESS;
+    }
+
+    public int createProjectAttachment(FileBean fileBean,
+                                       ProjectAttachmentType projectAttachmentType,
+                                       Long projectId,
+                                       ValidationErrors errors,
+                                       Long loggedUserId) {
+        // Null errors will throw exception
+        notNull(errors);
+
+        // Null fields will inform user
+        if (isNull(fileBean, "fileBean", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(projectAttachmentType, "projectAttachmentType", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(projectId, "projectId", errors)) return Constant.NOT_SUCCESS;
+        if (isNull(loggedUserId, "loggedUserId", errors)) return Constant.NOT_SUCCESS;
+
+        Project projectDB = projectDao.get(projectId);
+
+        if (isNull(projectDB, "projectDB", errors)) return Constant.NOT_SUCCESS;
+
+        // create folder structure if it doesn't exist
+        int result = ServiceUtils.createFolders(errors,
+                storagePath, // base folder
+                storagePath + Project.PROJECT_FOLDER, // Projects folder
+                storagePath + projectDB.getProjectFolderPath() // Folder for the project
+        );
+        // problem during folder creation
+        if (result != Constant.SUCCESS) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.ProjectFacadeImpl.CantCreateFolderStructure"));
+            return Constant.NOT_SUCCESS;
+        }
+
+        // Create new attachment
+        ProjectAttachment projectAttachment = new ProjectAttachment();
+        projectAttachment.setFileName(fileBean.getFileName());
+        projectAttachment.setContentType(fileBean.getContentType());
+        projectAttachment.setSize(fileBean.getSize());
+        projectAttachment.setProjectAttachmentType(projectAttachmentType);
+        projectAttachment.setProject(projectDB);
+        projectAttachment.setAbsolutePath(
+                storagePath +
+                        projectDB.getProjectFolderPath() +
+                        File.separator +
+                        fileBean.getFileName());
+
+        // if not success than end execution
+        if (createFile(fileBean, projectAttachment.getAbsolutePath(), errors, projectAttachment) != Constant.SUCCESS) {
+            return Constant.NOT_SUCCESS;
         }
 
         // notification
-        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentUploaded",
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.fileUploadedProject",
                 projectDB.getName());
 
         // send notification to all other project workers
         notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
                 NotificationType.PROJECT_ATTACHMENT, locMsg, projectDB.getId());
 
-        // return different value to distinguish on actionBean between success and overwrite
-        if (overwrite) {
-            return Constant.OVERWRITTEN;
-        }
         return Constant.SUCCESS;
     }
 
@@ -153,9 +210,6 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         // get object from db with the same identifier
         isNull(attachmentDB, "attachmentDB", null);
 
-        if (attachment.getAttachmentType() != null) {
-            attachmentDB.setAttachmentType(attachment.getAttachmentType());
-        }
         if (attachment.getContentType() != null) {
             attachmentDB.setContentType(attachment.getContentType());
         }
@@ -172,11 +226,23 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
     }
 
     @Transactional(readOnly = true)
-    public List<Attachment> getSortedAttachments(Long projectId, String orderByParam, boolean desc) {
+    public List<ProjectAttachment> getSortedProjectAttachments(Long projectId, String orderByParam, boolean desc) {
         if (isNull(projectId, "projectId", null)) return null;
 
         try {
             return attachmentDao.getAttachmentSorted(projectDao.get(projectId), orderByParam, desc);
+        } catch (DataAccessException ex) {
+            operationFailed(null, ex);
+            return null;
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<BiobankAttachment> getSortedBiobankAttachments(Long biobankId, String orderByParam, boolean desc) {
+        if (isNull(biobankId, "biobankId", null)) return null;
+
+        try {
+            return attachmentDao.getAttachmentSorted(biobankDao.get(biobankId), orderByParam, desc);
         } catch (DataAccessException ex) {
             operationFailed(null, ex);
             return null;
@@ -201,13 +267,19 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             return false;
         }
 
-        Project project = attachment.getProject();
+        if (attachment instanceof ProjectAttachment) {
+            Project project = ((ProjectAttachment) attachment).getProject();
 
-        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
-                attachment.getFileName(), project.getName());
+            // message for project administrators
 
-        notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
-                NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
+                    attachment.getFileName(), project.getName());
+
+            notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
+                    NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
+        }
+
+        // message for biobank administrators
 
         try {
             // remove record in DB about attachment

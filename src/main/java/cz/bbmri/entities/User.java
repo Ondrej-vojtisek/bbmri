@@ -73,9 +73,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
     @OneToMany(mappedBy = "user")
     private Set<BiobankAdministrator> biobankAdministrators = new HashSet<BiobankAdministrator>();
 
-    @OneToMany(mappedBy = "judgedByUser")
-    private List<Project> judgedProjects = new ArrayList<Project>();
-
     @OneToMany(mappedBy = "user")
     private List<Notification> notifications = new ArrayList<Notification>();
 
@@ -146,14 +143,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
 
     public boolean getIsAdministrator() {
         return systemRoles.contains(SystemRole.ADMINISTRATOR);
-    }
-
-    public List<Project> getJudgedProjects() {
-        return judgedProjects;
-    }
-
-    public void setJudgedProjects(List<Project> judgedProjects) {
-        this.judgedProjects = judgedProjects;
     }
 
     public String getWholeName() {

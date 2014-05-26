@@ -1,6 +1,6 @@
 package cz.bbmri.entities;
 
-import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 @Table
 @Entity
-public class Attachment implements Serializable {
+abstract public class Attachment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,33 +24,24 @@ public class Attachment implements Serializable {
     private Long id;
 
     /**
-     * Type of attachment - flag to make attachment list more clear
-     */
-    @Enumerated(EnumType.STRING)
-    private AttachmentType attachmentType;
-
-    @ManyToOne
-    private Project project;
-
-    /**
      * File name
      */
-    private String fileName;
+    protected String fileName;
 
     /**
      *  File size
      */
-    private Long size;
+    protected Long size;
 
     /**
      * Type of content
      */
-    private String contentType;
+    protected String contentType;
 
     /**
      * Path to data storage on server
      */
-    private String absolutePath;
+    protected String absolutePath;
 
     public Long getId() {
         return id;
@@ -84,22 +75,6 @@ public class Attachment implements Serializable {
         this.contentType = contentType;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public AttachmentType getAttachmentType() {
-        return attachmentType;
-    }
-
-    public void setAttachmentType(AttachmentType attachmentType) {
-        this.attachmentType = attachmentType;
-    }
-
     public String getAbsolutePath() {
         return absolutePath;
     }
@@ -111,31 +86,17 @@ public class Attachment implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Attachment)) return false;
 
         Attachment that = (Attachment) o;
 
-        if (!contentType.equals(that.contentType)) return false;
-        if (!fileName.equals(that.fileName)) return false;
-        if (!project.equals(that.project)) return false;
+        if (!absolutePath.equals(that.absolutePath)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = fileName.hashCode();
-        result = 31 * result + contentType.hashCode();
-        result = 31 * result + project.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Attachment{" +
-                "attachmentType=" + attachmentType +
-                ", contentType='" + contentType + '\'' +
-                ", fileName='" + fileName + '\'' +
-                '}';
+        return absolutePath.hashCode();
     }
 }

@@ -20,7 +20,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -94,7 +93,7 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
 
     @DefaultHandler
     @HandlesEvent("detail")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}", "project_team_member_confirmed"})
     public Resolution detail() {
 
         if (getContainer() != null) {

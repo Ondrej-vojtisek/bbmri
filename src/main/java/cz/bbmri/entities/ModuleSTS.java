@@ -1,6 +1,7 @@
 package cz.bbmri.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Short term module of patient

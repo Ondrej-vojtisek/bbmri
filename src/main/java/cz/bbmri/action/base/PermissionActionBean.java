@@ -13,7 +13,9 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 /**
- * TODO
+ * All methods with instance based security manager (e.g. permission to biobank or project) must extend this class.
+ * They will probably need method like getAllowedBiobankManager etc,...
+ * Remember that in EL expressions these methods are defined without "get" -> allowedBiobankManager.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -143,7 +145,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
         if (getProject() == null) {
             return false;
         }
-        return getProject().getProjectState().equals(ProjectState.APPROVED);
+        return getProject().getProjectState().equals(ProjectState.CONFIRMED);
     }
 
     public boolean getIsStarted() {

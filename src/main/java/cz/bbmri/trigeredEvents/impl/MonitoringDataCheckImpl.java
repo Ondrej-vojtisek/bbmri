@@ -40,7 +40,6 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
     private SampleService sampleService;
 
 
-
     /**
      * Method should be fired once per day - 5 minutes after midnight.
      * Scheduled(cron = "5 0 * * * *")
@@ -49,8 +48,9 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
 
     //@Scheduled(cron = "1 * * * * *")
     public void checkBiobankMonitoringData() {
+
         log("method checkBiobankMonitoringData");
-        // for all biobank
+
         for (Biobank biobank : biobankService.all()) {
 
             log("Biobank: " + biobank.getName());
@@ -75,10 +75,10 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
                 //TODO enable
 
                 //                copy file if parsing was correct
-                //        if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankMonitoringArchiveFolder()) == SUCCESS) {
-                //                delete file if copy succeeded
-                //        FacadeUtils.deleteFile(file);
-                //    }
+                if (ServiceUtils.copyFile(file, storagePath + biobank.getBiobankMonitoringArchiveFolder()) == Constant.SUCCESS) {
+                    //       delete file if copy succeeded
+                    ServiceUtils.deleteFile(file);
+                }
 
             }
         }

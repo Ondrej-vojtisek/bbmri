@@ -36,14 +36,14 @@ public class ProjectDaoTest extends AbstractDaoTest {
         Project project3 = createTestProject(3);
         projectDao.create(project3);
 
-        project1.setProjectState(ProjectState.APPROVED);
+        project1.setProjectState(ProjectState.CONFIRMED);
         projectDao.update(project1);
 
-        assertEquals(1, projectDao.getAllByProjectState(ProjectState.APPROVED).size());
-        assertEquals(true, projectDao.getAllByProjectState(ProjectState.APPROVED).contains(project1));
+        assertEquals(1, projectDao.getAllByProjectState(ProjectState.CONFIRMED).size());
+        assertEquals(true, projectDao.getAllByProjectState(ProjectState.CONFIRMED).contains(project1));
 
         assertEquals(2, projectDao.getAllByProjectState(ProjectState.NEW).size());
-        assertEquals(true, projectDao.getAllByProjectState(ProjectState.APPROVED).contains(project2));
-        assertEquals(true, projectDao.getAllByProjectState(ProjectState.APPROVED).contains(project3));
+        assertEquals(true, projectDao.getAllByProjectState(ProjectState.CONFIRMED).contains(project2));
+        assertEquals(true, projectDao.getAllByProjectState(ProjectState.CONFIRMED).contains(project3));
     }
 }

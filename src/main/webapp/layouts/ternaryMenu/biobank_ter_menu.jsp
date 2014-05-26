@@ -7,6 +7,7 @@
 <s:useActionBean var="biobankRequestsBean" beanclass="cz.bbmri.action.biobank.BiobankSampleRequestsActionBean"/>
 <s:useActionBean var="infrastructureBean" beanclass="cz.bbmri.action.infrastructure.InfrastructureActionBean"/>
 <s:useActionBean var="biobankAdministratorsBean" beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean"/>
+<s:useActionBean var="biobankAttachmentsBean" beanclass="cz.bbmri.action.biobank.BiobankAttachmentsActionBean"/>
 
 <s:layout-definition>
 
@@ -34,6 +35,19 @@
     </security:allowed>
 
     <%-- -------------------------------------------------------------------- --%>
+
+    <security:allowed bean="biobankAttachmentsBean" event="attachmentsResolution">
+            <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
+                <s:link beanclass="cz.bbmri.action.biobank.BiobankAttachmentsActionBean"
+                        event="administratorsResolution">
+                    <s:param name="biobankId" value="${actionBean.biobankId}"/>
+                    <f:message key="cz.bbmri.action.biobank.BiobankActionBean.attachments"/>
+                </s:link>
+            </li>
+        </security:allowed>
+
+        <%-- -------------------------------------------------------------------- --%>
+
 
     <security:allowed bean="biobankSamplesBean" event="display">
         <li <c:if test="${ternarymenu == 'samples'}"> class="active" </c:if>>
@@ -76,12 +90,12 @@
     <%-- -------------------------------------------------------------------- --%>
 
 
-    <li <c:if test="${ternarymenu == 'monitoring'}"> class="active" </c:if>>
-        <s:link beanclass="cz.bbmri.action.biobank.BiobankMonitoringActionBean" event="display">
-            <s:param name="biobankId" value="${actionBean.biobankId}"/>
-            <f:message key="cz.bbmri.entities.infrastructure.monitoring.Monitoring.monitoring"/>
-        </s:link>
-    </li>
+    <%--<li <c:if test="${ternarymenu == 'monitoring'}"> class="active" </c:if>>--%>
+        <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankMonitoringActionBean" event="display">--%>
+            <%--<s:param name="biobankId" value="${actionBean.biobankId}"/>--%>
+            <%--<f:message key="cz.bbmri.entities.infrastructure.monitoring.Monitoring.monitoring"/>--%>
+        <%--</s:link>--%>
+    <%--</li>--%>
 
     <%-- -------------------------------------------------------------------- --%>
 

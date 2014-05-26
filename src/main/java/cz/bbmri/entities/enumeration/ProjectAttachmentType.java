@@ -12,7 +12,7 @@ package cz.bbmri.entities.enumeration;
  * @version 1.0
  */
 
-public enum AttachmentType {
+public enum ProjectAttachmentType {
 
     ETHICAL_AGREEMENT("ethical"),
     MATERIAL_TRANSFER_AGREEMENT("mta"),
@@ -21,7 +21,7 @@ public enum AttachmentType {
 
     private final String state;
 
-    private AttachmentType(String state) {
+    private ProjectAttachmentType(String state) {
         this.state = state;
     }
 

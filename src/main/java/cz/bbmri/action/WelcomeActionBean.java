@@ -10,7 +10,6 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

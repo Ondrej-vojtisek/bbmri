@@ -71,7 +71,8 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 storagePath + biobank.getBiobankTemperatureFolder(), // Folder for the biobank/temperature_data
                 storagePath + biobank.getBiobankMonitoringArchiveFolder(), // Folder for the biobank/monitoring_data_archive
                 storagePath + biobank.getBiobankPatientArchiveDataFolder(),  // Folder for the biobank/patient_data_archive
-                storagePath + biobank.getBiobankTemperatureArchiveFolder()   // Folder for the biobank/temperature_data_archive
+                storagePath + biobank.getBiobankTemperatureArchiveFolder(),   // Folder for the biobank/temperature_data_archive
+                storagePath + biobank.getBiobankCalibrationDataFolder()   // Folder for the biobank/calibration_data
         );
         if (result != Constant.SUCCESS) {
             biobankDao.remove(biobank);

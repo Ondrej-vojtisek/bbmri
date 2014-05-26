@@ -29,8 +29,8 @@
 
                     </div>
 
-                    <s:select name="attachmentType" class="btnMargin">
-                        <s:options-enumeration enum="cz.bbmri.entities.enumeration.AttachmentType"/>
+                    <s:select name="projectAttachmentType" class="btnMargin">
+                        <s:options-enumeration enum="cz.bbmri.entities.enumeration.ProjectAttachmentType"/>
                     </s:select>
 
                     <s:submit name="attachmentUpload" class="btn btn-primary">

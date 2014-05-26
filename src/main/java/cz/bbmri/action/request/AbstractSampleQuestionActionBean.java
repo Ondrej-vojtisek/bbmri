@@ -8,7 +8,6 @@ import cz.bbmri.service.SampleQuestionService;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

@@ -3,7 +3,7 @@ package cz.bbmri.action.project;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.AttachmentService;
@@ -11,13 +11,13 @@ import cz.bbmri.service.ProjectAdministratorService;
 import cz.bbmri.service.ProjectService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.DateTypeConverter;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -60,7 +60,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
                     required = true),
             @Validate(on = {"confirmStep3"}, field = "approvalStorage",
                     required = true),
-            @Validate(on = {"confirmStep3"}, field = "approvalDate",
+            @Validate(converter = DateTypeConverter.class, on = {"confirmStep3"}, field = "approvalDate",
                     required = true),
             @Validate(on = {"confirmStep4"}, field = "annotation",
                     required = true)
@@ -170,11 +170,14 @@ public class CreateProjectActionBean extends PermissionActionBean {
 
         boolean resultBool;
 
+        // Create project
         if (!projectService.create(project,
                         getContext().getValidationErrors())) {
-            return new ForwardResolution(this.getClass(), "mta");
+            // if fail - back to MTA upload
+            return new ForwardResolution(this.getClass(), PROJECT_CREATE_MTA);
         }
 
+        // Asign administrator - relationship between project and user
         resultBool = projectAdministratorService.assignAdministrator(project.getId(),
                 getContext().getMyId(),
                 Permission.MANAGER,
@@ -182,11 +185,13 @@ public class CreateProjectActionBean extends PermissionActionBean {
                 getContext().getMyId());
 
         if(!resultBool){
-            return new ForwardResolution(this.getClass(), "mta");
+            // if fail - back to MTA upload
+            return new ForwardResolution(PROJECT_CREATE_MTA);
         }
 
-        int result = attachmentService.createAttachment(attachmentFileBean,
-                AttachmentType.MATERIAL_TRANSFER_AGREEMENT,
+        // Upload MTA form
+        int result = attachmentService.createProjectAttachment(attachmentFileBean,
+                ProjectAttachmentType.MATERIAL_TRANSFER_AGREEMENT,
                 project.getId(),
                 getContext().getValidationErrors(),
                 getContext().getMyId());
@@ -196,6 +201,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
         }
 
         if (result == 1) {
+            // this should never happen
             getContext().getMessages().add(new LocalizableMessage("bbmri.action.CreateProjectActionBean.AttachmentOverwritten"));
             return new ForwardResolution(PROJECT_CREATE_MTA);
         }

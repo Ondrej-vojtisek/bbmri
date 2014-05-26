@@ -173,23 +173,6 @@ public class BiobankComplexTest extends AbstractDaoAndServiceTest {
 //    }
 
 
-    public void getEagerGetTest2() {
-             /* ********* GIVEN ********** */
-
-            /* ********* WHEN ********** */
-
-            /* ********* THEN ********** */
-
-    }
-
-    public void getEagerGetTest3() {
-                /* ********* GIVEN ********** */
-               /* ********* WHEN ********** */
-
-               /* ********* THEN ********** */
-
-    }
-
     //@Test
     // Thrown exception must be solved
 //    public void removeAdministratorTest() {

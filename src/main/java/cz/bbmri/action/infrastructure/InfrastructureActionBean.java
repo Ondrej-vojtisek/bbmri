@@ -17,7 +17,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -119,7 +118,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
     @DontValidate
     @DefaultHandler
     @HandlesEvent("all")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}", "project_team_member_confirmed"})
     public Resolution all() {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));

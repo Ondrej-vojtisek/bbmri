@@ -9,7 +9,6 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

@@ -44,6 +44,8 @@ public class Links {
     protected static final String BIOBANK_DETAIL_ADD_ADMINISTRATOR = BIOBANK_DETAIL + "addAdministrator.jsp";
     protected static final String BIOBANK_DETAIL_SAMPLE_REQUESTS = BIOBANK_DETAIL + "sampleRequests.jsp";
     protected static final String BIOBANK_DETAIL_MONITORING = BIOBANK_DETAIL + "monitoring.jsp";
+    protected static final String BIOBANK_DETAIL_ATTACHMENTS = BIOBANK_DETAIL + "attachments.jsp";
+    protected static final String BIOBANK_DETAIL_ATTACHMENT_ADD = BIOBANK_DETAIL + "addAttachment.jsp";
 
     // project folder
     private static final String PROJECT = BASIC_PATH + "/project/";
@@ -70,6 +72,7 @@ public class Links {
 
     // support folder
     protected static final String SUPPORT = BASIC_PATH + "/support/support.jsp";
+    protected static final String ARCHIVE = BASIC_PATH + "/support/archive.jsp";
 
     // request folder
     private static final String REQUEST = BASIC_PATH + "/request/";

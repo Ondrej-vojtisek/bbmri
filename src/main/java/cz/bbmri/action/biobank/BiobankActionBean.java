@@ -9,16 +9,16 @@ import cz.bbmri.service.BiobankService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-
+ @PermitAll
 @UrlBinding("/biobank/{$event}/{biobankId}")
 public class BiobankActionBean extends PermissionActionBean<Biobank> {
 
@@ -77,7 +77,7 @@ public class BiobankActionBean extends PermissionActionBean<Biobank> {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
+    @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}", "project_team_member_confirmed"})
     public Resolution detail() {
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(true, biobankId, getBiobank()));

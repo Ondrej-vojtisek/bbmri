@@ -1,8 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.Project;
+import cz.bbmri.entities.*;
 
 import java.util.List;
 
@@ -31,5 +30,15 @@ public interface AttachmentDao extends BasicDao<Attachment> {
      * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
      * @return sorted list of all attachment associated with specified project
      */
-    List<Attachment> getAttachmentSorted(Project project, String orderByParam, boolean desc);
+    List<ProjectAttachment> getAttachmentSorted(Project project, String orderByParam, boolean desc);
+
+    /**
+     * Return all instances of Attachment associated with biobank ordered by given parameter. Desc param changes if it is ordered DESC or ASC
+     *
+     * @param biobank      - all attachments associated with this biobank
+     * @param orderByParam - select column by which will the result be sorted
+     * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
+     * @return sorted list of all attachment associated with specified project
+     */
+    List<BiobankAttachment> getAttachmentSorted(Biobank biobank, String orderByParam, boolean desc);
 }

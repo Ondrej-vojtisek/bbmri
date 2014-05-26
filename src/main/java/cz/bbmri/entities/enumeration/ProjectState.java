@@ -4,7 +4,7 @@ package cz.bbmri.entities.enumeration;
  * ProjectState describes present state of project.
  *
  * NEW - Project was just uploaded. Someone (system administrator) must check it for presence of required data and forms.
- * APPROVED - Project was successfully checked by biobank administrator and everything was correct
+ * CONFIRMED - Project was successfully checked by biobank administrator and everything was correct
  * DENIED - Project was checked but there is some issue to solve (missing form, ...)
  * STARTED - Approved project with at least one sample request
  * CANCELED - Project was canceled - it was approved but it can't fill sample requests
@@ -17,7 +17,7 @@ package cz.bbmri.entities.enumeration;
 public enum ProjectState {
 
     NEW("new"),
-    APPROVED("approved"),
+    CONFIRMED("confirmed"),
     DENIED("denied"),
     STARTED("started"),
     CANCELED("canceled"),

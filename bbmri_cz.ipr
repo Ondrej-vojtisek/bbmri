@@ -175,7 +175,6 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="bbmri" />
-        <module name="cancer-strike" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -428,7 +427,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bbmri.iml" filepath="$PROJECT_DIR$/bbmri.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cancer-strike.iml" filepath="$PROJECT_DIR$/cancer-strike.iml" />
     </modules>
   </component>
   <component name="ProjectReloadState">

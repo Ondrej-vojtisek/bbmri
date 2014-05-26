@@ -2,7 +2,8 @@ package cz.bbmri.action.project;
 
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
-import cz.bbmri.entities.enumeration.AttachmentType;
+import cz.bbmri.entities.ProjectAttachment;
+import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.entities.webEntities.MyPagedListHolder;
@@ -15,24 +16,23 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 
 @UrlBinding("/project/attachments/{$event}/{projectId}")
-public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachment> {
+public class ProjectAttachmentsActionBean extends PermissionActionBean<ProjectAttachment> {
 
 
     @SpringBean
     private AttachmentService attachmentService;
 
     public ProjectAttachmentsActionBean() {
-        setPagination(new MyPagedListHolder<Attachment>(new ArrayList<Attachment>()));
+        setPagination(new MyPagedListHolder<ProjectAttachment>(new ArrayList<ProjectAttachment>()));
         // ribbon
         setComponentManager(new ComponentManager(
-                ComponentManager.ATTACHMENT_DETAIL,
+                ComponentManager.PROJECT_ATTACHMENT_DETAIL,
                 ComponentManager.PROJECT_DETAIL));
         getPagination().setIdentifierParam("projectId");
     }
@@ -53,13 +53,9 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
 
     private Long attachmentId;
 
-    /* Attachment upload in project detail/edit view */
     private FileBean attachmentFileBean;
 
-    /* Attachment upload in project detail/edit view
-     * Important to specify what is the purpose of uploaded file
-      * */
-    private AttachmentType attachmentType;
+    private ProjectAttachmentType projectAttachmentType;
 
     public void setAttachmentId(Long attachmentId) {
         this.attachmentId = attachmentId;
@@ -81,12 +77,12 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
         this.attachmentFileBean = attachmentFileBean;
     }
 
-    public AttachmentType getAttachmentType() {
-        return attachmentType;
+    public ProjectAttachmentType getProjectAttachmentType() {
+        return projectAttachmentType;
     }
 
-    public void setAttachmentType(AttachmentType attachmentType) {
-        this.attachmentType = attachmentType;
+    public void setProjectAttachmentType(ProjectAttachmentType projectAttachmentType) {
+        this.projectAttachmentType = projectAttachmentType;
     }
 
     @DontValidate
@@ -109,7 +105,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
             getPagination().setOrderParam("fileName");
         }
         getPagination().setEvent("attachmentsResolution");
-        getPagination().setSource(attachmentService.getSortedAttachments(
+        getPagination().setSource(attachmentService.getSortedProjectAttachments(
                 projectId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
@@ -162,7 +158,7 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
             getPagination().setOrderParam("fileName");
         }
         getPagination().setEvent("addAttachment");
-        getPagination().setSource(attachmentService.getSortedAttachments(
+        getPagination().setSource(attachmentService.getSortedProjectAttachments(
                 projectId,
                 getPagination().getOrderParam(),
                 getPagination().getDesc()));
@@ -175,8 +171,10 @@ public class ProjectAttachmentsActionBean extends PermissionActionBean<Attachmen
     @RolesAllowed({"administrator", "developer", "project_team_member if ${allowedProjectExecutor}"})
     public Resolution attachmentUpload() {
 
-        int result = attachmentService.createAttachment(attachmentFileBean,
-                attachmentType, projectId,
+        logger.debug("AttachmentUpload");
+
+        int result = attachmentService.createProjectAttachment(attachmentFileBean,
+                projectAttachmentType, projectId,
                 getContext().getValidationErrors(),
                 getContext().getMyId());
 

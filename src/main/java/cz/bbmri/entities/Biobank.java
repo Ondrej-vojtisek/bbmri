@@ -30,11 +30,11 @@ public class Biobank implements Serializable {
     private final static String BIOBANK_FOLDER_PATH = BIOBANK_FOLDER + File.separator;
     private final static String PATIENT_DATA_FOLDER = "patient_data";
     private final static String MONITORING_DATA_FOLDER = "monitoring_data";
+    private final static String CALIBRATION_DATA_FOLDER = "calibration_data";
     private final static String TEMPERATURE_FOLDER = "temperature_data";
     private final static String PATIENT_DATA_ARCHIVE_FOLDER = "patient_data_archive";
     private final static String MONITORING_DATA_ARCHIVE_FOLDER = "monitoring_data_archive";
     private final static String TEMPERATURE_ARCHIVE_FOLDER = "temperature_data_archive";
-
 
 
     @Id
@@ -45,7 +45,7 @@ public class Biobank implements Serializable {
     /**
      * Identifier to match source of data imports. Abbreviation must be ASCII only.
      */
-    @Column(unique=true, length = 6)
+    @Column(unique = true, length = 6)
     private String abbreviation;
 
     /**
@@ -74,6 +74,9 @@ public class Biobank implements Serializable {
 
     @OneToOne(mappedBy = "biobank")
     private Infrastructure infrastructure;
+
+    @OneToMany(mappedBy = "biobank")
+    private List<BiobankAttachment> biobankAttachments = new ArrayList<BiobankAttachment>();
 
     public Long getId() {
         return id;
@@ -145,6 +148,14 @@ public class Biobank implements Serializable {
 
     public void setInfrastructure(Infrastructure infrastructure) {
         this.infrastructure = infrastructure;
+    }
+
+    public List<BiobankAttachment> getBiobankAttachments() {
+        return biobankAttachments;
+    }
+
+    public void setBiobankAttachments(List<BiobankAttachment> biobankAttachments) {
+        this.biobankAttachments = biobankAttachments;
     }
 
     @Override
@@ -225,5 +236,12 @@ public class Biobank implements Serializable {
             return null;
         }
         return getBiobankFolderPath() + File.separator + Biobank.TEMPERATURE_ARCHIVE_FOLDER;
+    }
+
+    public String getBiobankCalibrationDataFolder() {
+        if (this.getId() == null) {
+            return null;
+        }
+        return getBiobankFolderPath() + File.separator + Biobank.CALIBRATION_DATA_FOLDER;
     }
 }

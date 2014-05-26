@@ -13,7 +13,6 @@ import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0

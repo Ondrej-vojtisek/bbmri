@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -185,9 +184,9 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
 
         projectAdministratorDao.create(pa);
 
-        // Set system role
+        // If he is not project_team_member already
         if (!newAdmin.getSystemRoles().contains(SystemRole.PROJECT_TEAM_MEMBER)) {
-            newAdmin.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
+                newAdmin.getSystemRoles().add(SystemRole.PROJECT_TEAM_MEMBER);
         }
 
         userDao.update(newAdmin);

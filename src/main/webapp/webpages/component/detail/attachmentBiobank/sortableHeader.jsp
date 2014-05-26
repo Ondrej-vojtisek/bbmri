@@ -21,7 +21,7 @@
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entities.Attachment.importance"
-                             column="attachmentType"
+                             column="biobankAttachmentType"
                              pagination="${pagination}"/>
         </th>
     </tr>

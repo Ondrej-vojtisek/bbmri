@@ -18,7 +18,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- * TODO
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -66,7 +65,7 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     }
 
     public List<Project> getMyApprovedProjects() {
-        return projectService.allByProjectStateAndUser(getContext().getMyId(), ProjectState.APPROVED);
+        return projectService.allByProjectStateAndUser(getContext().getMyId(), ProjectState.CONFIRMED);
     }
 
     public Long getRequestId() {

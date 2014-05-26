@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +19,7 @@ import java.util.Date;
  * @version 1.0
  */
 
+@Table
 @Entity
 public class GlobalSetting implements Serializable {
 

@@ -48,14 +48,8 @@ public class Project implements Serializable {
     @Enumerated(EnumType.STRING)
     private ProjectState projectState;
 
-    /**
-     * Who approved/denied project in system
-     */
-    @ManyToOne
-    private User judgedByUser;
-
     @OneToMany(mappedBy = "project")
-    private List<Attachment> attachments = new ArrayList<Attachment>();
+    private List<ProjectAttachment> projectAttachments = new ArrayList<ProjectAttachment>();
 
     @OneToMany(mappedBy = "project")
     private List<SampleRequest> sampleRequests = new ArrayList<SampleRequest>();
@@ -156,14 +150,6 @@ public class Project implements Serializable {
         this.id = id;
     }
 
-    public User getJudgedByUser() {
-        return judgedByUser;
-    }
-
-    public void setJudgedByUser(User judgedByUser) {
-        this.judgedByUser = judgedByUser;
-    }
-
     public List<SampleRequest> getSampleRequests() {
         return sampleRequests;
     }
@@ -180,12 +166,13 @@ public class Project implements Serializable {
         this.projectAdministrators = projectAdministrators;
     }
 
-    public List<Attachment> getAttachments() {
-        return attachments;
+
+    public List<ProjectAttachment> getProjectAttachments() {
+        return projectAttachments;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
+    public void setProjectAttachments(List<ProjectAttachment> projectAttachments) {
+        this.projectAttachments = projectAttachments;
     }
 
     public Date getCreated() {

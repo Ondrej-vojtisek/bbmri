@@ -16,7 +16,6 @@ import net.sourceforge.stripes.validation.Validate;
 import javax.annotation.security.RolesAllowed;
 
 /**
- * TODO describe class
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -48,13 +47,6 @@ public class MonitoringActionBean extends PermissionActionBean {
                 "createMonitoringResolution", false, "cz.bbmri.action.infrastructure.MonitoringActionBean.createMonitoring",
                 active, "containerId", containerId);
     }
-
-    public String getText(){
-        logger.debug("Get Text called");
-
-        return "[[-373597200000, 315.71], [-370918800000, 317.45], [-368326800000, 317.50]]";
-    }
-
 
     private Long containerId;
 
@@ -144,7 +136,7 @@ public class MonitoringActionBean extends PermissionActionBean {
 
     @DefaultHandler
     @HandlesEvent("monitoring")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}", "project_team_member_confirmed"})
     public Resolution monitoring() {
 
         // first load of page

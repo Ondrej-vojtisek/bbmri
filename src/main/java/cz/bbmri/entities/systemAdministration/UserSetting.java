@@ -15,6 +15,7 @@ import java.util.Locale;
  * @version 1.0
  */
 
+@Table
 @Entity
 public class UserSetting implements Serializable {
 

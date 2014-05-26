@@ -2,6 +2,7 @@ package cz.bbmri.service.impl;
 
 import cz.bbmri.dao.*;
 import cz.bbmri.entities.*;
+import cz.bbmri.entities.systemAdministration.Archive;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +44,9 @@ public class BasicServiceImpl {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ArchiveDao archiveDao;
 
     /* Necessary condition - use for situation like ValidationErrors = null. If this is true than even methods like isNull will
     * fail. */
@@ -187,6 +192,19 @@ public class BasicServiceImpl {
         }
 
         return users;
+    }
+
+    /**
+     * Create archive record reporting event on service layer.
+     *
+     * @param msg - message which will be archived
+     */
+    protected void archive(String msg){
+        notNull(msg);
+        Archive archive = new Archive();
+        archive.setMessage(msg);
+        archive.setCreated(new Date());
+        archiveDao.create(archive);
     }
 
 }

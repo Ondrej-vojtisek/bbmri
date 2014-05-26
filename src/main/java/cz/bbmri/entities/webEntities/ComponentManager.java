@@ -12,7 +12,8 @@ public class ComponentManager {
     /**
      * Name of folders with components
      */
-    public static final String ATTACHMENT_DETAIL = "attachment";
+    public static final String PROJECT_ATTACHMENT_DETAIL = "attachmentProject";
+    public static final String BIOBANK_ATTACHMENT_DETAIL = "attachmentBiobank";
     public static final String BIOBANK_DETAIL = "biobank";
     public static final String BOX_DETAIL = "box";
     public static final String CONTAINER_DETAIL = "container";
@@ -29,6 +30,7 @@ public class ComponentManager {
     public static final String SERUM_DETAIL = "serum";
     public static final String TISSUE_DETAIL = "tissue";
     public static final String USER_DETAIL = "user";
+    public static final String ARCHIVE_DETAIL = "archive";
 
     /**
      * Path to component structure

@@ -183,7 +183,7 @@ abstract class AbstractParser {
     }
 
     /**
-     * Checks if given indentifier starts with biobankPrefix.
+     * Checks if given identifier starts with biobankPrefix.
      *
      * @param identifier
      * @return true if starts with biobankPrefix
