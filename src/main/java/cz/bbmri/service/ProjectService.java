@@ -70,11 +70,12 @@ public interface ProjectService extends Get<Project>, All<Project>, AllOrderedBy
     /**
      * Store instance of project in DB
      *
-     * @param project - new instance of project
-     * @param errors  - in case of error, error messages will be stored into errors
+     * @param project      - new instance of project
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated event
      * @return true/false
      */
-    boolean create(Project project, ValidationErrors errors);
+    boolean create(Project project, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Update value of attributes of existing project. Only non null values of changeable attributes of given project

@@ -16,7 +16,8 @@ import java.util.Locale;
  * @version 1.0
  */
 
-public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>, Get<User>, Remove, Update<User>, Count {
+public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>,
+        Get<User>, Remove, Update<User>, Count {
 
     /**
      * Update stored data of user instance which is using Shibboleth to authenticate
@@ -38,22 +39,24 @@ public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>, 
     /**
      * Set system role (developer, administrator) to given user
      *
-     * @param userId     - ID of user
-     * @param systemRole - which system role will be set
-     * @param errors     - in case of error, error messages will be stored into errors
+     * @param userId       - ID of user
+     * @param systemRole   - which system role will be set
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated event
      * @return true/false
      */
-    boolean setSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors);
+    boolean setSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Remove system role (developer, administrator) from user.
      *
-     * @param userId     - ID of user
-     * @param systemRole - role which will be removed
-     * @param errors     - in case of error, error messages will be stored into errors
+     * @param userId       - ID of user
+     * @param systemRole   - role which will be removed
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated even
      * @return true/false
      */
-    boolean removeSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors);
+    boolean removeSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Return all users with given role
@@ -77,9 +80,9 @@ public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>, 
      * Sign-in for local users. Only for localhost testing. If locale doesn't match the one stored in user setting,
      * than change it.
      *
-     * @param id - ID of user
+     * @param id       - ID of user
      * @param password - password of user (hashed)
-     * @param locale - locale setting of user browser
+     * @param locale   - locale setting of user browser
      * @return instance of user if login was correct, null otherwise
      */
     User login(Long id, String password, Locale locale);
@@ -88,7 +91,7 @@ public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>, 
      * Login for users accessing server (not localhost) using shibboleth. Authorization is checked, information about user
      * are updated.
      *
-     * @param user - user accessing web
+     * @param user   - user accessing web
      * @param locale - user browser setting
      * @return identifier of user
      * @throws AuthorizationException

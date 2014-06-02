@@ -3,8 +3,8 @@ package cz.bbmri.action.project;
 import cz.bbmri.action.base.PermissionActionBean;
 import cz.bbmri.entities.Attachment;
 import cz.bbmri.entities.Project;
-import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 import cz.bbmri.entities.enumeration.Permission;
+import cz.bbmri.entities.enumeration.ProjectAttachmentType;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.service.AttachmentService;
 import cz.bbmri.service.ProjectAdministratorService;
@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -172,7 +171,8 @@ public class CreateProjectActionBean extends PermissionActionBean {
 
         // Create project
         if (!projectService.create(project,
-                        getContext().getValidationErrors())) {
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             // if fail - back to MTA upload
             return new ForwardResolution(this.getClass(), PROJECT_CREATE_MTA);
         }
@@ -184,7 +184,7 @@ public class CreateProjectActionBean extends PermissionActionBean {
                 getContext().getValidationErrors(),
                 getContext().getMyId());
 
-        if(!resultBool){
+        if (!resultBool) {
             // if fail - back to MTA upload
             return new ForwardResolution(PROJECT_CREATE_MTA);
         }

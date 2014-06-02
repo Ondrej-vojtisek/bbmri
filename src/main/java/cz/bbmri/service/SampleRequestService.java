@@ -32,37 +32,41 @@ public interface SampleRequestService extends SampleQuestionService {
      * @param projectId     - ID of project, defining context in which are data requested
      * @param biobankId     - ID of biobank, where are samples requested
      * @param errors        - in case of error, error messages will be stored into errors
+     * @param loggedUserId  - id of user who initiated event
      * @return true/false
      */
     boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
-                                ValidationErrors errors);
+                                ValidationErrors errors, Long loggedUserId);
 
     /**
      * Change state of sampleRequest again to approved. Set of samples is not enough for project
      *
      * @param sampleRequestId - ID of sampleRequest
      * @param errors          - in case of error, error messages will be stored into errors
+     * @param loggedUserId    - id of user who initiated event
      * @return true/false
      */
-    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors);
+    boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Change state of sampleRequest to confirmed
      *
      * @param sampleRequestId - ID of sampleRequest
      * @param errors          - in case of error, error messages will be stored into errors
+     * @param loggedUserId    - id of user who initiated event
      * @return true/false
      */
-    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors);
+    boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Change state of sampleRequest to delivered
      *
      * @param sampleRequestId - ID of sampleRequest
      * @param errors          - in case of error, error messages will be stored into errors
+     * @param loggedUserId    - id of user who initiated event
      * @return true/false
      */
-    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors);
+    boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId);
 
 
     /**

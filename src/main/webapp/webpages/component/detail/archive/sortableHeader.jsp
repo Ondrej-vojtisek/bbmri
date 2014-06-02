@@ -14,6 +14,13 @@
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entities.systemAdministration.Archive.actor"
+                             column="actor"
+                             pagination="${pagination}"/>
+        </th>
+
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entities.systemAdministration.Archive.message"
                              column="message"
                              pagination="${pagination}"/>

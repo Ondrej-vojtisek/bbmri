@@ -73,7 +73,7 @@ public class ReservationValidityCheckImpl extends Basic implements ReservationVa
 
             // delete all request - alocated samples are free
             for (Request request : sampleReservation.getRequests()) {
-                requestService.remove(request.getId(), null);
+                requestService.remove(request.getId());
             }
         } else {
             logger.error("Set reservation as expired failed");

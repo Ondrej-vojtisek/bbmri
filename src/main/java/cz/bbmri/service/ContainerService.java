@@ -35,9 +35,10 @@ public interface ContainerService extends Get<Container>, Update<Container>, Rem
      * @param infrastructureId - ID of infrastructure in which the container will be placed
      * @param container        - new instance of container
      * @param errors           - in case of error, error messages will be stored into errors
+     * @param loggedUserId     - id of user who initiated event
      * @return true/false
      */
-    boolean create(Long infrastructureId, Container container, ValidationErrors errors);
+    boolean create(Long infrastructureId, Container container, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Store new instance of container in DB. Method without error notifications - it is suitable for automatized

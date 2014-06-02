@@ -27,11 +27,12 @@ public interface BiobankService extends All<Biobank>, AllOrderedBy<Biobank>, Get
     /**
      * Store new instance of biobank into DB
      *
-     * @param biobank - new instance which will be stored in DB
-     * @param errors  - in case of error, error messages will be stored into errors
+     * @param biobank      - new instance which will be stored in DB
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of event initiator
      * @return true/false
      */
-    boolean create(Biobank biobank, ValidationErrors errors);
+    boolean create(Biobank biobank, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Update biobank record. There must an instance with the same ID (as given biobank) stored in DB. All non-null

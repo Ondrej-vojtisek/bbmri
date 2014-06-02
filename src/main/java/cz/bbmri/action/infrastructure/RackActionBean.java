@@ -131,7 +131,9 @@ public class RackActionBean extends PermissionActionBean<RackBox> {
     @HandlesEvent("createRack")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRack() {
-        if (!rackService.create(containerId, rack, getContext().getValidationErrors())) {
+        if (!rackService.create(containerId, rack,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(ContainerActionBean.class, "detail")
                     .addParameter("containerId", containerId);
         }

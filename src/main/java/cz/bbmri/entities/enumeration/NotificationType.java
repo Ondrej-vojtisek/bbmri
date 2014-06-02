@@ -2,6 +2,7 @@ package cz.bbmri.entities.enumeration;
 
 import cz.bbmri.action.biobank.BiobankActionBean;
 import cz.bbmri.action.biobank.BiobankAdministratorsActionBean;
+import cz.bbmri.action.biobank.BiobankAttachmentsActionBean;
 import cz.bbmri.action.project.ProjectActionBean;
 import cz.bbmri.action.project.ProjectAdministratorsActionBean;
 import cz.bbmri.action.project.ProjectAttachmentsActionBean;
@@ -25,11 +26,12 @@ public enum NotificationType {
     PROJECT_ADMINISTRATOR(ProjectAdministratorsActionBean.class.getName(), "administratorsResolution", "projectId"),
     PROJECT_DELETE(ProjectActionBean.class.getName(), null, null),
 
-    /* Biobanknotifications */
+    /* Biobank notifications */
 
     BIOBANK_DETAIL(BiobankActionBean.class.getName(), "detail", "biobankId"),
     BIOBANK_ADMINISTRATOR(BiobankAdministratorsActionBean.class.getName(), "administratorsResolution", "biobankId"),
     BIOBANK_DELETE(BiobankActionBean.class.getName(), null, null),
+    BIOBANK_ATTACHMENT(BiobankAttachmentsActionBean.class.getName(), "attachmentsResolution", "biobankId"),
 
     /* RequestFacade notifications */
 

@@ -49,12 +49,18 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patientDao.get(id);
     }
 
-    public boolean create(Patient patient, Long biobankId, ValidationErrors errors) {
+    public boolean create(Patient patient, Long biobankId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
         if (create(patient, biobankId) == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.patientCreateFailed"));
             return false;
         }
+
+        Biobank biobank = biobankDao.get(biobankId);
+        archive("New Patient with id: " + patient.getInstitutionId() + "was created in biobank: " +
+                biobank.getAbbreviation(),
+                loggedUserId);
+
         return true;
     }
 

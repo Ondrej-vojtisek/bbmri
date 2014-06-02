@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -45,7 +44,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
 
     public boolean createSampleRequest(SampleRequest sampleRequest, Long projectId, Long biobankId,
-                                       ValidationErrors errors) {
+                                       ValidationErrors errors, Long loggedUserId) {
 
         notNull(errors);
         if (isNull(sampleRequest, "sampleRequest", errors)) return false;
@@ -70,6 +69,10 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.createSampleRequestFailed"));
         }
 
+        // Archive
+        archive("Sample request was created for project " + projectDB.getName()
+                + ". Samples was requested at biobank: " + biobankDB.getAbbreviation(), loggedUserId);
+
         return true;
     }
 
@@ -87,13 +90,21 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     /* Action of project administrator - decision if the sample set is suitable or not
 //    * */
-    public boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors) {
+    public boolean confirmChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleQuestionId", null)) return false;
 
-        SampleQuestion sampleRequestDB = get(sampleRequestId);
-        if (isNull(sampleRequestDB, "sampleRequestDB", null)) return false;
+        SampleQuestion sampleQuestionDB = get(sampleRequestId);
+        if (isNull(sampleQuestionDB, "sampleQuestionDB", null)) return false;
+
+        if (!(sampleQuestionDB instanceof SampleRequest)) {
+            logger.error("SampleQuestion not instance of SampleRequest");
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.cantConfirmThisRequestState"));
+            return false;
+        }
+
+        SampleRequest sampleRequestDB = (SampleRequest) sampleQuestionDB;
 
         // only closed
         if (!sampleRequestDB.getRequestState().equals(RequestState.CLOSED)) {
@@ -110,6 +121,11 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
         notificationDao.create(getOtherBiobankAdministrators(sampleRequestDB.getBiobank(), null),
                 NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleRequestId);
+
+        // Archive
+        archive("Sample request with id " + sampleRequestDB.getId()
+                + " for project: " + sampleRequestDB.getProject().getName()
+                + " was confirmed.", loggedUserId);
 
         return true;
 
@@ -152,6 +168,11 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
                 loggedUserId),
                 NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleRequestDB.getId());
 
+        // Archive
+        archive("Sample request with id " + sampleRequestDB.getId()
+                + " for project: " + sampleRequestDB.getProject().getName()
+                + " was closed.", loggedUserId);
+
         return true;
 
     }
@@ -159,7 +180,7 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
     //    /* Action of project administrator - decision if the sample set is suitable or not
     //        * */
-    public boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors) {
+    public boolean denyChosenSet(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleRequestId", null)) return false;
@@ -182,13 +203,18 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
         notificationDao.create(getOtherBiobankAdministrators(sampleRequestDB.getBiobank(), null),
                 NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleRequestDB.getId());
 
+        // Archive
+        archive("Sample request with id " + sampleRequestDB.getId()
+                + " for project: " + sampleRequestDB.getProject().getName()
+                + " was denied.", loggedUserId);
+
         return true;
 
     }
 
     //    /* Action of project administrator - decision if the sample set is suitable or not
     //      * */
-    public boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors) {
+    public boolean setAsDelivered(Long sampleRequestId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(sampleRequestId, "sampleRequestId", null)) return false;
@@ -210,6 +236,12 @@ public class SampleRequestServiceImpl extends SampleQuestionServiceImpl implemen
 
         notificationDao.create(getOtherProjectWorkers(sampleRequestDB.getProject(), null),
                 NotificationType.SAMPLE_REQUEST_DETAIL, locMsg, sampleRequestId);
+
+        // Archive
+        archive("Sample request with id " + sampleRequestDB.getId()
+                + " for project: " + sampleRequestDB.getProject().getName()
+                + " was set as delivered.", loggedUserId);
+
         return true;
     }
 

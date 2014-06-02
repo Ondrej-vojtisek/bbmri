@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -46,17 +45,14 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    public boolean create(Sample sample, Long moduleId, ValidationErrors errors) {
-        notNull(errors);
-
-        if (isNull(sample, "sample", errors)) return false;
+    // Method for automated sample created (triggered event)
+    public boolean create(Sample sample, Long moduleId) {
+        notNull(sample);
+        notNull(moduleId);
 
         if (sample.getModule() == null) {
-            if (isNull(moduleId, "moduleId", errors)) return false;
-
             Module moduleDB = moduleDao.get(moduleId);
-            if (isNull(moduleDB, "moduleDB", errors)) return false;
-
+            notNull(moduleDB);
             sample.setModule(moduleDB);
 
             // Original number of samples - it won't be changed during any update
@@ -65,9 +61,27 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         try {
             sampleDao.create(sample);
         } catch (DataAccessException ex) {
-            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
+            logger.debug("Sample create failed");
             return false;
         }
+
+        return true;
+    }
+
+
+    public boolean create(Sample sample, Long moduleId, ValidationErrors errors, Long loggedUserId) {
+        notNull(errors);
+
+        if (isNull(moduleId, "moduleId", errors)) return false;
+        if (isNull(sample, "sample", errors)) return false;
+
+        if(!create(sample, moduleId)){
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
+        }
+
+        // Archive
+        archive("Sample " + sample.getId()
+                + " was created.", loggedUserId);
 
         return true;
     }
@@ -134,18 +148,18 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         return sampleDao.getSelected(sample, biobankDB, patient, lts);
     }
 
-    public Sample update(Sample sample){
-        if(isNull(sample, "sample", null)) return null;
+    public Sample update(Sample sample) {
+        if (isNull(sample, "sample", null)) return null;
 
         Sample sampleDB = sampleDao.get(sample.getId());
-        if(isNull(sampleDB , "sampleDB ", null)) return null;
+        if (isNull(sampleDB, "sampleDB ", null)) return null;
 
-        if(!sampleDB.getSampleIdentification().equals(sample.getSampleIdentification())){
+        if (!sampleDB.getSampleIdentification().equals(sample.getSampleIdentification())) {
             logger.error("Sample update - sampleIdentifier doesn't match");
             return null;
         }
 
-        if(sample.getSampleNos() != null){
+        if (sample.getSampleNos() != null) {
             sampleDB.setSampleNos(sample.getSampleNos());
         }
 

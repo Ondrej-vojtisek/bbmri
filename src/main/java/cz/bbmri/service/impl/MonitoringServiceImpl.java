@@ -34,7 +34,7 @@ public class MonitoringServiceImpl extends BasicServiceImpl implements Monitorin
         return monitoringDB;
     }
 
-    public boolean create(Long containerId, Monitoring monitoring, ValidationErrors errors) {
+    public boolean create(Long containerId, Monitoring monitoring, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(monitoring, "monitoring", errors)) return false;
@@ -48,6 +48,11 @@ public class MonitoringServiceImpl extends BasicServiceImpl implements Monitorin
         monitoring.setContainer(containerDB);
 
         monitoringDao.create(monitoring);
+
+        // Archive message
+        archive("Monitoring for container " + containerDB.getName()
+                + " of biobank: " + containerDB.getInfrastructure().getBiobank().getAbbreviation()
+                + " was created.", loggedUserId);
 
         return true;
     }

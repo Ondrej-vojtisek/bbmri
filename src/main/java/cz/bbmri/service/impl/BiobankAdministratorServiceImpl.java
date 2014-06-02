@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -79,6 +78,9 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         notificationDao.create(getOtherBiobankAdministrators(ba.getBiobank(), loggedUserId),
                 NotificationType.BIOBANK_ADMINISTRATOR, locMsg, ba.getBiobank().getId());
 
+        // Archive message
+        archive("Administrator: " + userDB.getWholeName() + " of biobank " + ba.getBiobank().getAbbreviation() + " was removed!", loggedUserId);
+
         return result;
     }
 
@@ -91,23 +93,29 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         if (isNull(objectAdministratorId, "objectAdministratorId", null)) return false;
         if (isNull(loggedUserId, "loggedUserId", null)) return false;
 
-        BiobankAdministrator pa = biobankAdministratorDao.get(objectAdministratorId);
-        if (isNull(pa, "pa", errors)) return false;
+        BiobankAdministrator ba = biobankAdministratorDao.get(objectAdministratorId);
+        if (isNull(ba, "ba", errors)) return false;
 
-        if (!permission.equals(Permission.MANAGER) && isLastManager(pa)) {
+        if (!permission.equals(Permission.MANAGER) && isLastManager(ba)) {
             // Enough to inform user
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.exceptions.LastBiobankManagerException"));
             return false;
         }
 
-        pa.setPermission(permission);
-        biobankAdministratorDao.update(pa);
+        ba.setPermission(permission);
+        biobankAdministratorDao.update(ba);
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.permissionChanged",
-                pa.getBiobank().getName(), pa.getUser().getWholeName(), permission);
+                ba.getBiobank().getName(), ba.getUser().getWholeName(), permission);
 
-        notificationDao.create(getOtherBiobankAdministrators(pa.getBiobank(), loggedUserId),
-                NotificationType.PROJECT_ADMINISTRATOR, locMsg, pa.getBiobank().getId());
+        notificationDao.create(getOtherBiobankAdministrators(ba.getBiobank(), loggedUserId),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, ba.getBiobank().getId());
+
+         // Archive message
+        archive("Permission of administrator: " + ba.getUser().getWholeName() + " of biobank " + ba.getBiobank().getAbbreviation()
+                + " was changed to: " + permission, loggedUserId);
+
+
         return true;
     }
 
@@ -164,6 +172,9 @@ public class BiobankAdministratorServiceImpl extends BasicServiceImpl implements
         notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
                 NotificationType.BIOBANK_ADMINISTRATOR, locMsg, biobankDB.getId());
 
+           // Archive message
+        archive("Permission of administrator: " + ba.getUser().getWholeName() + " of biobank " + ba.getBiobank().getAbbreviation()
+                + " was changed to: " + permission, loggedUserId);
 
         return true;
 

@@ -190,7 +190,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
             if (sampleDB == null) {
                 // sample is not in DB
-                sampleService.create(sample, sample.getModule().getId(), null);
+                sampleService.create(sample, sample.getModule().getId());
             } else {
                 // set primary identifier
                 sample.setId(sampleDB.getId());

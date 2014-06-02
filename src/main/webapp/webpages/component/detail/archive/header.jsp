@@ -6,6 +6,7 @@
     <thead>
     <tr>
         <th><f:message key="cz.bbmri.entities.systemAdministration.Archive.created"/></th>
+        <th><f:message key="cz.bbmri.entities.systemAdministration.Archive.actor"/></th>
         <th><f:message key="cz.bbmri.entities.systemAdministration.Archive.message"/></th>
     </tr>
     </thead>

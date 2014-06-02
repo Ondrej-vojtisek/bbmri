@@ -68,9 +68,11 @@ public interface SampleReservationService extends SampleQuestionService {
      * @param sampleQuestionId - ID of sampleQuestion
      * @param projectId        - which project will be assigned
      * @param errors           - in case of error, error messages will be stored into errors
+     * @param loggedUserId     - id of user who initiated event
      * @return true/false
      */
-    boolean assignReservationToProject(Long sampleQuestionId, Long projectId, ValidationErrors errors);
+    boolean assignReservationToProject(Long sampleQuestionId, Long projectId,
+                                       ValidationErrors errors, Long loggedUserId);
 
     /**
      * Return list of sampleReservations ordered by date of creation
@@ -92,10 +94,11 @@ public interface SampleReservationService extends SampleQuestionService {
     /**
      * Change state of sampleReservation to closed
      *
-     * @param Id     - ID of sampleReservation
-     * @param errors - in case of error, error messages will be stored into errors
+     * @param Id           - ID of sampleReservation
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated event
      * @return true/false
      */
-    boolean close(Long Id, ValidationErrors errors);
+    boolean close(Long Id, ValidationErrors errors, Long loggedUserId);
 
 }

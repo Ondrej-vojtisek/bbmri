@@ -90,7 +90,9 @@ public class CreateSampleQuestion extends PermissionActionBean {
         sampleRequest.setProject(getProject());
         sampleRequest.setSpecification(sampleQuestion.getSpecification());
 
-        if (!sampleRequestService.createSampleRequest(sampleRequest, projectId, biobankId, getContext().getValidationErrors())) {
+        if (!sampleRequestService.createSampleRequest(sampleRequest, projectId, biobankId,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(ProjectRequestActionBean.class, "sampleRequestsResolution")
                     .addParameter("projectId", projectId);
         }
@@ -114,7 +116,8 @@ public class CreateSampleQuestion extends PermissionActionBean {
         sampleReservation.setUser(getLoggedUser());
         sampleReservation.setSpecification(sampleQuestion.getSpecification());
 
-        if (!sampleReservationService.createSampleReservation(sampleReservation, biobankId, getLoggedUser(), getContext().getValidationErrors())) {
+        if (!sampleReservationService.createSampleReservation(sampleReservation, biobankId, getLoggedUser(),
+                getContext().getValidationErrors())) {
             return new ForwardResolution(ReservationActionBean.class, "all");
         }
         successMsg();

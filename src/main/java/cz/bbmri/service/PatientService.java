@@ -20,12 +20,13 @@ public interface PatientService extends Get<Patient>, Find<Patient> {
     /**
      * Store new instance of patient in DB.
      *
-     * @param patient   - new instance of patient
-     * @param biobankId - new patient will be associated with biobank identified by biobankId
-     * @param errors    - in case of error, error messages will be stored into errors
+     * @param patient      - new instance of patient
+     * @param biobankId    - new patient will be associated with biobank identified by biobankId
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - if of user who initiated event
      * @return true/false
      */
-    boolean create(Patient patient, Long biobankId, ValidationErrors errors);
+    boolean create(Patient patient, Long biobankId, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Store new instance of patient in DB. Method without error notifications - it is suitable for automatized

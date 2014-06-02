@@ -112,7 +112,7 @@ public class CreateActionBean extends FindActionBean<Biobank> {
     public Resolution confirmStep3() {
         boolean result = false;
         // create biobank
-        result = biobankService.create(biobank, getContext().getValidationErrors());
+        result = biobankService.create(biobank, getContext().getValidationErrors(), getContext().getMyId());
         if(result){
             Biobank biobankDB = biobankService.getBiobankByAbbreviation(biobank.getAbbreviation());
             // Assign first admin

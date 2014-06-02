@@ -26,7 +26,6 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -121,15 +120,15 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
 
         // Set mail only if user has no email set
         // Don't replace already inserted email -> this allows user to change contact info using web interface
-        if (user.getEmail() != null){
+        if (user.getEmail() != null) {
             // mail is not set
-            if(userDB.getEmail() == null){
+            if (userDB.getEmail() == null) {
                 userDB.setEmail(user.getEmail());
-            }else{
-               // mail is empty
-               if(userDB.getEmail().isEmpty()){
-                   userDB.setEmail(user.getEmail());
-               }
+            } else {
+                // mail is empty
+                if (userDB.getEmail().isEmpty()) {
+                    userDB.setEmail(user.getEmail());
+                }
             }
         }
 
@@ -170,7 +169,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDao.count();
     }
 
-    public boolean setSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors) {
+    public boolean setSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(userId, "userId", errors)) return false;
@@ -206,10 +205,15 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             notificationDao.create(getAllByRole(SystemRole.DEVELOPER),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
         }
+
+        // Archive
+        archive("System role: " + systemRole
+                + " was set to user " + userDB.getWholeName() + ".", loggedUserId);
+
         return true;
     }
 
-    public boolean removeSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors) {
+    public boolean removeSystemRole(Long userId, SystemRole systemRole, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(userId, "userId", null)) return false;
@@ -256,6 +260,10 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
             notificationDao.create(getAllByRole(systemRole),
                     NotificationType.USER_SUPPORT, localizableMessage, null);
         }
+
+        // Archive
+        archive("System role: " + systemRole
+                + " was removed from user " + userDB.getWholeName() + ".", loggedUserId);
 
         return true;
     }
@@ -338,7 +346,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
     /**
      * Initiate user setting for those who doesn't have user setting initiated.
      *
-     * @param user - instance of user without setting initiated
+     * @param user   - instance of user without setting initiated
      * @param locale - current browser language setting - considered as default
      */
     private void initiateUserSetting(User user, Locale locale) {

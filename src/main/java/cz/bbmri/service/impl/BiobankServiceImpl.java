@@ -51,7 +51,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     private InfrastructureDao infrastructureDao;
 
 
-    public boolean create(Biobank biobank, ValidationErrors errors) {
+    public boolean create(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(biobank, "biobank", errors)) return false;
@@ -82,6 +82,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         Infrastructure infrastructure = new Infrastructure();
         infrastructure.setBiobank(biobank);
         infrastructureDao.create(infrastructure);
+
+        // Archive message
+        archive("Biobank " + biobank.getAbbreviation() + " was created.", loggedUserId);
 
         return true;
     }
@@ -130,19 +133,23 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 biobankAdministratorDao.remove(ba);
             }
         }
+
+        // Archive message
+        archive("Biobank " + biobankDB.getAbbreviation() + " was deleted.", loggedUserId);
+
         // delete files
         result = ServiceUtils.recursiveDeleteFolder(storagePath + biobankDB.getBiobankFolderPath(), errors) == Constant.SUCCESS;
         if (result) {
-            biobankDao.remove(biobankDB);
 
             LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.facade.impl.BiobankFacadeImpl.biobankRemoved", biobankDB.getAbbreviation());
 
             notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
                     NotificationType.BIOBANK_DELETE, localizableMessage, biobankDB.getId());
+
+            biobankDao.remove(biobankDB);
         }
+
         return result;
-
-
     }
 
     public boolean update(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
@@ -155,7 +162,7 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
         Biobank biobankDB = biobankDao.get(biobank.getId());
         if (isNull(biobankDB, "biobankDB", errors)) return false;
 
-        // Abbreativion is final
+        // Abbreviation is final
         if (biobank.getStreet() != null) {
             biobankDB.setStreet(biobank.getStreet());
         }
@@ -171,6 +178,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
 
         notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
                 NotificationType.BIOBANK_DETAIL, localizableMessage, biobank.getId());
+
+        // Archive message
+        archive("Biobank " + biobankDB.getAbbreviation() + " was updated.", loggedUserId);
 
         return true;
     }

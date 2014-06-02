@@ -248,7 +248,8 @@ public class CreateSampleActionBean extends PermissionActionBean {
         sampleOUT.setModule(getModule());
         sampleOUT.setSampleNos(sample.getSampleNos());
 
-        if(!sampleService.create(sampleOUT, null, getContext().getValidationErrors())){
+        if(!sampleService.create(sampleOUT, null, getContext().getValidationErrors(),
+                getContext().getMyId())){
             return new RedirectResolution(PatientActionBean.class, "detail")
                     .addParameter("patientId", getPatient().getId())
                     .addParameter("biobankId", biobankId);

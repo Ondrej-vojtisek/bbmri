@@ -62,7 +62,7 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return rackBox;
     }
 
-    public boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors) {
+    public boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         RackBox newBox;
@@ -78,6 +78,11 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
             return false;
         }
+
+        Rack rackDB = rackDao.get(rackId);
+        archive("New RackBox with name: " + box.getName() + "was created in biobank: " +
+                rackDB.getContainer().getInfrastructure().getBiobank().getAbbreviation(),
+                loggedUserId);
 
         return true;
     }
@@ -106,7 +111,7 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
         return standaloneBox;
     }
 
-    public boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors) {
+    public boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         StandaloneBox newBox;
@@ -122,6 +127,12 @@ public class BoxServiceImpl extends BasicServiceImpl implements BoxService {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.boxcreatefailed"));
             return false;
         }
+
+        Infrastructure infrastructureDB = infrastructureDao.get(infrastructureId);
+        archive("New StandaloneBox with name: " + box.getName() + "was created in biobank: " +
+                infrastructureDB.getBiobank().getAbbreviation(),
+                loggedUserId);
+
         return true;
     }
 

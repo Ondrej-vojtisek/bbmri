@@ -208,7 +208,9 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     public Resolution createStandaloneBox() {
         Infrastructure infrastructure = getBiobank().getInfrastructure();
 
-        if (!boxService.createStandaloneBox(infrastructure.getId(), standaloneBox, getContext().getValidationErrors())) {
+        if (!boxService.createStandaloneBox(infrastructure.getId(), standaloneBox,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(InfrastructureActionBean.class, "all")
                     .addParameter("biobankId", biobankId);
         }
@@ -220,7 +222,9 @@ public class BoxActionBean extends PermissionActionBean<Position> {
     @HandlesEvent("createRackBox")
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createRackBox() {
-        if (!boxService.createRackBox(rackId, rackBox, getContext().getValidationErrors())) {
+        if (!boxService.createRackBox(rackId, rackBox,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(RackActionBean.class, "detail")
                     .addParameter("rackId", rackId);
         }

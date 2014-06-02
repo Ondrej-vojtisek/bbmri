@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -42,7 +41,7 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
     private BiobankDao biobankDao;
 
     //  errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.rackcreatefailed"));
-    public boolean create(Long containerId, Rack rack, ValidationErrors errors) {
+    public boolean create(Long containerId, Rack rack, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(containerId, "containerId", errors)) return false;
@@ -54,6 +53,12 @@ public class RackServiceImpl extends BasicServiceImpl implements RackService {
             errors.addGlobalError(new LocalizableError("cz.bbmri.service.impl.BasicServiceImpl.duplicateEntity"));
             return false;
         }
+
+        // Archive message
+        Container containerDB = containerDao.get(containerId);
+        archive("New Rack with name: " + rack.getName() + "was created in biobank: " +
+                containerDB.getInfrastructure().getBiobank().getAbbreviation(),
+                loggedUserId);
 
         return true;
 

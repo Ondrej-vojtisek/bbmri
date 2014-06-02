@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -72,7 +71,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
     }
 
     //   errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.assignReservationToProjectFailed"));
-    public boolean assignReservationToProject(Long sampleReservationId, Long projectId, ValidationErrors errors) {
+    public boolean assignReservationToProject(Long sampleReservationId, Long projectId, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
         if (isNull(sampleReservationId, "sampleQuestionId", errors)) return false;
         if (isNull(projectId, "projectId", errors)) return false;
@@ -104,9 +103,16 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
             requestDao.update(request);
         }
 
+        User userDB = sampleReservationDB.getUser();
+
         // Delete sampleReservation
         sampleReservationDB.setBiobank(null);
         sampleQuestionDao.remove(sampleReservationDB);
+
+        // Archive
+        archive("Reservation of user: " + userDB.getWholeName()
+                + " was assigned to project " + projectDB.getName()
+                + ". New request has id: " + sampleRequest.getId(), loggedUserId);
 
         return true;
     }
@@ -145,6 +151,10 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.createSampleReservationFailed"));
         }
 
+        // Archive
+        archive("User " + user.getWholeName()
+                + " created reservation for samples.", user.getId());
+
         return true;
     }
 
@@ -158,7 +168,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         return (SampleReservation) sampleQuestionDao.get(id);
     }
 
-    public boolean close(Long Id, ValidationErrors errors) {
+    public boolean close(Long Id, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(Id, "Id", null)) return false;
@@ -177,6 +187,11 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         sampleReservationDB.setValidity(validity());
 
         sampleQuestionDao.update(sampleReservationDB);
+
+        // Archive
+        archive("Sample reservation with id " + sampleReservationDB.getId()
+                + " owned by user: " + sampleReservationDB.getUser().getWholeName()
+                + " was closed.", loggedUserId);
 
         return true;
     }
@@ -217,6 +232,11 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         sampleReservationDB.setLastModification(new Date());
 
         sampleQuestionDao.update(sampleReservationDB);
+
+        // Archive
+        archiveSystem("Sample reservation with id " + sampleReservationDB.getId()
+                + " owned by user: " + sampleReservationDB.getUser().getWholeName()
+                + " was set as expired.");
 
         return true;
     }

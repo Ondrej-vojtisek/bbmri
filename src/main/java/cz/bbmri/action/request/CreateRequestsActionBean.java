@@ -133,7 +133,8 @@ public class CreateRequestsActionBean extends AbstractSampleQuestionActionBean {
         if (!requestService.createRequests(selectedSamples,
                 getSampleQuestionId(),
                 getContext().getValidationErrors(),
-                getContext().getMessages())) {
+                getContext().getMessages(),
+                getContext().getMyId())) {
 
             return new ForwardResolution(RequestActionBean.class, "detail")
                     .addParameter("biobankId", biobankId)

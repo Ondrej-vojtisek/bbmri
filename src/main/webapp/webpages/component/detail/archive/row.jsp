@@ -6,6 +6,7 @@
     <td>
         <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${record.created}"/>
     </td>
+    <td>${record.actor}</td>
     <td>${record.message}</td>
 
 </s:layout-definition>

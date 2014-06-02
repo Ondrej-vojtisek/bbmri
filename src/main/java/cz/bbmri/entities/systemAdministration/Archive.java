@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * Used to archive messages about events happening in system. Each archive represents one record described with message
  * and time when event occurred.
+ * Actor is a user who initiated event.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -19,6 +20,8 @@ public class Archive implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String SYSTEM_ACTOR = "system_event";
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
@@ -28,6 +31,8 @@ public class Archive implements Serializable {
 
     @Type(type = "timestamp")
     private Date created;
+
+    private String actor;
 
     public Long getId() {
         return id;
@@ -51,6 +56,14 @@ public class Archive implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public void setActor(String actor) {
+        this.actor = actor;
     }
 
     @Override

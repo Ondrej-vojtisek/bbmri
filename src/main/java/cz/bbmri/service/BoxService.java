@@ -28,9 +28,10 @@ public interface BoxService extends Remove, Update<Box>, Get<Box> {
      * @param rackId - ID of rack where the rackBox is located
      * @param box    - new instance of rackBox
      * @param errors - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated event
      * @return true/false
      */
-    boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors);
+    boolean createRackBox(Long rackId, RackBox box, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Store instance of StandaloneBox in DB. Method for manual usage from webpages.
@@ -38,9 +39,10 @@ public interface BoxService extends Remove, Update<Box>, Get<Box> {
      * @param infrastructureId - ID of infrastructure where the standalone box is located
      * @param box              - new instance of standalone box
      * @param errors           - in case of error, error messages will be stored into errors
+     * @param loggedUserId     - id of user who initiated event
      * @return true/false
      */
-    boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors);
+    boolean createStandaloneBox(Long infrastructureId, StandaloneBox box, ValidationErrors errors, Long loggedUserId);
 
     /**
      * Store instance of rackBox in DB. Method without error notifications - it is suitable for automatized rackBox

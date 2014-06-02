@@ -198,12 +198,33 @@ public class BasicServiceImpl {
      * Create archive record reporting event on service layer.
      *
      * @param msg - message which will be archived
+     * @param id  - id of user who initiated the event. If not null than archive.actor will be set
      */
-    protected void archive(String msg){
+    protected void archive(String msg, Long id) {
         notNull(msg);
+        User user = userDao.get(id);
+        notNull(user);
+        createArchive(msg, user.getWholeName());
+    }
+
+    /**
+     * Archive event which initiator is system (triggered event etc.)
+     *
+     * @param msg - message which will be archived
+     */
+    protected void archiveSystem(String msg) {
+            notNull(msg);
+            createArchive(msg, Archive.SYSTEM_ACTOR);
+        }
+
+    private void createArchive(String msg, String actor) {
+        notNull(msg);
+        notNull(actor);
+
         Archive archive = new Archive();
         archive.setMessage(msg);
         archive.setCreated(new Date());
+        archive.setActor(actor);
         archiveDao.create(archive);
     }
 

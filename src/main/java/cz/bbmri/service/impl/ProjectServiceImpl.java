@@ -48,7 +48,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
     @Autowired
     private NotificationDao notificationDao;
 
-    public boolean create(Project project, ValidationErrors errors) {
+    public boolean create(Project project, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         if (isNull(project, "project", errors)) return false;
@@ -66,6 +66,10 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
             projectDao.remove(project);
             return false;
         }
+
+        // Archive event
+        archive("New Project with name: " + project.getName() + "was created",
+                loggedUserId);
 
         return true;
     }
@@ -110,7 +114,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
         notificationDao.create(users, NotificationType.PROJECT_DELETE, locMsg, project.getId());
 
         // remove system roles asociated with users
-        for(User user : users){
+        for (User user : users) {
             removeProjectSystemRoleOfUser(user);
         }
 
@@ -309,7 +313,7 @@ public class ProjectServiceImpl extends BasicServiceImpl implements ProjectServi
 
         // remove system roles associated with users
         // SystemRole.PROJECT_TEAM_MEMBER_APPROVED must be removed
-        for(User user : getProjectAdministratorsUsers(projectId)){
+        for (User user : getProjectAdministratorsUsers(projectId)) {
             removeProjectSystemRoleOfUser(user);
         }
 

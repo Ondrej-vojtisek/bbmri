@@ -37,7 +37,7 @@ public class UserActionBean extends ComponentActionBean<User> {
     })
     private User user;
 
-// TODO - sifrovani parametru, ktery se pouziva v URL
+    // TODO - sifrovani parametru, ktery se pouziva v URL
 //    @Validate(encrypted=true)
     private Long userId;
 
@@ -76,10 +76,10 @@ public class UserActionBean extends ComponentActionBean<User> {
     }
 
     public static Breadcrumb getSettingBreadcrumb(boolean active, Long userId) {
-          return new Breadcrumb(UserActionBean.class.getName(),
-                  "mySettingResolution", false, "cz.bbmri.action.user.UserActionBean.setting", active,
-                  "userId", userId);
-      }
+        return new Breadcrumb(UserActionBean.class.getName(),
+                "mySettingResolution", false, "cz.bbmri.action.user.UserActionBean.setting", active,
+                "userId", userId);
+    }
 
     @Validate(on = {"changePassword"}, required = true, converter = PasswordTypeConverter.class)
     private String password;
@@ -211,14 +211,14 @@ public class UserActionBean extends ComponentActionBean<User> {
     public Resolution rolesView() {
 
         if (getIsMyAccount()) {
-                   getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(false, getLoggedUser()));
+            getBreadcrumbs().add(UserActionBean.getMyDetailBreadcrumb(false, getLoggedUser()));
 
-               } else {
-                   getBreadcrumbs().add(UserActionBean.getBreadcrumb(false));
-                   getBreadcrumbs().add(UserActionBean.getDetailBreadcrumb(false, getUser()));
-               }
+        } else {
+            getBreadcrumbs().add(UserActionBean.getBreadcrumb(false));
+            getBreadcrumbs().add(UserActionBean.getDetailBreadcrumb(false, getUser()));
+        }
 
-               getBreadcrumbs().add(UserActionBean.getRoleBreadcrumb(true, userId));
+        getBreadcrumbs().add(UserActionBean.getRoleBreadcrumb(true, userId));
 
         return new ForwardResolution(USER_ROLES).addParameter("userId", userId);
     }
@@ -226,7 +226,9 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeAdministratorRole() {
-        if (!userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
+        if (!userService.removeSystemRole(userId, SystemRole.ADMINISTRATOR,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg();
@@ -236,7 +238,9 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("removeDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution removeDeveloperRole() {
-        if (!userService.removeSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
+        if (!userService.removeSystemRole(userId, SystemRole.DEVELOPER,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg();
@@ -246,7 +250,9 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setAdministratorRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setAdministratorRole() {
-        if (!userService.setSystemRole(userId, SystemRole.ADMINISTRATOR, getContext().getValidationErrors())) {
+        if (!userService.setSystemRole(userId, SystemRole.ADMINISTRATOR,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg();
@@ -256,7 +262,9 @@ public class UserActionBean extends ComponentActionBean<User> {
     @HandlesEvent("setDeveloperRole")
     @RolesAllowed({"administrator", "developer"})
     public Resolution setDeveloperRole() {
-        if (!userService.setSystemRole(userId, SystemRole.DEVELOPER, getContext().getValidationErrors())) {
+        if (!userService.setSystemRole(userId, SystemRole.DEVELOPER,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(this.getClass(), "rolesView").addParameter("userId", userId);
         }
         successMsg();

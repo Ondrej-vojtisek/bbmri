@@ -125,7 +125,9 @@ public class MonitoringActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createMonitoring() {
 
-        if (!monitoringService.create(containerId, monitoring, getContext().getValidationErrors())) {
+        if (!monitoringService.create(containerId, monitoring,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(ContainerActionBean.class, "detail").addParameter("containerId", containerId);
         }
 

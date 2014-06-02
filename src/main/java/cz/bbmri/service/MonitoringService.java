@@ -15,11 +15,12 @@ public interface MonitoringService extends Get<Monitoring> {
     /**
      * Store new instance of monitoring in DB.
      *
-     * @param containerId - ID of container which will be monitored
-     * @param monitoring  - new instance of monitoring
-     * @param errors      - in case of error, error messages will be stored into errors
+     * @param containerId  - ID of container which will be monitored
+     * @param monitoring   - new instance of monitoring
+     * @param errors       - in case of error, error messages will be stored into errors
+     * @param loggedUserId - id of user who initiated the event
      * @return true/false
      */
-    boolean create(Long containerId, Monitoring monitoring, ValidationErrors errors);
+    boolean create(Long containerId, Monitoring monitoring, ValidationErrors errors, Long loggedUserId);
 
 }

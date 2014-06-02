@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -37,7 +36,8 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
     @Autowired
     private SampleQuestionDao sampleQuestionDao;
 
-    public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors, List<Message> messages) {
+    public boolean createRequests(List<Long> sampleIds, Long sampleQuestionId, ValidationErrors errors,
+                                  List<Message> messages, Long loggedUserId) {
         notNull(errors);
         notNull(messages);
 
@@ -74,13 +74,17 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
                 return false;
             }
         }
-        // no exception of hard fail but no request created
+        // no exception but no request created
         if (numberOfAdded == 0) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.noRequestWasCreated"));
             return true;
         }
         // Succ msg
         messages.add(new LocalizableMessage("cz.bbmri.facade.impl.RequestFacadeImpl.createRequestSuccess", numberOfAdded));
+
+        // Archive
+        archive("Samples requested for requisition (sampleQuestion) with id: " + sampleQuestionId, loggedUserId);
+
         return true;
     }
 
@@ -117,26 +121,18 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         return true;
     }
 
-    public boolean remove(Long requestId, ValidationErrors errors) {
-
-        // errors can be null - automatized delete of reservations
-
-        if (isNull(requestId, "requestId", errors)) return false;
-
+    // auto triggered method
+    public boolean remove(Long requestId) {
+        notNull(requestId);
         Request requestDB = requestDao.get(requestId);
-        if (isNull(requestDB, "requestDB", errors)) return false;
+        notNull(requestDB);
 
-        notNull(requestDB.getSample());
         Sample sampleDB = requestDB.getSample();
-        if (isNull(sampleDB, "sampleDB", errors)) return false;
-        if (isNull(sampleDB.getSampleNos(), "sampleDB.getSampleNos", errors)) return false;
+        notNull(sampleDB);
+        notNull(sampleDB.getSampleNos());
 
         if (!sampleDB.getSampleNos().increaseAmount(requestDB.getNumOfRequested())) {
-            if(errors != null){
-                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.failedToRemoveRequest"));
-            }else{
-                logger.error("Failed to remove request");
-            }
+            logger.error("Failed to remove request");
             return false;
         }
         // update number of samples
@@ -148,10 +144,38 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         }
 
         requestDao.remove(requestDB);
+
+        // Archive
+        archiveSystem("Request with id: " + requestId + " was removed.");
+
         return true;
     }
 
-    public boolean changeRequestedAmount(Long requestId, boolean increase, int difference, ValidationErrors errors) {
+    public boolean remove(Long requestId, ValidationErrors errors, Long loggedUserId) {
+        notNull(errors);
+
+        if (isNull(requestId, "requestId", errors)) return false;
+
+        Request requestDB = requestDao.get(requestId);
+        if (isNull(requestDB, "requestDB", errors)) return false;
+
+        Sample sampleDB = requestDB.getSample();
+        if (isNull(sampleDB, "sampleDB", errors)) return false;
+        if (isNull(sampleDB.getSampleNos(), "sampleDB.getSampleNos", errors)) return false;
+
+        if (!remove(requestId)) {
+                errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.failedToRemoveRequest"));
+            return false;
+        }
+
+        // Archive
+        archive("Request with id: " + requestId + " was removed.", loggedUserId);
+
+        return true;
+    }
+
+    public boolean changeRequestedAmount(Long requestId, boolean increase, int difference,
+                                         ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
         if (isNull(requestId, "requestId", errors)) return false;
 
@@ -182,7 +206,7 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
                 // lower number of available samples
                 sampleDB.getSampleNos().decreaseAmount(difference);
             } else {
-                 // there is not enough available samples to fulfill request
+                // there is not enough available samples to fulfill request
                 errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.RequestFacadeImpl.insufficientAvailableSamples"));
                 return false;
             }
@@ -204,6 +228,12 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         requestDao.update(requestDB);
         // save new number of available samples
         sampleDao.update(sampleDB);
+
+        // Archive
+        archive("Request with id " + requestId + " of requisition with id: "
+                + requestDB.getSampleQuestion().getId() + " was changed. New number of required samples is: "
+                + requestDB.getNumOfRequested(), loggedUserId);
+
         return true;
     }
 

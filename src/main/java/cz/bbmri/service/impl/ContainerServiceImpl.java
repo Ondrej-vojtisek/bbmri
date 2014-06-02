@@ -42,7 +42,7 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
     @Autowired
     private BiobankDao biobankDao;
 
-    public boolean create(Long infrastructureId, Container container, ValidationErrors errors) {
+    public boolean create(Long infrastructureId, Container container, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
 
         Container newContainer;
@@ -58,6 +58,11 @@ public class ContainerServiceImpl extends BasicServiceImpl implements ContainerS
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BiobankFacadeImpl.containercreatefailed"));
             return false;
         }
+
+        Infrastructure infrastructureDB = infrastructureDao.get(infrastructureId);
+        archive("New Container with name: " + container.getName() + "was created in biobank: " +
+                infrastructureDB.getBiobank().getAbbreviation(),
+                loggedUserId);
 
         return true;
     }

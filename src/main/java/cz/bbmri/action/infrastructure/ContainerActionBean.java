@@ -129,7 +129,8 @@ public class ContainerActionBean extends PermissionActionBean<Rack> {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createContainer() {
         infrastructure = getBiobank().getInfrastructure();
-        if (!containerService.create(infrastructure.getId(), container, getContext().getValidationErrors())) {
+        if (!containerService.create(infrastructure.getId(), container, getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(InfrastructureActionBean.class, "all")
                     .addParameter("biobankId", biobankId);
         }

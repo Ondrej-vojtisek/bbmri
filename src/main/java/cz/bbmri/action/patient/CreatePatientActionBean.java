@@ -59,7 +59,9 @@ public class CreatePatientActionBean extends PermissionActionBean {
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})
     public Resolution createPatient() {
         logger.debug("Patient: " + patient);
-        if (!patientService.create(patient, biobankId, getContext().getValidationErrors())) {
+        if (!patientService.create(patient, biobankId,
+                getContext().getValidationErrors(),
+                getContext().getMyId())) {
             return new ForwardResolution(cz.bbmri.action.biobank.BiobankPatientsActionBean.class, "display")
                     .addParameter("biobankId", biobankId);
         }

@@ -107,6 +107,9 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         notificationDao.create(getOtherBiobankAdministrators(biobankDB, loggedUserId),
                 NotificationType.BIOBANK_DETAIL, locMsg, biobankDB.getId());
 
+        // Archive message
+        archive("New file was uploaded to biobank: " + biobankDB.getAbbreviation(), loggedUserId);
+
         return Constant.SUCCESS;
 
     }
@@ -200,6 +203,9 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
         notificationDao.create(getOtherProjectWorkers(projectDB, loggedUserId),
                 NotificationType.PROJECT_ATTACHMENT, locMsg, projectDB.getId());
 
+        // Archive message
+        archive("New file was uploaded to project: " + projectDB.getName(), loggedUserId);
+
         return Constant.SUCCESS;
     }
 
@@ -222,6 +228,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
         // store
         attachmentDao.update(attachmentDB);
+
         return attachmentDB;
     }
 
@@ -272,11 +279,29 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
 
             // message for project administrators
 
-            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.attachmentDeleted",
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.attachmentDeleted",
                     attachment.getFileName(), project.getName());
 
             notificationDao.create(getOtherProjectWorkers(project, loggedUserId),
                     NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
+
+            // Archive message
+            archive("Attachment of project: " + project.getName() + " was deleted!", loggedUserId);
+        }
+
+        if (attachment instanceof BiobankAttachment) {
+            Biobank biobank = ((BiobankAttachment) attachment).getBiobank();
+
+            // message for project administrators
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.attachmentDeleted",
+                    attachment.getFileName(), biobank.getAbbreviation());
+
+            notificationDao.create(getOtherBiobankAdministrators(biobank, loggedUserId),
+                    NotificationType.BIOBANK_ATTACHMENT, locMsg, biobank.getId());
+
+            // Archive message
+            archive("Attachment of biobank: " + biobank.getAbbreviation() + " was deleted!", loggedUserId);
         }
 
         // message for biobank administrators
@@ -288,6 +313,7 @@ public class AttachmentServiceImpl extends BasicServiceImpl implements Attachmen
             operationFailed(errors, ex);
             return false;
         }
+
         return true;
 
 
