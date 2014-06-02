@@ -46,6 +46,7 @@ public class Links {
     protected static final String BIOBANK_DETAIL_MONITORING = BIOBANK_DETAIL + "monitoring.jsp";
     protected static final String BIOBANK_DETAIL_ATTACHMENTS = BIOBANK_DETAIL + "attachments.jsp";
     protected static final String BIOBANK_DETAIL_ATTACHMENT_ADD = BIOBANK_DETAIL + "addAttachment.jsp";
+    protected static final String BIOBANK_DETAIL_WITHDRAWN = BIOBANK_DETAIL + "withdrawn.jsp";
 
     // project folder
     private static final String PROJECT = BASIC_PATH + "/project/";

@@ -53,7 +53,7 @@ public class SampleQuestion implements Serializable {
     private Date lastModification;
 
     /**
-     * Set of samples alocated to this sample question
+     * Set of samples allocated to this sample question
      */
     @OneToMany(mappedBy = "sampleQuestion")
     private Set<Request> requests = new HashSet<Request>();
