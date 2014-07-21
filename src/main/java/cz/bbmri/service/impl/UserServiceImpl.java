@@ -339,7 +339,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         }
 
         user.setLastLogin(new Date());
-        update(user);
+        updateShibbolethUser(user);
         return user.getId();
     }
 
