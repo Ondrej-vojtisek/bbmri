@@ -45,6 +45,14 @@ public class BiobankPatientsActionBean extends PermissionActionBean<Patient> {
     @RolesAllowed({"administrator", "developer", "biobank_operator if ${allowedBiobankVisitor}"})
     public Resolution display() {
 
+        if(getPagination().getIdentifier() == null){
+            System.err.println("getPagination().getIdentifier() null");
+        }
+
+        if(getPagination().getIdentifier() != null){
+                    System.err.println("getPagination().getIdentifier() not null");
+        }
+
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobankId, getBiobank()));
         getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(true, biobankId));

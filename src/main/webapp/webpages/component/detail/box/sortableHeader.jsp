@@ -19,7 +19,7 @@
         </th>
 
         <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+            <s:layout-render name="/webpages/component/detail/sortableTable/headerUnsortable.jsp"
                              msgKey="cz.bbmri.entities.infrastructure.Box.numberOfPositions"
                              column="numberOfPositions"
                              pagination="${pagination}"/>

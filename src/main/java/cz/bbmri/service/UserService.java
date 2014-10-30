@@ -98,4 +98,5 @@ public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>,
      */
     Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException;
 
+
 }

@@ -11,6 +11,8 @@ import cz.bbmri.service.exceptions.DuplicitEntityException;
 import cz.bbmri.service.impl.ServiceUtils;
 import cz.bbmri.trigeredEvents.MonitoringDataCheck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
+@Transactional
+@Service("monitoringDataCheck")
 public class MonitoringDataCheckImpl extends Basic implements MonitoringDataCheck {
 
     @Autowired
@@ -46,6 +50,7 @@ public class MonitoringDataCheckImpl extends Basic implements MonitoringDataChec
      * For testing purpose is better to fire the method each minute.
      */
 
+    //TODO
     //@Scheduled(cron = "1 * * * * *")
     public void checkBiobankMonitoringData() {
 

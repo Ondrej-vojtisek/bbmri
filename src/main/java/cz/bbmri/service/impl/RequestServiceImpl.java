@@ -106,7 +106,7 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         Request request = new Request();
         request.setSample(sample);
         request.setNumOfRequested(Request.IMPLICIT_REQUESTED_SAMPLES);
-        request.setSampleQuestion(sampleQuestionDB);
+        request.setWithdraw(sampleQuestionDB);
 
 
         // decrease
@@ -139,8 +139,8 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
         sampleDao.update(sampleDB);
 
         requestDB.setSample(null);
-        if (requestDB.getSampleQuestion() != null) {
-            requestDB.setSampleQuestion(null);
+        if (requestDB.getWithdraw() != null) {
+            requestDB.setWithdraw(null);
         }
 
         requestDao.remove(requestDB);
@@ -231,7 +231,7 @@ public class RequestServiceImpl extends BasicServiceImpl implements RequestServi
 
         // Archive
         archive("Request with id " + requestId + " of requisition with id: "
-                + requestDB.getSampleQuestion().getId() + " was changed. New number of required samples is: "
+                + requestDB.getWithdraw().getId() + " was changed. New number of required samples is: "
                 + requestDB.getNumOfRequested(), loggedUserId);
 
         return true;

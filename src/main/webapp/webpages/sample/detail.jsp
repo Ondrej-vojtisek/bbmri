@@ -37,11 +37,12 @@
                 <f:message key="cz.bbmri.action.sample.SampleActionBean.continueToPatient"/>
             </s:link>
 
-            <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
-                    class="btn btn-primary btnMargin">
-                <s:param name="biobankId" value="${actionBean.sample.module.patient.biobank.id}"/>
-                <f:message key="cz.bbmri.action.sample.SampleActionBean.continueToBiobank"/>
-            </s:link>
+            <%--TODO delete--%>
+            <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"--%>
+                    <%--class="btn btn-primary btnMargin">--%>
+                <%--<s:param name="biobankId" value="${actionBean.sample.module.patient.biobank.id}"/>--%>
+                <%--<f:message key="cz.bbmri.action.sample.SampleActionBean.continueToBiobank"/>--%>
+            <%--</s:link>--%>
         </div>
 
     </s:layout-component>

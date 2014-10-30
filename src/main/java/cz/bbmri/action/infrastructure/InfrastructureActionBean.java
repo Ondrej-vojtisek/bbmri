@@ -89,6 +89,7 @@ public class InfrastructureActionBean extends PermissionActionBean<Container> {
                 ComponentManager.BOX_DETAIL,
                 ComponentManager.BIOBANK_DETAIL);
         boxesPagination.setIdentifierParam("biobankId");
+
         // distinguish between pagination params
         boxesPagination.setWebParamDiscriminator("2");
 

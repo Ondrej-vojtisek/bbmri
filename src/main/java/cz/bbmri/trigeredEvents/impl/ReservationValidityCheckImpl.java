@@ -10,6 +10,8 @@ import cz.bbmri.trigeredEvents.ReservationValidityCheck;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -19,6 +21,8 @@ import java.util.Date;
  * @version 1.0
  */
 
+@Transactional
+@Service("reservationValidityCheck")
 public class ReservationValidityCheckImpl extends Basic implements ReservationValidityCheck {
 
     @Autowired
@@ -36,7 +40,8 @@ public class ReservationValidityCheckImpl extends Basic implements ReservationVa
      * For testing purpose is better to fire the method each minute.
      */
 
-    @Scheduled(cron = "1 * * * * *")
+    //TODO
+  //  @Scheduled(cron = "1 * * * * *")
     public void checkReservationValidity() {
         log("CRON - checkReservationValidity auto triggered at: " + new Date());
 

@@ -5,11 +5,11 @@
 
     <thead>
     <tr>
-        <th><f:message key="cz.bbmri.entities.Sample.sampleId"/></th>
-        <th><f:message key="cz.bbmri.entities.Sample.year"/></th>
-        <th><f:message key="cz.bbmri.entities.Sample.number"/></th>
-        <th><f:message key="cz.bbmri.entities.Sample.takingDate"/></th>
-        <th><f:message key="cz.bbmri.entities.Sample.materialType"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.Sample.sampleId"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.Sample.year"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.Sample.number"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.Sample.takingDate"/></th>
+        <th><f:message key="cz.bbmri.entities.sample.Sample.materialType"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.availableSamplesNo"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.samplesNo"/></th>
         <th><f:message key="cz.bbmri.entities.sample.field.SampleNos.originalSamplesNo"/></th>

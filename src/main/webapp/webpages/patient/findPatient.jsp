@@ -11,7 +11,7 @@
 
         <s:form beanclass="cz.bbmri.action.patient.FindPatientActionBean" class="form-horizontal">
             <fieldset>
-                <legend><f:message key="cz.bbmri.action.patient.CreatePatientActionBean.findPatient"/></legend>
+                <legend><f:message key="cz.bbmri.action.patient.FindPatientActionBean.findPatient"/></legend>
 
                 <s:layout-render name="/webpages/patient/component/patientForm.jsp"/>
 

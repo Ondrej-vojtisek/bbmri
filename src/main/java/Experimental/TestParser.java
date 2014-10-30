@@ -22,7 +22,9 @@ public class TestParser {
         PatientDataParser parser;
         try {
 
-            parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\biobank-data.xsd.xml");
+
+            //   parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\TestovaciDataBBMRI\\BBM141001104213-000001.XML");
+             parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\biobank-data.xsd.xml");
             //parser = new PatientDataParser("C:\\Users\\Ori\\Study_materials\\Diplomka\\server_data\\biobank_files\\1\\patient_data\\BBM140402162126-0001.XML");
         } catch (Exception ex) {
             ex.printStackTrace();

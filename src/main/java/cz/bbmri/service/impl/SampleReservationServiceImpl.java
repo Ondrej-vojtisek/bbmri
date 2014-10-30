@@ -99,7 +99,7 @@ public class SampleReservationServiceImpl extends SampleQuestionServiceImpl impl
         sampleQuestionDao.create(sampleRequest);
 
         for (Request request : sampleReservationDB.getRequests()) {
-            request.setSampleQuestion(sampleRequest);
+            request.setWithdraw(sampleRequest);
             requestDao.update(request);
         }
 

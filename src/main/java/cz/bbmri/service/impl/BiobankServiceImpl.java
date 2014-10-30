@@ -50,6 +50,9 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
     @Autowired
     private InfrastructureDao infrastructureDao;
 
+    @Autowired
+    private WithdrawDao withdrawDao;
+
 
     public boolean create(Biobank biobank, ValidationErrors errors, Long loggedUserId) {
         notNull(errors);
@@ -108,10 +111,10 @@ public class BiobankServiceImpl extends BasicServiceImpl implements BiobankServi
                 patientDao.remove(patient);
             }
         }
-        List<SampleQuestion> sampleQuestions = biobankDB.getSampleQuestions();
-        if (sampleQuestions != null) {
-            for (SampleQuestion sampleQuestion : sampleQuestions) {
-                sampleQuestionDao.remove(sampleQuestion);
+        List<Withdraw> withdraws = biobankDB.getWithdraws();
+        if (withdraws != null) {
+            for (Withdraw withdraw : withdraws) {
+                withdrawDao.remove(withdraw);
             }
         }
 

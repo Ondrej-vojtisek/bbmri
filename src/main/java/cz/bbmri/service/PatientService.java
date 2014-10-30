@@ -4,6 +4,7 @@ package cz.bbmri.service;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.service.simpleService.Find;
 import cz.bbmri.service.simpleService.Get;
+import cz.bbmri.service.simpleService.Remove;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface PatientService extends Get<Patient>, Find<Patient> {
+public interface PatientService extends Get<Patient>, Find<Patient>, Remove {
 
     /**
      * Store new instance of patient in DB.
@@ -55,5 +56,7 @@ public interface PatientService extends Get<Patient>, Find<Patient> {
      * @return patient with given ID or null
      */
     Patient getByInstitutionalId(String id);
+
+
 
 }

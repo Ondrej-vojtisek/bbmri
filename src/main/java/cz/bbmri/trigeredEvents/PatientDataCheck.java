@@ -23,4 +23,5 @@ public interface PatientDataCheck {
      * DON'T DELETE THIS METHOD DESCRIPTION!
      */
     void checkBiobankPatientData();
+
 }

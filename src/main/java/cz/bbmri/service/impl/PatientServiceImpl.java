@@ -71,9 +71,13 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         Biobank biobankDB = biobankDao.get(biobankId);
         if (isNull(biobankDB, "biobankDB", null)) return null;
 
+        logger.debug("New patient: " + patient);
+
         // Biobank relationship
         patient.setBiobank(biobankDB);
         patientDao.create(patient);
+
+        logger.debug("New patient2: " + patient);
 
         // STS
         ModuleSTS modulests = new ModuleSTS();

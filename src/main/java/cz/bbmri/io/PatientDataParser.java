@@ -572,7 +572,7 @@ public class PatientDataParser extends AbstractParser {
         // If has prefix than ok
         if (hasPrefix(sampleId)) {
             sample.getSampleIdentification().setSampleId(sampleId);
-        }else{
+        } else {
             // otherwise prepend prefix of biobank
             sample.getSampleIdentification().setSampleId(getBiobankPrefix() + sampleId);
         }
@@ -608,8 +608,6 @@ public class PatientDataParser extends AbstractParser {
 
             // xsd:DateTime
             DateTime dt = DateTime.Factory.fromString(takingDate, XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-            // xsd:DateTime->Calendar->Date
 
             sample.setTakingDate(dt.getDateTime().getTime());
         }

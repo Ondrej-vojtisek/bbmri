@@ -7,7 +7,6 @@
     <s:layout-component name="body">
         <s:useActionBean var="ab" beanclass="cz.bbmri.action.LoginActionBean"/>
         <s:form beanclass="cz.bbmri.action.LoginActionBean">
-
             <fieldset>
                 <legend><f:message key="signin"/></legend>
                 <table>

@@ -33,7 +33,7 @@ public class Request {
     private Integer numOfRequested;
 
     @ManyToOne
-    private SampleQuestion sampleQuestion;
+    private Withdraw withdraw;
 
     public Request() {
     }
@@ -62,12 +62,12 @@ public class Request {
         this.numOfRequested = numOfRequested;
     }
 
-    public SampleQuestion getSampleQuestion() {
-        return sampleQuestion;
+    public Withdraw getWithdraw() {
+        return withdraw;
     }
 
-    public void setSampleQuestion(SampleQuestion sampleQuestion) {
-        this.sampleQuestion = sampleQuestion;
+    public void setWithdraw(Withdraw withdraw) {
+        this.withdraw = withdraw;
     }
 
     @Override

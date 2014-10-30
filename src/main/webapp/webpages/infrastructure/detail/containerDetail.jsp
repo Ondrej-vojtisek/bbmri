@@ -10,21 +10,22 @@
         <s:layout-render name="/webpages/component/detail/container/ribbon.jsp"
                          record="${actionBean.container}"/>
 
-        <div class="form-actions">
-            <s:link beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean"
-                    event="createMonitoringResolution"
-                    class="btn btn-primary btnMargin">
-                <s:param name="containerId" value="${actionBean.containerId}"/>
-                <f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.createMonitoring"/>
-            </s:link>
+        <%--TODO--%>
+        <%--<div class="form-actions">--%>
+            <%--<s:link beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean"--%>
+                    <%--event="createMonitoringResolution"--%>
+                    <%--class="btn btn-primary btnMargin">--%>
+                <%--<s:param name="containerId" value="${actionBean.containerId}"/>--%>
+                <%--<f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.createMonitoring"/>--%>
+            <%--</s:link>--%>
 
-            <s:link beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean"
-                    event="monitoring"
-                    class="btn btn-info btnMargin">
-                <s:param name="containerId" value="${actionBean.containerId}"/>
-                <f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.viewMonitoring"/>
-            </s:link>
-        </div>
+            <%--<s:link beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean"--%>
+                    <%--event="monitoring"--%>
+                    <%--class="btn btn-info btnMargin">--%>
+                <%--<s:param name="containerId" value="${actionBean.containerId}"/>--%>
+                <%--<f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.viewMonitoring"/>--%>
+            <%--</s:link>--%>
+        <%--</div>--%>
 
         <fieldset>
 

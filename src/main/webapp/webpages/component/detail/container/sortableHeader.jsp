@@ -24,7 +24,8 @@
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+            <%--TODO - solve sort later--%>
+            <s:layout-render name="/webpages/component/detail/sortableTable/headerUnsortable.jsp"
                              msgKey="cz.bbmri.entities.infrastructure.Container.numberOfRacks"
                              column="numberOfRacks"
                              pagination="${pagination}"/>

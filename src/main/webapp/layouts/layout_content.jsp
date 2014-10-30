@@ -77,7 +77,7 @@
                     <c:if test="${primarymenu == 'patient'}">
 
                         <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
-                                         record="${actionBean.biobank}"/>
+                                         record="${actionBean.patient}"/>
 
                         <s:layout-render name="/layouts/ternaryMenu/patient_ter_menu.jsp"/>
 

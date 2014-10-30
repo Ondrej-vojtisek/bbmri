@@ -2,6 +2,7 @@ package cz.bbmri.trigeredEvents.impl;
 
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Module;
+import cz.bbmri.entities.ModuleLTS;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.entities.sample.Sample;
@@ -12,6 +13,9 @@ import cz.bbmri.service.SampleService;
 import cz.bbmri.service.impl.ServiceUtils;
 import cz.bbmri.trigeredEvents.PatientDataCheck;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.List;
@@ -22,6 +26,9 @@ import java.util.List;
  * @version 1.0
  */
 
+// Can't be @Transactional !
+
+@Service("patientDataCheck")
 public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
     @Autowired
@@ -30,10 +37,8 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     @Autowired
     private PatientService patientService;
 
-
     @Autowired
     private SampleService sampleService;
-
 
     /**
      * Method should be fired once per day - 1 minute after midnight.
@@ -41,7 +46,8 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
      * For testing purpose is better to fire the method each minute.
      */
 
-    //@Scheduled(cron = "1 * * * * *")
+    //Testing purpose only. TODO remove
+    // @Scheduled(cron = "1 * * * * *")
     public void checkBiobankPatientData() {
 
         log("Cron fired method checkBiobankPatientData");
@@ -54,6 +60,11 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
             // Scan all patient data files in biobank folder
             List<File> files = ServiceUtils.getFiles(storagePath + biobank.getBiobankPatientDataFolder());
 
+            log("Checked path: " + storagePath + biobank.getBiobankPatientDataFolder());
+
+            log("Biobank: List of files: " + files);
+
+
             // for each import do
             for (File file : files) {
                 log("Biobank: " + biobank.getName() + " file: " + file);
@@ -64,15 +75,12 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
                     // Don't copy and remove file in case that something went wrong
                     continue;
                 }
+
                 // if successfull copy it into archive folder
-
-                // TODO enable copy
-
-//                copy file if parsing was correct
-                //   if (FacadeUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == SUCCESS) {
-//                delete file if copy succeeded
-                //        FacadeUtils.deleteFile(file);
-                //    }
+                   if (ServiceUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {
+                // delete file if copy succeeded
+                        ServiceUtils.deleteFile(file);
+                    }
 
             }
         }
@@ -123,7 +131,9 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
         if (patientDB == null) {
             // Patient is new
             patient = patientService.create(patient, biobank.getId());
+            // get Patient with associated object - e.g. modules (moduleLTS)
             patient = patientService.get(patient.getId());
+
         } else {
             // Patient already exists
             patient = patientDB;

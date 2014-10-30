@@ -69,6 +69,9 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
     }
 
     public List<Project> getProjectsBySample() {
+
+        // TODO smazat?
+
         if (getSample() == null) {
             return null;
         }
@@ -79,15 +82,18 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
 
         List<Project> projects = new ArrayList<Project>();
         for (Request request : getSample().getRequests()) {
-            if (request.getSampleQuestion() instanceof SampleRequest) {
-                projects.add(((SampleRequest) request.getSampleQuestion()).getProject());
+            if (request.getWithdraw() instanceof SampleRequest) {
+                projects.add(((SampleRequest) request.getWithdraw()).getProject());
             }
         }
 
         return projects;
     }
 
-    public List<SampleQuestion> getReservationsBySample() {
+    public List<SampleReservation> getReservationsBySample() {
+
+        // TODO smazat?
+
         if (getSample() == null) {
             return null;
         }
@@ -96,10 +102,10 @@ public class SampleActionBean extends AbstractSampleActionBean<Sample> {
             return null;
         }
 
-        List<SampleQuestion> reservations = new ArrayList<SampleQuestion>();
+        List<SampleReservation> reservations = new ArrayList<SampleReservation>();
         for (Request request : getSample().getRequests()) {
-            if (request.getSampleQuestion() instanceof SampleReservation) {
-                reservations.add(request.getSampleQuestion());
+            if (request.getWithdraw() instanceof SampleReservation) {
+                reservations.add((SampleReservation)request.getWithdraw());
             }
         }
 

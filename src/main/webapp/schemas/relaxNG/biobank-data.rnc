@@ -33,7 +33,7 @@ tissue =
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
         ## grading is a part of morphology and is used as fallback here
         ( morphology | grading ),
-        element cutTime { xsd:dateTime },
+        element cutTime {  xsd:dateTime },
 		element freezeTime { xsd:dateTime },
         retrieved
 	}

@@ -37,16 +37,16 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <security:allowed bean="biobankAttachmentsBean" event="attachmentsResolution">
-            <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
-                <s:link beanclass="cz.bbmri.action.biobank.BiobankAttachmentsActionBean"
-                        event="administratorsResolution">
-                    <s:param name="biobankId" value="${actionBean.biobankId}"/>
-                    <f:message key="cz.bbmri.action.biobank.BiobankActionBean.attachments"/>
-                </s:link>
-            </li>
-        </security:allowed>
+        <li <c:if test="${ternarymenu == 'attachments'}"> class="active" </c:if>>
+            <s:link beanclass="cz.bbmri.action.biobank.BiobankAttachmentsActionBean"
+                    event="administratorsResolution">
+                <s:param name="biobankId" value="${actionBean.biobankId}"/>
+                <f:message key="cz.bbmri.action.biobank.BiobankActionBean.attachments"/>
+            </s:link>
+        </li>
+    </security:allowed>
 
-        <%-- -------------------------------------------------------------------- --%>
+    <%-- -------------------------------------------------------------------- --%>
 
 
     <security:allowed bean="biobankSamplesBean" event="display">
@@ -89,12 +89,24 @@
 
     <%-- -------------------------------------------------------------------- --%>
 
-
-    <%--<li <c:if test="${ternarymenu == 'monitoring'}"> class="active" </c:if>>--%>
-        <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankMonitoringActionBean" event="display">--%>
+    <%--TODO--%>
+    <%--Temporary turned off --%>
+    <%----%>
+    <%--<li <c:if test="${ternarymenu == 'withdrawn'}"> class="active" </c:if>>--%>
+        <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankWithdrawSamplesActionBean" event="display">--%>
             <%--<s:param name="biobankId" value="${actionBean.biobankId}"/>--%>
-            <%--<f:message key="cz.bbmri.entities.infrastructure.monitoring.Monitoring.monitoring"/>--%>
+            <%--<f:message key="cz.bbmri.action.biobank.BiobankWithdrawSamplesActionBean.selfRequisition"/>--%>
         <%--</s:link>--%>
+    <%--</li>--%>
+
+    <%-- -------------------------------------------------------------------- --%>
+
+    <%--TODO--%>
+    <%--<li <c:if test="${ternarymenu == 'monitoring'}"> class="active" </c:if>>--%>
+    <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankMonitoringActionBean" event="display">--%>
+    <%--<s:param name="biobankId" value="${actionBean.biobankId}"/>--%>
+    <%--<f:message key="cz.bbmri.entities.infrastructure.monitoring.Monitoring.monitoring"/>--%>
+    <%--</s:link>--%>
     <%--</li>--%>
 
     <%-- -------------------------------------------------------------------- --%>

@@ -25,26 +25,14 @@ import java.util.ArrayList;
  */
 @HttpCache(allow = false)
 @UrlBinding("/biobank/patient/{$event}/{patientId}")
-public class PatientActionBean extends PermissionActionBean<Sample> {
+public class PatientActionBean extends PermissionActionBean<Patient> {
 
     @SpringBean
     private PatientService patientService;
 
-    private static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
+    public static Breadcrumb getBreadcrumb(boolean active, Long patientId) {
         return new Breadcrumb(PatientActionBean.class.getName(),
                 "display", false, "cz.bbmri.entities.Patient.patient",
-                active, "patientId", patientId);
-    }
-
-    private static Breadcrumb getSTSBreadcrumb(boolean active, Long patientId) {
-        return new Breadcrumb(PatientActionBean.class.getName(),
-                "modulests", false, "cz.bbmri.action.patient.PatientActionBean.modulests",
-                active, "patientId", patientId);
-    }
-
-    private static Breadcrumb getLTSBreadcrumb(boolean active, Long patientId) {
-        return new Breadcrumb(PatientActionBean.class.getName(),
-                "modulelts", false, "cz.bbmri.action.patient.PatientActionBean.modulelts",
                 active, "patientId", patientId);
     }
 
@@ -53,10 +41,11 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
     private Patient patient;
 
     public PatientActionBean() {
+
         //default
-        setPagination(new MyPagedListHolder<Sample>(new ArrayList<Sample>()));
+        setPagination(new MyPagedListHolder<Patient>(new ArrayList<Patient>()));
         setComponentManager(new ComponentManager(
-                ComponentManager.SAMPLE_DETAIL,
+                ComponentManager.PATIENT_DETAIL,
                 ComponentManager.PATIENT_DETAIL));
         getPagination().setIdentifierParam("patientId");
     }
@@ -78,38 +67,6 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
         return patient;
     }
 
-    void selectSampleComparator() {
-        if (getOrderParam() != null) {
-            if (getOrderParam().equals("sampleIdentification.year")) {
-                getPagination().setComparator(new YearComparator());
-                return;
-            }
-            if (getOrderParam().equals("sampleIdentification.number")) {
-                getPagination().setComparator(new NumberComparator());
-                return;
-            }
-            if (getOrderParam().equals("takingDate")) {
-                getPagination().setComparator(new TakingDateComparator());
-                return;
-            }
-            if (getOrderParam().equals("materialType")) {
-                getPagination().setComparator(new MaterialTypeComparator());
-                return;
-            }
-            if (getOrderParam().equals("sampleNos.availableSamplesNo")) {
-                getPagination().setComparator(new AvailableSamplesComparator());
-                return;
-            }
-            if (getOrderParam().equals("sampleNos.samplesNo")) {
-                getPagination().setComparator(new TotalSampleNumberComparator());
-                return;
-            }
-        }
-        // default
-        getPagination().setOrderParam("sampleIdentification.sampleId");
-        getPagination().setComparator(new SampleIdComparator());
-    }
-
     @DontValidate
     @DefaultHandler
     @HandlesEvent("detail")
@@ -125,64 +82,11 @@ public class PatientActionBean extends PermissionActionBean<Sample> {
         // Biobanks > Detail > Patients > Patient
         getBreadcrumbs().add(PatientActionBean.getBreadcrumb(true, patientId));
 
+        setBiobankId(getPatient().getBiobank().getId());
+
         return new ForwardResolution(PATIENT_DETAIL);
     }
 
-    @DontValidate
-    @HandlesEvent("modulests")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution modulests() {
-
-        // Biobanks
-        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
-        // Biobanks > Detail
-        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getPatient().getBiobank().getId(),
-                getPatient().getBiobank()));
-        // Biobanks > Detail > Patients
-        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(false, getPatient().getBiobank().getId()));
-        // Biobanks > Detail > Patients > Patient
-        getBreadcrumbs().add(PatientActionBean.getBreadcrumb(false, patientId));
-        // Biobanks > Detail > Patients > Patient > Module STS
-        getBreadcrumbs().add(PatientActionBean.getSTSBreadcrumb(true, patientId));
-
-        initiatePagination();
-        if (patientId != null) {
-            getPagination().setIdentifier(patientId);
-        }
-
-        selectSampleComparator();
-        getPagination().setEvent("modulests");
-        getPagination().setSource(getPatient().getModuleSTS().getSamples());
-        return new ForwardResolution(PATIENT_MODULESTS);
-    }
-
-    @DontValidate
-    @HandlesEvent("modulelts")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankVisitor}"})
-    public Resolution modulelts() {
-
-        // Biobanks
-        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
-        // Biobanks > Detail
-        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getPatient().getBiobank().getId(),
-                getPatient().getBiobank()));
-        // Biobanks > Detail > Patients
-        getBreadcrumbs().add(BiobankPatientsActionBean.getBreadcrumb(false, getPatient().getBiobank().getId()));
-        // Biobanks > Detail > Patients > Patient
-        getBreadcrumbs().add(PatientActionBean.getBreadcrumb(false, patientId));
-        // Biobanks > Detail > Patients > Patient > Module LTS
-        getBreadcrumbs().add(PatientActionBean.getLTSBreadcrumb(true, patientId));
-
-        initiatePagination();
-        if (patientId != null) {
-            getPagination().setIdentifier(patientId);
-        }
-
-        selectSampleComparator();
-        getPagination().setEvent("modulelts");
-        getPagination().setSource(getPatient().getModuleLTS().getSamples());
-        return new ForwardResolution(PATIENT_MODULELTS);
-    }
 
     @HandlesEvent(" findPatient") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${allowedBiobankEditor}"})

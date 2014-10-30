@@ -7,6 +7,13 @@
         <ul>
             <li>
                 <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+
+                    <%-- we must store param about context - for instance for which biobank we print samples--%>
+                    <c:if test="${not empty pagination.identifierParam}">
+                        <s:param name="${pagination.identifierParam}"
+                                 value="${pagination.identifier}"/>
+                    </c:if>
+
                     <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage - 1}"/>
                     <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
                     <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
@@ -19,6 +26,13 @@
 
                 <li ${pagination.currentPage == i ?  "class=\"active\"" : ""}>
                     <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+
+                        <%-- we must store param about context - for instance for which biobank we print samples--%>
+                        <c:if test="${not empty pagination.identifierParam}">
+                            <s:param name="${pagination.identifierParam}"
+                                     value="${pagination.identifier}"/>
+                        </c:if>
+
                         <s:param name="page${pagination.webParamDiscriminator}" value="${i}"/>
                         <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
                         <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
@@ -30,9 +44,17 @@
 
             <li>
                 <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+
+                    <%-- we must store param about context - for instance for which biobank we print samples--%>
+                    <c:if test="${not empty pagination.identifierParam}">
+                        <s:param name="${pagination.identifierParam}"
+                                 value="${pagination.identifier}"/>
+                    </c:if>
+
                     <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage + 1}"/>
                     <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
                     <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+
                     »
                 </s:link>
             </li>
