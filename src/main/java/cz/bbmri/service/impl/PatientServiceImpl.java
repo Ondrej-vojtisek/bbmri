@@ -123,7 +123,9 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         if (patient.getSex() != null) patientDB.setSex(patient.getSex());
         if (patient.getBirthMonth() != null) patientDB.setBirthMonth(patient.getBirthMonth());
         if (patient.getBirthYear() != null) patientDB.setBirthYear(patient.getBirthYear());
-        if (patient.getInstitutionId() != null) patientDB.setInstitutionId(patient.getInstitutionId());
+
+        // institutional ID may not be changed easily
+        // if (patient.getInstitutionId() != null) patientDB.setInstitutionId(patient.getInstitutionId());
 
         patientDao.update(patientDB);
         return patientDB;

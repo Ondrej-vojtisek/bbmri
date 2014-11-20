@@ -1,8 +1,10 @@
 package cz.bbmri.entities.sample;
 
+import cz.bbmri.entities.AttributeEquality;
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.enumeration.Retrieved;
+import cz.bbmri.entities.exception.DifferentEntityException;
 import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.field.MaterialType;
 import cz.bbmri.entities.sample.field.SampleIdentification;
@@ -22,7 +24,7 @@ import java.util.*;
 
 @Table
 @Entity
-public class Sample implements Serializable, Comparable<Sample> {
+public class Sample implements Serializable, Comparable<Sample>, AttributeEquality<Sample> {
 
     private static final long serialVersionUID = 1L;
 
@@ -127,6 +129,45 @@ public class Sample implements Serializable, Comparable<Sample> {
 
     public void setSampleNos(SampleNos sampleNos) {
         this.sampleNos = sampleNos;
+    }
+
+    public boolean attributeEquality(Sample sample) throws DifferentEntityException {
+        // ID must match
+        if (!this.equals(sample)) {
+            throw new DifferentEntityException("Compared samples are not the same.");
+        }
+
+        if (materialType != null ? !materialType.equals(sample.materialType) : sample.materialType != null) {
+           //TODO debug only - delete
+            System.err.println("MaterialType not equal");
+            return false;
+        }
+
+        if (retrieved != sample.retrieved) {
+            //TODO debug only - delete
+            System.err.println("Retrieved not equal");
+            return false;
+        }
+
+        if (sampleIdentification != null ? !sampleIdentification.equals(sample.sampleIdentification) : sample.sampleIdentification != null) {
+            //TODO debug only - delete
+            System.err.println("SampleIdentification not equal");
+            return false;
+        }
+
+        if (sampleNos != null ? !sampleNos.equals(sample.sampleNos) : sample.sampleNos != null) {
+            //TODO debug only - delete
+            System.err.println("SampleNos not equal");
+            return false;
+        }
+        if (takingDate != null ? !takingDate.equals(sample.takingDate) : sample.takingDate != null) {
+            //TODO debug only - delete
+            System.err.println("TakingDate");
+            return false;
+        }
+
+        return true;
+
     }
 
     @Override

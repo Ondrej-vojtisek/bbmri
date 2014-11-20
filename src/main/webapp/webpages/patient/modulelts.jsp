@@ -8,12 +8,6 @@
     <s:layout-component name="body">
 
         <div class="form-actions">
-            <%--TODO remove--%>
-            <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean" event="display"--%>
-                    <%--class="btn btn-primary btnMargin">--%>
-                <%--<s:param name="biobankId" value="${actionBean.patient.biobank.id}"/>--%>
-                <%--<f:message key="cz.bbmri.action.patient.PatientActionBean.backToBiobank"/>--%>
-            <%--</s:link>--%>
 
             <s:link beanclass="cz.bbmri.action.sample.CreateSampleActionBean" event="initial"
                     class="btn btn-primary">
@@ -27,12 +21,12 @@
 
         <%--<s:layout-render name="/webpages/component/samples.jsp" samples="${actionBean.patient.moduleLTS}"/>--%>
 
-        <%--<s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"--%>
-                              <%--pagination="${actionBean.pagination}"--%>
-                              <%--componentManager="${actionBean.componentManager}"--%>
-                              <%--targetBean="cz.bbmri.action.sample.SampleActionBean"--%>
-                              <%--eventName="modulelts"--%>
-                              <%--paramName="sampleId"/>--%>
+        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+                              pagination="${actionBean.pagination}"
+                              componentManager="${actionBean.componentManager}"
+                              targetBean="cz.bbmri.action.sample.SampleActionBean"
+                              eventName="modulelts"
+                              paramName="sampleId"/>
 
 
     </s:layout-component>

@@ -1,6 +1,7 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.Sex;
+import cz.bbmri.entities.exception.DifferentEntityException;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,14 +11,14 @@ import java.util.Date;
 /**
  * Patient who agreed to use his biological material (rest after his treatment) for research purpose. Data must be anonymized
  * thats why only month and year of birth are stored. Also only institutionId is stored instead of national ID.
- *
+ * <p/>
  * Structure:
  * Biobank
- *      - Patient
- *          - LTS module
- *              - Samples
- *          - STS module
- *              - Samples
+ * - Patient
+ * - LTS module
+ * - Samples
+ * - STS module
+ * - Samples
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -25,7 +26,7 @@ import java.util.Date;
 
 @Table
 @Entity
-public class Patient implements Serializable {
+public class Patient implements Serializable, AttributeEquality<Patient> {
 
     private static final long serialVersionUID = 1L;
 
@@ -142,6 +143,23 @@ public class Patient implements Serializable {
         this.biobank = biobank;
     }
 
+    public boolean attributeEquality(Patient patient) throws DifferentEntityException {
+        // ID must match
+        if (!this.equals(patient)) {
+            throw new DifferentEntityException("Compared patients are not the same.");
+        }
+
+        if (consent != patient.consent) return false;
+        if (birthMonth != null ? !birthMonth.equals(patient.birthMonth) : patient.birthMonth != null) return false;
+        if (birthYear != null ? !birthYear.equals(patient.birthYear) : patient.birthYear != null) return false;
+        if (!id.equals(patient.id)) return false;
+        if (institutionId != null ? !institutionId.equals(patient.institutionId) : patient.institutionId != null)
+            return false;
+        if (sex != patient.sex) return false;
+
+        return true;
+
+    }
 
 
     public Integer getAge() {

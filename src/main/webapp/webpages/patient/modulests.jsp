@@ -8,12 +8,6 @@
     <s:layout-component name="body">
 
         <div class="form-actions">
-            <%--TODO remove--%>
-            <%--<s:link beanclass="cz.bbmri.action.biobank.BiobankPatientsActionBean" event="display"--%>
-                    <%--class="btn btn-primary btnMargin">--%>
-                <%--<s:param name="biobankId" value="${actionBean.patient.biobank.id}"/>--%>
-                <%--<f:message key="cz.bbmri.action.patient.PatientActionBean.backToBiobank"/>--%>
-            <%--</s:link>--%>
 
             <s:link beanclass="cz.bbmri.action.sample.CreateSampleActionBean" event="initial"
                     class="btn btn-primary">

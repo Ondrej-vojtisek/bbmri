@@ -130,6 +130,10 @@ public class PatientModuleActionBean extends PermissionActionBean<Sample> {
 
         selectSampleComparator();
         getPagination().setEvent("modulests");
+
+        System.out.println("Pokusny vypis:");
+        System.out.println(getPatient().getModuleSTS().getSamples());
+
         getPagination().setSource(new ArrayList(getPatient().getModuleSTS().getSamples()));
         return new ForwardResolution(PATIENT_MODULESTS).addParameter("patientId", patientId);
     }

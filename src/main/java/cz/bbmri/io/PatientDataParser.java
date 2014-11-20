@@ -6,6 +6,7 @@ import cz.bbmri.entities.enumeration.Sex;
 import cz.bbmri.entities.sample.*;
 import cz.bbmri.entities.sample.field.*;
 import org.apache.axis2.databinding.types.xsd.DateTime;
+import org.apache.axis2.databinding.types.xsd.Date;
 import org.apache.axis2.databinding.types.xsd.GYear;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -173,7 +174,6 @@ public class PatientDataParser extends AbstractParser {
     }
 
     public List<Sample> getPatientLtsSamples() {
-        System.out.println("GetPatientLTSSample");
 
         Object result;
 
@@ -330,12 +330,12 @@ public class PatientDataParser extends AbstractParser {
 //        Freeze time
         if (freezeTime != null) {
 
-            // xsd:DateTime
-            DateTime dt = DateTime.Factory.fromString(freezeTime, XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            java.util.Date date = parseDate(freezeTime);
 
-            // xsd:DateTime->Calendar->Date
+            if(date != null){
+                tissue.setFreezeDate(date);
+            }
 
-            tissue.setFreezeDate(dt.getDateTime().getTime());
         }
 
         return tissue;
@@ -606,13 +606,48 @@ public class PatientDataParser extends AbstractParser {
         //   Taking date or cut time
         if (takingDate != null) {
 
-            // xsd:DateTime
-            DateTime dt = DateTime.Factory.fromString(takingDate, XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            java.util.Date date = parseDate(takingDate);
 
-            sample.setTakingDate(dt.getDateTime().getTime());
+            if(date != null){
+                sample.setTakingDate(date);
+            }
+
         }
 
         return sample;
+
+    }
+
+    private java.util.Date parseDate(String dateTime) {
+
+        notNullnotEmpty(dateTime);
+
+        try {
+
+            // xsd:DateTime
+            DateTime dateAndTime = DateTime.Factory.fromString(dateTime, XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+            return dateAndTime.getDateTime().getTime();
+
+        }catch(java.lang.NumberFormatException ex){
+
+            // wrong format of xsd:DateTime. Probably time is not included
+            try {
+
+                Date dateOnly = Date.Factory.fromString(dateTime, XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+                return dateOnly.getDate();
+
+            }catch(java.lang.NumberFormatException ex1){
+
+                System.err.println("Parse DateTime attribute failed. Value was: " + dateTime );
+
+                System.err.println("Exception was: " + ex1.getLocalizedMessage());
+
+                return null;
+            }
+
+        }
 
     }
 

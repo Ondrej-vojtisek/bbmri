@@ -75,7 +75,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         if (isNull(moduleId, "moduleId", errors)) return false;
         if (isNull(sample, "sample", errors)) return false;
 
-        if(!create(sample, moduleId)){
+        if (!create(sample, moduleId)) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
         }
 
@@ -161,6 +161,10 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
         if (sample.getSampleNos() != null) {
             sampleDB.setSampleNos(sample.getSampleNos());
+        }
+
+        if (sample.getMaterialType() != null) {
+            sampleDB.setMaterialType(sample.getMaterialType());
         }
 
         sampleDao.update(sampleDB);

@@ -16,12 +16,12 @@ start =
 	    biobankId,
 		## samples in long-term storage part of the biobank
 		element LTS {
-			( tissue | serum | genome | diagnosisMaterial )*
-		},
+			( tissue | serum | genome | diagnosisMaterial | blood )*
+		}?,
 		## samples in short-term storage part of the biobank
 		element STS {
-			( diagnosisMaterial )*
-		}
+			( diagnosisMaterial | blood )*
+		}?
 	}
 
 tissue =
@@ -29,12 +29,14 @@ tissue =
         sampleIdentification,
         sampleNos,
         materialType,
-        element TNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
+        ## TNM is not stored in current version of HIS (Hospital Information System) GreyFox
+        element TNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } }?,
         element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
-        ## grading is a part of morphology and is used as fallback here
+        ## Choice between morphology and grading in case morphology is not present but grading is.
+        ## Otherwise grading is normally part of morphology classification.
         ( morphology | grading ),
-        element cutTime {  xsd:dateTime },
-		element freezeTime { xsd:dateTime },
+        element cutTime {  xsd:dateTime | xsd:date },
+		element freezeTime { xsd:dateTime | xsd:date },
         retrieved
 	}
 
@@ -43,7 +45,7 @@ serum =
         sampleIdentification,
         sampleNos,
         materialType,
-        element takingDate { xsd:dateTime },
+        element takingDate { xsd:dateTime | xsd:date },
         retrieved
 	}
 
@@ -53,7 +55,7 @@ genome =
 		sampleIdentification,
 		sampleNos,
 		materialType,
-		element takingDate { xsd:dateTime },
+		element takingDate { xsd:dateTime | xsd:date },
         retrieved
 	}
 
@@ -63,8 +65,16 @@ diagnosisMaterial =
         sampleIdentification,
 		materialType,
 		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "5" } },
-		element takingDate { xsd:dateTime },
+		element takingDate { xsd:dateTime | xsd:date },
 		retrieved
+    }
+
+## Blood
+blood =
+    element blood {
+        sampleIdentification,
+        sampleNos,
+		materialType
     }
 
 biobankId =
@@ -91,15 +101,24 @@ sampleNos =
 
 ## describes how was physical material retrieved
 retrieved =
-  element retrieved { "preoperational" | "operational" | "post" | "unknown" }
+    element retrieved { "preoperational" | "operational" | "post" | "unknown" }
 
 morphology =
-      ## morphology uses ICD-O-2 classification - NNNN/XY
-  element morphology { xsd:string { length = "7" pattern = "[0-9]{4}/[0-9]{2}"} }
+    ## morphology uses ICD-O-2 classification - NNNN/XY
+    ## Last digit represents grading and sometimes it is not included - for those cases NNNN/X
+
+    ## During testing some exports from HIS GreyFox were in format XXXX/Y with space at the end or
+    ## morphology was empty element. This is not a good practice. Suggested is "NNNN/XY" or "NNNN/X"
+    ## if grading is not known.
+    element morphology { xsd:string { pattern = "[0-9]{4}/[0-9]{1}"}
+        |  xsd:string { pattern = "[0-9]{4}/[0-9]{2}"}
+        |  xsd:string { pattern = "[0-9]{4}/[0-9]{1} "}
+        |  empty
+    }
 
 grading =
-  element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }
+    element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }
 
 ## internal institution code of material
 materialType =
-  element materialType { xsd:string { maxLength = "4" } }
+    element materialType { xsd:string { maxLength = "4" } }

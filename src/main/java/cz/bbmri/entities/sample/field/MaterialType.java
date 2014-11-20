@@ -32,6 +32,8 @@ public class MaterialType implements Serializable {
 
         MaterialType that = (MaterialType) o;
 
+        System.out.println("This Material Type: " + this.type + " Other material Type: " + that.type);
+
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;

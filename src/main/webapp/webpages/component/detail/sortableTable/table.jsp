@@ -24,6 +24,10 @@
                             <s:link beanclass="${targetBean}" event="${eventName}"
                                     class="btn btn-info btnMargin">
 
+                                <%--Identifier of previous object - e.g. biobank--%>
+                                <s:param name="${pagination.identifierParam}"
+                                    value="${pagination.identifier}"/>
+
                                 <%--which parameter to access event--%>
                                 <s:param name="${paramName}" value="${item.id}"/>
                                 <f:message key="detail"/>

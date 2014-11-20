@@ -21,7 +21,7 @@ import java.util.Set;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public class BasicServiceImpl {
+abstract public class BasicServiceImpl {
     /**
      * StoragePath is retrieved from my.properties file
      */
