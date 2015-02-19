@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 
 import cz.bbmri.entities.Patient;
+import cz.bbmri.io.InstanceImportResult;
 import cz.bbmri.service.simpleService.Find;
 import cz.bbmri.service.simpleService.Get;
 import cz.bbmri.service.simpleService.Remove;
@@ -57,6 +58,18 @@ public interface PatientService extends Get<Patient>, Find<Patient>, Remove, Upd
      * @return patient with given ID or null
      */
     Patient getByInstitutionalId(String id);
+
+
+    /**
+     * Accept instance of Patient which was parsed from import, create this instance or update existing one.
+     * As a result creates importResult describing what happened.
+     *
+     * @param patient - new instance of Patient to be stored in DB. It can be new or already existing in DB.
+     * @param biobankId - used to associate new patient with specific biobank
+     * @return ImportResult describing whether patient was added, updated or remain unchanged and if it was changed
+     * was property changed.
+     */
+    InstanceImportResult importInstance(Patient patient, Long biobankId);
 
 
 

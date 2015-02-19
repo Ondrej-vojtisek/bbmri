@@ -20,7 +20,7 @@ public class Constant {
     public static final int NOT_SUCCESS = -1;
 
     /**
-     * To detect that object was ovewritten during its createn.
+     * To detect that object was overwritten during its creating.
      */
     public static final int OVERWRITTEN = -2;
 

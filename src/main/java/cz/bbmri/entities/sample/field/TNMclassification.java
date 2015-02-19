@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-@Embeddable
 abstract public class TNMclassification  implements Serializable {
 
     private static final long serialVersionUID = 1L;

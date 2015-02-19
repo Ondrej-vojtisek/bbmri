@@ -24,15 +24,23 @@ import java.util.*;
 
 @Table
 @Entity
-public class Sample implements Serializable, Comparable<Sample>, AttributeEquality<Sample> {
+public class Sample implements Serializable, Comparable<Sample>{
 
     private static final long serialVersionUID = 1L;
+
+    public static final String PROP_RETRIEVED = "retrieved";
+    public static final String PROP_TAKINGDATE = "takingDate";
+    public static final String PROP_MATERIALTYPE = "materialType";
+    public static final String PROP_MODULE = "module";
+    public static final String PROP_REQUESTS = "requests";
+    public static final String PROP_POSITIONS = "positions";
+    public static final String PROP_SAMPLENOS = "sampleNos";
+    public static final String PROP_SAMPLEIDENTIFICATION = "sampleIdentification";
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(nullable = false)
     private Long id;
-
 
     @Embedded
     private SampleIdentification sampleIdentification;
@@ -131,44 +139,6 @@ public class Sample implements Serializable, Comparable<Sample>, AttributeEquali
         this.sampleNos = sampleNos;
     }
 
-    public boolean attributeEquality(Sample sample) throws DifferentEntityException {
-        // ID must match
-        if (!this.equals(sample)) {
-            throw new DifferentEntityException("Compared samples are not the same.");
-        }
-
-        if (materialType != null ? !materialType.equals(sample.materialType) : sample.materialType != null) {
-           //TODO debug only - delete
-            System.err.println("MaterialType not equal");
-            return false;
-        }
-
-        if (retrieved != sample.retrieved) {
-            //TODO debug only - delete
-            System.err.println("Retrieved not equal");
-            return false;
-        }
-
-        if (sampleIdentification != null ? !sampleIdentification.equals(sample.sampleIdentification) : sample.sampleIdentification != null) {
-            //TODO debug only - delete
-            System.err.println("SampleIdentification not equal");
-            return false;
-        }
-
-        if (sampleNos != null ? !sampleNos.equals(sample.sampleNos) : sample.sampleNos != null) {
-            //TODO debug only - delete
-            System.err.println("SampleNos not equal");
-            return false;
-        }
-        if (takingDate != null ? !takingDate.equals(sample.takingDate) : sample.takingDate != null) {
-            //TODO debug only - delete
-            System.err.println("TakingDate");
-            return false;
-        }
-
-        return true;
-
-    }
 
     @Override
     public boolean equals(Object o) {

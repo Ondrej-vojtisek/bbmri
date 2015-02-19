@@ -26,9 +26,20 @@ import java.util.Date;
 
 @Table
 @Entity
-public class Patient implements Serializable, AttributeEquality<Patient> {
+public class Patient implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    public static final String PROP_ID = "id";
+    public static final String PROP_SEX = "sex";
+    public static final String PROP_BIRTHYEAR = "birthYear";
+    public static final String PROP_BIRTHMONTH = "birthMonth";
+    public static final String PROP_CONSENT = "consent";
+    public static final String PROP_MODULESTS = "moduleSTS";
+    public static final String PROP_MODULELTS = "moduleLTS";
+    public static final String PROP_BIOBANK = "biobank";
+    public static final String PROP_INSTITUTIONID = "institutionId";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -143,23 +154,23 @@ public class Patient implements Serializable, AttributeEquality<Patient> {
         this.biobank = biobank;
     }
 
-    public boolean attributeEquality(Patient patient) throws DifferentEntityException {
-        // ID must match
-        if (!this.equals(patient)) {
-            throw new DifferentEntityException("Compared patients are not the same.");
-        }
-
-        if (consent != patient.consent) return false;
-        if (birthMonth != null ? !birthMonth.equals(patient.birthMonth) : patient.birthMonth != null) return false;
-        if (birthYear != null ? !birthYear.equals(patient.birthYear) : patient.birthYear != null) return false;
-        if (!id.equals(patient.id)) return false;
-        if (institutionId != null ? !institutionId.equals(patient.institutionId) : patient.institutionId != null)
-            return false;
-        if (sex != patient.sex) return false;
-
-        return true;
-
-    }
+//    public boolean attributeEquality(Patient patient) throws DifferentEntityException {
+//        // ID must match
+//        if (!this.equals(patient)) {
+//            throw new DifferentEntityException("Compared patients are not the same.");
+//        }
+//
+//        if (consent != patient.consent) return false;
+//        if (birthMonth != null ? !birthMonth.equals(patient.birthMonth) : patient.birthMonth != null) return false;
+//        if (birthYear != null ? !birthYear.equals(patient.birthYear) : patient.birthYear != null) return false;
+//        if (!id.equals(patient.id)) return false;
+//        if (institutionId != null ? !institutionId.equals(patient.institutionId) : patient.institutionId != null)
+//            return false;
+//        if (sex != patient.sex) return false;
+//
+//        return true;
+//
+//    }
 
 
     public Integer getAge() {

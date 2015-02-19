@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
- @PermitAll
+@PermitAll
 @UrlBinding("/biobank/{$event}/{biobankId}")
 public class BiobankActionBean extends PermissionActionBean<Biobank> {
 

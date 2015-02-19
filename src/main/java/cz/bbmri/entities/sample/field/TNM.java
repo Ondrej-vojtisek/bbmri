@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @version 1.0
  */
 
+@Embeddable
 public class TNM extends TNMclassification {
 
     private static final long serialVersionUID = 1L;

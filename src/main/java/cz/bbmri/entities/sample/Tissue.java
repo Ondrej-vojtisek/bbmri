@@ -22,6 +22,11 @@ public class Tissue extends Sample {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String PROP_TNM = "tnm";
+    public static final String PROP_PTNM = "ptnm";
+    public static final String PROP_MORPHOLOGY = "morphology";
+    public static final String PROP_FREEZEDATE = "freezeDate";
+
     @Embedded
     @Column
     private TNM tnm;

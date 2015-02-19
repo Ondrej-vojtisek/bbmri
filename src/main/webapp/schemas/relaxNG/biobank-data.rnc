@@ -9,9 +9,9 @@ start =
         ## year of birth
         attribute year { xsd:gYear },
         ## month of birth - day is skipped to preserve k-anonymity
-	    attribute month { xsd:gMonth },
+	    attribute month { xsd:gMonth }?,
         ## sex of patient
-        attribute sex { "male" | "female" },
+        attribute sex { "male" | "female" | "unknown"},
         ## biobank identifier
 	    biobankId,
 		## samples in long-term storage part of the biobank
@@ -30,8 +30,8 @@ tissue =
         sampleNos,
         materialType,
         ## TNM is not stored in current version of HIS (Hospital Information System) GreyFox
-        element TNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } }?,
-        element pTNM { xsd:string { maxLength = "7" pattern = "[a-zA-Z0-9]+" } },
+        element TNM { xsd:string { maxLength = "7" } }?,
+        element pTNM { xsd:string { maxLength = "7"} },
         ## Choice between morphology and grading in case morphology is not present but grading is.
         ## Otherwise grading is normally part of morphology classification.
         ( morphology | grading ),
@@ -64,7 +64,7 @@ diagnosisMaterial =
     element diagnosisMaterial {
         sampleIdentification,
 		materialType,
-		element diagnosis { xsd:string { pattern = "[a-zA-Z0-9]+" minLength = "3" maxLength = "5" } },
+		element diagnosis { xsd:string { maxLength = "5" } },
 		element takingDate { xsd:dateTime | xsd:date },
 		retrieved
     }
@@ -78,7 +78,7 @@ blood =
     }
 
 biobankId =
-	attribute biobank { xsd:string { pattern = "[a-zA-Z0-9]+" maxLength = "6" } }
+	attribute biobank { xsd:string { maxLength = "6" } }
 
 ## each sample is identified with biobankId and sequential number
 sampleIdentification =
@@ -106,15 +106,7 @@ retrieved =
 morphology =
     ## morphology uses ICD-O-2 classification - NNNN/XY
     ## Last digit represents grading and sometimes it is not included - for those cases NNNN/X
-
-    ## During testing some exports from HIS GreyFox were in format XXXX/Y with space at the end or
-    ## morphology was empty element. This is not a good practice. Suggested is "NNNN/XY" or "NNNN/X"
-    ## if grading is not known.
-    element morphology { xsd:string { pattern = "[0-9]{4}/[0-9]{1}"}
-        |  xsd:string { pattern = "[0-9]{4}/[0-9]{2}"}
-        |  xsd:string { pattern = "[0-9]{4}/[0-9]{1} "}
-        |  empty
-    }
+    element morphology { xsd:string { maxLength = "7" } }
 
 grading =
     element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } }

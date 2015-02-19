@@ -2,6 +2,7 @@ package cz.bbmri.service;
 
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.sample.Sample;
+import cz.bbmri.io.InstanceImportResult;
 import cz.bbmri.service.simpleService.*;
 import net.sourceforge.stripes.validation.ValidationErrors;
 
@@ -21,9 +22,9 @@ public interface SampleService extends All<Sample>, AllOrderedBy<Sample>, Count,
      *
      * @param sample       - new instance of sample
      * @param moduleId     - sample will is associated with Module identified by moduleId
-     * @return true/false
+     * @return instance of stored Sample
      */
-    boolean create(Sample sample, Long moduleId);
+    Sample create(Sample sample, Long moduleId);
 
     /**
      * Store instance of sample in DB
@@ -67,5 +68,8 @@ public interface SampleService extends All<Sample>, AllOrderedBy<Sample>, Count,
      * @return list of similar samples
      */
     List<Sample> findSamples(Sample sample, Long biobankId, Patient patient, boolean lts);
+
+    //TODO
+    InstanceImportResult importInstance(Sample sample, Long moduleId);
 
 }

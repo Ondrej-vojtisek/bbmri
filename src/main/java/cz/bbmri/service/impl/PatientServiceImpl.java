@@ -7,6 +7,8 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.ModuleLTS;
 import cz.bbmri.entities.ModuleSTS;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.enumeration.Status;
+import cz.bbmri.io.InstanceImportResult;
 import cz.bbmri.service.PatientService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -19,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -58,7 +59,7 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
 
         Biobank biobank = biobankDao.get(biobankId);
         archive("New Patient with id: " + patient.getInstitutionId() + "was created in biobank: " +
-                biobank.getAbbreviation(),
+                        biobank.getAbbreviation(),
                 loggedUserId);
 
         return true;
@@ -131,6 +132,72 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
         return patientDB;
     }
 
+    private InstanceImportResult updateWithResult(Patient patient) {
+        if (isNull(patient, "patient", null)) return null;
+
+        Patient patientDB = patientDao.get(patient.getId());
+
+        if (isNull(patientDB, "patientDB", null)) return null;
+
+        InstanceImportResult instanceImportResult = new InstanceImportResult(Patient.class.toString());
+        // initialize context id
+        instanceImportResult.setIdentifier(patient.getId());
+
+
+        // Sex
+        if (patient.getSex() != null) {
+            if (!patientDB.getSex().equals(patient.getSex())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Patient.PROP_SEX, patientDB.getSex(), patient.getSex());
+                // Change
+                patientDB.setSex(patient.getSex());
+            }
+        }
+
+        // Birth month
+        if (patient.getBirthMonth() != null) {
+            if (!patientDB.getBirthMonth().equals(patient.getBirthMonth())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Patient.PROP_BIRTHMONTH, patientDB.getBirthMonth(), patient.getBirthMonth());
+                // Change
+                patientDB.setBirthMonth(patient.getBirthMonth());
+            }
+        }
+
+        // Birth year
+        if (patient.getBirthYear() != null) {
+            if (!patientDB.getBirthYear().equals(patient.getBirthYear())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Patient.PROP_BIRTHYEAR, patientDB.getBirthYear(), patient.getBirthYear());
+                // Change
+                patientDB.setBirthYear(patient.getBirthYear());
+            }
+        }
+
+        // Consent
+        if (patientDB.isConsent() != patient.isConsent()) {
+            // Not equals
+            // Report
+            instanceImportResult.addChange(Patient.PROP_CONSENT, patientDB.isConsent(), patient.isConsent());
+            // Change
+            patientDB.setConsent(patient.isConsent());
+        }
+
+        if (instanceImportResult.getAttributeChanges() != null) {
+            if (!instanceImportResult.getAttributeChanges().isEmpty()) {
+                instanceImportResult.setStatus(Status.CHANGED_CURRENT);
+            } else {
+                instanceImportResult.setStatus(Status.UNCHANGED_CURRENT);
+            }
+        }
+
+        patientDao.update(patientDB);
+        return instanceImportResult;
+    }
+
     @Transactional(readOnly = true)
     public List<Patient> find(Patient patient, int requiredResults) {
         if (isNull(patient, "patient", null)) return null;
@@ -159,6 +226,74 @@ public class PatientServiceImpl extends BasicServiceImpl implements PatientServi
     public Patient getByInstitutionalId(String id) {
         if (isNull(id, "id", null)) return null;
         return patientDao.getByInstitutionalId(id);
+    }
+
+
+    public InstanceImportResult importInstance(Patient patient, Long biobankId) {
+        notNull(patient);
+        notNull(biobankId);
+
+        InstanceImportResult result = new InstanceImportResult(Patient.class.toString());
+        result.setStatus(Status.ERROR);
+
+        if (patient.getInstitutionId() == null) {
+            return null;
+        }
+
+        Patient patientDB = getByInstitutionalId(patient.getInstitutionId());
+
+        // Consent false
+        if (!patient.isConsent()) {
+            // If patient present - he must be deleted
+            if (patientDB != null) {
+
+                result.setStatus(Status.REMOVED);
+                result.setIdentifier(patientDB.getId());
+                remove(patientDB.getId());
+
+             // if he is not present, don't add him to system
+            } else {
+                // consent it false, can't be added
+                result.setStatus(Status.NOT_ADDED);
+            }
+
+             return result;
+        }
+
+        // is patient in DB ?
+        if (patientDB == null) {
+            // No .. lets create it
+            Patient newPatient = create(patient, biobankId);
+
+            // Unable to create new patient
+            if (newPatient == null) {
+                result.addChange(Patient.PROP_INSTITUTIONID, null, patient.getInstitutionId());
+                result.setStatus(Status.ERROR);
+                return result;
+            } else {
+                // new patient was successfully added
+                result.setIdentifier(patient.getId());
+                result.setStatus(Status.ADDED_NEW);
+                return result;
+            }
+
+        } else {
+            // Patient is already in DB
+
+            // Assign internal id which is not known in import
+            patient.setId(patientDB.getId());
+
+            result = updateWithResult(patient);
+
+            // If something went wrong
+            if (result == null) {
+                result = new InstanceImportResult(Patient.class.toString());
+                result.setIdentifier(patient.getId());
+                result.setStatus(Status.ERROR);
+            }
+
+        }
+        return result;
     }
 
 

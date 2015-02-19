@@ -3,7 +3,9 @@ package cz.bbmri.dao.impl;
 import cz.bbmri.dao.SampleDao;
 import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Patient;
+import cz.bbmri.entities.enumeration.Status;
 import cz.bbmri.entities.sample.Sample;
+import cz.bbmri.io.InstanceImportResult;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -72,7 +74,7 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
             typedQuery.setParameter("sampleId", "%");
         } else {
             typedQuery.setParameter("numberParam", (question.getSampleIdentification().getNumber()
-                                != null ? question.getSampleIdentification().getNumber() : null));
+                    != null ? question.getSampleIdentification().getNumber() : null));
             typedQuery.setParameter("year", (question.getSampleIdentification().getYear()
                     != null ? question.getSampleIdentification().getYear() : null));
             typedQuery.setParameter("sampleId", (question.getSampleIdentification().getSampleId() != null ?
@@ -89,4 +91,5 @@ public class SampleDaoImpl extends BasicDaoImpl<Sample> implements SampleDao {
 
         return getSingleResult();
     }
+
 }

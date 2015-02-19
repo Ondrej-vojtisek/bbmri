@@ -14,7 +14,7 @@
             <samplesNo>4</samplesNo>
             <!--Pocet vydatelnych alikvotu  -->
             <availableSamplesNo>2</availableSamplesNo>
-            <!--Ciselnik - 1 znamena nador -->
+            <!--Ciselnik - 1 znamena nador v ramci MOU-->
             <materialType>1</materialType>
             <!--TNM klasifikace  -->
             <TNM>T1aN0M0</TNM>

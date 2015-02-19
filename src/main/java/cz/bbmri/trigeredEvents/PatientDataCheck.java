@@ -22,6 +22,6 @@ public interface PatientDataCheck {
      * <p/>
      * DON'T DELETE THIS METHOD DESCRIPTION!
      */
-    void checkBiobankPatientData();
+    void scheduledPatientDataCheck();
 
 }

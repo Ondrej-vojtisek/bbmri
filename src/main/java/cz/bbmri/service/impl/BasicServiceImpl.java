@@ -58,7 +58,7 @@ abstract public class BasicServiceImpl {
      * @param o
      * @throws IllegalArgumentException
      */
-    static void notNull(final Object o) throws IllegalArgumentException {
+    protected static void notNull(final Object o) throws IllegalArgumentException {
         if (o == null) {
             throw new IllegalArgumentException("Object must not be null!");
         }

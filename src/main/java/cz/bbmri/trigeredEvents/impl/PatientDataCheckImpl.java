@@ -4,8 +4,10 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.constant.Constant;
-import cz.bbmri.entities.exception.DifferentEntityException;
+import cz.bbmri.entities.enumeration.Status;
 import cz.bbmri.entities.sample.Sample;
+import cz.bbmri.io.FileImportResult;
+import cz.bbmri.io.InstanceImportResult;
 import cz.bbmri.io.PatientDataParser;
 import cz.bbmri.service.BiobankService;
 import cz.bbmri.service.PatientService;
@@ -17,6 +19,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ import java.util.List;
  * @version 1.0
  */
 
-// Can't be @Transactional !
+// Must not be @Transactional !
 
 @Service("patientDataCheck")
 public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
@@ -38,171 +41,214 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     @Autowired
     private SampleService sampleService;
 
-    /**
-     * Method should be fired once per day - 1 minute after midnight.
-     * Scheduled(cron = "1 0 * * * *")
-     * For testing purpose is better to fire the method each minute.
-     */
 
-    //Testing purpose only. TODO remove
     @Scheduled(cron = "1 * * * * *")
-    public void checkBiobankPatientData() {
-
-        log("Cron fired method checkBiobankPatientData");
+    public void scheduledPatientDataCheck() {
 
         // Check all biobank
         for (Biobank biobank : biobankService.all()) {
 
-            log("Biobank: " + biobank.getName());
-
             // Scan all patient data files in biobank folder
             List<File> files = ServiceUtils.getFiles(storagePath + biobank.getBiobankPatientDataFolder());
 
-            log("Checked path: " + storagePath + biobank.getBiobankPatientDataFolder());
-
-            log("Biobank: List of files: " + files);
-
-
-            // for each import do
             for (File file : files) {
-                log("Biobank: " + biobank.getName() + " file: " + file);
-                // parse
-                if (parsePatientImport(file.getPath(), biobank) != Constant.SUCCESS) {
 
-                    // TODO solve duplicate logging
+                FileImportResult fileImportResult = parsePatientImportFile(file, biobank);
 
-                    logger.error("Parse of file : " + file + " failed. ");
+                System.err.println(fileImportResult);
 
-                    archiveSystem("Parse of file : " + file + " failed. ");
-
-                    // Don't copy and remove file in case that something went wrong
-                    continue;
+                if (fileImportResult.getStatus().equals(Status.ERROR)) {
+                    break;
+                    //TODO: UNCOMMENT continue, delete break
+                    // nothing to be done here
+                   // continue;
                 }
 
-                //TODO uncomment
-
-                // if successfull copy it into archive folder
-                //   if (ServiceUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {
-                // delete file if copy succeeded
-                //        ServiceUtils.deleteFile(file);
-                //    }
+                if (ServiceUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {
+                    // delete file if copy succeeded
+                    ServiceUtils.deleteFile(file);
+                }
 
             }
         }
+
     }
 
+    public FileImportResult parsePatientImportFile(File file, Biobank biobank) {
+
+        // Trida ktera popisuje jak dopadl import jednoho souboru.
+        // Tj. zalozen pacient, upraven pacient, nezmenen pacient, error
+
+        FileImportResult fileImportResult = new FileImportResult();
+        fileImportResult.setPath(file.getPath());
+
+        //FileImportReport fileImportResult =
+
+        //Inicializovat parser;
+        // pokud ne tak error cteni souboru
+        PatientDataParser patientDataParser = initialize(file.getPath());
+        if (patientDataParser == null) {
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        String biobankAbbreviation = patientDataParser.getBiobankAbbreviation();
+
+        // ID retrieved from .xml must match the abbreviation of given biobank
+        if (!biobankAbbreviation.equals(biobank.getAbbreviation())) {
+            logger.error("Biobank abbreviation (identifier in export) doesn't match");
+
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        Patient patient = patientDataParser.getPatient();
+
+        if (patient == null) {
+            logger.error("Patient null");
+
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        InstanceImportResult patientImportResult = parsePatientImport(patient, biobank.getId());
+
+        if (patientImportResult == null) {
+            logger.error("parsePatientImport failed");
+
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        if (patientImportResult.getStatus().equals(Status.ERROR)) {
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        fileImportResult.setStatus(patientImportResult.getStatus());
+
+        fileImportResult.getInstanceImportResults().add(patientImportResult);
+
+        if (patientImportResult.getStatus().equals(Status.REMOVED) ||
+                patientImportResult.getStatus().equals(Status.NOT_ADDED)) {
+            // no need to check samples
+            // consent changed to false -> patient was deleted
+            return fileImportResult;
+        }
+
+        List<InstanceImportResult> sampleImportResults = parsePatientSamplesImport(patient, patientDataParser);
+
+        if (sampleImportResults == null) {
+            logger.error("parsePatientSamplesImport failed");
+
+            fileImportResult.setStatus(Status.ERROR);
+            return fileImportResult;
+        }
+
+        fileImportResult.getInstanceImportResults().addAll(sampleImportResults);
+
+        return fileImportResult;
+    }
+
+
     /**
-     * Parse data from one .xml import file. Parse one patient and all his associated data
+     * Check presence and validity of import xml file.
      *
-     * @param path    - path to .xml file
-     * @param biobank - - biobank which is currently managed
-     * @return SUCCESS/NOT_SUCCESS
+     * @param path
+     * @return new instance of PatientDataParser or null if document is not valid or document doesn't exist
      */
-    private int parsePatientImport(String path, Biobank biobank) {
+
+    private PatientDataParser initialize(String path) {
+
+        notNull(path);
 
         PatientDataParser parser;
         try {
             parser = new PatientDataParser(path);
+
         } catch (Exception ex) {
             logger.error("PatientDataParser failed");
             ex.printStackTrace();
-            return Constant.NOT_SUCCESS;
+            return null;
         }
 
         // document must be valid against .xsd
         if (!parser.validate()) {
             logger.error("Document is NOT valid. Document path was: " + path);
-            return Constant.NOT_SUCCESS;
+            return null;
         }
 
-        String biobankAbbreviation = parser.getBiobankAbbreviation();
+        return parser;
+    }
 
-        // ID retrieved from .xml must match the abbreviation of given biobank
-        if (!biobankAbbreviation.equals(biobank.getAbbreviation())) {
-            logger.error("Biobank abbreviation (identifier in export) doesn't match");
-            return Constant.NOT_SUCCESS;
-        }
-
-        // get instance of patient
-        Patient patient = parser.getPatient();
+    /**
+     * TODO popisek
+     */
+    private InstanceImportResult parsePatientImport(Patient patient, Long biobankId) {
 
         if (patient == null) {
             logger.error("Patient is null");
-            return Constant.NOT_SUCCESS;
-        }
-        Patient patientDB = patientService.getByInstitutionalId(patient.getInstitutionId());
-        if (patientDB == null) {
-            // Patient is new
-            patient = patientService.create(patient, biobank.getId());
-            // get Patient with associated object - e.g. modules (moduleLTS)
-            patient = patientService.get(patient.getId());
-
-            // TODO: only one debug
-            logger.debug("New patient created. Id: " + patient.getId() + ", institutionalID:" + patient.getInstitutionId());
-
-            archiveSystem("New patient created. Id: " + patient.getId() + ", institutionalID:" + patient.getInstitutionId());
-
-
-        } else {
-
-            // Assign ID to object parsed from XML
-            patient.setId(patientDB.getId());
-
-            try {
-                // patient differs against DB
-                if (!patientDB.attributeEquality(patient)) {
-                    patientService.update(patient);
-
-                    // TODO: only one debug
-                    logger.debug("Patient with ID:" + patient.getId() + " and institutionalID:" + patient.getInstitutionId() + " was updated in current import");
-
-                    archiveSystem("Patient with ID:" + patient.getId() + " and institutionalID:" + patient.getInstitutionId() + " was updated in current import");
-                }
-            } catch (DifferentEntityException ex) {
-                logger.error("This must not happened. New patient was not created but it doens't match any patient in DB." + ex.getMessage());
-                return Constant.NOT_SUCCESS;
-            }
-            // Patient already exists
-            patient = patientDB;
+            return null;
         }
 
-        if (patient.getModuleLTS() == null) {
+        InstanceImportResult result = patientService.importInstance(patient, biobankId);
+
+        return result;
+    }
+
+    private List<InstanceImportResult> parsePatientSamplesImport(Patient patient, PatientDataParser parser) {
+
+        notNull(patient);
+
+        Patient patientDB = patientService.get(patient.getId());
+
+        if (patientDB.getModuleLTS() == null) {
             logger.debug("Patient module null");
-            return Constant.NOT_SUCCESS;
+            return null;
         }
 
         // Parse LTS module
-        List<Sample> samples = parser.getPatientLtsSamples();
-        if (samples == null) {
+
+        List<Sample> samplesLTS = parser.getPatientLtsSamples();
+        if (samplesLTS == null) {
             logger.debug("Parse of LTS module from import failed");
-            return Constant.NOT_SUCCESS;
+            return null;
         }
-        if (!samples.isEmpty()) {
-            if (manageImportedSamples(samples, patient.getModuleLTS()) != Constant.SUCCESS) {
+
+        List<InstanceImportResult> result = new ArrayList<InstanceImportResult>();
+
+        if (!samplesLTS.isEmpty()) {
+
+            List<InstanceImportResult> ltsImportResults = manageImportedSamples(samplesLTS, patientDB.getModuleLTS());
+            if (ltsImportResults == null) {
                 logger.debug("ManageImportedSamples for LTS module failed");
-                return Constant.NOT_SUCCESS;
+                return null;
             }
-        } else {
-            logger.debug("Samples is empty - LTS module was not found or it was empty or there is other bug.");
+
+            result.addAll(ltsImportResults);
+
         }
 
         // Parse STS module
-        samples = parser.getPatientStsSamples();
-        if (samples == null) {
+
+        List<Sample> samplesSTS = parser.getPatientStsSamples();
+        if (samplesSTS == null) {
             logger.debug("Parse of STS module from import failed");
-            return Constant.NOT_SUCCESS;
+            return null;
         }
-        if (!samples.isEmpty()) {
-            if (manageImportedSamples(samples, patient.getModuleSTS()) != Constant.SUCCESS) {
+
+        if (!samplesSTS.isEmpty()) {
+
+            List<InstanceImportResult> ltsImportResults = manageImportedSamples(samplesSTS, patientDB.getModuleLTS());
+            if (ltsImportResults == null) {
                 logger.debug("ManageImportedSamples for STS module failed");
-                return Constant.NOT_SUCCESS;
+                return null;
             }
-        } else {
-            logger.debug("Samples is empty - STS module was not found or it was empty or there is other bug.");
+
+            result.addAll(ltsImportResults);
         }
 
-
-        return Constant.SUCCESS;
+        return result;
     }
 
     /**
@@ -212,54 +258,49 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
      * @param module  - current module - LTS or STS of patient
      * @return SUCCESS/NOT_SUCCESS
      */
-    private int manageImportedSamples(List<Sample> samples, Module module) {
+    private List<InstanceImportResult> manageImportedSamples(List<Sample> samples, Module module) {
 
         if (module == null) {
             logger.error("Module must not be null");
-            return Constant.NOT_SUCCESS;
+
+            // General error, don't use report
+            return null;
         }
+
+        if (samples == null) {
+            logger.error("Samples must not be null");
+
+            // General error, don't use report
+            return null;
+        }
+
+        List<InstanceImportResult> instanceImportResults = new ArrayList<InstanceImportResult>();
+
 
         for (Sample sample : samples) {
 
-            if (sample.getSampleIdentification() == null) {
-                return Constant.NOT_SUCCESS;
-            }
-            if (sample.getSampleIdentification().getSampleId() == null) {
-                return Constant.NOT_SUCCESS;
-            }
-
-            // Set module
-            sample.setModule(module);
-
             Sample sampleDB = sampleService.getByInstitutionalId(sample.getSampleIdentification().getSampleId());
-
-            if (sampleDB == null) {
-                // sample is not in DB
-                sampleService.create(sample, sample.getModule().getId());
-            } else {
-                // set primary identifier
-                sample.setId(sampleDB.getId());
-                try {
-                    // not the same
-                    if (!sample.attributeEquality(sampleDB)) {
-                        // number of aliquotes might have changed - so update record
-                        if (sampleService.update(sample) == null) {
-                            return Constant.NOT_SUCCESS;
-                        }
-                        // TODO: only one debug
-                        logger.debug("Sample: " + sample.getId() + " was updated in current import");
-
-                        archiveSystem("Sample: " + sample.getId() + " was updated in current import");
-                    }
-                } catch (DifferentEntityException ex) {
-                    logger.error("This must not happened. New sample was not created but it doens't match any sample in DB. " + ex.getMessage());
-                    return Constant.NOT_SUCCESS;
+            if (sampleDB != null) {
+                // this sample is already in DB but associated with different user
+                if (!sampleDB.getModule().getPatient().equals(module.getPatient())) {
+                    System.err.println("Trying to add sample which is already associated to different user");
+                    return null;
                 }
 
             }
+
+            InstanceImportResult result = sampleService.importInstance(sample, module.getId());
+
+            if (result == null) {
+                System.err.println("InstanceImportResult is null");
+                return null;
+            }
+
+            instanceImportResults.add(result);
+
         }
 
-        return Constant.SUCCESS;
+        return instanceImportResults;
     }
 
 }

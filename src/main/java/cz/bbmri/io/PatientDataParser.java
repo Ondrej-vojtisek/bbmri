@@ -5,8 +5,8 @@ import cz.bbmri.entities.enumeration.Retrieved;
 import cz.bbmri.entities.enumeration.Sex;
 import cz.bbmri.entities.sample.*;
 import cz.bbmri.entities.sample.field.*;
-import org.apache.axis2.databinding.types.xsd.DateTime;
 import org.apache.axis2.databinding.types.xsd.Date;
+import org.apache.axis2.databinding.types.xsd.DateTime;
 import org.apache.axis2.databinding.types.xsd.GYear;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -96,7 +96,7 @@ public class PatientDataParser extends AbstractParser {
         // We must not accept data without informed consent!
         if (!Boolean.valueOf(consent)) {
             System.err.println("Patient data with negative patient consent");
-            return null;
+            patient.setConsent(false);
         } else {
             patient.setConsent(true);
         }
@@ -106,7 +106,6 @@ public class PatientDataParser extends AbstractParser {
         /* Use validity check from GYear factory */
         GYear gYear;
         try {
-            System.err.println("birthYear: " + birthYear);
             gYear = GYear.Factory.fromString(birthYear, XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         } catch (NumberFormatException ex) {
@@ -124,18 +123,22 @@ public class PatientDataParser extends AbstractParser {
 //        MONTH
 
         if (birthMonth != null) {
-            // for format of gMonth
-            if (birthMonth.length() > 2) {
-                // expect format --02 or --02--
-                birthMonth = birthMonth.substring(2, 4);
-            }
-            int month = Integer.parseInt(birthMonth);
-            // month
-            if (month > 12 || month < 1) {
-                System.err.println("Birth month of imported patient is not valid");
-                return null;
-            } else {
-                patient.setBirthMonth(month);
+            // not empty
+            // empty doesn't mean error - it is not mandatory
+            if (!birthMonth.isEmpty()) {
+                // for format of gMonth
+                if (birthMonth.length() > 2) {
+                    // expect format --02 or --02--
+                    birthMonth = birthMonth.substring(2, 4);
+                }
+                int month = Integer.parseInt(birthMonth);
+                // month
+                if (month > 12 || month < 1) {
+                    System.err.println("Birth month of imported patient is not valid");
+                    return null;
+                } else {
+                    patient.setBirthMonth(month);
+                }
             }
         }
 
@@ -332,7 +335,7 @@ public class PatientDataParser extends AbstractParser {
 
             java.util.Date date = parseDate(freezeTime);
 
-            if(date != null){
+            if (date != null) {
                 tissue.setFreezeDate(date);
             }
 
@@ -608,7 +611,7 @@ public class PatientDataParser extends AbstractParser {
 
             java.util.Date date = parseDate(takingDate);
 
-            if(date != null){
+            if (date != null) {
                 sample.setTakingDate(date);
             }
 
@@ -629,7 +632,7 @@ public class PatientDataParser extends AbstractParser {
 
             return dateAndTime.getDateTime().getTime();
 
-        }catch(java.lang.NumberFormatException ex){
+        } catch (java.lang.NumberFormatException ex) {
 
             // wrong format of xsd:DateTime. Probably time is not included
             try {
@@ -638,9 +641,9 @@ public class PatientDataParser extends AbstractParser {
 
                 return dateOnly.getDate();
 
-            }catch(java.lang.NumberFormatException ex1){
+            } catch (java.lang.NumberFormatException ex1) {
 
-                System.err.println("Parse DateTime attribute failed. Value was: " + dateTime );
+                System.err.println("Parse DateTime attribute failed. Value was: " + dateTime);
 
                 System.err.println("Exception was: " + ex1.getLocalizedMessage());
 

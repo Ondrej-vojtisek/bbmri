@@ -8,7 +8,9 @@ import cz.bbmri.entities.Biobank;
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Patient;
 import cz.bbmri.entities.Request;
-import cz.bbmri.entities.sample.Sample;
+import cz.bbmri.entities.enumeration.Status;
+import cz.bbmri.entities.sample.*;
+import cz.bbmri.io.InstanceImportResult;
 import cz.bbmri.service.SampleService;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.ValidationErrors;
@@ -46,7 +48,7 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     // Method for automated sample created (triggered event)
-    public boolean create(Sample sample, Long moduleId) {
+    public Sample create(Sample sample, Long moduleId) {
         notNull(sample);
         notNull(moduleId);
 
@@ -55,17 +57,21 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             notNull(moduleDB);
             sample.setModule(moduleDB);
 
-            // Original number of samples - it won't be changed during any update
-            sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
+            // DiagnosisMaterial doesn't register number of samples
+            if(sample.getSampleNos() != null){
+                if(sample.getSampleNos().getSamplesNo() != null){
+                    sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
+                }
+            }
         }
         try {
             sampleDao.create(sample);
         } catch (DataAccessException ex) {
             logger.debug("Sample create failed");
-            return false;
+            return null;
         }
 
-        return true;
+        return sample;
     }
 
 
@@ -75,7 +81,9 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         if (isNull(moduleId, "moduleId", errors)) return false;
         if (isNull(sample, "sample", errors)) return false;
 
-        if (!create(sample, moduleId)) {
+        sample = create(sample, moduleId);
+
+        if (sample == null) {
             errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.SampleFacadeImpl.sampleCreateFailed"));
         }
 
@@ -172,6 +180,193 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
         // other parameters wont be changed during lifetime of sample
 
         return sampleDB;
+    }
+
+    private InstanceImportResult updateWithResult(Sample sample) {
+        if (isNull(sample, "sample", null)) return null;
+
+        Sample sampleDB = sampleDao.get(sample.getId());
+
+        if (isNull(sampleDB, "sampleDB", null)) return null;
+
+        InstanceImportResult instanceImportResult = new InstanceImportResult(Sample.class.toString());
+        // initialize context id
+        instanceImportResult.setIdentifier(sample.getId());
+
+        boolean isChanged = false;
+
+        // Material type
+        if (sample.getMaterialType() != null) {
+            if (!sampleDB.getMaterialType().equals(sample.getMaterialType())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Sample.PROP_MATERIALTYPE, sampleDB.getMaterialType(), sample.getMaterialType());
+                // Change
+                sampleDB.setMaterialType(sample.getMaterialType());
+                isChanged = true;
+            }
+        }
+
+        // Retrieved
+        if (sample.getRetrieved() != null) {
+            if (!sampleDB.getRetrieved().equals(sample.getRetrieved())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Sample.PROP_RETRIEVED, sampleDB.getRetrieved(), sample.getRetrieved());
+                // Change
+                sampleDB.setRetrieved(sample.getRetrieved());
+                isChanged = true;
+            }
+        }
+
+        // Taking date
+        if (sample.getTakingDate() != null) {
+            if (!sampleDB.getTakingDate().equals(sample.getTakingDate())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Sample.PROP_TAKINGDATE, sampleDB.getTakingDate(), sample.getTakingDate());
+                // Change
+                sampleDB.setTakingDate(sample.getTakingDate());
+                isChanged = true;
+            }
+        }
+
+        // Taking date
+        if (sample.getSampleNos() != null) {
+            if (!sampleDB.getSampleNos().equals(sample.getSampleNos())) {
+                // Not equals
+                // Report
+                instanceImportResult.addChange(Sample.PROP_SAMPLENOS, sampleDB.getSampleNos(), sample.getSampleNos());
+                // Change
+                sampleDB.getSampleNos().setAvailableSamplesNo(sample.getSampleNos().getAvailableSamplesNo());
+                sampleDB.getSampleNos().setSamplesNo(sample.getSampleNos().getSamplesNo());
+                // Original amount must stay unchanged
+                isChanged = true;
+            }
+        }
+
+        if (sample instanceof Tissue) {
+            Tissue tissue = (Tissue) sample;
+            Tissue tissueDB = (Tissue) sampleDB;
+
+            // TNM
+            if (tissue.getTnm() != null) {
+                if (!tissueDB.getTnm().equals(tissue.getTnm())) {
+                    // Not equals
+                    // Report
+                    instanceImportResult.addChange(Tissue.PROP_TNM, tissueDB.getTnm(), tissue.getTnm());
+                    // Change
+                    tissueDB.setTnm(tissue.getTnm());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                }
+            }
+
+            // PTNM
+            if (tissue.getPtnm() != null) {
+                if (!tissueDB.getPtnm().equals(tissue.getPtnm())) {
+                    // Not equals
+                    // Report
+                    instanceImportResult.addChange(Tissue.PROP_PTNM, tissueDB.getPtnm(), tissue.getPtnm());
+                    // Change
+                    tissueDB.setPtnm(tissue.getPtnm());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                }
+            }
+
+            // FREEZE TIME
+            if (tissue.getFreezeDate() != null) {
+                if (!tissueDB.getFreezeDate().equals(tissue.getFreezeDate())) {
+                    // Not equals
+                    // Report
+                    instanceImportResult.addChange(Tissue.PROP_FREEZEDATE, tissueDB.getFreezeDate(), tissue.getFreezeDate());
+                    // Change
+                    tissueDB.setFreezeDate(tissue.getFreezeDate());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                }
+            }
+        }
+
+        if (sample instanceof DiagnosisMaterial) {
+            DiagnosisMaterial diagnosisMaterial = (DiagnosisMaterial) sample;
+            DiagnosisMaterial diagnosisMaterialDB = (DiagnosisMaterial) sample;
+
+            // FREEZE TIME
+            if (diagnosisMaterial.getDiagnosis() != null) {
+                if (!diagnosisMaterialDB.getDiagnosis().equals(diagnosisMaterial.getDiagnosis())) {
+                    // Not equals
+                    // Report
+                    instanceImportResult.addChange(DiagnosisMaterial.PROP_DIAGNOSIS, diagnosisMaterialDB.getDiagnosis(), diagnosisMaterial.getDiagnosis());
+                    // Change
+                    diagnosisMaterialDB.setDiagnosis(diagnosisMaterial.getDiagnosis());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                }
+            }
+
+
+        }
+
+        // Set status
+        instanceImportResult.setStatus(isChanged ? Status.CHANGED_CURRENT : Status.UNCHANGED_CURRENT);
+
+        sampleDao.update(sampleDB);
+        return instanceImportResult;
+    }
+
+    public InstanceImportResult importInstance(Sample sample, Long moduleId) {
+        notNull(sample);
+        notNull(moduleId);
+
+        InstanceImportResult result = new InstanceImportResult(Sample.class.toString());
+
+        if (sample.getSampleIdentification() == null) {
+            result.setStatus(Status.ERROR);
+            return result;
+        }
+
+        if (sample.getSampleIdentification().getSampleId() == null) {
+            result.setStatus(Status.ERROR);
+            return result;
+        }
+
+        Sample sampleDB = getByInstitutionalId(sample.getSampleIdentification().getSampleId());
+
+        // is sample in DB ?
+        if (sampleDB == null) {
+            // No .. lets create it
+            Sample newSample = create(sample, moduleId);
+
+            // Unable to create new sample
+            if (newSample == null) {
+                result.addChange(Sample.PROP_SAMPLEIDENTIFICATION, null, sample.getSampleIdentification().getSampleId());
+                result.setStatus(Status.ERROR);
+                return result;
+            } else {
+                // new sample was successfully added
+                result.setIdentifier(sample.getId());
+                result.setStatus(Status.ADDED_NEW);
+                return result;
+            }
+
+        } else {
+            // Sample is already in DB
+
+            sample.setId(sampleDB.getId());
+
+            result = updateWithResult(sample);
+
+            // If something went wrong
+            if (result == null) {
+                result = new InstanceImportResult(Sample.class.toString());
+                result.setIdentifier(sample.getId());
+                result.setStatus(Status.ERROR);
+            }
+
+        }
+        return result;
     }
 
 }

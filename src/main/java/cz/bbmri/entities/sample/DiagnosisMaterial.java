@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 @Entity
 public class DiagnosisMaterial extends Sample {
 
+    public static final String PROP_DIAGNOSIS = "diagnosis";
+
     @Embedded
     private Diagnosis diagnosis;
 

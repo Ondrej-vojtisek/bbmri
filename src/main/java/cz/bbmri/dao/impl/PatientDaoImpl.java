@@ -88,4 +88,6 @@ public class PatientDaoImpl extends BasicDaoImpl<Patient> implements PatientDao 
 
         return getSingleResult();
     }
+
+
 }
