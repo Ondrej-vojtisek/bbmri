@@ -102,7 +102,7 @@ public class InstanceImportResult {
 
     @Override
     public String toString() {
-        return objectName + " " + status + "ID: " + identifier +
+        return objectName + " " + status + " ID: " + identifier +
                 " changes=" + attributeChanges;
     }
 }

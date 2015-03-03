@@ -108,7 +108,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
 
     @DontValidate
     @HandlesEvent("setPermission")
-    @RolesAllowed({"project_team_member if ${alloweProjectdManager}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectManager}"})
     public Resolution setPermission() {
         if (!projectAdministratorService.changeAdministratorPermission(adminId, permission,
                 getContext().getValidationErrors(),
@@ -124,7 +124,7 @@ public class ProjectAdministratorsActionBean extends PermissionActionBean<Projec
 
     @DontValidate
     @HandlesEvent("removeAdministrator")
-    @RolesAllowed({"project_team_member if ${allowedProjectManager or isMyAccount}"})
+    @RolesAllowed({"project_team_member if ${allowedProjectManager}", "project_team_member if ${isMyAccount}"})
     //project_team_member if ${allowedManager},
     public Resolution removeAdministrator() {
         if (!projectAdministratorService.removeAdministrator(adminId,

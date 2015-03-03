@@ -44,24 +44,19 @@
 
                     <div class="form-actions">
 
+                        <s:hidden name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
+
                         <security:allowed bean="requestBean" event="approve">
-                            <s:submit name="approve" class="btn btn-primary btnMargin">
-                                <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
-                            </s:submit>
+                            <s:submit name="approve" class="btn btn-primary btnMargin"/>
                         </security:allowed>
 
-                        <security:allowed bean="requestBean" event="deny">
-                            <s:submit name="deny" class="btn btn-primary btnMargin">
-                                <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
-                            </s:submit>
-                        </security:allowed>
+                        <%--<security:allowed bean="requestBean" event="deny">--%>
+                            <%--<s:submit name="deny" class="btn btn-primary btnMargin"/>--%>
+                        <%--</security:allowed>--%>
 
-
-                        <security:allowed bean="requestBean" event="delete">
-                            <s:submit name="delete" class="btn btn-danger btnMargin">
-                                <s:param name="sampleQuestionId" value="${requestBean.sampleQuestionId}"/>
-                            </s:submit>
-                        </security:allowed>
+                        <%--<security:allowed bean="requestBean" event="delete">--%>
+                            <%--<s:submit name="delete" class="btn btn-danger btnMargin"/>--%>
+                        <%--</security:allowed>--%>
 
                     </div>
 

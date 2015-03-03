@@ -54,15 +54,6 @@ public class AbstractSampleQuestionActionBean extends PermissionActionBean {
             if (sampleQuestionId != null) {
                 sampleQuestion = sampleQuestionService.get(sampleQuestionId);
 
-//                    // is instanceof SampleRequest
-//                    if (getIsSampleRequest()) {
-//
-//                        // Project is set
-//                        if (((SampleRequest) sampleQuestion).getProject() != null) {
-//                            setProjectId(((SampleRequest) sampleQuestion).getProject().getId());
-//                        }
-//                    }
-
             }
         }
         return sampleQuestion;

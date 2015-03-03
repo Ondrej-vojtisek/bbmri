@@ -10,7 +10,8 @@ package cz.bbmri.entities.enumeration;
 public enum Sex {
 
     MALE("male"),
-    FEMALE("female");
+    FEMALE("female"),
+    UNKNOWN("unknown");
 
     private final String state;
 

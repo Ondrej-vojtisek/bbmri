@@ -82,6 +82,7 @@
                         <td>${request.sample.sampleIdentification.sampleId}</td>
                         <td>${request.sample.materialType.type}</td>
                         <td class="action">
+                            <span class="pull-right">
                                 ${request.numOfRequested} / ${request.sample.sampleNos.availableSamplesNo}
 
 
@@ -95,13 +96,15 @@
                             <security:allowed event="increaseAmount">
                                 <s:submit name="increaseAmount" class="btn btn-default btnMargin"/>
                             </security:allowed>
-
+                          </span>
                         </td>
 
                         <td class="action">
+                            <span class="pull-right">
                             <security:allowed event="removeRequest">
                                 <s:submit name="removeRequest" class="btn btn-danger"/>
                             </security:allowed>
+                            </span>
                         </td>
                     </tr>
                 </s:form>

@@ -122,7 +122,7 @@ public class BiobankAdministratorsActionBean extends PermissionActionBean<Bioban
     }
 
     @HandlesEvent("removeAdministrator")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankManager or isMyAccount}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankManager}", "biobank_operator if ${isMyAccount}"})
     public Resolution removeAdministrator() {
 
         boolean myAccount = getIsMyAccount();

@@ -61,10 +61,12 @@
                             <tr>
                                 <s:layout-render name="/webpages/component/detail/user/row.jsp" record="${user}"/>
                                 <td class="action">
+                                    <span class="pull-right">
                                         <s:form beanclass="${actionBean.name}">
                                             <s:hidden name="adminId" value="${user.id}"/>
                                             <s:submit name="confirmStep2" class="btn btn-primary btnMargin"/>
                                         </s:form>
+                                    </span>
                                 </td>
                             </tr>
                         </c:forEach>

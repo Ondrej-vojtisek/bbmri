@@ -42,7 +42,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     private SampleService sampleService;
 
 
-    @Scheduled(cron = "1 * * * * *")
+    //@Scheduled(cron = "2 * * * * *")
     public void scheduledPatientDataCheck() {
 
         // Check all biobank
@@ -55,13 +55,13 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
                 FileImportResult fileImportResult = parsePatientImportFile(file, biobank);
 
-                System.err.println(fileImportResult);
+                log(fileImportResult.toString());
 
                 if (fileImportResult.getStatus().equals(Status.ERROR)) {
                     break;
-                    //TODO: UNCOMMENT continue, delete break
+
                     // nothing to be done here
-                   // continue;
+                    // continue;
                 }
 
                 if (ServiceUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {

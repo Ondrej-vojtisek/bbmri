@@ -22,7 +22,6 @@ import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -39,12 +38,9 @@ public class CreateSampleQuestion extends PermissionActionBean {
     @SpringBean
     private SampleReservationService sampleReservationService;
 
-    @ValidateNestedProperties(value = {
-            @Validate(field = "specification",
-                    required = true,
-                    on = {"confirmSampleRequest", "confirmSampleReservation"})
-    })
-    private SampleQuestion sampleQuestion;
+    @Validate(required = true,
+            on = {"confirmSampleRequest", "confirmSampleReservation"})
+    private String specification;
 
     private static Breadcrumb getBreadcrumb(boolean active) {
         return new Breadcrumb(CreateSampleQuestion.class.getName(),
@@ -56,12 +52,12 @@ public class CreateSampleQuestion extends PermissionActionBean {
         setComponentManager(new ComponentManager());
     }
 
-    public SampleQuestion getSampleQuestion() {
-        return sampleQuestion;
+    public String getSpecification() {
+        return specification;
     }
 
-    public void setSampleQuestion(SampleQuestion sampleQuestion) {
-        this.sampleQuestion = sampleQuestion;
+    public void setSpecification(String specification) {
+        this.specification = specification;
     }
 
     public List<Biobank> getAllBiobanks() {
@@ -88,7 +84,10 @@ public class CreateSampleQuestion extends PermissionActionBean {
 
         SampleRequest sampleRequest = new SampleRequest();
         sampleRequest.setProject(getProject());
-        sampleRequest.setSpecification(sampleQuestion.getSpecification());
+
+        System.err.println("SampleQuestion Specification: " + specification);
+
+        sampleRequest.setSpecification(specification);
 
         if (!sampleRequestService.createSampleRequest(sampleRequest, projectId, biobankId,
                 getContext().getValidationErrors(),
@@ -114,7 +113,7 @@ public class CreateSampleQuestion extends PermissionActionBean {
     public Resolution confirmSampleReservation() {
         SampleReservation sampleReservation = new SampleReservation();
         sampleReservation.setUser(getLoggedUser());
-        sampleReservation.setSpecification(sampleQuestion.getSpecification());
+        sampleReservation.setSpecification(specification);
 
         if (!sampleReservationService.createSampleReservation(sampleReservation, biobankId, getLoggedUser(),
                 getContext().getValidationErrors())) {

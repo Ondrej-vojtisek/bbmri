@@ -58,8 +58,8 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             sample.setModule(moduleDB);
 
             // DiagnosisMaterial doesn't register number of samples
-            if(sample.getSampleNos() != null){
-                if(sample.getSampleNos().getSamplesNo() != null){
+            if (sample.getSampleNos() != null) {
+                if (sample.getSampleNos().getSamplesNo() != null) {
                     sample.getSampleNos().setOriginalSamplesNo(sample.getSampleNos().getSamplesNo());
                 }
             }
@@ -251,7 +251,14 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
             // TNM
             if (tissue.getTnm() != null) {
-                if (!tissueDB.getTnm().equals(tissue.getTnm())) {
+
+                if (tissueDB.getTnm() == null) {
+                    instanceImportResult.addChange(Tissue.PROP_TNM, tissueDB.getTnm(), tissue.getTnm());
+                    // Change
+                    tissueDB.setTnm(tissue.getTnm());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                } else if (!tissueDB.getTnm().equals(tissue.getTnm())) {
                     // Not equals
                     // Report
                     instanceImportResult.addChange(Tissue.PROP_TNM, tissueDB.getTnm(), tissue.getTnm());
@@ -264,7 +271,13 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
             // PTNM
             if (tissue.getPtnm() != null) {
-                if (!tissueDB.getPtnm().equals(tissue.getPtnm())) {
+                if (tissueDB.getPtnm() == null) {
+                    instanceImportResult.addChange(Tissue.PROP_PTNM, tissueDB.getPtnm(), tissue.getPtnm());
+                    // Change
+                    tissueDB.setPtnm(tissue.getPtnm());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                } else if (!tissueDB.getPtnm().equals(tissue.getPtnm())) {
                     // Not equals
                     // Report
                     instanceImportResult.addChange(Tissue.PROP_PTNM, tissueDB.getPtnm(), tissue.getPtnm());
@@ -277,7 +290,14 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
 
             // FREEZE TIME
             if (tissue.getFreezeDate() != null) {
-                if (!tissueDB.getFreezeDate().equals(tissue.getFreezeDate())) {
+
+                if (tissueDB.getFreezeDate() == null) {
+                    instanceImportResult.addChange(Tissue.PROP_FREEZEDATE, tissueDB.getFreezeDate(), tissue.getFreezeDate());
+                    // Change
+                    tissueDB.setFreezeDate(tissue.getFreezeDate());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                } else if (!tissueDB.getFreezeDate().equals(tissue.getFreezeDate())) {
                     // Not equals
                     // Report
                     instanceImportResult.addChange(Tissue.PROP_FREEZEDATE, tissueDB.getFreezeDate(), tissue.getFreezeDate());
@@ -293,9 +313,16 @@ public class SampleServiceImpl extends BasicServiceImpl implements SampleService
             DiagnosisMaterial diagnosisMaterial = (DiagnosisMaterial) sample;
             DiagnosisMaterial diagnosisMaterialDB = (DiagnosisMaterial) sample;
 
-            // FREEZE TIME
+            // DIAGNOSIS
             if (diagnosisMaterial.getDiagnosis() != null) {
-                if (!diagnosisMaterialDB.getDiagnosis().equals(diagnosisMaterial.getDiagnosis())) {
+                if (diagnosisMaterialDB.getDiagnosis() == null) {
+                    instanceImportResult.addChange(DiagnosisMaterial.PROP_DIAGNOSIS, diagnosisMaterialDB.getDiagnosis(), diagnosisMaterial.getDiagnosis());
+                    // Change
+                    diagnosisMaterialDB.setDiagnosis(diagnosisMaterial.getDiagnosis());
+                    // Original amount must stay unchanged
+                    isChanged = true;
+                }
+                else if (!diagnosisMaterialDB.getDiagnosis().equals(diagnosisMaterial.getDiagnosis())) {
                     // Not equals
                     // Report
                     instanceImportResult.addChange(DiagnosisMaterial.PROP_DIAGNOSIS, diagnosisMaterialDB.getDiagnosis(), diagnosisMaterial.getDiagnosis());

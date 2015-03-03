@@ -17,10 +17,11 @@
             <tr>
                 <s:layout-render name="${componentManager.tableRow}" record="${item}"/>
                 <td class="action">
-
+                    <span class="pull-right">
                         <c:if test="${not empty targetBean}">
                         <%--fix styles of button--%>
                         <div class="tableAction">
+
                             <s:link beanclass="${targetBean}" event="${eventName}"
                                     class="btn btn-info btnMargin">
 
@@ -32,8 +33,10 @@
                                 <s:param name="${paramName}" value="${item.id}"/>
                                 <f:message key="detail"/>
                             </s:link>
+
                         </div>
                         </c:if>
+                        </span>
                 </td>
             </tr>
         </c:forEach>

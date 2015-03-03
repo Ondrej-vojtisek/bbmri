@@ -100,8 +100,15 @@ public class RequestActionBean extends AbstractSampleQuestionActionBean {
     /* Here can be self approve - withdraw */
     @DontValidate
     @HandlesEvent("approve")
-    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor and isSampleQuestionNew}"})
+    @RolesAllowed({"biobank_operator if ${allowedBiobankExecutor}"})
     public Resolution approve() {
+
+        if(!getIsSampleQuestionNew()){
+
+            return null;
+        }
+
+
         if (!sampleRequestService.approve(getSampleQuestionId(), getContext().getValidationErrors(), getContext().getMyId())) {
             return new ForwardResolution(RequestActionBean.class)
                     .addParameter("sampleQuestionId", getSampleQuestionId())

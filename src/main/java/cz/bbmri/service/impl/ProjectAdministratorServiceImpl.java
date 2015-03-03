@@ -207,7 +207,7 @@ public class ProjectAdministratorServiceImpl extends BasicServiceImpl implements
 
         ProjectAdministrator pa = projectAdministratorDao.get(projectDao.get(objectId), userDao.get(userId));
 
-        if (isNull(pa, "pa", null)) return false;
+        if (pa == null) return false;
 
         return pa.getPermission().include(permission);
     }

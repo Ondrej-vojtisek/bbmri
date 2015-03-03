@@ -18,6 +18,7 @@
                 <s:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
 
                 <td class="action">
+                    <span class="pull-right">
                     <security:allowed event="downloadAttachment">
                         <div class="tableAction">
                             <s:link beanclass="cz.bbmri.action.biobank.BiobankAttachmentsActionBean"
@@ -46,7 +47,7 @@
                             </div>
                         </s:form>
                     </security:allowed>
-
+                    </span>
                 </td>
 
             </tr>

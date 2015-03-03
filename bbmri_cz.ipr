@@ -517,6 +517,11 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
+  <component name="dataSourceStorageLocal">
+    <data-source name="MyPersistenceUnit" uuid="8413bea8-bc1a-4802-890d-93af081997e0">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+  </component>
   <component name="libraryTable">
     <library name="Maven: antlr:antlr:2.7.6">
       <CLASSES>
@@ -1095,4 +1100,3 @@
     </library>
   </component>
 </project>
-

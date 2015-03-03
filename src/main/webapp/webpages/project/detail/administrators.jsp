@@ -56,6 +56,7 @@
 
                     <td class="action">
                         <security:allowed event="removeAdministrator">
+
                             <s:form beanclass="${actionBean.name}">
                                 <s:hidden name="projectId" value="${actionBean.projectId}"/>
                                 <s:hidden name="adminId" value="${item.id}"/>
@@ -64,6 +65,7 @@
                                 <s:submit name="removeAdministrator" onclick="return confirm('${question}')"
                                           class="btn btn-danger"/>
                             </s:form>
+
                         </security:allowed>
                     </td>
                 </tr>

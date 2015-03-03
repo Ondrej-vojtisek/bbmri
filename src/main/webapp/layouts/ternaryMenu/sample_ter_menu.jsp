@@ -40,13 +40,13 @@
 
 <%-- -------------------------------------------------------------------- --%>
 
-<security:allowed bean="samplePositionsBean" event="positions">
-    <li <c:if test="${ternarymenu == 'positions'}"> class="active" </c:if> >
-        <s:link beanclass="cz.bbmri.action.sample.SamplePositionsActionBean" event="positions">
-            <s:param name="sampleId" value="${actionBean.sampleId}"/>
-            <f:message key="cz.bbmri.entities.infrastructure.Position.positions"/>
-        </s:link></li>
-</security:allowed>
+<%--<security:allowed bean="samplePositionsBean" event="positions">--%>
+    <%--<li <c:if test="${ternarymenu == 'positions'}"> class="active" </c:if> >--%>
+        <%--<s:link beanclass="cz.bbmri.action.sample.SamplePositionsActionBean" event="positions">--%>
+            <%--<s:param name="sampleId" value="${actionBean.sampleId}"/>--%>
+            <%--<f:message key="cz.bbmri.entities.infrastructure.Position.positions"/>--%>
+        <%--</s:link></li>--%>
+<%--</security:allowed>--%>
 
 <%-- -------------------------------------------------------------------- --%>
 

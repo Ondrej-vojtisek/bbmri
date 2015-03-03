@@ -36,10 +36,12 @@
                         <tr>
                             <s:layout-render name="/webpages/component/detail/user/row.jsp" record="${user}"/>
                             <td class="action">
+                                <span class="pull-right">
                                 <s:link beanclass="${actionBean.name}" event="detail" class="btn btn-primary">
                                     <s:param name="userId" value="${user.id}"/>
                                     <f:message key="detail"/>
                                 </s:link>
+                                    </span>
                             </td>
                         </tr>
                     </c:forEach>

@@ -77,11 +77,9 @@
                 <xs:group ref="data:sampleNos"/>
                 <xs:element ref="data:materialType"/>
                 <xs:element minOccurs="0" ref="data:TNM"/>
-                <xs:element ref="data:pTNM"/>
-                <xs:choice>
-                    <xs:element ref="data:morphology"/>
-                    <xs:element ref="data:grading"/>
-                </xs:choice>
+                <xs:element minOccurs="0" ref="data:pTNM"/>
+                <xs:element minOccurs="0" ref="data:morphology"/>
+                <xs:element minOccurs="0" ref="data:grading"/>
                 <xs:element ref="data:cutTime"/>
                 <xs:element ref="data:freezeTime"/>
                 <xs:element ref="data:retrieved"/>
@@ -89,23 +87,12 @@
             <xs:attributeGroup ref="data:sampleIdentification"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="TNM">
+    <xs:element name="TNM" type="xs:string">
         <xs:annotation>
             <xs:documentation>TNM is not stored in current version of HIS (Hospital Information System) GreyFox</xs:documentation>
         </xs:annotation>
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:maxLength value="7"/>
-            </xs:restriction>
-        </xs:simpleType>
     </xs:element>
-    <xs:element name="pTNM">
-        <xs:simpleType>
-            <xs:restriction base="xs:string">
-                <xs:maxLength value="7"/>
-            </xs:restriction>
-        </xs:simpleType>
-    </xs:element>
+    <xs:element name="pTNM" type="xs:string"/>
     <xs:element name="cutTime">
         <xs:simpleType>
             <xs:union memberTypes="xs:dateTime xs:date"/>
@@ -157,7 +144,7 @@
     <xs:element name="diagnosis">
         <xs:simpleType>
             <xs:restriction base="xs:string">
-                <xs:maxLength value="5"/>
+                <xs:maxLength value="6"/>
             </xs:restriction>
         </xs:simpleType>
     </xs:element>

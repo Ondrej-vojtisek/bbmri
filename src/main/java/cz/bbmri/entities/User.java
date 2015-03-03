@@ -21,7 +21,7 @@ public class User implements Serializable /*, Comparable<User>*/ {
     private static final long serialVersionUID = 1L;
 
     /**
-     * EduId defines few values of vield affiliation. In BBMRI only users with employee@ are allowed to access
+     * EduId defines few values of field affiliation. In BBMRI only users with employee@ are allowed to access
      */
     private static final String AFFILIATION_EMPLOYEE = "employee@";
 

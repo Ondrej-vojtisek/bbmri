@@ -148,7 +148,9 @@ public class PatientDataParser extends AbstractParser {
             patient.setSex(Sex.MALE);
         } else if (sex.equals(Sex.FEMALE.toString())) {
             patient.setSex(Sex.FEMALE);
-        } else {
+        } else if (sex.equals(Sex.UNKNOWN.toString())) {
+            patient.setSex(Sex.UNKNOWN);
+        }else {
             System.err.println("Patient sex wasn't recognized. Patient sex was: " + sex);
             return null;
         }

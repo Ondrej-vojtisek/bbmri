@@ -24,6 +24,7 @@
             <tr>
                 <td>${systemRole}</td>
                 <td class="action">
+                    <span class="pull-right">
                     <security:allowed event="removeAdministratorRole">
                     <c:if test="${systemRole == 'ADMINISTRATOR'}">
 
@@ -52,6 +53,7 @@
                     </s:form>
                     </c:if>
                     </security:allowed>
+                        </span>
                 <td>
             </tr>
         </c:forEach>
@@ -117,13 +119,14 @@
                         <td>${ba.biobank.abbreviation}</td>
                         <td>${ba.permission}</td>
                         <td class="action">
+                            <span class="pull-right">
 
                                 <s:link beanclass="cz.bbmri.action.biobank.BiobankActionBean" event="detail"
                                         class="btn btn-info">
                                     <s:param name="biobankId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
-
+                            </span>
                         </td>
                     </tr>
             </c:forEach>
@@ -154,13 +157,14 @@
                         <td>${pa.permission}</td>
 
                         <td class="action">
+                            <span class="pull-right">
 
                                 <s:link beanclass="cz.bbmri.action.project.ProjectActionBean" event="detail"
                                         class="btn btn-info">
                                     <s:param name="projectId" value="${roleDTO.referenceId}"/>
                                     <f:message key="detail"/>
                                 </s:link>
-
+                            </span>
                         </td>
                     </tr>
             </c:forEach>

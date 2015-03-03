@@ -66,7 +66,6 @@
                                           class="btn btn-danger"/>
                             </s:form>
                         </security:allowed>
-
                     </td>
                 </tr>
             </c:forEach>

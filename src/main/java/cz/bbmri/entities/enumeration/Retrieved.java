@@ -15,8 +15,8 @@ package cz.bbmri.entities.enumeration;
 public enum Retrieved {
 
     PREOPERATIONAL("preoperational"),
-    OPERATIONAL("operational"),
-    POST("post"),
+        OPERATIONAL("operational"),
+        POST("post"),
     UNKNOWN("unknown");
 
     private final String state;

@@ -115,9 +115,6 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean<T> {
     }
 
     public boolean getAllowedBiobankVisitor() {
-
-        System.err.println("BiobankId: " + biobankId);
-
         return biobankAdministratorService.hasPermission(Permission.VISITOR, biobankId, getContext().getMyId());
     }
 

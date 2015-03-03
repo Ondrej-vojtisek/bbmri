@@ -30,11 +30,12 @@ tissue =
         sampleNos,
         materialType,
         ## TNM is not stored in current version of HIS (Hospital Information System) GreyFox
-        element TNM { xsd:string { maxLength = "7" } }?,
-        element pTNM { xsd:string { maxLength = "7"} },
+        element TNM { xsd:string }?,
+        element pTNM { xsd:string }?,
         ## Choice between morphology and grading in case morphology is not present but grading is.
         ## Otherwise grading is normally part of morphology classification.
-        ( morphology | grading ),
+        morphology ?,
+        grading ?,
         element cutTime {  xsd:dateTime | xsd:date },
 		element freezeTime { xsd:dateTime | xsd:date },
         retrieved
@@ -64,7 +65,7 @@ diagnosisMaterial =
     element diagnosisMaterial {
         sampleIdentification,
 		materialType,
-		element diagnosis { xsd:string { maxLength = "5" } },
+		element diagnosis { xsd:string { maxLength = "6" } },
 		element takingDate { xsd:dateTime | xsd:date },
 		retrieved
     }

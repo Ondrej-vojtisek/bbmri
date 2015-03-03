@@ -39,6 +39,7 @@
                         <tr>
                             <s:layout-render name="/webpages/component/detail/user/row.jsp" record="${user}"/>
                             <td class="action">
+                                <span class="pull-right">
                                 <s:form beanclass="cz.bbmri.action.project.ProjectAdministratorsActionBean">
 
                                     <s:select name="permission">
@@ -50,6 +51,7 @@
 
                                     <s:submit name="addAdministrator" class="btn btn-primary"/>
                                 </s:form>
+                                    </span>>
                             </td>
                         </tr>
                     </c:forEach>

@@ -1,0 +1,49 @@
+default namespace = "http://www.bbmri.cz/schemas/biobank/data"
+
+start =
+	element patient {
+		## identifier of a patient (interni identifikator pacienta)
+		attribute id { xsd:string { maxLength = "10" } },
+		## informed consent (informovany souhlas)
+		attribute consent { xsd:boolean },
+        ## year of birth
+        attribute year { xsd:gYear },
+        ## month of birth - day is skipped to preserve k-anonymity
+	    attribute month { xsd:gMonth }?,
+        ## sex of patient
+        attribute sex { "male" | "female" | "unknown"},
+        ## biobank identifier
+	    attribute biobank { xsd:string { maxLength = "6" } },
+		## samples in long-term storage part of the biobank
+		element LTS {
+			( sample )*
+		}?,
+		## samples in short-term storage part of the biobank
+		element STS {
+			( sample )*
+		}?
+	}
+
+sample =
+    element sample {
+        attribute id { xsd:string { maxLength = "10" } },
+        attribute year { xsd:gYear } ?,
+        attribute number { xsd:int } ?,
+        element materialType { xsd:string { maxLength = "4" } } ?,
+        element samplesNo { xsd:int } ?,
+        element availableSamplesNo { xsd:int } ?,
+        element TNM { xsd:string }?,
+        element pTNM { xsd:string }?,
+        element morphology { xsd:string { maxLength = "7" } } ?,
+        element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
+        element takingTime {  xsd:dateTime } ?,
+        element freezeTime { xsd:dateTime } ?,
+        element retrieved { "preoperational" | "operational" | "post" | "unknown" } ?,
+        element diagnosis { xsd:string { maxLength = "5" } } ?
+    }
+
+    morphology =
+        attribute version { xsd:int },
+        element morphology { xsd:string { maxLength = "7" } }
+
+
