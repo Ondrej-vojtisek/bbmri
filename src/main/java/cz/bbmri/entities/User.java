@@ -30,39 +30,14 @@ public class User implements Serializable /*, Comparable<User>*/ {
     @Column(nullable = false)
     private Long id;
 
-    /* eppn in Shibboleth*/
-    @Column(unique = true)
-    private String eppn;
-
-    /* targeted-id in Shibboleth*/
-    @Column(unique = true)
-    private String targetedId;
-
-    /* persistent-id in Shibboleth*/
-    @Column(unique = true)
-    private String persistentId;
-
-    /* GivenName in Shibboleth*/
-    private String name;
-
-    /* sn in Shibboleth */
-    private String surname;
-
-    /* mail in Shibboleth*/
-    private String email;
-
-    /* o in Shibboleth*/
-    private String organization;
-
-    /* displayName in Shibboleth*/
-    private String displayName;
-
-//    /* affiliation in Shibboleth*/
-//    private String affiliation;
-
     // Stored as SHA-256 hash
     private String password;
 
+    @Type(type = "timestamp")
+    private Date created;
+
+    @Type(type = "timestamp")
+    private Date lastLogin;
 
 
     @OneToOne
@@ -87,28 +62,9 @@ public class User implements Serializable /*, Comparable<User>*/ {
     @Enumerated(EnumType.STRING)
     private Set<SystemRole> systemRoles = new HashSet<SystemRole>();
 
-    @Type(type = "timestamp")
-    private Date created;
-
-    @Type(type = "timestamp")
-    private Date lastLogin;
-
     @OneToOne(mappedBy="user", targetEntity=cz.bbmri.entities.Shibboleth.class, fetch=FetchType.LAZY)
    	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})
    	private Shibboleth shibboleth;
-
-    /**
-     * Flag about the origin of user
-     */
-    private boolean shibbolethUser;
-
-    public User() {
-        }
-
-    public User(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
 
     public String getPassword() {
         return password;
@@ -116,22 +72,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getId() {
@@ -152,20 +92,16 @@ public class User implements Serializable /*, Comparable<User>*/ {
     }
 
     public String getWholeName() {
-        if (displayName != null)
-            return displayName;
+        if(shibboleth != null){
+            if(shibboleth.getDisplayName() != null){
+                return shibboleth.getDisplayName();
+            } else{
+                 // Fallback
+                return shibboleth.getName() + " " + shibboleth.getSurname();
+            }
+        }
 
-        // Fallback for non-shibboleth access
-
-        return name + " " + surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return "empty name";
     }
 
     public Set<BiobankAdministrator> getBiobankAdministrators() {
@@ -216,54 +152,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
         this.lastLogin = lastLogin;
     }
 
-    public String getEppn() {
-        return eppn;
-    }
-
-    public void setEppn(String eppn) {
-        this.eppn = eppn;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public boolean isShibbolethUser() {
-        return shibbolethUser;
-    }
-
-    public void setShibbolethUser(boolean shibbolethUser) {
-        this.shibbolethUser = shibbolethUser;
-    }
-
-    public String getTargetedId() {
-        return targetedId;
-    }
-
-    public void setTargetedId(String targetedId) {
-        this.targetedId = targetedId;
-    }
-
-    public String getPersistentId() {
-        return persistentId;
-    }
-
-    public void setPersistentId(String persistentId) {
-        this.persistentId = persistentId;
-    }
-
     public List<SampleReservation> getSampleReservations() {
         return sampleReservations;
     }
@@ -311,14 +199,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", eppn='" + eppn + '\'' +
-                ", targetedId='" + targetedId + '\'' +
-                ", persistentId='" + persistentId + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", organization='" + organization + '\'' +
-                ", displayName='" + displayName + '\'' +
                 '}';
     }
 }

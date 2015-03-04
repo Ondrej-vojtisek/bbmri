@@ -31,4 +31,5 @@ public interface UserSettingDao {
      * @param userSetting
      */
     void remove (UserSetting userSetting);
+
 }

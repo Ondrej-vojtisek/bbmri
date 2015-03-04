@@ -15,25 +15,20 @@ import java.util.List;
 
 public interface UserDao extends BasicDao<User> {
 
-    /**
-     * Find similar user to one given as argument. NOT case sensitive search.
-     *
-     * @param user - search criteria
-     * @return list of users similar to given one
-     */
-    List<User> findUser(User user);
+    // TODO
+    List<User> findUser(String name, String surname, String email, int requiredResults);
 
-    /**
-     * Find user by its identifier from eduId federation. All arguments can be unique identifier. Not all identity
-     * providers uses the same one.
-     * Identifiers are tested gradually one by one. First is tested eppn.
-     *
-     * @param eppn - id used in eduId
-     * @param targetedId - id used in eduId
-     * @param persitentId - id used in eduId
-     * @return User identifier by at least one of given arguments or null
-     */
-    User get(String eppn, String targetedId, String persitentId);
+//    /**
+//     * Find user by its identifier from eduId federation. All arguments can be unique identifier. Not all identity
+//     * providers uses the same one.
+//     * Identifiers are tested gradually one by one. First is tested eppn.
+//     *
+//     * @param eppn - id used in eduId
+//     * @param targetedId - id used in eduId
+//     * @param persitentId - id used in eduId
+//     * @return User identifier by at least one of given arguments or null
+//     */
+//    User get(String eppn, String targetedId, String persitentId);
 
     /**
      * Return all users with given system role. For instance all DEVELOPERS.

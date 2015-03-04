@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.constant.Constant;
 import cz.bbmri.service.UserService;
@@ -17,7 +18,7 @@ import java.util.List;
 public class FindActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean
-    protected UserService userService;
+    protected UserDao userDao;
 
     private User userFind;
 
@@ -30,10 +31,10 @@ public class FindActionBean<T> extends PermissionActionBean<T> {
         this.userFind = userFind;
     }
 
-    public List<User> getResults() {
-        if (userFind == null) {
-            return null;
-        }
-        return userService.find(userFind, Constant.MAXIMUM_FIND_RESULTS);
-    }
+//    public List<User> getResults() {
+//        if (userFind == null) {
+//            return null;
+//        }
+//        return userDao.findUser(userFind, 5);
+//    }
 }

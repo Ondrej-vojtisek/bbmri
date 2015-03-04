@@ -1,6 +1,7 @@
 package cz.bbmri.action.support;
 
 import cz.bbmri.action.base.ComponentActionBean;
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.entities.webEntities.Breadcrumb;
@@ -24,7 +25,7 @@ import java.util.List;
 public class SupportActionBean extends ComponentActionBean {
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
 
     public SupportActionBean() {
         setComponentManager(new ComponentManager());
@@ -43,10 +44,10 @@ public class SupportActionBean extends ComponentActionBean {
     }
 
     public List<User> getAllAdministrators() {
-        return userService.getAllByRole(SystemRole.ADMINISTRATOR);
+        return userDao.getAllWithSystemRole(SystemRole.ADMINISTRATOR);
     }
 
     public List<User> getAllDevelopers() {
-        return userService.getAllByRole(SystemRole.DEVELOPER);
+        return userDao.getAllWithSystemRole(SystemRole.DEVELOPER);
     }
 }

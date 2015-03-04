@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import cz.bbmri.service.UserService;
@@ -24,10 +25,10 @@ public class ErrorActionBean extends BasicActionBean {
     private final String NOT_AUTHORIZED = "/errors/not_authorized_to_access.jsp";
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
 
     public List<User> getDevelopers(){
-        return userService.getAllByRole(SystemRole.DEVELOPER);
+        return userDao.getAllWithSystemRole(SystemRole.DEVELOPER);
     }
 
     @DefaultHandler

@@ -70,7 +70,7 @@ public class CreateActionBean extends FindActionBean<Biobank> {
 
     public User getNewAdministrator() {
         if (adminId != null) {
-            return userService.get(adminId);
+            return userDao.get(adminId);
         }
         return null;
     }

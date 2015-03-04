@@ -41,7 +41,7 @@ public class PermissionComparator implements Comparator<Object> {
             atr2 = ((ProjectAdministrator) admin2).getUser();
         }
 
-        if(!instanceOf){
+        if (!instanceOf) {
             logger.debug("Compared objects are null!");
             throw new ClassCastException("Objects are not comparable with PermissionComparator");
         }
@@ -58,18 +58,21 @@ public class PermissionComparator implements Comparator<Object> {
             return Integer.MAX_VALUE;
         }
 
-        if (atr1.getSurname() == null) {
-            if (atr2.getSurname() == null) {
-                return 0;
-            } else {
-                return Integer.MIN_VALUE;
-            }
-        }
+//        if (atr1.getSurname() == null) {
+//            if (atr2.getSurname() == null) {
+//                return 0;
+//            } else {
+//                return Integer.MIN_VALUE;
+//            }
+//        }
+//
+//        if (atr2.getSurname() == null) {
+//            return Integer.MAX_VALUE;
+//        }
+//
+//        return atr1.getSurname().compareTo(atr2.getSurname());
 
-        if (atr2.getSurname() == null) {
-            return Integer.MAX_VALUE;
-        }
-
-        return atr1.getSurname().compareTo(atr2.getSurname());
+        // TODO
+        return -1;
     }
 }

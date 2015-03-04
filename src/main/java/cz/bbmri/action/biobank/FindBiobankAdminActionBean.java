@@ -1,6 +1,7 @@
 package cz.bbmri.action.biobank;
 
 import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.webEntities.Breadcrumb;
 import cz.bbmri.entities.webEntities.ComponentManager;
@@ -20,7 +21,7 @@ import java.util.List;
 public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
 
     private User userFind;
 
@@ -46,12 +47,12 @@ public class FindBiobankAdminActionBean extends PermissionActionBean<User> {
         this.userFind = userFind;
     }
 
-    public List<User> getResults() {
-        if (userFind == null) {
-            return null;
-        }
-        return userService.find(userFind, 5);
-    }
+//    public List<User> getResults() {
+//        if (userFind == null) {
+//            return null;
+//        }
+//        return userDao.findUser(userFind);
+//    }
 
     @DefaultHandler
     public Resolution display() {

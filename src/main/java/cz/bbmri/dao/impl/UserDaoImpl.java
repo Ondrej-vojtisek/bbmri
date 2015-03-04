@@ -20,56 +20,63 @@ import java.util.List;
 @Repository("userDAO")
 public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
-    public List<User> findUser(User user){
+    public List<User> findUser(String name, String surname, String email, int requiredResults){
 
-        notNull(user);
         typedQuery = em.createQuery("" +
                 "SELECT p " +
                 "FROM User p WHERE " +
-                    "LOWER(p.name) LIKE :nameParam " +
-                    "OR LOWER(p.surname) LIKE :surnameParam " +
-                    "OR LOWER(p.email) LIKE :emailParam " +
+                    "LOWER(p.shibboleth.name) LIKE :nameParam " +
+                    "OR LOWER(p.shibboleth.surname) LIKE :surnameParam " +
+                    "OR LOWER(p.shibboleth.email) LIKE :emailParam " +
                     "ORDER BY " +
                         "CASE " +
-                            "WHEN (LOWER(p.email) = :emailParam) THEN 100 " +
-                            "WHEN (LOWER(p.surname) = :surnameParam) THEN 50 " +
-                            "WHEN (LOWER(p.name) = :nameParam) THEN 30 " +
+                            "WHEN (LOWER(p.shibboleth.email) = :emailParam) THEN 100 " +
+                            "WHEN (LOWER(p.shibboleth.surname) = :surnameParam) THEN 50 " +
+                            "WHEN (LOWER(p.shibboleth.name) = :nameParam) THEN 30 " +
                             "ELSE 0 " +
                         "END " +
                     "DESC", User.class);
 
-        typedQuery.setParameter("nameParam", (user.getName() != null ? "%" + user.getName().toLowerCase() + "%"  : " "));
-        typedQuery.setParameter("surnameParam", (user.getSurname() != null ? "%" + user.getSurname().toLowerCase() + "%" : " "));
-        typedQuery.setParameter("emailParam", (user.getEmail() != null ? "%" + user.getEmail().toLowerCase() + "%" : " "));
+        typedQuery.setParameter("nameParam", (name != null ? "%" + name.toLowerCase() + "%"  : " "));
+        typedQuery.setParameter("surnameParam", (surname != null ? "%" + surname.toLowerCase() + "%" : " "));
+        typedQuery.setParameter("emailParam", (email != null ? "%" + email.toLowerCase() + "%" : " "));
 
-        return typedQuery.getResultList();
+        List<User> users = typedQuery.getResultList();
+          if (users == null) {
+              return null;
+          }
+          if (requiredResults > users.size()) {
+              return users;
+          }
+
+        return users.subList(0, requiredResults);
     }
 
-    public User get(String eppn, String targetedId, String persistentId){
-
-//        primary shibboleth identifier
-        if(eppn != null){
-            typedQuery = em.createQuery("SELECT p FROM User p WHERE p.eppn = :eppnParam", User.class);
-            typedQuery.setParameter("eppnParam", eppn);
-            return getSingleResult();
-        }
-
-//        secondary shibboleth identifier
-        else if(targetedId != null){
-            typedQuery = em.createQuery("SELECT p FROM User p WHERE p.targetedId = :targetedIdParam", User.class);
-            typedQuery.setParameter("targetedIdParam", targetedId);
-            return getSingleResult();
-        }
-
-//        ternary shibboleth identifier
-        else if(persistentId != null){
-            typedQuery = em.createQuery("SELECT p FROM User p WHERE p.eppn = :persistentIdParam", User.class);
-            typedQuery.setParameter("persistentIdParam", persistentId);
-            return getSingleResult();
-        }
-
-        return null;
-    }
+//    public User get(String eppn, String targetedId, String persistentId){
+//
+////        primary shibboleth identifier
+//        if(eppn != null){
+//            typedQuery = em.createQuery("SELECT p FROM User p WHERE p.shibboleth.eppn = :eppnParam", User.class);
+//            typedQuery.setParameter("eppnParam", eppn);
+//            return getSingleResult();
+//        }
+//
+////        secondary shibboleth identifier
+//        else if(targetedId != null){
+//            typedQuery = em.createQuery("SELECT p FROM User p WHERE p.shibboleth.targetedId = :targetedIdParam", User.class);
+//            typedQuery.setParameter("targetedIdParam", targetedId);
+//            return getSingleResult();
+//        }
+//
+////        ternary shibboleth identifier
+//        else if(persistentId != null){
+//            typedQuery = em.createQuery("SELECT p FROM User p WHERE p..shibboleth.eppn = :persistentIdParam", User.class);
+//            typedQuery.setParameter("persistentIdParam", persistentId);
+//            return getSingleResult();
+//        }
+//
+//        return null;
+//    }
 
     public List<User> getAllWithSystemRole(SystemRole systemRole){
         notNull(systemRole);
