@@ -1,5 +1,7 @@
 package cz.bbmri.action.base;
 
+import javax.annotation.security.PermitAll;
+
 /**
  * All .jsp files are defined here
  *

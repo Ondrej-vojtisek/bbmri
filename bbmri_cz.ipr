@@ -71,7 +71,6 @@
     <artifact type="exploded-war" name="bbmri:war exploded">
       <output-path>$PROJECT_DIR$/target/auth</output-path>
       <root id="root">
-        <element id="javaee-facet-resources" facet="bbmri/web/Web" />
         <element id="directory" name="WEB-INF">
           <element id="directory" name="classes">
             <element id="module-output" name="bbmri" />
@@ -94,13 +93,6 @@
             <element id="library" level="project" name="Maven: com.google.guava:guava:r09" />
             <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-core:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
-            <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.apache.derby:derbyclient:10.8.1.2" />
             <element id="library" level="project" name="Maven: postgresql:postgresql:9.1-901.jdbc4" />
             <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.18" />
@@ -110,13 +102,20 @@
             <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.1" />
             <element id="library" level="project" name="Maven: dom4j:dom4j:1.6.1" />
             <element id="library" level="project" name="Maven: org.hibernate:hibernate-commons-annotations:3.2.0.Final" />
-            <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
             <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
             <element id="library" level="project" name="Maven: cglib:cglib:2.2" />
             <element id="library" level="project" name="Maven: asm:asm:3.1" />
             <element id="library" level="project" name="Maven: javassist:javassist:3.12.0.GA" />
+            <element id="library" level="project" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" />
             <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.3" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-core:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-asm:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-web:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-context:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.1.2.RELEASE" />
+            <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: org.springframework:spring-orm:3.1.2.RELEASE" />
             <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
             <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom-api:1.2.11" />
@@ -128,6 +127,10 @@
             <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
           </element>
         </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/target/MANIFEST.MF" />
+        </element>
+        <element id="javaee-facet-resources" facet="bbmri/web/Web" />
       </root>
     </artifact>
   </component>

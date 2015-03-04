@@ -1,6 +1,8 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.entities.Shibboleth;
 import cz.bbmri.entities.User;
 import cz.bbmri.service.UserService;
 import cz.bbmri.service.exceptions.AuthorizationException;
@@ -22,24 +24,12 @@ public class WelcomeActionBean extends BasicActionBean {
     private String name;
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
 
     public String getName() {
         return name;
     }
 
-    private User initializeUser() {
-        User user = new User();
-        user.setDisplayName(getContext().getShibbolethDisplayName());
-        user.setEmail(getContext().getShibbolethMail());
-        user.setEppn(getContext().getShibbolethEppn());
-        user.setOrganization(getContext().getShibbolethOrganization());
-        user.setAffiliation(getContext().getShibbolethAffiliation());
-        user.setName(getContext().getShibbolethGivenName());
-        user.setSurname(getContext().getShibbolethSn());
-        user.setShibbolethUser(true);
-        return user;
-    }
 
     @DontValidate
     @DefaultHandler
@@ -47,18 +37,17 @@ public class WelcomeActionBean extends BasicActionBean {
 
         if (getContext().getIsShibbolethSession()) {
 
-            User user = initializeUser();
-            Long id;
-            try {
-                id = userService.loginShibbolethUser(user, getContext().getLocale());
-            } catch (AuthorizationException ex) {
+            Shibboleth shibboleth = Shibboleth.initiate(getContext());
+
+            if (!shibbolethSignIn(shibboleth)) {
                 return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
             }
 
-            user = userService.get(id);
+            Long id = getContext().getMyId();
+
+            User user = userDao.get(id);
 
             if (user != null) {
-                getContext().setLoggedUser(user);
                 getContext().getMessages().add(new SimpleMessage("Succesfull login"));
 
                 // Switch language to one prefered by user - and stored in DB

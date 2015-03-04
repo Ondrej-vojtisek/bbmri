@@ -146,6 +146,7 @@ public class J2EESecurityManager implements SecurityManager {
      * @return {@link Boolean#TRUE TRUE} if the user is authenticated, {@link Boolean#FALSE FALSE} if not, and {@code null} if undecided
      */
     Boolean isUserAuthenticated(ActionBean bean, Method handler){
+        System.err.println("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         logger.error("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         //return bean.getContext().getRequest().getUserPrincipal() != null;
         return Boolean.FALSE;

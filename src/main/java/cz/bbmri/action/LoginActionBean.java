@@ -2,7 +2,10 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.converter.PasswordTypeConverter;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.dao.UserSettingDao;
 import cz.bbmri.entities.User;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.service.UserService;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -13,8 +16,9 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
+
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -28,7 +32,10 @@ public class LoginActionBean extends BasicActionBean {
     private static final String INDEX = "/index.jsp";
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
+
+    @SpringBean
+    private UserSettingDao userSettingDao;
 
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1, on = "login")
@@ -72,9 +79,7 @@ public class LoginActionBean extends BasicActionBean {
             if (!user.getUserSetting().getLocale().equals(getContext().getLocale())) {
                 return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getUserSetting().getLocale());
             }
-
         }
-
         return new RedirectResolution(DashboardActionBean.class);
     }
 
@@ -82,13 +87,44 @@ public class LoginActionBean extends BasicActionBean {
     @ValidationMethod
     public void validateUser() {
 
-        if (id != null && password != null) {
-
-            user = userService.login(id, password, getContext().getLocale());
-        }
-        if (user == null) {
+        if (id == null || password == null) {
+            System.err.println("1");
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
+            return;
         }
+
+        User userDB = userDao.get(id);
+        if (userDB == null) {
+            System.err.println("2");
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
+            return;
+        }
+
+        if(userDB.getPassword() == null){
+            System.err.println("3");
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
+            return;
+        }
+
+        if (!userDB.getPassword().equals(password)) {
+            System.err.println("4");
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
+            return;
+        }
+
+        // hack to initiace userSetting for all test users during login
+        if (userDB.getUserSetting() == null) {
+            UserSetting setting = new UserSetting();
+            setting.setUser(userDB);
+            if (getContext().getLocale() != null) {
+                setting.setLocale(getContext().getLocale().getLanguage());
+            }
+            userSettingDao.create(setting);
+        }
+
+        userDB.setLastLogin(new Date());
+        userDao.update(userDB);
+        user = userDB;
     }
 
     @DontValidate

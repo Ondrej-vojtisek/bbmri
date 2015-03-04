@@ -116,7 +116,7 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         if (user.getSurname() != null) userDB.setSurname(user.getSurname());
         if (user.getOrganization() != null) userDB.setOrganization(user.getOrganization());
         if (user.getDisplayName() != null) userDB.setDisplayName(user.getDisplayName());
-        if (user.getAffiliation() != null) userDB.setAffiliation(user.getAffiliation());
+//        if (user.getAffiliation() != null) userDB.setAffiliation(user.getAffiliation());
         if (user.getLastLogin() != null) userDB.setLastLogin(user.getLastLogin());
 
         // Set mail only if user has no email set
@@ -320,12 +320,9 @@ public class UserServiceImpl extends BasicServiceImpl implements UserService {
         return userDB;
     }
 
-    public Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException {
+    public Long loginShibbolethUser(User user, Locale locale) {
         if (isNull(user, "user", null)) return null;
 
-        if (!user.isEmployee()) {
-            throw new AuthorizationException("Only employees are authorized to access");
-        }
 
         // Shibboleth identifiers of user
         User userDB = get(user.getEppn(), user.getTargetedId(), user.getPersistentId());

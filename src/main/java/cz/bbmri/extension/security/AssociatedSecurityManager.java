@@ -2,6 +2,7 @@ package cz.bbmri.extension.security;
 
 import cz.bbmri.action.LoginActionBean;
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.entities.Shibboleth;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import net.sourceforge.stripes.action.ActionBean;
@@ -37,11 +38,14 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     private User getUser(ActionBean bean) {
 
+
+
         BasicActionBean basicBean = (BasicActionBean) bean;
 
         // Compare the identifier of given authenticated user
         Boolean set = false;
         if (basicBean.getContext().getMyId() != null) {
+
             set = true;
         }
 
@@ -56,11 +60,10 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         // This solves the situation when shibboleth user tries to access direct URL inside bbmri
         // instead of index
         else if (!set && basicBean.isShibbolethUser()) {
-
             // Sign in should return true on success
-            user = basicBean.initializeShibbolethUser();
+            Shibboleth shibboleth = Shibboleth.initiate(basicBean.getContext());
 
-            if (!basicBean.shibbolethSignIn(user)) {
+            if (!basicBean.shibbolethSignIn(shibboleth)) {
                 user = null;
                 logger.debug("Sign in of shibboleth user failed");
                 return null;
@@ -84,6 +87,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     @Override
     protected Boolean isUserAuthenticated(ActionBean bean, Method handler) {
+        System.err.println("AssociateSecMan: " + getUser(bean));
         return null != getUser(bean);
     }
 

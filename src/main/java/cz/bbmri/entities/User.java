@@ -57,11 +57,13 @@ public class User implements Serializable /*, Comparable<User>*/ {
     /* displayName in Shibboleth*/
     private String displayName;
 
-    /* affiliation in Shibboleth*/
-    private String affiliation;
+//    /* affiliation in Shibboleth*/
+//    private String affiliation;
 
     // Stored as SHA-256 hash
     private String password;
+
+
 
     @OneToOne
     @PrimaryKeyJoinColumn
@@ -90,6 +92,10 @@ public class User implements Serializable /*, Comparable<User>*/ {
 
     @Type(type = "timestamp")
     private Date lastLogin;
+
+    @OneToOne(mappedBy="user", targetEntity=cz.bbmri.entities.Shibboleth.class, fetch=FetchType.LAZY)
+   	@org.hibernate.annotations.Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.LOCK})
+   	private Shibboleth shibboleth;
 
     /**
      * Flag about the origin of user
@@ -234,14 +240,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
         this.displayName = displayName;
     }
 
-    public String getAffiliation() {
-        return affiliation;
-    }
-
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
-    }
-
     public boolean isShibbolethUser() {
         return shibbolethUser;
     }
@@ -274,17 +272,20 @@ public class User implements Serializable /*, Comparable<User>*/ {
         this.sampleReservations = sampleReservations;
     }
 
-    /* Only employee is taken into account now */
-    public boolean isEmployee() {
-        return affiliation != null && affiliation.contains(AFFILIATION_EMPLOYEE);
-    }
-
     public UserSetting getUserSetting() {
         return userSetting;
     }
 
     public void setUserSetting(UserSetting userSetting) {
         this.userSetting = userSetting;
+    }
+
+    public Shibboleth getShibboleth() {
+        return shibboleth;
+    }
+
+    public void setShibboleth(Shibboleth shibboleth) {
+        this.shibboleth = shibboleth;
     }
 
     @Override
@@ -318,7 +319,6 @@ public class User implements Serializable /*, Comparable<User>*/ {
                 ", email='" + email + '\'' +
                 ", organization='" + organization + '\'' +
                 ", displayName='" + displayName + '\'' +
-                ", affiliation='" + affiliation + '\'' +
                 '}';
     }
 }

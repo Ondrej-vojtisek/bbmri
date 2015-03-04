@@ -94,9 +94,8 @@ public interface UserService extends All<User>, AllOrderedBy<User>, Find<User>,
      * @param user   - user accessing web
      * @param locale - user browser setting
      * @return identifier of user
-     * @throws AuthorizationException
      */
-    Long loginShibbolethUser(User user, Locale locale) throws AuthorizationException;
+    Long loginShibbolethUser(User user, Locale locale);
 
 
 }

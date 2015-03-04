@@ -4,6 +4,7 @@ import cz.bbmri.dao.UserDao;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ import java.util.List;
  * @version 1.0
  */
 
-@Repository
+
+@Transactional
+@Repository("userDAO")
 public class UserDaoImpl extends BasicDaoImpl<User> implements UserDao {
 
     public List<User> findUser(User user){

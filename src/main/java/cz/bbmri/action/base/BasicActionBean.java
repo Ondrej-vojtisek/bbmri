@@ -1,8 +1,13 @@
 package cz.bbmri.action.base;
 
 import cz.bbmri.action.DashboardActionBean;
+import cz.bbmri.dao.ShibbolethDao;
+import cz.bbmri.dao.UserDao;
+import cz.bbmri.dao.UserSettingDao;
+import cz.bbmri.entities.Shibboleth;
 import cz.bbmri.entities.User;
 import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entities.systemAdministration.UserSetting;
 import cz.bbmri.entities.webEntities.ComponentManager;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
@@ -12,8 +17,11 @@ import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +39,13 @@ public class BasicActionBean extends Links implements ActionBean {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserService userService;
+    private UserDao userDao;
+
+    @SpringBean
+    private UserSettingDao userSettingDao;
+
+    @SpringBean
+    private ShibbolethDao shibbolethDao;
 
     private TheActionBeanContext ctx;
 
@@ -56,50 +70,57 @@ public class BasicActionBean extends Links implements ActionBean {
         this.componentManager = componentManager;
     }
 
-    /**
-     * Get all attributes from shibboleth, which are stored in header for authentication of user
-     *
-     * @return instance of user with all shibboleth attributes set
-     */
-    public User initializeShibbolethUser() {
-        User user = new User();
-        user.setDisplayName(getContext().getShibbolethDisplayName());
-        user.setEmail(getContext().getShibbolethMail());
-        user.setEppn(getContext().getShibbolethEppn());
-        user.setTargetedId(getContext().getShibbolethTargetedId());
-        user.setPersistentId(getContext().getShibbolethPersistentId());
-        user.setOrganization(getContext().getShibbolethOrganization());
-        user.setAffiliation(getContext().getShibbolethAffiliation());
-        user.setName(getContext().getShibbolethGivenName());
-        user.setSurname(getContext().getShibbolethSn());
-        user.setShibbolethUser(true);
-        return user;
-    }
 
     public boolean isShibbolethUser() {
         return null != getContext().getShibbolethSession();
     }
 
-    public boolean shibbolethSignIn(User user) {
-        Long id;
+    public boolean shibbolethSignIn(Shibboleth shibboleth) {
 
-        try {
-            id = userService.loginShibbolethUser(user, getContext().getLocale());
-            logger.debug("User have sufficient rights to access BBMRI - " +
-                    "user: " + user + "affiliation: " + user.getAffiliation());
-        } catch (AuthorizationException ex) {
+        if (!shibboleth.isAuthorized()) {
             logger.debug("User doesn't have sufficient rights to access BBMRI - " +
-                    "user: " + user + "affiliation: " + user.getAffiliation());
+                    "user: " + shibboleth.getSurname() + "affiliation: " + shibboleth.getAffiliation());
             return false;
         }
 
-        if (id == null) {
-            logger.debug("Id of user is null during sign in - " +
-                    "user: " + user);
-            return false;
+        Shibboleth shibbolethDB = shibbolethDao.get(
+                shibboleth.getEppn(),
+                shibboleth.getTargetedId(),
+                shibboleth.getPersistentId());
+
+        User user;
+
+        if (shibbolethDB == null) {
+            // new user to system
+
+            user = new User();
+            user.setCreated(new Date());
+            user.getSystemRoles().add(SystemRole.USER);
+            user.setShibboleth(shibboleth);
+
+            userDao.create(user);
+
+            // initiate user settings
+            if (user.getUserSetting() == null) {
+                UserSetting setting = new UserSetting();
+                setting.setUser(user);
+                if (getContext().getLocale() != null) {
+                    setting.setLocale(getContext().getLocale().getLanguage());
+                }
+                userSettingDao.create(setting);
+            }
+
+            shibboleth.setUser(user);
+            shibbolethDao.create(shibboleth);
+
+        } else {
+            user = shibbolethDB.getUser();
+            shibbolethDao.update(shibboleth);
         }
 
-        getContext().setMyId(id);
+        user.setLastLogin(new Date());
+
+        getContext().setMyId(user.getId());
 
         return true;
     }
@@ -107,10 +128,10 @@ public class BasicActionBean extends Links implements ActionBean {
     // This method is used if user is accessing LoginActionBean
     // It is dedicated for user accessing directly index page
     public Resolution signInShibbolethOnIndex() {
-        User user = initializeShibbolethUser();
+        Shibboleth shibboleth = Shibboleth.initiate(getContext());
 
-        if (!shibbolethSignIn(user)) {
-            return new RedirectResolution("/errors/not_authorized_to_access.jsp");
+        if (!shibbolethSignIn(shibboleth)) {
+            return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
         // Continue to Dashboard
@@ -119,7 +140,7 @@ public class BasicActionBean extends Links implements ActionBean {
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();
-        return userService.get(id);
+        return userDao.get(id);
     }
 
     public Set<SystemRole> getRoles() {
@@ -132,8 +153,8 @@ public class BasicActionBean extends Links implements ActionBean {
     }
 
     protected void successMsg() {
-            getContext().getMessages().add(
-                    new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.success"));
+        getContext().getMessages().add(
+                new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.success"));
     }
 
     public String getLastUrl() {

@@ -32,6 +32,7 @@
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
+        <class>cz.bbmri.entities.Shibboleth</class>
         <class>cz.bbmri.entities.systemAdministration.Archive</class>
         <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
         <class>cz.bbmri.entities.systemAdministration.UserSetting</class>
@@ -82,6 +83,7 @@
         <class>cz.bbmri.entities.SampleQuestion</class>
         <class>cz.bbmri.entities.SampleRequest</class>
         <class>cz.bbmri.entities.SampleReservation</class>
+        <class>cz.bbmri.entities.Shibboleth</class>
         <class>cz.bbmri.entities.systemAdministration.Archive</class>
         <class>cz.bbmri.entities.systemAdministration.GlobalSetting</class>
         <class>cz.bbmri.entities.systemAdministration.UserSetting</class>
