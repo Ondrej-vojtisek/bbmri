@@ -1,10 +1,8 @@
 package cz.bbmri.entities.sample;
 
-import cz.bbmri.entities.AttributeEquality;
 import cz.bbmri.entities.Module;
 import cz.bbmri.entities.Request;
 import cz.bbmri.entities.enumeration.Retrieved;
-import cz.bbmri.entities.exception.DifferentEntityException;
 import cz.bbmri.entities.infrastructure.Position;
 import cz.bbmri.entities.sample.field.MaterialType;
 import cz.bbmri.entities.sample.field.SampleIdentification;

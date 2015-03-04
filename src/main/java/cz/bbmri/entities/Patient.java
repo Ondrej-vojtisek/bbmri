@@ -1,7 +1,6 @@
 package cz.bbmri.entities;
 
 import cz.bbmri.entities.enumeration.Sex;
-import cz.bbmri.entities.exception.DifferentEntityException;
 
 import javax.persistence.*;
 import java.io.Serializable;
