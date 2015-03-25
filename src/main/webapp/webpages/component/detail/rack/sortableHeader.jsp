@@ -7,13 +7,13 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Rack.name"
+                             msgKey="cz.bbmri.entity.infrastructure.Rack.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Rack.capacity"
+                             msgKey="cz.bbmri.entity.infrastructure.Rack.capacity"
                              column="capacity"
                              pagination="${pagination}"/>
         </th>

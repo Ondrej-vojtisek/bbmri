@@ -1,7 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.Shibboleth;
+import cz.bbmri.entity.Shibboleth;
 
 /**
  * TODO describe class
@@ -9,8 +8,8 @@ import cz.bbmri.entities.Shibboleth;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface ShibbolethDao extends BasicDao<Shibboleth> {
+public interface ShibbolethDAO extends AbstractDAO<Shibboleth, Long> {
 
     // TODO doxygen
-    Shibboleth get(String eppn, String targetedId, String persitentId);
+    Shibboleth get(String eppn, String targeted, String persitent);
 }

@@ -1,7 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.systemAdministration.Archive;
+import cz.bbmri.entity.Archive;
 
 /**
  * Interface to handle instances of Archive stored in database.
@@ -9,5 +8,5 @@ import cz.bbmri.entities.systemAdministration.Archive;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface ArchiveDao extends BasicDao<Archive> {
+public interface ArchiveDAO extends AbstractDAO<Archive, Long> {
 }

@@ -7,20 +7,20 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.name"
+                             msgKey="cz.bbmri.entity.Attachment.name"
                              column="fileName"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.unit"
+                             msgKey="cz.bbmri.entity.Attachment.unit"
                              column="size"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Attachment.importance"
+                             msgKey="cz.bbmri.entity.Attachment.importance"
                              column="biobankAttachmentType"
                              pagination="${pagination}"/>
         </th>

@@ -4,7 +4,7 @@
 <s:layout-definition>
 
     <fieldset>
-           <%--<legend><f:message key="cz.bbmri.entities.Biobank.biobank"/></legend>--%>
+           <%--<legend><f:message key="cz.bbmri.entityiobank.biobank"/></legend>--%>
     <table class="table table-striped">
         <s:layout-render name="/webpages/component/detail/archive/header.jsp"/>
         <tbody>

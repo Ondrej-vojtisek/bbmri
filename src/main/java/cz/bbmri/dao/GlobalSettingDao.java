@@ -1,14 +1,12 @@
 package cz.bbmri.dao;
 
 /**
- * Interface to handle global settings of application. Global settings is defined as set of key and values stored in DB,
- * which defines behaviour of system. Each property have its own get method.
+ * TODO describe class
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-
-public interface GlobalSettingDao {
+public interface GlobalSettingDAO {
 
     /**
      * Add new value-key couple into DB if the key is not present in DB. Or set new value to key if it is already stored
@@ -27,4 +25,5 @@ public interface GlobalSettingDao {
      * @return number of months. Number > 0
      */
     int getReservationValidity();
+
 }

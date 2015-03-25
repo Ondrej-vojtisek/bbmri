@@ -1,16 +1,23 @@
 package cz.bbmri.dao.impl;
 
-import cz.bbmri.dao.WithdrawDao;
-import cz.bbmri.entities.Withdraw;
+import cz.bbmri.dao.WithdrawDAO;
+import cz.bbmri.entity.Withdraw;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implementation for interface handling instances of Withdraw.
+ * Implementation for class handling instances of Withdraw.
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
 
-@Repository
-public class WithdrawDaoImpl extends BasicDaoImpl<Withdraw> implements WithdrawDao {
+@Repository("withdrawDAO")
+@Transactional
+public class WithdrawDAOImpl extends GenericDAOImpl<Withdraw> implements WithdrawDAO {
+
+    public Withdraw get(Long id) {
+          return (Withdraw) getCurrentSession().get(Withdraw.class, id);
+      }
+
 }

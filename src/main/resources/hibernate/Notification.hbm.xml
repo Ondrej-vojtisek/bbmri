@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Notification" table="notification" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">notification_seq</param>
+			</generator>
+		</id>
+		<property name="created" column="created" type="date" not-null="true" lazy="false"/>
+		<property name="read" column="`read`" type="boolean" not-null="true" lazy="false"/>
+		<property name="objectId" column="objectId" type="long" not-null="true" lazy="false"/>
+		<property name="message" column="message" type="text" not-null="true" lazy="false"/>
+		<many-to-one name="user" cascade="lock" column="user_id" class="cz.bbmri.entity.User" not-null="true" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="notificationType" cascade="lock" column="notificationType_id" class="cz.bbmri.entity.NotificationType" not-null="false" lazy="proxy">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

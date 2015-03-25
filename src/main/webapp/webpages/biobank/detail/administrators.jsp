@@ -40,7 +40,7 @@
                                 <s:hidden name="adminId" value="${item.id}"/>
 
                                 <s:select name="permission" value="${item.permission}">
-                                    <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
+                                    <s:options-enumeration enum="cz.bbmri.entity.enumeration.Permission"/>
                                 </s:select>
 
                                 <f:message var="questionSet" key="${actionBean.name}.questionSetPermission"/>

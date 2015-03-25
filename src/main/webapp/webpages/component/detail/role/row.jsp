@@ -6,7 +6,7 @@
     <td>${record.user.wholeName}</td>
     <td>
         <s:select name="permission" value="${record.permission}">
-            <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
+            <s:options-enumeration enum="cz.bbmri.entity.enumeration.Permission"/>
         </s:select>
     </td>
 

@@ -7,19 +7,19 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Project.name"
+                             msgKey="cz.bbmri.entity.Project.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Project.fundingOrganization"
+                             msgKey="cz.bbmri.entity.Project.fundingOrganization"
                              column="fundingOrganization"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Project.projectState"
+                             msgKey="cz.bbmri.entity.Project.projectState"
                              column="projectState"
                              pagination="${pagination}"/>
         </th>

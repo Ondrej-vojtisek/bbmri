@@ -7,19 +7,19 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.sample.Sample.sampleId"
+                             msgKey="cz.bbmri.entity.sample.Sample.sampleId"
                              column="sample.sampleIdentification.sampleId"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.sample.Sample.tissueType"
+                             msgKey="cz.bbmri.entity.sample.Sample.tissueType"
                              column="sample.materialType.type"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Request.numOfRequested"
+                             msgKey="cz.bbmri.entity.Request.numOfRequested"
                              column="numOfRequested"
                              pagination="${pagination}"/>
         </th>

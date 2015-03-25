@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Request" table="request" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">request_seq</param>
+			</generator>
+		</id>
+		<many-to-one name="sample" cascade="lock" column="sample_id" class="cz.bbmri.entity.Sample" not-null="true" lazy="proxy">
+		</many-to-one>
+		<property name="number" column="number" type="short" not-null="false" lazy="false"/>
+		<many-to-one name="question" cascade="lock" column="question_id" class="cz.bbmri.entity.Question" not-null="true" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="reservation" cascade="lock" column="reservation_id" class="cz.bbmri.entity.Reservation" not-null="true" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="withdraw" cascade="lock" column="withdraw_id" class="cz.bbmri.entity.Withdraw" not-null="false" lazy="proxy">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

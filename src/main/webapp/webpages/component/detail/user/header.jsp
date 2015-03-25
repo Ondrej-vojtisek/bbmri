@@ -7,7 +7,6 @@
     <tr>
         <th><f:message key="cz.bbmri.entities.User.id"/></th>
         <th><f:message key="cz.bbmri.entities.User.wholeName"/></th>
-        <th><f:message key="cz.bbmri.entities.User.organization"/></th>
     </tr>
     </thead>
 

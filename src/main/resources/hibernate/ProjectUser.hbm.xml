@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.ProjectUser" table="project_user" lazy="true">
+		<composite-id>
+			<key-many-to-one name="project" column="project_id" class="cz.bbmri.entity.Project">
+			</key-many-to-one>
+			<key-many-to-one name="user" column="user_id" class="cz.bbmri.entity.User">
+			</key-many-to-one>
+		</composite-id>
+		<many-to-one name="permission" cascade="lock" column="permission_id" class="cz.bbmri.entity.Permission" not-null="true" lazy="proxy">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

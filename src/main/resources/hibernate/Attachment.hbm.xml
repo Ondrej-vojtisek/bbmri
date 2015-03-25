@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Attachment" table="attachment" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">attachment_seq</param>
+			</generator>
+		</id>
+		<property name="fileName" column="file_name" type="text" not-null="true" lazy="false"/>
+		<property name="size" column="`size`" type="long" not-null="false" lazy="false"/>
+		<property name="contentType" column="content_type" type="text" not-null="false" lazy="false"/>
+		<property name="absolutePath" column="absolute_path" unique="true" type="text" not-null="true" lazy="false"/>
+		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="false" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="attachmentType" cascade="lock" column="attachment_type_id" class="cz.bbmri.entity.AttachmentType" not-null="false" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="project" cascade="lock" column="project_id" class="cz.bbmri.entity.Project" not-null="false" lazy="proxy">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

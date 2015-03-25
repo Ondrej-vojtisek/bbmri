@@ -7,21 +7,21 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.systemAdministration.Archive.created"
+                             msgKey="cz.bbmri.entity.Archive.created"
                              column="created"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.systemAdministration.Archive.actor"
+                             msgKey="cz.bbmri.entity.Archive.actor"
                              column="actor"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.systemAdministration.Archive.message"
+                             msgKey="cz.bbmri.entity.Archive.message"
                              column="message"
                              pagination="${pagination}"/>
         </th>

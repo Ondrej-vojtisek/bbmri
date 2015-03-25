@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.MeasurementType" table="measurement_type" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">measurement_type_seq</param>
+			</generator>
+		</id>
+		<property name="physicalQuantity" column="physical_quantity" type="text" not-null="true" lazy="false"/>
+		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
+		<property name="unit" column="unit" type="text" not-null="true" lazy="false"/>
+		<set name="monitoring" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="measurementType_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Monitoring"/>
+		</set>
+	</class>
+</hibernate-mapping>

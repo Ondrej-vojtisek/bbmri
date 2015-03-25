@@ -1,86 +1,51 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>bbmri</groupId>
-    <artifactId>bbmri</artifactId>
+    <artifactId>bbmri_cz</artifactId>
+    <groupId>cz.bbmri</groupId>
     <packaging>war</packaging>
     <version>1.5</version>
-    <name>bbmri</name>
+    <name>BBMRI_CZ</name>
 
     <properties>
-        <org.springframework.version>3.1.2.RELEASE</org.springframework.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <org.springframework.version>3.2.3.RELEASE</org.springframework.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.libs>${project.basedir}/src/lib</project.libs>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencies>
 
-        <!-- Testing - junit, hsqldb driver for in memory testing -->
-
-        <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>2.5.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
-
-        <!-- Testing of service layer -->
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
-        </dependency>
 
         <!-- servlet, JSP, JSTL -->
 
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-        </dependency>
+
+        <!-- servlet -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.1.2</version>
         </dependency>
-
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
 
-
         <!-- stripes -->
         <dependency>
             <groupId>net.sourceforge.stripes</groupId>
             <artifactId>stripes</artifactId>
             <version>1.5.7</version>
-        </dependency>
-        <dependency>
-            <groupId>servlets.com</groupId>
-            <artifactId>cos</artifactId>
-            <version>05Nov2002</version>
         </dependency>
 
         <!-- stripesstuff -->
@@ -89,14 +54,6 @@
             <systemPath>${project.libs}/stripesstuff-0.3.jar</systemPath>
             <artifactId>stripesstuff</artifactId>
             <version>0.3</version>
-            <scope>system</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.stripesstuff.stripersist</groupId>
-            <systemPath>${project.libs}/stripersist-1.0.3.jar</systemPath>
-            <artifactId>stripersist</artifactId>
-            <version>1.0.3</version>
             <scope>system</scope>
         </dependency>
 
@@ -110,44 +67,16 @@
 
         <!-- Library containing method to detect non ASCII string -->
         <dependency>
-        	<groupId>com.google.guava</groupId>
-        	<artifactId>guava</artifactId>
-        	<version>r09</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>r09</version>
         </dependency>
 
-        <!--
-        JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
-	    -->
-
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyclient</artifactId>
-            <version>10.8.1.2</version>
-        </dependency>
-
+        <!-- database -->
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.18</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>3.6.10.Final</version>
         </dependency>
 
         <dependency>
@@ -156,28 +85,43 @@
             <version>2.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${org.springframework.version}</version>
-        </dependency>
-
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${org.springframework.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-tx</artifactId>
-            <version>${org.springframework.version}</version>
-            <type>jar</type>
-        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!-- hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.2.6.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>4.2.6.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>4.2.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.0.1.Final</version>
         </dependency>
 
         <dependency>
@@ -186,46 +130,20 @@
             <version>2.4</version>
         </dependency>
 
-        <!--JSON-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.json</groupId>-->
-            <!--<artifactId>json</artifactId>-->
-            <!--<version>20090211</version>-->
-        <!--</dependency>-->
-
-        <!-- Stripes security
-
+        <!--File upload-->
         <dependency>
-            <groupId>net.sourceforge.stripes.security</groupId>
-            <artifactId>stripes-security</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-        -->
-
-        <!--
-             Microsoft EXCEL file parsing
-
-        <dependency>
-        	<groupId>org.apache.poi</groupId>
-        	<artifactId>poi</artifactId>
-        	<version>3.9</version>
+        	<groupId>commons-fileupload</groupId>
+        	<artifactId>commons-fileupload</artifactId>
+        	<version>1.3.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.9</version>
-        </dependency>
-           -->
 
         <!--IO-->
         <!--gYear parsing-->
-
         <dependency>
-          <groupId>org.apache.ws.commons.axiom</groupId>
-          <artifactId>axiom-api</artifactId>
-          <version>1.2.11</version>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom-api</artifactId>
+            <version>1.2.11</version>
         </dependency>
 
         <dependency>
@@ -235,9 +153,9 @@
         </dependency>
 
         <dependency>
-        	<groupId>stax</groupId>
-        	<artifactId>stax-api</artifactId>
-        	<version>1.0.1</version>
+            <groupId>stax</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
 
@@ -253,78 +171,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.4</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <packagingExcludes>
-                        src/main/resource/bbmri_general.properties
-                    </packagingExcludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-war</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-            </plugin>
-
-            <!-- replace version in file -->
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>maven-replacer-plugin</artifactId>
-                <version>1.3.2</version>
-                <executions>
-                    <execution>
-                        <!-- the replace should happen before the app is packaged -->
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <includes>
-                        <!-- replace the token in this file -->
-                        <include>target/bbmri/layouts/navigation/navbar.jsp</include>
-                        <include>target/bbmri/layout_content.jsp</include>
-                    </includes>
-                    <regex>false</regex>
-                    <!-- the name of the token to replace -->
-                    <token>PROJECT_VERSION</token>
-                    <!-- replace it with the maven project version -->
-                    <value>${project.version}</value>
-                </configuration>
-            </plugin>
-
         </plugins>
-
-        <!--<resources>-->
-        <!--<resource>-->
-        <!--<directory>src/main/resources</directory>-->
-        <!--<excludes>-->
-        <!--<exclude>bbmri_general.properties</exclude>-->
-        <!--</excludes>-->
-        <!--<filtering>false</filtering>-->
-        <!--</resource>-->
-        <!--</resources>-->
 
     </build>
 

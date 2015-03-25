@@ -1,30 +1,33 @@
 package cz.bbmri.action.base;
 
 import cz.bbmri.action.DashboardActionBean;
-import cz.bbmri.dao.ShibbolethDao;
-import cz.bbmri.dao.UserDao;
-import cz.bbmri.dao.UserSettingDao;
-import cz.bbmri.entities.Shibboleth;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.enumeration.SystemRole;
-import cz.bbmri.entities.systemAdministration.UserSetting;
-import cz.bbmri.entities.webEntities.ComponentManager;
+import cz.bbmri.dao.SettingsDAO;
+import cz.bbmri.dao.ShibbolethDAO;
+import cz.bbmri.dao.UserDAO;
+import cz.bbmri.entity.Role;
+import cz.bbmri.entity.Settings;
+import cz.bbmri.entity.Shibboleth;
+import cz.bbmri.entity.User;
+import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.extension.context.TheActionBeanContext;
 import cz.bbmri.extension.localization.LocalePicker;
-import cz.bbmri.service.UserService;
-import cz.bbmri.service.exceptions.AuthorizationException;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * Base for all action beans
@@ -39,15 +42,23 @@ public class BasicActionBean extends Links implements ActionBean {
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @SpringBean
-    private UserDao userDao;
+    private UserDAO userDAO;
 
     @SpringBean
-    private UserSettingDao userSettingDao;
+    private SettingsDAO settingsDAO;
 
     @SpringBean
-    private ShibbolethDao shibbolethDao;
+    private ShibbolethDAO shibbolethDAO;
 
     private TheActionBeanContext ctx;
+
+    // List of predefined constants for URL attribute binding
+	public static final String BIND_IDENTIFIER = "identifier";
+
+	// Appropriate URL attribute
+	// values intentionally taken
+	// from application requstes
+	protected String identifier;
 
     // context of application, stores logged user, ...
     @Override
@@ -83,10 +94,10 @@ public class BasicActionBean extends Links implements ActionBean {
             return false;
         }
 
-        Shibboleth shibbolethDB = shibbolethDao.get(
+        Shibboleth shibbolethDB = shibbolethDAO.get(
                 shibboleth.getEppn(),
-                shibboleth.getTargetedId(),
-                shibboleth.getPersistentId());
+                shibboleth.getTargeted(),
+                shibboleth.getPersistent());
 
         User user;
 
@@ -95,27 +106,27 @@ public class BasicActionBean extends Links implements ActionBean {
 
             user = new User();
             user.setCreated(new Date());
-            user.getSystemRoles().add(SystemRole.USER);
+            user.getRole().add(Role.AUTHORIZED);
             user.setShibboleth(shibboleth);
 
-            userDao.create(user);
+            userDAO.save(user);
 
             // initiate user settings
-            if (user.getUserSetting() == null) {
-                UserSetting setting = new UserSetting();
-                setting.setUser(user);
+            if (user.getSettings() == null) {
+                Settings settings = new Settings();
+                settings.setUser(user);
                 if (getContext().getLocale() != null) {
-                    setting.setLocale(getContext().getLocale().getLanguage());
+                    settings.setLocale(getContext().getLocale().getLanguage());
                 }
-                userSettingDao.create(setting);
+                settingsDAO.save(settings);
             }
 
             shibboleth.setUser(user);
-            shibbolethDao.create(shibboleth);
+            shibbolethDAO.save(shibboleth);
 
         } else {
             user = shibbolethDB.getUser();
-            shibbolethDao.update(shibboleth);
+            shibbolethDAO.save(shibboleth);
         }
 
         user.setLastLogin(new Date());
@@ -140,11 +151,11 @@ public class BasicActionBean extends Links implements ActionBean {
 
     public User getLoggedUser() {
         Long id = ctx.getMyId();
-        return userDao.get(id);
+        return userDAO.get(id);
     }
 
-    public Set<SystemRole> getRoles() {
-        return getLoggedUser().getSystemRoles();
+    public Set<Role> getRoles() {
+        return getLoggedUser().getRole();
 
     }
 
@@ -197,4 +208,20 @@ public class BasicActionBean extends Links implements ActionBean {
 
         return sb.toString();
     }
+
+    /**
+     * How to handle exceptions - print then for user if possible or ad then to logger.
+     *
+     * @param errors
+     * @param ex
+     */
+    protected void operationFailed(ValidationErrors errors, Exception ex) {
+        if (errors != null) {
+            errors.addGlobalError(new LocalizableError("cz.bbmri.facade.impl.BasicFacade.fail"));
+        }
+        if (ex != null) {
+            logger.error(ex.getLocalizedMessage());
+        }
+    }
+
 }

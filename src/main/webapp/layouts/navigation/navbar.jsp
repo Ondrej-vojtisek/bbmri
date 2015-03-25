@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-
-<%--<s:useActionBean var="bean" beanclass="cz.bbmri.action.base.BasicActionBean"/>--%>
 <s:layout-definition>
     <%-- -------------------------------------------------------------------- --%>
     <c:if test="${not empty actionBean.context.myId}">
@@ -21,8 +19,8 @@
 
         <p class="navbar-text pull-right" style="margin-right: 30px;">
             <f:message key="logged_user"/>:
-            <s:link beanclass="cz.bbmri.action.user.UserActionBean" event="detail">
-                <s:param name="userId" value="${actionBean.context.myId}"/>
+            <s:link beanclass="cz.bbmri.action.UserActionBean" event="detail">
+                <s:param name="id" value="${actionBean.context.myId}"/>
                 ${logged}
             </s:link>
         </p>

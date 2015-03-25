@@ -6,7 +6,7 @@
         <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${record.created}"/>
     </td>
     <td>${record.biobank.name}</td>
-    <td><f:message key="cz.bbmri.entities.enumeration.RequestState.${record.requestState}"/></td>
+    <td><f:message key="cz.bbmri.entity.enumeration.RequestState.${record.requestState}"/></td>
     <td>${record.specification}</td>
 
 </s:layout-definition>

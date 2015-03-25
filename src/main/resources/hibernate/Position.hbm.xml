@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Position" table="position" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">position_seq</param>
+			</generator>
+		</id>
+		<property name="row" column="row" type="integer" not-null="false" lazy="false"/>
+		<property name="column" column="`column`" type="integer" not-null="false" lazy="false"/>
+		<property name="sequentialPosition" column="sequential_position" type="integer" not-null="false" lazy="false"/>
+		<many-to-one name="box" cascade="lock" column="box_id" class="cz.bbmri.entity.Box" not-null="true" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="sample" cascade="lock" column="sample_id" class="cz.bbmri.entity.Sample" not-null="true" lazy="proxy">
+		</many-to-one>
+	</class>
+</hibernate-mapping>

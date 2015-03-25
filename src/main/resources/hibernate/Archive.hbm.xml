@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Archive" table="archive" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">archive_seq</param>
+			</generator>
+		</id>
+		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="message" column="message" type="text" not-null="false" lazy="false"/>
+		<property name="actor" column="actor" type="text" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

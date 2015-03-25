@@ -5,6 +5,5 @@
 
     <td>${record.id}</td>
     <td>${record.wholeName}</td>
-    <td>${record.organization}</td>
 
 </s:layout-definition>

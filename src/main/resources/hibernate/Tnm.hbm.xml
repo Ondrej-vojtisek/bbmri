@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Tnm" table="tnm" lazy="true">
+		<id name="sampleId" column="sample_id" type="long">
+			<generator class="foreign">
+				<param name="property">sample</param>
+			</generator>
+		</id>
+		<one-to-one name="sample" class="cz.bbmri.entity.Sample" cascade="all" constrained="true"/>
+		<property name="classification" column="classification" type="text" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

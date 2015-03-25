@@ -7,30 +7,38 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.abbreviation"
-                             column="abbreviation"
+                             msgKey="cz.bbmri.entity.Biobank.acronym"
+                             column="acronym"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.name"
+                             msgKey="cz.bbmri.entity.Biobank.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.street"
-                             column="street"
+                             msgKey="cz.bbmri.entity.Biobank.nameEnglish"
+                             column="nameEnglish"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Biobank.city"
-                             column="city"
+                             msgKey="cz.bbmri.entity.Biobank.institutionalId"
+                             column="institutionalId"
                              pagination="${pagination}"/>
         </th>
+
+        <th>
+            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+                             msgKey="cz.bbmri.entity.Biobank.description"
+                             column="description"
+                             pagination="${pagination}"/>
+        </th>
+
     </tr>
     </thead>
 

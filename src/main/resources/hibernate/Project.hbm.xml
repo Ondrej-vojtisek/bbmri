@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Project" table="project" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">project_seq</param>
+			</generator>
+		</id>
+		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
+		<property name="annotation" column="annotation" type="text" not-null="false" lazy="false"/>
+		<property name="fundingOrganization" column="funding_organization" type="text" not-null="false" lazy="false"/>
+		<property name="approvalDate" column="approval_date" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="principalInvestigator" column="principal_investigator" type="text" not-null="false" lazy="false"/>
+		<property name="approvalStorage" column="approval_storage" type="text" not-null="false" lazy="false"/>
+		<many-to-one name="projectState" cascade="lock" column="projectState_id" class="cz.bbmri.entity.ProjectState" not-null="true" lazy="proxy">
+		</many-to-one>
+		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="project_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Reservation"/>
+		</set>
+		<set name="question" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="project_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Question"/>
+		</set>
+		<set name="projectUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="project_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.ProjectUser"/>
+		</set>
+		<set name="attachment" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="project_id" not-null="false"/>
+			<one-to-many class="cz.bbmri.entity.Attachment"/>
+		</set>
+	</class>
+</hibernate-mapping>

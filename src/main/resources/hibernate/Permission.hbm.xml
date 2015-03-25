@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Permission" table="permission" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">permission_seq</param>
+			</generator>
+		</id>
+		<property name="name" column="name" unique="true" type="text" not-null="true" lazy="false"/>
+		<set name="biobankUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="permission_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.BiobankUser"/>
+		</set>
+		<set name="projectUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="permission_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.ProjectUser"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.NotificationType" table="notificationType" lazy="true">
+		<meta attribute="class-description">
+			Fake table to map NotificationType enum during hibernate mapping export
+		</meta>
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">notification_type_seq</param>
+			</generator>
+		</id>
+		<property name="actionBeanName" column="action_bean_name" type="text" not-null="false" lazy="false"/>
+		<property name="eventName" column="eventName" type="text" not-null="false" lazy="false"/>
+		<property name="parameter" column="parameter" type="text" not-null="false" lazy="false"/>
+		<set name="notification" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="notificationType_id" not-null="false"/>
+			<one-to-many class="cz.bbmri.entity.Notification"/>
+		</set>
+	</class>
+</hibernate-mapping>

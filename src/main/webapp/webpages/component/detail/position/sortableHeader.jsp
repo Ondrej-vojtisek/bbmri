@@ -9,25 +9,25 @@
         <%--Both row and column lead to matrix ordering so the column field is the same --%>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Position.row"
+                             msgKey="cz.bbmri.entity.infrastructure.Position.row"
                              column="row"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Position.column"
+                             msgKey="cz.bbmri.entity.infrastructure.Position.column"
                              column="row"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Position.sequentialPosition"
+                             msgKey="cz.bbmri.entity.infrastructure.Position.sequentialPosition"
                              column="sequentialPosition"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.sample.Sample.sampleId"
+                             msgKey="cz.bbmri.entity.sample.Sample.sampleId"
                              column="sample.sampleIdentification.sampleId"
                              pagination="${pagination}"/>
         </th>

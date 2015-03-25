@@ -1,7 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.Biobank;
+import cz.bbmri.entity.Biobank;
 
 /**
  * Interface to handle instances of Biobank stored in database.
@@ -10,7 +9,7 @@ import cz.bbmri.entities.Biobank;
  * @version 1.0
  */
 
-public interface BiobankDao extends BasicDao<Biobank> {
+public interface BiobankDAO extends AbstractDAO<Biobank, Integer> {
 
     /**
      * Find biobank in db by its abbreviation.  Abbreviation is unique attribute of biobank.
@@ -18,6 +17,6 @@ public interface BiobankDao extends BasicDao<Biobank> {
      * @param abbreviation - search parameter
      * @return biobank with given abbreviation or null
      */
-    Biobank getBiobankByAbbreviation(String abbreviation);
+//    Biobank getBiobankByAbbreviation(String abbreviation);
 
 }

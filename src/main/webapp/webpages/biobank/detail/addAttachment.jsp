@@ -28,7 +28,7 @@
                     </div>
 
                     <s:select name="biobankAttachmentType" class="btnMargin">
-                        <s:options-enumeration enum="cz.bbmri.entities.enumeration.BiobankAttachmentType"/>
+                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.BiobankAttachmentType"/>
                     </s:select>
 
                     <s:hidden name="biobankId"  value="${actionBean.biobankId}"/>

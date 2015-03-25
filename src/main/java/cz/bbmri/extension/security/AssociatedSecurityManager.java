@@ -2,9 +2,9 @@ package cz.bbmri.extension.security;
 
 import cz.bbmri.action.LoginActionBean;
 import cz.bbmri.action.base.BasicActionBean;
-import cz.bbmri.entities.Shibboleth;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.enumeration.SystemRole;
+import cz.bbmri.entity.Role;
+import cz.bbmri.entity.Shibboleth;
+import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
@@ -37,8 +37,6 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     private User getUser(ActionBean bean) {
-
-
 
         BasicActionBean basicBean = (BasicActionBean) bean;
 
@@ -80,8 +78,8 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
         return user;
     }
 
-    private Set<SystemRole> getRoles(ActionBean bean) {
-        // get roles of logged uesr
+    private Set<Role> getRoles(ActionBean bean) {
+        // get roles of logged user
         return ((BasicActionBean) bean).getRoles();
     }
 
@@ -95,9 +93,12 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
     @Override
     protected Boolean hasRoleName(ActionBean bean, Method handler, String role) {
 
-        for (SystemRole systemRole : getRoles(bean)) {
-            if (systemRole.toString().equals(role)) {
+        for (Role systemRole : getRoles(bean)) {
+
+            if (systemRole.getName().equals(role)) {
                 return Boolean.TRUE;
+            }else{
+                logger.debug("Role: " + role + " doesn't match: " + systemRole.getName());
             }
         }
 

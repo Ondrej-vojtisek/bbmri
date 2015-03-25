@@ -1,6 +1,6 @@
 package cz.bbmri.io;
 
-import cz.bbmri.entities.User;
+import cz.bbmri.entity.User;
 
 import java.util.List;
 

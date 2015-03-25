@@ -1,7 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.Withdraw;
+import cz.bbmri.entity.Withdraw;
 
 /**
  * Interface to handle instances of Withdraw stored in database.
@@ -9,5 +8,5 @@ import cz.bbmri.entities.Withdraw;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface WithdrawDao extends BasicDao<Withdraw> {
+public interface WithdrawDAO extends AbstractDAO<Withdraw, Long> {
 }

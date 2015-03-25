@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.entities.Notification.notifications" var="title"/>
+<f:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
 
 <s:layout-render name="/layouts/layout_content.jsp"
                  title="${title}" primarymenu="home">

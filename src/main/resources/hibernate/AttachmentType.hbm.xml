@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.AttachmentType" table="attachment_type" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">attachment_type_seq</param>
+			</generator>
+		</id>
+		<property name="name" column="name" unique="true" type="text" not-null="true" lazy="false"/>
+		<set name="attachment" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="attachment_type_id" not-null="false"/>
+			<one-to-many class="cz.bbmri.entity.Attachment"/>
+		</set>
+	</class>
+</hibernate-mapping>

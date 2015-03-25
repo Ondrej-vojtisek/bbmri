@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ID:
+Identifikátor léčeného pacienta/pacientky, podle kterého je možné ho/ji dohledat v nemocničním systému.
+Pokud id neobsahuje prefix biobanky (zde MOU) tak je k ID pacienta prefix přidán při parování dokumentu.
+Pokud je již identifikátor banky v ID pacienta obsažen tak se nic neděje (samozřejmě se musí shodovat s atributem "biobank").
+
+CONSENT:
+Pacient podepsal informovaný souhlas - tj. souhlasil s využitím jeho biologického materiálu pro výzkumné účely.
+
+YEAR:
+Rok narození - 1988
+
+MONTH:
+Měsíc narození - 5 - květen
+
+SEX:
+Pacientka
+
+BIOBANK:
+Pacientka byla léčena v Masarykove onkologickem ustavu - zkratkou MOU.
+Pozn.:
+Identifikátor biobanky by měl být jasně daný a neměnný - např. MOU, 1LF, UPOL, ...
+Parsování probíhá tak, že se pro každou biobanku v databázi zkontroluje její složka.
+Pokud je ve složce nalezen dokument s rozdílným ID biobanky oproti tomu v databázi, tak je to považováno za chybu.
+
+-->
+<patient id="MOU165168"
+         consent="true" year="1988" month="--05" sex="female" biobank="MOU" xmlns="http://www.bbmri.cz/schemas/biobank/data">
+
+
+  <!--
+  Seznam všech vzorků uložených v dlouhodobém úložišti.
+  -->
+
+  <LTS>
+
+    <!--
+    Vzorek byl odebrán v roce 2003, pořadové číslo odběru je 4212.
+
+    SAMPLEID: identifikátor vzorku, tak aby byl dohledatelný v nemocničním systému.
+    Opět je pro nás potřeba aby byl obsažen prefix biobanky. Pokud není tak ho sami doplníme, před vložením záznamu do
+    naší databáze.
+
+    Pozn.:
+    Na MOU by to mělo být něco jako: INSTITUTION PREFIX + YEAR + NUMBER + TYPE
+    Na 1LF nejspíš: INSTITUTION PREFIX + Cislo pacienta + Cislo odberu + typ vzorku
+
+    Pozn. 2:
+    Na MOU se v nemocničním systému do ID přidává i číslo alikvoty. V tomto exportu považujeme všechny alikvoty jednoho
+    vzorku za totožné. Tj. id alikvoty by nemělo být zahrnuto.
+    -->
+    <tissue year="2003" number="4212" sampleId="MOU_2003_4212_">
+
+      <!-- Celkový počet alikvot daného vzorku = 3 -->
+      <samplesNo>3</samplesNo>
+
+      <!-- Počet alikvot, které jsou vydatelné = 1 -->
+      <availableSamplesNo>1</availableSamplesNo>
+
+      <!-- Interní číselník instituce, klíčující o jaký typ materiálu se jedná. -->
+      <materialType></materialType>
+      <!--Optional:-->
+      <TNM>string</TNM>
+      <pTNM>string</pTNM>
+      <!--You have a CHOICE of the next 2 items at this level-->
+      <morphology>string</morphology>
+      <grading>3</grading>
+      <cutTime>2002-11-05+01:00</cutTime>
+      <freezeTime>2016-01-01</freezeTime>
+      <retrieved>operational</retrieved>
+    </tissue>
+
+
+    <serum year="2010" number="string" sampleId="string">
+      <samplesNo>3</samplesNo>
+      <availableSamplesNo>3</availableSamplesNo>
+      <materialType>stri</materialType>
+      <takingDate>2018-02-04T15:35:59+01:00</takingDate>
+      <retrieved>preoperational</retrieved>
+    </serum>
+    <genome year="2005+02:00" number="string" sampleId="string">
+      <samplesNo>3</samplesNo>
+      <availableSamplesNo>3</availableSamplesNo>
+      <materialType>stri</materialType>
+      <takingDate>2003-11-10+01:00</takingDate>
+      <retrieved>operational</retrieved>
+    </genome>
+    <diagnosisMaterial year="2015+02:00" number="string" sampleId="string">
+      <materialType>stri</materialType>
+      <diagnosis>strin</diagnosis>
+      <takingDate>2017-08-17</takingDate>
+      <retrieved>preoperational</retrieved>
+    </diagnosisMaterial>
+    <blood year="2000" number="string" sampleId="string">
+      <samplesNo>3</samplesNo>
+      <availableSamplesNo>3</availableSamplesNo>
+      <materialType>stri</materialType>
+    </blood>
+  </LTS>
+  <!--Optional:-->
+  <STS>
+    <!--You have a CHOICE of the next 2 items at this level-->
+    <diagnosisMaterial year="2017" number="string" sampleId="string">
+      <materialType>stri</materialType>
+      <diagnosis>strin</diagnosis>
+      <takingDate>2015-10-10T12:07:56+02:00</takingDate>
+      <retrieved>post</retrieved>
+    </diagnosisMaterial>
+    <blood year="2009" number="string" sampleId="string">
+      <samplesNo>3</samplesNo>
+      <availableSamplesNo>3</availableSamplesNo>
+      <materialType>stri</materialType>
+    </blood>
+  </STS>
+</patient>

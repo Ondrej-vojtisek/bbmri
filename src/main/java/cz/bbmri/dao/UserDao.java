@@ -1,10 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.enumeration.SystemRole;
-
-import java.util.List;
+import cz.bbmri.entity.User;
 
 /**
  * Interface to handle instances of User stored in database.
@@ -13,10 +9,12 @@ import java.util.List;
  * @version 1.0
  */
 
-public interface UserDao extends BasicDao<User> {
+public interface UserDAO extends AbstractDAO<User, Long> {
+
+    void delete(User user);
 
     // TODO
-    List<User> findUser(String name, String surname, String email, int requiredResults);
+//    List<User> findUser(String name, String surname, String email, int requiredResults);
 
 //    /**
 //     * Find user by its identifier from eduId federation. All arguments can be unique identifier. Not all identity
@@ -30,11 +28,11 @@ public interface UserDao extends BasicDao<User> {
 //     */
 //    User get(String eppn, String targetedId, String persitentId);
 
-    /**
-     * Return all users with given system role. For instance all DEVELOPERS.
-     *
-     * @param systemRole
-     * @return list of all users with the system role
-     */
-    List<User> getAllWithSystemRole(SystemRole systemRole);
+//    /**
+//     * Return all users with given system role. For instance all DEVELOPERS.
+//     *
+//     * @param role
+//     * @return list of all users with the system role
+//     */
+//    List<User> getAllWithSystemRole(Role role);
 }

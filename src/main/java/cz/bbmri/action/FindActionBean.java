@@ -1,13 +1,9 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.dao.UserDao;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.constant.Constant;
-import cz.bbmri.service.UserService;
+import cz.bbmri.dao.UserDAO;
+import cz.bbmri.entity.User;
 import net.sourceforge.stripes.integration.spring.SpringBean;
-
-import java.util.List;
 
 /**
  *
@@ -18,7 +14,7 @@ import java.util.List;
 public class FindActionBean<T> extends PermissionActionBean<T> {
 
     @SpringBean
-    protected UserDao userDao;
+    protected UserDAO userDAO;
 
     private User userFind;
 

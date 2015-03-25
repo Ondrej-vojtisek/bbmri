@@ -7,26 +7,26 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Patient.institutionId"
+                             msgKey="cz.bbmri.entity.Patient.institutionId"
                              column="institutionId"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Patient.sex"
+                             msgKey="cz.bbmri.entity.Patient.sex"
                              column="sex"
                              pagination="${pagination}"/>
         </th>
         <th>
             <%--Age is not a table column--%>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Patient.age"
+                             msgKey="cz.bbmri.entity.Patient.age"
                              column="birthYear"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.Patient.consent"
+                             msgKey="cz.bbmri.entity.Patient.consent"
                              column="consent"
                              pagination="${pagination}"/>
         </th>

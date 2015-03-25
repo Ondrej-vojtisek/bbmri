@@ -1,6 +1,6 @@
 package cz.bbmri.io;
 
-import cz.bbmri.entities.enumeration.Status;
+import cz.bbmri.entity.enumeration.Status;
 
 import java.util.ArrayList;
 import java.util.List;

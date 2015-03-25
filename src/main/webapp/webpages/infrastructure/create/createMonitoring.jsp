@@ -21,7 +21,7 @@
 
             <div class="control-group">
             <s:select name="monitoring.measurementType" class="btnMargin">
-                <s:options-enumeration enum="cz.bbmri.entities.enumeration.MeasurementType"/>
+                <s:options-enumeration enum="cz.bbmri.entity.enumeration.MeasurementType"/>
             </s:select>
             </div>
 

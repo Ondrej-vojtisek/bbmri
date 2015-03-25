@@ -1,52 +1,95 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/tx
-http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-http://www.springframework.org/schema/task
-http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd"
+       default-autowire="byName">
 
-    <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:property-placeholder location="classpath:my.properties"/>
     <context:component-scan base-package="cz.bbmri"/>
-    <tx:annotation-driven/>
+    <context:annotation-config/>
 
-    <task:annotation-driven/>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+            <property name="hibernateProperties">
+                <props>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+                    <prop key="hibernate.connection.driver_class">org.postgresql.Driver</prop>
+                    <prop key="hibernate.connection.url">jdbc:postgresql://${db.host}:${db.port}/${db.name}</prop>
+                    <prop key="hibernate.connection.username">postgres</prop>
+                    <prop key="hibernate.connection.password">heslo</prop>
+                    <prop key="hibernate.c3p0.idle_test_period">96</prop>
+                    <prop key="hibernate.c3p0.max_statements">20</prop>
+                    <prop key="hibernate.c3p0.timeout">127</prop>
+                    <prop key="hibernate.c3p0.acquire_increment">1</prop>
+                    <prop key="hibernate.c3p0.max_size">10</prop>
+                    <prop key="hibernate.c3p0.min_size">1</prop>
+                    <prop key="hibernate.show_sql">true</prop>
+    				<!--<prop key="hibernate.hbm2ddl.auto">create</prop>-->
 
-    <context:property-placeholder location="my.properties" ignore-unresolvable="true"/>
+                    <prop key="hibernate.format_sql">true</prop>
+                    <!--
+                    TODO: Remove the unused commands!
 
-    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-
-    <bean id="transactionManager"
-          class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-
-    <bean id="jpaAdapter"
-          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <property name="showSql" value="true"/>
-    </bean>
-
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <property name="jpaVendorAdapter" ref="jpaAdapter"/>
-        <property name="persistenceUnitName" value="MyPersistenceUnit"/>
-        <property name="jpaPropertyMap">
-        			<map>
-<!-- use credentials from my.properties -->
-        				<entry key="hibernate.connection.username" value="${username}" />
-                        <entry key="hibernate.connection.password" value="${password}" />
-                        <entry key="hibernate.connection.url" value="${db}" />
-        			</map>
-        </property>
-
-    </bean>
+                    <prop key="hibernate.use_sql_comments">true</prop>
+                    -->
+                </props>
+            </property>
+            <property name="mappingLocations">
+                <list>
+                    <value>classpath:hibernate/Archive.hbm.xml</value>
+                    <value>classpath:hibernate/Attachment.hbm.xml</value>
+                    <value>classpath:hibernate/AttachmentType.hbm.xml</value>
+                    <value>classpath:hibernate/Biobank.hbm.xml</value>
+                    <value>classpath:hibernate/BiobankUser.hbm.xml</value>
+                    <value>classpath:hibernate/BiopticalReport.hbm.xml</value>
+                    <value>classpath:hibernate/Box.hbm.xml</value>
+                    <value>classpath:hibernate/Collection.hbm.xml</value>
+                    <value>classpath:hibernate/Contact.hbm.xml</value>
+                    <value>classpath:hibernate/Container.hbm.xml</value>
+                    <value>classpath:hibernate/Country.hbm.xml</value>
+                    <value>classpath:hibernate/Diagnosis.hbm.xml</value>
+                    <value>classpath:hibernate/GlobalSetting.hbm.xml</value>
+                    <value>classpath:hibernate/MaterialType.hbm.xml</value>
+                    <value>classpath:hibernate/MeasurementType.hbm.xml</value>
+                    <value>classpath:hibernate/Monitoring.hbm.xml</value>
+                    <value>classpath:hibernate/Morphology.hbm.xml</value>
+                    <value>classpath:hibernate/Notification.hbm.xml</value>
+                    <value>classpath:hibernate/NotificationType.hbm.xml</value>
+                    <value>classpath:hibernate/Patient.hbm.xml</value>
+                    <value>classpath:hibernate/Permission.hbm.xml</value>
+                    <value>classpath:hibernate/Position.hbm.xml</value>
+                    <value>classpath:hibernate/Project.hbm.xml</value>
+                    <value>classpath:hibernate/ProjectState.hbm.xml</value>
+                    <value>classpath:hibernate/ProjectUser.hbm.xml</value>
+                    <value>classpath:hibernate/Ptnm.hbm.xml</value>
+                    <value>classpath:hibernate/Quantity.hbm.xml</value>
+                    <value>classpath:hibernate/Question.hbm.xml</value>
+                    <value>classpath:hibernate/QuestionState.hbm.xml</value>
+                    <value>classpath:hibernate/Record.hbm.xml</value>
+                    <value>classpath:hibernate/Request.hbm.xml</value>
+                    <value>classpath:hibernate/Reservation.hbm.xml</value>
+                    <value>classpath:hibernate/ReservationState.hbm.xml</value>
+                    <value>classpath:hibernate/Retrieved.hbm.xml</value>
+                    <value>classpath:hibernate/Role.hbm.xml</value>
+                    <value>classpath:hibernate/Sample.hbm.xml</value>
+                    <value>classpath:hibernate/Settings.hbm.xml</value>
+                    <value>classpath:hibernate/Sex.hbm.xml</value>
+                    <value>classpath:hibernate/Shibboleth.hbm.xml</value>
+                    <value>classpath:hibernate/Tnm.hbm.xml</value>
+                    <value>classpath:hibernate/User.hbm.xml</value>
+                    <value>classpath:hibernate/Withdraw.hbm.xml</value>
+                </list>
+            </property>
+        </bean>
+        <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+            <property name="sessionFactory" ref="sessionFactory"/>
+        </bean>
 
 </beans>

@@ -1,44 +1,17 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.dao.simple.BasicDao;
-import cz.bbmri.entities.*;
-
-import java.util.List;
+import cz.bbmri.entity.Attachment;
 
 /**
- * Interface to handle instances of Attachment stored in database.
+ * TODO describe class
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
+public interface AttachmentDAO extends AbstractDAO<Attachment, Long> {
 
-public interface AttachmentDao extends BasicDao<Attachment> {
+//    Attachment getAttachmentByPath(String path);
 
-    /**
-     * Find record about database by its path in file system of application server.
-     *
-     * @param path - path where file is located on application server
-     * @return record of file stored on given location in file system
-     */
-    Attachment getAttachmentByPath(String path);
+    void remove(Attachment attachment);
 
-    /**
-     * Return all instances of Attachment associated with project ordered by given parameter. Desc param changes if it is ordered DESC or ASC
-     *
-     * @param project      - all attachments associated with this project
-     * @param orderByParam - select column by which will the result be sorted
-     * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
-     * @return sorted list of all attachment associated with specified project
-     */
-    List<ProjectAttachment> getAttachmentSorted(Project project, String orderByParam, boolean desc);
-
-    /**
-     * Return all instances of Attachment associated with biobank ordered by given parameter. Desc param changes if it is ordered DESC or ASC
-     *
-     * @param biobank      - all attachments associated with this biobank
-     * @param orderByParam - select column by which will the result be sorted
-     * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
-     * @return sorted list of all attachment associated with specified project
-     */
-    List<BiobankAttachment> getAttachmentSorted(Biobank biobank, String orderByParam, boolean desc);
 }

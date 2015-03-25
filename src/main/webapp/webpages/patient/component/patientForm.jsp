@@ -21,7 +21,7 @@
         <s:label for="cz.bbmri.entities.Patient.sex" class="control-label"/>
         <div class="controls">
             <s:select name="patient.sex">
-                <s:options-enumeration enum="cz.bbmri.entities.enumeration.Sex"/>
+                <s:options-enumeration enum="cz.bbmri.entity.enumeration.Sex"/>
             </s:select>
         </div>
     </div>

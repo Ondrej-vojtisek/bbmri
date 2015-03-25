@@ -3,7 +3,7 @@ package cz.bbmri.dao.simple;
 import java.util.List;
 
 /**
- * Generic DAO (Data Access Object) interface which is used to define basic operation on each defined entities.
+ * Generic DAO (Data Access Object) interface which is used to define basic operation on each defined entity.
  * It is used to achieve basic CRUD operations without relationship between objects and basic SQL queries. Type T
  * represents entity (e.g. User, Biobank, Project etc, ...) which the implementation will manage.
  *

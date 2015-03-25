@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Country" table="country" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">country_seq</param>
+			</generator>
+		</id>
+		<property name="key" column="`key`" unique="true" type="text" not-null="true" lazy="false"/>
+		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
+		<set name="contact" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="country_id" not-null="false"/>
+			<one-to-many class="cz.bbmri.entity.Contact"/>
+		</set>
+	</class>
+</hibernate-mapping>

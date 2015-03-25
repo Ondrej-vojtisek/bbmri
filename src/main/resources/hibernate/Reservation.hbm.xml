@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Reservation" table="reservation" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">reservation_seq</param>
+			</generator>
+		</id>
+		<many-to-one name="project" cascade="lock" column="project_id" class="cz.bbmri.entity.Project" not-null="true" lazy="proxy">
+		</many-to-one>
+		<property name="validation" column="validation" type="date" not-null="false" lazy="false"/>
+		<property name="specification" column="specification" type="text" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="lastModification" column="last_modification" type="date" not-null="false" lazy="false"/>
+		<many-to-one name="user" cascade="lock" column="user_id" class="cz.bbmri.entity.User" not-null="true" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="reservationState" cascade="lock" column="reservationState_id" class="cz.bbmri.entity.ReservationState" not-null="true" lazy="proxy">
+		</many-to-one>
+		<set name="request" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="reservation_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Request"/>
+		</set>
+	</class>
+</hibernate-mapping>

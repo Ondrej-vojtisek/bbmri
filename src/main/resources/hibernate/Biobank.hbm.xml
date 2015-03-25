@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Biobank" table="biobank" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">biobank_seq</param>
+			</generator>
+		</id>
+		<property name="institutionalId" column="institutional_id" unique="true" type="text" not-null="true" lazy="false"/>
+		<property name="acronym" column="acronym" unique="true" type="text" not-null="true" lazy="false"/>
+		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="text" not-null="false" lazy="false"/>
+		<property name="nameEnglish" column="name_english" type="text" not-null="false" lazy="false"/>
+		<one-to-one name="contact" class="cz.bbmri.entity.Contact" cascade="save-update,lock" property-ref="biobank" lazy="proxy"/>
+		<set name="patient" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Patient"/>
+		</set>
+		<set name="container" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Container"/>
+		</set>
+		<set name="collection" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Collection"/>
+		</set>
+		<set name="withdraw" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Withdraw"/>
+		</set>
+		<set name="biobankUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.BiobankUser"/>
+		</set>
+		<set name="attachment" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="false"/>
+			<one-to-many class="cz.bbmri.entity.Attachment"/>
+		</set>
+	</class>
+</hibernate-mapping>

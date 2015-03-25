@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Shibboleth" table="shibboleth" lazy="true">
+		<id name="userId" column="user_id" type="long">
+			<generator class="foreign">
+				<param name="property">user</param>
+			</generator>
+		</id>
+		<one-to-one name="user" class="cz.bbmri.entity.User" cascade="all" constrained="true"/>
+		<property name="eppn" column="eppn" unique="true" type="text" not-null="false" lazy="false"/>
+		<property name="affiliation" column="affiliation" type="text" not-null="false" lazy="false"/>
+		<property name="targeted" column="targeted" unique="true" type="text" not-null="false" lazy="false"/>
+		<property name="persistent" column="persistent" unique="true" type="text" not-null="false" lazy="false"/>
+		<property name="name" column="name" type="text" not-null="false" lazy="false"/>
+		<property name="surname" column="surname" type="text" not-null="false" lazy="false"/>
+		<property name="email" column="email" unique="true" type="text" not-null="false" lazy="false"/>
+		<property name="organization" column="organization" type="text" not-null="false" lazy="false"/>
+		<property name="displayName" column="display_name" type="text" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

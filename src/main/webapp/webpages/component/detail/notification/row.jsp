@@ -25,10 +25,10 @@
             <td colspan="2">${record.message}</td>
             <td class="action" style="width: 60px;">
                 <c:if test="${not empty record.notificationType.actionBeanName
-                                                    and not empty record.notificationType.confirmEvent}">
+                                                    and not empty record.notificationType.eventName}">
 
                     <s:link beanclass="${record.notificationType.actionBeanName}"
-                            event="${record.notificationType.confirmEvent}" class="btn btn-info">
+                            event="${record.notificationType.eventName}" class="btn btn-info">
                         <s:param name="${record.notificationType.parameter}"
                                  value="${record.objectId}"/>
                         <f:message key="detail"/>

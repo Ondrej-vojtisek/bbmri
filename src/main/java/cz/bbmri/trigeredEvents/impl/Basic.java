@@ -1,7 +1,6 @@
 package cz.bbmri.trigeredEvents.impl;
 
 import com.sun.org.apache.xml.internal.serializer.utils.SerializerMessages_zh_CN;
-import cz.bbmri.service.impl.BasicServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,7 @@ import java.util.Date;
  * @version 1.0
  */
 
-abstract class Basic extends BasicServiceImpl {
+abstract class Basic /* extends BasicServiceImpl */ {
 
     @Value("${StoragePath}")
     protected String storagePath;

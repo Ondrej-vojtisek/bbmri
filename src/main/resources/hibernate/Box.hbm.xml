@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Box" table="box" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">box_seq</param>
+			</generator>
+		</id>
+		<property name="capacity" column="capacity" type="integer" not-null="false" lazy="false"/>
+		<property name="name" column="name" type="text" not-null="false" lazy="false"/>
+		<property name="tempMin" column="temp_min" type="float" not-null="false" lazy="false"/>
+		<property name="tempMax" column="temp_max" type="float" not-null="false" lazy="false"/>
+		<many-to-one name="container" cascade="lock" column="container_id" class="cz.bbmri.entity.Container" not-null="true" lazy="proxy">
+		</many-to-one>
+		<set name="position" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="box_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Position"/>
+		</set>
+	</class>
+</hibernate-mapping>

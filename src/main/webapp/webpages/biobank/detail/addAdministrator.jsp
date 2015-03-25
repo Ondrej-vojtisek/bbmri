@@ -43,7 +43,7 @@
 
                                 <s:form beanclass="cz.bbmri.action.biobank.BiobankAdministratorsActionBean">
                                     <s:select name="permission">
-                                        <s:options-enumeration enum="cz.bbmri.entities.enumeration.Permission"/>
+                                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.Permission"/>
                                     </s:select>
 
                                     <s:hidden name="biobankId"/>

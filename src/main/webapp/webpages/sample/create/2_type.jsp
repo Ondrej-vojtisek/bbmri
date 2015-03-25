@@ -22,7 +22,7 @@
                 <s:label for="cz.bbmri.entities.sample.retrieved" class="control-label"/>
                 <div class="controls">
                     <s:select name="sampleType">
-                        <s:options-enumeration enum="cz.bbmri.entities.enumeration.SampleType"/>
+                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.SampleType"/>
                     </s:select>
                 </div>
             </div>

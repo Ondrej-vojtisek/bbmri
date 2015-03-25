@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="${context}/css/datepicker.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/graph.css"/>
-        <title>BBMRI CZ</title>
+        <title>BBMRI_CZ</title>
         <s:layout-component name="hlavicka"/>
     </head>
 
@@ -52,8 +52,8 @@
 
                     <c:if test="${primarymenu == 'biobank'}">
 
-                        <s:layout-render name="${actionBean.componentManager.secondaryRibbon}"
-                                         record="${actionBean.biobank}"/>
+                        <%--<s:layout-render name="${actionBean.componentManager.secondaryRibbon}"--%>
+                                         <%--record="${actionBean.biobank}"/>--%>
 
                         <s:layout-render name="/layouts/ternaryMenu/biobank_ter_menu.jsp"/>
 

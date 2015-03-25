@@ -1,12 +1,18 @@
 package cz.bbmri.extension.context;
 
-import cz.bbmri.entities.User;
+import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.ActionBeanContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 /**
  * Context of all actionBeans
@@ -15,6 +21,7 @@ import java.io.UnsupportedEncodingException;
  * @version 1.0
  */
 
+@Component
 public class TheActionBeanContext extends ActionBeanContext {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -174,5 +181,38 @@ public class TheActionBeanContext extends ActionBeanContext {
 
     public String getShibbolethSn() {
         return getHeaderParam(SHIB_SN);
+    }
+
+    /**
+     * Returns the desired properties file
+     * using the given method argument.
+     *
+     * @param name Properties file name
+     * @return Properties instance
+     */
+    public Properties getProperties(String name) {
+
+        // Process requested application properties file
+        return loadProperties("/" + name + ".properties");
+    }
+
+    /**
+     * Returns application properties instance
+     * according to selected resource name.
+     *
+     * @param fileName Name of resource file
+     * @return Processed resource content
+     */
+    public Properties loadProperties(String fileName) {
+        try {
+
+            // Retrieve resource and cast them as properties
+            Resource resource = new ClassPathResource(fileName);
+            return PropertiesLoaderUtils.loadProperties(resource);
+        } catch (IOException e) {
+
+            // Return default instance
+            return new Properties();
+        }
     }
 }

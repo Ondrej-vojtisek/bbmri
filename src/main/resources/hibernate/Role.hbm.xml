@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Role" table="role" lazy="true">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">role_seq</param>
+			</generator>
+		</id>
+		<property name="name" column="name" unique="true" type="text" not-null="true" lazy="false"/>
+		<set name="user" table="user_role" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="role_id" not-null="true"/>
+			<many-to-many column="user_id" class="cz.bbmri.entity.User">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

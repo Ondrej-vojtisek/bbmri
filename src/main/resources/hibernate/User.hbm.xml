@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.User" table="`user`" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">user_seq</param>
+			</generator>
+		</id>
+		<property name="password" column="password" type="text" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="lastLogin" column="last_login" type="date" not-null="false" lazy="false"/>
+		<set name="role" table="user_role" lazy="extra" cascade="save-update,lock">
+			<key column="user_id" not-null="true"/>
+			<many-to-many column="role_id" class="cz.bbmri.entity.Role">
+			</many-to-many>
+		</set>
+		<one-to-one name="contact" class="cz.bbmri.entity.Contact" cascade="save-update,lock" property-ref="user" lazy="proxy"/>
+		<one-to-one name="shibboleth" class="cz.bbmri.entity.Shibboleth" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="settings" class="cz.bbmri.entity.Settings" cascade="save-update,lock" lazy="proxy"/>
+		<set name="biobankUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="user_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.BiobankUser"/>
+		</set>
+		<set name="projectUser" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="user_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.ProjectUser"/>
+		</set>
+		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="user_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Reservation"/>
+		</set>
+		<set name="notification" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="user_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Notification"/>
+		</set>
+	</class>
+</hibernate-mapping>

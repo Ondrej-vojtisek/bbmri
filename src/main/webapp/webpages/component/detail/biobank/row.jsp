@@ -3,10 +3,11 @@
 
 <s:layout-definition>
 
-    <td>${record.abbreviation}</td>
+    <td>${record.acronym}</td>
     <td>${record.name}</td>
-    <td>${record.street}</td>
-    <td>${record.city}</td>
+    <td>${record.nameEnglish}</td>
+    <td>${record.institutionalId}</td>
+
 
 </s:layout-definition>
 

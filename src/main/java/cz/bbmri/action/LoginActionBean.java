@@ -2,11 +2,10 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
 import cz.bbmri.converter.PasswordTypeConverter;
-import cz.bbmri.dao.UserDao;
-import cz.bbmri.dao.UserSettingDao;
-import cz.bbmri.entities.User;
-import cz.bbmri.entities.systemAdministration.UserSetting;
-import cz.bbmri.service.UserService;
+import cz.bbmri.dao.SettingsDAO;
+import cz.bbmri.dao.UserDAO;
+import cz.bbmri.entity.Settings;
+import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -16,6 +15,7 @@ import net.sourceforge.stripes.validation.ValidationMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -32,10 +32,10 @@ public class LoginActionBean extends BasicActionBean {
     private static final String INDEX = "/index.jsp";
 
     @SpringBean
-    private UserDao userDao;
+    private UserDAO userDAO;
 
     @SpringBean
-    private UserSettingDao userSettingDao;
+    private SettingsDAO settingsDAO;
 
     @Validate(converter = LongTypeConverter.class,
             required = true, minvalue = 1, on = "login")
@@ -76,8 +76,8 @@ public class LoginActionBean extends BasicActionBean {
             getContext().getMessages().add(new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.loginSuccess"));
 
             // Switch language to one prefered by user - and stored in DB
-            if (!user.getUserSetting().getLocale().equals(getContext().getLocale())) {
-                return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getUserSetting().getLocale());
+            if (!user.getSettings().getLocaleSettings().equals(getContext().getLocale())) {
+                return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getSettings().getLocale());
             }
         }
         return new RedirectResolution(DashboardActionBean.class);
@@ -88,49 +88,47 @@ public class LoginActionBean extends BasicActionBean {
     public void validateUser() {
 
         if (id == null || password == null) {
-            System.err.println("1");
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
             return;
         }
 
-        User userDB = userDao.get(id);
+        User userDB = userDAO.get(id);
         if (userDB == null) {
-            System.err.println("2");
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
             return;
         }
 
         if(userDB.getPassword() == null){
-            System.err.println("3");
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
             return;
         }
 
         if (!userDB.getPassword().equals(password)) {
-            System.err.println("4");
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
             return;
         }
 
         // hack to initiace userSetting for all test users during login
-        if (userDB.getUserSetting() == null) {
-            UserSetting setting = new UserSetting();
+        if (userDB.getSettings() == null) {
+            Settings setting = new Settings();
             setting.setUser(userDB);
             if (getContext().getLocale() != null) {
                 setting.setLocale(getContext().getLocale().getLanguage());
             }
-            userSettingDao.create(setting);
+            settingsDAO.save(setting);
         }
 
-        userDB.setLastLogin(new Date());
-        userDao.update(userDB);
+        Date date = new Date();
+
+        userDB.setLastLogin(new Timestamp(date.getTime()));
+        userDAO.save(userDB);
         user = userDB;
     }
 
     @DontValidate
     @HandlesEvent("cancel")
     public Resolution cancel() {
-        return new RedirectResolution(LoginActionBean.class, "display");
+        return new RedirectResolution(LoginActionBean.class);
     }
 
 }

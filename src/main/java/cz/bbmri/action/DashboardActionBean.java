@@ -1,11 +1,14 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.PermissionActionBean;
-import cz.bbmri.entities.Notification;
-import cz.bbmri.entities.webEntities.Breadcrumb;
-import cz.bbmri.entities.webEntities.ComponentManager;
-import cz.bbmri.entities.webEntities.MyPagedListHolder;
-import cz.bbmri.service.NotificationService;
+import cz.bbmri.action.map.View;
+import cz.bbmri.dao.NotificationDAO;
+import cz.bbmri.entity.Biobank;
+import cz.bbmri.entity.Country;
+import cz.bbmri.entity.Notification;
+import cz.bbmri.entity.webEntities.Breadcrumb;
+import cz.bbmri.entity.webEntities.ComponentManager;
+import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -23,20 +26,21 @@ import java.util.List;
 
 @PermitAll
 @UrlBinding("/dashboard")
-public class DashboardActionBean extends PermissionActionBean<Notification> {
+public class DashboardActionBean extends PermissionActionBean {
 
     @SpringBean
-    private NotificationService notificationService;
+    private NotificationDAO notificationDAO;
 
     private Notification notification;
 
     @Validate(on = {"markAsRead", "deleteSelected"}, required = true)
     private List<Long> selectedNotifications;
 
+    private MyPagedListHolder<Notification> pagination;
+
     public DashboardActionBean() {
         getBreadcrumbs().add(new Breadcrumb(DashboardActionBean.class.getName(), "display", false, "home", true));
 
-        setPagination(new MyPagedListHolder<Notification>(new ArrayList<Notification>()));
         setComponentManager(new ComponentManager(
                 ComponentManager.NOTIFICATION_DETAIL,
                 ComponentManager.NOTIFICATION_DETAIL));
@@ -59,12 +63,26 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
         this.selectedNotifications = selectedNotifications;
     }
 
+
+    public MyPagedListHolder<Notification> getPagination() {
+        return pagination;
+    }
+
+
+    public void setPagination(MyPagedListHolder<Notification> pagination) {
+        this.pagination = pagination;
+    }
+
     @DontValidate
     @DefaultHandler
+    @HandlesEvent("display")
     public Resolution display() {
-        initiatePagination();
-        getPagination().setSource(notificationService.getUnread(getContext().getMyId()));
-        return new ForwardResolution(DASHBOARD);
+
+        pagination = new MyPagedListHolder<Notification>(notificationDAO.getUnread(getLoggedUser()));
+        pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setEvent("display");
+
+        return new ForwardResolution(View.Notification.DASHBOARD);
     }
 
     @DontValidate
@@ -76,8 +94,10 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
             return new RedirectResolution(this.getClass());
         }
 
-        if (notificationService.deleteNotifications(selectedNotifications)) {
-            successMsg();
+        for(Long notificationId : selectedNotifications){
+            Notification notification = notificationDAO.get(notificationId);
+            notification.setRead(true);
+            notificationDAO.remove(notification);
         }
 
         return new RedirectResolution(this.getClass());
@@ -92,8 +112,10 @@ public class DashboardActionBean extends PermissionActionBean<Notification> {
             return new RedirectResolution(this.getClass());
         }
 
-        if (notificationService.markAsRead(selectedNotifications, getContext().getValidationErrors())) {
-            successMsg();
+        for(Long notificationId : selectedNotifications){
+            Notification notification = notificationDAO.get(notificationId);
+            notification.setRead(true);
+            notificationDAO.save(notification);
         }
 
         return new RedirectResolution(this.getClass());

@@ -1,8 +1,9 @@
 package cz.bbmri.dao.impl;
 
-import cz.bbmri.dao.ArchiveDao;
-import cz.bbmri.entities.systemAdministration.Archive;
+import cz.bbmri.dao.ArchiveDAO;
+import cz.bbmri.entity.Archive;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * TODO describe class
@@ -10,6 +11,12 @@ import org.springframework.stereotype.Repository;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-@Repository
-public class ArchiveDaoImpl extends BasicDaoImpl<Archive> implements ArchiveDao {
+@Repository("archiveDAO")
+@Transactional
+public class ArchiveDAOImpl extends GenericDAOImpl<Archive> implements ArchiveDAO {
+
+    public Archive get(Long id) {
+                   return (Archive) getCurrentSession().get(Archive.class, id);
+               }
+
 }

@@ -7,21 +7,15 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.id"
+                             msgKey="cz.bbmri.entity.User.id"
                              column="id"
                              pagination="${pagination}"/>
         </th>
         <th>
             <%--whole name is not a table column--%>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.wholeName"
+                             msgKey="cz.bbmri.entity.User.wholeName"
                              column="surname"
-                             pagination="${pagination}"/>
-        </th>
-        <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.User.organization"
-                             column="organization"
                              pagination="${pagination}"/>
         </th>
     </tr>

@@ -7,33 +7,33 @@
     <tr>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Box.name"
+                             msgKey="cz.bbmri.entity.infrastructure.Box.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Box.capacity"
+                             msgKey="cz.bbmri.entity.infrastructure.Box.capacity"
                              column="capacity"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/headerUnsortable.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Box.numberOfPositions"
+                             msgKey="cz.bbmri.entity.infrastructure.Box.numberOfPositions"
                              column="numberOfPositions"
                              pagination="${pagination}"/>
         </th>
 
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Box.tempMin"
+                             msgKey="cz.bbmri.entity.infrastructure.Box.tempMin"
                              column="tempMin"
                              pagination="${pagination}"/>
         </th>
         <th>
             <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
-                             msgKey="cz.bbmri.entities.infrastructure.Box.tempMax"
+                             msgKey="cz.bbmri.entity.infrastructure.Box.tempMax"
                              column="tempMax"
                              pagination="${pagination}"/>
         </th>

@@ -1,9 +1,5 @@
 package cz.bbmri.io;
 
-import cz.bbmri.entities.Patient;
-import cz.bbmri.entities.enumeration.Status;
-import cz.bbmri.entities.sample.Sample;
-
 import java.util.ArrayList;
 import java.util.List;
 
