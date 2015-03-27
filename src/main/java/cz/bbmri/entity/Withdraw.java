@@ -19,7 +19,7 @@ public class Withdraw implements Serializable {
    	public static final String PROP_REQUEST = "request";
 
     private Biobank biobank;
-    private int id;
+    private long id;
     private Date created;
     private Set<Request> request = new HashSet<Request>();
 
@@ -31,11 +31,11 @@ public class Withdraw implements Serializable {
         this.biobank = biobank;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

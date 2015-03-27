@@ -1,18 +1,40 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<s:layout-render name="${component.layout.content}"
                  primarymenu="user"
                  secondarymenu="user_all">
 
     <s:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
-                         pagination="${actionBean.pagination}"
-                         componentManager="${actionBean.componentManager}"
-                         targetBean="cz.bbmri.action.UserActionBean"
-                         eventName="detail"
-                         paramName="id"/>
+        <table class="table table-hover table-striped">
+            <s:layout-render name="${component.sortableHeader.user}" pagination="${actionBean.pagination}"/>
+
+            <tbody>
+            <s:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
+            <c:forEach var="item" items="${actionBean.pagination.myPageList}">
+                <tr>
+                    <s:layout-render name="${component.row.user}" item="${item}"/>
+                    <td class="action">
+                                         <span class="pull-right">
+                                                 <div class="tableAction">
+                                                     <s:link beanclass="cz.bbmri.action.UserActionBean" event="detail"
+                                                             class="btn btn-info btnMargin">
+                                                         <s:param name="id" value="${item.id}"/>
+                                                         <f:message key="detail"/>
+                                                     </s:link>
+                                                 </div>
+                                         </span>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+        <%--show pagination only if list contains some data--%>
+        <c:if test="${not empty actionBean.pagination.myPageList}">
+            <s:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
+        </c:if>
 
     </s:layout-component>
 

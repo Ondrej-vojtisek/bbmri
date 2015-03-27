@@ -31,9 +31,6 @@ import java.util.Properties;
 @UrlBinding("/attachment/{$event}/{id}")
 public class AttachmentActionBean extends ComponentActionBean {
 
-    		// Retrieve the destination path from the properties
-
-
     @SpringBean
     private AttachmentDAO attachmentDAO;
 
@@ -67,10 +64,6 @@ public class AttachmentActionBean extends ComponentActionBean {
     private Long projectId;
 
     private Biobank biobank;
-
-    public AttachmentActionBean() {
-        setComponentManager(new ComponentManager(ComponentManager.ATTACHMENT));
-    }
 
     public Attachment getAttachment() {
         if (attachment == null) {

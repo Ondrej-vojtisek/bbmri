@@ -1,7 +1,7 @@
 package cz.bbmri.action.base;
 
+import cz.bbmri.action.map.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
-import cz.bbmri.entity.webEntities.MyPagedListHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * ActionBean handling general components.
  * Components: pagination - list of entity with printed amount of pages. List (shown in table) should be sortable - attributes orderParam and desc are here to define ORDER BY and ASC/DESC order
- *             breadcumbs - List of breadcrumb for navigation inside application
+ * breadcumbs - List of breadcrumb for navigation inside application
  *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
@@ -22,6 +22,8 @@ public abstract class ComponentActionBean extends BasicActionBean {
     private String orderParam;
 
     private boolean desc;
+
+
 
     private List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 

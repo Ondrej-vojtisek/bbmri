@@ -29,13 +29,6 @@ public class SettingsActionBean extends ComponentActionBean {
 
     private Long id;
 
-
-    public SettingsActionBean() {
-        //default
-        setComponentManager(new ComponentManager());
-    }
-
-
     public User getUser() {
         if (user == null) {
             if (id != null) {

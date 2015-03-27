@@ -2,11 +2,12 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
-                 primarymenu="user"
-                 ternarymenu="shibboleth">
+<s:layout-render name="${component.layout.content}"
+                 primarymenu="user">
 
     <s:layout-component name="body">
+
+        <s:layout-render name="${component.menu.user}" active="shibboleth"/>
 
         <s:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 

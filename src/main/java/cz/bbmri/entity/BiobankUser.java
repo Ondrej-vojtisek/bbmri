@@ -99,4 +99,12 @@ public class BiobankUser extends CompositeKeyGroup implements Serializable {
    		return hashcode;
    	}
 
+    @Override
+    public String toString() {
+        return "BiobankUser{" +
+                "biobank=" + biobank.getAcronym() +
+                ", user=" + user.getWholeName() +
+                ", permission=" + permission +
+                '}';
+    }
 }

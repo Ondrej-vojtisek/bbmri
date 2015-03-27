@@ -38,4 +38,8 @@ public class ProjectUserDAOImpl extends GenericDAOImpl<ProjectUser> implements P
 
         return users;
     }
+
+    public void remove(ProjectUser projectUser){
+        getCurrentSession().delete(projectUser);
+    }
 }

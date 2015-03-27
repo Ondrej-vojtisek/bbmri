@@ -54,11 +54,6 @@ public class UserActionBean extends ComponentActionBean {
     @Validate(on = {"changePassword"}, required = true, converter = PasswordTypeConverter.class)
     private String password2;
 
-    public UserActionBean() {
-        //default
-        setComponentManager(new ComponentManager(ComponentManager.USER_DETAIL));
-    }
-
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(UserActionBean.class.getName(),
                 "all", false, "cz.bbmri.entity.User.users", active);

@@ -76,4 +76,11 @@ public class Permission implements Serializable {
     public void setProjectUser(Set<ProjectUser> projectUser) {
         this.projectUser = projectUser;
     }
+
+    @Override
+    public String toString() {
+        return "Permission{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

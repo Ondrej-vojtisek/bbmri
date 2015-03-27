@@ -14,4 +14,6 @@ public abstract interface AbstractCompositeDAO<T> {
 
     T save(T t);
 
+    void remove(T t);
+
 }

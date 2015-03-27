@@ -1,6 +1,7 @@
 package cz.bbmri.action.base;
 
 import cz.bbmri.action.DashboardActionBean;
+import cz.bbmri.action.map.*;
 import cz.bbmri.dao.SettingsDAO;
 import cz.bbmri.dao.ShibbolethDAO;
 import cz.bbmri.dao.UserDAO;
@@ -28,6 +29,7 @@ import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Base for all action beans
@@ -37,7 +39,7 @@ import java.util.*;
  */
 
 @HttpCache(allow = false)
-public class BasicActionBean extends Links implements ActionBean {
+public abstract class BasicActionBean extends Links implements ActionBean {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -52,13 +54,14 @@ public class BasicActionBean extends Links implements ActionBean {
 
     private TheActionBeanContext ctx;
 
-    // List of predefined constants for URL attribute binding
-	public static final String BIND_IDENTIFIER = "identifier";
 
-	// Appropriate URL attribute
-	// values intentionally taken
-	// from application requstes
-	protected String identifier;
+    // List of predefined constants for URL attribute binding
+    public static final String BIND_IDENTIFIER = "identifier";
+
+    // Appropriate URL attribute
+    // values intentionally taken
+    // from application requstes
+    protected String identifier;
 
     // context of application, stores logged user, ...
     @Override
@@ -70,17 +73,6 @@ public class BasicActionBean extends Links implements ActionBean {
     public TheActionBeanContext getContext() {
         return ctx;
     }
-
-    private ComponentManager componentManager;
-
-    public ComponentManager getComponentManager() {
-        return componentManager;
-    }
-
-    protected void setComponentManager(ComponentManager componentManager) {
-        this.componentManager = componentManager;
-    }
-
 
     public boolean isShibbolethUser() {
         return null != getContext().getShibbolethSession();
@@ -223,5 +215,11 @@ public class BasicActionBean extends Links implements ActionBean {
             logger.error(ex.getLocalizedMessage());
         }
     }
+
+    public Component getComponent() {
+         // Retrieve the instance
+         return Component.INSTANCE;
+     }
+
 
 }

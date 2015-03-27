@@ -113,13 +113,13 @@
                     </li>
 
                     <c:if test="${not empty biobankBean.loggedUser.biobankUser}">
-                        <c:forEach var="bu" items="${biobankBean.loggedUser.biobankUser}">
+                        <c:forEach var="biobankUser" items="${biobankBean.loggedUser.biobankUser}">
                             <li>
                                 <security:allowed bean="biobankBean" event="detail">
                                     <s:link beanclass="cz.bbmri.action.BiobankActionBean"
                                             event="detail">
-                                        <s:param name="id" value="${bu.biobank.id}"/>
-                                        ${ba.biobank.acronym}
+                                        <s:param name="id" value="${biobankUser.biobank.id}"/>
+                                        ${biobankUser.biobank.acronym}
                                     </s:link>
                                 </security:allowed>
                             </li>

@@ -3,11 +3,12 @@
 
 <s:useActionBean beanclass="cz.bbmri.action.CountryActionBean" var="countryActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
-                 primarymenu="biobank"
-                 ternarymenu="detail">
+<s:layout-render name="${component.layout.content}"
+                 primarymenu="biobank">
 
     <s:layout-component name="body">
+
+        <s:layout-render name="${component.menu.biobank}" active="detail"/>
 
         <s:form beanclass="cz.bbmri.action.BiobankActionBean" class="form-horizontal">
 
@@ -44,7 +45,7 @@
             <div class="control-group">
                 <s:label for="cz.bbmri.entity.Biobank.description" class="control-label"/>
                 <div class="controls">
-                    <s:text name="biobank.description" readonly="true"/>
+                    <s:text name="biobank.description"/>
                 </div>
             </div>
 

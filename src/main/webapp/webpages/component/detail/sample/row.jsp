@@ -12,4 +12,7 @@
     <td>${record.sampleNos.samplesNo}</td>
     <td>${record.sampleNos.originalSamplesNo}</td>
 
+
+
+
 </s:layout-definition>

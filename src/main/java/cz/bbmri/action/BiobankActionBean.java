@@ -7,12 +7,10 @@ import cz.bbmri.dao.ContactDAO;
 import cz.bbmri.dao.CountryDAO;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
-import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 
@@ -46,9 +44,9 @@ public class BiobankActionBean extends ComponentActionBean {
 
     private MyPagedListHolder<Attachment> attachmentPagination;
 
-    public BiobankActionBean() {
-        setComponentManager(new ComponentManager(ComponentManager.BIOBANK_DETAIL));
-    }
+    private MyPagedListHolder<Patient> patientPagination;
+
+    private MyPagedListHolder<Withdraw> withdrawPagination;
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "all", false, "" +
@@ -62,6 +60,22 @@ public class BiobankActionBean extends ComponentActionBean {
 
     public static Breadcrumb getAttachmentsBreadcrumb(boolean active, Biobank biobank) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "attachments", false, "cz.bbmri.entity.Biobank.attachment",
+                active, "id", biobank.getId());
+    }
+
+    public static Breadcrumb getBiobankUserBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(BiobankActionBean.class.getName(), "biobankuser", false, "cz.bbmri.entity.BiobankUser.biobankUsers",
+                active, "id", biobank.getId());
+    }
+
+    public static Breadcrumb getPatientsBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(BiobankActionBean.class.getName(), "patients", false, "cz.bbmri.entity.Patient.patients",
+                active, "id", biobank.getId());
+    }
+
+
+    public static Breadcrumb getWithdrawsBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(BiobankActionBean.class.getName(), "withdraws", false, "cz.bbmri.entity.Withdraw.withdraws",
                 active, "id", biobank.getId());
     }
 
@@ -125,6 +139,22 @@ public class BiobankActionBean extends ComponentActionBean {
         this.attachmentPagination = attachmentPagination;
     }
 
+    public MyPagedListHolder<Patient> getPatientPagination() {
+        return patientPagination;
+    }
+
+    public void setPatientPagination(MyPagedListHolder<Patient> patientPagination) {
+        this.patientPagination = patientPagination;
+    }
+
+    public MyPagedListHolder<Withdraw> getWithdrawPagination() {
+        return withdrawPagination;
+    }
+
+    public void setWithdrawPagination(MyPagedListHolder<Withdraw> withdrawPagination) {
+        this.withdrawPagination = withdrawPagination;
+    }
+
     @DefaultHandler
     @HandlesEvent("all") /* Necessary for stripes security tag*/
     @RolesAllowed("authorized")
@@ -169,6 +199,67 @@ public class BiobankActionBean extends ComponentActionBean {
 
         return new ForwardResolution(View.Biobank.ATTACHMENTS);
     }
+
+    @HandlesEvent("biobankuser") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator", "developer"})
+    public Resolution biobankuser() {
+        getBiobank();
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getBiobankUserBreadcrumb(true, getBiobank()));
+
+        return new ForwardResolution(View.Biobank.BIOBANK_USER);
+    }
+
+    @HandlesEvent("patients") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator", "developer"})
+    public Resolution patients() {
+        getBiobank();
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getPatientsBreadcrumb(true, getBiobank()));
+
+        patientPagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>(biobank.getPatient()));
+        patientPagination.initiate(getPage(), getOrderParam(), isDesc());
+        patientPagination.setEvent("patients");
+        patientPagination.setIdentifier(biobank.getId());
+        patientPagination.setIdentifierParam("id");
+
+        return new ForwardResolution(View.Biobank.PATIENTS);
+    }
+
+    @HandlesEvent("withdraws") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator", "developer"})
+    public Resolution withdraws() {
+        getBiobank();
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getWithdrawsBreadcrumb(true, getBiobank()));
+
+        withdrawPagination = new MyPagedListHolder<Withdraw>(new ArrayList<Withdraw>(biobank.getWithdraw()));
+        withdrawPagination.initiate(getPage(), getOrderParam(), isDesc());
+        withdrawPagination.setEvent("withdraws");
+        withdrawPagination.setIdentifier(biobank.getId());
+        withdrawPagination.setIdentifierParam("id");
+
+        return new ForwardResolution(View.Biobank.WITHDRAWS);
+    }
+
 
     @HandlesEvent("detail") /* Necessary for stripes security tag*/
     @RolesAllowed("authorized")

@@ -32,11 +32,6 @@ public class RoleActionBean extends ComponentActionBean {
     private Long id;
 
 
-    public RoleActionBean() {
-        //default
-        setComponentManager(new ComponentManager());
-    }
-
 
     public User getUser() {
         if (user == null) {

@@ -6,14 +6,14 @@
     <table class="table table-bordered notification navbar-inverse">
         <tr class="firstLine" style="color: white;">
             <td>
-                <s:checkbox name="selectedNotifications" value="${record.id}"/>
+                <s:checkbox name="selectedNotifications" value="${item.id}"/>
             </td>
             <td>
-                <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${record.created}"/>
+                <s:layout-render name="/webpages/component/detail/date/date.jsp" date="${item.created}"/>
             </td>
             <td></td>
             <td>
-                <c:if test="${not record.read}">
+                <c:if test="${not item.read}">
                     <f:message key="new"/>
                 </c:if>
             </td>
@@ -22,15 +22,15 @@
 
         <tr>
             <td style="width: 60px;"></td>
-            <td colspan="2">${record.message}</td>
+            <td colspan="2">${item.message}</td>
             <td class="action" style="width: 60px;">
-                <c:if test="${not empty record.notificationType.actionBeanName
-                                                    and not empty record.notificationType.eventName}">
+                <c:if test="${not empty item.notificationType.actionBeanName
+                                                    and not empty item.notificationType.eventName}">
 
-                    <s:link beanclass="${record.notificationType.actionBeanName}"
-                            event="${record.notificationType.eventName}" class="btn btn-info">
-                        <s:param name="${record.notificationType.parameter}"
-                                 value="${record.objectId}"/>
+                    <s:link beanclass="${item.notificationType.actionBeanName}"
+                            event="${item.notificationType.eventName}" class="btn btn-info">
+                        <s:param name="${item.notificationType.parameter}"
+                                 value="${item.objectId}"/>
                         <f:message key="detail"/>
                     </s:link>
 

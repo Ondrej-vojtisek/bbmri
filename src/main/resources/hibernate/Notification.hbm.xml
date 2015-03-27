@@ -13,7 +13,7 @@ License Type: Academic
 		</id>
 		<property name="created" column="created" type="date" not-null="true" lazy="false"/>
 		<property name="read" column="`read`" type="boolean" not-null="true" lazy="false"/>
-		<property name="objectId" column="objectId" type="long" not-null="true" lazy="false"/>
+		<property name="objectId" column="object_id" type="long" not-null="true" lazy="false"/>
 		<property name="message" column="message" type="text" not-null="true" lazy="false"/>
 		<many-to-one name="user" cascade="lock" column="user_id" class="cz.bbmri.entity.User" not-null="true" lazy="proxy">
 		</many-to-one>

@@ -3,11 +3,12 @@
 
 <s:useActionBean beanclass="cz.bbmri.action.AttachmentTypeActionBean" var="attachmentTypeActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
-                 primarymenu="biobank"
-                 ternarymenu="attachments">
+<s:layout-render name="${component.layout.content}"
+                 primarymenu="biobank">
 
     <s:layout-component name="body">
+
+        <s:layout-render name="${component.menu.biobank}" active="attachments"/>
 
         <s:form beanclass="cz.bbmri.action.AttachmentActionBean" class="form-inline">
 

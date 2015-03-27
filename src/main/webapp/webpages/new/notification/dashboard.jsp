@@ -3,7 +3,7 @@
 
 <f:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<s:layout-render name="${component.layout.content}"
                  title="${title}" primarymenu="home">
 
     <s:layout-component name="body">
@@ -18,13 +18,13 @@
 
             <c:forEach items="${actionBean.pagination.myPageList}" var="item">
 
-                <s:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
+                <s:layout-render name="${component.row.notification}" item="${item}"/>
 
             </c:forEach>
 
             <c:if test="${not empty actionBean.pagination.myPageList}">
 
-                <s:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                <s:layout-render name="${component.pager}"
                                  pagination="${actionBean.pagination}"/>
 
             </c:if>

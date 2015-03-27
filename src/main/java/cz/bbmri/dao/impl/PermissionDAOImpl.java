@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PermissionDAOImpl extends GenericDAOImpl<Permission> implements PermissionDAO {
 
-    public Permission get(Short id) {
+    public Permission get(Integer id) {
                       return (Permission) getCurrentSession().get(Permission.class, id);
                   }
 

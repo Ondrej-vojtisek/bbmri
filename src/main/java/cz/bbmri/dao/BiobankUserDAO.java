@@ -15,4 +15,6 @@ import java.util.Set;
  */
 public interface BiobankUserDAO extends AbstractCompositeDAO<BiobankUser> {
 
+    BiobankUser get(Biobank biobank, User user);
+
 }

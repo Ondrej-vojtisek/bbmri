@@ -33,10 +33,6 @@ public class CountryActionBean extends ComponentActionBean {
 
     private MyPagedListHolder<Country> pagination;
 
-    public CountryActionBean() {
-        setComponentManager(new ComponentManager(null));
-    }
-
     public void setCountry(Country country) {
         this.country = country;
     }

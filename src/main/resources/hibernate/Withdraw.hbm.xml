@@ -6,7 +6,7 @@ License Type: Academic
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="cz.bbmri.entity.Withdraw" table="withdraw" lazy="true">
-		<id name="id" column="id" type="integer" unsaved-value="0">
+		<id name="id" column="id" type="long" unsaved-value="0">
 			<generator class="sequence">
 				<param name="sequence">withdraw_seq</param>
 			</generator>

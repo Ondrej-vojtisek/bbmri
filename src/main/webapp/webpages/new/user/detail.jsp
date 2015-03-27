@@ -3,11 +3,12 @@
 
 <s:useActionBean beanclass="cz.bbmri.action.CountryActionBean" var="countryActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
-                 primarymenu="user"
-                 ternarymenu="personal_data">
+<s:layout-render name="${component.layout.content}"
+                 primarymenu="user">
 
     <s:layout-component name="body">
+
+        <s:layout-render name="${component.menu.user}" active="personal_data"/>
 
         <s:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 

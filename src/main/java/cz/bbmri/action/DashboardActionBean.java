@@ -40,10 +40,6 @@ public class DashboardActionBean extends PermissionActionBean {
 
     public DashboardActionBean() {
         getBreadcrumbs().add(new Breadcrumb(DashboardActionBean.class.getName(), "display", false, "home", true));
-
-        setComponentManager(new ComponentManager(
-                ComponentManager.NOTIFICATION_DETAIL,
-                ComponentManager.NOTIFICATION_DETAIL));
     }
 
 

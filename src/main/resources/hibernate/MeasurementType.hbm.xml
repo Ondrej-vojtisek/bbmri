@@ -15,7 +15,7 @@ License Type: Academic
 		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
 		<property name="unit" column="unit" type="text" not-null="true" lazy="false"/>
 		<set name="monitoring" lazy="extra" cascade="save-update,lock" inverse="true">
-			<key column="measurementType_id" not-null="true"/>
+			<key column="measurement_type_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Monitoring"/>
 		</set>
 	</class>

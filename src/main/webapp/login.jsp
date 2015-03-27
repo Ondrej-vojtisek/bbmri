@@ -1,11 +1,10 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <f:message key="signin" var="title"/>
-<s:layout-render name="/layouts/layout_login.jsp" title="${title}">
+
+<s:layout-render name="/layouts/layout-login.jsp" title="${title}">
     <s:layout-component name="body">
-        <s:useActionBean var="ab" beanclass="cz.bbmri.action.LoginActionBean"/>
         <s:form beanclass="cz.bbmri.action.LoginActionBean">
             <fieldset>
                 <legend><f:message key="signin"/></legend>
