@@ -7,6 +7,7 @@ import cz.bbmri.dao.impl.BiobankUserDAOImpl;
 import cz.bbmri.dao.impl.ProjectUserDAOImpl;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.constant.Constant;
+import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.io.FileUtils;
 import net.sourceforge.stripes.action.*;
@@ -46,7 +47,7 @@ public class AttachmentActionBean extends ComponentActionBean {
     @SpringBean
     private ProjectDAO projectDAO;
 
-    private String getStoragePath(){
+    private String getStoragePath() {
         Properties properties = getContext().getProperties("path");
         return properties.getProperty("path.storage");
     }
@@ -63,7 +64,15 @@ public class AttachmentActionBean extends ComponentActionBean {
 
     private Long projectId;
 
-    private Biobank biobank;
+    public static Breadcrumb getAddBiobankAttachmentBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(AttachmentActionBean.class.getName(), "addBiobankAttachment", false, "cz.bbmri.action.AttachmentActionBean.addBiobankAttachment",
+                active, "biobankId", biobank.getId());
+    }
+
+    public static Breadcrumb getAddProjectAttachmentBreadcrumb(boolean active, Project project) {
+        return new Breadcrumb(AttachmentActionBean.class.getName(), "addProjectAttachment", false, "cz.bbmri.action.AttachmentActionBean.addProjectAttachment",
+                active, "projectId", project.getId());
+    }
 
     public Attachment getAttachment() {
         if (attachment == null) {
@@ -122,6 +131,18 @@ public class AttachmentActionBean extends ComponentActionBean {
     @HandlesEvent("addBiobankAttachment")
     @RolesAllowed({"biobank_operator", "developer"})
     public Resolution addBiobankAttachment() {
+        id = (long) biobankId;
+
+        Biobank biobank = biobankDAO.get(biobankId);
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, biobank));
+        getBreadcrumbs().add(BiobankActionBean.getAttachmentsBreadcrumb(false, biobank));
+        getBreadcrumbs().add(AttachmentActionBean.getAddBiobankAttachmentBreadcrumb(true, biobank));
 
         return new ForwardResolution(View.Attachment.ADD_BIOBANK_ATTACHMENT);
 
@@ -130,6 +151,18 @@ public class AttachmentActionBean extends ComponentActionBean {
     @HandlesEvent("addProjectAttachment")
     @RolesAllowed({"biobank_operator", "developer"})
     public Resolution addProjectAttachment() {
+        id = projectId;
+
+        Project project = projectDAO.get(projectId);
+
+        if (project == null) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(ProjectActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, project));
+        getBreadcrumbs().add(ProjectActionBean.getAttachmentsBreadcrumb(false, project));
+        getBreadcrumbs().add(AttachmentActionBean.getAddProjectAttachmentBreadcrumb(true, project));
 
         return new ForwardResolution(View.Attachment.ADD_PROJECT_ATTACHMENT);
 
@@ -302,5 +335,68 @@ public class AttachmentActionBean extends ComponentActionBean {
 
         return Constant.SUCCESS;
     }
+
+    @HandlesEvent("projectAttachmentUpload")
+    @RolesAllowed({"developer"})
+    public Resolution projectAttachmentUpload() {
+
+        Project project = projectDAO.get(projectId);
+
+        if (project == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        AttachmentType attachmentType = attachmentTypeDAO.get(attachmentTypeId);
+
+        if (attachmentType == null) {
+            return new ForwardResolution(View.AttachmentType.NOTFOUND);
+        }
+
+        String storagePath = getStoragePath();
+
+        int result = FileUtils.createFolders(getContext().getValidationErrors(),
+                storagePath, // base folder
+                storagePath + Project.PROJECT_FOLDER, // Projects folder
+                storagePath + project.getProjectFolderPath() // Folder for the project
+        );
+
+        // problem during folder creation
+        if (result != Constant.SUCCESS) {
+            return new ForwardResolution(View.Project.ATTACHMENTS).addParameter("id", projectId);
+        }
+
+        Attachment attachment = new Attachment();
+        attachment.setFileName(fileBean.getFileName());
+        attachment.setContentType(fileBean.getContentType());
+        attachment.setSize(fileBean.getSize());
+        attachment.setAttachmentType(attachmentType);
+        attachment.setProject(project);
+        attachment.setAbsolutePath(
+                storagePath +
+                        project.getProjectFolderPath() +
+                        File.separator +
+                        fileBean.getFileName());
+
+        if (createFile(fileBean, attachment.getAbsolutePath(), getContext().getValidationErrors(), attachment) != Constant.SUCCESS) {
+            logger.debug("CreateFile failed");
+            return new ForwardResolution(View.Project.ATTACHMENTS).addParameter("id", projectId);
+        }
+
+        attachmentDAO.save(attachment);
+
+        // notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.fileUploaded",
+                project.getName());
+
+        // send notification to all other project workers
+        notificationDAO.create(ProjectUserDAOImpl.getOtherProjectUsers(project, getLoggedUser()),
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
+
+        // Archive message
+        //        archive("New file was uploaded to biobank: " + biobankDB.getAbbreviation(), loggedUserId);
+
+        return new RedirectResolution(ProjectActionBean.class, "attachments").addParameter("id", projectId);
+    }
+
 
 }

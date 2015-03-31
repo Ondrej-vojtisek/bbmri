@@ -67,4 +67,23 @@ public class Retrieved implements Serializable {
 		return sample;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Retrieved)) return false;
+
+        Retrieved retrieved = (Retrieved) o;
+
+        if (id != retrieved.id) return false;
+        if (!name.equals(retrieved.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }

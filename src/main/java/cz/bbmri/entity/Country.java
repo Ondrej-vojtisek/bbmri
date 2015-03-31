@@ -83,5 +83,23 @@ public class Country implements Serializable {
 		return contact;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Country)) return false;
 
+        Country country = (Country) o;
+
+        if (id != country.id) return false;
+        if (!key.equals(country.key)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + key.hashCode();
+        return result;
+    }
 }

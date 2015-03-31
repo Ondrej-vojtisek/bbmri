@@ -11,8 +11,6 @@ License Type: Academic
 				<param name="sequence">reservation_seq</param>
 			</generator>
 		</id>
-		<many-to-one name="project" cascade="lock" column="project_id" class="cz.bbmri.entity.Project" not-null="true" lazy="proxy">
-		</many-to-one>
 		<property name="validation" column="validation" type="date" not-null="false" lazy="false"/>
 		<property name="specification" column="specification" type="text" not-null="false" lazy="false"/>
 		<property name="created" column="created" type="date" not-null="false" lazy="false"/>

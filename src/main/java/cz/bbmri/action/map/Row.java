@@ -20,6 +20,10 @@ public enum Row {
         return LOCATION + "archive" + COMPONENT;
     }
 
+    public String getAttachment() {
+        return LOCATION + "attachment" + COMPONENT;
+    }
+
     public String getBiobank() {
         return LOCATION + "biobank" + COMPONENT;
     }
@@ -76,7 +80,7 @@ public enum Row {
         return LOCATION + "user" + COMPONENT;
     }
 
-    public String Withdraw() {
+    public String getWithdraw() {
         return LOCATION + "withdraw" + COMPONENT;
     }
 

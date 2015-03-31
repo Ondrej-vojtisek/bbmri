@@ -10,11 +10,11 @@
         <s:layout-render name="${component.menu.patient}" active="samples"/>
 
         <table class="table table-hover table-striped">
-            <s:layout-render name="${component.sortableHeader.sample}" pagination="${samplePagination}"/>
+            <s:layout-render name="${component.sortableHeader.sample}" pagination="${pagination}"/>
 
             <tbody>
-            <s:layout-render name="${component.table.emptyTable}" collection="${samplePagination.myPageList}"/>
-            <c:forEach var="item" items="${samplePagination.myPageList}">
+            <s:layout-render name="${component.table.emptyTable}" collection="${pagination.myPageList}"/>
+            <c:forEach var="item" items="${pagination.myPageList}">
                 <tr>
                     <s:layout-render name="${component.row.sample}" item="${item}"/>
                     <td class="action">
@@ -34,7 +34,7 @@
         </table>
 
         <%--show pagination only if list contains some data--%>
-        <c:if test="${not empty samplePagination.myPageList}">
+        <c:if test="${not empty pagination.myPageList}">
             <s:layout-render name="${component.pager}" pagination="${samplePagination}"/>
         </c:if>
 

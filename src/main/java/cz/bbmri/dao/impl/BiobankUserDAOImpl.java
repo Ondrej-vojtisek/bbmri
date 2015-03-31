@@ -4,6 +4,7 @@ import cz.bbmri.dao.AbstractCompositeDAO;
 import cz.bbmri.dao.BiobankUserDAO;
 import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.BiobankUser;
+import cz.bbmri.entity.Permission;
 import cz.bbmri.entity.User;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -71,6 +72,16 @@ public class BiobankUserDAOImpl extends GenericDAOImpl<BiobankUser> implements B
 
     public void remove(BiobankUser biobankUser){
         getCurrentSession().delete(biobankUser);
+    }
+
+    public boolean hasPermission(Permission permission, Biobank biobank, User user) {
+        BiobankUser biobankUser = get(biobank, user);
+
+        if (biobankUser == null) {
+            return false;
+        }
+
+        return biobankUser.getPermission().include(permission);
     }
 
 }

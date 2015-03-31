@@ -17,8 +17,12 @@ public enum SortableHeader {
     private static final String COMPONENT = "/component/sortableHeader.jsp";
 
     public String getArchive() {
-        return LOCATION + "archive" + COMPONENT;
-    }
+                    return LOCATION + "archive" + COMPONENT;
+                }
+
+    public String getAttachment() {
+           return LOCATION + "attachment" + COMPONENT;
+       }
 
     public String getBiobank() {
         return LOCATION + "biobank" + COMPONENT;
@@ -72,7 +76,7 @@ public enum SortableHeader {
         return LOCATION + "user" + COMPONENT;
     }
 
-    public String Withdraw() {
+    public String getWithdraw() {
         return LOCATION + "withdraw" + COMPONENT;
     }
 

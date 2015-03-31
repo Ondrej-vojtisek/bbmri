@@ -69,4 +69,24 @@ public class QuestionState implements Serializable {
     public void setQuestion(Set<Question> question) {
         this.question = question;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof QuestionState)) return false;
+
+        QuestionState that = (QuestionState) o;
+
+        if (id != that.id) return false;
+        if (!name.equals(that.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }

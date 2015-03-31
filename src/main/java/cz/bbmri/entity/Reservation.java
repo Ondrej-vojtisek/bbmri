@@ -20,7 +20,6 @@ import java.util.Set;
 
 public class Reservation implements Serializable {
 
-    public static final String PROP_PROJECT = "project";
    	public static final String PROP_ID = "id";
    	public static final String PROP_VALIDATION = "validation";
    	public static final String PROP_SPECIFICATION = "specification";
@@ -30,7 +29,6 @@ public class Reservation implements Serializable {
    	public static final String PROP_REQUEST = "request";
     public static final String PROP_RESERVATION_STATE = "reservationState";
 
-	private Project project;
     private long id;
     private Date validation;
     private String specification;
@@ -78,14 +76,6 @@ public class Reservation implements Serializable {
 
 	public Date getLastModification() {
 		return lastModification;
-	}
-
-	public void setProject(Project value) {
-		this.project = value;
-	}
-	
-	public Project getProject() {
-		return project;
 	}
 	
 	public void setUser(User value) {

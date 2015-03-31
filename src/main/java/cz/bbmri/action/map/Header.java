@@ -52,6 +52,10 @@ public enum Header {
         return LOCATION + "project" + COMPONENT;
     }
 
+    public String getProjectUser() {
+          return LOCATION + "projectUser" + COMPONENT;
+      }
+
     public String getQuestion() {
         return LOCATION + "question" + COMPONENT;
     }
@@ -72,7 +76,7 @@ public enum Header {
         return LOCATION + "user" + COMPONENT;
     }
 
-    public String Withdraw() {
+    public String getWithdraw() {
         return LOCATION + "withdraw" + COMPONENT;
     }
 

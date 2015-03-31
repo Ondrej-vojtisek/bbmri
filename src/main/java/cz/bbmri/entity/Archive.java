@@ -1,5 +1,7 @@
 package cz.bbmri.entity;
 
+import org.hibernate.annotations.Table;
+
 import java.io.Serializable;
 import java.util.Date;
 

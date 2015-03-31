@@ -43,7 +43,7 @@
 
             <s:messages/>
 
-            <s:errors globalErrorsOnly="true"/>
+            <s:errors/>
 
             <h1>${title}</h1>
 

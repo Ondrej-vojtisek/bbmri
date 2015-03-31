@@ -11,14 +11,14 @@
         <s:layout-render name="${component.menu.biobank}" active="withdraws"/>
 
         <table class="table table-hover table-striped">
-            <s:layout-render name="${component.sortableHeader.patient}" pagination="${pagination}"/>
+            <s:layout-render name="${component.sortableHeader.withdraw}" pagination="${pagination}"/>
 
             <tbody>
             <s:layout-render name="${component.table.emptyTable}"
                              collection="${pagination.myPageList}"/>
             <c:forEach var="item" items="${pagination.myPageList}">
                 <tr>
-                    <s:layout-render name="${component.row.patient}" record="${item}"/>
+                    <s:layout-render name="${component.row.withdraw}" item="${item}"/>
                         <%--<td class="action">--%>
                         <%--<span class="pull-right">--%>
                         <%--<div class="tableAction">--%>

@@ -160,6 +160,17 @@ public enum View {
         private static final String DIRECTORY = LOCATION + "project/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ALL = DIRECTORY + "all.jsp";
+        public static final String DETAIL = DIRECTORY + "detail.jsp";
+        public static final String ATTACHMENTS = DIRECTORY + "attachments.jsp";
+        public static final String PROJECTUSER = DIRECTORY + "projectuser.jsp";
+        public static final String QUESTIONS = DIRECTORY + "questions.jsp";
+
+        public static final String CREATE_FIRST = DIRECTORY + "create-1.jsp";
+        public static final String CREATE_SECOND = DIRECTORY + "create-2.jsp";
+        public static final String CREATE_THIRD = DIRECTORY + "create-3.jsp";
+        public static final String CREATE_FOURTH = DIRECTORY + "create-4.jsp";
+        public static final String CREATE_FIFTH = DIRECTORY + "create-5.jsp";
     }
 
     public static class ProjectState {
@@ -171,6 +182,7 @@ public enum View {
     public static class ProjectUser {
         private static final String DIRECTORY = LOCATION + "projectUser/";
 
+        public static final String ADD = DIRECTORY + "add.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
 
@@ -190,6 +202,8 @@ public enum View {
         private static final String DIRECTORY = LOCATION + "question/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ALL = DIRECTORY + "all.jsp";
+        public static final String DETAIL = DIRECTORY + "detail.jsp";
     }
 
     public static class QuestionState {
@@ -214,6 +228,8 @@ public enum View {
         private static final String DIRECTORY = LOCATION + "reservation/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ALL = DIRECTORY + "all.jsp";
+        public static final String DETAIL = DIRECTORY + "detail.jsp";
     }
 
     public static class ReservationState {

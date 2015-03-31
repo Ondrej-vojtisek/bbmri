@@ -25,7 +25,6 @@ public class Project implements Serializable {
    	public static final String PROP_APPROVAL_STORAGE = "approvalStorage";
    	public static final String PROP_PROJECT_STATE = "projectState";
    	public static final String PROP_PROJECT_USER = "projectUser";
-   	public static final String PROP_RESERVATION = "reservation";
    	public static final String PROP_QUESTION = "question";
    	public static final String PROP_ATTACHMENT = "attachment";
 
@@ -43,7 +42,6 @@ public class Project implements Serializable {
     private String approvalStorage;
     private ProjectState projectState;
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
-    private Set<Reservation> reservation = new HashSet<Reservation>();
     private Set<Question> question = new HashSet<Question>();
     private Set<Attachment> attachment = new HashSet<Attachment>();
 
@@ -127,14 +125,6 @@ public class Project implements Serializable {
         this.projectUser = projectUser;
     }
 
-    public Set<Reservation> getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Set<Reservation> reservation) {
-        this.reservation = reservation;
-    }
-
     public Set<Question> getQuestion() {
         return question;
     }
@@ -154,5 +144,17 @@ public class Project implements Serializable {
     public String getProjectFolderPath() {
 
         return Project.PROJECT_FOLDER_PATH + id;
+    }
+
+    public boolean getHasMta(){
+        if(attachment == null){
+            return false;
+        }
+        for(Attachment attach : attachment){
+            if(attach.getAttachmentType().equals(AttachmentType.MATERIAL_TRANSFER_AGREEMENT)){
+                return true;
+            }
+        }
+        return false;
     }
 }

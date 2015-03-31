@@ -39,7 +39,7 @@ import java.util.Date;
  */
 
 @HttpCache(allow = false)
-public abstract class BasicActionBean extends Links implements ActionBean {
+public abstract class BasicActionBean implements ActionBean {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 

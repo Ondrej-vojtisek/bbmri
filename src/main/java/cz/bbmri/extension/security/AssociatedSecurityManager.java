@@ -97,9 +97,18 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
             if (systemRole.getName().equals(role)) {
                 return Boolean.TRUE;
-            }else{
-                logger.debug("Role: " + role + " doesn't match: " + systemRole.getName());
             }
+
+
+//            Role.PROJECT_TEAM_MEMBER_CONFIRMED is higher permission than Role.PROJECT_TEAM_MEMBER so if we test
+//            whether user has role Role.PROJECT_TEAM_MEMBER than we must also test Role.PROJECT_TEAM_MEMBER_CONFIRMED too.
+//            Hack to not require multiple project permission at each method.
+
+            if(role.equals(Role.PROJECT_TEAM_MEMBER.getName()) && systemRole.equals(Role.PROJECT_TEAM_MEMBER_CONFIRMED)){
+                return Boolean.TRUE;
+            }
+
+            logger.debug("Role: " + role + " doesn't match: " + systemRole.getName());
         }
 
         return Boolean.FALSE;

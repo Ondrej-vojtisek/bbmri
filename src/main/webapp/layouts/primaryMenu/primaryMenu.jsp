@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<%--<s:useActionBean var="projectBean" beanclass="cz.bbmri.action.project.ProjectActionBean"/>--%>
-<s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.BiobankActionBean"/>
-<s:useActionBean var="userBean" beanclass="cz.bbmri.action.UserActionBean"/>
+<s:useActionBean var="biobankActionBean" beanclass="cz.bbmri.action.BiobankActionBean"/>
+<s:useActionBean var="userActionBean" beanclass="cz.bbmri.action.UserActionBean"/>
+<s:useActionBean var="projectActionBean" beanclass="cz.bbmri.action.ProjectActionBean"/>
+<s:useActionBean var="reservationActionBean" beanclass="cz.bbmri.action.ReservationActionBean"/>
 <%--<s:useActionBean var="userFindBean" beanclass="cz.bbmri.action.user.FindUserActionBean"/>--%>
 <%--<s:useActionBean var="globalSettingsBean" beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean"/>--%>
 <%--<s:useActionBean var="archiveBean" beanclass="cz.bbmri.action.support.ArchiveActionBean"/>--%>
@@ -21,58 +22,71 @@
 
     <%-- -------------------------------------------------------------------- --%>
 
-    <%--<li class="dropdown <c:if test="${primarymenu == 'project'}"> active </c:if>">--%>
-    <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>
-    <%--<f:message key="cz.bbmri.entityroject.projects"/>--%>
-    <%--<b class="caret"></b></a>--%>
-    <%--<ul class="dropdown-menu">--%>
+    <li class="dropdown <c:if test="${primarymenu == 'project'}"> active </c:if>">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <f:message key="cz.bbmri.entity.Project.projects"/>
+            <b class="caret"></b></a>
+        <ul class="dropdown-menu">
 
-    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+                <%-- -------------------------------------------------------------------- --%>
 
-    <%--<li <c:if test="${secondarymenu == 'reservations'}"> class="active" </c:if>>--%>
-    <%--<s:link beanclass="cz.bbmri.action.reservation.ReservationActionBean">--%>
-    <%--<f:message key="cz.bbmri.entityampleReservation.sampleReservations"/>--%>
-    <%--</s:link>--%>
-    <%--</li>--%>
+            <security:allowed bean="reservationActionBean" event="myReservations">
+                <li <c:if test="${secondarymenu == 'my_reservations'}"> class="active" </c:if>>
+                    <s:link beanclass="${reservationActionBean.name}" event="myReservations">
+                        <f:message key="cz.bbmri.entity.Reservation.myReservations"/>
+                    </s:link>
+                </li>
+            </security:allowed>
 
+                <%-- -------------------------------------------------------------------- --%>
 
-    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+            <security:allowed bean="reservationActionBean" event="all">
+                <li <c:if test="${secondarymenu == 'all_reservations'}"> class="active" </c:if>>
+                    <s:link beanclass="${reservationActionBean.name}" event="all">
+                        <f:message key="cz.bbmri.entity.Reservation.allReservations"/>
+                    </s:link>
+                </li>
+            </security:allowed>
 
-    <%--<li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if>>--%>
-    <%--<s:link beanclass="${projectBean.name}">--%>
-    <%--<f:message key="cz.bbmri.entityroject.myProjects"/>--%>
-    <%--</s:link>--%>
-    <%--</li>--%>
+                <%-- -------------------------------------------------------------------- --%>
 
-    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+            <security:allowed bean="projectActionBean" event="myProjects">
+                <li <c:if test="${secondarymenu == 'project_my_projects'}"> class="active" </c:if>>
+                    <s:link beanclass="${projectActionBean.name}" event="myProjects">
+                        <f:message key="cz.bbmri.entity.Project.myProjects"/>
+                    </s:link>
+                </li>
+            </security:allowed>
 
-    <%--<li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if>>--%>
-    <%--<s:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial">--%>
-    <%--<f:message key="cz.bbmri.action.project.ProjectActionBean.create"/>--%>
-    <%--</s:link>--%>
-    <%--</li>--%>
+                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
-    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+                <%--<li <c:if test="${secondarymenu == 'project_create_project'}"> class="active" </c:if>>--%>
+                <%--<s:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial">--%>
+                <%--<f:message key="cz.bbmri.action.project.ProjectActionBean.create"/>--%>
+                <%--</s:link>--%>
+                <%--</li>--%>
 
-    <%--<security:allowed bean="projectBean" event="display">--%>
-    <%--<li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if>>--%>
-    <%--<s:link beanclass="${projectBean.name}" event="display">--%>
-    <%--<f:message key="cz.bbmri.action.project.ProjectActionBean.allProjects"/>--%>
-    <%--</s:link>--%>
-    <%--</li>--%>
-    <%--</security:allowed>--%>
+                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
-    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+            <security:allowed bean="projectActionBean" event="all">
+                <li <c:if test="${secondarymenu == 'project_all'}"> class="active" </c:if>>
+                    <s:link beanclass="${projectActionBean.name}" event="all">
+                        <f:message key="cz.bbmri.entity.Project.allProjects"/>
+                    </s:link>
+                </li>
+            </security:allowed>
 
-    <%--&lt;%&ndash;<li class="divider"></li>&ndash;%&gt;--%>
-    <%--&lt;%&ndash;<li class="nav-header">Nav header</li>&ndash;%&gt;--%>
-    <%--</ul>--%>
-    <%--</li>--%>
+                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+
+                <%--<li class="divider"></li>--%>
+                <%--<li class="nav-header">Nav header</li>--%>
+        </ul>
+    </li>
 
 
     <%-- -------------------------------------------------------------------- --%>
 
-    <security:allowed bean="biobankBean" event="all">
+    <security:allowed bean="biobankActionBean" event="all">
         <li class="dropdown <c:if test="${primarymenu == 'biobank'}"> active </c:if>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <f:message key="cz.bbmri.entity.Biobank.biobanks"/>
@@ -81,9 +95,9 @@
 
                     <%-- -------------------------------------------------------------------- --%>
 
-                <security:allowed bean="biobankBean" event="all">
+                <security:allowed bean="biobankActionBean" event="all">
                     <li <c:if test="${secondarymenu == 'biobank_all'}"> class="active" </c:if> ><s:link
-                            beanclass="${biobankBean.name}" event="all">
+                            beanclass="${biobankActionBean.name}" event="all">
                         <f:message key="cz.bbmri.entity.Biobank.biobanks"/>
                     </s:link>
                     </li>
@@ -92,7 +106,7 @@
                     <%-- -------------------------------------------------------------------- --%>
 
                     <%--There can't be used createActionBean because it is set as a wizard. Don't know why.--%>
-                    <%--<security:allowed bean="biobankBean" event="createBiobank">--%>
+                    <%--<security:allowed bean="biobankActionBean" event="createBiobank">--%>
                     <%--<li--%>
                     <%--<c:if test="${secondarymenu == 'biobank_create'}"> class="active" </c:if> ><s:link--%>
                     <%--beanclass="cz.bbmri.action.biobank.CreateActionBean"--%>
@@ -106,16 +120,16 @@
 
                     <%--List all "my" biobanks in menu. --%>
 
-                <c:if test="${not empty biobankBean.loggedUser.biobankUser}">
+                <c:if test="${not empty biobankActionBean.loggedUser.biobankUser}">
                     <li class="divider"></li>
                     <li class="nav-header">
                         <f:message key="cz.bbmri.entity.Biobank.myBiobanks"/>
                     </li>
 
-                    <c:if test="${not empty biobankBean.loggedUser.biobankUser}">
-                        <c:forEach var="biobankUser" items="${biobankBean.loggedUser.biobankUser}">
+                    <c:if test="${not empty biobankActionBean.loggedUser.biobankUser}">
+                        <c:forEach var="biobankUser" items="${biobankActionBean.loggedUser.biobankUser}">
                             <li>
-                                <security:allowed bean="biobankBean" event="detail">
+                                <security:allowed bean="biobankActionBean" event="detail">
                                     <s:link beanclass="cz.bbmri.action.BiobankActionBean"
                                             event="detail">
                                         <s:param name="id" value="${biobankUser.biobank.id}"/>
@@ -136,7 +150,7 @@
 
     <%-- -------------------------------------------------------------------- --%>
 
-    <security:allowed bean="userBean" event="all">
+    <security:allowed bean="userActionBean" event="all">
         <li class="dropdown <c:if test="${primarymenu == 'user'}"> active </c:if>">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <f:message key="cz.bbmri.entity.User.users"/>
@@ -145,9 +159,9 @@
 
                     <%-- -------------------------------------------------------------------- --%>
 
-                <security:allowed bean="userBean" event="all">
+                <security:allowed bean="userActionBean" event="all">
                     <li <c:if test="${secondarymenu == 'user_all'}"> class="active" </c:if>>
-                        <s:link beanclass="${userBean.name}">
+                        <s:link beanclass="${userActionBean.name}">
                             <f:message key="cz.bbmri.entity.User.users"/>
                         </s:link>
                     </li>
@@ -155,9 +169,9 @@
 
                     <%-- -------------------------------------------------------------------- --%>
 
-                    <%--<security:allowed bean="userBean" event="createUser">--%>
+                    <%--<security:allowed bean="userActionBean" event="createUser">--%>
                     <%--<li <c:if test="${secondarymenu == 'user_create'}"> class="active" </c:if>>--%>
-                    <%--<s:link beanclass="${userBean.name}" event="createUser">--%>
+                    <%--<s:link beanclass="${userActionBean.name}" event="createUser">--%>
                     <%--<f:message key="cz.bbmri.action.user.UserActionBean.create"/>--%>
                     <%--</s:link>--%>
                     <%--</li>--%>

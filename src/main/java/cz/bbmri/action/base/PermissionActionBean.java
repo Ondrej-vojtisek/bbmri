@@ -1,8 +1,11 @@
 package cz.bbmri.action.base;
 
 import cz.bbmri.dao.BiobankDAO;
+import cz.bbmri.dao.BiobankUserDAO;
 import cz.bbmri.dao.ProjectDAO;
+import cz.bbmri.dao.ProjectUserDAO;
 import cz.bbmri.entity.Biobank;
+import cz.bbmri.entity.Permission;
 import cz.bbmri.entity.Project;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.Validate;
@@ -24,6 +27,12 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean {
 
     @SpringBean
     private ProjectDAO projectDAO;
+
+    @SpringBean
+    private BiobankUserDAO biobankUserDAO;
+
+    @SpringBean
+    private ProjectUserDAO projectUserDAO;
 
     public Integer biobankId;
 
@@ -93,7 +102,7 @@ public abstract class PermissionActionBean<T> extends ComponentActionBean {
     }
 
 //    public boolean getAllowedBiobankManager() {
-//        return biobankAdministratorService.hasPermission(Permission.MANAGER, biobankId, getContext().getMyId());
+//        return biobankUserDAO.hasPermission(Permission.MANAGER, biobankId, getLoggedUser());
 //    }
 //
 //    public boolean getAllowedBiobankEditor() {

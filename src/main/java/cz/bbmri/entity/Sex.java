@@ -64,6 +64,24 @@ public class Sex implements Serializable {
 	public Set<Patient> getPatient() {
 		return patient;
 	}
-	
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Sex)) return false;
+
+        Sex sex = (Sex) o;
+
+        if (id != sex.id) return false;
+        if (!name.equals(sex.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }

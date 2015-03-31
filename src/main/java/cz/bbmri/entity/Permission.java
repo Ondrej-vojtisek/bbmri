@@ -1,9 +1,9 @@
 /**
  * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
- * 
+ *
  * This is an automatic generated file. It will be regenerated every time 
  * you generate persistence class.
- * 
+ *
  * Modifying its content may cause the program not work, or your work may lost.
  */
 
@@ -27,7 +27,7 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-     //    Must match the predefined table records from visual paradigm project
+    //    Must match the predefined table records from visual paradigm project
 
     public static final Permission MANAGER = new Permission(1, "manager");
     public static final Permission EDITOR = new Permission(2, "editor");
@@ -35,11 +35,11 @@ public class Permission implements Serializable {
     public static final Permission VISITOR = new Permission(4, "visitor");
 
     public static final String PROP_ID = "id";
-   	public static final String PROP_NAME = "name";
-   	public static final String PROP_BIOBANK_USER = "biobankUser";
-   	public static final String PROP_PROJECT_USER = "projectUser";
+    public static final String PROP_NAME = "name";
+    public static final String PROP_BIOBANK_USER = "biobankUser";
+    public static final String PROP_PROJECT_USER = "projectUser";
 
-	private int id;
+    private int id;
     private String name;
     private Set<BiobankUser> biobankUser = new HashSet<BiobankUser>();
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
@@ -82,5 +82,67 @@ public class Permission implements Serializable {
         return "Permission{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Permission)) return false;
+
+        Permission that = (Permission) o;
+
+        if (id != that.id) return false;
+        if (!name.equals(that.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    /**
+     * Checks if given this.permission includes given permission. Visitor is included in any permission,
+     * executor is included in editor and manager etc...
+     *
+     * @param permission
+     * @return true if this.permission includes given permission
+     */
+    public boolean include(Permission permission) {
+        if (permission == null) {
+            return false;
+        }
+
+        if (permission.equals(VISITOR)) return true;
+
+        if (permission.equals(EXECUTOR)) {
+            return !this.equals(VISITOR);
+        }
+
+        if (permission.equals(EDITOR)) {
+            return !this.equals(VISITOR)
+                    && !this.equals(EXECUTOR);
+        }
+
+        if (permission.equals(MANAGER)) {
+            return this.equals(MANAGER);
+        }
+
+          /* This could not happen*/
+        return false;
+    }
+
+    public static int compare(Permission e1, Permission e2) {
+        if (e1 == e2) {
+            return 0;
+        }
+        // order is based on include
+        if (e1.include(e2)) {
+            return 1;
+        }
+        return -1;
     }
 }
