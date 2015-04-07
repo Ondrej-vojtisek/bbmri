@@ -1,130 +1,130 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<%--<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
-<s:useActionBean var="createSampleQuestionBean" beanclass="cz.bbmri.action.request.CreateSampleQuestion"/>
+<%--<format:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
+<stripes:useActionBean var="createSampleQuestionBean" beanclass="cz.bbmri.action.request.CreateSampleQuestion"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="detail">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="${actionBean.name}" class="form-horizontal">
+        <stripes:form beanclass="${actionBean.name}" class="form-horizontal">
 
-            <c:set var="readonly" value="${true}"/>
+            <core:set var="readonly" value="${true}"/>
 
             <security:allowed event="update">
-                <c:set var="readonly" value="${false}"/>
+                <core:set var="readonly" value="${false}"/>
             </security:allowed>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.name" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.name" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.name" readonly="true"/>
+                    <stripes:text name="project.name" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.fundingOrganization" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.fundingOrganization" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.fundingOrganization" readonly="true"/>
+                    <stripes:text name="project.fundingOrganization" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.approvedBy" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.approvedBy" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.approvedBy" readonly="true"/>
+                    <stripes:text name="project.approvedBy" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.approvalStorage" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.approvalStorage" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.approvalStorage" readonly="true"/>
+                    <stripes:text name="project.approvalStorage" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.principalInvestigator" readonly="true"/>
+                    <stripes:text name="project.principalInvestigator" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.homeInstitution" readonly="true"/>
+                    <stripes:text name="project.homeInstitution" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.approvalDate" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.approvalDate" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.approvalDate" readonly="true"/>
+                    <stripes:text name="project.approvalDate" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.projectState" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.projectState" class="control-label"/>
                 <div class="controls">
-                    <s:text name="project.projectState" readonly="true"/>
+                    <stripes:text name="project.projectState" readonly="true"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Project.annotation" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Project.annotation" class="control-label"/>
                 <div class="controls">
-                    <s:textarea name="project.annotation" readonly="${readonly}"/>
+                    <stripes:textarea name="project.annotation" readonly="${readonly}"/>
                 </div>
             </div>
 
 
             <div class="form-actions">
                 <security:allowed event="update">
-                    <s:submit name="update" class="btn btn-primary btnMargin">
-                        <s:param name="projectId" value="${actionBean.projectId}"/>
-                    </s:submit>
+                    <stripes:submit name="update" class="btn btn-primary btnMargin">
+                        <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                    </stripes:submit>
                 </security:allowed>
 
-                <c:if test="${actionBean.isApproved}">
+                <core:if test="${actionBean.isApproved}">
                     <security:allowed bean="createSampleQuestionBean" event="createSampleRequest">
-                        <s:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest"
+                        <stripes:link beanclass="cz.bbmri.action.request.CreateSampleQuestion" event="createSampleRequest"
                                 class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${actionBean.projectId}"/>
-                            <f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
-                        </s:link>
+                            <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                            <format:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest"/>
+                        </stripes:link>
                     </security:allowed>
-                </c:if>
+                </core:if>
 
-                <c:if test="${actionBean.isStarted}">
+                <core:if test="${actionBean.isStarted}">
                     <security:allowed event="markAsFinished">
-                        <s:submit name="markAsFinished" class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${actionBean.projectId}"/>
-                        </s:submit>
+                        <stripes:submit name="markAsFinished" class="btn btn-primary btnMargin">
+                            <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                        </stripes:submit>
                     </security:allowed>
-                </c:if>
+                </core:if>
 
-                <c:if test="${actionBean.isNew}">
+                <core:if test="${actionBean.isNew}">
 
                     <security:allowed event="approve">
-                        <s:submit name="approve" class="btn btn-primary btnMargin">
-                            <s:param name="projectId" value="${actionBean.projectId}"/>
-                        </s:submit>
+                        <stripes:submit name="approve" class="btn btn-primary btnMargin">
+                            <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                        </stripes:submit>
                     </security:allowed>
 
                     <security:allowed event="deny">
-                        <s:submit name="deny" class="btn btn-danger">
-                            <s:param name="projectId" value="${actionBean.projectId}"/>
-                        </s:submit>
+                        <stripes:submit name="deny" class="btn btn-danger">
+                            <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                        </stripes:submit>
                     </security:allowed>
 
-                </c:if>
+                </core:if>
 
             </div>
-        </s:form>
+        </stripes:form>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -1,83 +1,83 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <fieldset>
         <legend></legend>
 
         <div class="form-actions">
-            <s:form beanclass="cz.bbmri.action.request.RequestActionBean">
-                <s:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
-                <s:hidden name="biobankId" value="${biobankId}"/>
+            <stripes:form beanclass="cz.bbmri.action.request.RequestActionBean">
+                <stripes:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
+                <stripes:hidden name="biobankId" value="${biobankId}"/>
 
-                <c:if test="${actionBean.isSampleQuestionApproved}">
-                    <s:link beanclass="cz.bbmri.action.request.CreateRequestsActionBean" event="display"
+                <core:if test="${actionBean.isSampleQuestionApproved}">
+                    <stripes:link beanclass="cz.bbmri.action.request.CreateRequestsActionBean" event="display"
                             class="btn btn-primary btnMargin">
-                        <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                        <s:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
-                        <f:message key="cz.bbmri.action.request.CreateRequests.create"/>
-                    </s:link>
-                </c:if>
+                        <stripes:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                        <stripes:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
+                        <format:message key="cz.bbmri.action.request.CreateRequests.create"/>
+                    </stripes:link>
+                </core:if>
 
                 <security:allowed event="changeStateToClosed">
-                    <s:submit name="changeStateToClosed" class="btn btn-primary btnMargin"/>
+                    <stripes:submit name="changeStateToClosed" class="btn btn-primary btnMargin"/>
                 </security:allowed>
 
-                <c:if test="${actionBean.isSampleRequest}">
+                <core:if test="${actionBean.isSampleRequest}">
 
                     <security:allowed event="confirmChosenSet">
-                        <s:submit name="confirmChosenSet" class="btn btn-primary btnMargin"/>
+                        <stripes:submit name="confirmChosenSet" class="btn btn-primary btnMargin"/>
                     </security:allowed>
 
                     <security:allowed event="denyChosenSet">
-                        <s:submit name="denyChosenSet" class="btn btn-primary btnMargin"/>
+                        <stripes:submit name="denyChosenSet" class="btn btn-primary btnMargin"/>
                     </security:allowed>
 
-                </c:if>
+                </core:if>
 
-                <c:if test="${actionBean.isSampleReservation}">
+                <core:if test="${actionBean.isSampleReservation}">
 
                     <security:allowed event="assignToProjectResolution">
-                        <s:link beanclass="cz.bbmri.action.request.RequestActionBean"
+                        <stripes:link beanclass="cz.bbmri.action.request.RequestActionBean"
                                 event="assignToProjectResolution"
                                 class="btn btn-primary btnMargin">
-                            <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                            <f:message key="cz.bbmri.action.request.RequestActionBean.assignToProject"/>
-                        </s:link>
+                            <stripes:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                            <format:message key="cz.bbmri.action.request.RequestActionBean.assignToProject"/>
+                        </stripes:link>
                     </security:allowed>
 
-                </c:if>
+                </core:if>
 
                 <security:allowed event="setAsDelivered">
-                    <s:submit name="setAsDelivered" class="btn btn-primary btnMargin"/>
+                    <stripes:submit name="setAsDelivered" class="btn btn-primary btnMargin"/>
                 </security:allowed>
 
                 <security:allowed event="exportSampleList">
-                    <s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="exportSampleList"
+                    <stripes:link beanclass="cz.bbmri.action.request.RequestActionBean" event="exportSampleList"
                             class="btn btn-primary btnMargin" target="_blank">
 
-                        <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                        <s:param name="biobankId" value="${actionBean.biobankId}"/>
+                        <stripes:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                        <stripes:param name="biobankId" value="${actionBean.biobankId}"/>
 
-                        <f:message key="cz.bbmri.action.request.RequestActionBean.export"/>
-                    </s:link>
+                        <format:message key="cz.bbmri.action.request.RequestActionBean.export"/>
+                    </stripes:link>
                 </security:allowed>
 
-            </s:form>
+            </stripes:form>
         </div>
 
         <table class="table table-hover table-striped">
 
-            <s:layout-render name="/webpages/component/detail/request/header.jsp"/>
+            <stripes:layout-render name="/webpages/component/detail/request/header.jsp"/>
 
             <tbody>
 
-            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+            <stripes:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
                              collection="${actionBean.sampleQuestion.requests}"/>
 
-            <c:forEach items="${actionBean.sampleQuestion.requests}" var="request">
-                <s:form beanclass="cz.bbmri.action.request.RequestActionBean">
+            <core:forEach items="${actionBean.sampleQuestion.requests}" var="request">
+                <stripes:form beanclass="cz.bbmri.action.request.RequestActionBean">
                     <tr>
                         <td>${request.sample.sampleIdentification.sampleId}</td>
                         <td>${request.sample.materialType.type}</td>
@@ -86,15 +86,15 @@
                                 ${request.numOfRequested} / ${request.sample.sampleNos.availableSamplesNo}
 
 
-                            <s:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
-                            <s:hidden name="requestId" value="${request.id}"/>
-                            <s:hidden name="biobankId" value="${biobankId}"/>
+                            <stripes:hidden name="sampleQuestionId" value="${sampleQuestionId}"/>
+                            <stripes:hidden name="requestId" value="${request.id}"/>
+                            <stripes:hidden name="biobankId" value="${biobankId}"/>
 
                             <security:allowed event="decreaseAmount">
-                                <s:submit name="decreaseAmount" class="btn btn-default btnMargin"/>
+                                <stripes:submit name="decreaseAmount" class="btn btn-default btnMargin"/>
                             </security:allowed>
                             <security:allowed event="increaseAmount">
-                                <s:submit name="increaseAmount" class="btn btn-default btnMargin"/>
+                                <stripes:submit name="increaseAmount" class="btn btn-default btnMargin"/>
                             </security:allowed>
                           </span>
                         </td>
@@ -102,17 +102,17 @@
                         <td class="action">
                             <span class="pull-right">
                             <security:allowed event="removeRequest">
-                                <s:submit name="removeRequest" class="btn btn-danger"/>
+                                <stripes:submit name="removeRequest" class="btn btn-danger"/>
                             </security:allowed>
                             </span>
                         </td>
                     </tr>
-                </s:form>
+                </stripes:form>
 
-            </c:forEach>
+            </core:forEach>
             </tbody>
         </table>
 
     </fieldset>
 
-</s:layout-definition>
+</stripes:layout-definition>

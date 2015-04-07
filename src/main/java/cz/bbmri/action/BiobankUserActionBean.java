@@ -71,7 +71,7 @@ public class BiobankUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("remove")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
     public Resolution remove() {
         Biobank biobank = biobankDAO.get(biobankId);
 
@@ -97,7 +97,7 @@ public class BiobankUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("setPermission")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
     public Resolution setPermission() {
         Biobank biobank = biobankDAO.get(biobankId);
 
@@ -137,9 +137,8 @@ public class BiobankUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("add")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
     public Resolution add() {
-
 
         return new ForwardResolution(View.BiobankUser.ADD);
     }

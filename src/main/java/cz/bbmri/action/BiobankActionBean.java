@@ -1,5 +1,6 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/biobank/{$event}/{id}")
-public class BiobankActionBean extends ComponentActionBean {
+public class BiobankActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private BiobankDAO biobankDAO;
@@ -40,13 +41,14 @@ public class BiobankActionBean extends ComponentActionBean {
 
     private Integer countryId;
 
-    private MyPagedListHolder<Biobank> pagination;
+    private MyPagedListHolder<Biobank> pagination = new MyPagedListHolder<Biobank>(new ArrayList<Biobank>());
 
-    private MyPagedListHolder<Attachment> attachmentPagination;
+    private MyPagedListHolder<Attachment> attachmentPagination = new MyPagedListHolder<Attachment>(new ArrayList<Attachment>());
 
-    private MyPagedListHolder<Patient> patientPagination;
+    private MyPagedListHolder<Patient> patientPagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>());
 
-    private MyPagedListHolder<Withdraw> withdrawPagination;
+    private MyPagedListHolder<Withdraw> withdrawPagination = new MyPagedListHolder<Withdraw>(new ArrayList<Withdraw>());
+
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "all", false, "" +
@@ -98,6 +100,8 @@ public class BiobankActionBean extends ComponentActionBean {
     }
 
     public void setId(Integer id) {
+
+        setAuthBiobankId(id);
         this.id = id;
     }
 
@@ -162,8 +166,8 @@ public class BiobankActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Biobank>(biobankDAO.all());
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(biobankDAO.all());
         pagination.setEvent("all");
 
         // TODO jak radit podle Contactu ?
@@ -179,7 +183,7 @@ public class BiobankActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("attachments") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public Resolution attachments() {
         getBiobank();
 
@@ -191,8 +195,8 @@ public class BiobankActionBean extends ComponentActionBean {
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
         getBreadcrumbs().add(BiobankActionBean.getAttachmentsBreadcrumb(true, getBiobank()));
 
-        attachmentPagination = new MyPagedListHolder<Attachment>(new ArrayList<Attachment>(biobank.getAttachment()));
         attachmentPagination.initiate(getPage(), getOrderParam(), isDesc());
+        attachmentPagination.setSource(new ArrayList<Attachment>(biobank.getAttachment()));
         attachmentPagination.setEvent("attachments");
         attachmentPagination.setIdentifier(biobank.getId());
         attachmentPagination.setIdentifierParam("id");
@@ -201,7 +205,7 @@ public class BiobankActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("biobankuser") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public Resolution biobankuser() {
         getBiobank();
 
@@ -217,7 +221,7 @@ public class BiobankActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("patients") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public Resolution patients() {
         getBiobank();
 
@@ -229,8 +233,8 @@ public class BiobankActionBean extends ComponentActionBean {
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
         getBreadcrumbs().add(BiobankActionBean.getPatientsBreadcrumb(true, getBiobank()));
 
-        patientPagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>(biobank.getPatient()));
         patientPagination.initiate(getPage(), getOrderParam(), isDesc());
+        attachmentPagination.setSource(new ArrayList<Patient>(biobank.getPatient()));
         patientPagination.setEvent("patients");
         patientPagination.setIdentifier(biobank.getId());
         patientPagination.setIdentifierParam("id");
@@ -239,7 +243,7 @@ public class BiobankActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("withdraws") /* Necessary for stripes security tag*/
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public Resolution withdraws() {
         getBiobank();
 
@@ -251,8 +255,8 @@ public class BiobankActionBean extends ComponentActionBean {
         getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
         getBreadcrumbs().add(BiobankActionBean.getWithdrawsBreadcrumb(true, getBiobank()));
 
-        withdrawPagination = new MyPagedListHolder<Withdraw>(new ArrayList<Withdraw>(biobank.getWithdraw()));
         withdrawPagination.initiate(getPage(), getOrderParam(), isDesc());
+        attachmentPagination.setSource(new ArrayList<Withdraw>(biobank.getWithdraw()));
         withdrawPagination.setEvent("withdraws");
         withdrawPagination.setIdentifier(biobank.getId());
         withdrawPagination.setIdentifierParam("id");
@@ -287,7 +291,7 @@ public class BiobankActionBean extends ComponentActionBean {
     // TODO instance based authorization
 
     @HandlesEvent("save")
-    @RolesAllowed({"biobank_operator"})
+    @RolesAllowed({"biobank_operator if ${biobankEditor}", "developer"})
     public Resolution save() {
 
         if (countryId != null) {

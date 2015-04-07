@@ -1,66 +1,70 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean beanclass="cz.bbmri.action.PermissionActionBean" var="permissionActionBean"/>
-<s:useActionBean beanclass="cz.bbmri.action.ProjectUserActionBean" var="projectUserActionBean"/>
+<stripes:useActionBean beanclass="cz.bbmri.action.PermissionActionBean" var="permissionActionBean"/>
+<stripes:useActionBean beanclass="cz.bbmri.action.ProjectUserActionBean" var="projectUserActionBean"/>
 
-<s:layout-render name="${component.layout.content}"
+<stripes:layout-render name="${component.layout.content}"
                  primarymenu="project">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="${component.menu.project}" active="projectuser"/>
+        <stripes:layout-render name="${component.menu.project}" active="projectuser"/>
+
+        <%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
+        <core:set target="${projectUserActionBean}" property="authProjectId" value="${actionBean.id}"/>
 
         <table class="table table-hover table-striped">
 
-            <s:layout-render name="${component.header.projectUser}"/>
+            <stripes:layout-render name="${component.header.projectUser}"/>
 
             <tbody>
 
 
-            <c:forEach var="item" items="${actionBean.project.projectUser}">
+            <core:forEach var="item" items="${actionBean.project.projectUser}">
                 <tr>
                     <td>${item.user.wholeName}</td>
                     <td class="action">
                         <security:allowed event="setPermission" bean="projectUserActionBean">
-                            <s:form beanclass="cz.bbmri.action.ProjectUserActionBean">
+                            <stripes:form beanclass="cz.bbmri.action.ProjectUserActionBean">
 
-                                <s:hidden name="projectId" value="${item.project.id}"/>
-                                <s:hidden name="userId" value="${item.user.id}"/>
+                                <stripes:hidden name="projectId" value="${item.project.id}"/>
+                                <stripes:hidden name="userId" value="${item.user.id}"/>
 
-                                <s:select name="permissionId" value="${item.permission.id}">
-                                    <s:options-collection collection="${permissionActionBean.all}" value="id"
+                                <stripes:select name="permissionId" value="${item.permission.id}">
+                                    <stripes:options-collection collection="${permissionActionBean.all}" value="id"
                                                           label="name"/>
-                                </s:select>
+                                </stripes:select>
 
-                                <f:message var="questionSetPermission" key="cz.bbmri.action.ProjectUserActionBean.questionSetProjectUser"/>
+                                <format:message var="questionSetPermission"
+                                           key="cz.bbmri.action.ProjectUserActionBean.questionSetProjectUser"/>
 
-                                <s:submit name="setPermission" onclick="return confirm('${questionSetPermission}')"
+                                <stripes:submit name="setPermission" onclick="return confirm('${questionSetPermission}')"
                                           class="btn btn-primary"/>
-                            </s:form>
+                            </stripes:form>
 
                         </security:allowed>
                         <security:notAllowed event="setPermission" bean="projectUserActionBean">
-                            <f:message key="cz.bbmri.entity.Permission.${item.permission.name}"/>
+                            <format:message key="cz.bbmri.entity.Permission.${item.permission.name}"/>
                         </security:notAllowed>
                     </td>
                     <td class="action">
                         <security:allowed event="remove" bean="projectUserActionBean">
-                            <s:form beanclass="cz.bbmri.action.ProjectUserActionBean">
+                            <stripes:form beanclass="cz.bbmri.action.ProjectUserActionBean">
 
-                                <s:hidden name="projectId" value="${item.project.id}"/>
-                                <s:hidden name="userId" value="${item.user.id}"/>
+                                <stripes:hidden name="projectId" value="${item.project.id}"/>
+                                <stripes:hidden name="userId" value="${item.user.id}"/>
 
-                                <f:message var="question" key="${projectUserActionBean.removeQuestion}"/>
-                                <s:submit name="remove" onclick="return confirm('${question}')"
+                                <format:message var="question" key="${projectUserActionBean.removeQuestion}"/>
+                                <stripes:submit name="remove" onclick="return confirm('${question}')"
                                           class="btn btn-danger"/>
-                            </s:form>
+                            </stripes:form>
                         </security:allowed>
                     </td>
                 </tr>
-            </c:forEach>
+            </core:forEach>
             </tbody>
         </table>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

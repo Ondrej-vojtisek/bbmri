@@ -12,8 +12,8 @@ License Type: Academic
 			</generator>
 		</id>
 		<property name="password" column="password" type="text" not-null="false" lazy="false"/>
-		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
-		<property name="lastLogin" column="last_login" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="false" lazy="false"/>
+		<property name="lastLogin" column="last_login" type="timestamp" not-null="false" lazy="false"/>
 		<set name="role" table="user_role" lazy="extra" cascade="save-update,lock">
 			<key column="user_id" not-null="true"/>
 			<many-to-many column="role_id" class="cz.bbmri.entity.Role">

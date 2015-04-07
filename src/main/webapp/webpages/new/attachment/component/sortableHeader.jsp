@@ -1,25 +1,25 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Attachment.name"
                              column="fileName"
                              pagination="${actionBean.attachmentPagination}"/>
         </th>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Attachment.unit"
                              column="size"
                              pagination="${actionBean.attachmentPagination}"/>
         </th>
 
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Attachment.importance"
                              column="attachmentType"
                              pagination="${actionBean.attachmentPagination}"/>
@@ -27,4 +27,4 @@
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

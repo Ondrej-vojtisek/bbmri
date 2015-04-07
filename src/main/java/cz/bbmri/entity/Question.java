@@ -29,7 +29,7 @@ public class Question implements Serializable {
    	public static final String PROP_REQUEST = "request";
 
     private long id;
-    private Date created;
+    private Date created = new Date();
     private Date lastModification;
     private String specification;
     private Project project;

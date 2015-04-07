@@ -3,6 +3,7 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.SampleDAO;
+import cz.bbmri.entity.Patient;
 import cz.bbmri.entity.Sample;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
@@ -28,7 +29,7 @@ public class SampleActionBean extends ComponentActionBean {
 
     private Sample sample;
 
-    private MyPagedListHolder<Sample> pagination;
+    private MyPagedListHolder<Sample> pagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>());
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(SampleActionBean.class.getName(), "all", false, "" +
@@ -77,8 +78,8 @@ public class SampleActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>(sampleDAO.all()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(new ArrayList<Sample>(sampleDAO.all()));
         pagination.setEvent("all");
 
         return new ForwardResolution(View.Sample.ALL);
@@ -86,7 +87,7 @@ public class SampleActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "admin"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "developer"})
     public Resolution detail() {
 
         getSample();

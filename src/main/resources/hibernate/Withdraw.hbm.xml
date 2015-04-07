@@ -13,7 +13,7 @@ License Type: Academic
 		</id>
 		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
 		</many-to-one>
-		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="false" lazy="false"/>
 		<set name="request" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="withdraw_id" not-null="false"/>
 			<one-to-many class="cz.bbmri.entity.Request"/>

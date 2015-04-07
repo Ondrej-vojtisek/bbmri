@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<%--<f:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
+<%--<format:message key="cz.bbmri.action.project.ProjectActionBean.detail" var="title"/>--%>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="attachments">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.project.ProjectAttachmentsActionBean" class="form-inline">
+        <stripes:form beanclass="cz.bbmri.action.project.ProjectAttachmentsActionBean" class="form-inline">
 
 
             <div class="form-actions">
@@ -20,28 +20,28 @@
                             <span class="fileupload-preview"></span>
                         </div>
                                    <span class="btn btn-file">
-                                       <span class="fileupload-new"><f:message key="selectFile"/></span>
-                                       <span class="fileupload-exists"><f:message key="change"/></span>
-                                       <s:file name="attachmentFileBean"/>
+                                       <span class="fileupload-new"><format:message key="selectFile"/></span>
+                                       <span class="fileupload-exists"><format:message key="change"/></span>
+                                       <stripes:file name="attachmentFileBean"/>
                                    </span>
-                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><f:message
+                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><format:message
                                 key="remove"/></a>
 
                     </div>
 
-                    <s:select name="projectAttachmentType" class="btnMargin">
-                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.ProjectAttachmentType"/>
-                    </s:select>
+                    <stripes:select name="projectAttachmentType" class="btnMargin">
+                        <stripes:options-enumeration enum="cz.bbmri.entity.enumeration.ProjectAttachmentType"/>
+                    </stripes:select>
 
-                    <s:submit name="attachmentUpload" class="btn btn-primary">
-                        <s:param name="projectId" value="${actionBean.projectId}"/>
-                    </s:submit>
+                    <stripes:submit name="attachmentUpload" class="btn btn-primary">
+                        <stripes:param name="projectId" value="${actionBean.projectId}"/>
+                    </stripes:submit>
                 </div>
             </div>
 
-        </s:form>
+        </stripes:form>
 
-        <s:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
+        <stripes:layout-render name="/webpages/project/detail/attachmentTable.jsp"/>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -2,44 +2,44 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="samples">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
+        <stripes:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
 
-        <c:if test="${actionBean.module.type eq 'ModuleLTS'}">
+        <core:if test="${actionBean.module.type eq 'ModuleLTS'}">
             Module LTS
-        </c:if>
+        </core:if>
 
-        <c:if test="${actionBean.module.type eq 'ModuleSTS'}">
+        <core:if test="${actionBean.module.type eq 'ModuleSTS'}">
             Module STS
-        </c:if>
-        <s:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
+        </core:if>
+        <stripes:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.sample.retrieved" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.sample.retrieved" class="control-label"/>
                 <div class="controls">
-                    <s:select name="sampleType">
-                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.SampleType"/>
-                    </s:select>
+                    <stripes:select name="sampleType">
+                        <stripes:options-enumeration enum="cz.bbmri.entity.enumeration.SampleType"/>
+                    </stripes:select>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Sample.tissueType" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Sample.tissueType" class="control-label"/>
                 <div class="controls">
-                    <s:text name="sample.materialType.type"/>
+                    <stripes:text name="sample.materialType.type"/>
                 </div>
             </div>
 
             <div class="form-actions">
-                <s:submit name="confirmStep2" class="btn btn-primary btnMargin"/>
-                <s:submit name="backFromStep2" class="btn btn-inverse"/>
+                <stripes:submit name="confirmStep2" class="btn btn-primary btnMargin"/>
+                <stripes:submit name="backFromStep2" class="btn btn-inverse"/>
             </div>
 
-        </s:form>
+        </stripes:form>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

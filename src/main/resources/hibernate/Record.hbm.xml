@@ -9,7 +9,7 @@ License Type: Academic
 		<composite-id>
 			<key-many-to-one name="monitoring" column="monitoring_id" class="cz.bbmri.entity.Monitoring">
 			</key-many-to-one>
-			<key-property name="time" column="time" type="time"/>
+			<key-property name="time" column="time" type="timestamp"/>
 		</composite-id>
 		<property name="value" column="value" type="double" length="10" not-null="false" lazy="false"/>
 	</class>

@@ -1,6 +1,6 @@
 package cz.bbmri.action;
 
-import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.dao.UserDAO;
 import cz.bbmri.entity.User;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -11,7 +11,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
  * @version 1.0
  */
 
-public class FindActionBean<T> extends PermissionActionBean<T> {
+public class FindActionBean<T> extends AuthorizationActionBean {
 
     @SpringBean
     protected UserDAO userDAO;

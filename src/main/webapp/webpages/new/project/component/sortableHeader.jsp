@@ -1,24 +1,30 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
+                             msgKey="cz.bbmri.entity.Project.created"
+                             column="created"
+                             pagination="${pagination}"/>
+        </th>
+        <th>
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Project.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Project.fundingOrganization"
                              column="fundingOrganization"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Project.projectState"
                              column="projectState"
                              pagination="${pagination}"/>
@@ -26,4 +32,4 @@
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

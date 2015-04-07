@@ -65,7 +65,7 @@ public class ProjectUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("remove")
-    @RolesAllowed({"project_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectMember}", "developer"})
     public Resolution remove() {
         Project project = projectDAO.get(projectId);
 
@@ -91,7 +91,7 @@ public class ProjectUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("setPermission")
-    @RolesAllowed({"project_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectMember}", "developer"})
     public Resolution setPermission() {
         Project project = projectDAO.get(projectId);
 
@@ -131,7 +131,7 @@ public class ProjectUserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("add")
-    @RolesAllowed({"project_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectMember}", "developer"})
     public Resolution add() {
 
         return new ForwardResolution(View.ProjectUser.ADD);

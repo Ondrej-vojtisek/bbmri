@@ -1,49 +1,57 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="${component.layout.content}">
+<stripes:useActionBean var="projectActionBean" beanclass="cz.bbmri.action.ProjectActionBean"/>
 
-    <s:layout-component name="body">
+<stripes:layout-render name="${component.layout.content}">
 
-            <div class="form-actions">
+    <stripes:layout-component name="body">
 
-                <s:link beanclass="cz.bbmri.action.ProjectCreateActionBean"
-                        event="first"
-                        class="btn btn-primary">
-                    <f:message key="cz.bbmri.action.ProjectCreateActionBean.create"/>
-                </s:link>
+        <div class="form-actions">
 
-            </div>
+            <stripes:link beanclass="cz.bbmri.action.ProjectCreateActionBean"
+                    event="first"
+                    class="btn btn-primary">
+                <format:message key="cz.bbmri.action.ProjectCreateActionBean.create"/>
+            </stripes:link>
+
+        </div>
 
         <table class="table table-hover table-striped">
-               <s:layout-render name="${component.sortableHeader.project}" pagination="${actionBean.pagination}"/>
+            <stripes:layout-render name="${component.header.project}" pagination="${actionBean.pagination}"/>
 
-               <tbody>
-               <s:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
-               <c:forEach var="item" items="${actionBean.pagination.myPageList}">
-                   <tr>
-                       <s:layout-render name="${component.row.project}" item="${item}"/>
-                       <td class="action">
+            <tbody>
+            <stripes:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
+            <core:forEach var="item" items="${actionBean.pagination.myPageList}">
+                <tr>
+                    <stripes:layout-render name="${component.row.project}" item="${item}"/>
+
+                    <%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
+                    <core:set target="${actionBean}" property="authProjectId" value="${item.id}"/>
+
+                    <td class="action">
                                   <span class="pull-right">
                                           <div class="tableAction">
-                                              <s:link beanclass="cz.bbmri.action.ProjectActionBean" event="detail"
-                                                      class="btn btn-info btnMargin">
-                                                  <s:param name="id" value="${item.id}"/>
-                                                  <f:message key="detail"/>
-                                              </s:link>
+                                              <security:allowed bean="projectActionBean" event="detail">
+                                                  <stripes:link beanclass="cz.bbmri.action.ProjectActionBean" event="detail"
+                                                          class="btn btn-info btnMargin">
+                                                      <stripes:param name="id" value="${item.id}"/>
+                                                      <format:message key="detail"/>
+                                                  </stripes:link>
+                                              </security:allowed>
                                           </div>
                                   </span>
-                       </td>
-                   </tr>
-               </c:forEach>
-               </tbody>
-           </table>
+                    </td>
+                </tr>
+            </core:forEach>
+            </tbody>
+        </table>
 
-           <%--show pagination only if list contains some data--%>
-           <c:if test="${not empty actionBean.pagination.myPageList}">
-               <s:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
-           </c:if>
+        <%--show pagination only if list contains some data--%>
+        <core:if test="${not empty actionBean.pagination.myPageList}">
+            <stripes:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
+        </core:if>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

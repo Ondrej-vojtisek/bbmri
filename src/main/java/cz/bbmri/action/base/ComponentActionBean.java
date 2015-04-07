@@ -23,8 +23,6 @@ public abstract class ComponentActionBean extends BasicActionBean {
 
     private boolean desc;
 
-
-
     private List<Breadcrumb> breadcrumbs = new ArrayList<Breadcrumb>();
 
     public List<Breadcrumb> getBreadcrumbs() {

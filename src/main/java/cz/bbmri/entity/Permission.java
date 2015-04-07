@@ -112,11 +112,14 @@ public class Permission implements Serializable {
      * @return true if this.permission includes given permission
      */
     public boolean include(Permission permission) {
+
         if (permission == null) {
             return false;
         }
 
-        if (permission.equals(VISITOR)) return true;
+        if (permission.equals(VISITOR)) {
+            return true;
+        }
 
         if (permission.equals(EXECUTOR)) {
             return !this.equals(VISITOR);
@@ -131,7 +134,7 @@ public class Permission implements Serializable {
             return this.equals(MANAGER);
         }
 
-          /* This could not happen*/
+        /* This could not happen*/
         return false;
     }
 

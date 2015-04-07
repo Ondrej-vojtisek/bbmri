@@ -1,124 +1,124 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.request.RequestActionBean.title" var="title"/>
+<format:message key="cz.bbmri.action.request.RequestActionBean.title" var="title"/>
 
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<stripes:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
                  ternarymenu="">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean" class="form-horizontal">
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Sample.sampleId" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Sample.sampleId" class="control-label"/>
                 <div class="controls">
-                    <s:text name="sample.sampleIdentification.sampleId"/>
+                    <stripes:text name="sample.sampleIdentification.sampleId"/>
                 </div>
             </div>
 
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Sample.year" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Sample.year" class="control-label"/>
                 <div class="controls">
-                    <s:text name="sample.sampleIdentification.year"/>
+                    <stripes:text name="sample.sampleIdentification.year"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Sample.number" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Sample.number" class="control-label"/>
                 <div class="controls">
-                    <s:text name="sample.sampleIdentification.number"/>
+                    <stripes:text name="sample.sampleIdentification.number"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Sample.retrieved" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Sample.retrieved" class="control-label"/>
                 <div class="controls">
-                    <s:select name="sample.retrieved">
-                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.Retrieved"/>
-                    </s:select>
-                </div>
-            </div>
-
-
-            <div class="control-group">
-                <s:label for="cz.bbmri.entities.Module.moduleLTS" class="control-label"/>
-                <div class="controls">
-                    <s:checkbox name="moduleLTS"/>
+                    <stripes:select name="sample.retrieved">
+                        <stripes:options-enumeration enum="cz.bbmri.entity.enumeration.Retrieved"/>
+                    </stripes:select>
                 </div>
             </div>
 
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Patient.consent" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Module.moduleLTS" class="control-label"/>
                 <div class="controls">
-                    <s:checkbox name="patient.consent"/>
+                    <stripes:checkbox name="moduleLTS"/>
+                </div>
+            </div>
+
+
+            <div class="control-group">
+                <stripes:label for="cz.bbmri.entities.Patient.consent" class="control-label"/>
+                <div class="controls">
+                    <stripes:checkbox name="patient.consent"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Patient.sex" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Patient.sex" class="control-label"/>
                 <div class="controls">
-                    <s:select name="patient.sex">
-                        <s:options-enumeration enum="cz.bbmri.entity.enumeration.Sex"/>
-                    </s:select>
+                    <stripes:select name="patient.sex">
+                        <stripes:options-enumeration enum="cz.bbmri.entity.enumeration.Sex"/>
+                    </stripes:select>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Patient.birthYear" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Patient.birthYear" class="control-label"/>
                 <div class="controls">
-                    <s:text name="patient.birthYear"/>
+                    <stripes:text name="patient.birthYear"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.Patient.birthMonth" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.Patient.birthMonth" class="control-label"/>
                 <div class="controls">
-                    <s:text name="patient.birthMonth"/>
+                    <stripes:text name="patient.birthMonth"/>
                 </div>
             </div>
 
 
             <div class="form-actions">
-                <s:submit name="find" class="btn btn-primary btnMargin">
-                    <s:param name="biobankId" value="${actionBean.biobankId}"/>
-                    <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                </s:submit>
+                <stripes:submit name="find" class="btn btn-primary btnMargin">
+                    <stripes:param name="biobankId" value="${actionBean.biobankId}"/>
+                    <stripes:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                </stripes:submit>
             </div>
 
-        </s:form>
-        <s:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean">
+        </stripes:form>
+        <stripes:form beanclass="cz.bbmri.action.request.CreateRequestsActionBean">
 
             <table class="table table-hover table-striped">
 
-                <s:layout-render name="/webpages/component/detail/sample/header.jsp"/>
+                <stripes:layout-render name="/webpages/component/detail/sample/header.jsp"/>
 
                 <tbody>
 
-                <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+                <stripes:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
                                  collection="${actionBean.samples}"/>
 
-                <c:forEach items="${actionBean.samples}" var="sample">
+                <core:forEach items="${actionBean.samples}" var="sample">
                     <tr>
-                        <s:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
+                        <stripes:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
                         <td>
-                            <s:checkbox name="selectedSamples" value="${sample.id}"/>
+                            <stripes:checkbox name="selectedSamples" value="${sample.id}"/>
                         </td>
                     </tr>
-                </c:forEach>
+                </core:forEach>
                 </tbody>
             </table>
 
             <div class="form-actions">
-                <s:submit name="confirmSelected" class="btn btn-primary">
-                    <s:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
-                    <s:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
-                </s:submit>
+                <stripes:submit name="confirmSelected" class="btn btn-primary">
+                    <stripes:param name="sampleQuestionId" value="${actionBean.sampleQuestionId}"/>
+                    <stripes:param name="biobankId" value="${actionBean.sampleQuestion.biobank.id}"/>
+                </stripes:submit>
             </div>
 
-        </s:form>
-    </s:layout-component>
-</s:layout-render>
+        </stripes:form>
+    </stripes:layout-component>
+</stripes:layout-render>

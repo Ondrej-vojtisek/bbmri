@@ -36,8 +36,8 @@ public class Project implements Serializable {
     private String name;
     private String annotation;
     private String fundingOrganization;
-    private java.util.Date approvalDate;
-    private java.util.Date created;
+    private Date approvalDate;
+    private Date created = new Date();
     private String principalInvestigator;
     private String approvalStorage;
     private ProjectState projectState;
@@ -156,5 +156,15 @@ public class Project implements Serializable {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", created=" + created +
+                ", projectState=" + projectState +
+                '}';
     }
 }

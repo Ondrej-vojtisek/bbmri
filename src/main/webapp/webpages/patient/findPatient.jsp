@@ -1,57 +1,57 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="patientBean" beanclass="cz.bbmri.action.patient.FindPatientActionBean"/>
+<stripes:useActionBean var="patientBean" beanclass="cz.bbmri.action.patient.FindPatientActionBean"/>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="patients">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.patient.FindPatientActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.patient.FindPatientActionBean" class="form-horizontal">
             <fieldset>
-                <legend><f:message key="cz.bbmri.action.patient.FindPatientActionBean.findPatient"/></legend>
+                <legend><format:message key="cz.bbmri.action.patient.FindPatientActionBean.findPatient"/></legend>
 
-                <s:layout-render name="/webpages/patient/component/patientForm.jsp"/>
+                <stripes:layout-render name="/webpages/patient/component/patientForm.jsp"/>
 
                 <div class="form-actions">
-                    <s:submit name="findPatient" class="btn btn-primary">
-                        <s:param name="biobankId" value="${patientBean.biobankId}"/>
-                    </s:submit>
+                    <stripes:submit name="findPatient" class="btn btn-primary">
+                        <stripes:param name="biobankId" value="${patientBean.biobankId}"/>
+                    </stripes:submit>
                 </div>
 
             </fieldset>
-        </s:form>
+        </stripes:form>
 
         <table class="table table-hover table-striped">
 
-            <s:layout-render name="/webpages/component/detail/patient/header.jsp"/>
+            <stripes:layout-render name="/webpages/component/detail/patient/header.jsp"/>
 
             <tbody>
 
-            <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+            <stripes:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
                                            collection="${patientBean.patients}"/>
 
-            <c:forEach items="${patientBean.patients}" var="patient">
+            <core:forEach items="${patientBean.patients}" var="patient">
                 <tr>
-                    <s:layout-render name="/webpages/component/detail/patient/row.jsp" record="${patient}"/>
+                    <stripes:layout-render name="/webpages/component/detail/patient/row.jsp" record="${patient}"/>
                     <td class="action">
                         <div class="tableAction">
-                            <s:link beanclass="cz.bbmri.action.patient.PatientActionBean" event="detail"
+                            <stripes:link beanclass="cz.bbmri.action.patient.PatientActionBean" event="detail"
                                     class="btn btn-primary btnMargin">
-                                <s:param name="biobankId" value="${patientBean.biobankId}"/>
-                                <s:param name="patientId" value="${patient.id}"/>
-                                <f:message key="detail"/>
-                            </s:link>
+                                <stripes:param name="biobankId" value="${patientBean.biobankId}"/>
+                                <stripes:param name="patientId" value="${patient.id}"/>
+                                <format:message key="detail"/>
+                            </stripes:link>
                         </div>
                     </td>
                 </tr>
-            </c:forEach>
+            </core:forEach>
 
             </tbody>
         </table>
 
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -1,24 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="infrastructure">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.infrastructure.BoxActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.infrastructure.BoxActionBean" class="form-horizontal">
 
-            <s:layout-render name="/webpages/infrastructure/component/createBox.jsp"
+            <stripes:layout-render name="/webpages/infrastructure/component/createBox.jsp"
                              boxType="standaloneBox"/>
 
-            <s:hidden name="biobankId"/>
+            <stripes:hidden name="biobankId"/>
 
             <div class="form-actions">
-                <s:submit name="createStandaloneBox" class="btn btn-primary"/>
+                <stripes:submit name="createStandaloneBox" class="btn btn-primary"/>
             </div>
 
-        </s:form>
+        </stripes:form>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -2,17 +2,17 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
-        <th><f:message key="cz.bbmri.entity.Biobank.acronym"/></th>
-        <th><f:message key="cz.bbmri.entity.Biobank.name"/></th>
-        <th><f:message key="cz.bbmri.entity.Biobank.nameEnglish"/></th>
-        <th><f:message key="cz.bbmri.entity.Biobank.institutionalId"/></th>
-        <th><f:message key="cz.bbmri.entity.Biobank.description"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.acronym"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.name"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.nameEnglish"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.institutionalId"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.description"/></th>
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>
 

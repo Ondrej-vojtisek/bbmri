@@ -1,6 +1,6 @@
 package cz.bbmri.action;
 
-import cz.bbmri.action.base.PermissionActionBean;
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.NotificationDAO;
 import cz.bbmri.entity.Biobank;
@@ -26,7 +26,7 @@ import java.util.List;
 
 @PermitAll
 @UrlBinding("/dashboard")
-public class DashboardActionBean extends PermissionActionBean {
+public class DashboardActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private NotificationDAO notificationDAO;
@@ -36,7 +36,7 @@ public class DashboardActionBean extends PermissionActionBean {
     @Validate(on = {"markAsRead", "deleteSelected"}, required = true)
     private List<Long> selectedNotifications;
 
-    private MyPagedListHolder<Notification> pagination;
+    private MyPagedListHolder<Notification> pagination = new MyPagedListHolder<Notification>(new ArrayList<Notification>());
 
     public DashboardActionBean() {
         getBreadcrumbs().add(new Breadcrumb(DashboardActionBean.class.getName(), "display", false, "home", true));
@@ -74,8 +74,8 @@ public class DashboardActionBean extends PermissionActionBean {
     @HandlesEvent("display")
     public Resolution display() {
 
-        pagination = new MyPagedListHolder<Notification>(notificationDAO.getUnread(getLoggedUser()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(notificationDAO.getUnread(getLoggedUser()));
         pagination.setEvent("display");
 
         return new ForwardResolution(View.Notification.DASHBOARD);

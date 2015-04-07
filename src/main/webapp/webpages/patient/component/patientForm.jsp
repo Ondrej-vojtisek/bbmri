@@ -1,43 +1,43 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <div class="control-group">
-        <s:label for="cz.bbmri.entities.Patient.institutionId" class="control-label"/>
+        <stripes:label for="cz.bbmri.entities.Patient.institutionId" class="control-label"/>
         <div class="controls">
-            <s:text name="patient.institutionId"/>
+            <stripes:text name="patient.institutionId"/>
         </div>
     </div>
 
     <div class="control-group">
-        <s:label for="cz.bbmri.entities.Patient.consent" class="control-label"/>
+        <stripes:label for="cz.bbmri.entities.Patient.consent" class="control-label"/>
         <div class="controls">
-            <s:checkbox name="patient.consent"/>
+            <stripes:checkbox name="patient.consent"/>
         </div>
     </div>
 
     <div class="control-group">
-        <s:label for="cz.bbmri.entities.Patient.sex" class="control-label"/>
+        <stripes:label for="cz.bbmri.entities.Patient.sex" class="control-label"/>
         <div class="controls">
-            <s:select name="patient.sex">
-                <s:options-enumeration enum="cz.bbmri.entity.enumeration.Sex"/>
-            </s:select>
+            <stripes:select name="patient.sex">
+                <stripes:options-enumeration enum="cz.bbmri.entity.enumeration.Sex"/>
+            </stripes:select>
         </div>
     </div>
 
     <div class="control-group">
-        <s:label for="cz.bbmri.entities.Patient.birthYear" class="control-label"/>
+        <stripes:label for="cz.bbmri.entities.Patient.birthYear" class="control-label"/>
         <div class="controls">
-            <s:text name="patient.birthYear"/>
+            <stripes:text name="patient.birthYear"/>
         </div>
     </div>
 
     <div class="control-group">
-        <s:label for="cz.bbmri.entities.Patient.birthMonth" class="control-label"/>
+        <stripes:label for="cz.bbmri.entities.Patient.birthMonth" class="control-label"/>
         <div class="controls">
-            <s:text name="patient.birthMonth"/>
+            <stripes:text name="patient.birthMonth"/>
         </div>
     </div>
 
-</s:layout-definition>
+</stripes:layout-definition>

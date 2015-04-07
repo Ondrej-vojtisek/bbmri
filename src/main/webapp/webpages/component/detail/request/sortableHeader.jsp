@@ -1,24 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
         <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+            <stripes:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entity.sample.Sample.sampleId"
                              column="sample.sampleIdentification.sampleId"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+            <stripes:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entity.sample.Sample.tissueType"
                              column="sample.materialType.type"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
+            <stripes:layout-render name="/webpages/component/detail/sortableTable/header.jsp"
                              msgKey="cz.bbmri.entity.Request.numOfRequested"
                              column="numOfRequested"
                              pagination="${pagination}"/>
@@ -26,4 +26,4 @@
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

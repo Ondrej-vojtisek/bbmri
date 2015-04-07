@@ -3,22 +3,22 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<f:message key="cz.bbmri.action.LoginActionBean.notAuthorized" var="title"/>
-<s:layout-render name="/layouts/layout_error_outside.jsp"
+<format:message key="cz.bbmri.action.LoginActionBean.notAuthorized" var="title"/>
+<stripes:layout-render name="/layouts/layout_error_outside.jsp"
                  title="${title}">
 
-    <s:useActionBean var="ab" beanclass="cz.bbmri.action.ErrorActionBean"/>
+    <stripes:useActionBean var="ab" beanclass="cz.bbmri.action.ErrorActionBean"/>
 
-    <s:layout-component name="body">
-        <p><f:message key="cz.bbmri.action.LoginActionBean.unauthorized"/></p>
-        <p><f:message key="cz.bbmri.action.LoginActionBean.rightToAccess"/></p>
+    <stripes:layout-component name="body">
+        <p><format:message key="cz.bbmri.action.LoginActionBean.unauthorized"/></p>
+        <p><format:message key="cz.bbmri.action.LoginActionBean.rightToAccess"/></p>
         <ul>
-        <c:forEach items="${ab.developers}" var="user">
+        <core:forEach items="${ab.developers}" var="user">
 
                 <li>${user.wholeName}, email: ${user.email}</li>
 
-        </c:forEach>
+        </core:forEach>
         </ul>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -2,44 +2,44 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="samples">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
-        <s:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
+        <stripes:layout-render name="/webpages/component/detail/patient/ribbon.jsp" record="${actionBean.patient}"/>
+        <stripes:form beanclass="cz.bbmri.action.sample.CreateSampleActionBean" class="form-horizontal">
 
-            <c:if test="${actionBean.isTissue}">
-                <s:layout-render name="/webpages/sample/create/createTissue.jsp"/>
-            </c:if>
+            <core:if test="${actionBean.isTissue}">
+                <stripes:layout-render name="/webpages/sample/create/createTissue.jsp"/>
+            </core:if>
 
-            <c:if test="${actionBean.isGenome}">
-                <s:layout-render name="/webpages/sample/create/createGenome.jsp"/>
-            </c:if>
+            <core:if test="${actionBean.isGenome}">
+                <stripes:layout-render name="/webpages/sample/create/createGenome.jsp"/>
+            </core:if>
 
-            <c:if test="${actionBean.isDiagnosisMaterial}">
-                <s:layout-render name="/webpages/sample/create/createDiagnosisMaterial.jsp"/>
-            </c:if>
+            <core:if test="${actionBean.isDiagnosisMaterial}">
+                <stripes:layout-render name="/webpages/sample/create/createDiagnosisMaterial.jsp"/>
+            </core:if>
 
-            <c:if test="${actionBean.isSerum}">
-                <s:layout-render name="/webpages/sample/create/createSerum.jsp"/>
-            </c:if>
+            <core:if test="${actionBean.isSerum}">
+                <stripes:layout-render name="/webpages/sample/create/createSerum.jsp"/>
+            </core:if>
 
             <div class="form-actions">
-                <s:submit name="confirmStep3" class="btn btn-primary btnMargin"/>
-                <s:submit name="backFromStep3" class="btn btn-inverse"/>
+                <stripes:submit name="confirmStep3" class="btn btn-primary btnMargin"/>
+                <stripes:submit name="backFromStep3" class="btn btn-inverse"/>
             </div>
-        </s:form>
-    </s:layout-component>
+        </stripes:form>
+    </stripes:layout-component>
 
-    <s:layout-component name="script">
+    <stripes:layout-component name="script">
         <script type="text/javascript">
             $(function () {
                 $('#dp').datepicker();
             });
         </script>
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

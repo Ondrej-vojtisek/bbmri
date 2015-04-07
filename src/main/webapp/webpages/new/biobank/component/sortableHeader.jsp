@@ -1,33 +1,33 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Biobank.acronym"
                              column="acronym"
                              pagination="${pagination}"/>
         </th>
 
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Biobank.name"
                              column="name"
                              pagination="${pagination}"/>
         </th>
 
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Biobank.institutionalId"
                              column="institutionalId"
                              pagination="${pagination}"/>
         </th>
 
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Biobank.description"
                              column="description"
                              pagination="${pagination}"/>
@@ -36,4 +36,4 @@
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

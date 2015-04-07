@@ -15,7 +15,7 @@ License Type: Academic
 		<property name="annotation" column="annotation" type="text" not-null="false" lazy="false"/>
 		<property name="fundingOrganization" column="funding_organization" type="text" not-null="false" lazy="false"/>
 		<property name="approvalDate" column="approval_date" type="date" not-null="false" lazy="false"/>
-		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="false" lazy="false"/>
 		<property name="principalInvestigator" column="principal_investigator" type="text" not-null="false" lazy="false"/>
 		<property name="approvalStorage" column="approval_storage" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="projectState" cascade="lock" column="projectState_id" class="cz.bbmri.entity.ProjectState" not-null="true" lazy="proxy">

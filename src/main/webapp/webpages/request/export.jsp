@@ -14,30 +14,30 @@
 </head>
 <body>
 
-<s:layout-render name="/webpages/component/detail/biobank/ribbon.jsp"
+<stripes:layout-render name="/webpages/component/detail/biobank/ribbon.jsp"
                  record="${actionBean.sampleRequest.biobank}"/>
 
-<s:layout-render name="/webpages/component/detail/project/ribbon.jsp"
+<stripes:layout-render name="/webpages/component/detail/project/ribbon.jsp"
                  record="${actionBean.sampleRequest.project}"/>
 
-<s:layout-render name="/webpages/component/detail/sampleQuestion/ribbon.jsp"
+<stripes:layout-render name="/webpages/component/detail/sampleQuestion/ribbon.jsp"
                  record="${actionBean.sampleRequest}"/>
 
 <fieldset>
-    <legend><f:message key="cz.bbmri.entities.SampleQuestion.sampleRequestSet"/></legend>
-    <c:forEach items="${actionBean.requests}" var="request">
+    <legend><format:message key="cz.bbmri.entities.SampleQuestion.sampleRequestSet"/></legend>
+    <core:forEach items="${actionBean.requests}" var="request">
 
-        <s:layout-render name="/webpages/component/detail/request/ribbon.jsp"
+        <stripes:layout-render name="/webpages/component/detail/request/ribbon.jsp"
                          record="${request}"/>
 
-        <s:layout-render name="/webpages/component/detail/sample/ribbon.jsp"
+        <stripes:layout-render name="/webpages/component/detail/sample/ribbon.jsp"
                          record="${request.sample}"/>
 
-        <c:if test="${not empty sampleRequest}">
-            <s:layout-render name="/webpages/component/detail/position/ribbon.jsp"
+        <core:if test="${not empty sampleRequest}">
+            <stripes:layout-render name="/webpages/component/detail/position/ribbon.jsp"
                              record="${sampleRequest}"/>
-        </c:if>
-    </c:forEach>
+        </core:if>
+    </core:forEach>
 </fieldset>
 
 </body>

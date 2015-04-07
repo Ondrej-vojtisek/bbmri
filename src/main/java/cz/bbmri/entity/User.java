@@ -1,7 +1,6 @@
 package cz.bbmri.entity;
 
 
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,24 +12,24 @@ import java.util.Set;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public class User implements Serializable{
+public class User implements Serializable {
 
     public static final String PROP_ID = "id";
-   	public static final String PROP_PASSWORD = "password";
-   	public static final String PROP_CREATED = "created";
-   	public static final String PROP_LAST_LOGIN = "lastLogin";
-   	public static final String PROP_ROLE = "role";
-   	public static final String PROP_CONTACT = "contact";
-   	public static final String PROP_SHIBBOLETH = "shibboleth";
-   	public static final String PROP_SETTINGS = "settings";
-   	public static final String PROP_RESERVATION = "reservation";
-   	public static final String PROP_BIOBANK_USER = "biobankUser";
-   	public static final String PROP_PROJECT_USER = "projectUser";
-   	public static final String PROP_NOTIFICATION = "notification";
+    public static final String PROP_PASSWORD = "password";
+    public static final String PROP_CREATED = "created";
+    public static final String PROP_LAST_LOGIN = "lastLogin";
+    public static final String PROP_ROLE = "role";
+    public static final String PROP_CONTACT = "contact";
+    public static final String PROP_SHIBBOLETH = "shibboleth";
+    public static final String PROP_SETTINGS = "settings";
+    public static final String PROP_RESERVATION = "reservation";
+    public static final String PROP_BIOBANK_USER = "biobankUser";
+    public static final String PROP_PROJECT_USER = "projectUser";
+    public static final String PROP_NOTIFICATION = "notification";
 
     private long id;
     private String password;
-    private Date created;
+    private Date created = new Date();
     private Date lastLogin;
     private Set<Role> role = new HashSet<Role>();
     private Contact contact;
@@ -41,18 +40,52 @@ public class User implements Serializable{
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
     private Set<Notification> notification = new HashSet<Notification>();
 
-
-    public boolean isOperator() {
-        return role.contains(Role.BIOBANK_OPERATOR);
-    }
-
     public boolean isAdministrator() {
         return role.contains(Role.ADMIN);
     }
 
     public boolean isDeveloper() {
-            return role.contains(Role.DEVELOPER);
+        return role.contains(Role.DEVELOPER);
+    }
+
+    public boolean isProjectTeamMember() {
+        return role.contains(Role.PROJECT_TEAM_MEMBER);
+    }
+
+    public boolean isBiobankOperator() {
+        return role.contains(Role.BIOBANK_OPERATOR);
+    }
+
+    public boolean isProjectTeamMemberConfirmed() {
+        return role.contains(Role.PROJECT_TEAM_MEMBER_CONFIRMED);
+    }
+
+    public void nominateProjectTeamMember() {
+        if (isProjectTeamMember()) {
+            // nothing to be done here
+            return;
         }
+
+        role.add(Role.PROJECT_TEAM_MEMBER);
+    }
+
+    public void nominateProjectTeamMemberConfirmed() {
+        if (isProjectTeamMemberConfirmed()) {
+            // nothing to be done here
+            return;
+        }
+
+        role.add(Role.PROJECT_TEAM_MEMBER_CONFIRMED);
+    }
+
+    public void nominateBiobankOperator() {
+        if (isBiobankOperator()) {
+            // nothing to be done here
+            return;
+        }
+
+        role.add(Role.BIOBANK_OPERATOR);
+    }
 
 
     public long getId() {
@@ -152,11 +185,11 @@ public class User implements Serializable{
     }
 
     public String getWholeName() {
-        if(shibboleth != null){
-            if(shibboleth.getDisplayName() != null){
+        if (shibboleth != null) {
+            if (shibboleth.getDisplayName() != null) {
                 return shibboleth.getDisplayName();
-            } else{
-                 // Fallback
+            } else {
+                // Fallback
                 return shibboleth.getName() + " " + shibboleth.getSurname();
             }
         }

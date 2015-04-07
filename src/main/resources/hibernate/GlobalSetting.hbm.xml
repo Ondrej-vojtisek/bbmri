@@ -11,6 +11,6 @@ License Type: Academic
 			</generator>
 		</id>
 		<property name="value" column="value" type="text" not-null="false" lazy="false"/>
-		<property name="lastModification" column="last_modification" type="date" not-null="false" lazy="false"/>
+		<property name="lastModification" column="last_modification" type="timestamp" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>

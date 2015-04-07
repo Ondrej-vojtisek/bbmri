@@ -20,4 +20,13 @@ public abstract interface AbstractDAO<T, ID> {
 //
 //    boolean evict(T t);
 
+    /**
+     * Return all instances of type T ordered by given parameter. Desc param changes if it is ordered DESC or ASC
+     *
+     * @param orderByParam - select column by which will the result be sorted
+     * @param desc         - flag determining if order will be DESC (true) or default ASC (false)
+     * @return List of all instances of type T ordered by given parameter.
+     */
+    List<T> allOrderedBy(String orderByParam, boolean desc);
+
 }

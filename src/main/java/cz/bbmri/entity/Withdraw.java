@@ -20,7 +20,7 @@ public class Withdraw implements Serializable {
 
     private Biobank biobank;
     private long id;
-    private Date created;
+    private Date created = new Date();
     private Set<Request> request = new HashSet<Request>();
 
     public Biobank getBiobank() {

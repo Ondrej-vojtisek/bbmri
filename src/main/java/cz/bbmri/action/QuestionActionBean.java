@@ -1,12 +1,13 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
+import cz.bbmri.dao.BiobankDAO;
+import cz.bbmri.dao.ProjectDAO;
 import cz.bbmri.dao.QuestionDAO;
 import cz.bbmri.dao.QuestionDAO;
-import cz.bbmri.entity.Attachment;
-import cz.bbmri.entity.Question;
-import cz.bbmri.entity.Request;
+import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -22,18 +23,23 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/question/{$event}/{id}")
-public class QuestionActionBean extends ComponentActionBean {
+public class QuestionActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private QuestionDAO questionDAO;
 
+    @SpringBean
+    private ProjectDAO projectDAO;
+
     private Long id;
+
+    private Long projectId;
 
     private Question question;
 
-    private MyPagedListHolder<Question> pagination;
+    private MyPagedListHolder<Question> pagination = new MyPagedListHolder<Question>(new ArrayList<Question>());
 
-    private MyPagedListHolder<Request> requestPagination;
+    private MyPagedListHolder<Request> requestPagination = new MyPagedListHolder<Request>(new ArrayList<Request>());
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(QuestionActionBean.class.getName(), "all", false, "" +
@@ -43,6 +49,19 @@ public class QuestionActionBean extends ComponentActionBean {
     public static Breadcrumb getDetailBreadcrumb(boolean active, Question question) {
         return new Breadcrumb(QuestionActionBean.class.getName(), "detail", false, "cz.bbmri.entity.Question.question",
                 active, "id", question.getId());
+    }
+
+    public static Breadcrumb getAddBreadcrumb(boolean active, Project project) {
+        return new Breadcrumb(QuestionActionBean.class.getName(), "add", false, "" +
+                "cz.bbmri.entity.Question.add", active, "projectId", project.getId());
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public Long getId() {
@@ -90,8 +109,8 @@ public class QuestionActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(QuestionActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Question>(new ArrayList<Question>(questionDAO.all()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(new ArrayList<Question>(questionDAO.all()));
         pagination.setEvent("all");
 
         return new ForwardResolution(View.Question.ALL);
@@ -99,7 +118,7 @@ public class QuestionActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "admin"})
+    @RolesAllowed({"project_team_member if ${projectVisitor}", "developer"})
     public Resolution detail() {
 
         getQuestion();
@@ -112,6 +131,21 @@ public class QuestionActionBean extends ComponentActionBean {
         getBreadcrumbs().add(QuestionActionBean.getDetailBreadcrumb(true, question));
 
         return new ForwardResolution(View.Question.DETAIL);
+    }
+
+    @HandlesEvent("add")
+    @RolesAllowed({"project_team_member_confirmed if ${projectExecutor}"})
+    public Resolution add() {
+
+        Project project = projectDAO.get(projectId);
+        if (project == null) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(QuestionActionBean.getAddBreadcrumb(true, project));
+
+        return new ForwardResolution(View.Withdraw.ADD);
+
     }
 
 }

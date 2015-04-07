@@ -13,8 +13,14 @@ public enum View {
      */
     INSTANCE;
 
+    public static final String LOGIN = "/login.jsp";
+    public static final String INDEX = "/index.jsp";
+
+
     // Definition of absolute path to view templates source
     private static final String LOCATION = "/webpages/new/";
+
+
 
     public static class Archive {
         private static final String DIRECTORY = LOCATION + "archive/";
@@ -301,6 +307,7 @@ public enum View {
         private static final String DIRECTORY = LOCATION + "withdraw/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ADD = DIRECTORY + "add.jsp";
     }
 
 

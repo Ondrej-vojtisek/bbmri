@@ -1,39 +1,39 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="${component.layout.content}">
+<stripes:layout-render name="${component.layout.content}">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
         <table class="table table-hover table-striped">
-               <s:layout-render name="${component.sortableHeader.question}" pagination="${actionBean.pagination}"/>
+               <stripes:layout-render name="${component.header.question}" pagination="${actionBean.pagination}"/>
 
                <tbody>
-               <s:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
-               <c:forEach var="item" items="${actionBean.pagination.myPageList}">
+               <stripes:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
+               <core:forEach var="item" items="${actionBean.pagination.myPageList}">
                    <tr>
-                       <s:layout-render name="${component.row.question}" item="${item}"/>
+                       <stripes:layout-render name="${component.row.question}" item="${item}"/>
                        <td class="action">
                                   <span class="pull-right">
                                           <div class="tableAction">
-                                              <s:link beanclass="cz.bbmri.action.QuestionActionBean" event="detail"
+                                              <stripes:link beanclass="cz.bbmri.action.QuestionActionBean" event="detail"
                                                       class="btn btn-info btnMargin">
-                                                  <s:param name="id" value="${item.id}"/>
-                                                  <f:message key="detail"/>
-                                              </s:link>
+                                                  <stripes:param name="id" value="${item.id}"/>
+                                                  <format:message key="detail"/>
+                                              </stripes:link>
                                           </div>
                                   </span>
                        </td>
                    </tr>
-               </c:forEach>
+               </core:forEach>
                </tbody>
            </table>
 
            <%--show pagination only if list contains some data--%>
-           <c:if test="${not empty actionBean.pagination.myPageList}">
-               <s:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
-           </c:if>
+           <core:if test="${not empty actionBean.pagination.myPageList}">
+               <stripes:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
+           </core:if>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

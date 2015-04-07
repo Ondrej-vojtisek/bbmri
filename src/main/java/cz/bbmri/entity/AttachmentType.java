@@ -35,6 +35,7 @@ public class AttachmentType implements Serializable {
     public static final AttachmentType ETHICAL_AGREEMENT = new AttachmentType(2, "ethical");
     public static final AttachmentType MATERIAL_TRANSFER_AGREEMENT = new AttachmentType(3, "mta");
     public static final AttachmentType OTHER = new AttachmentType(4, "other");
+    public static final AttachmentType CONSENT = new AttachmentType(5, "consent");
 
     public static final String PROP_ID = "id";
     public static final String PROP_NAME = "name";
@@ -73,6 +74,7 @@ public class AttachmentType implements Serializable {
         List<AttachmentType> biobankAttachmentType = new ArrayList<AttachmentType>();
 
         biobankAttachmentType.add(CALIBRATION_PROTOCOL);
+        biobankAttachmentType.add(CONSENT);
         biobankAttachmentType.add(OTHER);
 
         return biobankAttachmentType;

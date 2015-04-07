@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<c:set var="request" value="${pageContext.request}"/>
-<c:set var="context" value="${request.contextPath}"/>
+<core:set var="request" value="${pageContext.request}"/>
+<core:set var="context" value="${request.contextPath}"/>
 
-<%--<c:set var="locale" value="${actionBean.locale}"/>--%>
+<%--<core:set var="locale" value="${actionBean.locale}"/>--%>
 
-<s:layout-definition>
+<stripes:layout-definition>
     <!DOCTYPE html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/graph.css"/>
         <title>BBMRI_CZ</title>
-        <s:layout-component name="hlavicka"/>
+        <stripes:layout-component name="hlavicka"/>
     </head>
 
     <body>
@@ -27,9 +27,9 @@
                 </a>
 
                 <div class="nav-collapse collapse">
-                    <s:layout-render name="/layouts/navigation/navbar.jsp"/>
+                    <stripes:layout-render name="/layouts/navigation/navbar.jsp"/>
                     <ul class="nav">
-                        <s:layout-render name="/layouts/primaryMenu/primaryMenu.jsp"/>
+                        <stripes:layout-render name="/layouts/primaryMenu/primaryMenu.jsp"/>
                     </ul>
                 </div>
             </div>
@@ -39,15 +39,15 @@
     <div class="container-fluid">
         <div class="row-fluid">
 
-            <s:layout-render name="/webpages/new/component/breadcrumb/breadcrumb.jsp"/>
+            <stripes:layout-render name="/webpages/new/component/breadcrumb/breadcrumb.jsp"/>
 
-            <s:messages/>
+            <stripes:messages/>
 
-            <s:errors/>
+            <stripes:errors/>
 
             <h1>${title}</h1>
 
-            <s:layout-component name="body"/>
+            <stripes:layout-component name="body"/>
 
 
         </div>
@@ -64,7 +64,7 @@
 
         <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
 
-    <s:layout-component name="jsLibrary"/>
+    <stripes:layout-component name="jsLibrary"/>
 
     <script type="text/javascript">
         $(function () {
@@ -81,10 +81,10 @@
 
 
     </script>
-    <s:layout-component name="script"/>
+    <stripes:layout-component name="script"/>
     </body>
 
     </html>
 
-</s:layout-definition>
+</stripes:layout-definition>
 

@@ -2,12 +2,12 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="${component.layout.content}"
+<stripes:layout-render name="${component.layout.content}"
                  primarymenu="user">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="${component.menu.user}" active="settings"/>
+        <stripes:layout-render name="${component.menu.user}" active="settings"/>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

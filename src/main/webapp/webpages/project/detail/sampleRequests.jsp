@@ -1,15 +1,15 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<%--<f:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest" var="title"/>--%>
+<%--<format:message key="cz.bbmri.action.project.ProjectActionBean.createSampleRequest" var="title"/>--%>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="project"
                  ternarymenu="sampleRequests">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+        <stripes:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
                          pagination="${actionBean.pagination}"
                          componentManager="${actionBean.componentManager}"
                          targetBean="cz.bbmri.action.request.RequestActionBean"
@@ -19,29 +19,29 @@
 
         <%--<table class="table table-hover table-striped">--%>
 
-        <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>--%>
+        <%--<stripes:layout-render name="/webpages/component/detail/sampleQuestion/header.jsp"/>--%>
 
         <%--<tbody>--%>
 
-        <%--<s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
+        <%--<stripes:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"--%>
         <%--collection="${actionBean.project.sampleRequests}"/>--%>
 
-        <%--<c:forEach items="${actionBean.project.sampleRequests}" var="sampleRequest">--%>
+        <%--<core:forEach items="${actionBean.project.sampleRequests}" var="sampleRequest">--%>
         <%--<tr>--%>
-        <%--<s:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"--%>
+        <%--<stripes:layout-render name="/webpages/component/detail/sampleQuestion/row.jsp"--%>
         <%--record="${sampleRequest}"/>--%>
 
         <%--<td class="action">--%>
-        <%--<s:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"--%>
+        <%--<stripes:link beanclass="cz.bbmri.action.request.RequestActionBean" event="detail"--%>
         <%--class="btn btn-primary">--%>
-        <%--<s:param name="sampleQuestionId" value="${sampleRequest.id}"/>--%>
-        <%--<s:param name="biobankId" value="${sampleRequest.biobank.id}"/>--%>
-        <%--<f:message key="detail"/>--%>
-        <%--</s:link>--%>
+        <%--<stripes:param name="sampleQuestionId" value="${sampleRequest.id}"/>--%>
+        <%--<stripes:param name="biobankId" value="${sampleRequest.biobank.id}"/>--%>
+        <%--<format:message key="detail"/>--%>
+        <%--</stripes:link>--%>
         <%--</td>--%>
         <%--</tr>--%>
-        <%--</c:forEach>--%>
+        <%--</core:forEach>--%>
         <%--</tbody>--%>
         <%--</table>--%>
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

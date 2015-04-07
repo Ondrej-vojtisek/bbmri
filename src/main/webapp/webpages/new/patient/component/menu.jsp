@@ -1,34 +1,37 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:useActionBean var="patientActionBean" beanclass="cz.bbmri.action.PatientActionBean"/>
-<%--<s:useActionBean var="patientModuleBean" beanclass="cz.bbmri.action.patient.PatientModuleActionBean"/>--%>
+<stripes:useActionBean var="patientActionBean" beanclass="cz.bbmri.action.PatientActionBean"/>
+<%--<stripes:useActionBean var="patientModuleBean" beanclass="cz.bbmri.action.patient.PatientModuleActionBean"/>--%>
 
-<s:layout-definition>
+<%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
+<core:set target="${actionBean}" property="authBiobankId" value="${actionBean.patient.biobank.id}"/>
+
+<stripes:layout-definition>
     <ul class="nav nav-tabs">
             <%-- -------------------------------------------------------------------- --%>
 
         <security:allowed bean="patientActionBean" event="detail">
-            <li <c:if test="${active == 'detail'}"> class="active" </c:if> >
-                <s:link beanclass="cz.bbmri.action.PatientActionBean" event="detail">
-                    <s:param name="id" value="${patientActionBean.id}"/>
-                    <f:message key="cz.bbmri.entity.Patient.patient"/>
-                </s:link></li>
+            <li <core:if test="${active == 'detail'}"> class="active" </core:if> >
+                <stripes:link beanclass="cz.bbmri.action.PatientActionBean" event="detail">
+                    <stripes:param name="id" value="${patientActionBean.id}"/>
+                    <format:message key="cz.bbmri.entity.Patient.patient"/>
+                </stripes:link></li>
         </security:allowed>
 
             <%-- -------------------------------------------------------------------- --%>
 
         <security:allowed bean="patientActionBean" event="samples">
-            <li <c:if test="${active == 'samples'}"> class="active" </c:if> >
-                <s:link beanclass="cz.bbmri.action.PatientActionBean" event="samples">
-                    <s:param name="id" value="${patientActionBean.id}"/>
-                    <f:message key="cz.bbmri.entity.Sample.samples"/>
-                </s:link></li>
+            <li <core:if test="${active == 'samples'}"> class="active" </core:if> >
+                <stripes:link beanclass="cz.bbmri.action.PatientActionBean" event="samples">
+                    <stripes:param name="id" value="${patientActionBean.id}"/>
+                    <format:message key="cz.bbmri.entity.Sample.samples"/>
+                </stripes:link></li>
         </security:allowed>
 
             <%-- -------------------------------------------------------------------- --%>
 
     </ul>
 
-</s:layout-definition>
+</stripes:layout-definition>
 

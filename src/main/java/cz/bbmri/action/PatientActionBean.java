@@ -1,10 +1,12 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.dao.PatientDAO;
 import cz.bbmri.entity.Biobank;
+import cz.bbmri.entity.Notification;
 import cz.bbmri.entity.Patient;
 import cz.bbmri.entity.Sample;
 import cz.bbmri.entity.webEntities.Breadcrumb;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/patient/{$event}/{id}")
-public class PatientActionBean extends ComponentActionBean {
+public class PatientActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private PatientDAO patientDAO;
@@ -32,9 +34,9 @@ public class PatientActionBean extends ComponentActionBean {
 
     private Patient patient;
 
-    private MyPagedListHolder<Patient> pagination;
+    private MyPagedListHolder<Patient> pagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>());
 
-    private MyPagedListHolder<Sample> samplePagination;
+    private MyPagedListHolder<Sample> samplePagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>());
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(PatientActionBean.class.getName(), "all", false, "" +
@@ -96,8 +98,8 @@ public class PatientActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>(patientDAO.all()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(patientDAO.all());
         pagination.setEvent("all");
 
         return new ForwardResolution(View.Patient.ALL);
@@ -105,7 +107,7 @@ public class PatientActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "admin"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "developer"})
     public Resolution detail() {
 
         getPatient();
@@ -122,7 +124,7 @@ public class PatientActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("samples")
-    @RolesAllowed({"developer", "admin"})
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "developer"})
     public Resolution samples() {
 
         getPatient();
@@ -132,8 +134,8 @@ public class PatientActionBean extends ComponentActionBean {
         getBreadcrumbs().add(PatientActionBean.getDetailBreadcrumb(false, patient));
         getBreadcrumbs().add(PatientActionBean.getSampleBreadcrumb(true, patient));
 
-        samplePagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>(patient.getSample()));
         samplePagination.initiate(getPage(), getOrderParam(), isDesc());
+        samplePagination.setSource(new ArrayList<Sample>(patient.getSample()));
         samplePagination.setEvent("samples");
         samplePagination.setIdentifier(patient.getId());
         samplePagination.setIdentifierParam("id");

@@ -2,13 +2,13 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="user"
                  ternarymenu="setting">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
 
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

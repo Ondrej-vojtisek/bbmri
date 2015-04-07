@@ -1,7 +1,7 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
-import cz.bbmri.action.base.ProjectPermissionActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.ProjectDAO;
 import cz.bbmri.entity.Attachment;
@@ -23,20 +23,20 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/project/{$event}/{id}")
-public class ProjectActionBean extends ProjectPermissionActionBean {
+public class ProjectActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private ProjectDAO projectDAO;
 
-//    private Long id;
+    private Long id;
 
-//    private Project project;
+    private Project project;
 
-    private MyPagedListHolder<Project> pagination;
+    private MyPagedListHolder<Project> pagination = new MyPagedListHolder<Project>(new ArrayList<Project>());
 
-    private MyPagedListHolder<Attachment> attachmentPagination;
+    private MyPagedListHolder<Attachment> attachmentPagination = new MyPagedListHolder<Attachment>(new ArrayList<Attachment>());
 
-    private MyPagedListHolder<Question> questionPagination;
+    private MyPagedListHolder<Question> questionPagination = new MyPagedListHolder<Question>(new ArrayList<Question>());
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(ProjectActionBean.class.getName(), "all", false, "" +
@@ -69,27 +69,28 @@ public class ProjectActionBean extends ProjectPermissionActionBean {
     }
 
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public void setProject(Project project) {
-//        this.project = project;
-//    }
-//
-//    public Project getProject() {
-//        if (project == null) {
-//            if (id != null) {
-//                project = projectDAO.get(id);
-//            }
-//        }
-//
-//        return project;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        setAuthProjectId(id);
+        this.id = id;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Project getProject() {
+        if (project == null) {
+            if (id != null) {
+                project = projectDAO.get(id);
+            }
+        }
+
+        return project;
+    }
 
     public MyPagedListHolder<Project> getPagination() {
         return pagination;
@@ -122,8 +123,14 @@ public class ProjectActionBean extends ProjectPermissionActionBean {
 
         getBreadcrumbs().add(ProjectActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Project>(new ArrayList<Project>(projectDAO.all()));
+        if (getOrderParam() == null) {
+            // default
+            getPagination().setOrderParam("created");
+        }
+
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+//        pagination.setSource(new ArrayList<Project>(projectDAO.allOrderedBy(pagination.getOrderParam(), pagination.getDesc())));
+        pagination.setSource(projectDAO.all());
         pagination.setEvent("all");
 
         return new ForwardResolution(View.Project.ALL);
@@ -132,13 +139,18 @@ public class ProjectActionBean extends ProjectPermissionActionBean {
 
 
     @HandlesEvent("myProjects")
-    @RolesAllowed({"authorized","developer"})
+    @RolesAllowed({"authorized", "developer"})
     public Resolution myProjects() {
 
         getBreadcrumbs().add(ProjectActionBean.getMyBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Project>(new ArrayList<Project>(projectDAO.getByUser(getLoggedUser())));
+//        pagination.initiate(getPage(), getOrderParam(), isDesc());
+//        if (getOrderParam() == null) {
+//            // default
+//            getPagination().setOrderParam("created");
+//        }
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(projectDAO.getByUser(getLoggedUser()));
         pagination.setEvent("myProjects");
 
         return new ForwardResolution(View.Project.ALL);
@@ -146,7 +158,7 @@ public class ProjectActionBean extends ProjectPermissionActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "admin", "project_team_member if ${projectVisitor}"})
+    @RolesAllowed({"project_team_member if ${projectVisitor}"})
     public Resolution detail() {
 
         getProject();
@@ -174,8 +186,8 @@ public class ProjectActionBean extends ProjectPermissionActionBean {
         getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, getProject()));
         getBreadcrumbs().add(ProjectActionBean.getAttachmentsBreadcrumb(true, getProject()));
 
-        attachmentPagination = new MyPagedListHolder<Attachment>(new ArrayList<Attachment>(project.getAttachment()));
         attachmentPagination.initiate(getPage(), getOrderParam(), isDesc());
+        attachmentPagination.setSource(new ArrayList<Attachment>(project.getAttachment()));
         attachmentPagination.setEvent("attachments");
         attachmentPagination.setIdentifier(project.getId());
         attachmentPagination.setIdentifierParam("id");

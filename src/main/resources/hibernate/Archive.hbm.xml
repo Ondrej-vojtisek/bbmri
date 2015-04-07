@@ -11,7 +11,7 @@ License Type: Academic
 				<param name="sequence">archive_seq</param>
 			</generator>
 		</id>
-		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="false" lazy="false"/>
 		<property name="message" column="message" type="text" not-null="false" lazy="false"/>
 		<property name="actor" column="actor" type="text" not-null="false" lazy="false"/>
 	</class>

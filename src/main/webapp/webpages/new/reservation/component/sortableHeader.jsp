@@ -1,24 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.Reservation.created"
                              column="created"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.ReservationState.reservationState"
                              column="reservationState"
                              pagination="${pagination}"/>
         </th>
         <th>
-            <s:layout-render name="${component.table.headerLayout}"
+            <stripes:layout-render name="${component.table.headerLayout}"
                              msgKey="cz.bbmri.entity.ReservationState.validation"
                              column="validation"
                              pagination="${pagination}"/>
@@ -26,4 +26,4 @@
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

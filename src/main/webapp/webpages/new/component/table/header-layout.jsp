@@ -1,35 +1,35 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <%--sort event--%>
-    <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+    <stripes:link beanclass="${actionBean.name}" event="${pagination.event}">
 
         <%--which column is used to order--%>
-        <c:if test="${pagination.orderParam eq column}">
+        <core:if test="${pagination.orderParam eq column}">
 
             <%--visibility of arrows--%>
-            <s:layout-render name="${component.table.arrows}"
+            <stripes:layout-render name="${component.table.arrows}"
                              pagination="${pagination}"/>
 
             <%--switch desc to asc--%>
-            <s:param name="desc${pagination.webParamDiscriminator}" value="${not pagination.desc}"/>
-        </c:if>
+            <stripes:param name="desc${pagination.webParamDiscriminator}" value="${not pagination.desc}"/>
+        </core:if>
 
         <%--param defining by which column is table ordered--%>
-        <s:param name="orderParam${pagination.webParamDiscriminator}" value="${column}"/>
+        <stripes:param name="orderParam${pagination.webParamDiscriminator}" value="${column}"/>
 
         <%-- we must store param about context - for instance for which biobank we print samples--%>
-        <c:if test="${not empty pagination.identifierParam}">
+        <core:if test="${not empty pagination.identifierParam}">
 
-            <s:param name="${pagination.identifierParam}"
+            <stripes:param name="${pagination.identifierParam}"
                      value="${pagination.identifier}"/>
 
-        </c:if>
+        </core:if>
 
         <%--header text--%>
-        <f:message key="${msgKey}"/>
-    </s:link>
+        <format:message key="${msgKey}"/>
+    </stripes:link>
 
-</s:layout-definition>
+</stripes:layout-definition>

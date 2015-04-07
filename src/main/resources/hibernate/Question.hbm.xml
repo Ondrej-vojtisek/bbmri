@@ -11,8 +11,8 @@ License Type: Academic
 				<param name="sequence">question_seq</param>
 			</generator>
 		</id>
-		<property name="created" column="created" type="date" not-null="false" lazy="false"/>
-		<property name="lastModification" column="last_modification" type="date" not-null="false" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="false" lazy="false"/>
+		<property name="lastModification" column="last_modification" type="timestamp" not-null="false" lazy="false"/>
 		<property name="specification" column="specification" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="project" cascade="lock" column="project_id" class="cz.bbmri.entity.Project" not-null="true" lazy="proxy">
 		</many-to-one>

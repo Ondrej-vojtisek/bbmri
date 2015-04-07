@@ -1,39 +1,47 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="${component.layout.content}">
+<stripes:useActionBean var="patientActionBean" beanclass="cz.bbmri.action.PatientActionBean"/>
 
-    <s:layout-component name="body">
+<stripes:layout-render name="${component.layout.content}">
+
+    <stripes:layout-component name="body">
 
         <table class="table table-hover table-striped">
-               <s:layout-render name="${component.sortableHeader.patient}" pagination="${actionBean.pagination}"/>
+            <stripes:layout-render name="${component.header.patient}" pagination="${actionBean.pagination}"/>
 
-               <tbody>
-               <s:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
-               <c:forEach var="item" items="${actionBean.pagination.myPageList}">
-                   <tr>
-                       <s:layout-render name="${component.row.patient}" item="${item}"/>
-                       <td class="action">
+            <tbody>
+            <stripes:layout-render name="${component.table.emptyTable}" collection="${actionBean.pagination.myPageList}"/>
+            <core:forEach var="item" items="${actionBean.pagination.myPageList}">
+
+                <%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
+                <core:set target="${actionBean}" property="authBiobankId" value="${item.biobank.id}"/>
+
+                <tr>
+                    <stripes:layout-render name="${component.row.patient}" item="${item}"/>
+                    <td class="action">
                                   <span class="pull-right">
                                           <div class="tableAction">
-                                              <s:link beanclass="cz.bbmri.action.PatientActionBean" event="detail"
-                                                      class="btn btn-info btnMargin">
-                                                  <s:param name="id" value="${item.id}"/>
-                                                  <f:message key="detail"/>
-                                              </s:link>
+                                              <security:allowed bean="patientActionBean" event="detail">
+                                                  <stripes:link beanclass="cz.bbmri.action.PatientActionBean" event="detail"
+                                                          class="btn btn-info btnMargin">
+                                                      <stripes:param name="id" value="${item.id}"/>
+                                                      <format:message key="detail"/>
+                                                  </stripes:link>
+                                              </security:allowed>
                                           </div>
                                   </span>
-                       </td>
-                   </tr>
-               </c:forEach>
-               </tbody>
-           </table>
+                    </td>
+                </tr>
+            </core:forEach>
+            </tbody>
+        </table>
 
-           <%--show pagination only if list contains some data--%>
-           <c:if test="${not empty actionBean.pagination.myPageList}">
-               <s:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
-           </c:if>
+        <%--show pagination only if list contains some data--%>
+        <core:if test="${not empty actionBean.pagination.myPageList}">
+            <stripes:layout-render name="${component.pager}" pagination="${actionBean.pagination}"/>
+        </core:if>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

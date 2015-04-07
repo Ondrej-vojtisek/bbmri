@@ -1,5 +1,15 @@
 default namespace = "http://www.bbmri.cz/schemas/biobank/data"
 
+## RelaxNG schema describing import of one patient and all his stored samples for purpose of index BBMRI_CZ
+## Only patient with signed informed consent might be imported.  (consent must be true).
+## Consent set to false may be used to disable former positive consent.
+
+## Abbreviations used in comments:
+##      - Hospital Information System - HIS
+##      - ICD - International Classification of Diseases
+##      - ICD-O - Internationsl Classification of Diseases for Oncology
+##      - STS - Short Term Storage
+
 start =
 	element patient {
 		## identifier of a patient (interni identifikator pacienta)
@@ -14,36 +24,70 @@ start =
         attribute sex { "male" | "female" | "unknown"},
         ## biobank identifier
 	    attribute biobank { xsd:string { maxLength = "6" } },
-		## samples in long-term storage part of the biobank
-		element LTS {
-			( sample )*
-		}?,
-		## samples in short-term storage part of the biobank
-		element STS {
-			( sample )*
-		}?
+		## samples of patient
+        ( sample )*
 	}
 
 sample =
     element sample {
+        ## id of sample - it enables to find record in source HIS
         attribute id { xsd:string { maxLength = "10" } },
+        ## year in which sample was taken - at MOU part of bioptical report which enables easier look-up for samples in HIS
         attribute year { xsd:gYear } ?,
+        ## sequential order of sample during year - at MOU part of bioptical report which enables easier look-up for samples in HIS
         attribute number { xsd:int } ?,
+        ## unique code of material. It should not code anything related to storage methodology (e.g. RNA Later).
+        ## it will be harmonized between institutions, now fill the code which is used at your HIS
         element materialType { xsd:string { maxLength = "4" } } ?,
-        element samplesNo { xsd:int } ?,
-        element availableSamplesNo { xsd:int } ?,
+        ## number of aliquotes
+        element totalAliquots { xsd:int } ?,
+        ## number of aliquotes available for research purpose
+        element availableAliquots { xsd:int } ?,
+        ## TNM classification
         element TNM { xsd:string }?,
+        ## pTNM classification
         element pTNM { xsd:string }?,
-        element morphology { xsd:string { maxLength = "7" } } ?,
+        ## morphology coded using ICD-O
+        icdo ?,
+        ## grading. Grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
         element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
-        element takingTime {  xsd:dateTime } ?,
-        element freezeTime { xsd:dateTime } ?,
+        ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
+        element takingTime {  xsd:dateTime | xsd:date } ?,
+        ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
+        element freezeTime { xsd:dateTime | xsd:date } ?,
+        ## when sample was taken
         element retrieved { "preoperational" | "operational" | "post" | "unknown" } ?,
-        element diagnosis { xsd:string { maxLength = "5" } } ?
+        ## diagnosis coded using ICD
+        ( icd )*,
+        ## how is sample stored
+        storageMethodology ?
     }
 
-    morphology =
+icd =
+    element icd {
+         ## version of classification system - current is 10 for instance
+         attribute version { xsd:int },
+         element diagnosis { xsd:string {maxLength = "7" } }
+    }
+
+icdo =
+    element icdo {
+        ## version of classification system - current is 3 for instance
         attribute version { xsd:int },
         element morphology { xsd:string { maxLength = "7" } }
+    }
 
-
+storageMethodology =
+    ## description of storage method
+    element storageMethodology {
+        ## average temperature in which is sample stored (in case everything in infrastructure is working flawlessly)
+        element temperature { xsd:float }?,
+        ## are you following any standard
+        element methodology { xsd:string } ?,
+        ## sample is stored only temporary - STS
+        element sts {xsd:boolean}?,
+        ## if sts than approximate duration of storage can be defined. Expiration is approximate date untill sample will be unavailable
+        element expiration { xsd:date } ?,
+        ## which liquid was used to preserve sample
+        element reagent { xsd:string } ?
+    }

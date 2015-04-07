@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.map.View;
 import cz.bbmri.converter.PasswordTypeConverter;
 import cz.bbmri.dao.SettingsDAO;
 import cz.bbmri.dao.UserDAO;
@@ -66,7 +67,7 @@ public class LoginActionBean extends BasicActionBean {
     @DefaultHandler
     public Resolution display() {
         getContext().dropUser();
-        return new ForwardResolution(LOGIN);
+        return new ForwardResolution(View.LOGIN);
     }
 
     @HandlesEvent("login")

@@ -1,6 +1,7 @@
 package cz.bbmri.action;
 
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.map.View;
 import net.sourceforge.stripes.action.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,13 +24,12 @@ public class LogoutActionBean extends BasicActionBean {
     @DontValidate
     @DefaultHandler
     public Resolution logout() {
-        logger.debug("LOGOUT");
 
         if (!isShibbolethUser()) {
 
             // localhost user
             getContext().dropUser();
-            return new RedirectResolution(INDEX);
+            return new RedirectResolution(View.LOGIN);
         }
 
         // Shibboleth user

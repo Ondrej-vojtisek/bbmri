@@ -11,7 +11,7 @@ License Type: Academic
 				<param name="sequence">notification_seq</param>
 			</generator>
 		</id>
-		<property name="created" column="created" type="date" not-null="true" lazy="false"/>
+		<property name="created" column="created" type="timestamp" not-null="true" lazy="false"/>
 		<property name="read" column="`read`" type="boolean" not-null="true" lazy="false"/>
 		<property name="objectId" column="object_id" type="long" not-null="true" lazy="false"/>
 		<property name="message" column="message" type="text" not-null="true" lazy="false"/>

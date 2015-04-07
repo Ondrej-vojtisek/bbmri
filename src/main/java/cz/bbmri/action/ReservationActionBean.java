@@ -1,8 +1,11 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
+import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.dao.ReservationDAO;
+import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.Reservation;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
@@ -19,16 +22,21 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/reservation/{$event}/{id}")
-public class ReservationActionBean extends ComponentActionBean {
+public class ReservationActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private ReservationDAO reservationDAO;
+
+    @SpringBean
+    private BiobankDAO biobankDAO;
 
     private Long id;
 
     private Reservation reservation;
 
-    private MyPagedListHolder<Reservation> pagination;
+    private MyPagedListHolder<Reservation> pagination = new MyPagedListHolder<Reservation>(new ArrayList<Reservation>());
+
+    private Integer biobankId;
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(ReservationActionBean.class.getName(), "all", false, "" +
@@ -45,7 +53,18 @@ public class ReservationActionBean extends ComponentActionBean {
                 active, "id", reservation.getId());
     }
 
+    public static Breadcrumb getAddBreadcrumb(boolean active, Biobank biobank) {
+           return new Breadcrumb(ReservationActionBean.class.getName(), "add", false, "" +
+                   "cz.bbmri.entity.Reservation.add", active, "biobankId", biobank.getId());
+       }
 
+    public Integer getBiobankId() {
+        return biobankId;
+    }
+
+    public void setBiobankId(Integer biobankId) {
+        this.biobankId = biobankId;
+    }
 
     public Long getId() {
         return id;
@@ -84,8 +103,8 @@ public class ReservationActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(ReservationActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Reservation>(new ArrayList<Reservation>(reservationDAO.all()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(new ArrayList<Reservation>(reservationDAO.all()));
         pagination.setEvent("all");
 
         return new ForwardResolution(View.Reservation.ALL);
@@ -94,13 +113,13 @@ public class ReservationActionBean extends ComponentActionBean {
 
 
     @HandlesEvent("myReservations")
-    @RolesAllowed({"developer"})
+    @RolesAllowed({"authorized"})
     public Resolution myReservations() {
 
         getBreadcrumbs().add(ReservationActionBean.getMyBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Reservation>(new ArrayList<Reservation>(getLoggedUser().getReservation()));
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(new ArrayList<Reservation>(getLoggedUser().getReservation()));
         pagination.setEvent("myReservations");
 
         return new ForwardResolution(View.Reservation.ALL);
@@ -108,7 +127,7 @@ public class ReservationActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"developer", "admin"})
+    @RolesAllowed({"authorized", "developer", "biobank_operator"})
     public Resolution detail() {
 
         getReservation();
@@ -121,6 +140,21 @@ public class ReservationActionBean extends ComponentActionBean {
         getBreadcrumbs().add(ReservationActionBean.getDetailBreadcrumb(true, reservation));
 
         return new ForwardResolution(View.Reservation.DETAIL);
+    }
+
+    @HandlesEvent("add")
+    @RolesAllowed({"authorized"})
+    public Resolution add() {
+
+        Biobank biobank = biobankDAO.get(biobankId);
+        if(biobank == null){
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(ReservationActionBean.getAddBreadcrumb(true, biobank));
+
+        return new ForwardResolution(View.Withdraw.ADD);
+
     }
 
 }

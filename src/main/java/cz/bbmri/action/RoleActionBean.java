@@ -82,4 +82,5 @@ public class RoleActionBean extends ComponentActionBean {
 
         return new ForwardResolution(View.Role.USERDETAIL);
     }
+
 }

@@ -14,7 +14,7 @@ License Type: Academic
 		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="proxy">
 		</many-to-one>
 		<property name="institutionalId" column="institutional_id" type="text" not-null="false" lazy="false"/>
-		<property name="takingDate" column="taking_date" type="date" not-null="false" lazy="false"/>
+		<property name="takingDate" column="taking_date" type="timestamp" not-null="false" lazy="false"/>
 		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="materialType" cascade="lock" column="material_type_id" class="cz.bbmri.entity.MaterialType" not-null="false" lazy="proxy">

@@ -5,6 +5,7 @@ import cz.bbmri.action.map.View;
 import cz.bbmri.dao.AttachmentDAO;
 import cz.bbmri.dao.ProjectDAO;
 import cz.bbmri.dao.ProjectUserDAO;
+import cz.bbmri.dao.UserDAO;
 import cz.bbmri.entity.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -38,6 +39,8 @@ public class ProjectCreateActionBean extends ComponentActionBean {
     @SpringBean
     private AttachmentDAO attachmentDAO;
 
+    @SpringBean
+    private UserDAO userDAO;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"third"},
@@ -135,6 +138,10 @@ public class ProjectCreateActionBean extends ComponentActionBean {
         projectUser.setUser(getLoggedUser());
 
         projectUserDAO.save(projectUser);
+
+        User user = getLoggedUser();
+        user.nominateProjectTeamMember();
+        userDAO.save(user);
 
         return new RedirectResolution(ProjectActionBean.class, "myProjects");
     }

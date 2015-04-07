@@ -1,39 +1,39 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="infrastructure">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
         <div class="form-actions">
 
-            <s:form beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean" method="POST" class="form-inline">
-                <s:hidden name="biobankId" value="${actionBean.biobankId}"/>
-                <s:hidden name="containerId" value="${actionBean.containerId}"/>
+            <stripes:form beanclass="cz.bbmri.action.infrastructure.MonitoringActionBean" method="POST" class="form-inline">
+                <stripes:hidden name="biobankId" value="${actionBean.biobankId}"/>
+                <stripes:hidden name="containerId" value="${actionBean.containerId}"/>
                 <div class="control-group">
-                    <f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.selectMonitoring"/>
+                    <format:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.selectMonitoring"/>
 
                     <div class="controls">
-                        <s:select name="monitoringId" class="btnMargin">
-                            <s:options-collection collection="${actionBean.container.monitorings}" value="id"
+                        <stripes:select name="monitoringId" class="btnMargin">
+                            <stripes:options-collection collection="${actionBean.container.monitorings}" value="id"
                                                   label="description"/>
-                        </s:select>
+                        </stripes:select>
 
-                        <s:submit name="monitoring" class="btn btn-info"/>
+                        <stripes:submit name="monitoring" class="btn btn-info"/>
 
                     </div>
                 </div>
-            </s:form>
+            </stripes:form>
 
         </div>
 
-        <c:if test="${empty actionBean.monitoring.records}">
-            <f:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.noRecords"/>
-        </c:if>
+        <core:if test="${empty actionBean.monitoring.records}">
+            <format:message key="cz.bbmri.action.infrastructure.MonitoringActionBean.noRecords"/>
+        </core:if>
 
-        <c:if test="${not empty actionBean.monitoring}">
+        <core:if test="${not empty actionBean.monitoring}">
 
             <%--Graph object--%>
 
@@ -41,12 +41,12 @@
                 <div id="placeholder" class="demo-placeholder"></div>
             </div>
 
-        </c:if>
+        </core:if>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
 
-    <s:layout-component name="script">
+    <stripes:layout-component name="script">
         <script type="text/javascript">
             //            $(document).ready(function () {
             //                console.log('Pokus1');
@@ -86,11 +86,11 @@
 
             $(function () {
                 var d = [];
-                <c:forEach var="record" items="${actionBean.monitoring.records}">
+                <core:forEach var="record" items="${actionBean.monitoring.records}">
 
                 d.push([${record.time.time}, ${record.value}]);
 
-                </c:forEach>
+                </core:forEach>
                 console.log(d);
                 $.plot($("#placeholder"), [
                     {label: "${actionBean.monitoring.measurementType}" + ":" + "${actionBean.monitoring.name}", data: d}
@@ -111,6 +111,6 @@
 
 
         </script>
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

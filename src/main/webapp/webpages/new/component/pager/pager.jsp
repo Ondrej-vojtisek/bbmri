@@ -1,64 +1,64 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <div class="pagination pagination-centered">
         <ul>
             <li>
-                <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                <stripes:link beanclass="${actionBean.name}" event="${pagination.event}">
 
                     <%-- we must store param about context - for instance for which biobank we print samples--%>
-                    <c:if test="${not empty pagination.identifierParam}">
-                        <s:param name="${pagination.identifierParam}"
+                    <core:if test="${not empty pagination.identifierParam}">
+                        <stripes:param name="${pagination.identifierParam}"
                                  value="${pagination.identifier}"/>
-                    </c:if>
+                    </core:if>
 
-                    <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage - 1}"/>
-                    <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
-                    <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                    <stripes:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage - 1}"/>
+                    <stripes:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                    <stripes:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
                     «
-                </s:link>
+                </stripes:link>
             </li>
 
-            <c:forEach var="i" begin="${pagination.myFirstLinkedPage}"
+            <core:forEach var="i" begin="${pagination.myFirstLinkedPage}"
                        end="${pagination.myLastLinkedPage}">
 
                 <li ${pagination.currentPage == i ?  "class=\"active\"" : ""}>
-                    <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                    <stripes:link beanclass="${actionBean.name}" event="${pagination.event}">
 
                         <%-- we must store param about context - for instance for which biobank we print samples--%>
-                        <c:if test="${not empty pagination.identifierParam}">
-                            <s:param name="${pagination.identifierParam}"
+                        <core:if test="${not empty pagination.identifierParam}">
+                            <stripes:param name="${pagination.identifierParam}"
                                      value="${pagination.identifier}"/>
-                        </c:if>
+                        </core:if>
 
-                        <s:param name="page${pagination.webParamDiscriminator}" value="${i}"/>
-                        <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
-                        <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                        <stripes:param name="page${pagination.webParamDiscriminator}" value="${i}"/>
+                        <stripes:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                        <stripes:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
                         ${i}
-                    </s:link>
+                    </stripes:link>
                 </li>
 
-            </c:forEach>
+            </core:forEach>
 
             <li>
-                <s:link beanclass="${actionBean.name}" event="${pagination.event}">
+                <stripes:link beanclass="${actionBean.name}" event="${pagination.event}">
 
                     <%-- we must store param about context - for instance for which biobank we print samples--%>
-                    <c:if test="${not empty pagination.identifierParam}">
-                        <s:param name="${pagination.identifierParam}"
+                    <core:if test="${not empty pagination.identifierParam}">
+                        <stripes:param name="${pagination.identifierParam}"
                                  value="${pagination.identifier}"/>
-                    </c:if>
+                    </core:if>
 
-                    <s:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage + 1}"/>
-                    <s:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
-                    <s:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
+                    <stripes:param name="page${pagination.webParamDiscriminator}" value="${pagination.currentPage + 1}"/>
+                    <stripes:param name="orderParam${pagination.webParamDiscriminator}" value="${pagination.orderParam}"/>
+                    <stripes:param name="desc${pagination.webParamDiscriminator}" value="${pagination.desc}"/>
 
                     »
-                </s:link>
+                </stripes:link>
             </li>
         </ul>
     </div>
 
-</s:layout-definition>
+</stripes:layout-definition>

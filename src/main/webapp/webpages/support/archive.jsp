@@ -2,17 +2,17 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                 primarymenu="support"
                 secondarymenu="archive">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
+        <stripes:layout-render name="/webpages/component/detail/sortableTable/table.jsp"
                                pagination="${actionBean.pagination}"
                                componentManager="${actionBean.componentManager}"/>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>
 

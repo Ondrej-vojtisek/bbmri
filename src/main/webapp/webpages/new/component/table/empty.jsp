@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
-    <c:if test="${empty collection}">
+    <core:if test="${empty collection}">
         <tr>
             <td colspan="100%">
-                <f:message key="empty"/>
+                <format:message key="empty"/>
             </td>
         </tr>
-    </c:if>
+    </core:if>
 
-</s:layout-definition>
+</stripes:layout-definition>

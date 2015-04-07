@@ -2,83 +2,83 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="${component.layout.content}"
+<stripes:layout-render name="${component.layout.content}"
                  primarymenu="user">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="${component.menu.user}" active="shibboleth"/>
+        <stripes:layout-render name="${component.menu.user}" active="shibboleth"/>
 
-        <s:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 
-            <c:if test="${not empty actionBean.user.shibboleth}">
+            <core:if test="${not empty actionBean.user.shibboleth}">
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.eppn" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.eppn" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.eppn" readonly="true"/>
+                        <stripes:text name="user.shibboleth.eppn" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.affiliation" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.affiliation" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.affiliation" readonly="true"/>
+                        <stripes:text name="user.shibboleth.affiliation" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.targeted" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.targeted" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.targeted" readonly="true"/>
+                        <stripes:text name="user.shibboleth.targeted" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.persistent" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.persistent" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.persistent" readonly="true"/>
+                        <stripes:text name="user.shibboleth.persistent" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.name" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.name" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.name" readonly="true"/>
+                        <stripes:text name="user.shibboleth.name" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.surname" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.surname" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.surname" readonly="true"/>
+                        <stripes:text name="user.shibboleth.surname" readonly="true"/>
                     </div>
                 </div>
 
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.email" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.email" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.email" readonly="true"/>
+                        <stripes:text name="user.shibboleth.email" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.organization" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.organization" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.organization" readonly="true"/>
+                        <stripes:text name="user.shibboleth.organization" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entity.Shibboleth.displayName" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.Shibboleth.displayName" class="control-label"/>
                     <div class="controls">
-                        <s:text name="user.shibboleth.displayName" readonly="true"/>
+                        <stripes:text name="user.shibboleth.displayName" readonly="true"/>
                     </div>
                 </div>
 
-            </c:if>
+            </core:if>
 
-        </s:form>
+        </stripes:form>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

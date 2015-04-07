@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <thead>
     <tr>
-        <th><f:message key="cz.bbmri.entities.Project.name"/></th>
-        <th><f:message key="cz.bbmri.entities.Project.fundingOrganization"/></th>
-        <th><f:message key="cz.bbmri.entities.Project.projectState"/></th>
+        <th><format:message key="cz.bbmri.entities.Project.name"/></th>
+        <th><format:message key="cz.bbmri.entities.Project.fundingOrganization"/></th>
+        <th><format:message key="cz.bbmri.entities.Project.projectState"/></th>
     </tr>
     </thead>
 
-</s:layout-definition>
+</stripes:layout-definition>

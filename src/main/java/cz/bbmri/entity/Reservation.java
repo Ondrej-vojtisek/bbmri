@@ -32,7 +32,7 @@ public class Reservation implements Serializable {
     private long id;
     private Date validation;
     private String specification;
-    private Date created;
+    private Date created = new Date();
     private Date lastModification;
     private User user;
     private Set<Request> request = new HashSet<Request>();

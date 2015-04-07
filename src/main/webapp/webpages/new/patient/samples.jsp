@@ -1,43 +1,51 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<c:set var="pagination" value="${actionBean.samplePagination}"/>
+<core:set var="pagination" value="${actionBean.samplePagination}"/>
+<stripes:useActionBean var="sampleActionBean" beanclass="cz.bbmri.action.SampleActionBean"/>
 
-<s:layout-render name="${component.layout.content}">
+<stripes:layout-render name="${component.layout.content}">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:layout-render name="${component.menu.patient}" active="samples"/>
+        <stripes:layout-render name="${component.menu.patient}" active="samples"/>
+
 
         <table class="table table-hover table-striped">
-            <s:layout-render name="${component.sortableHeader.sample}" pagination="${pagination}"/>
+            <stripes:layout-render name="${component.header.sample}" pagination="${pagination}"/>
+
+            <%--Set authBiobankId of AuthotizationActionBean to enable security tag--%>
+            <core:set target="${sampleActionBean}" property="authBiobankId" value="${actionBean.patient.biobank.id}"/>
 
             <tbody>
-            <s:layout-render name="${component.table.emptyTable}" collection="${pagination.myPageList}"/>
-            <c:forEach var="item" items="${pagination.myPageList}">
+            <stripes:layout-render name="${component.table.emptyTable}" collection="${pagination.myPageList}"/>
+            <core:forEach var="item" items="${pagination.myPageList}">
                 <tr>
-                    <s:layout-render name="${component.row.sample}" item="${item}"/>
+                    <stripes:layout-render name="${component.row.sample}" item="${item}"/>
                     <td class="action">
                                        <span class="pull-right">
                                                <div class="tableAction">
-                                                   <s:link beanclass="cz.bbmri.action.SampleActionBean" event="detail"
-                                                           class="btn btn-info btnMargin">
-                                                       <s:param name="id" value="${item.id}"/>
-                                                       <f:message key="detail"/>
-                                                   </s:link>
+                                                   <security:allowed bean="sampleActionBean" event="detail">
+                                                       <stripes:link beanclass="cz.bbmri.action.SampleActionBean"
+                                                               event="detail"
+                                                               class="btn btn-info btnMargin">
+                                                           <stripes:param name="id" value="${item.id}"/>
+                                                           <format:message key="detail"/>
+                                                       </stripes:link>
+                                                   </security:allowed>
                                                </div>
                                        </span>
                     </td>
                 </tr>
-            </c:forEach>
+            </core:forEach>
             </tbody>
         </table>
 
         <%--show pagination only if list contains some data--%>
-        <c:if test="${not empty pagination.myPageList}">
-            <s:layout-render name="${component.pager}" pagination="${samplePagination}"/>
-        </c:if>
+        <core:if test="${not empty pagination.myPageList}">
+            <stripes:layout-render name="${component.pager}" pagination="${samplePagination}"/>
+        </core:if>
 
-    </s:layout-component>
+    </stripes:layout-component>
 
-</s:layout-render>
+</stripes:layout-render>

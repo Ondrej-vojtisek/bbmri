@@ -1,5 +1,6 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.*;
@@ -30,7 +31,7 @@ import java.util.Properties;
  * @version 1.0
  */
 @UrlBinding("/attachment/{$event}/{id}")
-public class AttachmentActionBean extends ComponentActionBean {
+public class AttachmentActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private AttachmentDAO attachmentDAO;
@@ -117,6 +118,7 @@ public class AttachmentActionBean extends ComponentActionBean {
     }
 
     public void setBiobankId(Integer biobankId) {
+        setAuthBiobankId(biobankId);
         this.biobankId = biobankId;
     }
 
@@ -125,11 +127,12 @@ public class AttachmentActionBean extends ComponentActionBean {
     }
 
     public void setProjectId(Long projectId) {
+        setAuthProjectId(projectId);
         this.projectId = projectId;
     }
 
     @HandlesEvent("addBiobankAttachment")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankEditor}", "developer"})
     public Resolution addBiobankAttachment() {
         id = (long) biobankId;
 
@@ -149,7 +152,7 @@ public class AttachmentActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("addProjectAttachment")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectEditor}", "developer"})
     public Resolution addProjectAttachment() {
         id = projectId;
 
@@ -170,7 +173,7 @@ public class AttachmentActionBean extends ComponentActionBean {
 
 
     @HandlesEvent("download")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectVisitor}", "biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public StreamingResolution download() {
         getAttachment();
 
@@ -186,7 +189,7 @@ public class AttachmentActionBean extends ComponentActionBean {
 
 
     @HandlesEvent("delete")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"project_team_member if ${projectEditor}", "biobank_operator if ${biobankEditor}"})
     public Resolution delete() {
         getAttachment();
 
@@ -250,7 +253,7 @@ public class AttachmentActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("biobankAttachmentUpload")
-    @RolesAllowed({"biobank_operator", "developer"})
+    @RolesAllowed({"biobank_operator if ${biobankEditor}"})
     public Resolution biobankAttachmentUpload() {
 
         Biobank biobank = biobankDAO.get(biobankId);
@@ -260,8 +263,6 @@ public class AttachmentActionBean extends ComponentActionBean {
         }
 
         AttachmentType attachmentType = attachmentTypeDAO.get(attachmentTypeId);
-
-        System.err.println("AttachmentType: " + attachmentType);
 
         if (attachmentType == null) {
             return new ForwardResolution(View.AttachmentType.NOTFOUND);
@@ -337,7 +338,7 @@ public class AttachmentActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("projectAttachmentUpload")
-    @RolesAllowed({"developer"})
+    @RolesAllowed({"project_team_member if ${projectEditor}"})
     public Resolution projectAttachmentUpload() {
 
         Project project = projectDAO.get(projectId);

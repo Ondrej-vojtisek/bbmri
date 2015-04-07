@@ -47,7 +47,7 @@ public class UserActionBean extends ComponentActionBean {
 
     private Integer countryId;
 
-    private MyPagedListHolder<User> pagination;
+    private MyPagedListHolder<User> pagination = new MyPagedListHolder<User>(new ArrayList<User>());
 
     @Validate(on = {"changePassword"}, required = true, converter = PasswordTypeConverter.class)
     private String password;
@@ -158,8 +158,8 @@ public class UserActionBean extends ComponentActionBean {
 
         getBreadcrumbs().add(UserActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<User>(userDAO.all());
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(userDAO.all());
         pagination.setEvent("all");
 
         // TODO jak radit podle Contactu ?

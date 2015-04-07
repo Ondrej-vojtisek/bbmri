@@ -1,21 +1,21 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
     <td>${item.institutionalId}</td>
-    <td><s:layout-render name="${component.date}" date="${item.takingDate}"/></td>
+    <td><fmt:formatDate value="${item.takingDate}" type="both"/></td>
     <td>${item.materialType}</td>
     <td>
-        <c:if test="${not empty item.quantity}">
+        <core:if test="${not empty item.quantity}">
             ${item.quantity.available}/${item.biopticalReport.total}
-        </c:if>
+        </core:if>
     </td>
     <td>${item.diagnosis}</td>
     <td>
-        <c:if test="${not empty item.biopticalReport}">
+        <core:if test="${not empty item.biopticalReport}">
             ${item.biopticalReport.year}/${item.biopticalReport.number}
-        </c:if>
+        </core:if>
     </td>
 
-</s:layout-definition>
+</stripes:layout-definition>

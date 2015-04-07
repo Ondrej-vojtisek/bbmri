@@ -43,11 +43,6 @@ public enum Component {
         return Pager.INSTANCE.getPager();
     }
 
-    public String getDate() {
-        // Retrieve the instance
-        return cz.bbmri.action.map.Date.INSTANCE.getDate();
-    }
-
     public Layout getLayout() {
         // Retrieve the instance
         return Layout.INSTANCE;

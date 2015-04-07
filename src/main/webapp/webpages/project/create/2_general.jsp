@@ -1,51 +1,51 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.action.project.ProjectActionBean.create" var="title"/>
-<s:useActionBean var="ab" beanclass="cz.bbmri.action.project.CreateProjectActionBean"/>
-<s:layout-render name="/layouts/layout_content.jsp" title="${title}"
+<format:message key="cz.bbmri.action.project.ProjectActionBean.create" var="title"/>
+<stripes:useActionBean var="ab" beanclass="cz.bbmri.action.project.CreateProjectActionBean"/>
+<stripes:layout-render name="/layouts/layout_content.jsp" title="${title}"
                  primarymenu="project"
                  secondarymenu="project_create_project">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
 
         <fieldset>
-            <legend><f:message key="cz.bbmri.action.project.CreateProjectActionBean.secondStep"/></legend>
+            <legend><format:message key="cz.bbmri.action.project.CreateProjectActionBean.secondStep"/></legend>
 
-            <s:form beanclass="cz.bbmri.action.project.CreateProjectActionBean" class="form-horizontal">
+            <stripes:form beanclass="cz.bbmri.action.project.CreateProjectActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.Project.name" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entities.Project.name" class="control-label"/>
                     <div class="controls">
-                        <s:text name="project.name"/>
+                        <stripes:text name="project.name"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entities.Project.principalInvestigator" class="control-label"/>
                     <div class="controls">
-                        <s:text name="project.principalInvestigator"/>
+                        <stripes:text name="project.principalInvestigator"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <s:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entities.Project.homeInstitution" class="control-label"/>
                     <div class="controls">
-                        <s:text name="project.homeInstitution"/>
+                        <stripes:text name="project.homeInstitution"/>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <s:submit name="confirmStep2" class="btn btn-primary btnMargin"/>
+                    <stripes:submit name="confirmStep2" class="btn btn-primary btnMargin"/>
 
-                    <s:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial"
+                    <stripes:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial"
                             class="btn btn-inverse">
-                        <f:message key="back"/>
-                    </s:link>
+                        <format:message key="back"/>
+                    </stripes:link>
                 </div>
-            </s:form>
+            </stripes:form>
 
         </fieldset>
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

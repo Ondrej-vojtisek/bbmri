@@ -1,43 +1,43 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<f:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
+<format:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
 
-<s:layout-render name="${component.layout.content}"
+<stripes:layout-render name="${component.layout.content}"
                  title="${title}" primarymenu="home">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.DashboardActionBean">
+        <stripes:form beanclass="cz.bbmri.action.DashboardActionBean">
 
-            <c:if test="${empty actionBean.pagination.myPageList}">
+            <core:if test="${empty actionBean.pagination.myPageList}">
 
-                <f:message key="cz.bbmri.action.DashboardActionBean.noNewNotifications"/>
+                <format:message key="cz.bbmri.action.DashboardActionBean.noNewNotifications"/>
 
-            </c:if>
+            </core:if>
 
-            <c:forEach items="${actionBean.pagination.myPageList}" var="item">
+            <core:forEach items="${actionBean.pagination.myPageList}" var="item">
 
-                <s:layout-render name="${component.row.notification}" item="${item}"/>
+                <stripes:layout-render name="${component.row.notification}" item="${item}"/>
 
-            </c:forEach>
+            </core:forEach>
 
-            <c:if test="${not empty actionBean.pagination.myPageList}">
+            <core:if test="${not empty actionBean.pagination.myPageList}">
 
-                <s:layout-render name="${component.pager}"
+                <stripes:layout-render name="${component.pager}"
                                  pagination="${actionBean.pagination}"/>
 
-            </c:if>
+            </core:if>
 
             <div class="form-actions">
-                <s:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
-                <s:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
+                <stripes:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
+                <stripes:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
             </div>
 
-        </s:form>
+        </stripes:form>
 
 
-    </s:layout-component>
+    </stripes:layout-component>
 
 
-</s:layout-render>
+</stripes:layout-render>

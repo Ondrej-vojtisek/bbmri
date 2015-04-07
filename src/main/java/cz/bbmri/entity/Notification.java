@@ -23,7 +23,7 @@ public class Notification implements Serializable {
 	public static final String PROP_NOTIFICATION_TYPE = "notificationType";
 
     private long id;
-    private Date created;
+    private Date created = new Date();
     private boolean read;
     private long objectId;
     private String message;

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
-    <td><s:layout-render name="${component.date}" date="${item.created}"/></td>
-    <td><f:message key="cz.bbmri.entity.ReservationState.${item.reservationState.name}"/></td>
-    <td><s:layout-render name="${component.date}" date="${item.validation}"/></td>
+    <td><fmt:formatDate value="${item.created}" type="both"/></td>
+    <td><format:message key="cz.bbmri.entity.ReservationState.${item.reservationState.name}"/></td>
+    <td><fmt:formatDate value="${item.validation}" type="both"/></td>
 
-</s:layout-definition>
+</stripes:layout-definition>

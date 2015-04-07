@@ -1,20 +1,20 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
 
         <div class="control-group">
-            <s:label for="cz.bbmri.entities.SampleQuestion.biobank.create" class="control-label"/>
+            <stripes:label for="cz.bbmri.entities.SampleQuestion.biobank.create" class="control-label"/>
 
             <div class="controls">
-                <s:select name="biobankId">
-                    <s:options-collection collection="${actionBean.allBiobanks}"
+                <stripes:select name="biobankId">
+                    <stripes:options-collection collection="${actionBean.allBiobanks}"
                                           label="name" value="id"/>
-                </s:select>
+                </stripes:select>
             </div>
         </div>
 
-        <s:label for="cz.bbmri.entities.SampleQuestion.specification.create"/>
-        <s:textarea name="sampleQuestion.specification"/>
+        <stripes:label for="cz.bbmri.entities.SampleQuestion.specification.create"/>
+        <stripes:textarea name="sampleQuestion.specification"/>
 
-</s:layout-definition>
+</stripes:layout-definition>

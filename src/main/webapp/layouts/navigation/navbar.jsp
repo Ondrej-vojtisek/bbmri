@@ -1,16 +1,16 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-definition>
+<stripes:layout-definition>
     <%-- -------------------------------------------------------------------- --%>
-    <c:if test="${not empty actionBean.context.myId}">
+    <core:if test="${not empty actionBean.context.myId}">
 
-        <c:set var="logged" scope="session" value="${actionBean.loggedUser.wholeName}"/>
+        <core:set var="logged" scope="session" value="${actionBean.loggedUser.wholeName}"/>
 
         <p class="navbar-text pull-right">
-            <s:link event="logout" beanclass="cz.bbmri.action.LogoutActionBean">
-                <f:message key="logout"/>
-            </s:link>
+            <stripes:link event="logout" beanclass="cz.bbmri.action.LogoutActionBean">
+                <format:message key="logout"/>
+            </stripes:link>
         </p>
 
 
@@ -18,14 +18,14 @@
 
 
         <p class="navbar-text pull-right" style="margin-right: 30px;">
-            <f:message key="logged_user"/>:
-            <s:link beanclass="cz.bbmri.action.UserActionBean" event="detail">
-                <s:param name="id" value="${actionBean.context.myId}"/>
+            <format:message key="logged_user"/>:
+            <stripes:link beanclass="cz.bbmri.action.UserActionBean" event="detail">
+                <stripes:param name="id" value="${actionBean.context.myId}"/>
                 ${logged}
-            </s:link>
+            </stripes:link>
         </p>
 
-    </c:if>
+    </core:if>
     <%-- -------------------------------------------------------------------- --%>
 
     <ul class="navbar-text pull-right dropdown" style="margin-right: 30px;">
@@ -36,20 +36,20 @@
 
                 <%-- -------------------------------------------------------------------- --%>
 
-            <li <c:if test="${actionBean.context.locale eq 'en'}"> class="active" </c:if>>
-                <s:link href="${actionBean.lastUrl}">
-                    <s:param name="locale" value="en"/>
-                    <f:message key="navbar.english"/>
-                </s:link>
+            <li <core:if test="${actionBean.context.locale eq 'en'}"> class="active" </core:if>>
+                <stripes:link href="${actionBean.lastUrl}">
+                    <stripes:param name="locale" value="en"/>
+                    <format:message key="navbar.english"/>
+                </stripes:link>
             </li>
 
                 <%-- -------------------------------------------------------------------- --%>
 
-            <li <c:if test="${actionBean.context.locale eq 'cs'}"> class="active" </c:if>>
-                <s:link href="${actionBean.lastUrl}">
-                    <s:param name="locale" value="cs"/>
-                    <f:message key="navbar.czech"/>
-                </s:link>
+            <li <core:if test="${actionBean.context.locale eq 'cs'}"> class="active" </core:if>>
+                <stripes:link href="${actionBean.lastUrl}">
+                    <stripes:param name="locale" value="cs"/>
+                    <format:message key="navbar.czech"/>
+                </stripes:link>
             </li>
 
             <%-- -------------------------------------------------------------------- --%>
@@ -60,9 +60,9 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <p class="navbar-text pull-right">
-        <b><f:message key="version"/>:</b> <i>1.6</i>
+        <b><format:message key="version"/>:</b> <i>1.6</i>
     </p>
 
     <%-- -------------------------------------------------------------------- --%>
 
-</s:layout-definition>
+</stripes:layout-definition>

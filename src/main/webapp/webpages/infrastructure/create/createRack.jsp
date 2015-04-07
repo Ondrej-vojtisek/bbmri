@@ -1,36 +1,36 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="biobank"
                  ternarymenu="infrastructure">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
-        <s:form beanclass="cz.bbmri.action.infrastructure.RackActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.infrastructure.RackActionBean" class="form-horizontal">
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.infrastructure.Rack.name" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.infrastructure.Rack.name" class="control-label"/>
                 <div class="controls">
-                    <s:text name="rack.name"/>
+                    <stripes:text name="rack.name"/>
                 </div>
             </div>
 
             <div class="control-group">
-                <s:label for="cz.bbmri.entities.infrastructure.Rack.capacity" class="control-label"/>
+                <stripes:label for="cz.bbmri.entities.infrastructure.Rack.capacity" class="control-label"/>
                 <div class="controls">
-                    <s:text name="rack.capacity"/>
+                    <stripes:text name="rack.capacity"/>
                 </div>
             </div>
 
-            <s:hidden name="biobankId"/>
-            <s:hidden name="containerId"/>
+            <stripes:hidden name="biobankId"/>
+            <stripes:hidden name="containerId"/>
 
             <div class="form-actions">
-                <s:submit name="createRack" class="btn btn-primary"/>
+                <stripes:submit name="createRack" class="btn btn-primary"/>
             </div>
 
-        </s:form>
+        </stripes:form>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

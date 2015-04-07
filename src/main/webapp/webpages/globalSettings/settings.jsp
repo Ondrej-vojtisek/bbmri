@@ -2,27 +2,27 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-render name="/layouts/layout_content.jsp"
+<stripes:layout-render name="/layouts/layout_content.jsp"
                  primarymenu="support"
                  secondarymenu="settings">
 
-    <s:layout-component name="body">
+    <stripes:layout-component name="body">
 
         <fieldset>
-            <legend><f:message key="cz.bbmri.action.globalSettings.GlobalSettingsActionBean.validity"/></legend>
+            <legend><format:message key="cz.bbmri.action.globalSettings.GlobalSettingsActionBean.validity"/></legend>
 
             <div class="form-actions">
 
-                <s:form beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean" class="form-inline">
+                <stripes:form beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean" class="form-inline">
                     <div class="controls">
-                        <s:text name="validity.value" class="btnMargin"/>
-                        <s:submit name="saveValidity" class="btn btn-primary"/>
+                        <stripes:text name="validity.value" class="btnMargin"/>
+                        <stripes:submit name="saveValidity" class="btn btn-primary"/>
                     </div>
-                </s:form>
+                </stripes:form>
 
             </div>
 
         </fieldset>
 
-    </s:layout-component>
-</s:layout-render>
+    </stripes:layout-component>
+</stripes:layout-render>

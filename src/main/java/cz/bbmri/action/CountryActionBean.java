@@ -5,6 +5,7 @@ import cz.bbmri.action.map.View;
 import cz.bbmri.dao.CountryDAO;
 import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.Country;
+import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -31,7 +32,13 @@ public class CountryActionBean extends ComponentActionBean {
 
     private Integer id;
 
-    private MyPagedListHolder<Country> pagination;
+    private MyPagedListHolder<Country> pagination = new MyPagedListHolder<Country>(new ArrayList<Country>());
+
+    public static Breadcrumb getAllBreadcrumb(boolean active) {
+        return new Breadcrumb(CountryActionBean.class.getName(), "all", false, "" +
+                "cz.bbmri.entity.Country.countries", active);
+    }
+
 
     public void setCountry(Country country) {
         this.country = country;
@@ -64,10 +71,10 @@ public class CountryActionBean extends ComponentActionBean {
     @RolesAllowed("authorized")
     public Resolution all() {
 
-//        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
+        getBreadcrumbs().add(CountryActionBean.getAllBreadcrumb(true));
 
-        pagination = new MyPagedListHolder<Country>(countryDAO.all());
         pagination.initiate(getPage(), getOrderParam(), isDesc());
+        pagination.setSource(countryDAO.all());
         pagination.setEvent("all");
 
         // TODO jak radit podle Contactu ?

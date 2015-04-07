@@ -24,7 +24,7 @@ public class Archive implements Serializable {
    	public static final String PROP_ACTOR = "actor";
 
     private long id;
-   	private Date created;
+   	private Date created = new Date();
    	private String message;
    	private String actor;
 

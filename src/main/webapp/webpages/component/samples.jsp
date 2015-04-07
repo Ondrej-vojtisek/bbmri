@@ -2,34 +2,34 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<s:layout-definition>
-    <s:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
+<stripes:layout-definition>
+    <stripes:useActionBean var="biobankBean" beanclass="cz.bbmri.action.biobank.BiobankActionBean"/>
 
     <table class="table table-hover table-striped">
 
-        <s:layout-render name="/webpages/component/detail/sample/header.jsp"/>
+        <stripes:layout-render name="/webpages/component/detail/sample/header.jsp"/>
 
         <tbody>
 
-        <s:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
+        <stripes:layout-render name="/webpages/component/detail/empty/emptyTable.jsp"
                          collection="${samples}"/>
-        <c:forEach items="${samples}" var="sample">
+        <core:forEach items="${samples}" var="sample">
             <tr>
-                <s:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
+                <stripes:layout-render name="/webpages/component/detail/sample/row.jsp" record="${sample}"/>
 
                 <td class="action">
                     <div class="tableAction">
-                        <s:link beanclass="cz.bbmri.action.sample.SampleActionBean" event="detail"
+                        <stripes:link beanclass="cz.bbmri.action.sample.SampleActionBean" event="detail"
                                 class="btn btn-info">
-                            <s:param name="biobankId" value="${biobankBean.biobankId}"/>
-                            <s:param name="sampleId" value="${sample.id}"/>
-                            <f:message key="detail"/>
-                        </s:link>
+                            <stripes:param name="biobankId" value="${biobankBean.biobankId}"/>
+                            <stripes:param name="sampleId" value="${sample.id}"/>
+                            <format:message key="detail"/>
+                        </stripes:link>
                     </div>
                 </td>
             </tr>
-        </c:forEach>
+        </core:forEach>
         </tbody>
     </table>
 
-</s:layout-definition>
+</stripes:layout-definition>
