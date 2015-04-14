@@ -252,7 +252,7 @@ public class PatientDataParser /* extends AbstractParser */ {
 //        String morphology;
 //        String grading;
 //
-//        String freezeTime;
+//        String freezeDate;
 //
 //        try {
 //
@@ -269,7 +269,7 @@ public class PatientDataParser /* extends AbstractParser */ {
 //
 //            grading = executeXPath(NAMESPACE_PREFIX_COLONS + "grading", node);
 //
-//            freezeTime = executeXPath(NAMESPACE_PREFIX_COLONS + "freezeTime", node);
+//            freezeDate = executeXPath(NAMESPACE_PREFIX_COLONS + "freezeDate", node);
 //
 //        } catch (Exception ex) {
 //            ex.printStackTrace();
@@ -317,9 +317,9 @@ public class PatientDataParser /* extends AbstractParser */ {
 //
 //
 ////        Freeze time
-//        if (freezeTime != null) {
+//        if (freezeDate != null) {
 //
-//            java.util.Date date = parseDate(freezeTime);
+//            java.util.Date date = parseDate(freezeDate);
 //
 //            if (date != null) {
 //                tissue.setFreezeDate(date);

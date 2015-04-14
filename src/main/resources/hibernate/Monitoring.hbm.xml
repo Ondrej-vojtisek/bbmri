@@ -11,9 +11,9 @@ License Type: Academic
 				<param name="sequence">monitoring_seq</param>
 			</generator>
 		</id>
+		<property name="name" column="name" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="container" cascade="lock" column="container_id" class="cz.bbmri.entity.Container" not-null="true" lazy="proxy">
 		</many-to-one>
-		<property name="name" column="name" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="measurementType" cascade="lock" column="measurement_type_id" class="cz.bbmri.entity.MeasurementType" not-null="true" lazy="proxy">
 		</many-to-one>
 		<set name="record" lazy="extra" cascade="save-update,lock" inverse="true">

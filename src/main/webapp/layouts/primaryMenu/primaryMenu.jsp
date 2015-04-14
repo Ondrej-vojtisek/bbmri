@@ -131,7 +131,7 @@
                             <li>
                                 <security:allowed bean="biobankActionBean" event="detail">
                                     <stripes:link beanclass="cz.bbmri.action.BiobankActionBean"
-                                            event="detail">
+                                                  event="detail">
                                         <stripes:param name="id" value="${biobankUser.biobank.id}"/>
                                         ${biobankUser.biobank.acronym}
                                     </stripes:link>
@@ -195,6 +195,28 @@
 
     <%-- -------------------------------------------------------------------- --%>
 
+    <core:if test="${actionBean.loggedUser.developer}">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <format:message key="cz.bbmri.entity.Role.developer"/>
+                <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+
+                    <%-- -------------------------------------------------------------------- --%>
+
+                <li>
+                    <stripes:link beanclass="cz.bbmri.action.ArchiveActionBean" event="all">
+                        <format:message key="cz.bbmri.entity.Archive.archives"/>
+                    </stripes:link>
+                </li>
+
+                    <%-- -------------------------------------------------------------------- --%>
+
+            </ul>
+        </li>
+    </core:if>
+
+    <%-- -------------------------------------------------------------------- --%>
 
     <%--<li class="dropdown <core:if test="${primarymenu == 'support'}"> active </core:if>">--%>
     <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--%>

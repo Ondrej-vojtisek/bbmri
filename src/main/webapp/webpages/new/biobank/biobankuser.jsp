@@ -5,7 +5,7 @@
 <stripes:useActionBean beanclass="cz.bbmri.action.BiobankUserActionBean" var="biobankUserActionBean"/>
 
 <stripes:layout-render name="${component.layout.content}"
-                 primarymenu="biobank">
+                       primarymenu="biobank">
 
     <stripes:layout-component name="body">
 
@@ -13,6 +13,16 @@
 
         <%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
         <core:set target="${biobankUserActionBean}" property="authBiobankId" value="${actionBean.id}"/>
+
+        <security:allowed bean="biobankUserActionBean" event="add">
+            <div class="form-actions">
+                <stripes:link beanclass="cz.bbmri.action.BiobankUserActionBean"
+                              name="add" class="btn btn-primary btnMargin">
+                    <format:message key="cz.bbmri.entity.BiobankUser.add"/>
+                    <stripes:param name="biobankId" value="${actionBean.biobank.id}"/>
+                </stripes:link>
+            </div>
+        </security:allowed>
 
         <table class="table table-hover table-striped">
             <thead>
@@ -38,14 +48,15 @@
 
                                 <stripes:select name="permissionId" value="${item.permission.id}">
                                     <stripes:options-collection collection="${permissionActionBean.all}" value="id"
-                                                          label="name"/>
+                                                                label="name"/>
                                 </stripes:select>
 
                                 <format:message var="questionSetPermission"
-                                           key="cz.bbmri.action.BiobankUserActionBean.questionSetBiobankUser"/>
+                                                key="cz.bbmri.action.BiobankUserActionBean.questionSetBiobankUser"/>
 
-                                <stripes:submit name="setPermission" onclick="return confirm('${questionSetPermission}')"
-                                          class="btn btn-primary"/>
+                                <stripes:submit name="setPermission"
+                                                onclick="return confirm('${questionSetPermission}')"
+                                                class="btn btn-primary"/>
                             </stripes:form>
 
                         </security:allowed>
@@ -62,7 +73,7 @@
 
                                 <format:message var="question" key="${biobankUserActionBean.removeQuestion}"/>
                                 <stripes:submit name="remove" onclick="return confirm('${question}')"
-                                          class="btn btn-danger"/>
+                                                class="btn btn-danger"/>
                             </stripes:form>
                         </security:allowed>
                     </td>

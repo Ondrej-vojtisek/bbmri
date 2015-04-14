@@ -11,10 +11,11 @@ License Type: Academic
 				<param name="sequence">sample_seq</param>
 			</generator>
 		</id>
-		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="proxy">
-		</many-to-one>
 		<property name="institutionalId" column="institutional_id" type="text" not-null="false" lazy="false"/>
 		<property name="takingDate" column="taking_date" type="timestamp" not-null="false" lazy="false"/>
+		<property name="freezeDate" column="freeze_date" type="timestamp" not-null="false" lazy="false"/>
+		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="proxy">
+		</many-to-one>
 		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="materialType" cascade="lock" column="material_type_id" class="cz.bbmri.entity.MaterialType" not-null="false" lazy="proxy">
@@ -26,7 +27,6 @@ License Type: Academic
 		<one-to-one name="ptnm" class="cz.bbmri.entity.Ptnm" cascade="save-update,lock" lazy="proxy"/>
 		<one-to-one name="morphology" class="cz.bbmri.entity.Morphology" cascade="save-update,lock" lazy="proxy"/>
 		<one-to-one name="biopticalReport" class="cz.bbmri.entity.BiopticalReport" cascade="save-update,lock" lazy="proxy"/>
-		<one-to-one name="diagnosis" class="cz.bbmri.entity.Diagnosis" cascade="save-update,lock" lazy="proxy"/>
 		<set name="position" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Position"/>
@@ -35,5 +35,10 @@ License Type: Academic
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Request"/>
 		</set>
+		<set name="diagnosis" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="sample_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Diagnosis"/>
+		</set>
+		<one-to-one name="storageMethology" class="cz.bbmri.entity.StorageMethology" cascade="save-update,lock" lazy="proxy"/>
 	</class>
 </hibernate-mapping>

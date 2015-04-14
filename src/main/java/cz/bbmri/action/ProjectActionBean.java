@@ -4,10 +4,9 @@ import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.ProjectDAO;
-import cz.bbmri.entity.Attachment;
-import cz.bbmri.entity.Project;
-import cz.bbmri.entity.Question;
-import cz.bbmri.entity.Role;
+import cz.bbmri.dao.ProjectUserDAO;
+import cz.bbmri.dao.UserDAO;
+import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -27,6 +26,12 @@ public class ProjectActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private ProjectDAO projectDAO;
+
+    @SpringBean
+    private UserDAO userDAO;
+
+    @SpringBean
+    private ProjectUserDAO projectUserDAO;
 
     private Long id;
 
@@ -224,7 +229,105 @@ public class ProjectActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, getProject()));
         getBreadcrumbs().add(ProjectActionBean.getQuestionsBreadcrumbs(true, getProject()));
 
+        questionPagination.initiate(getPage(), getOrderParam(), isDesc());
+        questionPagination.setSource(new ArrayList<Question>(project.getQuestion()));
+        questionPagination.setEvent("questions");
+        questionPagination.setIdentifier(project.getId());
+        questionPagination.setIdentifierParam("id");
+
         return new ForwardResolution(View.Project.QUESTIONS);
+    }
+
+    @HandlesEvent("confirm")
+    @RolesAllowed("admin")
+    public Resolution confirm() {
+        getProject();
+
+        if (!project.getIsNew()) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        project.setProjectState(ProjectState.CONFIRMED);
+
+        projectDAO.save(project);
+
+        for (ProjectUser projectUser : project.getProjectUser()) {
+            User user = projectUser.getUser();
+            user.nominateProjectTeamMemberConfirmed();
+            userDAO.save(user);
+        }
+
+        return new RedirectResolution(ProjectActionBean.class, "detail").addParameter("id", project.getId());
+    }
+
+    @HandlesEvent("deny")
+    @RolesAllowed("admin")
+    public Resolution deny() {
+        getProject();
+
+        if (!project.getIsNew()) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        project.setProjectState(ProjectState.DENIED);
+
+        projectDAO.save(project);
+
+        return new RedirectResolution(ProjectActionBean.class, "detail").addParameter("id", project.getId());
+    }
+
+    @HandlesEvent("finish")
+    @RolesAllowed("project_team_member if ${projectExecutor}")
+    public Resolution finish() {
+        getProject();
+
+        if (!project.getIsConfirmed()) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        project.setProjectState(ProjectState.FINISHED);
+
+        projectDAO.save(project);
+
+        for (ProjectUser projectUser : project.getProjectUser()) {
+            User user = projectUser.getUser();
+            // can't use this project to request samples
+            user.denominateProjectTeamMemberConfirmed();
+            userDAO.save(user);
+
+            // can't be changed from now
+            projectUser.setPermission(Permission.VISITOR);
+            projectUserDAO.save(projectUser);
+        }
+
+        return new RedirectResolution(ProjectActionBean.class, "detail").addParameter("id", project.getId());
+    }
+
+    @HandlesEvent("cancel")
+    @RolesAllowed("project_team_member if ${projectExecutor}")
+    public Resolution cancel() {
+        getProject();
+
+        if (!project.getIsCanceled()) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        project.setProjectState(ProjectState.CANCELED);
+
+        projectDAO.save(project);
+
+        for (ProjectUser projectUser : project.getProjectUser()) {
+            User user = projectUser.getUser();
+            // can't use this project to request samples
+            user.denominateProjectTeamMemberConfirmed();
+            userDAO.save(user);
+
+            // can't be changed from now
+            projectUser.setPermission(Permission.VISITOR);
+            projectUserDAO.save(projectUser);
+        }
+
+        return new RedirectResolution(ProjectActionBean.class, "detail").addParameter("id", project.getId());
     }
 
 }

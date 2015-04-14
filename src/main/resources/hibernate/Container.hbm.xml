@@ -11,13 +11,13 @@ License Type: Academic
 				<param name="sequence">container_seq</param>
 			</generator>
 		</id>
-		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
-		</many-to-one>
 		<property name="name" column="name" type="text" not-null="false" lazy="false"/>
 		<property name="location" column="location" type="text" not-null="false" lazy="false"/>
 		<property name="capacity" column="capacity" type="integer" not-null="false" lazy="false"/>
 		<property name="tempMin" column="temp_min" type="float" not-null="false" lazy="false"/>
 		<property name="tempMax" column="temp_max" type="float" not-null="false" lazy="false"/>
+		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
+		</many-to-one>
 		<many-to-one name="container" cascade="lock" column="container_id" class="cz.bbmri.entity.Container" not-null="true" lazy="proxy">
 		</many-to-one>
 		<set name="box" lazy="extra" cascade="save-update,lock" inverse="true">

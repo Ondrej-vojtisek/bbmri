@@ -41,5 +41,17 @@ License Type: Academic
 			<key column="biobank_id" not-null="false"/>
 			<one-to-many class="cz.bbmri.entity.Attachment"/>
 		</set>
+		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Reservation"/>
+		</set>
+		<set name="question" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Question"/>
+		</set>
+		<set name="biobankMaterialType" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="biobank_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.BiobankMaterialType"/>
+		</set>
 	</class>
 </hibernate-mapping>

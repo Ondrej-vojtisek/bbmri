@@ -11,12 +11,16 @@ License Type: Academic
 				<param name="sequence">material_type_seq</param>
 			</generator>
 		</id>
-		<property name="key" column="`key`" type="text" not-null="true" lazy="false"/>
 		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
+		<property name="nameEnglish" column="name_english" type="text" not-null="false" lazy="false"/>
 		<property name="description" column="description" type="text" not-null="false" lazy="false"/>
 		<set name="sample" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="material_type_id" not-null="false"/>
 			<one-to-many class="cz.bbmri.entity.Sample"/>
+		</set>
+		<set name="biobankMaterialType" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="material_type_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.BiobankMaterialType"/>
 		</set>
 	</class>
 </hibernate-mapping>

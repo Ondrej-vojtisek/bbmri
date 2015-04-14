@@ -4,16 +4,25 @@ import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
+import cz.bbmri.dao.GlobalSettingDAO;
 import cz.bbmri.dao.ReservationDAO;
 import cz.bbmri.entity.Biobank;
+import cz.bbmri.entity.GlobalSetting;
 import cz.bbmri.entity.Reservation;
+import cz.bbmri.entity.ReservationState;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * TODO describe class
@@ -30,13 +39,21 @@ public class ReservationActionBean extends AuthorizationActionBean {
     @SpringBean
     private BiobankDAO biobankDAO;
 
+    @SpringBean
+    private GlobalSettingDAO globalSettingDAO;
+
     private Long id;
 
+    @ValidateNestedProperties(value = {
+            @Validate(on = {"confirmAdd"}, field = "specification", required = true)
+    })
     private Reservation reservation;
 
     private MyPagedListHolder<Reservation> pagination = new MyPagedListHolder<Reservation>(new ArrayList<Reservation>());
 
     private Integer biobankId;
+
+    private List<Integer> biobanks = new ArrayList<Integer>();
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(ReservationActionBean.class.getName(), "all", false, "" +
@@ -44,19 +61,19 @@ public class ReservationActionBean extends AuthorizationActionBean {
     }
 
     public static Breadcrumb getMyBreadcrumb(boolean active) {
-           return new Breadcrumb(ReservationActionBean.class.getName(), "myReservations", false, "cz.bbmri.entity.Reservation.myReservations",
-                   active);
-       }
+        return new Breadcrumb(ReservationActionBean.class.getName(), "myReservations", false, "cz.bbmri.entity.Reservation.myReservations",
+                active);
+    }
 
     public static Breadcrumb getDetailBreadcrumb(boolean active, Reservation reservation) {
-        return new Breadcrumb(ReservationActionBean.class.getName(), "detail", false, "cz.bbmri.entity.Reservation.allReservation" ,
+        return new Breadcrumb(ReservationActionBean.class.getName(), "detail", false, "cz.bbmri.entity.Reservation.reservation",
                 active, "id", reservation.getId());
     }
 
-    public static Breadcrumb getAddBreadcrumb(boolean active, Biobank biobank) {
-           return new Breadcrumb(ReservationActionBean.class.getName(), "add", false, "" +
-                   "cz.bbmri.entity.Reservation.add", active, "biobankId", biobank.getId());
-       }
+    public static Breadcrumb getAddBreadcrumb(boolean active) {
+        return new Breadcrumb(ReservationActionBean.class.getName(), "add", false, "cz.bbmri.entity.Reservation.add",
+                active);
+    }
 
     public Integer getBiobankId() {
         return biobankId;
@@ -96,6 +113,18 @@ public class ReservationActionBean extends AuthorizationActionBean {
         this.pagination = pagination;
     }
 
+    public List<Integer> getBiobanks() {
+        return biobanks;
+    }
+
+    public void setBiobanks(List<Integer> biobanks) {
+        this.biobanks = biobanks;
+    }
+
+    public boolean getIsMyReservation(){
+        return getReservation().getUser().equals(getLoggedUser());
+    }
+
     @DefaultHandler
     @HandlesEvent("all")
     @RolesAllowed({"developer"})
@@ -127,7 +156,7 @@ public class ReservationActionBean extends AuthorizationActionBean {
     }
 
     @HandlesEvent("detail")
-    @RolesAllowed({"authorized", "developer", "biobank_operator"})
+    @RolesAllowed({"authorized if ${isMyReservation}", "developer", "biobank_operator"})
     public Resolution detail() {
 
         getReservation();
@@ -146,16 +175,81 @@ public class ReservationActionBean extends AuthorizationActionBean {
     @RolesAllowed({"authorized"})
     public Resolution add() {
 
-        Biobank biobank = biobankDAO.get(biobankId);
-        if(biobank == null){
-            return new ForwardResolution(View.Biobank.NOTFOUND);
-        }
+        getBreadcrumbs().add(ReservationActionBean.getAddBreadcrumb(true));
 
-        getBreadcrumbs().add(ReservationActionBean.getAddBreadcrumb(true, biobank));
-
-        return new ForwardResolution(View.Withdraw.ADD);
+        return new ForwardResolution(View.Reservation.ADD);
 
     }
+
+    @HandlesEvent("confirmAdd")
+    @RolesAllowed({"authorized"})
+    public Resolution confirmAdd() {
+
+        if (biobanks.isEmpty()) {
+            getContext().getValidationErrors().
+                    addGlobalError(new LocalizableError("cz.bbmri.ReservationActionBean.noBiobankSelected"));
+            return new ForwardResolution(View.Reservation.ADD);
+        }
+
+        // For each selected biobank create separate reservation
+        for (Integer integer : biobanks) {
+            Reservation newReservation = new Reservation();
+            newReservation.setSpecification(reservation.getSpecification());
+            newReservation.setUser(getLoggedUser());
+
+            Biobank biobank = biobankDAO.get(integer);
+
+            newReservation.setBiobank(biobank);
+
+            // Today date
+            Calendar cal = Calendar.getInstance();
+
+            // Add period for which is reservation valid
+            cal.add(Calendar.MONTH, globalSettingDAO.getReservationValidity());
+
+            newReservation.setValidation(cal.getTime());
+
+            reservationDAO.save(newReservation);
+        }
+
+        return new RedirectResolution(ReservationActionBean.class, "myReservations");
+    }
+
+    @HandlesEvent("approve")
+    @RolesAllowed("biobank_operator")
+    public Resolution approve() {
+        getReservation();
+
+        if (!reservation.getIsNew()) {
+            return new ForwardResolution(View.Reservation.NOTFOUND);
+        }
+
+        reservation.setReservationState(ReservationState.APPROVED);
+        reservation.setLastModification(new Date());
+
+        reservationDAO.save(reservation);
+
+        return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+    }
+
+    @HandlesEvent("deny")
+    @RolesAllowed("biobank_operator")
+    public Resolution deny() {
+        getReservation();
+
+        if (!reservation.getIsNew()) {
+            return new ForwardResolution(View.Reservation.NOTFOUND);
+        }
+
+        reservation.setReservationState(ReservationState.DENIED);
+        reservation.setLastModification(new Date());
+
+        reservationDAO.save(reservation);
+
+        return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+    }
+
+
 
 }
 

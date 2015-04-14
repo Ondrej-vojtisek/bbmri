@@ -1,5 +1,6 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.SampleDAO;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 @UrlBinding("/sample/{$event}/{id}")
-public class SampleActionBean extends ComponentActionBean {
+public class SampleActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private SampleDAO sampleDAO;

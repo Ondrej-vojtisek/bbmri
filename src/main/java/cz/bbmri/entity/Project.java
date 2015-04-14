@@ -16,17 +16,17 @@ import java.util.Set;
 public class Project implements Serializable {
 
     public static final String PROP_ID = "id";
-   	public static final String PROP_NAME = "name";
-   	public static final String PROP_ANNOTATION = "annotation";
-   	public static final String PROP_FUNDING_ORGANIZATION = "fundingOrganization";
-   	public static final String PROP_APPROVAL_DATE = "approvalDate";
-   	public static final String PROP_CREATED = "created";
-   	public static final String PROP_PRINCIPAL_INVESTIGATOR = "principalInvestigator";
-   	public static final String PROP_APPROVAL_STORAGE = "approvalStorage";
-   	public static final String PROP_PROJECT_STATE = "projectState";
-   	public static final String PROP_PROJECT_USER = "projectUser";
-   	public static final String PROP_QUESTION = "question";
-   	public static final String PROP_ATTACHMENT = "attachment";
+    public static final String PROP_NAME = "name";
+    public static final String PROP_ANNOTATION = "annotation";
+    public static final String PROP_FUNDING_ORGANIZATION = "fundingOrganization";
+    public static final String PROP_APPROVAL_DATE = "approvalDate";
+    public static final String PROP_CREATED = "created";
+    public static final String PROP_PRINCIPAL_INVESTIGATOR = "principalInvestigator";
+    public static final String PROP_APPROVAL_STORAGE = "approvalStorage";
+    public static final String PROP_PROJECT_STATE = "projectState";
+    public static final String PROP_PROJECT_USER = "projectUser";
+    public static final String PROP_QUESTION = "question";
+    public static final String PROP_ATTACHMENT = "attachment";
 
     public final static String PROJECT_FOLDER = File.separator + "project_files";
     private final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
@@ -40,7 +40,7 @@ public class Project implements Serializable {
     private Date created = new Date();
     private String principalInvestigator;
     private String approvalStorage;
-    private ProjectState projectState;
+    private ProjectState projectState = ProjectState.NEW;
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
     private Set<Question> question = new HashSet<Question>();
     private Set<Attachment> attachment = new HashSet<Attachment>();
@@ -146,16 +146,36 @@ public class Project implements Serializable {
         return Project.PROJECT_FOLDER_PATH + id;
     }
 
-    public boolean getHasMta(){
-        if(attachment == null){
+    public boolean getHasMta() {
+        if (attachment == null) {
             return false;
         }
-        for(Attachment attach : attachment){
-            if(attach.getAttachmentType().equals(AttachmentType.MATERIAL_TRANSFER_AGREEMENT)){
+        for (Attachment attach : attachment) {
+            if (attach.getAttachmentType().equals(AttachmentType.MATERIAL_TRANSFER_AGREEMENT)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean getIsNew() {
+        return projectState.equals(ProjectState.NEW);
+    }
+
+    public boolean getIsConfirmed() {
+        return projectState.equals(ProjectState.CONFIRMED);
+    }
+
+    public boolean getIsDenied() {
+        return projectState.equals(ProjectState.DENIED);
+    }
+
+    public boolean getIsCanceled() {
+        return projectState.equals(ProjectState.CANCELED);
+    }
+
+    public boolean getIsFinished() {
+        return projectState.equals(ProjectState.FINISHED);
     }
 
     @Override

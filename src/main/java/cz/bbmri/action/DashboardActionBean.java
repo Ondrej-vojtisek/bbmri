@@ -3,11 +3,8 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.NotificationDAO;
-import cz.bbmri.entity.Biobank;
-import cz.bbmri.entity.Country;
 import cz.bbmri.entity.Notification;
 import cz.bbmri.entity.webEntities.Breadcrumb;
-import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -19,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
@@ -90,7 +86,7 @@ public class DashboardActionBean extends AuthorizationActionBean {
             return new RedirectResolution(this.getClass());
         }
 
-        for(Long notificationId : selectedNotifications){
+        for (Long notificationId : selectedNotifications) {
             Notification notification = notificationDAO.get(notificationId);
             notification.setRead(true);
             notificationDAO.remove(notification);
@@ -108,7 +104,7 @@ public class DashboardActionBean extends AuthorizationActionBean {
             return new RedirectResolution(this.getClass());
         }
 
-        for(Long notificationId : selectedNotifications){
+        for (Long notificationId : selectedNotifications) {
             Notification notification = notificationDAO.get(notificationId);
             notification.setRead(true);
             notificationDAO.save(notification);

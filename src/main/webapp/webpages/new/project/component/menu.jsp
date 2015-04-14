@@ -20,7 +20,7 @@
 
             <%-- -------------------------------------------------------------------- --%>
         <security:allowed bean="projectActionBean" event="projectuser">
-            <li <core:if test="${active == 'administrators'}"> class="active" </core:if>>
+            <li <core:if test="${active == 'projectuser'}"> class="active" </core:if>>
                 <stripes:link beanclass="cz.bbmri.action.ProjectActionBean"
                         event="projectuser">
                     <stripes:param name="id" value="${actionBean.id}"/>
@@ -41,7 +41,6 @@
         </security:allowed>
 
             <%-- -------------------------------------------------------------------- --%>
-
         <security:allowed bean="projectActionBean" event="questions">
             <li <core:if test="${active == 'questions'}"> class="active" </core:if>>
                 <stripes:link beanclass="cz.bbmri.action.ProjectActionBean" event="questions">

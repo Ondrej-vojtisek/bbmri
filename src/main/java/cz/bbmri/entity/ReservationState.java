@@ -86,4 +86,9 @@ public class ReservationState implements Serializable {
         result = 31 * result + name.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

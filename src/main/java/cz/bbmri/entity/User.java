@@ -60,6 +60,18 @@ public class User implements Serializable {
         return role.contains(Role.PROJECT_TEAM_MEMBER_CONFIRMED);
     }
 
+    public void denominateProjectTeamMember() {
+        if (!isProjectTeamMember()) {
+            return;
+        }
+
+        if (projectUser.isEmpty()) {
+            role.remove(Role.PROJECT_TEAM_MEMBER);
+        }
+
+    }
+
+
     public void nominateProjectTeamMember() {
         if (isProjectTeamMember()) {
             // nothing to be done here
@@ -69,6 +81,22 @@ public class User implements Serializable {
         role.add(Role.PROJECT_TEAM_MEMBER);
     }
 
+    public void denominateProjectTeamMemberConfirmed() {
+        if (!isProjectTeamMemberConfirmed()) {
+            // nothing to be done here
+            return;
+        }
+
+        for(ProjectUser pu : projectUser){
+            // is there at least one confirmed project?
+            if(pu.getProject().getIsConfirmed()){
+                return;
+            }
+        }
+
+        role.remove(Role.PROJECT_TEAM_MEMBER_CONFIRMED);
+    }
+
     public void nominateProjectTeamMemberConfirmed() {
         if (isProjectTeamMemberConfirmed()) {
             // nothing to be done here
@@ -76,6 +104,17 @@ public class User implements Serializable {
         }
 
         role.add(Role.PROJECT_TEAM_MEMBER_CONFIRMED);
+    }
+
+    public void denominateBiobankOperator() {
+        if (!isBiobankOperator()) {
+            return;
+        }
+
+        if (biobankUser.isEmpty()) {
+            role.remove(Role.BIOBANK_OPERATOR);
+        }
+
     }
 
     public void nominateBiobankOperator() {
@@ -182,6 +221,22 @@ public class User implements Serializable {
 
     public void setNotification(Set<Notification> notification) {
         this.notification = notification;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return id == user.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 
     public String getWholeName() {

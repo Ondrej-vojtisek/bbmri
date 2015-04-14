@@ -1,5 +1,6 @@
 package cz.bbmri.action;
 
+import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
@@ -12,6 +13,8 @@ import cz.bbmri.entity.Permission;
 import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.Validate;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -21,8 +24,8 @@ import javax.annotation.security.RolesAllowed;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-@UrlBinding("/biobankuser/{$event}/{id}")
-public class BiobankUserActionBean extends ComponentActionBean {
+@UrlBinding("/biobankuser/{$event}/{biobankId}/{userId}")
+public class BiobankUserActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private BiobankUserDAO biobankUserDAO;
@@ -41,6 +44,9 @@ public class BiobankUserActionBean extends ComponentActionBean {
     private Integer biobankId;
 
     private Integer permissionId;
+
+    @Validate(on = {"confirmAdd"}, required = true)
+    private String find;
 
     public boolean getIsMyAccount() {
         return getContext().getMyId().equals(userId);
@@ -70,6 +76,14 @@ public class BiobankUserActionBean extends ComponentActionBean {
         this.permissionId = permissionId;
     }
 
+    public String getFind() {
+        return find;
+    }
+
+    public void setFind(String find) {
+        this.find = find;
+    }
+
     @HandlesEvent("remove")
     @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
     public Resolution remove() {
@@ -87,11 +101,15 @@ public class BiobankUserActionBean extends ComponentActionBean {
 
         BiobankUser biobankUser = biobankUserDAO.get(biobank, user);
 
-        if (user == null) {
+        if (biobankUser == null) {
             return new ForwardResolution(View.BiobankUser.NOTFOUND);
         }
 
         biobankUserDAO.remove(biobankUser);
+
+        user.denominateBiobankOperator();
+
+        userDAO.save(user);
 
         return new RedirectResolution(BiobankActionBean.class, "biobankuser").addParameter("id", biobank.getId());
     }
@@ -113,12 +131,12 @@ public class BiobankUserActionBean extends ComponentActionBean {
 
         BiobankUser biobankUser = biobankUserDAO.get(biobank, user);
 
-        if (user == null) {
+        if (biobankUser == null) {
             return new ForwardResolution(View.BiobankUser.NOTFOUND);
         }
 
         Permission permission = permissionDAO.get(permissionId);
-        if (user == null) {
+        if (permission == null) {
             return new ForwardResolution(View.Permission.NOTFOUND);
         }
 
@@ -136,11 +154,59 @@ public class BiobankUserActionBean extends ComponentActionBean {
         return this.getName() + ".questionRemoveBiobankUser";
     }
 
+    @DefaultHandler
     @HandlesEvent("add")
     @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
     public Resolution add() {
 
+        Biobank biobank = biobankDAO.get(biobankId);
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
         return new ForwardResolution(View.BiobankUser.ADD);
+    }
+
+
+    @HandlesEvent("confirmAdd")
+    @RolesAllowed({"biobank_operator if ${biobankManager}", "developer"})
+    public Resolution confirmAdd() {
+        Biobank biobank = biobankDAO.get(biobankId);
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        User user = userDAO.find(find);
+        if (user == null) {
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.BiobankUserActionBean.userNotFound"));
+            return new ForwardResolution(BiobankUserActionBean.class, "add").addParameter("biobankId", biobankId);
+        }
+        userId = user.getId();
+
+        if (biobankUserDAO.get(biobank, user) != null) {
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.BiobankUserActionBean.userIsAlreadyAssigned"));
+            return new ForwardResolution(View.BiobankUser.ADD);
+        }
+
+        Permission permission = permissionDAO.get(permissionId);
+        if (permission == null) {
+            return new ForwardResolution(View.Permission.NOTFOUND);
+        }
+
+        BiobankUser biobankUser = new BiobankUser();
+        biobankUser.setUser(user);
+        biobankUser.setBiobank(biobank);
+        biobankUser.setPermission(permission);
+
+        biobankUserDAO.save(biobankUser);
+
+        user.nominateBiobankOperator();
+
+        userDAO.save(user);
+
+        return setPermission();
     }
 
 }

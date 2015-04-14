@@ -12,9 +12,14 @@ import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * TODO describe class
@@ -31,10 +36,18 @@ public class QuestionActionBean extends AuthorizationActionBean {
     @SpringBean
     private ProjectDAO projectDAO;
 
+    @SpringBean
+    private BiobankDAO biobankDAO;
+
     private Long id;
 
     private Long projectId;
 
+    private List<Integer> biobanks = new ArrayList<Integer>();
+
+    @ValidateNestedProperties(value = {
+            @Validate(on = {"confirmAdd"}, field = "specification", required = true)
+    })
     private Question question;
 
     private MyPagedListHolder<Question> pagination = new MyPagedListHolder<Question>(new ArrayList<Question>());
@@ -102,6 +115,14 @@ public class QuestionActionBean extends AuthorizationActionBean {
         this.requestPagination = requestPagination;
     }
 
+    public List<Integer> getBiobanks() {
+        return biobanks;
+    }
+
+    public void setBiobanks(List<Integer> biobanks) {
+        this.biobanks = biobanks;
+    }
+
     @DefaultHandler
     @HandlesEvent("all")
     @RolesAllowed({"developer"})
@@ -144,8 +165,39 @@ public class QuestionActionBean extends AuthorizationActionBean {
 
         getBreadcrumbs().add(QuestionActionBean.getAddBreadcrumb(true, project));
 
-        return new ForwardResolution(View.Withdraw.ADD);
+        return new ForwardResolution(View.Question.ADD);
 
+    }
+
+    @HandlesEvent("confirmAdd")
+    @RolesAllowed({"authorized"})
+    public Resolution confirmAdd() {
+
+        Project project = projectDAO.get(projectId);
+        if (project == null) {
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        if (biobanks.isEmpty()) {
+            getContext().getValidationErrors().
+                    addGlobalError(new LocalizableError("cz.bbmri.ReservationActionBean.noBiobankSelected"));
+            return new ForwardResolution(View.Question.ADD);
+        }
+
+        // For each selected biobank create separate reservation
+        for (Integer integer : biobanks) {
+            Question newQuestion = new Question();
+            newQuestion.setSpecification(question.getSpecification());
+            newQuestion.setProject(project);
+
+            Biobank biobank = biobankDAO.get(integer);
+
+            newQuestion.setBiobank(biobank);
+
+            questionDAO.save(newQuestion);
+        }
+
+        return new RedirectResolution(ProjectActionBean.class, "questions").addParameter("id", project.getId());
     }
 
 }

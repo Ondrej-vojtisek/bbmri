@@ -26,11 +26,12 @@ public class MaterialType implements Serializable {
    	public static final String PROP_SAMPLE = "sample";
 
 	private int id;
-	private String key;
+	private String nameEnglish;
 	private String name;
 	private String description;
 	
 	private Set<Sample> sample = new HashSet<Sample>();
+	private Set<BiobankMaterialType> biobankMaterialType = new HashSet<BiobankMaterialType>();
 	
 	public void setId(int value) {
 		this.id = value;
@@ -39,15 +40,15 @@ public class MaterialType implements Serializable {
 	public int getId() {
 		return id;
 	}
-	
-	public void setKey(String value) {
-		this.key = value;
+
+	public String getNameEnglish() {
+		return nameEnglish;
 	}
-	
-	public String getKey() {
-		return key;
+
+	public void setNameEnglish(String nameEnglish) {
+		this.nameEnglish = nameEnglish;
 	}
-	
+
 	public void setName(String value) {
 		this.name = value;
 	}
@@ -71,6 +72,33 @@ public class MaterialType implements Serializable {
 	public Set<Sample> getSample() {
 		return sample;
 	}
-	
 
+	public Set<BiobankMaterialType> getBiobankMaterialType() {
+		return biobankMaterialType;
+	}
+
+	public void setBiobankMaterialType(Set<BiobankMaterialType> biobankMaterialType) {
+		this.biobankMaterialType = biobankMaterialType;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		MaterialType that = (MaterialType) o;
+
+		return id == that.id;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
 }

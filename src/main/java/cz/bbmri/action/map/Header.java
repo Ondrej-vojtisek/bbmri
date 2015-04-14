@@ -16,6 +16,10 @@ public enum Header {
     private static final String LOCATION = "/webpages/new/";
     private static final String COMPONENT = "/component/header.jsp";
 
+    public String getAttachment() {
+        return LOCATION + "attachment" + COMPONENT;
+    }
+
     public String getArchive() {
         return LOCATION + "archive" + COMPONENT;
     }
@@ -53,8 +57,8 @@ public enum Header {
     }
 
     public String getProjectUser() {
-          return LOCATION + "projectUser" + COMPONENT;
-      }
+        return LOCATION + "projectUser" + COMPONENT;
+    }
 
     public String getQuestion() {
         return LOCATION + "question" + COMPONENT;

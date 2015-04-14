@@ -30,13 +30,13 @@ License Type: Academic
 			<key column="user_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.ProjectUser"/>
 		</set>
-		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
-			<key column="user_id" not-null="true"/>
-			<one-to-many class="cz.bbmri.entity.Reservation"/>
-		</set>
 		<set name="notification" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="user_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Notification"/>
+		</set>
+		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="user_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Reservation"/>
 		</set>
 	</class>
 </hibernate-mapping>

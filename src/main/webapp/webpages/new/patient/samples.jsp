@@ -14,7 +14,7 @@
         <table class="table table-hover table-striped">
             <stripes:layout-render name="${component.header.sample}" pagination="${pagination}"/>
 
-            <%--Set authBiobankId of AuthotizationActionBean to enable security tag--%>
+                <%--Set authBiobankId of AuthotizationActionBean to enable security tag--%>
             <core:set target="${sampleActionBean}" property="authBiobankId" value="${actionBean.patient.biobank.id}"/>
 
             <tbody>
@@ -27,8 +27,8 @@
                                                <div class="tableAction">
                                                    <security:allowed bean="sampleActionBean" event="detail">
                                                        <stripes:link beanclass="cz.bbmri.action.SampleActionBean"
-                                                               event="detail"
-                                                               class="btn btn-info btnMargin">
+                                                                     event="detail"
+                                                                     class="btn btn-info btnMargin">
                                                            <stripes:param name="id" value="${item.id}"/>
                                                            <format:message key="detail"/>
                                                        </stripes:link>
@@ -43,7 +43,7 @@
 
         <%--show pagination only if list contains some data--%>
         <core:if test="${not empty pagination.myPageList}">
-            <stripes:layout-render name="${component.pager}" pagination="${samplePagination}"/>
+            <stripes:layout-render name="${component.pager}" pagination="${pagination}"/>
         </core:if>
 
     </stripes:layout-component>

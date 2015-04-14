@@ -40,7 +40,7 @@ public abstract class AuthorizationActionBean extends ComponentActionBean {
 
     private Long userId;
 
-    protected void setAuthBiobankId(Integer biobankId) {
+    public void setAuthBiobankId(Integer biobankId) {
         this.authBiobankId = biobankId;
     }
 

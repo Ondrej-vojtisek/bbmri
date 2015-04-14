@@ -11,13 +11,14 @@ License Type: Academic
 				<param name="sequence">contact_seq</param>
 			</generator>
 		</id>
-		<many-to-one name="biobank" column="biobank_id" class="cz.bbmri.entity.Biobank" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy">
-		</many-to-one>
 		<property name="phone" column="phone" type="text" not-null="false" lazy="false"/>
 		<property name="email" column="email" unique="true" type="text" not-null="false" lazy="false"/>
 		<property name="address" column="address" type="text" not-null="false" lazy="false"/>
 		<property name="zip" column="zip" type="text" not-null="false" lazy="false"/>
 		<property name="city" column="city" type="text" not-null="false" lazy="false"/>
+		<property name="url" column="url" type="text" not-null="false" lazy="false"/>
+		<many-to-one name="biobank" column="biobank_id" class="cz.bbmri.entity.Biobank" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy">
+		</many-to-one>
 		<many-to-one name="country" cascade="lock" column="country_id" class="cz.bbmri.entity.Country" not-null="false" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="user" column="user_id" class="cz.bbmri.entity.User" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy">

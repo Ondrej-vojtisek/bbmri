@@ -25,6 +25,7 @@ public enum View {
     public static class Archive {
         private static final String DIRECTORY = LOCATION + "archive/";
 
+        public static final String ALL = DIRECTORY + "all.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
 
     }
@@ -56,6 +57,7 @@ public enum View {
         public static final String BIOBANK_USER = DIRECTORY + "biobankuser.jsp";
         public static final String PATIENTS = DIRECTORY + "patients.jsp";
         public static final String WITHDRAWS = DIRECTORY + "withdraws.jsp";
+        public static final String QUESTIONS = DIRECTORY + "questions.jsp";
 
     }
 
@@ -188,8 +190,8 @@ public enum View {
     public static class ProjectUser {
         private static final String DIRECTORY = LOCATION + "projectUser/";
 
-        public static final String ADD = DIRECTORY + "add.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ADD = DIRECTORY + "add.jsp";
     }
 
     public static class Ptnm {
@@ -210,6 +212,7 @@ public enum View {
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
         public static final String DETAIL = DIRECTORY + "detail.jsp";
+        public static final String ADD = DIRECTORY + "add.jsp";
     }
 
     public static class QuestionState {
@@ -236,6 +239,7 @@ public enum View {
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
         public static final String DETAIL = DIRECTORY + "detail.jsp";
+        public static final String ADD = DIRECTORY + "add.jsp";
     }
 
     public static class ReservationState {
@@ -300,6 +304,8 @@ public enum View {
         public static final String DETAIL = DIRECTORY + "detail.jsp";
         public static final String PASSWORD = DIRECTORY + "password.jsp";
         public static final String SHIBBOLETH = DIRECTORY + "shibboleth.jsp";
+
+        public static final String TABLE = DIRECTORY +  "table.jsp";
     }
 
 

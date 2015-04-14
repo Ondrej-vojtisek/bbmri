@@ -129,7 +129,6 @@ public class ProjectCreateActionBean extends ComponentActionBean {
     @HandlesEvent("confirm")
     public Resolution confirm() {
 
-        project.setProjectState(ProjectState.NEW);
         projectDAO.save(project);
 
         ProjectUser projectUser = new ProjectUser();

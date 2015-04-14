@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/graph.css"/>
         <title>BBMRI_CZ</title>
-        <stripes:layout-component name="hlavicka"/>
+        <stripes:layout-component name="head"/>
     </head>
 
     <body>
@@ -57,6 +57,7 @@
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-fileupload.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap-datepicker.js"></script>
+    <%--<script type="text/javascript" src="${context}/libs/prototype.js"></script>--%>
 
     <script type="text/javascript" src="${context}/libs/jquery.flot.js"></script>
     <script type="text/javascript" src="${context}/libs/jquery.flot.time.js"></script>

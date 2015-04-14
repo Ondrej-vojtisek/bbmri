@@ -30,8 +30,8 @@ public class Constant {
     public static final int MAXIMUM_FIND_RESULTS = 5;
 
     /**
-     * Reservation of samples are preserved for three month by default
+     * Reservation of samples are preserved for six month by default
      */
-    public static final int DEFAULT_RESERVATION_VALIDITY = 3;
+    public static final int DEFAULT_RESERVATION_VALIDITY = 6;
 
 }

@@ -18,6 +18,8 @@ License Type: Academic
 		</many-to-one>
 		<many-to-one name="questionState" cascade="lock" column="questionState_id" class="cz.bbmri.entity.QuestionState" not-null="true" lazy="proxy">
 		</many-to-one>
+		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
+		</many-to-one>
 		<set name="request" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="question_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Request"/>

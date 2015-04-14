@@ -92,10 +92,7 @@ public class AttachmentType implements Serializable {
 
     @Override
     public String toString() {
-        return "AttachmentType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 
     @Override

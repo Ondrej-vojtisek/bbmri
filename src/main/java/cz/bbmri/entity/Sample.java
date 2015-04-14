@@ -40,6 +40,7 @@ public class Sample implements Serializable {
     private long id;
     private String institutionalId;
     private Date takingDate;
+    private Date freezeDate;
     private Retrieved retrieved;
     private MaterialType materialType;
     private Collection collection;
@@ -48,9 +49,10 @@ public class Sample implements Serializable {
     private Ptnm ptnm;
     private Morphology morphology;
     private BiopticalReport biopticalReport;
-    private Diagnosis diagnosis;
+    private StorageMethology storageMethology;
     private Set<Position> position = new HashSet<Position>();
     private Set<Request> request = new HashSet<Request>();
+    private Set<Diagnosis> diagnosis = new HashSet<Diagnosis>();
 
     public Patient getPatient() {
         return patient;
@@ -148,11 +150,11 @@ public class Sample implements Serializable {
         this.biopticalReport = biopticalReport;
     }
 
-    public Diagnosis getDiagnosis() {
+    public Set<Diagnosis> getDiagnosis() {
         return diagnosis;
     }
 
-    public void setDiagnosis(Diagnosis diagnosis) {
+    public void setDiagnosis(Set<Diagnosis> diagnosis) {
         this.diagnosis = diagnosis;
     }
 
@@ -170,5 +172,21 @@ public class Sample implements Serializable {
 
     public void setRequest(Set<Request> request) {
         this.request = request;
+    }
+
+    public Date getFreezeDate() {
+        return freezeDate;
+    }
+
+    public void setFreezeDate(Date freezeDate) {
+        this.freezeDate = freezeDate;
+    }
+
+    public StorageMethology getStorageMethology() {
+        return storageMethology;
+    }
+
+    public void setStorageMethology(StorageMethology storageMethology) {
+        this.storageMethology = storageMethology;
     }
 }

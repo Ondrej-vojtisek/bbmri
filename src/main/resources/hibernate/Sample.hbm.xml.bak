@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.Sample" table="sample" lazy="true">
+		<id name="id" column="id" type="long" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">sample_seq</param>
+			</generator>
+		</id>
+		<property name="institutionalId" column="institutional_id" type="text" not-null="false" lazy="false"/>
+		<property name="takingDate" column="taking_date" type="timestamp" not-null="false" lazy="false"/>
+		<property name="freezeDate" column="freeze_time" type="timestamp" not-null="false" lazy="false"/>
+		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="materialType" cascade="lock" column="material_type_id" class="cz.bbmri.entity.MaterialType" not-null="false" lazy="proxy">
+		</many-to-one>
+		<many-to-one name="collection" cascade="lock" column="collection_id" class="cz.bbmri.entity.Collection" not-null="false" lazy="proxy">
+		</many-to-one>
+		<one-to-one name="quantity" class="cz.bbmri.entity.Quantity" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="tnm" class="cz.bbmri.entity.Tnm" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="ptnm" class="cz.bbmri.entity.Ptnm" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="morphology" class="cz.bbmri.entity.Morphology" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="biopticalReport" class="cz.bbmri.entity.BiopticalReport" cascade="save-update,lock" lazy="proxy"/>
+		<set name="position" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="sample_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Position"/>
+		</set>
+		<set name="request" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="sample_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Request"/>
+		</set>
+		<set name="diagnosis" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="sample_id" not-null="true"/>
+			<one-to-many class="cz.bbmri.entity.Diagnosis"/>
+		</set>
+		<one-to-one name="storageMethology" class="cz.bbmri.entity.StorageMethology" cascade="save-update,lock" lazy="proxy"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/biobank/data" xmlns:data="http://www.bbmri.cz/schemas/biobank/data">
+    <xs:element name="patient">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>samples of patient</xs:documentation>
+                </xs:annotation>
+                <xs:element ref="data:sample"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>identifier of a patient (interni identifikator pacienta)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="consent" use="required" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>informed consent (informovany souhlas)</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="year" use="required" type="xs:gYear">
+                <xs:annotation>
+                    <xs:documentation>year of birth</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="month" type="xs:gMonth">
+                <xs:annotation>
+                    <xs:documentation>month of birth - day is skipped to preserve k-anonymity</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="sex" use="required">
+                <xs:annotation>
+                    <xs:documentation>sex of patient</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="male"/>
+                        <xs:enumeration value="female"/>
+                        <xs:enumeration value="unknown"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="biobank" use="required">
+                <xs:annotation>
+                    <xs:documentation>biobank identifier</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="sample">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="data:materialType"/>
+                <xs:element minOccurs="0" ref="data:totalAliquots"/>
+                <xs:element minOccurs="0" ref="data:availableAliquots"/>
+                <xs:element minOccurs="0" ref="data:TNM"/>
+                <xs:element minOccurs="0" ref="data:pTNM"/>
+                <xs:element minOccurs="0" ref="data:morphology"/>
+                <xs:element minOccurs="0" ref="data:grading"/>
+                <xs:element minOccurs="0" ref="data:takingDate"/>
+                <xs:element minOccurs="0" ref="data:freezeDate"/>
+                <xs:element minOccurs="0" ref="data:retrieved"/>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>diagnosis coded using ICD, multiple diagnosis can be defined</xs:documentation>
+                    </xs:annotation>
+                    <xs:element ref="data:diagnosis"/>
+                </xs:sequence>
+                <xs:element minOccurs="0" ref="data:storageMethodology">
+                    <xs:annotation>
+                        <xs:documentation>how is sample stored</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+                <xs:annotation>
+                    <xs:documentation>id of sample - it enables to find record in source HIS</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="year" type="xs:gYear">
+                <xs:annotation>
+                    <xs:documentation>year in which sample was taken - at MOU part of bioptical report which enables easier look-up for samples in HIS</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="number" type="xs:int">
+                <xs:annotation>
+                    <xs:documentation>sequential order of sample during year - at MOU part of bioptical report which enables easier look-up for samples in HIS</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="materialType">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="4"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="totalAliquots" type="xs:int">
+        <xs:annotation>
+            <xs:documentation>number of aliquotes</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="availableAliquots" type="xs:int">
+        <xs:annotation>
+            <xs:documentation>number of aliquotes available for research purpose</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="TNM" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>TNM classification</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="pTNM" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>pTNM classification</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="morphology">
+        <xs:annotation>
+            <xs:documentation>morphology coded using ICD-O</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="7"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="grading">
+        <xs:annotation>
+            <xs:documentation>grading. Grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:int">
+                <xs:minInclusive value="1"/>
+                <xs:maxInclusive value="9"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="takingDate">
+        <xs:annotation>
+            <xs:documentation>YYYY-MM-DDThh:mm:ss or YYYY-MM-DD</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:union memberTypes="xs:dateTime xs:date"/>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="freezeDate">
+        <xs:annotation>
+            <xs:documentation>YYYY-MM-DDThh:mm:ss or YYYY-MM-DD</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:union memberTypes="xs:dateTime xs:date"/>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="retrieved">
+        <xs:annotation>
+            <xs:documentation>when sample was taken</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:token">
+                <xs:enumeration value="preoperational"/>
+                <xs:enumeration value="operational"/>
+                <xs:enumeration value="post"/>
+                <xs:enumeration value="unknown"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="diagnosis">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:maxLength value="7"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="storageMethodology">
+        <xs:annotation>
+            <xs:documentation>description of storage method</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="data:temperature"/>
+                <xs:element minOccurs="0" ref="data:methodology"/>
+                <xs:element minOccurs="0" ref="data:sts"/>
+                <xs:element minOccurs="0" ref="data:expiration"/>
+                <xs:element minOccurs="0" ref="data:reagent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="temperature" type="xs:float">
+        <xs:annotation>
+            <xs:documentation>average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="methodology" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>are you following any standard</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="sts" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>sample is stored only temporary - STS</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="expiration" type="xs:date"/>
+    <xs:element name="reagent" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>which liquid was used to preserve sample</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+</xs:schema>

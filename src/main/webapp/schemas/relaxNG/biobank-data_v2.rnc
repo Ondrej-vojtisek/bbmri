@@ -48,45 +48,32 @@ sample =
         ## pTNM classification
         element pTNM { xsd:string }?,
         ## morphology coded using ICD-O
-        icdo ?,
+        element morphology { xsd:string { maxLength = "7" } } ?,
         ## grading. Grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
         element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
-        element takingTime {  xsd:dateTime | xsd:date } ?,
+        element takingDate {  xsd:dateTime | xsd:date } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
-        element freezeTime { xsd:dateTime | xsd:date } ?,
+        element freezeDate { xsd:dateTime | xsd:date } ?,
         ## when sample was taken
         element retrieved { "preoperational" | "operational" | "post" | "unknown" } ?,
-        ## diagnosis coded using ICD
-        ( icd )*,
+        ## diagnosis coded using ICD, multiple diagnosis can be defined
+        ( element diagnosis { xsd:string {maxLength = "7" } } )*,
         ## how is sample stored
         storageMethodology ?
-    }
-
-icd =
-    element icd {
-         ## version of classification system - current is 10 for instance
-         attribute version { xsd:int },
-         element diagnosis { xsd:string {maxLength = "7" } }
-    }
-
-icdo =
-    element icdo {
-        ## version of classification system - current is 3 for instance
-        attribute version { xsd:int },
-        element morphology { xsd:string { maxLength = "7" } }
     }
 
 storageMethodology =
     ## description of storage method
     element storageMethodology {
-        ## average temperature in which is sample stored (in case everything in infrastructure is working flawlessly)
+        ## average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)
         element temperature { xsd:float }?,
         ## are you following any standard
         element methodology { xsd:string } ?,
         ## sample is stored only temporary - STS
         element sts {xsd:boolean}?,
-        ## if sts than approximate duration of storage can be defined. Expiration is approximate date untill sample will be unavailable
+        ## if sts than approximate duration of storage can be defined. Expiration represents approximate date when sample will
+        ## be removed from repository
         element expiration { xsd:date } ?,
         ## which liquid was used to preserve sample
         element reagent { xsd:string } ?

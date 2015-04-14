@@ -25,7 +25,9 @@ public class Contact implements Serializable {
    	public static final String PROP_COUNTRY = "country";
    	public static final String PROP_USER = "user";
    	public static final String PROP_ID = "id";
+    public static final String PROP_URL = "url";
 
+    private long id;
     private Biobank biobank;
     private String phone;
     private String email;
@@ -34,7 +36,7 @@ public class Contact implements Serializable {
     private String city;
     private Country country;
     private User user;
-    private long id;
+    private String url;
 
     public Biobank getBiobank() {
         return biobank;
@@ -106,5 +108,13 @@ public class Contact implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

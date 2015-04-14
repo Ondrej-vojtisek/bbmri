@@ -42,9 +42,11 @@ public class Biobank implements Serializable {
     public static final String PROP_COLLECTION = "collection";
     public static final String PROP_WITHDRAW = "withdraw";
     public static final String PROP_ATTACHMENT = "attachment";
+    public static final String PROP_RESERVATION = "reservation";
+    public static final String PROP_QUESTION = "question";
+    public static final String PROP_BIOBANK_MATERIAL_TYPE = "biobankMaterialType";
 
     private int id;
-
     private String institutionalId;
     private String acronym;
     private String name;
@@ -58,6 +60,9 @@ public class Biobank implements Serializable {
     private Set<Collection> collection = new HashSet<Collection>();
     private Set<Withdraw> withdraw = new HashSet<Withdraw>();
     private Set<Attachment> attachment = new HashSet<Attachment>();
+    private Set<Reservation> reservation = new HashSet<Reservation>();
+    private Set<Question> question = new HashSet<Question>();
+    private Set<BiobankMaterialType> biobankMaterialType = new HashSet<BiobankMaterialType>();
 
     public int getId() {
         return id;
@@ -161,6 +166,30 @@ public class Biobank implements Serializable {
 
     public void setNameEnglish(String nameEnglish) {
         this.nameEnglish = nameEnglish;
+    }
+
+    public Set<Reservation> getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Set<Reservation> reservation) {
+        this.reservation = reservation;
+    }
+
+    public Set<Question> getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Set<Question> question) {
+        this.question = question;
+    }
+
+    public Set<BiobankMaterialType> getBiobankMaterialType() {
+        return biobankMaterialType;
+    }
+
+    public void setBiobankMaterialType(Set<BiobankMaterialType> biobankMaterialType) {
+        this.biobankMaterialType = biobankMaterialType;
     }
 
     public String getBiobankFolderPath() {

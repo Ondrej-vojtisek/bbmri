@@ -4,7 +4,7 @@
 <format:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
 
 <stripes:layout-render name="${component.layout.content}"
-                 title="${title}" primarymenu="home">
+                       title="${title}" primarymenu="home">
 
     <stripes:layout-component name="body">
 
@@ -25,7 +25,7 @@
             <core:if test="${not empty actionBean.pagination.myPageList}">
 
                 <stripes:layout-render name="${component.pager}"
-                                 pagination="${actionBean.pagination}"/>
+                                       pagination="${actionBean.pagination}"/>
 
             </core:if>
 
@@ -35,6 +35,7 @@
             </div>
 
         </stripes:form>
+
 
 
     </stripes:layout-component>

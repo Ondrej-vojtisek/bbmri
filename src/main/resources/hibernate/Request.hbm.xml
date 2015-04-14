@@ -11,9 +11,9 @@ License Type: Academic
 				<param name="sequence">request_seq</param>
 			</generator>
 		</id>
+		<property name="number" column="number" type="short" not-null="false" lazy="false"/>
 		<many-to-one name="sample" cascade="lock" column="sample_id" class="cz.bbmri.entity.Sample" not-null="true" lazy="proxy">
 		</many-to-one>
-		<property name="number" column="number" type="short" not-null="false" lazy="false"/>
 		<many-to-one name="question" cascade="lock" column="question_id" class="cz.bbmri.entity.Question" not-null="true" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="reservation" cascade="lock" column="reservation_id" class="cz.bbmri.entity.Reservation" not-null="true" lazy="proxy">

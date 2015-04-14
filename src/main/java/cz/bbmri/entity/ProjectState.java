@@ -32,9 +32,8 @@ public class ProjectState implements Serializable {
     public static final ProjectState NEW = new ProjectState(1, "new");
     public static final ProjectState CONFIRMED = new ProjectState(2, "confirmed");
     public static final ProjectState DENIED = new ProjectState(3, "denied");
-    public static final ProjectState STARTED = new ProjectState(4, "started");
-    public static final ProjectState CANCELED = new ProjectState(5, "canceled");
-    public static final ProjectState FINISHED = new ProjectState(6, "finished");
+    public static final ProjectState CANCELED = new ProjectState(4, "canceled");
+    public static final ProjectState FINISHED = new ProjectState(5, "finished");
 
     public static final String PROP_ID = "id";
     public static final String PROP_NAME = "name";
@@ -87,4 +86,10 @@ public class ProjectState implements Serializable {
         result = 31 * result + name.hashCode();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

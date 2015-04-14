@@ -4,7 +4,7 @@
 <stripes:useActionBean beanclass="cz.bbmri.action.CountryActionBean" var="countryActionBean"/>
 
 <stripes:layout-render name="${component.layout.content}"
-                 primarymenu="biobank">
+                       primarymenu="biobank">
 
     <stripes:layout-component name="body">
 
@@ -86,6 +86,13 @@
                 </div>
 
                 <div class="control-group">
+                    <stripes:label for="cz.bbmri.entity.Contact.url" class="control-label"/>
+                    <div class="controls">
+                        <stripes:text name="contact.url"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <stripes:label for="cz.bbmri.entity.Contact.country" class="control-label"/>
                     <div class="controls">
                         <core:if test="${empty actionBean.contact.country}">
@@ -93,7 +100,7 @@
                             <stripes:select name="countryId">
                                 <stripes:option label="Not filled" value=""/>
                                 <stripes:options-collection collection="${countryActionBean.all}" value="id"
-                                                      label="name"/>
+                                                            label="name"/>
                             </stripes:select>
 
                         </core:if>

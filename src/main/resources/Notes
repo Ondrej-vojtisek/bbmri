@@ -1,0 +1,22 @@
+TODO:
+
+Sample:
+- detail
+
+Reservation:
+- kdy je rezervace approved tak umoznit prirazeni vzorku
+- umoznit prirazeni rezervace projektu -> tj. zmenu rezervace na question
+- pridat zobrazeni kolik dnu zbyva do konce expirace
+
+Project:
+- detail projektu zobrazit v tabulce jako je tomu u rezervace
+
+User:
+- kazdy muze zobrazit kontaktni detaily uzivatele
+- vyhledavani uzivatele - AJAX
+
+Question:
+- umoznit zobrazit detail
+- zmena stavu question - approve atd..
+- alokace vzorku
+

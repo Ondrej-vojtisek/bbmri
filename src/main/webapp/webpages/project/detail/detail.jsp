@@ -99,7 +99,7 @@
                     </security:allowed>
                 </core:if>
 
-                <core:if test="${actionBean.isStarted}">
+                <core:if test="${actionBean.isConfirmed}">
                     <security:allowed event="markAsFinished">
                         <stripes:submit name="markAsFinished" class="btn btn-primary btnMargin">
                             <stripes:param name="projectId" value="${actionBean.projectId}"/>

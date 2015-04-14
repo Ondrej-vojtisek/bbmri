@@ -4,7 +4,7 @@
 <stripes:layout-definition>
 
     <td>${item.institutionalId}</td>
-    <td><fmt:formatDate value="${item.takingDate}" type="both"/></td>
+    <td><format:formatDate value="${item.takingDate}" type="both"/></td>
     <td>${item.materialType}</td>
     <td>
         <core:if test="${not empty item.quantity}">

@@ -14,6 +14,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO describe class
@@ -49,6 +50,8 @@ public class BiobankActionBean extends AuthorizationActionBean {
 
     private MyPagedListHolder<Withdraw> withdrawPagination = new MyPagedListHolder<Withdraw>(new ArrayList<Withdraw>());
 
+    private MyPagedListHolder<Question> questionPagination = new MyPagedListHolder<Question>(new ArrayList<Question>());
+
 
     public static Breadcrumb getAllBreadcrumb(boolean active) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "all", false, "" +
@@ -78,6 +81,11 @@ public class BiobankActionBean extends AuthorizationActionBean {
 
     public static Breadcrumb getWithdrawsBreadcrumb(boolean active, Biobank biobank) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "withdraws", false, "cz.bbmri.entity.Withdraw.withdraws",
+                active, "id", biobank.getId());
+    }
+
+    public static Breadcrumb getQuestionsBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(BiobankActionBean.class.getName(), "questions", false, "cz.bbmri.entity.Question.questions",
                 active, "id", biobank.getId());
     }
 
@@ -159,6 +167,14 @@ public class BiobankActionBean extends AuthorizationActionBean {
         this.withdrawPagination = withdrawPagination;
     }
 
+    public MyPagedListHolder<Question> getQuestionPagination() {
+        return questionPagination;
+    }
+
+    public void setQuestionPagination(MyPagedListHolder<Question> questionPagination) {
+        this.questionPagination = questionPagination;
+    }
+
     @DefaultHandler
     @HandlesEvent("all") /* Necessary for stripes security tag*/
     @RolesAllowed("authorized")
@@ -234,7 +250,7 @@ public class BiobankActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(BiobankActionBean.getPatientsBreadcrumb(true, getBiobank()));
 
         patientPagination.initiate(getPage(), getOrderParam(), isDesc());
-        attachmentPagination.setSource(new ArrayList<Patient>(biobank.getPatient()));
+        patientPagination.setSource(new ArrayList<Patient>(biobank.getPatient()));
         patientPagination.setEvent("patients");
         patientPagination.setIdentifier(biobank.getId());
         patientPagination.setIdentifierParam("id");
@@ -256,10 +272,32 @@ public class BiobankActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(BiobankActionBean.getWithdrawsBreadcrumb(true, getBiobank()));
 
         withdrawPagination.initiate(getPage(), getOrderParam(), isDesc());
-        attachmentPagination.setSource(new ArrayList<Withdraw>(biobank.getWithdraw()));
+        withdrawPagination.setSource(new ArrayList<Withdraw>(biobank.getWithdraw()));
         withdrawPagination.setEvent("withdraws");
         withdrawPagination.setIdentifier(biobank.getId());
         withdrawPagination.setIdentifierParam("id");
+
+        return new ForwardResolution(View.Biobank.WITHDRAWS);
+    }
+
+    @HandlesEvent("questions") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
+    public Resolution questions() {
+        getBiobank();
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getQuestionsBreadcrumb(true, getBiobank()));
+
+        questionPagination.initiate(getPage(), getOrderParam(), isDesc());
+        questionPagination.setSource(new ArrayList<Question>(biobank.getQuestion()));
+        questionPagination.setEvent("questions");
+        questionPagination.setIdentifier(biobank.getId());
+        questionPagination.setIdentifierParam("id");
 
         return new ForwardResolution(View.Biobank.WITHDRAWS);
     }
@@ -304,6 +342,10 @@ public class BiobankActionBean extends AuthorizationActionBean {
         biobankDAO.save(biobank);
         contactDAO.save(contact);
         return new RedirectResolution(BiobankActionBean.class, "detail").addParameter("id", biobank.getId());
+    }
+
+    public List<Biobank> getBiobanks() {
+        return biobankDAO.all();
     }
 
 }

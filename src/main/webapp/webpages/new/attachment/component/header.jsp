@@ -6,8 +6,8 @@
     <thead>
     <tr>
         <th><format:message key="cz.bbmri.entity.Attachment.name"/></th>
-        <th><format:message key="cz.bbmri.entities.Attachment.unit"/></th>
-        <th><format:message key="cz.bbmri.entities.Attachment.importance"/></th>
+        <th><format:message key="cz.bbmri.entity.Attachment.unit"/></th>
+        <th><format:message key="cz.bbmri.entity.Attachment.importance"/></th>
     </tr>
     </thead>
 
