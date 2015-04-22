@@ -76,9 +76,11 @@ public class LoginActionBean extends BasicActionBean {
             getContext().setLoggedUser(user);
             getContext().getMessages().add(new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.loginSuccess"));
 
-            // Switch language to one prefered by user - and stored in DB
-            if (!user.getSettings().getLocaleSettings().equals(getContext().getLocale())) {
-                return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getSettings().getLocale());
+            if (user.getSettings() != null) {
+                // Switch language to one prefered by user - and stored in DB
+                if (!user.getSettings().getLocaleSettings().equals(getContext().getLocale())) {
+                    return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getSettings().getLocale());
+                }
             }
         }
         return new RedirectResolution(DashboardActionBean.class);
@@ -99,7 +101,7 @@ public class LoginActionBean extends BasicActionBean {
             return;
         }
 
-        if(userDB.getPassword() == null){
+        if (userDB.getPassword() == null) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.LoginActionBean.loginIncorrect"));
             return;
         }

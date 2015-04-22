@@ -8,13 +8,13 @@
     <td>${item.materialType}</td>
     <td>
         <core:if test="${not empty item.quantity}">
-            ${item.quantity.available}/${item.biopticalReport.total}
+            ${item.quantity}
         </core:if>
     </td>
     <td>${item.diagnosis}</td>
     <td>
         <core:if test="${not empty item.biopticalReport}">
-            ${item.biopticalReport.year}/${item.biopticalReport.number}
+            ${item.biopticalReport}
         </core:if>
     </td>
 

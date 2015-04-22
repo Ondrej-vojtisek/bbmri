@@ -12,9 +12,9 @@ License Type: Academic
 			</generator>
 		</id>
 		<property name="institutionalId" column="institutional_id" type="text" not-null="false" lazy="false"/>
-		<property name="takingDate" column="taking_date" type="timestamp" not-null="false" lazy="false"/>
-		<property name="freezeDate" column="freeze_date" type="timestamp" not-null="false" lazy="false"/>
-		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="proxy">
+		<property name="takingDateTime" column="taking_date_time" type="timestamp" not-null="false" lazy="false"/>
+		<property name="freezeDateTime" column="freeze_date_time" type="timestamp" not-null="false" lazy="false"/>
+		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="false">
 		</many-to-one>
 		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="proxy">
 		</many-to-one>
@@ -39,6 +39,6 @@ License Type: Academic
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Diagnosis"/>
 		</set>
-		<one-to-one name="storageMethology" class="cz.bbmri.entity.StorageMethology" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="storageMethodology" class="cz.bbmri.entity.StorageMethodology" cascade="save-update,lock" lazy="proxy"/>
 	</class>
 </hibernate-mapping>

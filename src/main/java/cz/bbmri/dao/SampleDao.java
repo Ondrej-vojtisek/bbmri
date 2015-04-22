@@ -1,6 +1,7 @@
 package cz.bbmri.dao;
 
 import cz.bbmri.entity.Sample;
+import cz.bbmri.io.InstanceImportResult;
 
 import java.util.List;
 
@@ -23,12 +24,15 @@ public interface SampleDAO extends AbstractDAO<Sample, Long> {
 //     */
 //    List<Sample> getSelected(Sample question, Biobank biobank, Patient patient, boolean lts);
 //
-//    /**
-//     * Search sample by its institutional id.
-//     *
-//     * @param id - institutional id
-//     * @return sample with given id or null
-//     */
-//    Sample getByInstitutionalId(String id);
+
+    /**
+     * Search sample by its institutional id.
+     *
+     * @param id - institutional id
+     * @return sample with given id or null
+     */
+    Sample getByInstitutionalId(String id);
+
+    InstanceImportResult updateWithResult(Sample sample);
 
 }

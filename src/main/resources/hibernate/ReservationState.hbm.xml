@@ -13,7 +13,7 @@ License Type: Academic
 		</id>
 		<property name="name" column="name" unique="true" type="text" not-null="true" lazy="false"/>
 		<set name="reservation" lazy="extra" cascade="save-update,lock" inverse="true">
-			<key column="reservationState_id" not-null="true"/>
+			<key column="reservation_state_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Reservation"/>
 		</set>
 	</class>

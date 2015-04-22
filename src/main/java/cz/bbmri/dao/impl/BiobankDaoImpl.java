@@ -2,8 +2,12 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.entity.Biobank;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Implementation for class handling instances of Biobank. Implementation is using JPQL.
@@ -20,13 +24,20 @@ public class BiobankDAOImpl extends GenericDAOImpl<Biobank> implements BiobankDA
     public Biobank get(Integer id) {
                 return (Biobank) getCurrentSession().get(Biobank.class, id);
             }
-//
-//    public Biobank getBiobankByAbbreviation(String abbreviation) {
-//        notNull(abbreviation);
-//        typedQuery = em.createQuery("SELECT p FROM Biobank p where p.abbreviation = :abbreviationParam", Biobank.class);
-//        typedQuery.setParameter("abbreviationParam", abbreviation);
-//
-//        return getSingleResult();
-//    }
+
+    public Biobank getByInstitutionalId(String id) {
+           Criterion criterionInstitutionalId = Restrictions.eq(Biobank.PROP_INSTITUTIONAL_ID, id);
+
+           // Retrieve a list of existing biobanks matching the criterion above the list retrieval
+           List<Biobank> list = getCurrentSession().createCriteria(Biobank.class)
+                   .add(criterionInstitutionalId)
+                   .setMaxResults(1).list();
+
+           if(list.isEmpty()){
+               return null;
+           }
+
+           return list.get(0);
+       }
 
   }

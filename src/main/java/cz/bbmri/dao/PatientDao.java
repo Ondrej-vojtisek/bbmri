@@ -1,6 +1,8 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.Patient;
+import cz.bbmri.io.InstanceImportResult;
 
 import java.util.List;
 
@@ -28,5 +30,9 @@ public interface PatientDAO extends AbstractDAO<Patient, Long>{
      * @param id - String identifier
      * @return Patient with given institutionalId or null
      */
-//    Patient getByInstitutionalId(String id);
+    Patient getByInstitutionalId(String id);
+
+    void remove(Patient patient);
+
+    InstanceImportResult importInstance(Patient patient);
 }

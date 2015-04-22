@@ -19,8 +19,8 @@ public class TakingDateComparator implements Comparator<Sample> {
 
     public int compare(Sample sample1, Sample sample2) {
 
-        Date atr1 = sample1.getTakingDate();
-        Date atr2 = sample2.getTakingDate();
+        Date atr1 = sample1.getTakingDateTime();
+        Date atr2 = sample2.getTakingDateTime();
 
 
         if (atr1 == null) {

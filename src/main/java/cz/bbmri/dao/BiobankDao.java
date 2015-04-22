@@ -11,12 +11,6 @@ import cz.bbmri.entity.Biobank;
 
 public interface BiobankDAO extends AbstractDAO<Biobank, Integer> {
 
-    /**
-     * Find biobank in db by its abbreviation.  Abbreviation is unique attribute of biobank.
-     *
-     * @param abbreviation - search parameter
-     * @return biobank with given abbreviation or null
-     */
-//    Biobank getBiobankByAbbreviation(String abbreviation);
+    Biobank getByInstitutionalId(String id);
 
 }

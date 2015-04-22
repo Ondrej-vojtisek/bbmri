@@ -16,10 +16,6 @@ public abstract interface AbstractDAO<T, ID> {
 
     T save(T t);
 
-//    boolean refresh(T t);
-//
-//    boolean evict(T t);
-
     /**
      * Return all instances of type T ordered by given parameter. Desc param changes if it is ordered DESC or ASC
      *

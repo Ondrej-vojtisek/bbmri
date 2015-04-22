@@ -34,4 +34,17 @@ abstract class Basic /* extends BasicServiceImpl */ {
         logger.debug(msg);
     }
 
+    /**
+      * Necessary condition of methods. If object o is null, method is interrupted with exception. Situation when situation
+      * is certainly caused by implementation bug and not by user.
+      *
+      * @param o
+      * @throws IllegalArgumentException
+      */
+     protected static void notNull(final Object o) throws IllegalArgumentException {
+         if (o == null) {
+             throw new IllegalArgumentException("Object must not be null!");
+         }
+     }
+
 }

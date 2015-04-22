@@ -17,7 +17,7 @@ License Type: Academic
 		<property name="lastModification" column="last_modification" type="timestamp" not-null="false" lazy="false"/>
 		<many-to-one name="user" cascade="lock" column="user_id" class="cz.bbmri.entity.User" not-null="true" lazy="proxy">
 		</many-to-one>
-		<many-to-one name="reservationState" cascade="lock" column="reservationState_id" class="cz.bbmri.entity.ReservationState" not-null="true" lazy="proxy">
+		<many-to-one name="reservationState" cascade="lock" column="reservation_state_id" class="cz.bbmri.entity.ReservationState" not-null="true" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
 		</many-to-one>

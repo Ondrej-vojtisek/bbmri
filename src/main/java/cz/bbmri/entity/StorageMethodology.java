@@ -9,7 +9,7 @@ import java.util.Date;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public class StorageMethology implements Serializable {
+public class StorageMethodology implements Serializable {
 
     public static final String PROP_METHOLOGY = "methology";
    	public static final String PROP_TEMPERATURE = "temperature";
@@ -42,7 +42,7 @@ public class StorageMethology implements Serializable {
         this.temperature = temperature;
     }
 
-    public Boolean isSts() {
+    public Boolean getSts() {
         return sts;
     }
 
@@ -83,5 +83,43 @@ public class StorageMethology implements Serializable {
 
     public void setSampleId(long sampleId) {
         this.sampleId = sampleId;
+    }
+
+    @Override
+    public String toString() {
+        return "StorageMethodology{" +
+                "methology='" + methology + '\'' +
+                ", temperature=" + temperature +
+                ", sts=" + sts +
+                ", expiration=" + expiration +
+                ", reagent='" + reagent + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StorageMethodology that = (StorageMethodology) o;
+
+        if (sampleId != that.sampleId) return false;
+        if (methology != null ? !methology.equals(that.methology) : that.methology != null) return false;
+        if (temperature != null ? !temperature.equals(that.temperature) : that.temperature != null) return false;
+        if (sts != null ? !sts.equals(that.sts) : that.sts != null) return false;
+        if (expiration != null ? !expiration.equals(that.expiration) : that.expiration != null) return false;
+        return !(reagent != null ? !reagent.equals(that.reagent) : that.reagent != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = methology != null ? methology.hashCode() : 0;
+        result = 31 * result + (temperature != null ? temperature.hashCode() : 0);
+        result = 31 * result + (sts != null ? sts.hashCode() : 0);
+        result = 31 * result + (expiration != null ? expiration.hashCode() : 0);
+        result = 31 * result + (reagent != null ? reagent.hashCode() : 0);
+        result = 31 * result + (int) (sampleId ^ (sampleId >>> 32));
+        return result;
     }
 }

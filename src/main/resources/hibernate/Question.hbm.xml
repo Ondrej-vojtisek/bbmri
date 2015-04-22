@@ -16,7 +16,7 @@ License Type: Academic
 		<property name="specification" column="specification" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="project" cascade="lock" column="project_id" class="cz.bbmri.entity.Project" not-null="true" lazy="proxy">
 		</many-to-one>
-		<many-to-one name="questionState" cascade="lock" column="questionState_id" class="cz.bbmri.entity.QuestionState" not-null="true" lazy="proxy">
+		<many-to-one name="questionState" cascade="lock" column="question_state_id" class="cz.bbmri.entity.QuestionState" not-null="true" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="biobank" cascade="lock" column="biobank_id" class="cz.bbmri.entity.Biobank" not-null="true" lazy="proxy">
 		</many-to-one>

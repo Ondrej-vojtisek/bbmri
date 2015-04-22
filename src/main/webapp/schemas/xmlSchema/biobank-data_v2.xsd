@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/biobank/data" xmlns:data="http://www.bbmri.cz/schemas/biobank/data">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.bbmri.cz/schemas/biobank/data_v2.0" xmlns:data_v2.0="http://www.bbmri.cz/schemas/biobank/data_v2.0">
     <xs:element name="patient">
         <xs:complexType>
             <xs:sequence minOccurs="0" maxOccurs="unbounded">
                 <xs:annotation>
                     <xs:documentation>samples of patient</xs:documentation>
                 </xs:annotation>
-                <xs:element ref="data:sample"/>
+                <xs:element ref="data_v2.0:sample"/>
             </xs:sequence>
             <xs:attribute name="id" use="required">
                 <xs:annotation>
@@ -60,23 +60,23 @@
     <xs:element name="sample">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="data:materialType"/>
-                <xs:element minOccurs="0" ref="data:totalAliquots"/>
-                <xs:element minOccurs="0" ref="data:availableAliquots"/>
-                <xs:element minOccurs="0" ref="data:TNM"/>
-                <xs:element minOccurs="0" ref="data:pTNM"/>
-                <xs:element minOccurs="0" ref="data:morphology"/>
-                <xs:element minOccurs="0" ref="data:grading"/>
-                <xs:element minOccurs="0" ref="data:takingDate"/>
-                <xs:element minOccurs="0" ref="data:freezeDate"/>
-                <xs:element minOccurs="0" ref="data:retrieved"/>
+                <xs:element minOccurs="0" ref="data_v2.0:materialType"/>
+                <xs:element minOccurs="0" ref="data_v2.0:totalAliquots"/>
+                <xs:element minOccurs="0" ref="data_v2.0:availableAliquots"/>
+                <xs:element minOccurs="0" ref="data_v2.0:TNM"/>
+                <xs:element minOccurs="0" ref="data_v2.0:pTNM"/>
+                <xs:element minOccurs="0" ref="data_v2.0:morphology"/>
+                <xs:element minOccurs="0" ref="data_v2.0:grading"/>
+                <xs:element minOccurs="0" ref="data_v2.0:takingDateTime"/>
+                <xs:element minOccurs="0" ref="data_v2.0:freezeDateTime"/>
+                <xs:element minOccurs="0" ref="data_v2.0:retrieved"/>
                 <xs:sequence minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>diagnosis coded using ICD, multiple diagnosis can be defined</xs:documentation>
                     </xs:annotation>
-                    <xs:element ref="data:diagnosis"/>
+                    <xs:element ref="data_v2.0:diagnosis"/>
                 </xs:sequence>
-                <xs:element minOccurs="0" ref="data:storageMethodology">
+                <xs:element minOccurs="0" ref="data_v2.0:storageMethodology">
                     <xs:annotation>
                         <xs:documentation>how is sample stored</xs:documentation>
                     </xs:annotation>
@@ -152,7 +152,7 @@
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-    <xs:element name="takingDate">
+    <xs:element name="takingDateTime">
         <xs:annotation>
             <xs:documentation>YYYY-MM-DDThh:mm:ss or YYYY-MM-DD</xs:documentation>
         </xs:annotation>
@@ -160,7 +160,7 @@
             <xs:union memberTypes="xs:dateTime xs:date"/>
         </xs:simpleType>
     </xs:element>
-    <xs:element name="freezeDate">
+    <xs:element name="freezeDateTime">
         <xs:annotation>
             <xs:documentation>YYYY-MM-DDThh:mm:ss or YYYY-MM-DD</xs:documentation>
         </xs:annotation>
@@ -194,11 +194,11 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="data:temperature"/>
-                <xs:element minOccurs="0" ref="data:methodology"/>
-                <xs:element minOccurs="0" ref="data:sts"/>
-                <xs:element minOccurs="0" ref="data:expiration"/>
-                <xs:element minOccurs="0" ref="data:reagent"/>
+                <xs:element minOccurs="0" ref="data_v2.0:temperature"/>
+                <xs:element minOccurs="0" ref="data_v2.0:methodology"/>
+                <xs:element minOccurs="0" ref="data_v2.0:sts"/>
+                <xs:element minOccurs="0" ref="data_v2.0:expiration"/>
+                <xs:element minOccurs="0" ref="data_v2.0:reagent"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

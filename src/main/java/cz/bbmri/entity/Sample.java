@@ -23,7 +23,8 @@ public class Sample implements Serializable {
     public static final String PROP_PATIENT = "patient";
    	public static final String PROP_ID = "id";
    	public static final String PROP_INSTITUTIONAL_ID = "institutionalId";
-   	public static final String PROP_TAKING_DATE = "takingDate";
+   	public static final String PROP_TAKING_DATE = "takingDateTime";
+    public static final String PROP_FREEZE_DATE = "freezeDateTime";
    	public static final String PROP_RETRIEVED = "retrieved";
    	public static final String PROP_MATERIAL_TYPE = "materialType";
    	public static final String PROP_COLLECTION = "collection";
@@ -35,12 +36,13 @@ public class Sample implements Serializable {
    	public static final String PROP_DIAGNOSIS = "diagnosis";
    	public static final String PROP_POSITION = "position";
    	public static final String PROP_REQUEST = "request";
+    public static final String PROP_STORAGE_METHODOLOGY = "storageMethodology";
 
 	private Patient patient;
     private long id;
     private String institutionalId;
-    private Date takingDate;
-    private Date freezeDate;
+    private Date takingDateTime;
+    private Date freezeDateTime;
     private Retrieved retrieved;
     private MaterialType materialType;
     private Collection collection;
@@ -49,7 +51,7 @@ public class Sample implements Serializable {
     private Ptnm ptnm;
     private Morphology morphology;
     private BiopticalReport biopticalReport;
-    private StorageMethology storageMethology;
+    private StorageMethodology storageMethodology;
     private Set<Position> position = new HashSet<Position>();
     private Set<Request> request = new HashSet<Request>();
     private Set<Diagnosis> diagnosis = new HashSet<Diagnosis>();
@@ -78,12 +80,12 @@ public class Sample implements Serializable {
         this.institutionalId = institutionalId;
     }
 
-    public Date getTakingDate() {
-        return takingDate;
+    public Date getTakingDateTime() {
+        return takingDateTime;
     }
 
-    public void setTakingDate(Date takingDate) {
-        this.takingDate = takingDate;
+    public void setTakingDateTime(Date takingDateTime) {
+        this.takingDateTime = takingDateTime;
     }
 
     public Retrieved getRetrieved() {
@@ -174,19 +176,58 @@ public class Sample implements Serializable {
         this.request = request;
     }
 
-    public Date getFreezeDate() {
-        return freezeDate;
+    public Date getFreezeDateTime() {
+        return freezeDateTime;
     }
 
-    public void setFreezeDate(Date freezeDate) {
-        this.freezeDate = freezeDate;
+    public void setFreezeDateTime(Date freezeDateTime) {
+        this.freezeDateTime = freezeDateTime;
     }
 
-    public StorageMethology getStorageMethology() {
-        return storageMethology;
+    public StorageMethodology getStorageMethodology() {
+        return storageMethodology;
     }
 
-    public void setStorageMethology(StorageMethology storageMethology) {
-        this.storageMethology = storageMethology;
+    public void setStorageMethodology(StorageMethodology storageMethodology) {
+        this.storageMethodology = storageMethodology;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Sample sample = (Sample) o;
+
+        if (id != sample.id) return false;
+        if (!patient.equals(sample.patient)) return false;
+        return institutionalId.equals(sample.institutionalId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = patient.hashCode();
+        result = 31 * result + (int) (id ^ (id >>> 32));
+        result = 31 * result + institutionalId.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "id=" + id +
+                ", institutionalId='" + institutionalId + '\'' +
+                ", takingDate=" + takingDateTime +
+                ", freezeDate=" + freezeDateTime +
+                ", retrieved=" + retrieved +
+                ", materialType=" + materialType +
+                ", quantity=" + quantity +
+                ", tnm=" + tnm +
+                ", ptnm=" + ptnm +
+                ", morphology=" + morphology +
+                ", biopticalReport=" + biopticalReport +
+                ", storageMethodology=" + storageMethodology +
+                '}';
     }
 }

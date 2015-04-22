@@ -1,4 +1,4 @@
-default namespace = "http://www.bbmri.cz/schemas/biobank/data"
+default namespace = "http://www.bbmri.cz/schemas/biobank/data_v2.0"
 
 ## RelaxNG schema describing import of one patient and all his stored samples for purpose of index BBMRI_CZ
 ## Only patient with signed informed consent might be imported.  (consent must be true).
@@ -52,9 +52,9 @@ sample =
         ## grading. Grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
         element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
-        element takingDate {  xsd:dateTime | xsd:date } ?,
+        element takingDateTime {  xsd:dateTime | xsd:date } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
-        element freezeDate { xsd:dateTime | xsd:date } ?,
+        element freezeDateTime { xsd:dateTime | xsd:date } ?,
         ## when sample was taken
         element retrieved { "preoperational" | "operational" | "post" | "unknown" } ?,
         ## diagnosis coded using ICD, multiple diagnosis can be defined

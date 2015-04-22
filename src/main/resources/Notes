@@ -1,8 +1,5 @@
 TODO:
 
-Sample:
-- detail
-
 Reservation:
 - kdy je rezervace approved tak umoznit prirazeni vzorku
 - umoznit prirazeni rezervace projektu -> tj. zmenu rezervace na question
@@ -19,4 +16,13 @@ Question:
 - umoznit zobrazit detail
 - zmena stavu question - approve atd..
 - alokace vzorku
+
+- Komentare DAO vrstvy
+- Komentare parserů
+- Komentare ActionBeany
+- Dodelani lokalizase
+
+
+Parser:
+- nová verze parseru tak aby to odpovídalo aktualizované verzi schema
 

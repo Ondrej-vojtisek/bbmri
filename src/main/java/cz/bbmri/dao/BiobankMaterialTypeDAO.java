@@ -10,7 +10,7 @@ import cz.bbmri.entity.MaterialType;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface BiobankMaterialTypeDAO extends AbstractCompositeDAO<BiobankMaterialType>  {
+public interface BiobankMaterialTypeDAO extends AbstractCompositeDAO<BiobankMaterialType> {
 
-    BiobankMaterialType get(Biobank biobank, MaterialType materialType);
+    MaterialType get(Biobank biobank, String key);
 }

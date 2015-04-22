@@ -42,7 +42,7 @@
             <tr>
                 <th><format:message key="cz.bbmri.entity.Quantity.quantity"/></th>
                 <td><core:if test="${not empty sample.quantity}">
-                    ${sample.quantity.available}/${sample.biopticalReport.total}
+                    ${sample.quantity}
                 </core:if>
                 </td>
             </tr>
@@ -85,30 +85,30 @@
                 <td>${sample.morphology}</td>
             </tr>
 
-            <core:if test="${not empty sample.storageMethology}">
+            <core:if test="${not empty sample.storageMethodology}">
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethology.methology"/></th>
-                    <td>${sample.storageMethology.methology}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.methology"/></th>
+                    <td>${sample.storageMethodology.methology}</td>
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethology.temperature"/></th>
-                    <td>${sample.storageMethology.temperature}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.temperature"/></th>
+                    <td>${sample.storageMethodology.temperature}</td>
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethology.sts"/></th>
-                    <td>${sample.storageMethology.sts}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.sts"/></th>
+                    <td>${sample.storageMethodology.sts}</td>
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethology.expiration"/></th>
-                    <td>${sample.storageMethology.expiration}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.expiration"/></th>
+                    <td>${sample.storageMethodology.expiration}</td>
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethology.reagent"/></th>
-                    <td>${sample.storageMethology.reagent}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.reagent"/></th>
+                    <td>${sample.storageMethodology.reagent}</td>
                 </tr>
             </core:if>
 

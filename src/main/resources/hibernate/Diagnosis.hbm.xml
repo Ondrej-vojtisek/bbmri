@@ -7,9 +7,9 @@ License Type: Academic
 <hibernate-mapping>
 	<class name="cz.bbmri.entity.Diagnosis" table="diagnosis" lazy="true">
 		<composite-id>
-			<key-property name="key" column="`key`" type="text"/>
 			<key-many-to-one name="sample" column="sample_id" class="cz.bbmri.entity.Sample">
 			</key-many-to-one>
+			<key-property name="key" column="`key`" type="text"/>
 		</composite-id>
 	</class>
 </hibernate-mapping>

@@ -1,0 +1,39 @@
+<data:patient id="string" consent="false" year="2007" month="--02" sex="female" biobank="string" xmlns:data="http://www.bbmri.cz/schemas/biobank/data_v2.0">
+  <data:sample id="string" year="2008" number="3">
+    <!--Optional:-->
+    <data:materialType>stri</data:materialType>
+    <!--Optional:-->
+    <data:totalAliquots>3</data:totalAliquots>
+    <!--Optional:-->
+    <data:availableAliquots>3</data:availableAliquots>
+    <!--Optional:-->
+    <data:TNM>string</data:TNM>
+    <!--Optional:-->
+    <data:pTNM>string</data:pTNM>
+    <!--Optional:-->
+    <data:morphology>string</data:morphology>
+    <!--Optional:-->
+    <data:grading>3</data:grading>
+    <!--Optional:-->
+    <data:takingDateTime>2003-08-09T02:18:37+02:00</data:takingDateTime>
+    <!--Optional:-->
+    <data:freezeDateTime>2002-06-24+02:00</data:freezeDateTime>
+    <!--Optional:-->
+    <data:retrieved>operational</data:retrieved>
+    <data:diagnosis>string</data:diagnosis>
+    <data:diagnosis>string2</data:diagnosis>
+    <!--Optional:-->
+    <data:storageMethodology>
+      <!--Optional:-->
+      <data:temperature>1.5E2</data:temperature>
+      <!--Optional:-->
+      <data:methodology>string</data:methodology>
+      <!--Optional:-->
+      <data:sts>true</data:sts>
+      <!--Optional:-->
+      <data:expiration>2010-03-18</data:expiration>
+      <!--Optional:-->
+      <data:reagent>string</data:reagent>
+    </data:storageMethodology>
+  </data:sample>
+</data:patient>

@@ -39,7 +39,7 @@ abstract class AbstractParser {
     // Map of prexifes and namespaces (URI)
     private NamespaceContext namespaceContext;
 
-    // Unique biobank prefix - biobank.abbreviation
+    // Unique biobank prefix - biobank.institutionalId
     private String biobankPrefix;
 
     String getBiobankPrefix() {
@@ -77,11 +77,11 @@ abstract class AbstractParser {
     }
 
     /**
-     * Return biobank abbreviation.
+     * Return biobank institutional id.
      *
-     * @return biobank abbretivaion or null
+     * @return biobank institutional id or null
      */
-    abstract String getBiobankAbbreviation();
+    abstract String getBiobankInstitutionalId();
 
     /**
      * Single point to turn off logging of XPath

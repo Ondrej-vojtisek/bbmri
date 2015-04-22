@@ -1,5 +1,7 @@
 package cz.bbmri.dao.impl;
 
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.ValidationErrors;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -46,4 +48,5 @@ public abstract class BaseDAOImpl {
             throw new IllegalArgumentException("Object can't be a null object");
         }
     }
+
 }

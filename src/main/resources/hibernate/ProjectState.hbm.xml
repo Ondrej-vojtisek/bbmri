@@ -13,7 +13,7 @@ License Type: Academic
 		</id>
 		<property name="name" column="name" unique="true" type="text" not-null="true" lazy="false"/>
 		<set name="project" lazy="extra" cascade="save-update,lock" inverse="true">
-			<key column="projectState_id" not-null="true"/>
+			<key column="project_state_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Project"/>
 		</set>
 	</class>

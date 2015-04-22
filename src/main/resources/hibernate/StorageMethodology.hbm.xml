@@ -5,7 +5,7 @@ License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="cz.bbmri.entity.StorageMethology" table="storage_methology" lazy="true">
+	<class name="cz.bbmri.entity.StorageMethodology" table="storage_methodology" lazy="true">
 		<id name="sampleId" column="sample_id" type="long">
 			<generator class="foreign">
 				<param name="property">sample</param>

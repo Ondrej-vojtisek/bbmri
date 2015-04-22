@@ -25,6 +25,9 @@ public class BiobankMaterialType extends CompositeKeyGroup implements Serializab
     }
 
     public void setBiobank(Biobank biobank) {
+        if(biobank != null){
+            this.biobankId = biobank.getId();
+        }
         this.biobank = biobank;
     }
 
@@ -41,6 +44,9 @@ public class BiobankMaterialType extends CompositeKeyGroup implements Serializab
     }
 
     public void setMaterialType(MaterialType materialType) {
+        if(materialType != null){
+            this.materialTypeId = materialType.getId();
+        }
         this.materialType = materialType;
     }
 
