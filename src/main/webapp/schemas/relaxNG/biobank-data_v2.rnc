@@ -7,7 +7,7 @@ default namespace = "http://www.bbmri.cz/schemas/biobank/data_v2.0"
 ## Abbreviations used in comments:
 ##      - Hospital Information System - HIS
 ##      - ICD - International Classification of Diseases
-##      - ICD-O - Internationsl Classification of Diseases for Oncology
+##      - ICD-O - International Classification of Diseases for Oncology
 ##      - STS - Short Term Storage
 
 start =
@@ -49,7 +49,7 @@ sample =
         element pTNM { xsd:string }?,
         ## morphology coded using ICD-O
         element morphology { xsd:string { maxLength = "7" } } ?,
-        ## grading. Grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
+        ## grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
         element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
         element takingDateTime {  xsd:dateTime | xsd:date } ?,
