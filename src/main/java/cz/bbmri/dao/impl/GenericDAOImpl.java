@@ -21,6 +21,7 @@ public abstract class GenericDAOImpl<T> extends BaseDAOImpl {
 
     private Class<T> entityClass;
 
+    protected static final Integer MAX_SEARCH_RESULTS = 10;
 
 
     GenericDAOImpl() {
@@ -31,7 +32,6 @@ public abstract class GenericDAOImpl<T> extends BaseDAOImpl {
 
     @Transactional(readOnly = true)
     public List<T> all() {
-
         return (List<T>) getCurrentSession().createCriteria(entityClass).list();
     }
 
@@ -41,26 +41,6 @@ public abstract class GenericDAOImpl<T> extends BaseDAOImpl {
     public T save(T t) {
         getCurrentSession().saveOrUpdate(t);
         return t;
-    }
-
-    @Transactional(readOnly = true)
-    public boolean refresh(T t) {
-
-        // Perform the desired operation
-        getCurrentSession().refresh(t);
-
-        // Force result
-        return true;
-    }
-
-    @Transactional(readOnly = true)
-    public boolean evict(T t) {
-
-        // Perform the desired operation
-        getCurrentSession().evict(t);
-
-        // Force result
-        return true;
     }
 
     @Transactional(readOnly = true)

@@ -19,6 +19,7 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -198,6 +199,40 @@ public class QuestionActionBean extends AuthorizationActionBean {
         }
 
         return new RedirectResolution(ProjectActionBean.class, "questions").addParameter("id", project.getId());
+    }
+
+    @HandlesEvent("approve")
+    @RolesAllowed("biobank_operator")
+    public Resolution approve() {
+        getQuestion();
+
+        if (!question.getIsNew()) {
+            return new ForwardResolution(View.Question.NOTFOUND);
+        }
+
+        question.setQuestionState(QuestionState.APPROVED);
+        question.setLastModification(new Date());
+
+        questionDAO.save(question);
+
+        return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
+    }
+
+    @HandlesEvent("deny")
+    @RolesAllowed("biobank_operator")
+    public Resolution deny() {
+        getQuestion();
+
+        if (!question.getIsNew()) {
+            return new ForwardResolution(View.Question.NOTFOUND);
+        }
+
+        question.setQuestionState(QuestionState.DENIED);
+        question.setLastModification(new Date());
+
+        questionDAO.save(question);
+
+        return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }
 
 }

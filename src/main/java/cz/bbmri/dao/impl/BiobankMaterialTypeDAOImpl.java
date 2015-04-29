@@ -58,7 +58,7 @@ public class BiobankMaterialTypeDAOImpl extends GenericDAOImpl<BiobankMaterialTy
 
     }
 
-    public void remove(BiobankMaterialType biobankMaterialType) {
-        getCurrentSession().delete(biobankMaterialType);
-    }
+//    public void remove(BiobankMaterialType biobankMaterialType) {
+//        getCurrentSession().delete(biobankMaterialType);
+//    }
 }

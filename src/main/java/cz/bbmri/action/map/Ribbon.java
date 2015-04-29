@@ -13,7 +13,7 @@ public enum Ribbon {
             */
            INSTANCE;
 
-           private static final String LOCATION = "/webpages/new/";
+           private static final String LOCATION = "/webpages/";
            private static final String COMPONENT = "/component/ribbon.jsp";
 
            public String getArchive() {

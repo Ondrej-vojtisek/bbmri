@@ -13,7 +13,7 @@ public enum Menu {
      */
     INSTANCE;
 
-    private static final String LOCATION = "/webpages/new/";
+    private static final String LOCATION = "/webpages/";
     private static final String COMPONENT = "/component/menu.jsp";
 
     public String getBiobank() {

@@ -15,7 +15,7 @@ public class Request implements Serializable {
     /**
      * Default number of requested samples is this
      */
-    public static final int IMPLICIT_REQUESTED_SAMPLES = 1;
+    public static final short IMPLICIT_REQUESTED_SAMPLES = 1;
 
     public static final String PROP_SAMPLE = "sample";
     public static final String PROP_ID = "id";
@@ -25,15 +25,10 @@ public class Request implements Serializable {
     public static final String PROP_WITHDRAW = "withdraw";
 
     private Sample sample;
-
     private long id;
-
     private Short number;
-
     private Question question;
-
     private Reservation reservation;
-
     private Withdraw withdraw;
 
     public Sample getSample() {
@@ -82,5 +77,35 @@ public class Request implements Serializable {
 
     public void setWithdraw(Withdraw withdraw) {
         this.withdraw = withdraw;
+    }
+
+    public boolean decrease() {
+        if (number < IMPLICIT_REQUESTED_SAMPLES) {
+            return false;
+        }
+
+        number = (short) (number - IMPLICIT_REQUESTED_SAMPLES);
+
+        return true;
+    }
+
+    public void increase() {
+        number = (short) (number + IMPLICIT_REQUESTED_SAMPLES);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Request request = (Request) o;
+
+        return id == request.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

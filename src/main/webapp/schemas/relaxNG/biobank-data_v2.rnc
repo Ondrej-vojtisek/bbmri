@@ -67,11 +67,13 @@ storageMethodology =
     ## description of storage method
     element storageMethodology {
         ## average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)
-        element temperature { xsd:float }?,
+        element temperature { xsd:float } ?,
         ## are you following any standard
         element methodology { xsd:string } ?,
+        ## SMAZAT methodologie ?
+
         ## sample is stored only temporary - STS
-        element sts {xsd:boolean}?,
+        element sts {xsd:boolean} ?,
         ## if sts than approximate duration of storage can be defined. Expiration represents approximate date when sample will
         ## be removed from repository
         element expiration { xsd:date } ?,

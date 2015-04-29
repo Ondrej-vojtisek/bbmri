@@ -76,14 +76,7 @@ public class ProjectUserDAOImpl extends GenericDAOImpl<ProjectUser> implements P
     public boolean hasPermission(Permission permission, Project project, User user) {
         ProjectUser projectUser = get(project, user);
 
-        System.err.println("hasPermission 1");
-        System.err.println(project);
-        System.err.println(user);
-
         if (projectUser == null) {
-
-            System.err.println("hasPermission 2");
-
             return false;
         }
 

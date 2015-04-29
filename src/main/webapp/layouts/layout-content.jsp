@@ -39,7 +39,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
 
-            <stripes:layout-render name="/webpages/new/component/breadcrumb/breadcrumb.jsp"/>
+            <stripes:layout-render name="/webpages/component/breadcrumb/breadcrumb.jsp"/>
 
             <stripes:messages/>
 

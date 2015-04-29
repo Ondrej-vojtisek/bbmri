@@ -2,24 +2,29 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 
-<stripes:layout-render name="/layouts/layout_content.jsp"
-                 primarymenu="user"
-                 ternarymenu="password">
+<stripes:layout-render name="${component.layout.content}"
+                       primarymenu="user">
 
     <stripes:layout-component name="body">
 
+        <stripes:layout-render name="${component.menu.user}" active="password"/>
+
         <fieldset>
-            <stripes:form beanclass="cz.bbmri.action.user.UserActionBean" class="form-horizontal">
+            <stripes:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <stripes:label for="cz.bbmri.entities.User.password" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entities.User.password" class="control-label">
+                        <format:message key="cz.bbmri.entity.User.password"/>
+                    </stripes:label>
                     <div class="controls">
                         <stripes:text name="password"/>
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <stripes:label for="cz.bbmri.entities.User.password2" class="control-label"/>
+                    <stripes:label for="cz.bbmri.entity.User.password2" class="control-label">
+                        <format:message key="cz.bbmri.entity.User.password2"/>
+                    </stripes:label>
                     <div class="controls">
                         <stripes:text name="password2"/>
                     </div>

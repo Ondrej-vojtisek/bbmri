@@ -85,6 +85,9 @@ public abstract class AuthorizationActionBean extends ComponentActionBean {
     }
 
     public boolean getProjectVisitor() {
+        System.err.println("ProjectId: " + authProjectId);
+        System.err.println("hasPermission: " + projectUserDAO.hasPermission(Permission.VISITOR, projectDAO.get(authProjectId), getLoggedUser()));
+
         return projectUserDAO.hasPermission(Permission.VISITOR, projectDAO.get(authProjectId), getLoggedUser());
     }
 

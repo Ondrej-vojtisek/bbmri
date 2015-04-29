@@ -13,7 +13,7 @@ public enum Row {
      */
     INSTANCE;
 
-    private static final String LOCATION = "/webpages/new/";
+    private static final String LOCATION = "/webpages/";
     private static final String COMPONENT = "/component/row.jsp";
 
     public String getArchive() {
@@ -67,6 +67,10 @@ public enum Row {
     public String getRecord() {
         return LOCATION + "record" + COMPONENT;
     }
+
+    public String getRequest() {
+           return LOCATION + "request" + COMPONENT;
+       }
 
     public String getReservation() {
         return LOCATION + "reservation" + COMPONENT;

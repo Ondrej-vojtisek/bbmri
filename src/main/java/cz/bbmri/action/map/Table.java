@@ -13,7 +13,7 @@ public enum Table {
      */
     INSTANCE;
 
-    private static final String LOCATION = "/webpages/new/component/table/";
+    private static final String LOCATION = "/webpages/component/table/";
 
     public String getEmptyTable() {
         return LOCATION + "empty.jsp";

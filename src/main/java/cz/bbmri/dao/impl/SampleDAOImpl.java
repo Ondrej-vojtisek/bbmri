@@ -52,6 +52,19 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
 
     }
 
+    public List<Sample> getAllByBiobank(Biobank biobank) {
+
+        List<Sample> samples = getCurrentSession().createCriteria(Sample.class)
+                .createAlias("patient", "patient")
+                .add(Restrictions.eq("patient.biobank", biobank)).list();
+
+        if (samples.isEmpty()) {
+            return null;
+        }
+
+        return samples;
+    }
+
     public InstanceImportResult updateWithResult(Sample sample) {
         notNull(sample);
 
@@ -263,6 +276,25 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
 
         save(sampleDB);
         return instanceImportResult;
+    }
+
+    public List<Sample> find(Biobank biobank,
+                             Boolean sts,
+                             Retrieved retrieved,
+                             Short available,
+                             Short total,
+                             MaterialType materialType) {
+
+        List<Sample> samples = getCurrentSession().createCriteria(Sample.class)
+                .createAlias("patient", "patient")
+                .add(Restrictions.eq("patient.biobank", biobank))
+                .add(Restrictions.eq("sample.retrieved", retrieved)).setMaxResults(MAX_SEARCH_RESULTS).list();
+
+        if (samples.isEmpty()) {
+            return null;
+        }
+
+        return samples;
     }
 
 }

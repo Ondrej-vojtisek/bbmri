@@ -6,6 +6,7 @@ import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.dao.ContactDAO;
 import cz.bbmri.dao.CountryDAO;
+import cz.bbmri.dao.SampleDAO;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
@@ -34,6 +35,9 @@ public class BiobankActionBean extends AuthorizationActionBean {
     @SpringBean
     private CountryDAO countryDAO;
 
+    @SpringBean
+    private SampleDAO sampleDAO;
+
     private Integer id;
 
     private Biobank biobank;
@@ -47,6 +51,8 @@ public class BiobankActionBean extends AuthorizationActionBean {
     private MyPagedListHolder<Attachment> attachmentPagination = new MyPagedListHolder<Attachment>(new ArrayList<Attachment>());
 
     private MyPagedListHolder<Patient> patientPagination = new MyPagedListHolder<Patient>(new ArrayList<Patient>());
+
+    private MyPagedListHolder<Sample> samplePagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>());
 
     private MyPagedListHolder<Withdraw> withdrawPagination = new MyPagedListHolder<Withdraw>(new ArrayList<Withdraw>());
 
@@ -75,6 +81,11 @@ public class BiobankActionBean extends AuthorizationActionBean {
 
     public static Breadcrumb getPatientsBreadcrumb(boolean active, Biobank biobank) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "patients", false, "cz.bbmri.entity.Patient.patients",
+                active, "id", biobank.getId());
+    }
+
+    public static Breadcrumb getSamplesBreadcrumb(boolean active, Biobank biobank) {
+        return new Breadcrumb(BiobankActionBean.class.getName(), "samples", false, "cz.bbmri.entity.Sample.samples",
                 active, "id", biobank.getId());
     }
 
@@ -175,6 +186,26 @@ public class BiobankActionBean extends AuthorizationActionBean {
         this.questionPagination = questionPagination;
     }
 
+    public MyPagedListHolder<Sample> getSamplePagination() {
+        return samplePagination;
+    }
+
+    public void setSamplePagination(MyPagedListHolder<Sample> samplePagination) {
+        this.samplePagination = samplePagination;
+    }
+
+    /**
+     * @return all samples of a biobank
+     */
+    public List<Sample> getSamples() {
+        getBiobank();
+        if (biobank == null) {
+            return null;
+        }
+
+        return sampleDAO.getAllByBiobank(biobank);
+    }
+
     @DefaultHandler
     @HandlesEvent("all") /* Necessary for stripes security tag*/
     @RolesAllowed("authorized")
@@ -258,6 +289,28 @@ public class BiobankActionBean extends AuthorizationActionBean {
         return new ForwardResolution(View.Biobank.PATIENTS);
     }
 
+    @HandlesEvent("samples") /* Necessary for stripes security tag*/
+    @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
+    public Resolution samples() {
+        getBiobank();
+
+        if (biobank == null) {
+            return new ForwardResolution(View.Biobank.NOTFOUND);
+        }
+
+        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(false));
+        getBreadcrumbs().add(BiobankActionBean.getDetailBreadcrumb(false, getBiobank()));
+        getBreadcrumbs().add(BiobankActionBean.getSamplesBreadcrumb(true, getBiobank()));
+
+        samplePagination.initiate(getPage(), getOrderParam(), isDesc());
+        samplePagination.setSource(new ArrayList<Sample>(getSamples()));
+        samplePagination.setEvent("samples");
+        samplePagination.setIdentifier(biobank.getId());
+        samplePagination.setIdentifierParam("id");
+
+        return new ForwardResolution(View.Biobank.SAMPLES);
+    }
+
     @HandlesEvent("withdraws") /* Necessary for stripes security tag*/
     @RolesAllowed({"biobank_operator if ${biobankVisitor}", "admin", "developer"})
     public Resolution withdraws() {
@@ -299,7 +352,7 @@ public class BiobankActionBean extends AuthorizationActionBean {
         questionPagination.setIdentifier(biobank.getId());
         questionPagination.setIdentifierParam("id");
 
-        return new ForwardResolution(View.Biobank.WITHDRAWS);
+        return new ForwardResolution(View.Biobank.QUESTIONS);
     }
 
 

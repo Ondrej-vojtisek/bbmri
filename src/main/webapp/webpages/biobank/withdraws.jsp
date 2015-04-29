@@ -1,0 +1,44 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
+<%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
+
+<core:set var="withdrawPagination" value="${actionBean.withdrawPagination}"/>
+
+<stripes:layout-render name="${component.layout.content}"
+                 primarymenu="biobank">
+
+    <stripes:layout-component name="body">
+
+        <stripes:layout-render name="${component.menu.biobank}" active="withdraws"/>
+
+        <table class="table table-hover table-striped">
+            <stripes:layout-render name="${component.header.withdraw}" pagination="${withdrawPagination}"/>
+
+            <tbody>
+            <stripes:layout-render name="${component.table.emptyTable}"
+                             collection="${withdrawPagination.myPageList}"/>
+            <core:forEach var="item" items="${withdrawPagination.myPageList}">
+                <tr>
+                    <stripes:layout-render name="${component.row.withdraw}" item="${item}"/>
+                        <%--<td class="action">--%>
+                        <%--<span class="pull-right">--%>
+                        <%--<div class="tableAction">--%>
+                        <%--<stripes:link beanclass="cz.bbmri.action.PatientActionBean" event="detail"--%>
+                        <%--class="btn btn-info btnMargin">--%>
+                        <%--<stripes:param name="id" value="${item.id}"/>--%>
+                        <%--<format:message key="detail"/>--%>
+                        <%--</stripes:link>--%>
+                        <%--</div>--%>
+                        <%--</span>--%>
+                        <%--</td>--%>
+                </tr>
+            </core:forEach>
+            </tbody>
+        </table>
+
+        <%--show pagination only if list contains some data--%>
+        <core:if test="${not empty withdrawPagination.myPageList}">
+            <stripes:layout-render name="${component.pager}" pagination="${withdrawPagination}"/>
+        </core:if>
+
+    </stripes:layout-component>
+</stripes:layout-render>

@@ -11,12 +11,12 @@ License Type: Academic
 				<param name="sequence">request_seq</param>
 			</generator>
 		</id>
-		<property name="number" column="number" type="short" not-null="false" lazy="false"/>
+		<property name="number" column="number" type="short" not-null="true" lazy="false"/>
 		<many-to-one name="sample" cascade="lock" column="sample_id" class="cz.bbmri.entity.Sample" not-null="true" lazy="proxy">
 		</many-to-one>
-		<many-to-one name="question" cascade="lock" column="question_id" class="cz.bbmri.entity.Question" not-null="true" lazy="proxy">
+		<many-to-one name="question" cascade="lock" column="question_id" class="cz.bbmri.entity.Question" not-null="false" lazy="proxy">
 		</many-to-one>
-		<many-to-one name="reservation" cascade="lock" column="reservation_id" class="cz.bbmri.entity.Reservation" not-null="true" lazy="proxy">
+		<many-to-one name="reservation" cascade="lock" column="reservation_id" class="cz.bbmri.entity.Reservation" not-null="false" lazy="proxy">
 		</many-to-one>
 		<many-to-one name="withdraw" cascade="lock" column="withdraw_id" class="cz.bbmri.entity.Withdraw" not-null="false" lazy="proxy">
 		</many-to-one>

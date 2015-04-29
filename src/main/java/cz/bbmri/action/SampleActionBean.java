@@ -3,9 +3,8 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.SampleDAO;
-import cz.bbmri.entity.Patient;
-import cz.bbmri.entity.Sample;
+import cz.bbmri.dao.*;
+import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -13,6 +12,7 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO describe class
@@ -26,9 +26,31 @@ public class SampleActionBean extends AuthorizationActionBean {
     @SpringBean
     private SampleDAO sampleDAO;
 
-    private Long id;
+    @SpringBean
+    private BiobankDAO biobankDAO;
 
+    @SpringBean
+    private RetrievedDAO retrievedDAO;
+
+    @SpringBean
+    private SexDAO sexDAO;
+
+    @SpringBean
+    private MaterialTypeDAO materialTypeDAO;
+
+    private Long id;
     private Sample sample;
+
+
+    // Search params
+    private Integer biobankId;
+    private Short retrievedId;
+    private Short available;
+    private Short total;
+    private String grading;
+    private Short sexId;
+    private Boolean sts;
+    private Integer materialTypeId;
 
     private MyPagedListHolder<Sample> pagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>());
 
@@ -50,6 +72,14 @@ public class SampleActionBean extends AuthorizationActionBean {
         this.id = id;
     }
 
+    public Integer getBiobankId() {
+        return biobankId;
+    }
+
+    public void setBiobankId(Integer biobankId) {
+        this.biobankId = biobankId;
+    }
+
     public void setSample(Sample sample) {
         this.sample = sample;
     }
@@ -63,6 +93,32 @@ public class SampleActionBean extends AuthorizationActionBean {
 
         return sample;
     }
+
+    public Short getRetrievedId() {
+        return retrievedId;
+    }
+
+    public void setRetrievedId(Short retrievedId) {
+        this.retrievedId = retrievedId;
+    }
+
+    public List<Sample> getSampleSearch(){
+        Biobank biobank = biobankDAO.get(biobankId);
+
+        if(biobank == null){
+            return null;
+        }
+
+        Retrieved retrieved = retrievedDAO.get(retrievedId);
+
+        Sex sex = sexDAO.get(sexId);
+
+        MaterialType materialType = materialTypeDAO.get(materialTypeId);
+
+        return sampleDAO.getAllByBiobank(biobank);
+
+    }
+
 
     public MyPagedListHolder<Sample> getPagination() {
         return pagination;

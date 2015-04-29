@@ -1,10 +1,13 @@
 /**
  * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
- * 
- * This is an automatic generated file. It will be regenerated every time 
+ * <p/>
+ * This is an automatic generated file. It will be regenerated every time
  * you generate persistence class.
- * 
+ * <p/>
  * Modifying its content may cause the program not work, or your work may lost.
+ * <p/>
+ * Licensee: Masaryk University
+ * License Type: Academic
  */
 
 /**
@@ -21,24 +24,24 @@ import java.util.Set;
 public class Sample implements Serializable {
 
     public static final String PROP_PATIENT = "patient";
-   	public static final String PROP_ID = "id";
-   	public static final String PROP_INSTITUTIONAL_ID = "institutionalId";
-   	public static final String PROP_TAKING_DATE = "takingDateTime";
+    public static final String PROP_ID = "id";
+    public static final String PROP_INSTITUTIONAL_ID = "institutionalId";
+    public static final String PROP_TAKING_DATE = "takingDateTime";
     public static final String PROP_FREEZE_DATE = "freezeDateTime";
-   	public static final String PROP_RETRIEVED = "retrieved";
-   	public static final String PROP_MATERIAL_TYPE = "materialType";
-   	public static final String PROP_COLLECTION = "collection";
-   	public static final String PROP_QUANTITY = "quantity";
-   	public static final String PROP_TNM = "tnm";
-   	public static final String PROP_PTNM = "ptnm";
-   	public static final String PROP_MORPHOLOGY = "morphology";
-   	public static final String PROP_BIOPTICAL_REPORT = "biopticalReport";
-   	public static final String PROP_DIAGNOSIS = "diagnosis";
-   	public static final String PROP_POSITION = "position";
-   	public static final String PROP_REQUEST = "request";
+    public static final String PROP_RETRIEVED = "retrieved";
+    public static final String PROP_MATERIAL_TYPE = "materialType";
+    public static final String PROP_COLLECTION = "collection";
+    public static final String PROP_QUANTITY = "quantity";
+    public static final String PROP_TNM = "tnm";
+    public static final String PROP_PTNM = "ptnm";
+    public static final String PROP_MORPHOLOGY = "morphology";
+    public static final String PROP_BIOPTICAL_REPORT = "biopticalReport";
+    public static final String PROP_DIAGNOSIS = "diagnosis";
+    public static final String PROP_POSITION = "position";
+    public static final String PROP_REQUEST = "request";
     public static final String PROP_STORAGE_METHODOLOGY = "storageMethodology";
 
-	private Patient patient;
+    private Patient patient;
     private long id;
     private String institutionalId;
     private Date takingDateTime;
@@ -190,6 +193,20 @@ public class Sample implements Serializable {
 
     public void setStorageMethodology(StorageMethodology storageMethodology) {
         this.storageMethodology = storageMethodology;
+    }
+
+    public boolean getIsAvailable() {
+        if (quantity == null) {
+            return false;
+        }
+        return quantity.getAvailable() > 0;
+    }
+
+    public boolean getIsWithdrawable() {
+        if (quantity == null) {
+            return false;
+        }
+        return quantity.getTotal() > 0;
     }
 
     @Override

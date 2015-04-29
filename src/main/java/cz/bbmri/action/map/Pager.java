@@ -13,7 +13,7 @@ public enum Pager {
      */
     INSTANCE;
 
-    private static final String LOCATION = "/webpages/new/component/pager/";
+    private static final String LOCATION = "/webpages/component/pager/";
 
     public String getPager() {
         return LOCATION + "pager.jsp";

@@ -1,5 +1,11 @@
 TODO:
 
+Quantity
+- udelat nullable
+- metody decrease
+- increase
+- withdraw...
+
 Reservation:
 - kdy je rezervace approved tak umoznit prirazeni vzorku
 - umoznit prirazeni rezervace projektu -> tj. zmenu rezervace na question

@@ -2,7 +2,6 @@
 <%@ taglib prefix="format" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld"%>
 <%@ taglib prefix="security" uri="http://www.stripes-stuff.org/security.tld"%>
-<%--<%@ taglib prefix="function" uri="http://java.sun.com/jsp/jstl/functions"%> formerly <n: --%>
 
 <format:setBundle var="texts" basename="texts" scope="application"/>
 <format:setBundle var="errors" basename="errors" scope="application"/>
