@@ -2,6 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <stripes:useActionBean beanclass="cz.bbmri.action.CountryActionBean" var="countryActionBean"/>
+<core:set var="biobank" value="${actionBean.biobank}"/>
 
 <stripes:layout-render name="${component.layout.content}"
                        primarymenu="biobank">
@@ -10,142 +11,127 @@
 
         <stripes:layout-render name="${component.menu.biobank}" active="detail"/>
 
-        <stripes:form beanclass="cz.bbmri.action.BiobankActionBean" class="form-horizontal">
+        <%--<stripes:form beanclass="cz.bbmri.action.BiobankActionBean" class="form-horizontal">--%>
 
-            <stripes:hidden name="id"/>
+        <%--<stripes:hidden name="id"/>--%>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.Biobank.acronym" class="control-label">
-                    <format:message key="cz.bbmri.entity.Biobank.acronym"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="biobank.acronym" readonly="true"/>
-                </div>
-            </div>
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th width="30%"><format:message key="id"/></th>
+                <td width="70%">${biobank.id}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.acronym"/></th>
+                <td>${biobank.acronym}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.acronymEn"/></th>
+                <td>${biobank.acronymEn}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.name"/></th>
+                <td>${biobank.name}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.nameEnglish"/></th>
+                <td>${biobank.nameEnglish}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.institutionalId"/></th>
+                <td>${biobank.institutionalId}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.juridicalPerson"/></th>
+                <td>${biobank.juridicalPerson}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.juridicalPersonEn"/></th>
+                <td>${biobank.juridicalPersonEn}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.description"/></th>
+                <td>${biobank.description}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.patientCount"/></th>
+                <td>${biobank.patientCount}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.sampleCount"/></th>
+                <td>${actionBean.sampleCount}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.totalAliquotesCount"/></th>
+                <td>${actionBean.aliquotesTotalCount}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Biobank.availableAliquotesCount"/></th>
+                <td>${actionBean.aliquotesAvailableCount}</td>
+            </tr>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.Biobank.name" class="control-label">
-                    <format:message key="cz.bbmri.entity.Biobank.name"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="biobank.name" readonly="true"/>
-                </div>
-            </div>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.Biobank.nameEnglish" class="control-label">
-                    <format:message key="cz.bbmri.entity.Biobank.nameEnglish"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="biobank.nameEnglish" readonly="true"/>
-                </div>
-            </div>
+            <core:if test="${not empty biobank.contact}">
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.address"/></th>
+                    <td>${biobank.contact.address}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.zip"/></th>
+                    <td>${biobank.contact.zip}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.city"/></th>
+                    <td>${biobank.contact.city}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.country"/></th>
+                    <td><core:if test="${not empty biobank.contact.country}">
+                        ${biobank.contact.country.name}
+                    </core:if></td>
+                </tr>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.Biobank.institutionalId" class="control-label">
-                    <format:message key="cz.bbmri.entity.Biobank.institutionalId"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="biobank.institutionalId" readonly="true"/>
-                </div>
-            </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.contactPerson"/></th>
+                    <td>${biobank.contact.firstName}&nbsp;${biobank.contact.lastName}</td>
+                </tr>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.Biobank.description" class="control-label">
-                    <format:message key="cz.bbmri.entity.Biobank.description"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="biobank.description"/>
-                </div>
-            </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.url"/></th>
+                    <td><a href="${biobank.contact.url}">${biobank.contact.url}</a></td>
+                </tr>
 
-            <core:if test="${not empty actionBean.biobank.contact }">
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.email" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.email"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.email"/>
-                    </div>
-                </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.email"/></th>
+                    <td>${biobank.contact.email}</td>
+                </tr>
 
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.phone" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.phone"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.phone"/>
-                    </div>
-                </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.phone"/></th>
+                    <td>${biobank.contact.phone}</td>
+                </tr>
 
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.address" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.address"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.address"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.city" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.city"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.city"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.zip" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.zip"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.zip"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.url" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.url"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.url"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.country" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.country"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <core:if test="${empty actionBean.contact.country}">
-
-                            <stripes:select name="countryId">
-                                <stripes:option label="Not filled" value=""/>
-                                <stripes:options-collection collection="${countryActionBean.all}" value="id"
-                                                            label="name"/>
-                            </stripes:select>
-
-                        </core:if>
-
-                        <core:if test="${not empty actionBean.contact.country}">
-                            <stripes:text name="contact.country.name" readonly="true"/>
-                        </core:if>
-
-                    </div>
-                </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Contact.gps"/></th>
+                    <td><format:message key="cz.bbmri.entity.Contact.latitude"/>:${biobank.contact.latitude}
+                        &nbsp;
+                        <format:message key="cz.bbmri.entity.Contact.longitude"/>:${biobank.contact.longitude}
+                    </td>
+                </tr>
 
             </core:if>
 
-            <div class="form-actions">
-                <security:allowed event="save">
-                    <stripes:submit name="save" class="btn btn-primary btnMargin"/>
-                </security:allowed>
+            </tbody>
+        </table>
 
-            </div>
 
-        </stripes:form>
+        <%--<div class="form-actions">--%>
+        <%--<security:allowed event="save">--%>
+        <%--<stripes:submit name="save" class="btn btn-primary btnMargin"/>--%>
+        <%--</security:allowed>--%>
+
+        <%--</div>--%>
+
+        <%--</stripes:form>--%>
 
     </stripes:layout-component>
 </stripes:layout-render>

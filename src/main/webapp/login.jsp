@@ -19,12 +19,17 @@
                     </tr>
                 </table>
                 <div style="float: right;">
-                    <stripes:submit name="login" class="btn btn-primary btnMargin"><format:message key="signin"/></stripes:submit>
+                    <stripes:submit name="login" class="btn btn-primary btnMargin"><format:message
+                            key="signin"/></stripes:submit>
                     <stripes:submit name="cancel" class="btn"><format:message key="cancel"/></stripes:submit>
                 </div>
+
 
             </fieldset>
         </stripes:form>
 
     </stripes:layout-component>
+
+
+
 </stripes:layout-render>

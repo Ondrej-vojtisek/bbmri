@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public class PatientDataParser extends AbstractParser {
+public class PatientDataParser extends AbstractPatientParser {
 
     // Reference XML schema to validate imports
     private static final String PATIENT_XSD_URL = "http://www.bbmri.cz/schemas/biobank/data.xsd";
@@ -31,9 +31,6 @@ public class PatientDataParser extends AbstractParser {
     private static final String NAMESPACE_PREFIX_COLONS = NAMESPACE_PREFIX + ":";
     private static final String NAMESPACE_PREFIX_SLASHED = "/" + NAMESPACE_PREFIX_COLONS;
     private static final String ROOT_ELEMENT = NAMESPACE_PREFIX_SLASHED + "patient";
-
-    public static final String BIOBANK_PREFIX_SEPARATOR = "_";
-
 
     public PatientDataParser(String path) throws Exception {
 
@@ -99,65 +96,26 @@ public class PatientDataParser extends AbstractParser {
         }
 
 //        YEAR
-
-        /* Use validity check from GYear factory */
-        GYear gYear;
-        try {
-            gYear = GYear.Factory.fromString(birthYear, XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-        } catch (NumberFormatException ex) {
+        Short year = parseBirthYear(birthYear);
+        if (year == null) {
             System.err.println("Birth year of imported patient is not valid");
             return null;
-        }
-
-        if (gYear != null) {
-            patient.setBirthYear(Short.parseShort(gYear.toString()));
         } else {
-            System.err.println("Birth year of imported patient is not valid");
-            return null;
+            patient.setBirthYear(year);
         }
-
 //        MONTH
-
-        if (birthMonth != null) {
-            // not empty
-            // empty doesn't mean error - it is not mandatory
-            if (!birthMonth.isEmpty()) {
-                // for format of gMonth
-                if (birthMonth.length() > 2) {
-                    // expect format --02 or --02--
-                    birthMonth = birthMonth.substring(2, 4);
-                }
-                short month = Short.parseShort(birthMonth);
-                // month
-                if (month > 12 || month < 1) {
-                    System.err.println("Birth month of imported patient is not valid");
-                    return null;
-                } else {
-                    patient.setBirthMonth(month);
-                }
-            }
+        Short month = parseBirthMonth(birthMonth);
+        if (month != null) {
+            patient.setBirthMonth(month);
         }
 
 //        SEX
-
-        if (sex.equals(Sex.MALE.getName())) {
-
-            patient.setSex(Sex.MALE);
-
-        } else if (sex.equals(Sex.FEMALE.getName())) {
-
-            patient.setSex(Sex.FEMALE);
-
-        } else if (sex.equals(Sex.UNKNOWN.getName())) {
-
-            patient.setSex(Sex.UNKNOWN);
-
-        } else {
-
-            System.err.println("Patient sex wasn't recognized. Patient sex was: " + sex);
+        Sex sexValue = parseSex(sex);
+        if (sex == null) {
+            System.err.println("Sex parse failed");
             return null;
-
+        } else {
+            patient.setSex(sexValue);
         }
 
 //        PATIENT IDENTIFIER FROM HOME INSTITUTION
@@ -300,15 +258,13 @@ public class PatientDataParser extends AbstractParser {
             System.err.println("Failed to parse Tissue");
             return null;
         }
-        //      Number of samples
-        Quantity quantity = new Quantity();
 
-        quantity.setAvailable(Short.parseShort(availableSamplesNoImp));
-        quantity.setTotal(Short.parseShort(samplesNoImp));
-        quantity.setOriginal(Short.parseShort(samplesNoImp));
+//      Number of samples
+        Quantity quantity = parseQuantity(availableSamplesNoImp, samplesNoImp);
 
-        sample.setQuantity(quantity);
-
+        if (quantity != null) {
+            sample.setQuantity(quantity);
+        }
 
 //        TNM
         Tnm tnm = new Tnm();
@@ -377,13 +333,11 @@ public class PatientDataParser extends AbstractParser {
         }
 
         //      Number of samples
-        Quantity quantity = new Quantity();
+        Quantity quantity = parseQuantity(availableSamplesNoImp, samplesNoImp);
 
-        quantity.setAvailable(Short.parseShort(availableSamplesNoImp));
-        quantity.setTotal(Short.parseShort(samplesNoImp));
-        quantity.setOriginal(Short.parseShort(samplesNoImp));
-
-        sample.setQuantity(quantity);
+        if (quantity != null) {
+            sample.setQuantity(quantity);
+        }
 
         return sample;
     }
@@ -415,13 +369,11 @@ public class PatientDataParser extends AbstractParser {
             return null;
         }
         //      Number of samples
-        Quantity quantity = new Quantity();
+        Quantity quantity = parseQuantity(availableSamplesNoImp, samplesNoImp);
 
-        quantity.setAvailable(Short.parseShort(availableSamplesNoImp));
-        quantity.setTotal(Short.parseShort(samplesNoImp));
-        quantity.setOriginal(Short.parseShort(samplesNoImp));
-
-        sample.setQuantity(quantity);
+        if (quantity != null) {
+            sample.setQuantity(quantity);
+        }
 
         return sample;
     }
@@ -503,15 +455,11 @@ public class PatientDataParser extends AbstractParser {
 
         Sample sample = new Sample();
 
-        BiopticalReport biopticalReport = new BiopticalReport();
-        if (year != null) {
-            biopticalReport.setYear(Short.parseShort(year));
+        BiopticalReport biopticalReport = parseBiopticalReport(number, year);
+        if (biopticalReport != null) {
+            biopticalReport.setSample(sample);
+            sample.setBiopticalReport(biopticalReport);
         }
-        if (number != null) {
-            biopticalReport.setNumber(Integer.parseInt(number));
-        }
-        biopticalReport.setSample(sample);
-        sample.setBiopticalReport(biopticalReport);
 
         if (sampleId == null) {
             System.err.println("SampleId is null");
@@ -531,25 +479,11 @@ public class PatientDataParser extends AbstractParser {
             sample.setInstitutionalId(getBiobankPrefix() + BIOBANK_PREFIX_SEPARATOR + sampleId);
         }
 
-        //        Retrieved
-        if (retrieved != null) {
-
-            if (retrieved.equals(Retrieved.PREOPERATIONAL.getName())) {
-                sample.setRetrieved(Retrieved.PREOPERATIONAL);
-            }
-
-            if (retrieved.equals(Retrieved.OPERATIONAL.getName())) {
-                sample.setRetrieved(Retrieved.OPERATIONAL);
-            }
-            if (retrieved.equals(Retrieved.UNKNOWN.getName())) {
-                sample.setRetrieved(Retrieved.UNKNOWN);
-            }
-
-            if (retrieved.equals(Retrieved.POST.getName())) {
-                sample.setRetrieved(Retrieved.POST);
-            }
-
+        Retrieved retrievedInstance = parseRetrieved(retrieved);
+        if (retrievedInstance != null) {
+            sample.setRetrieved(retrievedInstance);
         }
+
 
         //   Taking date or cut time
         if (takingDate != null) {
@@ -575,12 +509,5 @@ public class PatientDataParser extends AbstractParser {
 
     }
 
-    private java.util.Date parseDate(String dateTime) {
-
-        java.util.Calendar calendar;
-        calendar = javax.xml.bind.DatatypeConverter.parseDateTime(dateTime);
-
-        return calendar.getTime();
-    }
 
 }

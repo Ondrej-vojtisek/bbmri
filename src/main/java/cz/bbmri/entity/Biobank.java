@@ -45,6 +45,9 @@ public class Biobank implements Serializable {
     public static final String PROP_RESERVATION = "reservation";
     public static final String PROP_QUESTION = "question";
     public static final String PROP_BIOBANK_MATERIAL_TYPE = "biobankMaterialType";
+    public static final String PROP_ACRONYM_EN = "acronymEn";
+   	public static final String PROP_JURIDICAL_PERSON = "juridicalPerson";
+   	public static final String PROP_JURIDICAL_PERSON_EN = "juridicalPersonEn";
 
     private int id;
     private String institutionalId;
@@ -52,6 +55,9 @@ public class Biobank implements Serializable {
     private String name;
     private String description;
 	private String nameEnglish;
+    private String acronymEn;
+    private String juridicalPerson;
+    private String juridicalPersonEn;
 
     private Set<BiobankUser> biobankUser = new HashSet<BiobankUser>();
     private Contact contact;
@@ -192,6 +198,30 @@ public class Biobank implements Serializable {
         this.biobankMaterialType = biobankMaterialType;
     }
 
+    public String getAcronymEn() {
+        return acronymEn;
+    }
+
+    public void setAcronymEn(String acronymEn) {
+        this.acronymEn = acronymEn;
+    }
+
+    public String getJuridicalPerson() {
+        return juridicalPerson;
+    }
+
+    public void setJuridicalPerson(String juridicalPerson) {
+        this.juridicalPerson = juridicalPerson;
+    }
+
+    public String getJuridicalPersonEn() {
+        return juridicalPersonEn;
+    }
+
+    public void setJuridicalPersonEn(String juridicalPersonEn) {
+        this.juridicalPersonEn = juridicalPersonEn;
+    }
+
     public String getBiobankFolderPath() {
         return Biobank.BIOBANK_FOLDER_PATH + id;
     }
@@ -222,5 +252,31 @@ public class Biobank implements Serializable {
 
     public String getBiobankCalibrationDataFolder() {
         return getBiobankFolderPath() + File.separator + Biobank.CALIBRATION_DATA_FOLDER;
+    }
+
+    public int getPatientCount(){
+        if(patient != null){
+            return patient.size();
+        }
+
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Biobank biobank = (Biobank) o;
+
+        if (id != biobank.id) return false;
+        return !(institutionalId != null ? !institutionalId.equals(biobank.institutionalId) : biobank.institutionalId != null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (institutionalId != null ? institutionalId.hashCode() : 0);
+        return result;
     }
 }

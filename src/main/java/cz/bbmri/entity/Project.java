@@ -27,6 +27,8 @@ public class Project implements Serializable {
     public static final String PROP_PROJECT_USER = "projectUser";
     public static final String PROP_QUESTION = "question";
     public static final String PROP_ATTACHMENT = "attachment";
+    public static final String PROP_CLINICAL_TRIAL = "clinicalTrial";
+   	public static final String PROP_EUDRA_CT_NUMBER = "eudraCtNumber";
 
     public final static String PROJECT_FOLDER = File.separator + "project_files";
     private final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
@@ -41,6 +43,9 @@ public class Project implements Serializable {
     private String principalInvestigator;
     private String approvalStorage;
     private ProjectState projectState = ProjectState.NEW;
+    private boolean clinicalTrial = false;
+    private String eudraCtNumber;
+
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
     private Set<Question> question = new HashSet<Question>();
     private Set<Attachment> attachment = new HashSet<Attachment>();
@@ -139,6 +144,22 @@ public class Project implements Serializable {
 
     public void setAttachment(Set<Attachment> attachment) {
         this.attachment = attachment;
+    }
+
+    public boolean getClinicalTrial() {
+        return clinicalTrial;
+    }
+
+    public void setClinicalTrial(boolean clinicalTrial) {
+        this.clinicalTrial = clinicalTrial;
+    }
+
+    public String getEudraCtNumber() {
+        return eudraCtNumber;
+    }
+
+    public void setEudraCtNumber(String eudraCtNumber) {
+        this.eudraCtNumber = eudraCtNumber;
     }
 
     public String getProjectFolderPath() {

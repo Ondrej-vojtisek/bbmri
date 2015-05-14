@@ -60,10 +60,10 @@ public class J2EESecurityManager implements SecurityManager {
 
         // Iterate through the class nesting
         while(allowed == null && beanClass != null) {
-            logger.debug("Allowed: " + allowed);
-            logger.debug("beanClass: " + beanClass);
-
-            logger.debug("Determining if access is allowed for " + beanClass.getName() + " on " + bean.toString());
+//            logger.debug("Allowed: " + allowed);
+//            logger.debug("beanClass: " + beanClass);
+//
+//            logger.debug("Determining if access is allowed for " + beanClass.getName() + " on " + bean.toString());
             allowed = determineAccessOnElement(bean, handler, beanClass);
             beanClass = beanClass.getSuperclass();
         }
@@ -97,22 +97,22 @@ public class J2EESecurityManager implements SecurityManager {
         if(element.isAnnotationPresent(DenyAll.class)) {
             // The element denies access
             allowed = false;
-            logger.debug("DenyAll");
+//            logger.debug("DenyAll");
         }
         else if(element.isAnnotationPresent(PermitAll.class)) {
             // The element allows access to all security roles (i.e. any authenticated user)
             allowed = isUserAuthenticated(bean, handler);
-            logger.debug("User: Result:" + allowed);
-            logger.debug("PermitAll");
+//            logger.debug("User: Result:" + allowed);
+//            logger.debug("PermitAll");
         }
         else{
-            logger.debug("Try to get which roles are allowed");
+//            logger.debug("Try to get which roles are allowed");
             RolesAllowed rolesAllowed = element.getAnnotation(RolesAllowed.class);
             if(rolesAllowed != null) {
                 // Still need to check if the users is authorized
                 allowed = isUserAuthenticated(bean, handler);
 
-                logger.debug("Is userAuthenticated: " + allowed);
+//                logger.debug("Is userAuthenticated: " + allowed);
 
                 if(allowed == null || allowed.booleanValue()) {
                     // The element allows access
@@ -146,7 +146,6 @@ public class J2EESecurityManager implements SecurityManager {
      * @return {@link Boolean#TRUE TRUE} if the user is authenticated, {@link Boolean#FALSE FALSE} if not, and {@code null} if undecided
      */
     Boolean isUserAuthenticated(ActionBean bean, Method handler){
-        System.err.println("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         logger.error("Implementation problem! This method should not be called - method in AssociatedSecurityManager should have been called instead.");
         //return bean.getContext().getRequest().getUserPrincipal() != null;
         return Boolean.FALSE;

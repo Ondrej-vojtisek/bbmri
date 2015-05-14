@@ -195,6 +195,43 @@ public class Sample implements Serializable {
         this.storageMethodology = storageMethodology;
     }
 
+
+    public String getDiagnosisPrint() {
+           StringBuilder sb = new StringBuilder();
+           if (diagnosis == null) {
+               return null;
+           }
+
+           if(diagnosis.isEmpty()){
+               return null;
+           }
+
+            for(Diagnosis diagnosisItem : diagnosis){
+
+                if(diagnosisItem.getKey() != null){
+                    sb.append(diagnosisItem.getKey());
+                    sb.append(", ");
+                }
+            }
+
+            if(sb.length() < 2){
+                return null;
+            }
+
+           // delete end of output
+           if (sb.charAt(sb.length() - 1) == ' ') {
+               sb.deleteCharAt(sb.length() - 1);
+
+               if (sb.charAt(sb.length() - 1) == ',') {
+                   sb.deleteCharAt(sb.length() - 1);
+               }
+           }
+           return sb.toString();
+       }
+
+
+
+
     public boolean getIsAvailable() {
         if (quantity == null) {
             return false;
@@ -234,17 +271,7 @@ public class Sample implements Serializable {
     public String toString() {
         return "Sample{" +
                 "id=" + id +
-                ", institutionalId='" + institutionalId + '\'' +
-                ", takingDate=" + takingDateTime +
-                ", freezeDate=" + freezeDateTime +
-                ", retrieved=" + retrieved +
-                ", materialType=" + materialType +
-                ", quantity=" + quantity +
-                ", tnm=" + tnm +
-                ", ptnm=" + ptnm +
-                ", morphology=" + morphology +
-                ", biopticalReport=" + biopticalReport +
-                ", storageMethodology=" + storageMethodology +
+                ", institutionalId='" + institutionalId +
                 '}';
     }
 }

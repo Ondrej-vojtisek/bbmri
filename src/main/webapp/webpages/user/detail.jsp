@@ -15,7 +15,7 @@
             <stripes:hidden name="id"/>
 
             <div class="control-group">
-                <stripes:label for="cz.bbmri.entities.User.wholeName" class="control-label">
+                <stripes:label for="cz.bbmri.entity.User.wholeName" class="control-label">
                     <format:message key="cz.bbmri.entity.User.wholeName"/>
                 </stripes:label>
                 <div class="controls">
@@ -95,7 +95,7 @@
             </core:if>
 
             <div class="control-group">
-                <stripes:label for="cz.bbmri.entities.User.created" class="control-label">
+                <stripes:label for="cz.bbmri.entity.User.created" class="control-label">
                     <format:message key="cz.bbmri.entity.User.created"/>
                 </stripes:label>
                 <div class="controls">
@@ -104,7 +104,7 @@
             </div>
 
             <div class="control-group">
-                <stripes:label for="cz.bbmri.entities.User.lastLogin" class="control-label">
+                <stripes:label for="cz.bbmri.entity.User.lastLogin" class="control-label">
                     <format:message key="cz.bbmri.entity.User.lastLogin"/>
                 </stripes:label>
                 <div class="controls">

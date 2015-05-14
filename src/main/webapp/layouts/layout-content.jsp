@@ -63,8 +63,6 @@
     <script type="text/javascript" src="${context}/libs/jquery.flot.time.js"></script>
     <script type="text/javascript" src="${context}/libs/jquery.flot.symbol.js"></script>
 
-        <%--<script type="text/javascript" src="${context}/libs/storyjs-embed.js"></script>--%>
-
     <stripes:layout-component name="jsLibrary"/>
 
     <script type="text/javascript">

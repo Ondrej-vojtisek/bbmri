@@ -1,18 +1,24 @@
 TODO:
 
-Quantity
-- udelat nullable
-- metody decrease
-- increase
-- withdraw...
+- pěkné zobrazení chyb - autorizace např.
+- Přidat doc. Valíkovi admin práva
+- Odstraneni bugu u pridavani kvantity vzorku z MOU
+- Stránka shibboleth se zobrazuje všem?
+- Ujednotit pořadí tlačítek - Potvrzeni vs. cancel
+- zobrazeni data navázat na lokalizaci - Create Project, apod.
+
+
+
+- Přidat na weby odkazy na weby partnerů
+
+
+Create project - ujednotit poradi cancel a confirm tlacitka
+
 
 Reservation:
 - kdy je rezervace approved tak umoznit prirazeni vzorku
 - umoznit prirazeni rezervace projektu -> tj. zmenu rezervace na question
 - pridat zobrazeni kolik dnu zbyva do konce expirace
-
-Project:
-- detail projektu zobrazit v tabulce jako je tomu u rezervace
 
 User:
 - kazdy muze zobrazit kontaktni detaily uzivatele
@@ -28,7 +34,4 @@ Question:
 - Komentare ActionBeany
 - Dodelani lokalizase
 
-
-Parser:
-- nová verze parseru tak aby to odpovídalo aktualizované verzi schema
 

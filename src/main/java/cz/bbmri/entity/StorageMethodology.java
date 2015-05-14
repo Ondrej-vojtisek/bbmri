@@ -12,17 +12,17 @@ import java.util.Date;
 public class StorageMethodology implements Serializable {
 
     public static final String PROP_METHOLOGY = "methology";
-   	public static final String PROP_TEMPERATURE = "temperature";
+   	public static final String PROP_TEMPERATURE_CELSIUS = "temperatureCelsius";
    	public static final String PROP_STS = "sts";
    	public static final String PROP_EXPIRATION = "expiration";
-   	public static final String PROP_REAGENT = "reagent";
+   	public static final String PROP_MEDIUM = "medium";
    	public static final String PROP_SAMPLE = "sample";
 
     private String methology;
-   	private Float temperature;
+   	private Float temperatureCelsius;
    	private Boolean sts;
    	private Date expiration;
-   	private String reagent;
+   	private String medium;
    	private Sample sample;
    	private long sampleId;
 
@@ -34,12 +34,12 @@ public class StorageMethodology implements Serializable {
         this.methology = methology;
     }
 
-    public Float getTemperature() {
-        return temperature;
+    public Float getTemperatureCelsius() {
+        return temperatureCelsius;
     }
 
-    public void setTemperature(Float temperature) {
-        this.temperature = temperature;
+    public void setTemperatureCelsius(Float temperatureCelsius) {
+        this.temperatureCelsius = temperatureCelsius;
     }
 
     public Boolean getSts() {
@@ -58,12 +58,12 @@ public class StorageMethodology implements Serializable {
         this.expiration = expiration;
     }
 
-    public String getReagent() {
-        return reagent;
+    public String getMedium() {
+        return medium;
     }
 
-    public void setReagent(String reagent) {
-        this.reagent = reagent;
+    public void setMedium(String medium) {
+        this.medium = medium;
     }
 
     public Sample getSample() {
@@ -89,10 +89,10 @@ public class StorageMethodology implements Serializable {
     public String toString() {
         return "StorageMethodology{" +
                 "methology='" + methology + '\'' +
-                ", temperature=" + temperature +
+                ", temperature=" + temperatureCelsius +
                 ", sts=" + sts +
                 ", expiration=" + expiration +
-                ", reagent='" + reagent + '\'' +
+                ", medium='" + medium + '\'' +
                 '}';
     }
 
@@ -105,20 +105,20 @@ public class StorageMethodology implements Serializable {
 
         if (sampleId != that.sampleId) return false;
         if (methology != null ? !methology.equals(that.methology) : that.methology != null) return false;
-        if (temperature != null ? !temperature.equals(that.temperature) : that.temperature != null) return false;
+        if (temperatureCelsius != null ? !temperatureCelsius.equals(that.temperatureCelsius) : that.temperatureCelsius != null) return false;
         if (sts != null ? !sts.equals(that.sts) : that.sts != null) return false;
         if (expiration != null ? !expiration.equals(that.expiration) : that.expiration != null) return false;
-        return !(reagent != null ? !reagent.equals(that.reagent) : that.reagent != null);
+        return !(medium != null ? !medium.equals(that.medium) : that.medium != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = methology != null ? methology.hashCode() : 0;
-        result = 31 * result + (temperature != null ? temperature.hashCode() : 0);
+        result = 31 * result + (temperatureCelsius != null ? temperatureCelsius.hashCode() : 0);
         result = 31 * result + (sts != null ? sts.hashCode() : 0);
         result = 31 * result + (expiration != null ? expiration.hashCode() : 0);
-        result = 31 * result + (reagent != null ? reagent.hashCode() : 0);
+        result = 31 * result + (medium != null ? medium.hashCode() : 0);
         result = 31 * result + (int) (sampleId ^ (sampleId >>> 32));
         return result;
     }

@@ -4,10 +4,7 @@ import cz.bbmri.dao.*;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.constant.Constant;
 import cz.bbmri.entity.enumeration.Status;
-import cz.bbmri.io.FileImportResult;
-import cz.bbmri.io.FileUtils;
-import cz.bbmri.io.InstanceImportResult;
-import cz.bbmri.io.PatientDataParser;
+import cz.bbmri.io.*;
 import cz.bbmri.trigeredEvents.PatientDataCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -42,8 +39,8 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     @Autowired
     private MaterialTypeDAO materialTypeDAO;
 
-
-   // @Scheduled(cron = "1 * * * * *")
+    //@Scheduled(cron = "0 15 * * * *") // each quarter past ..
+   // @Scheduled(cron = "0 * * * * *") // each minute
     public void scheduledPatientDataCheck() {
 
         // Check all biobank
@@ -59,16 +56,15 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
                 log(fileImportResult.toString());
 
                 if (fileImportResult.getStatus().equals(Status.ERROR)) {
-                    break;
 
                     // nothing to be done here
-                    // continue;
+                    continue;
                 }
-// TODO uncomment
-//                if (FileUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {
-//                    // delete file if copy succeeded
-//                    FileUtils.deleteFile(file);
-//                }
+
+                if (FileUtils.copyFile(file, storagePath + biobank.getBiobankPatientArchiveDataFolder()) == Constant.SUCCESS) {
+                    // delete file if copy succeeded
+                    FileUtils.deleteFile(file);
+                }
 
             }
         }
@@ -87,7 +83,16 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
         //Inicializovat parser;
         // pokud ne tak error cteni souboru
-        PatientDataParser patientDataParser = initialize(file.getPath());
+        AbstractPatientParser patientDataParser;
+
+        // MOU -- hack
+        if (biobank.getId() == 1) {
+            patientDataParser = initialize(file.getPath());
+        } else {
+            // 1. LF hack ..
+            patientDataParser = initializeV2(file.getPath());
+        }
+
         if (patientDataParser == null) {
             fileImportResult.setStatus(Status.ERROR);
             return fileImportResult;
@@ -184,7 +189,37 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
         return parser;
     }
 
-    private List<InstanceImportResult> parsePatientSamplesImport(Patient patient, PatientDataParser parser) {
+    /**
+     * Check presence and validity of import xml file.
+     *
+     * @param path
+     * @return new instance of PatientDataParser or null if document is not valid or document doesn't exist
+     */
+
+    private PatientDataParserV2 initializeV2(String path) {
+
+        notNull(path);
+
+        PatientDataParserV2 parser;
+        try {
+            parser = new PatientDataParserV2(path);
+
+        } catch (Exception ex) {
+            logger.error("PatientDataParser failed");
+            ex.printStackTrace();
+            return null;
+        }
+
+        // document must be valid against .xsd
+        if (!parser.validate()) {
+            logger.error("Document is NOT valid. Document path was: " + path);
+            return null;
+        }
+
+        return parser;
+    }
+
+    private List<InstanceImportResult> parsePatientSamplesImport(Patient patient, AbstractPatientParser parser) {
 
         notNull(patient);
 
@@ -215,12 +250,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
         // Parse STS module
 
         List<Sample> samplesSTS = parser.getPatientStsSamples();
-        if (samplesSTS == null) {
-            logger.debug("Parse of STS module from import failed");
-            return null;
-        }
-
-        if (!samplesSTS.isEmpty()) {
+        if (samplesSTS != null && !samplesSTS.isEmpty()) {
 
             List<InstanceImportResult> ltsImportResults = manageImportedSamples(samplesSTS, patientDB);
             if (ltsImportResults == null) {

@@ -49,12 +49,18 @@
 
     <script type="text/javascript" src="${context}/libs/jquery-latest.js"></script>
     <script type="text/javascript" src="${context}/libs/bootstrap.min.js"></script>
+    <%--<script type="text/javascript" src="${context}/libs/prototype.js"></script>--%>
 
     <script type="text/javascript">
         $(function () {
             $(".alert").alert();
         });
+
     </script>
+
+    <stripes:layout-component name="script"/>
+
+
 
 
     </body>

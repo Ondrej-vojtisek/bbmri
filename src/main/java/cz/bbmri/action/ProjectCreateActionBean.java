@@ -129,6 +129,10 @@ public class ProjectCreateActionBean extends ComponentActionBean {
     @HandlesEvent("confirm")
     public Resolution confirm() {
 
+        if(!project.getClinicalTrial()){
+            project.setEudraCtNumber(null);
+        }
+
         projectDAO.save(project);
 
         ProjectUser projectUser = new ProjectUser();
@@ -146,7 +150,7 @@ public class ProjectCreateActionBean extends ComponentActionBean {
     }
 
     public String getToday(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
         return dateFormat.format(new Date());
     }
 

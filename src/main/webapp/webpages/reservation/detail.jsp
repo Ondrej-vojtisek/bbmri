@@ -66,7 +66,7 @@
             </div>
         </stripes:form>
 
-
+        <h2><format:message key="cz.bbmri.entity.Request.required"/></h2>
         <table class="table table-hover table-striped">
             <stripes:layout-render name="${component.header.request}"/>
 
@@ -97,38 +97,38 @@
             </tbody>
         </table>
 
-        <%--Set authProjectId of AuthotizationActionBean to enable security tag--%>
-        <core:set target="${sampleActionBean}" property="biobankId" value="${actionBean.reservation.biobank.id}"/>
+        <%--&lt;%&ndash;Set authProjectId of AuthotizationActionBean to enable security tag&ndash;%&gt;--%>
+        <%--<core:set target="${sampleActionBean}" property="biobankId" value="${actionBean.reservation.biobank.id}"/>--%>
 
-        <table class="table table-hover table-striped">
-            <stripes:layout-render name="${component.header.sample}"/>
+        <%--<table class="table table-hover table-striped">--%>
+            <%--<stripes:layout-render name="${component.header.sample}"/>--%>
 
-            <tbody>
-            <stripes:layout-render name="${component.table.emptyTable}" collection="${sampleActionBean.samples}"/>
-            <core:forEach var="item" items="${sampleActionBean.sampleSearch}">
-                <tr>
-                    <stripes:layout-render name="${component.row.sample}" item="${item}"/>
+            <%--<tbody>--%>
+            <%--<stripes:layout-render name="${component.table.emptyTable}" collection="${sampleActionBean.samples}"/>--%>
+            <%--<core:forEach var="item" items="${sampleActionBean.sampleSearch}">--%>
+                <%--<tr>--%>
+                    <%--<stripes:layout-render name="${component.row.sample}" item="${item}"/>--%>
 
-                    <core:if test="${item.isAvailable}">
-                        <td class="action">
-                        <span class="pull-right">
-                            <div class="tableAction">
-                                <stripes:form beanclass="cz.bbmri.action.RequestActionBean">
-                                    <stripes:hidden name="sampleId" value="${item.id}"/>
-                                    <stripes:hidden name="reservationId" value="${actionBean.reservation.id}"/>
+                    <%--<core:if test="${item.isAvailable}">--%>
+                        <%--<td class="action">--%>
+                        <%--<span class="pull-right">--%>
+                            <%--<div class="tableAction">--%>
+                                <%--<stripes:form beanclass="cz.bbmri.action.RequestActionBean">--%>
+                                    <%--<stripes:hidden name="sampleId" value="${item.id}"/>--%>
+                                    <%--<stripes:hidden name="reservationId" value="${actionBean.reservation.id}"/>--%>
 
-                                    <stripes:submit name="addToReservation" class="btn btn-info"/>
+                                    <%--<stripes:submit name="addToReservation" class="btn btn-info"/>--%>
 
-                                </stripes:form>
-                            </div>
-                        </span>
-                        </td>
-                    </core:if>
+                                <%--</stripes:form>--%>
+                            <%--</div>--%>
+                        <%--</span>--%>
+                        <%--</td>--%>
+                    <%--</core:if>--%>
 
-                </tr>
-            </core:forEach>
-            </tbody>
-        </table>
+                <%--</tr>--%>
+            <%--</core:forEach>--%>
+            <%--</tbody>--%>
+        <%--</table>--%>
 
     </stripes:layout-component>
 

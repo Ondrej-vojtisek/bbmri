@@ -40,6 +40,12 @@ public interface SampleDAO extends AbstractDAO<Sample, Long> {
 
     List<Sample> getAllByBiobank(Biobank biobank);
 
+    long countSamplesOfBiobank(Biobank biobank);
+
+    long countAvailableAliquotesOfBiobank(Biobank biobank);
+
+    long countTotalAliquotesOfBiobank(Biobank biobank);
+
     List<Sample> find(Biobank biobank,
                       Boolean sts,
                       Retrieved retrieved,

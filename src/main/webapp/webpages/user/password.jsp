@@ -13,7 +13,7 @@
             <stripes:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 
                 <div class="control-group">
-                    <stripes:label for="cz.bbmri.entities.User.password" class="control-label">
+                    <stripes:label for="cz.bbmri.entity.User.password" class="control-label">
                         <format:message key="cz.bbmri.entity.User.password"/>
                     </stripes:label>
                     <div class="controls">

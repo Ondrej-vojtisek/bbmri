@@ -6,7 +6,7 @@
     <artifactId>bbmri_cz</artifactId>
     <groupId>cz.bbmri</groupId>
     <packaging>war</packaging>
-    <version>1.5</version>
+    <version>2.0</version>
     <name>BBMRI_CZ</name>
 
     <properties>
@@ -180,8 +180,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <!--Verze Javy-->
+                    <source>6</source>
+                    <target>6</target>
                 </configuration>
             </plugin>
 

@@ -64,7 +64,7 @@
           </element>
         </element>
         <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/target/MANIFEST.MF" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/auth/META-INF/MANIFEST.MF" />
         </element>
         <element id="javaee-facet-resources" facet="bbmri/web/Web" />
       </root>
@@ -105,9 +105,9 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+      <profile default="false" name="Annotation profile for bbmri" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="bbmri" />
@@ -118,7 +118,7 @@
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
-  <component name="DataSourceManagerImpl" format="xml" hash="2415669413">
+  <component name="DataSourceManagerImpl" format="xml" hash="3447060120">
     <data-source source="LOCAL" name="MyPersistenceUnit" uuid="8413bea8-bc1a-4802-890d-93af081997e0">
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
@@ -335,9 +335,7 @@
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="dataSourceStorageLocal">
-    <data-source name="MyPersistenceUnit" uuid="8413bea8-bc1a-4802-890d-93af081997e0">
-      <secret-storage>memory</secret-storage>
-    </data-source>
+    <data-source name="MyPersistenceUnit" uuid="8413bea8-bc1a-4802-890d-93af081997e0" />
   </component>
   <component name="libraryTable">
     <library name="Maven: antlr:antlr:2.7.7">

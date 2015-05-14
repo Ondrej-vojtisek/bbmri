@@ -16,7 +16,7 @@ import java.util.Date;
 
 abstract class Basic /* extends BasicServiceImpl */ {
 
-    @Value("${StoragePath}")
+    @Value("${path.storage}")
     protected String storagePath;
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());

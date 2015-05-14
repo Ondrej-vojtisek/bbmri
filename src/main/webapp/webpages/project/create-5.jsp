@@ -40,6 +40,15 @@
                 </div>
 
                 <div class="control-group">
+                    <stripes:label for="cz.bbmri.entity.Project.approvalDate" class="control-label">
+                        <format:message key="cz.bbmri.entity.Project.approvalDate"/>
+                    </stripes:label>
+                    <div class="controls">
+                        <stripes:text name="project.approvalDate" readonly="true"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <stripes:label for="cz.bbmri.entity.Project.approvalStorage" class="control-label">
                         <format:message key="cz.bbmri.entity.Project.approvalStorage"/>
                     </stripes:label>

@@ -2,8 +2,13 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.map.View;
+import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.dao.NotificationDAO;
+import cz.bbmri.dao.SampleDAO;
+import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.Notification;
+import cz.bbmri.entity.Sample;
+import cz.bbmri.entity.temp.Car;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -26,6 +31,13 @@ public class DashboardActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private NotificationDAO notificationDAO;
+
+//    @SpringBean
+//    private BiobankDAO biobankDAO;
+//
+//    @SpringBean
+//    private SampleDAO sampleDAO;
+
 
     private Notification notification;
 
@@ -113,5 +125,44 @@ public class DashboardActionBean extends AuthorizationActionBean {
         return new RedirectResolution(this.getClass());
     }
 
+//    private Car car = new Car();
+//    public String make;
+//    private List<String> models;
+//
+//    private List<Sample> samples;
+//
+//    public Integer biobankId;
+//
+//    public Resolution view() {
+//        return new ForwardResolution(View.Notification.DASHBOARD);
+//    }
+//
+//    public Car getCar() {
+//        return car;
+//    }
+//
+//    public List<String> getModels() {
+//        return models;
+//    }
+//
+//    public List<Sample> getSamples() {
+//        return samples;
+//    }
+//
+//    public Resolution updateModels() {
+//        models = car.get(make);
+//
+//        Biobank biobank = biobankDAO.get(biobankId);
+//
+//        if (biobankId != null) {
+//            samples = sampleDAO.getAllByBiobank(biobank);
+//        }
+//
+//        return new ForwardResolution(View.Ajax.PARTIAL);
+//    }
+//
+//    public List<Biobank> getBiobanks() {
+//        return biobankDAO.all();
+//    }
 
 }

@@ -13,9 +13,9 @@ License Type: Academic
 		</id>
 		<one-to-one name="sample" class="cz.bbmri.entity.Sample" cascade="all" constrained="true"/>
 		<property name="methology" column="methology" type="text" not-null="false" lazy="false"/>
-		<property name="temperature" column="temperature" type="float" not-null="false" lazy="false"/>
+		<property name="temperatureCelsius" column="temperature_celsius" type="float" not-null="false" lazy="false"/>
 		<property name="sts" column="sts" type="boolean" not-null="false" lazy="false"/>
 		<property name="expiration" column="expiration" type="timestamp" not-null="false" lazy="false"/>
-		<property name="reagent" column="reagent" type="text" not-null="false" lazy="false"/>
+		<property name="medium" column="medium" type="text" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>

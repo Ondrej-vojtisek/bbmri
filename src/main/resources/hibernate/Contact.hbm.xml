@@ -6,13 +6,16 @@ License Type: Academic
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class name="cz.bbmri.entity.Contact" table="contact" lazy="true">
+		<meta attribute="class-description">
+			There are predefined values for listed biobank. Due to sequence generation of ID, the id of those values are set at the end of Long interval (the sequence will start from 1).
+		</meta>
 		<id name="id" column="id" type="long" unsaved-value="0">
 			<generator class="sequence">
 				<param name="sequence">contact_seq</param>
 			</generator>
 		</id>
 		<property name="phone" column="phone" type="text" not-null="false" lazy="false"/>
-		<property name="email" column="email" unique="true" type="text" not-null="false" lazy="false"/>
+		<property name="email" column="email" type="text" not-null="false" lazy="false"/>
 		<property name="address" column="address" type="text" not-null="false" lazy="false"/>
 		<property name="zip" column="zip" type="text" not-null="false" lazy="false"/>
 		<property name="city" column="city" type="text" not-null="false" lazy="false"/>
@@ -23,5 +26,9 @@ License Type: Academic
 		</many-to-one>
 		<many-to-one name="user" column="user_id" class="cz.bbmri.entity.User" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy">
 		</many-to-one>
+		<property name="firstName" column="first_name" type="text" not-null="false" lazy="false"/>
+		<property name="lastName" column="last_name" type="text" not-null="false" lazy="false"/>
+		<property name="latitude" column="latitude" type="float" not-null="false" lazy="false"/>
+		<property name="longitude" column="longitude" type="float" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>

@@ -20,6 +20,12 @@ License Type: Academic
 		<property name="approvalStorage" column="approval_storage" type="text" not-null="false" lazy="false"/>
 		<many-to-one name="projectState" cascade="lock" column="project_state_id" class="cz.bbmri.entity.ProjectState" not-null="true" lazy="proxy">
 		</many-to-one>
+		<property name="clinicalTrial" column="clinical_trial" type="boolean" not-null="true" lazy="false"/>
+		<property name="eudraCtNumber" column="eudra_ct_number" type="text" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				EudraCT number. Number must be specified only if project is clinical trial.
+			</meta>
+		</property>
 		<set name="question" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="project_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Question"/>

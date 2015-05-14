@@ -16,6 +16,9 @@ License Type: Academic
 		<property name="name" column="name" type="text" not-null="true" lazy="false"/>
 		<property name="description" column="description" type="text" not-null="false" lazy="false"/>
 		<property name="nameEnglish" column="name_english" type="text" not-null="false" lazy="false"/>
+		<property name="acronymEn" column="acronym_en" type="text" not-null="false" lazy="false"/>
+		<property name="juridicalPerson" column="juridical_person" type="text" not-null="true" lazy="false"/>
+		<property name="juridicalPersonEn" column="juridical_person_en" type="text" not-null="false" lazy="false"/>
 		<one-to-one name="contact" class="cz.bbmri.entity.Contact" cascade="save-update,lock" property-ref="biobank" lazy="proxy"/>
 		<set name="patient" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="biobank_id" not-null="true"/>

@@ -24,6 +24,27 @@
                 </div>
 
                 <div class="control-group">
+                    <stripes:label for="cz.bbmri.entity.Project.clinicalTrial" class="control-label">
+                        <format:message key="cz.bbmri.entity.Project.clinicalTrial"/>
+                    </stripes:label>
+
+                    <div class="controls">
+                        <stripes:checkbox name="project.clinicalTrial"/>
+                    </div>
+                </div>
+
+
+                <div class="control-group">
+                    <stripes:label for="cz.bbmri.entity.Project.eudraCtNumber" class="control-label">
+                        <format:message key="cz.bbmri.entity.Project.eudraCtNumber"/>
+                    </stripes:label>
+
+                    <div class="controls">
+                        <stripes:text name="project.eudraCtNumber"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
                     <stripes:label for="cz.bbmri.entity.Project.principalInvestigator" class="control-label">
                         <format:message key="cz.bbmri.entity.Project.principalInvestigator"/>
                     </stripes:label>

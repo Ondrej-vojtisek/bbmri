@@ -5,7 +5,9 @@ import cz.bbmri.dao.SampleDAO;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.enumeration.Status;
 import cz.bbmri.io.InstanceImportResult;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -295,6 +297,52 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
         }
 
         return samples;
+    }
+
+    public long countSamplesOfBiobank(Biobank biobank) {
+        Criteria criteria = getCurrentSession().createCriteria(Sample.class)
+                .createAlias("patient", "patient")
+                .add(Restrictions.eq("patient.biobank", biobank));
+
+        criteria.setProjection(Projections.rowCount());
+
+
+        if(criteria.uniqueResult() == null){
+            return 0;
+        }
+
+        return (Long) criteria.uniqueResult();
+    }
+
+    public long countAvailableAliquotesOfBiobank(Biobank biobank) {
+        Criteria criteria = getCurrentSession().createCriteria(Sample.class)
+                .createAlias("patient", "patient")
+                .createAlias("quantity", "quantity")
+                .add(Restrictions.eq("patient.biobank", biobank));
+
+        criteria.setProjection(Projections.sum("quantity.available"));
+
+
+        if (criteria.uniqueResult() == null) {
+            return 0;
+        }
+
+        return (Long) criteria.uniqueResult();
+    }
+
+    public long countTotalAliquotesOfBiobank(Biobank biobank) {
+        Criteria criteria = getCurrentSession().createCriteria(Sample.class)
+                .createAlias("patient", "patient")
+                .createAlias("quantity", "quantity")
+                .add(Restrictions.eq("patient.biobank", biobank));
+
+        criteria.setProjection(Projections.sum("quantity.total"));
+
+        if (criteria.uniqueResult() == null) {
+            return 0;
+        }
+
+        return (Long) criteria.uniqueResult();
     }
 
 }

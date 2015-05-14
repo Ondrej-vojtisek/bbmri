@@ -2,6 +2,7 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <stripes:useActionBean var="projectActionBean" beanclass="cz.bbmri.action.ProjectActionBean"/>
+<core:set var="project" value="${actionBean.project}"/>
 
 <stripes:layout-render name="${component.layout.content}">
 
@@ -10,6 +11,56 @@
         <stripes:layout-render name="${component.menu.project}" active="detail"/>
 
         <stripes:layout-render name="/webpages/project/component/hasMta.jsp"/>
+
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th width="30%"><format:message key="id"/></th>
+                <td width="70%">${project.id}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.created"/></th>
+                <td><format:formatDate value="${project.created}" type="both"/></td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.name"/></th>
+                <th>${project.name}</th>
+            </tr>
+
+            <core:if test="${project.clinicalTrial}">
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.clinicalTrial"/></th>
+                    <td>${project.clinicalTrial}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.fundingOrganization"/></th>
+                    <td>${project.fundingOrganization}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.principalInvestigator"/></th>
+                    <td>${project.principalInvestigator}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.approvalStorage"/></th>
+                    <td>${project.approvalStorage}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.approvalDate"/></th>
+                    <td><format:formatDate value="${project.approvalDate}" type="both"/></td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.projectState"/></th>
+                    <td><format:message key="cz.bbmri.entity.ProjectState.${project.projectState}"/></td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.Project.annotation"/></th>
+                    <td>${project.annotation}</td>
+                </tr>
+
+            </core:if>
+
+            </tbody>
+        </table>
+
 
         <stripes:form beanclass="cz.bbmri.action.ProjectActionBean" class="form-horizontal">
             <div class="form-actions">

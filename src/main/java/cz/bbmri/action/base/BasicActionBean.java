@@ -99,6 +99,8 @@ public abstract class BasicActionBean implements ActionBean {
             user = new User();
             user.setCreated(new Date());
             user.getRole().add(Role.AUTHORIZED);
+            // necessary to assign id
+            shibboleth.setUser(user);
             user.setShibboleth(shibboleth);
 
             userDAO.save(user);
@@ -118,10 +120,8 @@ public abstract class BasicActionBean implements ActionBean {
 
         } else {
             user = shibbolethDB.getUser();
-            shibbolethDAO.save(shibboleth);
+            shibbolethDAO.save(shibbolethDB);
         }
-
-        user.setLastLogin(new Date());
 
         getContext().setMyId(user.getId());
 

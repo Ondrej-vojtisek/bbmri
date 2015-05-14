@@ -1,14 +1,14 @@
-default namespace = "http://www.bbmri.cz/schemas/biobank/data_v2.0"
+default namespace = "http://www.bbmri.cz/schemas/biobank/data_v2"
 
 ## RelaxNG schema describing import of one patient and all his stored samples for purpose of index BBMRI_CZ
 ## Only patient with signed informed consent might be imported.  (consent must be true).
 ## Consent set to false may be used to disable former positive consent.
 
 ## Abbreviations used in comments:
-##      - Hospital Information System - HIS
-##      - ICD - International Classification of Diseases
+##      - HIS   - Hospital Information System -
+##      - ICD   - International Classification of Diseases
 ##      - ICD-O - International Classification of Diseases for Oncology
-##      - STS - Short Term Storage
+##      - STS   - Short Term Storage
 
 start =
 	element patient {
@@ -31,7 +31,7 @@ start =
 sample =
     element sample {
         ## id of sample - it enables to find record in source HIS
-        attribute id { xsd:string { maxLength = "10" } },
+        attribute id { xsd:string { maxLength = "20" } },
         ## year in which sample was taken - at MOU part of bioptical report which enables easier look-up for samples in HIS
         attribute year { xsd:gYear } ?,
         ## sequential order of sample during year - at MOU part of bioptical report which enables easier look-up for samples in HIS
@@ -67,16 +67,14 @@ storageMethodology =
     ## description of storage method
     element storageMethodology {
         ## average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)
-        element temperature { xsd:float } ?,
+        element temperatureCelsius { xsd:float } ?,
         ## are you following any standard
         element methodology { xsd:string } ?,
-        ## SMAZAT methodologie ?
-
         ## sample is stored only temporary - STS
         element sts {xsd:boolean} ?,
         ## if sts than approximate duration of storage can be defined. Expiration represents approximate date when sample will
         ## be removed from repository
         element expiration { xsd:date } ?,
-        ## which liquid was used to preserve sample
-        element reagent { xsd:string } ?
+        ## which liquid/medium was used to preserve sample - RNA later, parafine, ...
+        element medium { xsd:string } ?
     }

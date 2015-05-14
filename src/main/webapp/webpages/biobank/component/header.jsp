@@ -10,6 +10,7 @@
         <th><format:message key="cz.bbmri.entity.Biobank.name"/></th>
         <th><format:message key="cz.bbmri.entity.Biobank.institutionalId"/></th>
         <th><format:message key="cz.bbmri.entity.Biobank.description"/></th>
+        <th><format:message key="cz.bbmri.entity.Biobank.patientCount"/></th>
     </tr>
     </thead>
 

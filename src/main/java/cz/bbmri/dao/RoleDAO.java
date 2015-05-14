@@ -8,5 +8,5 @@ import cz.bbmri.entity.Role;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface RoleDAO extends AbstractDAO<Role, Short> {
+public interface RoleDAO extends AbstractDAO<Role, Integer> {
 }

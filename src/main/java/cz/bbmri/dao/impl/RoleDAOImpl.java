@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoleDAOImpl extends GenericDAOImpl<Role> implements RoleDAO {
 
-    public Role get(Short id) {
+    public Role get(Integer id) {
                       return (Role) getCurrentSession().get(Role.class, id);
                   }
 

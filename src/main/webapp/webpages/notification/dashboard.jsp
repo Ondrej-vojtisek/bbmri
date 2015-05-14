@@ -8,6 +8,26 @@
 
     <stripes:layout-component name="body">
 
+
+        <%--PROTOTYPE.js--%>
+        <%--<p>Select a car make and model:</p>--%>
+
+        <%--<p>--%>
+        <%--&lt;%&ndash; START:form &ndash;%&gt;--%>
+        <%--<stripes:form beanclass="cz.bbmri.action.DashboardActionBean">--%>
+        <%--Make:--%>
+        <%--<stripes:select name="biobankId" onchange="updateModels(this);">--%>
+        <%--<stripes:option value="" label="..."/>--%>
+        <%--<stripes:options-collection collection="${actionBean.biobanks}" label="acronym" value="id"--%>
+        <%--/>--%>
+        <%--</stripes:select>--%>
+        <%--Model:--%>
+        <%--<span id="modelChoices"><stripes:select name="samples"/></span>--%>
+        <%--</stripes:form>--%>
+        <%--&lt;%&ndash; END:form &ndash;%&gt;--%>
+        <%--</p>--%>
+
+
         <stripes:form beanclass="cz.bbmri.action.DashboardActionBean">
 
             <core:if test="${empty actionBean.pagination.myPageList}">
@@ -29,13 +49,14 @@
 
             </core:if>
 
-            <div class="form-actions">
-                <stripes:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
-                <stripes:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
-            </div>
+            <core:if test="${not empty actionBean.pagination.myPageList}">
+                <div class="form-actions">
+                    <stripes:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
+                    <stripes:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
+                </div>
+            </core:if>
 
         </stripes:form>
-
 
 
     </stripes:layout-component>

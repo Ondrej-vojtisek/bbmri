@@ -89,7 +89,6 @@ public class BiobankActionBean extends AuthorizationActionBean {
                 active, "id", biobank.getId());
     }
 
-
     public static Breadcrumb getWithdrawsBreadcrumb(boolean active, Biobank biobank) {
         return new Breadcrumb(BiobankActionBean.class.getName(), "withdraws", false, "cz.bbmri.entity.Withdraw.withdraws",
                 active, "id", biobank.getId());
@@ -194,6 +193,7 @@ public class BiobankActionBean extends AuthorizationActionBean {
         this.samplePagination = samplePagination;
     }
 
+
     /**
      * @return all samples of a biobank
      */
@@ -204,6 +204,33 @@ public class BiobankActionBean extends AuthorizationActionBean {
         }
 
         return sampleDAO.getAllByBiobank(biobank);
+    }
+
+    public long getSampleCount() {
+        getBiobank();
+        if (biobank == null) {
+            return 0;
+        }
+
+        return sampleDAO.countSamplesOfBiobank(biobank);
+    }
+
+    public long getAliquotesTotalCount() {
+        getBiobank();
+        if (biobank == null) {
+            return 0;
+        }
+
+        return sampleDAO.countTotalAliquotesOfBiobank(biobank);
+    }
+
+    public long getAliquotesAvailableCount() {
+        getBiobank();
+        if (biobank == null) {
+            return 0;
+        }
+
+        return sampleDAO.countAvailableAliquotesOfBiobank(biobank);
     }
 
     @DefaultHandler
@@ -303,7 +330,10 @@ public class BiobankActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(BiobankActionBean.getSamplesBreadcrumb(true, getBiobank()));
 
         samplePagination.initiate(getPage(), getOrderParam(), isDesc());
-        samplePagination.setSource(new ArrayList<Sample>(getSamples()));
+        List<Sample> samples = getSamples();
+        if (samples != null) {
+            samplePagination.setSource(getSamples());
+        }
         samplePagination.setEvent("samples");
         samplePagination.setIdentifier(biobank.getId());
         samplePagination.setIdentifierParam("id");

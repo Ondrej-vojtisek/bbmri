@@ -21,6 +21,17 @@ public enum View {
     private static final String LOCATION = "/webpages/";
 
     /**
+     * Ajax
+     */
+    public static class Ajax {
+        private static final String DIRECTORY = LOCATION + "ajax/";
+
+        public static final String PARTIAL = DIRECTORY + "partial.jsp";
+
+    }
+
+
+    /**
      * Archive
      */
     public static class Archive {

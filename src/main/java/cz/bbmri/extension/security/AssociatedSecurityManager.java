@@ -6,11 +6,13 @@ import cz.bbmri.entity.Role;
 import cz.bbmri.entity.Shibboleth;
 import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.ActionBean;
+import net.sourceforge.stripes.action.ErrorResolution;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Set;
 
@@ -128,8 +130,9 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
         // Display the error message
 
-        //return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
-        return new ForwardResolution("/errors/not_authorized_to_access.jsp");
+        return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
+
+        //return new ForwardResolution("/errors/not_authorized_to_access.jsp");
     }
 }
 

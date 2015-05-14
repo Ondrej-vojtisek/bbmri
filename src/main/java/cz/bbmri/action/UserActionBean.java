@@ -187,9 +187,11 @@ public class UserActionBean extends ComponentActionBean {
 
         if (getUser().getContact() == null) {
             Contact contact = new Contact();
+            contact = contactDAO.save(contact);
             contact.setUser(user);
             contactDAO.save(contact);
-            return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());
+            return new ForwardResolution(View.User.DETAIL);
+          //  return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());
         }
 
         return new ForwardResolution(View.User.DETAIL);

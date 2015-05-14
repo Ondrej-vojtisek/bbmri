@@ -27,7 +27,7 @@
             <stripes:link beanclass="cz.bbmri.action.UserActionBean"
                     event="changePasswordResolution">
                 <stripes:param name="id" value="${actionBean.id}"/>
-                <format:message key="cz.bbmri.entities.User.password"/>
+                <format:message key="cz.bbmri.entity.User.password"/>
             </stripes:link>
         </li>
     </security:allowed>
@@ -40,7 +40,7 @@
             <stripes:link beanclass="cz.bbmri.action.UserActionBean"
                     event="shibbolethResolution">
                 <stripes:param name="id" value="${userBean.id}"/>
-                <format:message key="cz.bbmri.entities.User.shibboleth"/>
+                <format:message key="cz.bbmri.entity.Shibboleth.shibboleth"/>
             </stripes:link>
         </li>
     </security:allowed>

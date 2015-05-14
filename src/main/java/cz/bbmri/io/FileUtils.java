@@ -201,7 +201,9 @@ public class FileUtils {
         File dir = new File(path);
         List<File> files = new ArrayList<File>();
         if (!dir.exists()) {
-            System.err.println("dir doesnt exist");
+
+
+            System.err.println(path + " Dir doesn't exist");
             // not success
             return files;
         }

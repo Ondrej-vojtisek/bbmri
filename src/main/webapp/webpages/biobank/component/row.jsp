@@ -7,6 +7,7 @@
     <td>${item.name}</td>
     <td>${item.institutionalId}</td>
     <td>${item.description}</td>
+    <td>${item.patientCount}</td>
 
 </stripes:layout-definition>
 

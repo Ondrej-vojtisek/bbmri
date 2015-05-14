@@ -45,12 +45,12 @@
 
                 <%-- -------------------------------------------------------------------- --%>
 
-            <li <core:if test="${actionBean.context.locale eq 'cs'}"> class="active" </core:if>>
-                <stripes:link href="${actionBean.lastUrl}">
-                    <stripes:param name="locale" value="cs"/>
-                    <format:message key="navbar.czech"/>
-                </stripes:link>
-            </li>
+            <%--<li <core:if test="${actionBean.context.locale eq 'cs'}"> class="active" </core:if>>--%>
+                <%--<stripes:link href="${actionBean.lastUrl}">--%>
+                    <%--<stripes:param name="locale" value="cs"/>--%>
+                    <%--<format:message key="navbar.czech"/>--%>
+                <%--</stripes:link>--%>
+            <%--</li>--%>
 
             <%-- -------------------------------------------------------------------- --%>
 
@@ -60,7 +60,7 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <p class="navbar-text pull-right">
-        <b><format:message key="version"/>:</b> <i>1.6</i>
+        <b><format:message key="version"/>:</b> <i>2.0</i>
     </p>
 
     <%-- -------------------------------------------------------------------- --%>

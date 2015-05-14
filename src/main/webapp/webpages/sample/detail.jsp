@@ -49,13 +49,7 @@
 
             <tr>
                 <th><format:message key="cz.bbmri.entity.Diagnosis.diagnosis"/></th>
-                <td>
-                    <core:if test="${not empty sample.diagnosis}">
-                        <core:forEach var="item" items="${sample.diagnosis}">
-                            ${item.key},
-                        </core:forEach>
-                    </core:if>
-                </td>
+                <td>${sample.diagnosisPrint}</td>
             </tr>
 
             <tr>
@@ -92,8 +86,8 @@
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethodology.temperature"/></th>
-                    <td>${sample.storageMethodology.temperature}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.temperatureCelsius"/></th>
+                    <td>${sample.storageMethodology.temperatureCelsius}</td>
                 </tr>
 
                 <tr>
@@ -107,8 +101,8 @@
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethodology.reagent"/></th>
-                    <td>${sample.storageMethodology.reagent}</td>
+                    <th><format:message key="cz.bbmri.entity.StorageMethodology.medium"/></th>
+                    <td>${sample.storageMethodology.medium}</td>
                 </tr>
             </core:if>
 

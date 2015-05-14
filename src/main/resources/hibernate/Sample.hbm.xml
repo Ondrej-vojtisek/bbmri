@@ -16,17 +16,17 @@ License Type: Academic
 		<property name="freezeDateTime" column="freeze_date_time" type="timestamp" not-null="false" lazy="false"/>
 		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="false">
 		</many-to-one>
-		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="proxy">
+		<many-to-one name="retrieved" cascade="lock" column="retrieved_id" class="cz.bbmri.entity.Retrieved" not-null="false" lazy="false">
 		</many-to-one>
-		<many-to-one name="materialType" cascade="lock" column="material_type_id" class="cz.bbmri.entity.MaterialType" not-null="false" lazy="proxy">
+		<many-to-one name="materialType" cascade="lock" column="material_type_id" class="cz.bbmri.entity.MaterialType" not-null="false" lazy="false">
 		</many-to-one>
 		<many-to-one name="collection" cascade="lock" column="collection_id" class="cz.bbmri.entity.Collection" not-null="false" lazy="proxy">
 		</many-to-one>
-		<one-to-one name="quantity" class="cz.bbmri.entity.Quantity" cascade="save-update,lock" lazy="proxy"/>
-		<one-to-one name="tnm" class="cz.bbmri.entity.Tnm" cascade="save-update,lock" lazy="proxy"/>
-		<one-to-one name="ptnm" class="cz.bbmri.entity.Ptnm" cascade="save-update,lock" lazy="proxy"/>
-		<one-to-one name="morphology" class="cz.bbmri.entity.Morphology" cascade="save-update,lock" lazy="proxy"/>
-		<one-to-one name="biopticalReport" class="cz.bbmri.entity.BiopticalReport" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="quantity" class="cz.bbmri.entity.Quantity" cascade="save-update,lock" lazy="false"/>
+		<one-to-one name="tnm" class="cz.bbmri.entity.Tnm" cascade="save-update,lock" lazy="false"/>
+		<one-to-one name="ptnm" class="cz.bbmri.entity.Ptnm" cascade="save-update,lock" lazy="false"/>
+		<one-to-one name="morphology" class="cz.bbmri.entity.Morphology" cascade="save-update,lock" lazy="false"/>
+		<one-to-one name="biopticalReport" class="cz.bbmri.entity.BiopticalReport" cascade="save-update,lock" lazy="false"/>
 		<set name="position" lazy="extra" cascade="save-update,lock" inverse="true">
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Position"/>
@@ -35,10 +35,10 @@ License Type: Academic
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Request"/>
 		</set>
-		<set name="diagnosis" lazy="extra" cascade="save-update,lock" inverse="true">
+		<set name="diagnosis" lazy="false" cascade="save-update,lock" inverse="true">
 			<key column="sample_id" not-null="true"/>
 			<one-to-many class="cz.bbmri.entity.Diagnosis"/>
 		</set>
-		<one-to-one name="storageMethodology" class="cz.bbmri.entity.StorageMethodology" cascade="save-update,lock" lazy="proxy"/>
+		<one-to-one name="storageMethodology" class="cz.bbmri.entity.StorageMethodology" cascade="save-update,lock" lazy="false"/>
 	</class>
 </hibernate-mapping>

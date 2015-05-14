@@ -1,10 +1,13 @@
 /**
  * "Visual Paradigm: DO NOT MODIFY THIS FILE!"
- * 
- * This is an automatic generated file. It will be regenerated every time 
+ * <p/>
+ * This is an automatic generated file. It will be regenerated every time
  * you generate persistence class.
- * 
+ * <p/>
  * Modifying its content may cause the program not work, or your work may lost.
+ * <p/>
+ * Licensee: Masaryk University
+ * License Type: Academic
  */
 
 /**
@@ -14,18 +17,23 @@
 package cz.bbmri.entity;
 
 import java.io.Serializable;
+
 public class Contact implements Serializable {
 
-    public static final String PROP_BIOBANK = "biobank";
-   	public static final String PROP_PHONE = "phone";
-   	public static final String PROP_EMAIL = "email";
-   	public static final String PROP_ADDRESS = "address";
-   	public static final String PROP_ZIP = "zip";
-   	public static final String PROP_CITY = "city";
-   	public static final String PROP_COUNTRY = "country";
-   	public static final String PROP_USER = "user";
-   	public static final String PROP_ID = "id";
+    public static final String PROP_ID = "id";
+    public static final String PROP_PHONE = "phone";
+    public static final String PROP_EMAIL = "email";
+    public static final String PROP_ADDRESS = "address";
+    public static final String PROP_ZIP = "zip";
+    public static final String PROP_CITY = "city";
     public static final String PROP_URL = "url";
+    public static final String PROP_BIOBANK = "biobank";
+    public static final String PROP_COUNTRY = "country";
+    public static final String PROP_USER = "user";
+    public static final String PROP_FIRST_NAME = "firstName";
+    public static final String PROP_LAST_NAME = "lastName";
+    public static final String PROP_LATITUDE = "latitude";
+    public static final String PROP_LONGITUDE = "longitude";
 
     private long id;
     private Biobank biobank;
@@ -37,6 +45,10 @@ public class Contact implements Serializable {
     private Country country;
     private User user;
     private String url;
+    private String firstName;
+    private String lastName;
+    private Float latitude;
+    private Float longitude;
 
     public Biobank getBiobank() {
         return biobank;
@@ -116,5 +128,72 @@ public class Contact implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Contact contact = (Contact) o;
+
+        return id == contact.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", biobank=" + biobank +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", zip='" + zip + '\'' +
+                ", city='" + city + '\'' +
+                ", country=" + country +
+                ", url='" + url + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                '}';
     }
 }

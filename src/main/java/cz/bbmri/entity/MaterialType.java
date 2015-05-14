@@ -88,6 +88,8 @@ public class MaterialType implements Serializable {
         this.biobankMaterialType = biobankMaterialType;
     }
 
+
+
     @Override
     public String toString() {
         return name;

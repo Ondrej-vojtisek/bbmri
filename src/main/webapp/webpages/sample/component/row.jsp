@@ -5,13 +5,16 @@
 
     <td>${item.institutionalId}</td>
     <td><format:formatDate value="${item.takingDateTime}" type="both"/></td>
-    <td>${item.materialType}</td>
+    <td><core:if test="${not empty item.materialType}">
+        ${item.materialType.name}
+        </core:if>
+    </td>
     <td>
         <core:if test="${not empty item.quantity}">
             ${item.quantity}
         </core:if>
     </td>
-    <td>${item.diagnosis}</td>
+    <td>${item.diagnosisPrint}</td>
     <td>
         <core:if test="${not empty item.biopticalReport}">
             ${item.biopticalReport}

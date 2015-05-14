@@ -82,6 +82,9 @@ public class LoginActionBean extends BasicActionBean {
                     return new RedirectResolution(DashboardActionBean.class).addParameter("locale", user.getSettings().getLocale());
                 }
             }
+
+            user.setLastLogin(new Date());
+            userDAO.save(user);
         }
         return new RedirectResolution(DashboardActionBean.class);
     }
@@ -121,10 +124,6 @@ public class LoginActionBean extends BasicActionBean {
             settingsDAO.save(setting);
         }
 
-        Date date = new Date();
-
-        userDB.setLastLogin(new Timestamp(date.getTime()));
-        userDAO.save(userDB);
         user = userDB;
     }
 

@@ -1,4 +1,4 @@
-<data:patient id="string" consent="false" year="2007" month="--02" sex="female" biobank="string" xmlns:data="http://www.bbmri.cz/schemas/biobank/data_v2.0">
+<data:patient id="string" consent="false" year="2007" month="--02" sex="female" biobank="string" xmlns:data="http://www.bbmri.cz/schemas/biobank/data_v2">
   <data:sample id="string" year="2008" number="3">
     <!--Optional:-->
     <data:materialType>stri</data:materialType>

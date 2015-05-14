@@ -118,7 +118,9 @@ public class Patient implements Serializable {
         int yearNow = cal.get(Calendar.YEAR);
 
         int age = yearNow - birthYear;
-        if (monthNow < birthMonth) age = age - 1;
+        if(birthMonth != null){
+            if (monthNow < birthMonth) age = age - 1;
+        }
 
         return age;
     }
