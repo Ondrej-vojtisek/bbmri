@@ -31,18 +31,18 @@ start =
 sample =
     element sample {
         ## id of sample - it enables to find record in source HIS
-        attribute id { xsd:string { maxLength = "20" } },
+        attribute id { xsd:string { maxLength = "32" } },
         ## year in which sample was taken - at MOU part of bioptical report which enables easier look-up for samples in HIS
-        attribute year { xsd:gYear } ?,
+        attribute year { xsd:gYear },
         ## sequential order of sample during year - at MOU part of bioptical report which enables easier look-up for samples in HIS
         attribute number { xsd:int } ?,
         ## unique code of material. It should not code anything related to storage methodology (e.g. RNA Later).
         ## it will be harmonized between institutions, now fill the code which is used at your HIS
-        element materialType { xsd:string { maxLength = "4" } } ?,
+        element materialType { xsd:string { maxLength = "4" } },
         ## number of aliquotes
-        element totalAliquots { xsd:int } ?,
+        element totalAliquots { xsd:int },
         ## number of aliquotes available for research purpose
-        element availableAliquots { xsd:int } ?,
+        element availableAliquots { xsd:int },
         ## TNM classification
         element TNM { xsd:string }?,
         ## pTNM classification
@@ -52,11 +52,11 @@ sample =
         ## grading can be part of icdo. Than it is not necessary to duplicate information and define grading separately.
         element grading { xsd:int { minInclusive = "1" maxInclusive = "9" } } ?,
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
-        element takingDateTime {  xsd:dateTime | xsd:date } ?,
+        element takingDateTime {  xsd:dateTime | xsd:date },
         ## YYYY-MM-DDThh:mm:ss or YYYY-MM-DD
         element freezeDateTime { xsd:dateTime | xsd:date } ?,
         ## when sample was taken
-        element retrieved { "preoperational" | "operational" | "post" | "unknown" } ?,
+        element retrieved { "preoperational" | "operational" | "post" | "unknown" },
         ## diagnosis coded using ICD, multiple diagnosis can be defined
         ( element diagnosis { xsd:string {maxLength = "7" } } )*,
         ## how is sample stored

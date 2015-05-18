@@ -21,7 +21,7 @@
     </li>
 
     <%-- -------------------------------------------------------------------- --%>
-
+    <security:allowed bean="projectActionBean" event="myProjects">
     <li class="dropdown <core:if test="${primarymenu == 'project'}"> active </core:if>">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <format:message key="cz.bbmri.entity.Project.projects"/>
@@ -50,13 +50,11 @@
 
                 <%-- -------------------------------------------------------------------- --%>
 
-            <security:allowed bean="projectActionBean" event="myProjects">
                 <li <core:if test="${secondarymenu == 'project_my_projects'}"> class="active" </core:if>>
                     <stripes:link beanclass="${projectActionBean.name}" event="myProjects">
                         <format:message key="cz.bbmri.entity.Project.myProjects"/>
                     </stripes:link>
                 </li>
-            </security:allowed>
 
                 <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
@@ -82,6 +80,7 @@
                 <%--<li class="nav-header">Nav header</li>--%>
         </ul>
     </li>
+    </security:allowed>
 
 
     <%-- -------------------------------------------------------------------- --%>

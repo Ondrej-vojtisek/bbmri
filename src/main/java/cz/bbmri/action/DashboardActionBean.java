@@ -17,6 +17,7 @@ import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +26,8 @@ import java.util.List;
  * @version 1.0
  */
 
-@PermitAll
 @UrlBinding("/dashboard")
+@RolesAllowed("authorized")
 public class DashboardActionBean extends AuthorizationActionBean {
 
     @SpringBean

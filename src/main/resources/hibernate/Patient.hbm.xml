@@ -11,7 +11,7 @@ License Type: Academic
 				<param name="sequence">patient_seq</param>
 			</generator>
 		</id>
-		<property name="institutionalId" column="institutional_id" type="text" not-null="true" lazy="false"/>
+		<property name="institutionalId" column="institutional_id" unique="true" type="text" not-null="true" lazy="false"/>
 		<property name="birthYear" column="birth_year" type="short" not-null="true" lazy="false"/>
 		<property name="birthMonth" column="birth_month" type="short" not-null="false" lazy="false"/>
 		<property name="consent" column="consent" type="boolean" not-null="true" lazy="false"/>

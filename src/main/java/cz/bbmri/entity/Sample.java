@@ -272,6 +272,7 @@ public class Sample implements Serializable {
         return "Sample{" +
                 "id=" + id +
                 ", institutionalId='" + institutionalId +
+                ", quantity='" + quantity +
                 '}';
     }
 }

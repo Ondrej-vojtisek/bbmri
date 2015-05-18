@@ -23,10 +23,6 @@ public enum Layout {
         return LOCATION + "layout-empty.jsp";
     }
 
-//    public String getLogin() {
-//        return LOCATION + "layout_login.jsp";
-//    }
-
     public String getErrorOutside() {
         return LOCATION + "layout-error-outside.jsp";
     }

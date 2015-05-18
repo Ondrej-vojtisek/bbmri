@@ -23,7 +23,7 @@ public class Contact implements Serializable {
     public static final String PROP_ID = "id";
     public static final String PROP_PHONE = "phone";
     public static final String PROP_EMAIL = "email";
-    public static final String PROP_ADDRESS = "address";
+    public static final String PROP_STREET = "street";
     public static final String PROP_ZIP = "zip";
     public static final String PROP_CITY = "city";
     public static final String PROP_URL = "url";
@@ -39,7 +39,7 @@ public class Contact implements Serializable {
     private Biobank biobank;
     private String phone;
     private String email;
-    private String address;
+    private String street;
     private String zip;
     private String city;
     private Country country;
@@ -72,14 +72,6 @@ public class Contact implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getZip() {
@@ -162,6 +154,14 @@ public class Contact implements Serializable {
         this.longitude = longitude;
     }
 
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -185,7 +185,7 @@ public class Contact implements Serializable {
                 ", biobank=" + biobank +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
+                ", street='" + street + '\'' +
                 ", zip='" + zip + '\'' +
                 ", city='" + city + '\'' +
                 ", country=" + country +

@@ -425,7 +425,7 @@ public class PatientDataParser extends AbstractPatientParser {
 
         try {
 
-            //            Attributes
+            // Attributes
 
             year = executeXPath("@year", node);
 
@@ -484,7 +484,6 @@ public class PatientDataParser extends AbstractPatientParser {
             sample.setRetrieved(retrievedInstance);
         }
 
-
         //   Taking date or cut time
         if (takingDate != null) {
 
@@ -493,7 +492,6 @@ public class PatientDataParser extends AbstractPatientParser {
             if (date != null) {
                 sample.setTakingDateTime(date);
             }
-
         }
 
         if (materialTypeImp != null) {

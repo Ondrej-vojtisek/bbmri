@@ -27,19 +27,19 @@
     <!-- ERROR pages -->
     <error-page>
         <error-code>401</error-code>
-        <location>/errors/401.jsp</location>
+        <location>/webpages/errors/401.jsp</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/errors/403.jsp</location>
+        <location>/webpages/errors/403.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/errors/404.jsp</location>
+        <location>/webpages/errors/404.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/errors/500.jsp</location>
+        <location>/webpages/errors/500.jsp</location>
     </error-page>
 
     <!-- Logging servlet -->
@@ -73,6 +73,17 @@
         <filter-name>SetCharacterEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!--&lt;!&ndash; failures &ndash;&gt;-->
+    <!--<filter>-->
+        <!--<description>request filter</description>-->
+        <!--<filter-name>failedRequestFilter</filter-name>-->
+        <!--<filter-class>org.apache.catalina.filters.FailedRequestFilter</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>failedRequestFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <!-- stripes -->
     <filter>
@@ -139,37 +150,37 @@
         <filter-name>stripesFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
         <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
 
 
-
     <!-- views -->
-       <filter>
-           <description>view filter for database session</description>
-           <filter-name>hibernateSessionInViewFilter</filter-name>
-           <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
-           <init-param>
-               <description>given bean resource</description>
-               <param-name>sessionFactoryBeanName</param-name>
-               <param-value>sessionFactory</param-value>
-           </init-param>
-       </filter>
-       <filter-mapping>
-           <filter-name>hibernateSessionInViewFilter</filter-name>
-           <url-pattern>/*</url-pattern>
-       </filter-mapping>
+    <filter>
+        <description>view filter for database session</description>
+        <filter-name>hibernateSessionInViewFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+        <init-param>
+            <description>given bean resource</description>
+            <param-name>sessionFactoryBeanName</param-name>
+            <param-value>sessionFactory</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>hibernateSessionInViewFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <filter>
-          <description>stripes mapping filter</description>
-          <filter-name>dynamicMappingFilter</filter-name>
-          <filter-class>net.sourceforge.stripes.controller.DynamicMappingFilter</filter-class>
-      </filter>
-      <filter-mapping>
-          <filter-name>dynamicMappingFilter</filter-name>
-          <url-pattern>/*</url-pattern>
-          <dispatcher>REQUEST</dispatcher>
-          <dispatcher>FORWARD</dispatcher>
-          <dispatcher>INCLUDE</dispatcher>
-      </filter-mapping>
+        <description>stripes mapping filter</description>
+        <filter-name>dynamicMappingFilter</filter-name>
+        <filter-class>net.sourceforge.stripes.controller.DynamicMappingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>dynamicMappingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
 
 </web-app>

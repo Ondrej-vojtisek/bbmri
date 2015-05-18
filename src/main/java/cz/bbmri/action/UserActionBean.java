@@ -191,7 +191,7 @@ public class UserActionBean extends ComponentActionBean {
             contact.setUser(user);
             contactDAO.save(contact);
             return new ForwardResolution(View.User.DETAIL);
-          //  return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());
+            //  return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());
         }
 
         return new ForwardResolution(View.User.DETAIL);
@@ -202,7 +202,7 @@ public class UserActionBean extends ComponentActionBean {
     public Resolution save() {
         if (countryId != null) {
             Country country = countryDAO.get(countryId);
-            if(country != null){
+            if (country != null) {
                 contact.setCountry(country);
             }
         }
@@ -243,7 +243,7 @@ public class UserActionBean extends ComponentActionBean {
     }
 
     @HandlesEvent("shibbolethResolution")
-    @RolesAllowed({"admin", "developer", "authorized if ${isMyAccount}"})
+    @RolesAllowed({"admin", "developer"})
     public Resolution shibbolethResolution() {
 
         getUser();
@@ -255,6 +255,22 @@ public class UserActionBean extends ComponentActionBean {
         detailResolutionBreadcrumbs();
 
         return new ForwardResolution(View.User.SHIBBOLETH);
+    }
+
+    @HandlesEvent("authorize")
+    @RolesAllowed({"admin", "developer"})
+    public Resolution authorize() {
+
+        getUser();
+
+        if (user == null) {
+            return new ForwardResolution(View.User.NOTFOUND);
+        }
+
+        user.nominateAuthorized();
+        userDAO.save(user);
+
+        return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());
     }
 
 }

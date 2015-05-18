@@ -40,7 +40,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     private MaterialTypeDAO materialTypeDAO;
 
     //@Scheduled(cron = "0 15 * * * *") // each quarter past ..
-   // @Scheduled(cron = "0 * * * * *") // each minute
+    //@Scheduled(cron = "0 * * * * *") // each minute
     public void scheduledPatientDataCheck() {
 
         // Check all biobank
@@ -335,8 +335,10 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
             setSampleFields(sample);
 
+
+            System.err.println("Quantity1: " + sample.getQuantity());
             sample = sampleDAO.save(sample);
-            System.err.println(sample);
+            System.err.println("Quantity2: " + sample.getQuantity());
 
             // new sample was successfully added
             result.setIdentifier(sample.getId());

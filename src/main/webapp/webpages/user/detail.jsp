@@ -3,6 +3,8 @@
 
 <stripes:useActionBean beanclass="cz.bbmri.action.CountryActionBean" var="countryActionBean"/>
 
+<core:set var="user" value="${actionBean.user}"/>
+
 <stripes:layout-render name="${component.layout.content}"
                        primarymenu="user">
 
@@ -14,108 +16,72 @@
 
             <stripes:hidden name="id"/>
 
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.User.wholeName" class="control-label">
-                    <format:message key="cz.bbmri.entity.User.wholeName"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="user.wholeName" readonly="true"/>
-                </div>
-            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="30%"><format:message key="id"/></th>
+                    <td width="70%">${user.id}</td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.User.wholeName"/></th>
+                    <td>${user.wholeName}</td>
+                </tr>
+                <core:if test="${not empty actionBean.user.contact }">
 
-            <core:if test="${not empty actionBean.user.contact }">
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.email" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.email"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.email"/>
-                    </div>
-                </div>
+                    <core:set var="contact" value="${user.contact}"/>
 
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.phone" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.phone"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.phone"/>
-                    </div>
-                </div>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.email"/></th>
+                        <td>${contact.email}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.phone"/></th>
+                        <td>${contact.phone}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.street"/></th>
+                        <td>${contact.street}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.city"/></th>
+                        <td>${contact.city}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.zip"/></th>
+                        <td>${contact.zip}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.zip"/></th>
+                        <td>${contact.zip}</td>
+                    </tr>
+                    <tr>
+                        <th><format:message key="cz.bbmri.entity.Contact.country"/></th>
+                        <td>
+                            <core:if test="${not empty contact.country}">
+                                ${contact.country.name}
+                            </core:if>
+                        </td>
+                    </tr>
+                </core:if>
 
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.address" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.address"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.address"/>
-                    </div>
-                </div>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.User.created"/></th>
+                    <td><format:formatDate value="${user.created}" type="both"/></td>
+                </tr>
+                <tr>
+                    <th><format:message key="cz.bbmri.entity.User.lastLogin"/></th>
+                    <td><format:formatDate value="${user.lastLogin}" type="both"/></td>
+                </tr>
 
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.city" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.city"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.city"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.zip" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.zip"/>
-                    </stripes:label>
-                    <div class="controls">
-                        <stripes:text name="contact.zip"/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <stripes:label for="cz.bbmri.entity.Contact.country" class="control-label">
-                        <format:message key="cz.bbmri.entity.Contact.country"/>
-                    </stripes:label>
-                    <div class="controls">
-
-                        <core:if test="${empty actionBean.contact.country}">
-
-                            <stripes:select name="countryId">
-                                <stripes:option label="Not filled" value=""/>
-                                <stripes:options-collection collection="${countryActionBean.all}" value="id"
-                                                            label="name"/>
-                            </stripes:select>
-
-                        </core:if>
-
-                        <core:if test="${not empty actionBean.contact.country}">
-                            <stripes:text name="contact.country.name" readonly="true"/>
-                        </core:if>
-
-                    </div>
-                </div>
-
-            </core:if>
-
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.User.created" class="control-label">
-                    <format:message key="cz.bbmri.entity.User.created"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="user.created" readonly="true"/>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <stripes:label for="cz.bbmri.entity.User.lastLogin" class="control-label">
-                    <format:message key="cz.bbmri.entity.User.lastLogin"/>
-                </stripes:label>
-                <div class="controls">
-                    <stripes:text name="user.lastLogin" readonly="true"/>
-                </div>
-            </div>
+            </table>
 
             <div class="form-actions">
-                <security:allowed event="save">
-                    <stripes:submit name="save" class="btn btn-primary btnMargin"/>
-                </security:allowed>
+                <%--<security:allowed event="save">--%>
+                    <%--<stripes:submit name="save" class="btn btn-primary btnMargin"/>--%>
+                <%--</security:allowed>--%>
+
+                <core:if test="${actionBean.user.notAuthorized}">
+                    <stripes:submit name="authorize" class="btn btn-warning"/>
+                </core:if>
 
             </div>
 

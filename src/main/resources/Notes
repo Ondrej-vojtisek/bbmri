@@ -1,19 +1,16 @@
 TODO:
 
-- pěkné zobrazení chyb - autorizace např.
-- Přidat doc. Valíkovi admin práva
-- Odstraneni bugu u pridavani kvantity vzorku z MOU
-- Stránka shibboleth se zobrazuje všem?
+- Změna stavu question
+- změna stavu reservation -> přiřazení ke schválenému projektu
+- export seznamu žádaných vzorků
+- Notifikace
+- Archiv
+- Výběr vzorků a přiřazení k žádosti
 - Ujednotit pořadí tlačítek - Potvrzeni vs. cancel
 - zobrazeni data navázat na lokalizaci - Create Project, apod.
-
-
-
-- Přidat na weby odkazy na weby partnerů
-
-
-Create project - ujednotit poradi cancel a confirm tlacitka
-
+- napojení na číselník morfologie
+- napojení na číselník TNM
+- deploy nove DB - nahrani novych dat z 1. LF
 
 Reservation:
 - kdy je rezervace approved tak umoznit prirazeni vzorku
@@ -34,4 +31,12 @@ Question:
 - Komentare ActionBeany
 - Dodelani lokalizase
 
+
+Parser MOU:
+- V parseru z MOU je chybne ID vzorku: sample je identifikovan jen jako rok a cislo biopsie. V pripade, kdy
+je ale v jednom odberu odebrano vice stejneho materialu tak mezi nimi není možno rozlišit.
+Při updatu se tak přepisují z jednoho na druhý a vzniká nesmyslné měnětí typu materiálu a také z toho vzniká
+chyba quantity 1/1/2 apd.
+- Soucasne v nekterych exportech BBM150512150904-000003.XML je duplikovan zaznam pro vzorek - vzorek je v záznamu obsažen dvakrát
+- Uvádět počet materiálu u všech typů materiálu
 

@@ -16,7 +16,7 @@ License Type: Academic
 		</id>
 		<property name="phone" column="phone" type="text" not-null="false" lazy="false"/>
 		<property name="email" column="email" type="text" not-null="false" lazy="false"/>
-		<property name="address" column="address" type="text" not-null="false" lazy="false"/>
+		<property name="street" column="street" type="text" not-null="false" lazy="false"/>
 		<property name="zip" column="zip" type="text" not-null="false" lazy="false"/>
 		<property name="city" column="city" type="text" not-null="false" lazy="false"/>
 		<property name="url" column="url" type="text" not-null="false" lazy="false"/>

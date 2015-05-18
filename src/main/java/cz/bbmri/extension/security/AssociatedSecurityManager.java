@@ -2,6 +2,7 @@ package cz.bbmri.extension.security;
 
 import cz.bbmri.action.LoginActionBean;
 import cz.bbmri.action.base.BasicActionBean;
+import cz.bbmri.action.map.View;
 import cz.bbmri.entity.Role;
 import cz.bbmri.entity.Shibboleth;
 import cz.bbmri.entity.User;
@@ -130,9 +131,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
         // Display the error message
 
-        return new ErrorResolution(HttpServletResponse.SC_UNAUTHORIZED);
-
-        //return new ForwardResolution("/errors/not_authorized_to_access.jsp");
+        return new ForwardResolution(View.Error.NOT_AUTHORIZED);
     }
 }
 

@@ -60,16 +60,16 @@
     <xs:element name="sample">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="data_v2:materialType"/>
-                <xs:element minOccurs="0" ref="data_v2:totalAliquots"/>
-                <xs:element minOccurs="0" ref="data_v2:availableAliquots"/>
+                <xs:element ref="data_v2:materialType"/>
+                <xs:element ref="data_v2:totalAliquots"/>
+                <xs:element ref="data_v2:availableAliquots"/>
                 <xs:element minOccurs="0" ref="data_v2:TNM"/>
                 <xs:element minOccurs="0" ref="data_v2:pTNM"/>
                 <xs:element minOccurs="0" ref="data_v2:morphology"/>
                 <xs:element minOccurs="0" ref="data_v2:grading"/>
-                <xs:element minOccurs="0" ref="data_v2:takingDateTime"/>
+                <xs:element ref="data_v2:takingDateTime"/>
                 <xs:element minOccurs="0" ref="data_v2:freezeDateTime"/>
-                <xs:element minOccurs="0" ref="data_v2:retrieved"/>
+                <xs:element ref="data_v2:retrieved"/>
                 <xs:sequence minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>diagnosis coded using ICD, multiple diagnosis can be defined</xs:documentation>
@@ -88,11 +88,11 @@
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:maxLength value="20"/>
+                        <xs:maxLength value="32"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="year" type="xs:gYear">
+            <xs:attribute name="year" use="required" type="xs:gYear">
                 <xs:annotation>
                     <xs:documentation>year in which sample was taken - at MOU part of bioptical report which enables easier look-up for samples in HIS</xs:documentation>
                 </xs:annotation>

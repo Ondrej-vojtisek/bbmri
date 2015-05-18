@@ -40,6 +40,10 @@ public class User implements Serializable {
     private Set<ProjectUser> projectUser = new HashSet<ProjectUser>();
     private Set<Notification> notification = new HashSet<Notification>();
 
+    public boolean isNotAuthorized() {
+           return !role.contains(Role.AUTHORIZED);
+       }
+
     public boolean isAdministrator() {
         return role.contains(Role.ADMIN);
     }
@@ -71,6 +75,11 @@ public class User implements Serializable {
 
     }
 
+    public void nominateAuthorized() {
+            if (isNotAuthorized()) {
+                role.add(Role.AUTHORIZED);
+            }
+        }
 
     public void nominateProjectTeamMember() {
         if (isProjectTeamMember()) {
@@ -221,6 +230,14 @@ public class User implements Serializable {
 
     public void setNotification(Set<Notification> notification) {
         this.notification = notification;
+    }
+
+    public String getEmail(){
+        if(shibboleth == null){
+            return null;
+        }
+
+        return shibboleth.getEmail();
     }
 
     @Override

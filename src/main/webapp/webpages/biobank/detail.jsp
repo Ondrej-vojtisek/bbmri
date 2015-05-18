@@ -72,8 +72,8 @@
 
             <core:if test="${not empty biobank.contact}">
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.Contact.address"/></th>
-                    <td>${biobank.contact.address}</td>
+                    <th><format:message key="cz.bbmri.entity.Contact.street"/></th>
+                    <td>${biobank.contact.street}</td>
                 </tr>
                 <tr>
                     <th><format:message key="cz.bbmri.entity.Contact.zip"/></th>

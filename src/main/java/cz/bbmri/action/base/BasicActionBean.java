@@ -80,11 +80,11 @@ public abstract class BasicActionBean implements ActionBean {
 
     public boolean shibbolethSignIn(Shibboleth shibboleth) {
 
-        if (!shibboleth.isAuthorized()) {
-            logger.debug("User doesn't have sufficient rights to access BBMRI - " +
-                    "user: " + shibboleth.getSurname() + "affiliation: " + shibboleth.getAffiliation());
-            return false;
-        }
+//        if (!shibboleth.isAuthorized()) {
+//            logger.debug("User doesn't have sufficient rights to access BBMRI - " +
+//                    "user: " + shibboleth.getSurname() + "affiliation: " + shibboleth.getAffiliation());
+//            return false;
+//        }
 
         Shibboleth shibbolethDB = shibbolethDAO.get(
                 shibboleth.getEppn(),
@@ -98,7 +98,11 @@ public abstract class BasicActionBean implements ActionBean {
 
             user = new User();
             user.setCreated(new Date());
-            user.getRole().add(Role.AUTHORIZED);
+
+            if(shibboleth.isAuthorized()){
+                user.getRole().add(Role.AUTHORIZED);
+            }
+
             // necessary to assign id
             shibboleth.setUser(user);
             user.setShibboleth(shibboleth);

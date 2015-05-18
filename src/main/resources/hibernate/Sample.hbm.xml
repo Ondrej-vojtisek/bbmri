@@ -11,7 +11,7 @@ License Type: Academic
 				<param name="sequence">sample_seq</param>
 			</generator>
 		</id>
-		<property name="institutionalId" column="institutional_id" type="text" not-null="false" lazy="false"/>
+		<property name="institutionalId" column="institutional_id" unique="true" type="text" not-null="true" lazy="false"/>
 		<property name="takingDateTime" column="taking_date_time" type="timestamp" not-null="false" lazy="false"/>
 		<property name="freezeDateTime" column="freeze_date_time" type="timestamp" not-null="false" lazy="false"/>
 		<many-to-one name="patient" cascade="lock" column="patient_id" class="cz.bbmri.entity.Patient" not-null="false" lazy="false">

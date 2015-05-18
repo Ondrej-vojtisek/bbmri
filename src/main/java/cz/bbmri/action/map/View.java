@@ -20,6 +20,17 @@ public enum View {
     // Definition of absolute path to view templates source
     private static final String LOCATION = "/webpages/";
 
+
+
+    public static class Error {
+
+        private static final String DIRECTORY = LOCATION + "errors/";
+
+        public static final String NOT_AUTHORIZED = DIRECTORY + "not-authorized.jsp";
+    }
+
+
+
     /**
      * Ajax
      */

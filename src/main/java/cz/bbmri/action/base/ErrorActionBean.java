@@ -1,5 +1,6 @@
 package cz.bbmri.action.base;
 
+import cz.bbmri.action.map.View;
 import cz.bbmri.dao.RoleDAO;
 import cz.bbmri.dao.UserDAO;
 import cz.bbmri.entity.Role;
@@ -22,24 +23,32 @@ import java.util.List;
 @PermitAll
 public class ErrorActionBean extends ComponentActionBean {
 
-    private final String NOT_AUTHORIZED = "/errors/not_authorized_to_access.jsp";
-
     @SpringBean
     private RoleDAO roleDAO;
 
-        public List<User> getDevelopers(){
+    public List<User> getDevelopers() {
 
-            Role role = roleDAO.get(Role.DEVELOPER.getId());
+        Role role = roleDAO.get(Role.DEVELOPER.getId());
 
-            if(role != null){
-                return new ArrayList<User>(role.getUser());
-            }
+        if (role == null) {
             return null;
         }
+        return new ArrayList<User>(role.getUser());
+    }
+
+    public List<User> getAdministrators() {
+
+        Role role = roleDAO.get(Role.ADMIN.getId());
+
+        if (role == null) {
+            return null;
+        }
+        return new ArrayList<User>(role.getUser());
+    }
 
     @DefaultHandler
     public Resolution notEmployee() {
-        return new ForwardResolution(NOT_AUTHORIZED);
+        return new ForwardResolution(View.Error.NOT_AUTHORIZED);
     }
 
 }

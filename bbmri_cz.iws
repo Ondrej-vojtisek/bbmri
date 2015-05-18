@@ -20,82 +20,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5823b519-c35d-4e66-ae83-a1f328cda8f5" name="Default" comment="BUG - ne vsechna pole z shibbolethu byla aktualizovana pri prihlaseni uzivatele">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractPatientParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/AjaxActionBean.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/temp/Car.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/temp/Money.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParserV2.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/errors.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/ajax/partial.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/result.jsp" />
-      <change type="DELETED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\resources\path.properties" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema\biobank-data_v2.xsd" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\java\cz\bbmri\dao\SampleDao.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/SampleDAO.java" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\relaxNG\biobank-data.rnc" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data.rnc" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\relaxNG\biobank-data_v2.rnc" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema\biobank-data.xsd" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data.xsd" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema\biobank-data.xsd.xml" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data.xsd.xml" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema\biobank-data1.xml" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data1.xml" />
-      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema\biobank-data_v2.xsd.xml" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data_v2.xsd.xml" />
+      <change type="DELETED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\java\cz\bbmri\action\ErrorActionBean.java" afterPath="" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\401.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/401.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\403.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/403.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\404.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/404.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\500.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/500.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\not_authorized_to_access.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/not-authorized.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\unspecified.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/unspecified.jsp" />
+      <change type="MOVED" beforePath="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\errors\unspecified_outer.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/errors/unspecified_outer.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/Basic.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/Basic.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Biobank.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Biobank.hbm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Biobank.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Biobank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/BiobankActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/BiobankActionBean.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Contact.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Contact.hbm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/DashboardActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/DashboardActionBean.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/FileUtils.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/FileUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/J2EESecurityManager.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/J2EESecurityManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/MaterialType.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/MaterialType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/Layout.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/Layout.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/Notes" afterPath="$PROJECT_DIR$/src/main/resources/Notes" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Patient.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Patient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Patient.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Patient.hbm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParser.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Project.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Project.hbm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Project.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Project.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/ProjectCreateActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/ProjectCreateActionBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/RoleDAO.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/RoleDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/RoleDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/RoleDAOImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Sample.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Sample.hbm.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/SampleDAOImpl.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/SampleDAOImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/Shibboleth.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/Shibboleth.hbm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/hibernate/StorageMethodology.hbm.xml" afterPath="$PROJECT_DIR$/src/main/resources/hibernate/StorageMethodology.hbm.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/StorageMethodology.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/StorageMethodology.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/User.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/View.java" afterPath="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.ipr" afterPath="$PROJECT_DIR$/bbmri_cz.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bbmri_cz.iws" afterPath="$PROJECT_DIR$/bbmri_cz.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-1.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-1.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-2.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-2.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-3.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-3.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-5.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/project/create-5.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/notification/dashboard.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/notification/dashboard.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data_v2.xsd" afterPath="$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data_v2.xsd" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/project/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/project/detail.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/reservation/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/reservation/detail.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/sample/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/sample/detail.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/patient/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/patient/detail.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/user/detail.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/user/detail.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/component/header.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/component/header.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Homepage/index.html" afterPath="$PROJECT_DIR$/Homepage/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Homepage/index_en.html" afterPath="$PROJECT_DIR$/Homepage/index_en.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/layouts/layout-content.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/layouts/layout-content.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/layouts/layout-login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/layouts/layout-login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/menu.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/menu.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/translations/fields.properties" afterPath="$PROJECT_DIR$/src/main/resources/translations/fields.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/header.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/header.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/my.properties" afterPath="$PROJECT_DIR$/src/main/resources/my.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/user/password.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/user/password.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/component/row.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/component/row.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/sample/component/row.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/sample/component/row.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/samples.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/biobank/samples.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/layouts/primaryMenu/primaryMenu.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/layouts/primaryMenu/primaryMenu.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/row.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/webpages/user/component/row.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/translations/shared_cs.properties" afterPath="$PROJECT_DIR$/src/main/resources/translations/shared_cs.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/translations/text.properties" afterPath="$PROJECT_DIR$/src/main/resources/translations/text.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
     </list>
@@ -178,111 +140,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Notes" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/Notes">
+      <file leaf-file-name="AjaxActionBean.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/AjaxActionBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="39" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Homepage/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.72847">
-              <caret line="180" column="33" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index_en.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Homepage/index_en.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ErrorActionBean.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/AbstractDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoleDAOImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/RoleDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoleDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/RoleDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDAOImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/UserDAOImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="J2EESecurityManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/J2EESecurityManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="165" column="29" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssociatedSecurityManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
+            <state vertical-scroll-proportion="0.19036955">
+              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -320,57 +182,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Biobank.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/BiobankActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Patient.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1002.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1003.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1004.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1005.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1006.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1007.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1008.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1009.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-101.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1010.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1011.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1012.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1013.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1014.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1015.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1001.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/exporty/1LF_UK-1000.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParserV2.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/SampleDAOImpl.java" />
-        <option value="$PROJECT_DIR$/../visualParadigm_project/src/cz/bbmri/entity/Contact.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/translations/text.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/webpages/notification/dashboard.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/webpages/project/create-3.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/ProjectCreateActionBean.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/webpages/project/create-1.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-context.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/webpages/sample/component/row.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/MaterialType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/hibernate/Sample.hbm.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/my.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/logback-test.xml" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/J2EESecurityManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/RoleDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/RoleDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Notes" />
         <option value="$PROJECT_DIR$/Homepage/index_en.html" />
         <option value="$PROJECT_DIR$/Homepage/index.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/401.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/403.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/404.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/500.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/unspecified.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/errors/not_authorized_to_access.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/View.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/Layout.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/DashboardActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/layouts/primaryMenu/primaryMenu.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/ErrorActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/errors/not-authorized.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/user/component/header.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/RoleActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/SettingsActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/user/component/row.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/translations/fields.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/my.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/logback-test.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/patient/detail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpages/user/detail.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/translations/shared_cs.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/translations/text.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/Notes" />
       </list>
     </option>
   </component>
@@ -444,7 +306,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -493,6 +355,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -530,6 +394,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webpages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -611,7 +531,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="relaxNG" />
+              <option name="myItemId" value="xmlSchema" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -637,7 +557,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="errors" />
+              <option name="myItemId" value="schemas" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="relaxNG" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -685,8 +609,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="hibernate" />
+              <option name="myItemId" value="translations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_cz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bbmri_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="translations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resource Bundle 'fields'" />
+              <option name="myItemType" value="com.intellij.lang.properties.projectView.ResourceBundleNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -802,40 +756,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_cz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="extension" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="security" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1032,40 +952,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_cz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bbmri_project" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1083,8 +969,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -1149,11 +1033,11 @@
       <recent name="bbmri.testing" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\webpages" />
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\resources\export" />
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\webpages\request\component" />
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\libs" />
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\webpages\new\archive\component" />
-      <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\webpages\new\projectUser\component" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ori\Study_materials\Diplomka\bbmri_project\src\main\webapp\schemas\xmlSchema" />
@@ -2125,7 +2009,10 @@
       <workItem from="1431499812935" duration="18103000" />
       <workItem from="1431522195854" duration="5554000" />
       <workItem from="1431556037327" duration="2854000" />
-      <workItem from="1431589331441" duration="38000" />
+      <workItem from="1431589331441" duration="290000" />
+      <workItem from="1431693338762" duration="2028000" />
+      <workItem from="1431699004518" duration="808000" />
+      <workItem from="1431930617890" duration="18697000" />
     </task>
     <task id="LOCAL-00001" summary="Prvni pokusny commit skrze IDEu">
       <created>1372763540034</created>
@@ -2353,7 +2240,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="822684000" />
+    <option name="totallyTimeSpent" value="844469000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -2376,30 +2263,34 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3170467" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="simpleUML" active="false" anchor="left" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52877307" sideWeight="0.5714286" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34310532" sideWeight="0.57302773" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32467532" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3491471" sideWeight="0.45328718" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949087" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31823027" sideWeight="0.45397815" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21996753" sideWeight="0.73757225" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32904884" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26418152" sideWeight="0.6682081" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24919094" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40608034" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3170467" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="simpleUML" active="false" anchor="left" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32977587" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26818675" sideWeight="0.49027553" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47122693" sideWeight="0.42697227" order="2" side_tool="false" content_ui="tabs" x="1267" y="226" width="630" height="488" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949087" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20522387" sideWeight="0.45397815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21996753" sideWeight="0.73757225" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4679696" sideWeight="0.49348533" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2556818" sideWeight="0.7033604" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2409,17 +2300,13 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60486674" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.39513326" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40608034" sideWeight="0.0" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="DSM" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="92" y="92" width="1096" height="576" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3995657" sideWeight="0.49675852" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26818675" sideWeight="0.49027553" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39884394" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5602606" sideWeight="0.42857143" order="2" side_tool="false" content_ui="tabs" x="1267" y="226" width="630" height="488" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4679696" sideWeight="0.49348533" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2566,154 +2453,26 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Homepage/index_en.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.2.6.Final/hibernate-core-4.2.6.Final-sources.jar!/org/hibernate/Criteria.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="567" column="18" selection-start-line="567" selection-start-column="18" selection-end-line="567" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/SampleDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="312" column="60" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../visualParadigm_project/src/cz/bbmri/entity/Contact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.88465846">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate/Contact.hbm.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.07790927">
+          <caret line="67" column="26" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/User.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="261" column="0" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="16" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Country.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="90" column="46" selection-start-line="90" selection-start-column="38" selection-end-line="90" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/text.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.913793">
-          <caret line="168" column="55" selection-start-line="168" selection-start-column="46" selection-end-line="168" selection-end-column="46" />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/notification/dashboard.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.846153">
-          <caret line="56" column="22" selection-start-line="56" selection-start-column="22" selection-end-line="56" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4509804">
-          <caret line="46" column="11" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/sourceforge/stripes/stripes/1.5.7/stripes-1.5.7-sources.jar!/net/sourceforge/stripes/validation/DateTypeConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="8" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/project/create-2.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.730769">
-          <caret line="24" column="52" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/project/create-3.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.615385">
-          <caret line="42" column="52" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/ProjectCreateActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.931034">
-          <caret line="153" column="58" selection-start-line="153" selection-start-column="45" selection-end-line="153" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.346153">
-          <caret line="94" column="58" selection-start-line="94" selection-start-column="52" selection-end-line="94" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/project/create-1.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.769231">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/sample/detail.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-36.96154">
-          <caret line="68" column="72" selection-start-line="68" selection-start-column="72" selection-end-line="68" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="273" column="57" selection-start-line="273" selection-start-column="57" selection-end-line="273" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/sample/component/row.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/MaterialType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="29" selection-start-line="70" selection-start-column="29" selection-end-line="70" selection-end-column="29" />
+          <caret line="31" column="34" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2725,198 +2484,398 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate/Sample.hbm.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/archive/all.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="127" selection-start-line="41" selection-start-column="127" selection-end-line="41" selection-end-column="127" />
+        <state vertical-scroll-proportion="-1.9615384">
+          <caret line="3" column="56" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/errors/401.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="16" selection-start-line="42" selection-start-column="15" selection-end-line="42" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="191" column="37" selection-start-line="191" selection-start-column="37" selection-end-line="191" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/my.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/logback-test.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="37" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/LoginActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/Layout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="61" selection-start-line="44" selection-start-column="61" selection-end-line="44" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/sourceforge/stripes/stripes/1.5.7/stripes-1.5.7-sources.jar!/net/sourceforge/stripes/action/ErrorResolution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+          <folding>
+            <element signature="e#482#483#0" expanded="false" />
+            <element signature="e#542#543#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Shibboleth.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="128" column="19" selection-start-line="128" selection-start-column="19" selection-end-line="128" selection-end-column="19" />
+          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+          <folding>
+            <element signature="e#1661#1662#0" expanded="false" />
+            <element signature="e#1695#1696#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/map/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors/500.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors/401.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.9615384">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors/403.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="66" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+          <caret line="28" column="49" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="49" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors/404.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3076923">
-          <caret line="2" column="41" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/common/taglibs.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693">
-          <caret line="15" column="79" selection-start-line="15" selection-start-column="79" selection-end-line="15" selection-end-column="79" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/BasicActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.931034">
-          <caret line="121" column="39" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="101" column="26" selection-start-line="101" selection-start-column="26" selection-end-line="101" selection-end-column="26" />
+          <folding>
+            <element signature="e#2240#2241#0" expanded="false" />
+            <element signature="e#2306#2307#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/errors/not_authorized_to_access.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/DashboardActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/ErrorActionBean.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/errors/not-authorized.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="7" selection-start-line="20" selection-start-column="1" selection-end-line="27" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.7058824">
+          <caret line="36" column="52" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/UserDAOImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/AbstractDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/RoleDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/RoleDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="57" selection-start-line="19" selection-start-column="57" selection-end-line="19" selection-end-column="57" />
+        <state vertical-scroll-proportion="2.28125">
+          <caret line="123" column="43" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/base/ErrorActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.53303474">
+          <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#1219#1220#0" expanded="false" />
+            <element signature="e#1290#1291#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/J2EESecurityManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/common/taglibs.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="17" column="54" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/layouts/navigation/navbar.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.5">
+          <caret line="70" column="67" selection-start-line="70" selection-start-column="67" selection-end-line="70" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/user/component/header.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154">
+          <caret line="9" column="59" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/layouts/primaryMenu/primaryMenu.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.038462">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/SettingsActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52407616">
+          <caret line="64" column="45" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/user/password.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.23077">
+          <caret line="34" column="23" selection-start-line="32" selection-start-column="15" selection-end-line="34" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="29" selection-start-line="165" selection-start-column="29" selection-end-line="165" selection-end-column="29" />
+          <caret line="42" column="34" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="34" />
+          <folding>
+            <element signature="e#1593#1594#0" expanded="true" />
+            <element signature="e#1653#1654#0" expanded="true" />
+            <element signature="e#1693#1694#0" expanded="true" />
+            <element signature="e#1741#1742#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/RoleActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="28" selection-start-line="75" selection-start-column="28" selection-end-line="75" selection-end-column="30" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/UserActionBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="270" column="66" selection-start-line="270" selection-start-column="27" selection-end-line="270" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/user/component/row.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.115385">
+          <caret line="17" column="77" selection-start-line="17" selection-start-column="77" selection-end-line="17" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/fields.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-34.58621">
+          <caret line="59" column="57" selection-start-line="59" selection-start-column="51" selection-end-line="59" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/dao/impl/SampleDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/my.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Quantity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+          <folding>
+            <element signature="e#1576#1577#0" expanded="false" />
+            <element signature="e#1616#1617#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/extension/security/AssociatedSecurityManager.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7905935">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data_v2.xsd.xml">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="132" column="72" selection-start-line="132" selection-start-column="72" selection-end-line="132" selection-end-column="72" />
+          <caret line="24" column="67" selection-start-line="0" selection-start-column="0" selection-end-line="38" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/schemas/xmlSchema/data_v2.xsd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3617021">
+          <caret line="64" column="71" selection-start-line="64" selection-start-column="61" selection-end-line="64" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/schemas/relaxNG/data_v2.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35274357">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/io/AbstractParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.84770435">
+          <caret line="318" column="9" selection-start-line="318" selection-start-column="9" selection-end-line="318" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/project/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.653847">
+          <caret line="61" column="25" selection-start-line="13" selection-start-column="0" selection-end-line="61" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/io/PatientDataParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="489" column="94" selection-start-line="489" selection-start-column="56" selection-end-line="489" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/trigeredEvents/impl/PatientDataCheckImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="56" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/patient/component/header.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.9230769">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="11" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/patient/component/row.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6153846">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="8" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Sample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="256" column="20" selection-start-line="256" selection-start-column="20" selection-end-line="256" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/logback-test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/patient/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.627451">
+          <caret line="32" column="28" selection-start-line="11" selection-start-column="6" selection-end-line="32" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/text_cs.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16666667">
+          <caret line="237" column="24" selection-start-line="237" selection-start-column="24" selection-end-line="237" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/hibernate/Contact.hbm.xml.bak">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33256352">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/entity/Contact.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8667413">
+          <caret line="198" column="26" selection-start-line="198" selection-start-column="1" selection-end-line="198" selection-end-column="1" />
+          <folding>
+            <element signature="e#1948#1949#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
+            <element signature="e#2018#2019#0" expanded="true" />
+            <element signature="e#2052#2053#0" expanded="true" />
+            <element signature="e#3477#3478#0" expanded="true" />
+            <element signature="e#3506#3507#0" expanded="true" />
+            <element signature="e#3550#3551#0" expanded="true" />
+            <element signature="e#3586#3587#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/biobank/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23644751">
+          <caret line="78" column="66" selection-start-line="78" selection-start-column="66" selection-end-line="78" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpages/user/detail.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14763552">
+          <caret line="40" column="79" selection-start-line="40" selection-start-column="79" selection-end-line="40" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/text.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14699075">
+          <caret line="337" column="14" selection-start-line="337" selection-start-column="14" selection-end-line="337" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/errors.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35416666">
+          <caret line="18" column="88" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2924,32 +2883,27 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/Notes">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="39" />
+          <caret line="12" column="61" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Homepage/index_en.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/translations/shared_cs.properties">
+      <provider editor-type-id="ResourceBundle">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.14699075">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Homepage/index.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cz/bbmri/action/AjaxActionBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.72847">
-          <caret line="180" column="33" selection-start-line="180" selection-start-column="9" selection-end-line="180" selection-end-column="9" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.19036955">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
