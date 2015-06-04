@@ -16,6 +16,8 @@ import java.util.Date;
 
 public class Archive implements Serializable {
 
+    public static final String FOLDER = "archive";
+
     public static final String SYSTEM_ACTOR = "system_event";
 
     public static final String PROP_ID = "id";

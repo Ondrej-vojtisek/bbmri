@@ -29,20 +29,21 @@ public class RequestDAOImpl extends GenericDAOImpl<Request> implements RequestDA
         Criterion criterionReservation = Restrictions.eq(Request.PROP_RESERVATION, reservation);
         Criterion criterionWithdraw = Restrictions.eq(Request.PROP_WITHDRAW, withdraw);
         Criterion criterionQuestion = Restrictions.eq(Request.PROP_QUESTION, question);
+        Criterion criterionSample = Restrictions.eq(Request.PROP_SAMPLE, sample);
 
         List<Request> list = null;
 
         if (reservation != null) {
             list = getCurrentSession().createCriteria(Request.class)
-                    .add(criterionReservation)
+                    .add(criterionReservation).add(criterionSample)
                     .setMaxResults(1).list();
         } else if (withdraw != null) {
             list = getCurrentSession().createCriteria(Request.class)
-                    .add(criterionWithdraw)
+                    .add(criterionWithdraw).add(criterionSample)
                     .setMaxResults(1).list();
         } else if (question != null) {
             list = getCurrentSession().createCriteria(Request.class)
-                    .add(criterionQuestion)
+                    .add(criterionQuestion).add(criterionSample)
                     .setMaxResults(1).list();
         }
 
@@ -81,13 +82,25 @@ public class RequestDAOImpl extends GenericDAOImpl<Request> implements RequestDA
                 request.getWithdraw(),
                 request.getQuestion());
 
+        System.err.println("Request1: " + request);
+
         // Request for same sample already exists - better to update existing than create new one
         if (requestDB != null) {
+
+            System.err.println("RequestDB not null");
+
+            System.err.println("RequestDB1: " + requestDB);
+
             int number = requestDB.getNumber() + request.getNumber();
             requestDB.setNumber((short) number);
             getCurrentSession().saveOrUpdate(requestDB);
+
+            System.err.println("RequestDB2: " + requestDB);
+
             return requestDB;
         }
+
+        System.err.println("Request2: " + request);
 
         getCurrentSession().saveOrUpdate(request);
         return request;

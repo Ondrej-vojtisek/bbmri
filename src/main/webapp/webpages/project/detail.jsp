@@ -28,35 +28,35 @@
 
             <core:if test="${project.clinicalTrial}">
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.clinicalTrial"/></th>
-                    <td>${project.clinicalTrial}</td>
+                    <th><format:message key="cz.bbmri.entity.Project.eudraCtNumber"/></th>
+                    <td>${project.eudraCtNumber}</td>
                 </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.fundingOrganization"/></th>
-                    <td>${project.fundingOrganization}</td>
-                </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.principalInvestigator"/></th>
-                    <td>${project.principalInvestigator}</td>
-                </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.approvalStorage"/></th>
-                    <td>${project.approvalStorage}</td>
-                </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.approvalDate"/></th>
-                    <td><format:formatDate value="${project.approvalDate}" type="both"/></td>
-                </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.projectState"/></th>
-                    <td><format:message key="cz.bbmri.entity.ProjectState.${project.projectState}"/></td>
-                </tr>
-                <tr>
-                    <th><format:message key="cz.bbmri.entity.Project.annotation"/></th>
-                    <td>${project.annotation}</td>
-                </tr>
-
             </core:if>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.fundingOrganization"/></th>
+                <td>${project.fundingOrganization}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.principalInvestigator"/></th>
+                <td>${project.principalInvestigator}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.approvalStorage"/></th>
+                <td>${project.approvalStorage}</td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.approvalDate"/></th>
+                <td><format:formatDate value="${project.approvalDate}" type="both"/></td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.projectState"/></th>
+                <td><format:message key="cz.bbmri.entity.ProjectState.${project.projectState}"/></td>
+            </tr>
+            <tr>
+                <th><format:message key="cz.bbmri.entity.Project.annotation"/></th>
+                <td>${project.annotation}</td>
+            </tr>
+
 
             </tbody>
         </table>
@@ -76,15 +76,16 @@
                     </security:allowed>
                 </core:if>
 
-                <core:if test="${actionBean.project.isConfirmed}">
-                    <security:allowed bean="projectActionBean" event="finish">
-                        <stripes:submit name="finish" class="btn btn-primary btnMargin"/>
-                    </security:allowed>
+                <%--DOČASNÉ--%>
+                <%--<core:if test="${actionBean.project.isConfirmed}">--%>
+                    <%--<security:allowed bean="projectActionBean" event="finish">--%>
+                        <%--<stripes:submit name="finish" class="btn btn-primary btnMargin"/>--%>
+                    <%--</security:allowed>--%>
 
-                    <security:allowed bean="projectActionBean" event="cancel">
-                        <stripes:submit name="cancel" class="btn btn-danger btnMargin"/>
-                    </security:allowed>
-                </core:if>
+                    <%--<security:allowed bean="projectActionBean" event="cancel">--%>
+                        <%--<stripes:submit name="cancel" class="btn btn-danger btnMargin"/>--%>
+                    <%--</security:allowed>--%>
+                <%--</core:if>--%>
 
             </div>
         </stripes:form>

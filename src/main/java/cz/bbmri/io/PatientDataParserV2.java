@@ -59,7 +59,7 @@ public class PatientDataParserV2 extends AbstractPatientParser {
     private static final String SAMPLE_METHODOLOGY = "methodology";
     private static final String SAMPLE_STS = "sts";
     private static final String SAMPLE_EXPIRATION = "expiration";
-    private static final String SAMPLE_MEDIUM = "medium";
+    private static final String SAMPLE_CONSERVATION_METHOD = "conservationMethod";
 
     public PatientDataParserV2(String path) throws Exception {
 
@@ -453,13 +453,13 @@ public class PatientDataParserV2 extends AbstractPatientParser {
             methodology = executeXPath(NAMESPACE_PREFIX_COLONS + SAMPLE_METHODOLOGY, node);
             sts = executeXPath(NAMESPACE_PREFIX_COLONS + SAMPLE_STS, node);
             expiration = executeXPath(NAMESPACE_PREFIX_COLONS + SAMPLE_EXPIRATION, node);
-            medium = executeXPath(NAMESPACE_PREFIX_COLONS + SAMPLE_MEDIUM, node);
 
         } catch (Exception ex) {
             ex.printStackTrace();
             System.err.println("Failed to parse storage methodology");
             return null;
         }
+
 
         StorageMethodology storageMethodology = new StorageMethodology();
 
@@ -486,11 +486,48 @@ public class PatientDataParserV2 extends AbstractPatientParser {
             }
         }
 
-        if(medium != null){
-            storageMethodology.setMedium(medium);
+        List<String> conservationMethodList = parseConservationMethod(node);
+
+        if (conservationMethodList != null) {
+            for (String s : conservationMethodList) {
+                ConservationMethod conservationMethod = new ConservationMethod();
+                conservationMethod.setKey(s);
+                storageMethodology.getConservationMethod().add(conservationMethod);
+            }
         }
 
         return storageMethodology;
+    }
+
+    private List<String> parseConservationMethod(Node node) {
+
+        NodeList nodes;
+
+        try {
+            // all child nodes of LTS module
+            nodes = (NodeList) executeXPathForNodeSet(ROOT_ELEMENT + NAMESPACE_PREFIX_SLASHED + SAMPLE_CONSERVATION_METHOD, node);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        if (nodes == null) {
+            return null;
+        }
+
+        List<String> conservationMethod = new ArrayList<String>();
+
+        // for-each not applicable
+        for (int i = 0; i < nodes.getLength(); i++) {
+
+            Node conservationMethodNode = nodes.item(i);
+
+            if (conservationMethodNode.getTextContent() != null) {
+                conservationMethod.add(conservationMethodNode.getTextContent());
+            }
+        }
+        return conservationMethod;
     }
 
 }

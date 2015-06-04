@@ -1,9 +1,6 @@
 package cz.bbmri.dao;
 
-import cz.bbmri.entity.Biobank;
-import cz.bbmri.entity.MaterialType;
-import cz.bbmri.entity.Retrieved;
-import cz.bbmri.entity.Sample;
+import cz.bbmri.entity.*;
 import cz.bbmri.io.InstanceImportResult;
 
 import java.util.List;
@@ -47,9 +44,8 @@ public interface SampleDAO extends AbstractDAO<Sample, Long> {
     long countTotalAliquotesOfBiobank(Biobank biobank);
 
     List<Sample> find(Biobank biobank,
-                      Boolean sts,
                       Retrieved retrieved,
-                      Short available,
-                      Short total,
-                      MaterialType materialType);
+                      Sex sex,
+                      MaterialType materialType,
+                      String diagnosisKey);
 }

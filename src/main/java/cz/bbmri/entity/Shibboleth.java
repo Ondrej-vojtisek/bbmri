@@ -13,6 +13,8 @@ import java.io.Serializable;
 
 public class Shibboleth implements Serializable {
 
+    public static final String FOLDER = "shibboleth";
+
     private static final String AFFILIATION_EMPLOYEE = "employee@";
 
     public static final String PROP_USER = "user";

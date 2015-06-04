@@ -198,13 +198,13 @@
                 <xs:element minOccurs="0" ref="data_v2:methodology"/>
                 <xs:element minOccurs="0" ref="data_v2:sts"/>
                 <xs:element minOccurs="0" ref="data_v2:expiration"/>
-                <xs:element minOccurs="0" ref="data_v2:medium"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="data_v2:conservationMethod"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="temperatureCelsius" type="xs:float">
         <xs:annotation>
-            <xs:documentation>average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)</xs:documentation>
+            <xs:documentation>average temperature (in celsius) in which is sample stored (in case everything in infrastructure is working flawlessly)</xs:documentation>
         </xs:annotation>
     </xs:element>
     <xs:element name="methodology" type="xs:string">
@@ -218,9 +218,12 @@
         </xs:annotation>
     </xs:element>
     <xs:element name="expiration" type="xs:date"/>
-    <xs:element name="medium" type="xs:string">
-        <xs:annotation>
-            <xs:documentation>which liquid/medium was used to preserve sample - RNA later, parafine, ...</xs:documentation>
-        </xs:annotation>
+    <xs:element name="conservationMethod">
+        <xs:simpleType>
+            <xs:restriction base="xs:token">
+                <xs:enumeration value="rnaLater"/>
+                <xs:enumeration value="parafine"/>
+            </xs:restriction>
+        </xs:simpleType>
     </xs:element>
 </xs:schema>

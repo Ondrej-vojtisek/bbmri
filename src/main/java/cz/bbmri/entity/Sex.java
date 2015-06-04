@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Sex implements Serializable {
 
+    public static final String FOLDER = "sex";
+
     public Sex() {
     }
 

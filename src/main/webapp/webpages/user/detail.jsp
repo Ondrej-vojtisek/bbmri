@@ -14,7 +14,7 @@
 
         <stripes:form beanclass="cz.bbmri.action.UserActionBean" class="form-horizontal">
 
-            <stripes:hidden name="id"/>
+            <stripes:hidden name="id" value="${user.id}"/>
 
             <table class="table table-bordered table-striped">
                 <tr>
@@ -79,7 +79,7 @@
                     <%--<stripes:submit name="save" class="btn btn-primary btnMargin"/>--%>
                 <%--</security:allowed>--%>
 
-                <core:if test="${actionBean.user.notAuthorized}">
+                <core:if test="${user.notAuthorized}">
                     <stripes:submit name="authorize" class="btn btn-warning"/>
                 </core:if>
 

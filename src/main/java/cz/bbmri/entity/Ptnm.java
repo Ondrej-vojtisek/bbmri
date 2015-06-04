@@ -20,6 +20,8 @@ import java.io.Serializable;
 
 public class Ptnm implements Serializable {
 
+    public static final String FOLDER = "ptnm";
+
     public static final String PROP_SAMPLE = "sample";
     public static final String PROP_CLASSIFICATION = "classification";
 

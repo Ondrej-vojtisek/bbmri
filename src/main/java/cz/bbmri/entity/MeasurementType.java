@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class MeasurementType implements Serializable {
 
+	public static final String FOLDER = "measurementType";
+
     public MeasurementType() {
     }
 

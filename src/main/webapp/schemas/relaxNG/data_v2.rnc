@@ -66,7 +66,7 @@ sample =
 storageMethodology =
     ## description of storage method
     element storageMethodology {
-        ## average temperature (°C) in which is sample stored (in case everything in infrastructure is working flawlessly)
+        ## average temperature (in celsius) in which is sample stored (in case everything in infrastructure is working flawlessly)
         element temperatureCelsius { xsd:float } ?,
         ## are you following any standard
         element methodology { xsd:string } ?,
@@ -75,6 +75,7 @@ storageMethodology =
         ## if sts than approximate duration of storage can be defined. Expiration represents approximate date when sample will
         ## be removed from repository
         element expiration { xsd:date } ?,
-        ## which liquid/medium was used to preserve sample - RNA later, parafine, ...
-        element medium { xsd:string } ?
+        ## conservation method of sample - which liquid/medium was used to preserve sample - RNA later, parafine, ...
+        ## more than one can be defined
+        ( element conservationMethod { "rnaLater" | "parafine" } )*
     }

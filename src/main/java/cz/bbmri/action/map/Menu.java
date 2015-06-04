@@ -1,5 +1,7 @@
 package cz.bbmri.action.map;
 
+import cz.bbmri.entity.*;
+
 /**
  * TODO describe class
  *
@@ -17,23 +19,23 @@ public enum Menu {
     private static final String COMPONENT = "/component/menu.jsp";
 
     public String getBiobank() {
-        return LOCATION + "biobank" + COMPONENT;
+        return LOCATION + Biobank.FOLDER + COMPONENT;
     }
 
     public String getPatient() {
-        return LOCATION + "patient" + COMPONENT;
+        return LOCATION + Patient.FOLDER + COMPONENT;
     }
 
     public String getProject() {
-        return LOCATION + "project" + COMPONENT;
+        return LOCATION + Project.FOLDER + COMPONENT;
     }
 
     public String getSample() {
-        return LOCATION + "sample" + COMPONENT;
+        return LOCATION + Sample.FOLDER + COMPONENT;
     }
 
     public String getUser() {
-        return LOCATION + "user" + COMPONENT;
+        return LOCATION + User.FOLDER + COMPONENT;
     }
 
 

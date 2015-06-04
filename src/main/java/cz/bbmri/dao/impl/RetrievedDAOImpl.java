@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RetrievedDAOImpl extends GenericDAOImpl<Retrieved> implements RetrievedDAO {
 
-    public Retrieved get(Short id) {
+    public Retrieved get(Integer id) {
                       return (Retrieved) getCurrentSession().get(Retrieved.class, id);
                   }
 }

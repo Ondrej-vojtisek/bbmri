@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class Project implements Serializable {
 
+    public static final String FOLDER = "project";
+
     public static final String PROP_ID = "id";
     public static final String PROP_NAME = "name";
     public static final String PROP_ANNOTATION = "annotation";

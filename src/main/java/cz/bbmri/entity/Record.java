@@ -18,6 +18,8 @@ import java.sql.Time;
 
 public class Record implements Serializable {
 
+	public static final String FOLDER = "record";
+
     public static final String PROP_MONITORING = "monitoring";
    	public static final String PROP_VALUE = "value";
    	public static final String PROP_TIME = "time";

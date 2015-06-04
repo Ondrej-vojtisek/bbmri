@@ -14,6 +14,8 @@ import java.util.Set;
  */
 public class User implements Serializable {
 
+    public static final String FOLDER = "user";
+
     public static final String PROP_ID = "id";
     public static final String PROP_PASSWORD = "password";
     public static final String PROP_CREATED = "created";
@@ -74,12 +76,6 @@ public class User implements Serializable {
         }
 
     }
-
-    public void nominateAuthorized() {
-            if (isNotAuthorized()) {
-                role.add(Role.AUTHORIZED);
-            }
-        }
 
     public void nominateProjectTeamMember() {
         if (isProjectTeamMember()) {

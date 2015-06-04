@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class ProjectState implements Serializable {
 
+    public static final String FOLDER = "projectState";
+
     public ProjectState() {
     }
 

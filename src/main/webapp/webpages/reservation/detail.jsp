@@ -2,7 +2,11 @@
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
 <stripes:useActionBean var="reservationActionBean" beanclass="cz.bbmri.action.ReservationActionBean"/>
-<stripes:useActionBean var="sampleActionBean" beanclass="cz.bbmri.action.SampleActionBean"/>
+<stripes:useActionBean var="sampleSearchActionBean" beanclass="cz.bbmri.action.SampleSearchActionBean"/>
+
+
+<core:set var="reservation" value="${actionBean.reservation}"/>
+<core:set var="biobankId" value="${actionBean.reservation.biobank.id}"/>
 
 <stripes:layout-render name="${component.layout.content}">
 
@@ -12,123 +16,134 @@
             <tbody>
             <tr>
                 <th width="30%"><format:message key="id"/></th>
-                <td width="70%">${actionBean.reservation.id}</td>
+                <td width="70%">${reservation.id}</td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Biobank.biobank"/></th>
-                <td>${actionBean.reservation.biobank.acronym}</td>
+                <td>${reservation.biobank.acronym}</td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Reservation.created"/></th>
-                <td><format:formatDate value="${actionBean.reservation.created}" type="both"/></td>
+                <td><format:formatDate value="${reservation.created}" type="both"/></td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Reservation.validation"/></th>
-                <td><format:formatDate value="${actionBean.reservation.validation}" type="both"/></td>
+                <td><format:formatDate value="${reservation.validation}" type="both"/></td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Reservation.lastModification"/></th>
-                <td><format:formatDate value="${actionBean.reservation.lastModification}" type="both"/></td>
+                <td><format:formatDate value="${reservation.lastModification}" type="both"/></td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Reservation.user"/></th>
-                <td>${actionBean.reservation.user.wholeName}</td>
+                <td>${reservation.user.wholeName}</td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.ReservationState.reservationState"/></th>
                 <td><format:message
-                        key="cz.bbmri.entity.ReservationState.${actionBean.reservation.reservationState}"/></td>
+                        key="cz.bbmri.entity.ReservationState.${reservation.reservationState}"/></td>
             </tr>
             <tr>
                 <th><format:message key="cz.bbmri.entity.Reservation.specification"/></th>
                 <td></td>
             </tr>
             <tr>
-                <td colspan="2">${actionBean.reservation.specification}</td>
+                <td colspan="2">${reservation.specification}</td>
             </tr>
 
             </tbody>
         </table>
 
-        <stripes:form beanclass="cz.bbmri.action.ReservationActionBean" class="form-horizontal">
-            <div class="form-actions">
-                <stripes:hidden name="id" value="${actionBean.reservation.id}"/>
+        <core:set target="${reservationActionBean}" property="authBiobankId"
+                  value="${reservation.biobank.id}"/>
 
-                <core:if test="${actionBean.reservation.isNew}">
+        <stripes:form beanclass="cz.bbmri.action.ReservationActionBean" class="form-inline">
+            <div class="form-actions">
+                <stripes:hidden name="id" value="${reservation.id}"/>
+
+                <core:if test="${reservation.isNew}">
+
+                    <%--Approve reservation--%>
+
                     <security:allowed bean="reservationActionBean" event="approve">
                         <stripes:submit name="approve" class="btn btn-primary btnMargin"/>
                     </security:allowed>
 
+                    <%--Deny reservation--%>
+
                     <security:allowed bean="reservationActionBean" event="deny">
                         <stripes:submit name="deny" class="btn btn-danger btnMargin"/>
                     </security:allowed>
+
                 </core:if>
+
+                    <%--Confirm chosen set of samples--%>
+
+                <core:if test="${reservation.isApproved}">
+                    <security:allowed bean="reservationActionBean" event="confirm">
+                        <stripes:submit name="confirm" class="btn btn-danger btnMargin"/>
+                    </security:allowed>
+
+                </core:if>
+
+                    <%--Assign project--%>
+
+
+                <core:if test="${reservation.isConfirmed}">
+                    <security:allowed bean="reservationActionBean" event="assignToProject">
+                        <div class="control-group">
+
+                            <stripes:label name="cz.bbmri.entity.Project.project" class="control-label">
+                                <format:message key="cz.bbmri.entity.Project.project"/>
+                            </stripes:label>
+                            <div class="controls">
+                                <stripes:select name="projectId" value="0" class="form-control btnMargin">
+                                    <stripes:option value="0" label="..."/>
+                                    <stripes:options-collection collection="${reservationActionBean.projects}"
+                                                                value="id"
+                                                                label="name"/>
+                                </stripes:select>
+
+                                <stripes:submit name="assignToProject" class="btn btn-danger btnMargin"/>
+                            </div>
+                        </div>
+                    </security:allowed>
+                </core:if>
+
             </div>
         </stripes:form>
 
-        <h2><format:message key="cz.bbmri.entity.Request.required"/></h2>
-        <table class="table table-hover table-striped">
-            <stripes:layout-render name="${component.header.request}"/>
+        <core:if test="${reservation.isApproved}">
+            <div id="requests">
+                <%@include file="/webpages/request/component/table.jsp" %>
+            </div>
+        </core:if>
 
-            <tbody>
-            <stripes:layout-render name="${component.table.emptyTable}"
-                                   collection="${actionBean.reservation.request}"/>
-            <core:forEach var="item" items="${actionBean.reservation.request}">
+        <core:if test="${reservation.isConfirmed}">
+            <div id="requests">
+                <%@include file="/webpages/request/component/table-unmodifiable.jsp" %>
+            </div>
+        </core:if>
 
-                <tr>
-                    <stripes:layout-render name="${component.row.request}" item="${item}"/>
-                    <td class="action">
-                        <span class="pull-right">
-                            <div class="tableAction">
-                                <stripes:form beanclass="cz.bbmri.action.RequestActionBean">
+        <core:if test="${reservation.isApproved}">
 
-                                    <stripes:hidden name="requestId" value="${item.id} "/>
+            <%--Set authBiobankId of AuthotizationActionBean to enable security tag--%>
+            <core:set target="${sampleSearchActionBean}" property="authBiobankId"
+                      value="${actionBean.reservation.biobank.id}"/>
 
-                                    <stripes:submit name="remove" class="btn btn-danger"/>
-                                    <stripes:submit name="increase" class="btn btn-default"/>
-                                    <stripes:submit name="decrease" class="btn btn-default"/>
+            <%@include file="/webpages/sample/component/search.jsp" %>
 
-                                </stripes:form>
-                            </div>
-                        </span>
-                    </td>
-                </tr>
-            </core:forEach>
-            </tbody>
-        </table>
+            <div id="searched_samples">
+                <%@include file="/webpages/request/component/samples.jsp" %>
+            </div>
 
-        <%--&lt;%&ndash;Set authProjectId of AuthotizationActionBean to enable security tag&ndash;%&gt;--%>
-        <%--<core:set target="${sampleActionBean}" property="biobankId" value="${actionBean.reservation.biobank.id}"/>--%>
+        </core:if>
 
-        <%--<table class="table table-hover table-striped">--%>
-            <%--<stripes:layout-render name="${component.header.sample}"/>--%>
+    </stripes:layout-component>
 
-            <%--<tbody>--%>
-            <%--<stripes:layout-render name="${component.table.emptyTable}" collection="${sampleActionBean.samples}"/>--%>
-            <%--<core:forEach var="item" items="${sampleActionBean.sampleSearch}">--%>
-                <%--<tr>--%>
-                    <%--<stripes:layout-render name="${component.row.sample}" item="${item}"/>--%>
+    <stripes:layout-component name="script">
 
-                    <%--<core:if test="${item.isAvailable}">--%>
-                        <%--<td class="action">--%>
-                        <%--<span class="pull-right">--%>
-                            <%--<div class="tableAction">--%>
-                                <%--<stripes:form beanclass="cz.bbmri.action.RequestActionBean">--%>
-                                    <%--<stripes:hidden name="sampleId" value="${item.id}"/>--%>
-                                    <%--<stripes:hidden name="reservationId" value="${actionBean.reservation.id}"/>--%>
-
-                                    <%--<stripes:submit name="addToReservation" class="btn btn-info"/>--%>
-
-                                <%--</stripes:form>--%>
-                            <%--</div>--%>
-                        <%--</span>--%>
-                        <%--</td>--%>
-                    <%--</core:if>--%>
-
-                <%--</tr>--%>
-            <%--</core:forEach>--%>
-            <%--</tbody>--%>
-        <%--</table>--%>
+        <script type="text/javascript" src="${context}/libs/my/sample_search.js"></script>
 
     </stripes:layout-component>
 

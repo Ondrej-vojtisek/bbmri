@@ -20,6 +20,8 @@ import java.io.Serializable;
 
 public class Tnm implements Serializable {
 
+    public static final String FOLDER = "tnm";
+
     public static final String PROP_SAMPLE = "sample";
     public static final String PROP_CLASSIFICATION = "classification";
 

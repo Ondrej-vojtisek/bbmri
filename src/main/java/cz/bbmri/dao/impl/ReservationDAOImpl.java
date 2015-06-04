@@ -17,6 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReservationDAOImpl extends GenericDAOImpl<Reservation> implements ReservationDAO {
 
     public Reservation get(Long id) {
-                      return (Reservation) getCurrentSession().get(Reservation.class, id);
-                  }
+        return (Reservation) getCurrentSession().get(Reservation.class, id);
+    }
 }

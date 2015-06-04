@@ -11,9 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
@@ -39,9 +37,15 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     @Autowired
     private MaterialTypeDAO materialTypeDAO;
 
-    //@Scheduled(cron = "0 15 * * * *") // each quarter past ..
-    //@Scheduled(cron = "0 * * * * *") // each minute
+    @Autowired
+    private ConservationMethodDAO conservationMethodDAO;
+
+    @Scheduled(cron = "0 0 8 * * *") // each day 8:00
+    //@Scheduled(cron = "0 */5 * * * *") // each 5 minutes
+    //@Scheduled(cron = "* * * * * *") // each minute
     public void scheduledPatientDataCheck() {
+
+        System.err.println("CRON event triggered at: " + new Date());
 
         // Check all biobank
         for (Biobank biobank : biobankDAO.all()) {
@@ -51,11 +55,15 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
             for (File file : files) {
 
+                System.err.println("File: " + file.getAbsolutePath());
+
                 FileImportResult fileImportResult = parsePatientImportFile(file, biobank);
 
-                log(fileImportResult.toString());
+//                log(fileImportResult.toString());
 
                 if (fileImportResult.getStatus().equals(Status.ERROR)) {
+
+                    System.err.println("Error ");
 
                     // nothing to be done here
                     continue;
@@ -65,10 +73,8 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
                     // delete file if copy succeeded
                     FileUtils.deleteFile(file);
                 }
-
             }
         }
-
     }
 
     public FileImportResult parsePatientImportFile(File file, Biobank biobank) {
@@ -335,10 +341,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
 
             setSampleFields(sample);
 
-
-            System.err.println("Quantity1: " + sample.getQuantity());
             sample = sampleDAO.save(sample);
-            System.err.println("Quantity2: " + sample.getQuantity());
 
             // new sample was successfully added
             result.setIdentifier(sample.getId());
@@ -389,7 +392,25 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
         }
 
         if (sample.getStorageMethodology() != null) {
+            if(sample.getStorageMethodology().getConservationMethod() != null){
+
+                // There are only key set in conservationMethod of parsedSet so it wont be attached to appropriate object
+                // stored in database
+                Set<ConservationMethod> parsedSet = sample.getStorageMethodology().getConservationMethod();
+
+                sample.getStorageMethodology().setConservationMethod(new HashSet<ConservationMethod>());
+
+                for(ConservationMethod conservationMethod : parsedSet){
+                    ConservationMethod cmDB = conservationMethodDAO.getByKey(conservationMethod.getKey());
+                    if(cmDB != null){
+                        sample.getStorageMethodology().getConservationMethod().add(cmDB);
+                    }
+                }
+            }
+
             sample.getStorageMethodology().setSample(sample);
+
+
         }
 
         if (sample.getDiagnosis() != null) {

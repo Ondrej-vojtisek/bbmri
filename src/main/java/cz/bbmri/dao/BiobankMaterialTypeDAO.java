@@ -4,6 +4,8 @@ import cz.bbmri.entity.Biobank;
 import cz.bbmri.entity.BiobankMaterialType;
 import cz.bbmri.entity.MaterialType;
 
+import java.util.List;
+
 /**
  * TODO describe class
  *
@@ -13,4 +15,6 @@ import cz.bbmri.entity.MaterialType;
 public interface BiobankMaterialTypeDAO extends AbstractCompositeDAO<BiobankMaterialType> {
 
     MaterialType get(Biobank biobank, String key);
+
+    List<BiobankMaterialType> get(Biobank biobank, MaterialType materialType);
 }

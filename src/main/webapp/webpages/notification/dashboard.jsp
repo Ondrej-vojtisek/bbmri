@@ -8,25 +8,14 @@
 
     <stripes:layout-component name="body">
 
+        <%--<div class="alert alert-info" role="alert">--%>
+            <%--<h2>Novinky</h2>--%>
+            <%--<h3>Známé chyby:</h3>--%>
+            <%--<ul>--%>
+                <%--<li>V importu z MOÚ je špatný počet alikvotů - chyba je na straně nemocničního systému.</li>--%>
+            <%--</ul>--%>
 
-        <%--PROTOTYPE.js--%>
-        <%--<p>Select a car make and model:</p>--%>
-
-        <%--<p>--%>
-        <%--&lt;%&ndash; START:form &ndash;%&gt;--%>
-        <%--<stripes:form beanclass="cz.bbmri.action.DashboardActionBean">--%>
-        <%--Make:--%>
-        <%--<stripes:select name="biobankId" onchange="updateModels(this);">--%>
-        <%--<stripes:option value="" label="..."/>--%>
-        <%--<stripes:options-collection collection="${actionBean.biobanks}" label="acronym" value="id"--%>
-        <%--/>--%>
-        <%--</stripes:select>--%>
-        <%--Model:--%>
-        <%--<span id="modelChoices"><stripes:select name="samples"/></span>--%>
-        <%--</stripes:form>--%>
-        <%--&lt;%&ndash; END:form &ndash;%&gt;--%>
-        <%--</p>--%>
-
+        <%--</div>--%>
 
         <stripes:form beanclass="cz.bbmri.action.DashboardActionBean">
 
@@ -38,28 +27,25 @@
 
             <core:forEach items="${actionBean.pagination.myPageList}" var="item">
 
-                <stripes:layout-render name="${component.row.notification}" item="${item}"/>
+                <stripes:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
 
             </core:forEach>
 
             <core:if test="${not empty actionBean.pagination.myPageList}">
 
-                <stripes:layout-render name="${component.pager}"
-                                       pagination="${actionBean.pagination}"/>
+                <stripes:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                                 pagination="${actionBean.pagination}"/>
 
             </core:if>
 
-            <core:if test="${not empty actionBean.pagination.myPageList}">
-                <div class="form-actions">
-                    <stripes:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
-                    <stripes:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
-                </div>
-            </core:if>
+            <div class="form-actions">
+                <stripes:submit name="deleteSelected" class="btn btn-primary btnMargin"/>
+                <stripes:submit name="markSelectedAsRead" class="btn btn-primary btnMargin"/>
+            </div>
 
         </stripes:form>
 
 
     </stripes:layout-component>
-
 
 </stripes:layout-render>

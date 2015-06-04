@@ -2,6 +2,8 @@ package cz.bbmri.dao;
 
 import cz.bbmri.entity.Diagnosis;
 
+import java.util.List;
+
 /**
  * TODO describe class
  *
@@ -9,4 +11,6 @@ import cz.bbmri.entity.Diagnosis;
  * @version 1.0
  */
 public interface DiagnosisDAO extends AbstractCompositeDAO<Diagnosis> {
+
+    List<String> getUniqueDiagnosis();
 }

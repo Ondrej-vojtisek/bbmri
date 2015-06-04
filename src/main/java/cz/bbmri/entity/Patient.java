@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class Patient implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    public static final String FOLDER = "patient";
 
     public static final String PROP_ID = "id";
    	public static final String PROP_INSTITUTIONAL_ID = "institutionalId";

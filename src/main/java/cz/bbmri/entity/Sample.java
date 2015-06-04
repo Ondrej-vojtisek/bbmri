@@ -23,6 +23,8 @@ import java.util.Set;
 
 public class Sample implements Serializable {
 
+    public static final String FOLDER = "sample";
+
     public static final String PROP_PATIENT = "patient";
     public static final String PROP_ID = "id";
     public static final String PROP_INSTITUTIONAL_ID = "institutionalId";

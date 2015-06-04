@@ -23,6 +23,8 @@ import java.io.Serializable;
 
 public class Morphology implements Serializable {
 
+    public static final String FOLDER = "morphology";
+
     public static final String PROP_SAMPLE = "sample";
     public static final String PROP_CLASSIFICATION = "classification";
     public static final String PROP_GRADING = "grading";

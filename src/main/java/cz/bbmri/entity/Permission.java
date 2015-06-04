@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Permission implements Serializable {
 
+    public static final String FOLDER = "permission";
+
     public Permission() {
     }
 

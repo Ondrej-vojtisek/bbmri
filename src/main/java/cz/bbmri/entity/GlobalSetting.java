@@ -19,6 +19,8 @@ import java.util.Date;
 
 public class GlobalSetting extends CompositeKeyGroup implements Serializable {
 
+    public static final String FOLDER = "globalSetting";
+
     public static final String PROP_KEY = "key";
     public static final String PROP_VALUE = "value";
     public static final String PROP_LAST_MODIFICATION = "lastModification";

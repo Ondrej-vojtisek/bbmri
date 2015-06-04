@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SexDAOImpl extends GenericDAOImpl<Sex> implements SexDAO {
 
-    public Sex get(Short id) {
+    public Sex get(Integer id) {
                       return (Sex) getCurrentSession().get(Sex.class, id);
                   }
 

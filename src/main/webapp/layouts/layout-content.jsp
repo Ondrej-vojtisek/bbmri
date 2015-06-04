@@ -1,9 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<core:set var="request" value="${pageContext.request}"/>
-<core:set var="context" value="${request.contextPath}"/>
-
 <%--<core:set var="locale" value="${actionBean.locale}"/>--%>
 
 <stripes:layout-definition>

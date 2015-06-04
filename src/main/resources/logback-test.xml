@@ -12,13 +12,13 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${BBMRI_HOME}\\bbmri_logger.log</file>
+               <!--<file>${BBMRI_HOME}\\bbmri_logger.log</file>-->
 
         <!--Linux-->
-        <!--<file>/home/bbmri_data/bbmri_logger.log</file>-->
+        <file>/home/bbmri_data/bbmri_logger.log</file>
 
         <encoder>
-            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <pattern>%date %level <!--[%thread]--> %logger{10} [%file:%line] %msg%n</pattern>
         </encoder>
     </appender>
 

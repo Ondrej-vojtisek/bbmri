@@ -42,8 +42,8 @@
     </div>
     <a href="http://www.recamo.cz/cz/bbmri/" alt="www.recamo.cz">
         <div class="images">
-            <img src="../images/recamo_logo.png" alt="recamo" style="margin-right: 30px;">
-            <img src="../images/BBMRIERIC_final.png" alt="bbmri" style="margin-left: 30px;">
+            <img src="${context}/images/recamo_logo.png" alt="recamo" style="margin-right: 30px;">
+            <img src="${context}/images/BBMRIERIC_final.png" alt="bbmri" style="margin-left: 30px;">
         </div>
     </a>
 

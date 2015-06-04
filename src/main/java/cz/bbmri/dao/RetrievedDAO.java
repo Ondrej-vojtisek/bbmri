@@ -8,5 +8,5 @@ import cz.bbmri.entity.Retrieved;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface RetrievedDAO extends AbstractDAO<Retrieved, Short> {
+public interface RetrievedDAO extends AbstractDAO<Retrieved, Integer> {
 }

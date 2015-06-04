@@ -25,6 +25,8 @@ import java.util.Set;
 
 public class MaterialType implements Serializable {
 
+    public static final String FOLDER = "materialType";
+
     public static final String PROP_ID = "id";
     public static final String PROP_NAME = "name";
     public static final String PROP_DESCRIPTION = "description";

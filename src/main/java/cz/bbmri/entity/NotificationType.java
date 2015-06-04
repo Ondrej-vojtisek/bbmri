@@ -24,6 +24,9 @@ import java.util.Set;
  * Fake table to map NotificationType enum during hibernate mapping export
  */
 public class NotificationType implements Serializable {
+
+    public static final String FOLDER = "notificationType";
+
     public NotificationType() {
     }
 

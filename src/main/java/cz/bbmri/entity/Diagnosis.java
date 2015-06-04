@@ -20,6 +20,8 @@ import java.io.Serializable;
 
 public class Diagnosis implements Serializable {
 
+    public static final String FOLDER = "diagnosis";
+
     public static final String PROP_KEY = "key";
     public static final String PROP_SAMPLE = "sample";
 

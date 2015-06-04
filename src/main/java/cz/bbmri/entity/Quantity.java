@@ -23,6 +23,8 @@ import java.io.Serializable;
 
 public class Quantity implements Serializable {
 
+    public static final String FOLDER = "quantity";
+
     public static final String PROP_SAMPLE = "sample";
     public static final String PROP_AVAILABLE = "available";
     public static final String PROP_TOTAL = "total";
@@ -84,13 +86,13 @@ public class Quantity implements Serializable {
     }
 
     /**
-     * Requested amount x must be x > 1 AND x < total number of samples
+     * Requested amount x must be x > 1
      *
      * @param requestedAmount - number of requested samples
      * @return
      */
     private boolean checkAmount(short requestedAmount) {
-        return requestedAmount >= 1 && requestedAmount <= total;
+        return requestedAmount >= 1;
 
     }
 

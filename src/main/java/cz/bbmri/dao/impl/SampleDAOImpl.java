@@ -6,9 +6,8 @@ import cz.bbmri.entity.*;
 import cz.bbmri.entity.enumeration.Status;
 import cz.bbmri.io.InstanceImportResult;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Hibernate;
+import org.hibernate.criterion.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,6 +71,10 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
 
         Sample sampleDB = get(sample.getId());
 
+        getCurrentSession().refresh(sample.getMaterialType());
+
+        System.err.println("MATERIAL TYPE: " + sample.getMaterialType());
+
         notNull(sampleDB);
 
         InstanceImportResult instanceImportResult = new InstanceImportResult(Sample.class.toString());
@@ -86,7 +89,10 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
             if (!sampleDB.getMaterialType().equals(sample.getMaterialType())) {
                 // Not equals
                 // Report
-                instanceImportResult.addChange(Sample.PROP_MATERIAL_TYPE, sampleDB.getMaterialType(), sample.getMaterialType());
+
+                instanceImportResult.addChange(Sample.PROP_MATERIAL_TYPE,
+                        sampleDB.getMaterialType().getName(),
+                        sample.getMaterialType().getName());
                 // Change
                 sampleDB.setMaterialType(sample.getMaterialType());
                 isChanged = true;
@@ -281,16 +287,41 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
     }
 
     public List<Sample> find(Biobank biobank,
-                             Boolean sts,
                              Retrieved retrieved,
-                             Short available,
-                             Short total,
-                             MaterialType materialType) {
+                             Sex sex,
+                             MaterialType materialType,
+                             String diagnosisKey) {
 
-        List<Sample> samples = getCurrentSession().createCriteria(Sample.class)
-                .createAlias("patient", "patient")
-                .add(Restrictions.eq("patient.biobank", biobank))
-                .add(Restrictions.eq("sample.retrieved", retrieved)).setMaxResults(MAX_SEARCH_RESULTS).list();
+        Criteria criteria = getCurrentSession().createCriteria(Sample.class, "sample");
+        criteria.createAlias("sample.patient", "patient");
+   //     criteria.createAlias("sample.diagnosis", "diagnosis");
+   //     criteria.createAlias("quantity", "quantity");
+
+        if (biobank != null) {
+            criteria.add(Restrictions.eq("patient.biobank" , biobank));
+        }
+
+        if (sex != null) {
+            criteria.add(Restrictions.eq("patient.sex", sex));
+        }
+
+        if (retrieved != null) {
+            criteria.add(Restrictions.eq("sample.retrieved", retrieved));
+        }
+
+        if (materialType != null) {
+            criteria.add(Restrictions.eq("sample.materialType", materialType));
+        }
+
+//        if(diagnosisKey != null){
+//            criteria.add(Restrictions.eq("diagnosis.key", diagnosisKey));
+//        }
+
+//        if(available != null){
+//            criteria.add(Restrictions.ge("quantity." + Quantity.PROP_AVAILABLE, available));
+//        }
+
+        List<Sample> samples = criteria.setMaxResults(MAX_SEARCH_RESULTS).list();
 
         if (samples.isEmpty()) {
             return null;
@@ -307,7 +338,7 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
         criteria.setProjection(Projections.rowCount());
 
 
-        if(criteria.uniqueResult() == null){
+        if (criteria.uniqueResult() == null) {
             return 0;
         }
 

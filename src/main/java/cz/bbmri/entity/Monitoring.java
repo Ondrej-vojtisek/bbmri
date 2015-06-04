@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Monitoring implements Serializable {
 
+	public static final String FOLDER = "monitoring";
+
     public static final String PROP_CONTAINER = "container";
    	public static final String PROP_ID = "id";
    	public static final String PROP_NAME = "name";

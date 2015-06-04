@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Country implements Serializable {
 
+	public static final String FOLDER = "country";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_KEY = "key";
    	public static final String PROP_NAME = "name";

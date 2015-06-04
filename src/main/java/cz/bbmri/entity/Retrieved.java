@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Retrieved implements Serializable {
 
+    public static final String FOLDER = "retrieved";
+
     public Retrieved() {
     }
 

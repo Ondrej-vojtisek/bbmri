@@ -101,8 +101,8 @@
                 </tr>
 
                 <tr>
-                    <th><format:message key="cz.bbmri.entity.StorageMethodology.medium"/></th>
-                    <td>${sample.storageMethodology.medium}</td>
+                    <th><format:message key="cz.bbmri.entity.ConservationMethod.conservationMethods"/></th>
+                    <td>${sample.storageMethodology.printConservationMethod}</td>
                 </tr>
             </core:if>
 

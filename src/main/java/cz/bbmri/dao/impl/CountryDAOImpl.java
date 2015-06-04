@@ -6,6 +6,8 @@ import cz.bbmri.entity.Country;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * TODO describe class
  *
@@ -19,4 +21,5 @@ public class CountryDAOImpl extends GenericDAOImpl<Country> implements CountryDA
     public Country get(Integer id) {
                       return (Country) getCurrentSession().get(Country.class, id);
                   }
+
 }

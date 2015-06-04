@@ -18,6 +18,8 @@ import java.util.Locale;
 
 public class Settings implements Serializable {
 
+    public static final String FOLDER = "settings";
+
     private static final String DEFAULT_LOCALE = "cs";
 
     public static final String PROP_USER = "user";

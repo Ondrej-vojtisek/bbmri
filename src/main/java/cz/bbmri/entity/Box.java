@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Box implements Serializable {
 
+	public static final String FOLDER = "box";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_CAPACITY = "capacity";
    	public static final String PROP_NAME = "name";

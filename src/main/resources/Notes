@@ -1,35 +1,33 @@
 TODO:
 
-- Změna stavu question
-- změna stavu reservation -> přiřazení ke schválenému projektu
-- export seznamu žádaných vzorků
+    Jun 03, 2015 4:08:25 PM net.sourceforge.stripes.util.Log error
+    SEVERE: Error evaluating expression for property security of class ReservationActionBean. Expression: ${biobankExecutor}
+
+
+- dodelat export zadanych vzorku (zobrazit informace k projektu, zobrazit requesty)
+- export seznam žádaných vzorků
 - Notifikace
 - Archiv
-- Výběr vzorků a přiřazení k žádosti
-- Ujednotit pořadí tlačítek - Potvrzeni vs. cancel
-- zobrazeni data navázat na lokalizaci - Create Project, apod.
-- napojení na číselník morfologie
-- napojení na číselník TNM
-- deploy nove DB - nahrani novych dat z 1. LF
+- Radit getAll
+- Poznámky - nápověda, vysvětlující informace
+- Opravená lokalizace - včetně dat
+- formát zobrazení telefoních čísel
+- napojení na číselníky - TNM, morfologie, diagnóza
+- ukládat v DB todo-list
+- kontrolovat expiration date u rezervaci - ale jen u těch confirmed
+- kontrola autorizace u sample detailu at muze detail zobrazit ten kdo ma platny request/rezervaci
+- encrypt URL params
+- každý může zobrazit kontaktní detaily uživatele
+- optimalizace logování - minimum nutného - nelogovat DB hlášky apod
+- komentáře
+- řazení tabulek
+- vylepšení grafiky - ikonky v tabulkách místo textu
+- update verze bootstrapu - multicolumn layout pro formuláře http://www.bootply.com/s2mmi1YyL4
+- vyhledavani v DB podle věku pacienta - googlit klíčové slovo @Formula a hibernate
+- možnost zadat informace k infrastruktuře
+- možnost k samplu zadat pozici, zobrazit pozici
 
-Reservation:
-- kdy je rezervace approved tak umoznit prirazeni vzorku
-- umoznit prirazeni rezervace projektu -> tj. zmenu rezervace na question
-- pridat zobrazeni kolik dnu zbyva do konce expirace
 
-User:
-- kazdy muze zobrazit kontaktni detaily uzivatele
-- vyhledavani uzivatele - AJAX
-
-Question:
-- umoznit zobrazit detail
-- zmena stavu question - approve atd..
-- alokace vzorku
-
-- Komentare DAO vrstvy
-- Komentare parserů
-- Komentare ActionBeany
-- Dodelani lokalizase
 
 
 Parser MOU:

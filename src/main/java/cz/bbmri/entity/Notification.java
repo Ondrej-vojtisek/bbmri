@@ -14,6 +14,8 @@ import java.util.Date;
 
 public class Notification implements Serializable {
 
+    public static final String FOLDER = "notification";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_CREATED = "created";
    	public static final String PROP_READ = "read";

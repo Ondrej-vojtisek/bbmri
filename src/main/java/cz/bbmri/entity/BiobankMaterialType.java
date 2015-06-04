@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class BiobankMaterialType extends CompositeKeyGroup implements Serializable {
 
+    public static final String FOLDER = "biobankMaterialType";
+
     public static final String PROP_BIOBANK = "biobank";
     public static final String PROP_MATERIAL_TYPE = "materialType";
     public static final String PROP_KEY = "key";

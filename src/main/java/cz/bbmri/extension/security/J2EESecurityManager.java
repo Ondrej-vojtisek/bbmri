@@ -50,7 +50,7 @@ public class J2EESecurityManager implements SecurityManager {
     @Override
     public Boolean getAccessAllowed(ActionBean bean, Method handler){
         // Determine if the event handler allows access
-        logger.debug("Determining if access is allowed for " + handler.getName() + " on " + bean.toString());
+//        logger.debug("Determining if access is allowed for " + handler.getName() + " on " + bean.toString());
         Boolean allowed = determineAccessOnElement(bean, handler, handler);
 
         // If the event handler didn't decide, determine

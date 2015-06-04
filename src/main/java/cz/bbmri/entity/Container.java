@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Container implements Serializable {
 
+    public static final String FOLDER = "container";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_BIOBANK = "biobank";
    	public static final String PROP_NAME = "name";

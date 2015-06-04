@@ -8,5 +8,5 @@ import cz.bbmri.entity.Sex;
  * @author Ondrej Vojtisek (ondra.vojtisek@gmail.com)
  * @version 1.0
  */
-public interface SexDAO extends AbstractDAO<Sex, Short> {
+public interface SexDAO extends AbstractDAO<Sex, Integer> {
 }

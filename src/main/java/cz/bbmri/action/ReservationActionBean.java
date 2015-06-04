@@ -3,13 +3,8 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.BiobankDAO;
-import cz.bbmri.dao.GlobalSettingDAO;
-import cz.bbmri.dao.ReservationDAO;
-import cz.bbmri.entity.Biobank;
-import cz.bbmri.entity.GlobalSetting;
-import cz.bbmri.entity.Reservation;
-import cz.bbmri.entity.ReservationState;
+import cz.bbmri.dao.*;
+import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
 import net.sourceforge.stripes.action.*;
@@ -31,7 +26,7 @@ import java.util.List;
  * @version 1.0
  */
 @UrlBinding("/reservation/{$event}/{id}")
-public class ReservationActionBean extends AuthorizationActionBean {
+public class ReservationActionBean extends AbstractRequisitionActionBean {
 
     @SpringBean
     private ReservationDAO reservationDAO;
@@ -42,7 +37,18 @@ public class ReservationActionBean extends AuthorizationActionBean {
     @SpringBean
     private GlobalSettingDAO globalSettingDAO;
 
+    @SpringBean
+    private ProjectDAO projectDAO;
+
+    @SpringBean
+    private QuestionDAO questionDAO;
+
+    @SpringBean
+    private RequestDAO requestDAO;
+
     private Long id;
+
+    private Long projectId;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"confirmAdd"}, field = "specification", required = true)
@@ -121,8 +127,20 @@ public class ReservationActionBean extends AuthorizationActionBean {
         this.biobanks = biobanks;
     }
 
-    public boolean getIsMyReservation(){
+    public boolean getIsMyReservation() {
         return getReservation().getUser().equals(getLoggedUser());
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
+
+    public List<Project> getProjects(){
+        return projectDAO.getByUser(getLoggedUser());
     }
 
     @DefaultHandler
@@ -216,7 +234,7 @@ public class ReservationActionBean extends AuthorizationActionBean {
     }
 
     @HandlesEvent("approve")
-    @RolesAllowed("biobank_operator")
+    @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution approve() {
         getReservation();
 
@@ -233,7 +251,7 @@ public class ReservationActionBean extends AuthorizationActionBean {
     }
 
     @HandlesEvent("deny")
-    @RolesAllowed("biobank_operator")
+    @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution deny() {
         getReservation();
 
@@ -249,6 +267,67 @@ public class ReservationActionBean extends AuthorizationActionBean {
         return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
     }
 
+    @HandlesEvent("confirm")
+    @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
+    public Resolution confirm() {
+        getReservation();
+
+        if (!reservation.getIsApproved()) {
+            return new ForwardResolution(View.Reservation.NOTFOUND);
+        }
+
+        reservation.setReservationState(ReservationState.CONFIRMED);
+        reservation.setLastModification(new Date());
+
+        // Expiration date is updated
+
+        // Today date
+        Calendar cal = Calendar.getInstance();
+
+        // Add period for which is reservation valid
+        cal.add(Calendar.MONTH, globalSettingDAO.getReservationValidity());
+
+        reservationDAO.save(reservation);
+
+        return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+    }
+
+    @HandlesEvent("assignToProject")
+    @RolesAllowed({"authorized"})
+    public Resolution assignToProject() {
+        getReservation();
+
+        if (!reservation.getIsConfirmed()) {
+            return new ForwardResolution(View.Reservation.NOTFOUND);
+        }
+
+        Project project = projectDAO.get(projectId);
+
+        if(project == null){
+            return new ForwardResolution(View.Project.NOTFOUND);
+        }
+
+        if(!project.getIsConfirmed()){
+            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.ReservationActionBean.notConfirmed"));
+           return new ForwardResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+        }
+
+        Question question = new Question();
+        question.setProject(project);
+        question.setQuestionState(QuestionState.APPROVED);
+        question.setBiobank(reservation.getBiobank());
+        questionDAO.save(question);
+
+        for(Request request : reservation.getRequest()){
+            request.setReservation(null);
+            request.setQuestion(question);
+            requestDAO.update(request);
+        }
+
+        reservationDAO.remove(reservation);
+
+        return new RedirectResolution(ProjectActionBean.class, "questions").addParameter("id", project.getId());
+    }
 
 
 }

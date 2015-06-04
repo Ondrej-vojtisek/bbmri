@@ -66,11 +66,11 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
             if (!basicBean.shibbolethSignIn(shibboleth)) {
                 user = null;
-                logger.debug("Sign in of shibboleth user failed");
+//                logger.debug("Sign in of shibboleth user failed");
                 return null;
             }
 
-            logger.debug("Sign in of shibboleth user succeeded");
+//            logger.debug("Sign in of shibboleth user succeeded");
 
         } else if (!set) {
             // Forget the user
@@ -88,7 +88,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     @Override
     protected Boolean isUserAuthenticated(ActionBean bean, Method handler) {
-        System.err.println("AssociateSecMan: " + getUser(bean));
+//        System.err.println("AssociateSecMan: " + getUser(bean));
         return null != getUser(bean);
     }
 
@@ -111,7 +111,7 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
                 return Boolean.TRUE;
             }
 
-            logger.debug("Role: " + role + " doesn't match: " + systemRole.getName());
+//            logger.debug("Role: " + role + " doesn't match: " + systemRole.getName());
         }
 
         return Boolean.FALSE;
@@ -120,11 +120,11 @@ public class AssociatedSecurityManager extends InstanceBasedSecurityManager impl
 
     @Override
     public Resolution handleAccessDenied(ActionBean bean, Method handler) {
-        logger.debug("HandleAccessDenied");
+//        logger.debug("HandleAccessDenied");
 
         // If not authenticated user
         if (!isUserAuthenticated(bean, handler)) {
-            logger.debug("Return to login form");
+//            logger.debug("Return to login form");
             // Redirect to the login form
             return new ForwardResolution(LoginActionBean.class);
         }

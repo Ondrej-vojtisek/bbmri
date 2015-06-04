@@ -9,6 +9,8 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
 import net.sourceforge.stripes.validation.Validate;
 
+import java.util.List;
+
 /**
  * TODO describe class
  *
@@ -28,12 +30,21 @@ public class RequestActionBean extends AuthorizationActionBean {
     private WithdrawDAO withdrawDAO;
 
     @SpringBean
+    private QuestionDAO questionDAO;
+
+    @SpringBean
     private SampleDAO sampleDAO;
 
     @SpringBean
     private QuantityDAO quantityDAO;
 
-    @Validate(required = true, on = {"remove"})
+    private Reservation reservation;
+
+    private Question question;
+
+    private Withdraw withdraw;
+
+    @Validate(required = true, on = {"remove", "decrease", "increase"})
     private Long requestId;
 
     @Validate(required = true, on = {"addToReservation"})
@@ -86,95 +97,97 @@ public class RequestActionBean extends AuthorizationActionBean {
         this.questionId = questionId;
     }
 
-    @HandlesEvent("addToReservation")
-    public Resolution addToReservation() {
-        Sample sample = sampleDAO.get(sampleId);
-
-        if (sample == null) {
-            return new ForwardResolution(View.Sample.NOTFOUND);
+    public Withdraw getWithdraw() {
+        if (withdraw == null) {
+            if (withdrawId != null) {
+                withdraw = withdrawDAO.get(withdrawId);
+            }
         }
 
-        Reservation reservation = reservationDAO.get(reservationId);
+        return withdraw;
+    }
 
+    public Question getQuestion() {
+        if (question == null) {
+            if (questionId != null) {
+                question = questionDAO.get(questionId);
+            }
+        }
+
+        return question;
+    }
+
+    public Reservation getReservation() {
         if (reservation == null) {
-            return new ForwardResolution(View.Reservation.NOTFOUND);
+            if (reservationId != null) {
+                reservation = reservationDAO.get(reservationId);
+            }
         }
 
-        Quantity quantity = sample.getQuantity();
-
-        if (quantity == null) {
-
-            return new ForwardResolution(View.Quantity.NOTFOUND);
-        }
-
-        // check if there is enough samples
-        if (!quantity.decreaseAmount(Request.IMPLICIT_REQUESTED_SAMPLES)) {
-
-            getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.RequestActionBean.notEnoughSamples"));
-
-            return new ForwardResolution(ReservationActionBean.class, "detail").addParameter("id", reservationId);
-        }
-        quantityDAO.save(quantity);
-
-        Request request = new Request();
-        request.setNumber(Request.IMPLICIT_REQUESTED_SAMPLES);
-        request.setReservation(reservation);
-        request.setSample(sample);
-
-        requestDAO.create(request);
-
-
-        return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservationId);
+        return reservation;
     }
 
     @HandlesEvent("remove")
     public Resolution remove() {
 
-        System.err.println("requestId: " + requestId);
+        if (requestId == null) {
+
+            return new ForwardResolution(View.Request.NOTFOUND);
+        }
 
         Request request = requestDAO.get(requestId);
 
         if (request == null) {
+
             return new ForwardResolution(View.Request.NOTFOUND);
         }
 
         short number = request.getNumber();
         Sample sample = request.getSample();
 
-        Reservation reservation = request.getReservation();
-        Withdraw withdraw = request.getWithdraw();
-        Question question = request.getQuestion();
+        reservation = request.getReservation();
+        withdraw = request.getWithdraw();
+        question = request.getQuestion();
 
         if (reservation == null && withdraw == null && question == null) {
+
             return new ForwardResolution(View.Request.NOTFOUND);
         }
 
         if (sample == null) {
+
             return new ForwardResolution(View.Sample.NOTFOUND);
         }
 
         Quantity quantity = sample.getQuantity();
 
         if (quantity == null) {
+
             return new ForwardResolution(View.Quantity.NOTFOUND);
         }
 
         // check if there is enough samples
         if (!quantity.increaseAmount(number)) {
-
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.RequestActionBean.error"));
 
-            return proceedForward(reservation, withdraw, question);
+            return new ForwardResolution("/webpages/request/component/table.jsp");
         }
         quantityDAO.save(quantity);
 
         requestDAO.remove(request);
 
-        return proceedRedirect(reservation, withdraw, question);
+        getContext().getResponse().setHeader("X-Stripes-Success", "true");
+
+        return new ForwardResolution("/webpages/request/component/table.jsp");
     }
 
     @HandlesEvent("decrease")
     public Resolution decrease() {
+
+        if (requestId == null) {
+            return new ForwardResolution(View.Request.NOTFOUND);
+        }
+
         Request request = requestDAO.get(requestId);
 
         if (request == null) {
@@ -183,47 +196,56 @@ public class RequestActionBean extends AuthorizationActionBean {
 
         Sample sample = request.getSample();
 
-        Reservation reservation = request.getReservation();
-        Withdraw withdraw = request.getWithdraw();
-        Question question = request.getQuestion();
+        reservation = request.getReservation();
+        withdraw = request.getWithdraw();
+        question = request.getQuestion();
 
         if (reservation == null && withdraw == null && question == null) {
+
             return new ForwardResolution(View.Request.NOTFOUND);
         }
 
         if (sample == null) {
+
             return new ForwardResolution(View.Sample.NOTFOUND);
         }
 
         Quantity quantity = sample.getQuantity();
 
         if (quantity == null) {
+
             return new ForwardResolution(View.Quantity.NOTFOUND);
         }
 
         // check if there is enough samples
+        // we want to decrease request - so the number of available aliquotes is increased
         if (!quantity.increaseAmount(Request.IMPLICIT_REQUESTED_SAMPLES)) {
 
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.RequestActionBean.error"));
 
-            return proceedForward(reservation, withdraw, question);
+            return new ForwardResolution("/webpages/request/component/table.jsp");
         }
         quantityDAO.save(quantity);
 
         request.decrease();
 
         // less then 1 requested - no need to preserve such request
-        if(request.getNumber() < 1){
+        if (request.getNumber() < 1) {
             requestDAO.remove(request);
-        }else{
+        } else {
             requestDAO.update(request);
         }
 
-        return proceedRedirect(reservation, withdraw, question);
+        getContext().getResponse().setHeader("X-Stripes-Success", "true");
+        return new ForwardResolution("/webpages/request/component/table.jsp");
     }
 
     @HandlesEvent("increase")
     public Resolution increase() {
+        if (requestId == null) {
+            return new ForwardResolution(View.Request.NOTFOUND);
+        }
+
         Request request = requestDAO.get(requestId);
 
         if (request == null) {
@@ -232,9 +254,9 @@ public class RequestActionBean extends AuthorizationActionBean {
 
         Sample sample = request.getSample();
 
-        Reservation reservation = request.getReservation();
-        Withdraw withdraw = request.getWithdraw();
-        Question question = request.getQuestion();
+        reservation = request.getReservation();
+        withdraw = request.getWithdraw();
+        question = request.getQuestion();
 
         if (reservation == null && withdraw == null && question == null) {
             return new ForwardResolution(View.Request.NOTFOUND);
@@ -255,46 +277,38 @@ public class RequestActionBean extends AuthorizationActionBean {
 
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.RequestActionBean.error"));
 
-            return proceedForward(reservation, withdraw, question);
+            return new ForwardResolution("/webpages/request/component/table.jsp");
         }
         quantityDAO.save(quantity);
 
         request.increase();
         requestDAO.update(request);
 
-        return proceedRedirect(reservation, withdraw, question);
+        getContext().getResponse().setHeader("X-Stripes-Success", "true");
+
+        return new ForwardResolution("/webpages/request/component/table.jsp");
     }
 
-    private Resolution proceedRedirect(Reservation reservation, Withdraw withdraw, Question question) {
-        if (reservation != null) {
-            return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
-        }
+    @HandlesEvent("refresh")
+    public Resolution refresh() {
 
-        if (withdraw != null) {
-            return new RedirectResolution(WithdrawActionBean.class, "detail").addParameter("id", withdraw.getId());
-        }
-
-        if (question != null) {
-            return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
-        }
-
-        return new ForwardResolution(View.Request.NOTFOUND);
+        getContext().getResponse().setHeader("X-Stripes-Success", "true");
+        return new ForwardResolution("/webpages/request/component/table.jsp");
     }
 
-    private Resolution proceedForward(Reservation reservation, Withdraw withdraw, Question question) {
-        if (reservation != null) {
-            return new ForwardResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+    @HandlesEvent("printRequests")
+    public Resolution printRequests() {
+
+        withdraw = getWithdraw();
+
+        question = getQuestion();
+
+        if (withdraw == null && question == null) {
+            return new ForwardResolution(View.Request.NOTFOUND);
         }
 
-        if (withdraw != null) {
-            return new ForwardResolution(WithdrawActionBean.class, "detail").addParameter("id", withdraw.getId());
-        }
+        return new ForwardResolution("/webpages/request/component/export.jsp");
 
-        if (question != null) {
-            return new ForwardResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
-        }
-
-        return new ForwardResolution(View.Request.NOTFOUND);
     }
 
 }

@@ -19,6 +19,8 @@ import java.util.Set;
 
 public class Collection implements Serializable {
 
+	public static final String FOLDER = "collection";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_NAME = "name";
    	public static final String PROP_DESCRIPTION = "description";

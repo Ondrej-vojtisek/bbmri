@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class Biobank implements Serializable {
 
+    public static final String FOLDER = "biobank";
+
     /**
      * Folder names on server
      */

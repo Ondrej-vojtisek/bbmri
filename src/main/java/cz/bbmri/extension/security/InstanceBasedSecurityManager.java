@@ -65,26 +65,26 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
             roleExpression = null;
         }
 
-        logger.debug("The role name and its expression are " + roleName + " & " + String.valueOf(roleExpression));
+//        logger.debug("The role name and its expression are " + roleName + " & " + String.valueOf(roleExpression));
 
         // Check if the user has the required role.
 
         Boolean hasRole = hasRoleName(bean, handler, roleName);
 
-        logger.debug("hasRole " + hasRole);
+//        logger.debug("hasRole " + hasRole);
 
         // If there is a limiting expression, restrict the role to cases where the expression evaluates to true.
 
         if (hasRole != null && hasRole && roleExpression != null) {
-            logger.debug("Checking expression " + roleExpression);
+//            logger.debug("Checking expression " + roleExpression);
 
             Object value = evaluateRoleExpression(bean, roleExpression);
             hasRole = value == null ? null : Boolean.TRUE.equals(value);
         }else{
-            logger.debug("hasRole == null || hasRole || roleExpression == null");
+//            logger.debug("hasRole == null || hasRole || roleExpression == null");
         }
 
-        logger.debug("Done checking role " + role + ": access is " + (hasRole ? "allowed" : "denied") + '.');
+//        logger.debug("Done checking role " + role + ": access is " + (hasRole ? "allowed" : "denied") + '.');
         return hasRole;
     }
 
@@ -115,7 +115,7 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
      */
     private Object evaluateRoleExpression(ActionBean bean, String expression) {
         try {
-            logger.debug("Evaluating expression: '" + expression + '\'');
+//            logger.debug("Evaluating expression: '" + expression + '\'');
 
             // This is somewhat of a hack until the ExpressionEvaluator becomes more accessible.
             ParameterName name = new ParameterName("security");

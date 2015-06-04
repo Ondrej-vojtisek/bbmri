@@ -1,5 +1,7 @@
 package cz.bbmri.action.map;
 
+import cz.bbmri.entity.Archive;
+
 /**
  * TODO describe class
  *
@@ -46,7 +48,7 @@ public enum View {
      * Archive
      */
     public static class Archive {
-        private static final String DIRECTORY = LOCATION + "archive/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Archive.FOLDER + "/";
 
         public static final String ALL = DIRECTORY + "all.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
@@ -57,7 +59,7 @@ public enum View {
      * Attachment
      */
     public static class Attachment {
-        private static final String DIRECTORY = LOCATION + "attachment/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Attachment.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ADD_BIOBANK_ATTACHMENT = DIRECTORY + "add-to-biobank.jsp";
@@ -69,7 +71,7 @@ public enum View {
      * Attachment type
      */
     public static class AttachmentType {
-        private static final String DIRECTORY = LOCATION + "attachmentType/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.AttachmentType.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
 
@@ -79,7 +81,7 @@ public enum View {
      * Biobank
      */
     public static class Biobank {
-        private static final String DIRECTORY = LOCATION + "biobank/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Biobank.FOLDER + "/";
 
         public static final String ALL = DIRECTORY + "all.jsp";
         public static final String DETAIL = DIRECTORY + "detail.jsp";
@@ -97,7 +99,7 @@ public enum View {
      * Biobank User
      */
     public static class BiobankUser {
-        private static final String DIRECTORY = LOCATION + "biobankUser/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.BiobankUser.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ADD = DIRECTORY + "add.jsp";
@@ -107,7 +109,7 @@ public enum View {
      * Box
      */
     public static class Box {
-        private static final String DIRECTORY = LOCATION + "box/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Box.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
 
@@ -117,7 +119,7 @@ public enum View {
      * Collection
      */
     public static class Collection {
-        private static final String DIRECTORY = LOCATION + "collection/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Collection.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
 
@@ -127,7 +129,7 @@ public enum View {
      * Contact
      */
     public static class Contact {
-        private static final String DIRECTORY = LOCATION + "contact/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Contact.FOLDER + "/";
 
     }
 
@@ -135,7 +137,7 @@ public enum View {
      * Container
      */
     public static class Container {
-        private static final String DIRECTORY = LOCATION + "container/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Container.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -144,7 +146,7 @@ public enum View {
      * Country
      */
     public static class Country {
-        private static final String DIRECTORY = LOCATION + "country/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Country.FOLDER + "/";
 
         public static final String ALL = DIRECTORY + "all.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
@@ -154,7 +156,7 @@ public enum View {
      * Diagnosis
      */
     public static class Diagnosis {
-        private static final String DIRECTORY = LOCATION + "diagnosis/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Diagnosis.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -163,7 +165,7 @@ public enum View {
      * Global setting
      */
     public static class GlobalSetting {
-        private static final String DIRECTORY = LOCATION + "globalSetting/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.GlobalSetting.FOLDER + "/";
 
     }
 
@@ -171,16 +173,17 @@ public enum View {
      * Material type
      */
     public static class MaterialType {
-        private static final String DIRECTORY = LOCATION + "materialType/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.MaterialType.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
+        public static final String ALL = DIRECTORY + "all.jsp";
     }
 
     /**
      * Measurement type
      */
     public static class MeasurementType {
-        private static final String DIRECTORY = LOCATION + "measurementType/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.MeasurementType.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -189,7 +192,7 @@ public enum View {
      * Monitoring
      */
     public static class Monitoring {
-        private static final String DIRECTORY = LOCATION + "monitoring/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Monitoring.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -198,7 +201,7 @@ public enum View {
      * Morphology
      */
     public static class Morphology {
-        private static final String DIRECTORY = LOCATION + "morphology/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Morphology.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -207,7 +210,7 @@ public enum View {
      * Notification
      */
     public static class Notification {
-        private static final String DIRECTORY = LOCATION + "notification/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Notification.FOLDER + "/";
 
         public static final String DASHBOARD = DIRECTORY + "dashboard.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
@@ -218,7 +221,7 @@ public enum View {
      * Patient
      */
     public static class Patient {
-        private static final String DIRECTORY = LOCATION + "patient/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Patient.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
@@ -230,7 +233,7 @@ public enum View {
      * Permission
      */
     public static class Permission {
-        private static final String DIRECTORY = LOCATION + "permission/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Permission.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -239,7 +242,7 @@ public enum View {
      * Position
      */
     public static class Position {
-        private static final String DIRECTORY = LOCATION + "position/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Position.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -248,7 +251,7 @@ public enum View {
      * Project
      */
     public static class Project {
-        private static final String DIRECTORY = LOCATION + "project/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Project.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
@@ -268,7 +271,7 @@ public enum View {
      * Project state
      */
     public static class ProjectState {
-        private static final String DIRECTORY = LOCATION + "projectState/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.ProjectState.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -277,7 +280,7 @@ public enum View {
      * Project user
      */
     public static class ProjectUser {
-        private static final String DIRECTORY = LOCATION + "projectUser/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.ProjectUser.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ADD = DIRECTORY + "add.jsp";
@@ -287,7 +290,7 @@ public enum View {
      * PTNM
      */
     public static class Ptnm {
-        private static final String DIRECTORY = LOCATION + "Ptnm/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Ptnm.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -296,7 +299,7 @@ public enum View {
      * Quantity
      */
     public static class Quantity {
-        private static final String DIRECTORY = LOCATION + "quantity/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Quantity.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -305,7 +308,7 @@ public enum View {
      * Question
      */
     public static class Question {
-        private static final String DIRECTORY = LOCATION + "question/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Question.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
@@ -317,7 +320,7 @@ public enum View {
      * Question state
      */
     public static class QuestionState {
-        private static final String DIRECTORY = LOCATION + "questionState/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.QuestionState.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -326,7 +329,7 @@ public enum View {
      * Record
      */
     public static class Record {
-        private static final String DIRECTORY = LOCATION + "record/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Record.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -335,7 +338,7 @@ public enum View {
      * Request
      */
     public static class Request {
-        private static final String DIRECTORY = LOCATION + "request/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Request.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -344,7 +347,7 @@ public enum View {
      * Reservation
      */
     public static class Reservation {
-        private static final String DIRECTORY = LOCATION + "reservation/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Reservation.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
@@ -356,7 +359,7 @@ public enum View {
      * Reservation state
      */
     public static class ReservationState {
-        private static final String DIRECTORY = LOCATION + "reservationState/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.ReservationState.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -365,7 +368,7 @@ public enum View {
      * Retrieved
      */
     public static class Retrieved {
-        private static final String DIRECTORY = LOCATION + "retrieved/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Retrieved.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -374,7 +377,7 @@ public enum View {
      * Role
      */
     public static class Role {
-        private static final String DIRECTORY = LOCATION + "role/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Role.FOLDER + "/";
 
         public static final String USERDETAIL = DIRECTORY + "user-detail.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
@@ -384,7 +387,7 @@ public enum View {
      * Sample
      */
     public static class Sample {
-        private static final String DIRECTORY = LOCATION + "sample/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Sample.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
         public static final String ALL = DIRECTORY + "all.jsp";
@@ -395,7 +398,7 @@ public enum View {
      * Settings
      */
     public static class Settings {
-        private static final String DIRECTORY = LOCATION + "settings/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Settings.FOLDER + "/";
 
         public static final String USERDETAIL = DIRECTORY + "user-detail.jsp";
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
@@ -405,7 +408,7 @@ public enum View {
      * Sex
      */
     public static class Sex {
-        private static final String DIRECTORY = LOCATION + "sex/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Sex.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -414,7 +417,7 @@ public enum View {
      * Shibboleth
      */
     public static class Shibboleth {
-        private static final String DIRECTORY = LOCATION + "shibboleth/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Shibboleth.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -423,7 +426,7 @@ public enum View {
      * TNM
      */
     public static class Tnm {
-        private static final String DIRECTORY = LOCATION + "tnm/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Tnm.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
     }
@@ -432,7 +435,7 @@ public enum View {
      * User
      */
     public static class User {
-        private static final String DIRECTORY = LOCATION + "user/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.User.FOLDER + "/";
 
         // Available locations defined within section
 
@@ -449,10 +452,10 @@ public enum View {
      * Withdraw
      */
     public static class Withdraw {
-        private static final String DIRECTORY = LOCATION + "withdraw/";
+        private static final String DIRECTORY = LOCATION + cz.bbmri.entity.Withdraw.FOLDER + "/";
 
         public static final String NOTFOUND = DIRECTORY + "not-found.jsp";
-        public static final String ADD = DIRECTORY + "add.jsp";
+        public static final String DETAIL = DIRECTORY + "detail.jsp";
     }
 
 

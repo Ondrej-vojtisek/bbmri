@@ -29,7 +29,7 @@ import java.util.List;
  * @version 1.0
  */
 @UrlBinding("/question/{$event}/{id}")
-public class QuestionActionBean extends AuthorizationActionBean {
+public class QuestionActionBean extends AbstractRequisitionActionBean {
 
     @SpringBean
     private QuestionDAO questionDAO;
@@ -228,6 +228,57 @@ public class QuestionActionBean extends AuthorizationActionBean {
         }
 
         question.setQuestionState(QuestionState.DENIED);
+        question.setLastModification(new Date());
+
+        questionDAO.save(question);
+
+        return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
+    }
+
+    @HandlesEvent("close")
+    @RolesAllowed("biobank_operator")
+    public Resolution close() {
+        getQuestion();
+
+        if (!question.getIsApproved()) {
+            return new ForwardResolution(View.Question.NOTFOUND);
+        }
+
+        question.setQuestionState(QuestionState.CLOSED);
+        question.setLastModification(new Date());
+
+        questionDAO.save(question);
+
+        return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
+    }
+
+    @HandlesEvent("agree")
+    @RolesAllowed("biobank_operator")
+    public Resolution agree() {
+        getQuestion();
+
+        if (!question.getIsClosed()) {
+            return new ForwardResolution(View.Question.NOTFOUND);
+        }
+
+        question.setQuestionState(QuestionState.AGREED);
+        question.setLastModification(new Date());
+
+        questionDAO.save(question);
+
+        return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
+    }
+
+    @HandlesEvent("deliver")
+    @RolesAllowed("biobank_operator")
+    public Resolution deliver() {
+        getQuestion();
+
+        if (!question.getIsAgreed()) {
+            return new ForwardResolution(View.Question.NOTFOUND);
+        }
+
+        question.setQuestionState(QuestionState.DELIVERED);
         question.setLastModification(new Date());
 
         questionDAO.save(question);

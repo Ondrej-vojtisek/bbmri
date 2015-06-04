@@ -28,7 +28,7 @@
                 </stripes:link>
             </security:allowed>
 
-            <security:notAllowed>
+            <security:notAllowed bean="userActionBean">
                ${logged}
             </security:notAllowed>
         </p>
@@ -68,7 +68,7 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <p class="navbar-text pull-right">
-        <b><format:message key="version"/>:</b> <i>2.0 (18. 5. 2015)</i>
+        <b><format:message key="version"/>:</b> <i>2.0 (2. 6. 2015)</i>
     </p>
 
     <%-- -------------------------------------------------------------------- --%>

@@ -17,6 +17,8 @@ import java.io.Serializable;
 
 public class BiopticalReport implements Serializable {
 
+	public static final String FOLDER = "biopticalReport";
+
     public static final String PROP_SAMPLE = "sample";
    	public static final String PROP_YEAR = "year";
    	public static final String PROP_NUMBER = "number";

@@ -2,6 +2,8 @@ package cz.bbmri.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * TODO describe class
@@ -11,20 +13,23 @@ import java.util.Date;
  */
 public class StorageMethodology implements Serializable {
 
+    public static final String FOLDER = "storageMethodology";
+
     public static final String PROP_METHOLOGY = "methology";
-   	public static final String PROP_TEMPERATURE_CELSIUS = "temperatureCelsius";
-   	public static final String PROP_STS = "sts";
-   	public static final String PROP_EXPIRATION = "expiration";
-   	public static final String PROP_MEDIUM = "medium";
-   	public static final String PROP_SAMPLE = "sample";
+    public static final String PROP_TEMPERATURE_CELSIUS = "temperatureCelsius";
+    public static final String PROP_STS = "sts";
+    public static final String PROP_EXPIRATION = "expiration";
+    public static final String PROP_MEDIUM = "conservationMethod";
+    public static final String PROP_SAMPLE = "sample";
 
     private String methology;
-   	private Float temperatureCelsius;
-   	private Boolean sts;
-   	private Date expiration;
-   	private String medium;
-   	private Sample sample;
-   	private long sampleId;
+    private Float temperatureCelsius;
+    private Boolean sts;
+    private Date expiration;
+    private Sample sample;
+    private long sampleId;
+
+    private Set<ConservationMethod> conservationMethod = new HashSet<ConservationMethod>();
 
     public String getMethology() {
         return methology;
@@ -58,20 +63,12 @@ public class StorageMethodology implements Serializable {
         this.expiration = expiration;
     }
 
-    public String getMedium() {
-        return medium;
-    }
-
-    public void setMedium(String medium) {
-        this.medium = medium;
-    }
-
     public Sample getSample() {
         return sample;
     }
 
     public void setSample(Sample sample) {
-        if(sample != null){
+        if (sample != null) {
             sampleId = sample.getId();
         }
         this.sample = sample;
@@ -85,6 +82,41 @@ public class StorageMethodology implements Serializable {
         this.sampleId = sampleId;
     }
 
+    public Set<ConservationMethod> getConservationMethod() {
+        return conservationMethod;
+    }
+
+    public void setConservationMethod(Set<ConservationMethod> conservationMethod) {
+        this.conservationMethod = conservationMethod;
+    }
+
+    public String getPrintConservationMethod() {
+        if (conservationMethod == null || conservationMethod.isEmpty()) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (ConservationMethod conservationMethodInstance : conservationMethod) {
+            sb.append(conservationMethodInstance.getName());
+            sb.append(", ");
+        }
+
+        if (sb.length() > 0) {
+            // delete end of output
+            if (sb.charAt(sb.length() - 1) == ' ') {
+                sb.deleteCharAt(sb.length() - 1);
+
+                if (sb.charAt(sb.length() - 1) == ',') {
+                    sb.deleteCharAt(sb.length() - 1);
+                }
+            }
+        }
+
+
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         return "StorageMethodology{" +
@@ -92,7 +124,6 @@ public class StorageMethodology implements Serializable {
                 ", temperature=" + temperatureCelsius +
                 ", sts=" + sts +
                 ", expiration=" + expiration +
-                ", medium='" + medium + '\'' +
                 '}';
     }
 
@@ -105,10 +136,11 @@ public class StorageMethodology implements Serializable {
 
         if (sampleId != that.sampleId) return false;
         if (methology != null ? !methology.equals(that.methology) : that.methology != null) return false;
-        if (temperatureCelsius != null ? !temperatureCelsius.equals(that.temperatureCelsius) : that.temperatureCelsius != null) return false;
+        if (temperatureCelsius != null ? !temperatureCelsius.equals(that.temperatureCelsius) : that.temperatureCelsius != null)
+            return false;
         if (sts != null ? !sts.equals(that.sts) : that.sts != null) return false;
         if (expiration != null ? !expiration.equals(that.expiration) : that.expiration != null) return false;
-        return !(medium != null ? !medium.equals(that.medium) : that.medium != null);
+        return !(conservationMethod != null ? !conservationMethod.equals(that.conservationMethod) : that.conservationMethod != null);
 
     }
 
@@ -118,7 +150,7 @@ public class StorageMethodology implements Serializable {
         result = 31 * result + (temperatureCelsius != null ? temperatureCelsius.hashCode() : 0);
         result = 31 * result + (sts != null ? sts.hashCode() : 0);
         result = 31 * result + (expiration != null ? expiration.hashCode() : 0);
-        result = 31 * result + (medium != null ? medium.hashCode() : 0);
+        result = 31 * result + (conservationMethod != null ? conservationMethod.hashCode() : 0);
         result = 31 * result + (int) (sampleId ^ (sampleId >>> 32));
         return result;
     }

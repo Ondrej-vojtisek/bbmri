@@ -29,28 +29,8 @@ public class SampleActionBean extends AuthorizationActionBean {
     @SpringBean
     private BiobankDAO biobankDAO;
 
-    @SpringBean
-    private RetrievedDAO retrievedDAO;
-
-    @SpringBean
-    private SexDAO sexDAO;
-
-    @SpringBean
-    private MaterialTypeDAO materialTypeDAO;
-
     private Long id;
     private Sample sample;
-
-
-    // Search params
-    private Integer biobankId;
-    private Short retrievedId;
-    private Short available;
-    private Short total;
-    private String grading;
-    private Short sexId;
-    private Boolean sts;
-    private Integer materialTypeId;
 
     private MyPagedListHolder<Sample> pagination = new MyPagedListHolder<Sample>(new ArrayList<Sample>());
 
@@ -72,14 +52,6 @@ public class SampleActionBean extends AuthorizationActionBean {
         this.id = id;
     }
 
-    public Integer getBiobankId() {
-        return biobankId;
-    }
-
-    public void setBiobankId(Integer biobankId) {
-        this.biobankId = biobankId;
-    }
-
     public void setSample(Sample sample) {
         this.sample = sample;
     }
@@ -94,53 +66,12 @@ public class SampleActionBean extends AuthorizationActionBean {
         return sample;
     }
 
-    public Short getRetrievedId() {
-        return retrievedId;
-    }
-
-    public void setRetrievedId(Short retrievedId) {
-        this.retrievedId = retrievedId;
-    }
-
-    public List<Sample> getSampleSearch(){
-        Biobank biobank = biobankDAO.get(biobankId);
-
-        if(biobank == null){
-            return null;
-        }
-
-        Retrieved retrieved = retrievedDAO.get(retrievedId);
-
-        Sex sex = sexDAO.get(sexId);
-
-        MaterialType materialType = materialTypeDAO.get(materialTypeId);
-
-        return sampleDAO.getAllByBiobank(biobank);
-
-    }
-
-
     public MyPagedListHolder<Sample> getPagination() {
         return pagination;
     }
 
     public void setPagination(MyPagedListHolder<Sample> pagination) {
         this.pagination = pagination;
-    }
-
-    @DefaultHandler
-    @HandlesEvent("all")
-    @RolesAllowed({"developer"})
-    public Resolution all() {
-
-        getBreadcrumbs().add(BiobankActionBean.getAllBreadcrumb(true));
-
-        pagination.initiate(getPage(), getOrderParam(), isDesc());
-        pagination.setSource(new ArrayList<Sample>(sampleDAO.all()));
-        pagination.setEvent("all");
-
-        return new ForwardResolution(View.Sample.ALL);
-
     }
 
     @HandlesEvent("detail")
@@ -161,5 +92,11 @@ public class SampleActionBean extends AuthorizationActionBean {
 
         return new ForwardResolution(View.Sample.DETAIL);
     }
+
+      public List<Sample> getSamples() {
+          Biobank biobank = biobankDAO.get(1);
+
+          return sampleDAO.getAllByBiobank(biobank);
+      }
 
 }

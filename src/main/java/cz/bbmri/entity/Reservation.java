@@ -23,6 +23,8 @@ import java.util.Set;
 
 public class Reservation implements Serializable {
 
+    public static final String FOLDER = "reservation";
+
     public static final String PROP_ID = "id";
     public static final String PROP_VALIDATION = "validation";
     public static final String PROP_SPECIFICATION = "specification";
@@ -131,6 +133,10 @@ public class Reservation implements Serializable {
     public boolean getIsExpired() {
         return reservationState.equals(ReservationState.EXPIRED);
     }
+
+    public boolean getIsConfirmed() {
+          return reservationState.equals(ReservationState.CONFIRMED);
+      }
 
 
     @Override

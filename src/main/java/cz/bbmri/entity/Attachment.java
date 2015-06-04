@@ -12,6 +12,8 @@ import java.io.Serializable;
 
 public class Attachment implements Serializable {
 
+    public static final String FOLDER = "attachment";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_FILE_NAME = "fileName";
    	public static final String PROP_SIZE = "size";

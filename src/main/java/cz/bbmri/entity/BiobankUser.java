@@ -17,6 +17,8 @@ import java.io.Serializable;
 
 public class BiobankUser extends CompositeKeyGroup implements Serializable {
 
+	public static final String FOLDER = "biobankUser";
+
     public static final String PROP_BIOBANK = "biobank";
    	public static final String PROP_USER = "user";
    	public static final String PROP_PERMISSION = "permission";

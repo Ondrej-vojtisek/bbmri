@@ -5,6 +5,8 @@
 <stripes:useActionBean var="userActionBean" beanclass="cz.bbmri.action.UserActionBean"/>
 <stripes:useActionBean var="projectActionBean" beanclass="cz.bbmri.action.ProjectActionBean"/>
 <stripes:useActionBean var="reservationActionBean" beanclass="cz.bbmri.action.ReservationActionBean"/>
+<stripes:useActionBean var="materialTypeActionBean" beanclass="cz.bbmri.action.MaterialTypeActionBean"/>
+<stripes:useActionBean var="sampleActionBean" beanclass="cz.bbmri.action.SampleActionBean"/>
 <%--<stripes:useActionBean var="userFindBean" beanclass="cz.bbmri.action.user.FindUserActionBean"/>--%>
 <%--<stripes:useActionBean var="globalSettingsBean" beanclass="cz.bbmri.action.globalSettings.GlobalSettingsActionBean"/>--%>
 <%--<stripes:useActionBean var="archiveBean" beanclass="cz.bbmri.action.support.ArchiveActionBean"/>--%>
@@ -22,33 +24,33 @@
 
     <%-- -------------------------------------------------------------------- --%>
     <security:allowed bean="projectActionBean" event="myProjects">
-    <li class="dropdown <core:if test="${primarymenu == 'project'}"> active </core:if>">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <format:message key="cz.bbmri.entity.Project.projects"/>
-            <b class="caret"></b></a>
-        <ul class="dropdown-menu">
+        <li class="dropdown <core:if test="${primarymenu == 'project'}"> active </core:if>">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <format:message key="cz.bbmri.entity.Project.projects"/>
+                <b class="caret"></b></a>
+            <ul class="dropdown-menu">
 
-                <%-- -------------------------------------------------------------------- --%>
+                    <%-- -------------------------------------------------------------------- --%>
 
-            <security:allowed bean="reservationActionBean" event="myReservations">
-                <li <core:if test="${secondarymenu == 'my_reservations'}"> class="active" </core:if>>
-                    <stripes:link beanclass="${reservationActionBean.name}" event="myReservations">
-                        <format:message key="cz.bbmri.entity.Reservation.myReservations"/>
-                    </stripes:link>
-                </li>
-            </security:allowed>
+                <security:allowed bean="reservationActionBean" event="myReservations">
+                    <li <core:if test="${secondarymenu == 'my_reservations'}"> class="active" </core:if>>
+                        <stripes:link beanclass="${reservationActionBean.name}" event="myReservations">
+                            <format:message key="cz.bbmri.entity.Reservation.myReservations"/>
+                        </stripes:link>
+                    </li>
+                </security:allowed>
 
-                <%-- -------------------------------------------------------------------- --%>
+                    <%-- -------------------------------------------------------------------- --%>
 
-            <security:allowed bean="reservationActionBean" event="all">
-                <li <core:if test="${secondarymenu == 'all_reservations'}"> class="active" </core:if>>
-                    <stripes:link beanclass="${reservationActionBean.name}" event="all">
-                        <format:message key="cz.bbmri.entity.Reservation.allReservations"/>
-                    </stripes:link>
-                </li>
-            </security:allowed>
+                <security:allowed bean="reservationActionBean" event="all">
+                    <li <core:if test="${secondarymenu == 'all_reservations'}"> class="active" </core:if>>
+                        <stripes:link beanclass="${reservationActionBean.name}" event="all">
+                            <format:message key="cz.bbmri.entity.Reservation.allReservations"/>
+                        </stripes:link>
+                    </li>
+                </security:allowed>
 
-                <%-- -------------------------------------------------------------------- --%>
+                    <%-- -------------------------------------------------------------------- --%>
 
                 <li <core:if test="${secondarymenu == 'project_my_projects'}"> class="active" </core:if>>
                     <stripes:link beanclass="${projectActionBean.name}" event="myProjects">
@@ -56,30 +58,30 @@
                     </stripes:link>
                 </li>
 
-                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+                    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
-                <%--<li <core:if test="${secondarymenu == 'project_create_project'}"> class="active" </core:if>>--%>
-                <%--<stripes:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial">--%>
-                <%--<format:message key="cz.bbmri.action.project.ProjectActionBean.create"/>--%>
-                <%--</stripes:link>--%>
-                <%--</li>--%>
+                    <%--<li <core:if test="${secondarymenu == 'project_create_project'}"> class="active" </core:if>>--%>
+                    <%--<stripes:link beanclass="cz.bbmri.action.project.CreateProjectActionBean" event="initial">--%>
+                    <%--<format:message key="cz.bbmri.action.project.ProjectActionBean.create"/>--%>
+                    <%--</stripes:link>--%>
+                    <%--</li>--%>
 
-                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+                    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
-            <security:allowed bean="projectActionBean" event="all">
-                <li <core:if test="${secondarymenu == 'project_all'}"> class="active" </core:if>>
-                    <stripes:link beanclass="${projectActionBean.name}" event="all">
-                        <format:message key="cz.bbmri.entity.Project.allProjects"/>
-                    </stripes:link>
-                </li>
-            </security:allowed>
+                <security:allowed bean="projectActionBean" event="all">
+                    <li <core:if test="${secondarymenu == 'project_all'}"> class="active" </core:if>>
+                        <stripes:link beanclass="${projectActionBean.name}" event="all">
+                            <format:message key="cz.bbmri.entity.Project.allProjects"/>
+                        </stripes:link>
+                    </li>
+                </security:allowed>
 
-                <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
+                    <%--&lt;%&ndash; -------------------------------------------------------------------- &ndash;%&gt;--%>
 
-                <%--<li class="divider"></li>--%>
-                <%--<li class="nav-header">Nav header</li>--%>
-        </ul>
-    </li>
+                    <%--<li class="divider"></li>--%>
+                    <%--<li class="nav-header">Nav header</li>--%>
+            </ul>
+        </li>
     </security:allowed>
 
 
@@ -98,6 +100,16 @@
                     <li <core:if test="${secondarymenu == 'biobank_all'}"> class="active" </core:if> ><stripes:link
                             beanclass="${biobankActionBean.name}" event="all">
                         <format:message key="cz.bbmri.entity.Biobank.biobanks"/>
+                    </stripes:link>
+                    </li>
+                </security:allowed>
+
+                    <%-- -------------------------------------------------------------------- --%>
+
+                <security:allowed bean="materialTypeActionBean" event="all">
+                    <li <core:if test="${secondarymenu == 'material'}"> class="active" </core:if> ><stripes:link
+                            beanclass="${materialTypeActionBean.name}" event="all">
+                        <format:message key="cz.bbmri.entity.MaterialType.materialTypes"/>
                     </stripes:link>
                     </li>
                 </security:allowed>

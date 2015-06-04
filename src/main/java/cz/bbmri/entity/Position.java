@@ -16,6 +16,8 @@ package cz.bbmri.entity;
 import java.io.Serializable;
 public class Position implements Serializable {
 
+	public static final String FOLDER = "position";
+
     public static final String PROP_ID = "id";
    	public static final String PROP_ROW = "row";
    	public static final String PROP_COLUMN = "column";

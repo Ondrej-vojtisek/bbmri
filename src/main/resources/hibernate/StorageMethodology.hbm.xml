@@ -16,6 +16,10 @@ License Type: Academic
 		<property name="temperatureCelsius" column="temperature_celsius" type="float" not-null="false" lazy="false"/>
 		<property name="sts" column="sts" type="boolean" not-null="false" lazy="false"/>
 		<property name="expiration" column="expiration" type="timestamp" not-null="false" lazy="false"/>
-		<property name="medium" column="medium" type="text" not-null="false" lazy="false"/>
+		<set name="conservationMethod" table="storage_methodology_conservation_method" lazy="extra" cascade="save-update,lock">
+			<key column="storage_methodology_id" not-null="true"/>
+			<many-to-many column="conservation_method_id" class="cz.bbmri.entity.ConservationMethod">
+			</many-to-many>
+		</set>
 	</class>
 </hibernate-mapping>

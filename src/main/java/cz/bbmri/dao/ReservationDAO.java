@@ -1,5 +1,6 @@
 package cz.bbmri.dao;
 
+import cz.bbmri.entity.Request;
 import cz.bbmri.entity.Reservation;
 
 /**
@@ -9,4 +10,6 @@ import cz.bbmri.entity.Reservation;
  * @version 1.0
  */
 public interface ReservationDAO extends AbstractDAO<Reservation, Long> {
+
+    void remove(Reservation reservation);
 }

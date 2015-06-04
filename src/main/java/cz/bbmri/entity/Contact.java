@@ -20,6 +20,8 @@ import java.io.Serializable;
 
 public class Contact implements Serializable {
 
+    public static final String FOLDER = "contact";
+
     public static final String PROP_ID = "id";
     public static final String PROP_PHONE = "phone";
     public static final String PROP_EMAIL = "email";

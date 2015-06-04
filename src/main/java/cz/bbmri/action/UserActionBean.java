@@ -5,10 +5,13 @@ import cz.bbmri.action.map.View;
 import cz.bbmri.converter.PasswordTypeConverter;
 import cz.bbmri.dao.ContactDAO;
 import cz.bbmri.dao.CountryDAO;
+import cz.bbmri.dao.RoleDAO;
 import cz.bbmri.dao.UserDAO;
 import cz.bbmri.entity.Contact;
 import cz.bbmri.entity.Country;
+import cz.bbmri.entity.Role;
 import cz.bbmri.entity.User;
+import cz.bbmri.entity.constant.Constant;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.ComponentManager;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
@@ -20,6 +23,7 @@ import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO describe class
@@ -38,6 +42,9 @@ public class UserActionBean extends ComponentActionBean {
 
     @SpringBean
     private CountryDAO countryDAO;
+
+    @SpringBean
+    private RoleDAO roleDAO;
 
     private User user;
 
@@ -162,15 +169,6 @@ public class UserActionBean extends ComponentActionBean {
         pagination.setSource(userDAO.all());
         pagination.setEvent("all");
 
-        // TODO jak radit podle Contactu ?
-
-//        default ordering
-//        if (getOrderParam() == null) {
-//            setOrderParam("surname");
-//            getPagination().setOrderParam("surname");
-//            getPagination().setDesc(false);
-//        }
-
         return new ForwardResolution(View.User.ALL);
     }
 
@@ -267,7 +265,8 @@ public class UserActionBean extends ComponentActionBean {
             return new ForwardResolution(View.User.NOTFOUND);
         }
 
-        user.nominateAuthorized();
+        Role role = roleDAO.get(Role.AUTHORIZED.getId());
+        user.getRole().add(role);
         userDAO.save(user);
 
         return new RedirectResolution(UserActionBean.class, "detail").addParameter("id", user.getId());

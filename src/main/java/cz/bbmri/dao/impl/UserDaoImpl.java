@@ -11,9 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Implementation for class handling instances of User. Implementation is using JPQL.
@@ -81,16 +79,40 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
         return null;
     }
 
-//    @SuppressWarnings("unchecked" )
-//    public List<Contact> findByName(String startsWith, User user) {
-//    return Stripersist.getEntityManager()
-//    .createQuery("select distinct c from "
-//    + getEntityClass().getName() + " c "
-//    + "where (c.firstName like '" + startsWith + "%' or "
-//    + "c.lastName like '" + startsWith + "%') "
-//    + "and c.user = :user"
-//    ).setParameter("user" , user).getResultList();
-//    }
+    public List<User> findUsers(String criteria, int requiredResults) {
+        System.err.println("Search Criteria: " + criteria);
+
+        Set<User> results = new HashSet<User>();
+
+        List<User> tempResult;
+
+
+
+        tempResult = getCurrentSession().createCriteria(User.class)
+                .createAlias("shibboleth", "shibboleth")
+                .add(Restrictions.ilike("shibboleth." + Shibboleth.PROP_NAME, criteria)).setMaxResults(MAX_SEARCH_RESULTS).list();
+
+        System.err.println("RESULT1: " + tempResult);
+
+        if (tempResult != null) {
+            results.addAll(tempResult);
+        }
+
+        tempResult = getCurrentSession().createCriteria(User.class)
+                .createAlias("shibboleth", "shibboleth")
+                .add(Restrictions.ilike("shibboleth." + Shibboleth.PROP_SURNAME, criteria)).setMaxResults(MAX_SEARCH_RESULTS).list();
+
+        System.err.println("RESULT2: " + tempResult);
+
+        if (tempResult != null) {
+            results.addAll(tempResult);
+        }
+
+
+
+        return new ArrayList<User>(results);
+
+    }
 
 }
 

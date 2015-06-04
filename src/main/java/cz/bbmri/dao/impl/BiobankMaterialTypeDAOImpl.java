@@ -46,15 +46,23 @@ public class BiobankMaterialTypeDAOImpl extends GenericDAOImpl<BiobankMaterialTy
         }
 
         if (biobankMaterialType == null) {
-
-            System.err.println("BiobankMaterialType");
-
             return null;
         }
 
-        System.err.println("Searched materialType: " + biobankMaterialType.getMaterialType());
-
         return biobankMaterialType.getMaterialType();
+
+    }
+
+    public List<BiobankMaterialType> get(Biobank biobank, MaterialType materialType) {
+        Criterion criterionBiobank = Restrictions.eq(BiobankMaterialType.PROP_BIOBANK, biobank);
+        Criterion criterionMaterial = Restrictions.eq(BiobankMaterialType.PROP_MATERIAL_TYPE, materialType);
+
+        // Retrieve a list of existing materialTypes matching the criterion above the list retrieval
+        List<BiobankMaterialType> biobankMaterialType = getCurrentSession().createCriteria(BiobankMaterialType.class)
+                .add(criterionBiobank)
+                .add(criterionMaterial).list();
+
+        return biobankMaterialType;
 
     }
 

@@ -13,6 +13,8 @@ import java.util.Set;
  */
 public class Withdraw implements Serializable {
 
+    public static final String FOLDER = "withdraw";
+
     public static final String PROP_BIOBANK = "biobank";
    	public static final String PROP_ID = "id";
    	public static final String PROP_CREATED = "created";

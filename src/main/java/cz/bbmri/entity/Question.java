@@ -23,6 +23,8 @@ import java.util.Set;
 
 public class Question implements Serializable {
 
+    public static final String FOLDER = "question";
+
     public static final String PROP_ID = "id";
     public static final String PROP_CREATED = "created";
     public static final String PROP_LAST_MODIFICATION = "lastModification";

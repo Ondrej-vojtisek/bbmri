@@ -19,6 +19,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ReservationState implements Serializable {
+
+    public static final String FOLDER = "reservationState";
+
 	public ReservationState() {
 	}
 
@@ -32,7 +35,8 @@ public class ReservationState implements Serializable {
     public static final ReservationState NEW = new ReservationState(1, "new");
     public static final ReservationState APPROVED = new ReservationState(2, "approved");
     public static final ReservationState DENIED = new ReservationState(3, "denied");
-    public static final ReservationState EXPIRED = new ReservationState(4, "expired");
+    public static final ReservationState CONFIRMED = new ReservationState(4, "confirmed");
+    public static final ReservationState EXPIRED = new ReservationState(5, "expired");
 
     public static final String PROP_ID = "id";
    	public static final String PROP_NAME = "name";

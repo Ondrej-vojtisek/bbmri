@@ -5,7 +5,7 @@ License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="cz.bbmri.entity.NotificationType" table="notificationType" lazy="true">
+	<class name="cz.bbmri.entity.NotificationType" table="notification_type" lazy="true">
 		<meta attribute="class-description">
 			Fake table to map NotificationType enum during hibernate mapping export
 		</meta>
@@ -18,7 +18,7 @@ License Type: Academic
 		<property name="eventName" column="event_name" type="text" not-null="false" lazy="false"/>
 		<property name="parameter" column="parameter" type="text" not-null="false" lazy="false"/>
 		<set name="notification" lazy="extra" cascade="save-update,lock" inverse="true">
-			<key column="notificationType_id" not-null="false"/>
+			<key column="notification_type_id" not-null="false"/>
 			<one-to-many class="cz.bbmri.entity.Notification"/>
 		</set>
 	</class>

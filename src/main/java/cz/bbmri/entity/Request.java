@@ -12,6 +12,8 @@ import java.io.Serializable;
 
 public class Request implements Serializable {
 
+    public static final String FOLDER = "request";
+
     /**
      * Default number of requested samples is this
      */
@@ -91,6 +93,14 @@ public class Request implements Serializable {
 
     public void increase() {
         number = (short) (number + IMPLICIT_REQUESTED_SAMPLES);
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "sample=" + sample.getId() +
+                ", number=" + number +
+                '}';
     }
 
     @Override

@@ -17,7 +17,7 @@ License Type: Academic
 		<property name="message" column="message" type="text" not-null="true" lazy="false"/>
 		<many-to-one name="user" cascade="lock" column="user_id" class="cz.bbmri.entity.User" not-null="true" lazy="proxy">
 		</many-to-one>
-		<many-to-one name="notificationType" cascade="lock" column="notificationType_id" class="cz.bbmri.entity.NotificationType" not-null="false" lazy="proxy">
+		<many-to-one name="notificationType" cascade="lock" column="notification_type_id" class="cz.bbmri.entity.NotificationType" not-null="false" lazy="proxy">
 		</many-to-one>
 	</class>
 </hibernate-mapping>

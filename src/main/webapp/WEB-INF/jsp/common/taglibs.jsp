@@ -1,10 +1,14 @@
 <%@ taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="format" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="stripes" uri="http://stripes.sourceforge.net/stripes.tld"%>
+<%--<%@ taglib prefix="functions" uri="http://java.sun.com/jsp/jstl/functions" %>--%>
 <%@ taglib prefix="security" uri="http://www.stripes-stuff.org/security.tld"%>
 
 <format:setBundle var="texts" basename="texts" scope="application"/>
 <format:setBundle var="errors" basename="errors" scope="application"/>
+
+<core:set var="request" value="${pageContext.request}"/>
+<core:set var="context" value="${request.contextPath}"/>
 
 <core:if test="${empty actionBean}">
 

@@ -21,6 +21,8 @@ import java.util.Set;
 
 public class AttachmentType implements Serializable {
 
+    public static final String FOLDER = "attachmentType";
+
     public AttachmentType() {
     }
 

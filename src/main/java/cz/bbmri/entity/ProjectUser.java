@@ -17,6 +17,8 @@ import java.io.Serializable;
 
 public class ProjectUser extends CompositeKeyGroup implements Serializable {
 
+	public static final String FOLDER = "projectUser";
+
     public static final String PROP_PROJECT = "project";
    	public static final String PROP_USER = "user";
    	public static final String PROP_PERMISSION = "permission";
