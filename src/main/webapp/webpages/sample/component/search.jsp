@@ -34,7 +34,7 @@
         <div class="controls">
             <stripes:select id="sexId" name="sexId" value="0" class="form-control btnMargin"
                             onchange="submitSearch('${reservationId}', '${withdrawId}', '${questionId}', '${biobankId}');">
-                <stripes:option value="0" label="..."/>
+                <stripes:option value="" label="..."/>
                 <stripes:options-collection collection="${sampleSearchActionBean.sex}"
                                             value="id"
                                             label="name"/>
@@ -51,7 +51,7 @@
         <div class="controls">
             <stripes:select id="materialTypeId" name="materialTypeId" value="0" class="form-control btnMargin"
                             onchange="submitSearch('${reservationId}', '${withdrawId}', '${questionId}', '${biobankId}');">
-                <stripes:option value="0" label="..."/>
+                <stripes:option value="" label="..."/>
                 <stripes:options-collection collection="${sampleSearchActionBean.materialTypes}"
                                             value="id"
                                             label="name"/>
@@ -67,7 +67,7 @@
         <div class="controls">
             <stripes:select id="retrievedId" name="retrievedId" value="0" class="form-control btnMargin"
                             onchange="submitSearch('${reservationId}', '${withdrawId}', '${questionId}', '${biobankId}');">
-                <stripes:option value="0" label="..."/>
+                <stripes:option value="" label="..."/>
                 <stripes:options-collection collection="${sampleSearchActionBean.retrieved}"
                                             value="id"
                                             label="name"/>

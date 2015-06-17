@@ -3,14 +3,8 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.BiobankDAO;
-import cz.bbmri.dao.BiobankUserDAO;
-import cz.bbmri.dao.PermissionDAO;
-import cz.bbmri.dao.UserDAO;
-import cz.bbmri.entity.Biobank;
-import cz.bbmri.entity.BiobankUser;
-import cz.bbmri.entity.Permission;
-import cz.bbmri.entity.User;
+import cz.bbmri.dao.*;
+import cz.bbmri.entity.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -38,6 +32,12 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private PermissionDAO permissionDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
+
+    @SpringBean
+    private NotificationTypeDAO notificationTypeDAO;
 
     private Long userId;
 
@@ -111,6 +111,13 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
 
         userDAO.save(user);
 
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.BiobankUserActionBean.adminDeleted",
+                user.getWholeName(), biobank.getAcronym());
+
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                NotificationType.BIOBANK_ADMINISTRATOR, locMsg, new Long(biobank.getId()));
+
+
         return new RedirectResolution(BiobankActionBean.class, "biobankuser").addParameter("id", biobank.getId());
     }
 
@@ -143,6 +150,13 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
         biobankUser.setPermission(permission);
 
         biobankUserDAO.save(biobankUser);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.BiobankUserActionBean.permissionChanged",
+                biobank.getAcronym(), user.getWholeName(), permission);
+
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                NotificationType.BIOBANK_ADMINISTRATOR, locMsg, new Long(biobank.getId()));
+
 
         return new RedirectResolution(BiobankActionBean.class, "biobankuser").addParameter("id", biobank.getId());
     }
@@ -205,6 +219,14 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
         user.nominateBiobankOperator();
 
         userDAO.save(user);
+
+
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.BiobankUserActionBean.adminAssigned",
+                biobank.getAcronym(), user.getWholeName(), permission);
+
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                NotificationType.BIOBANK_ADMINISTRATOR, locMsg, new Long(biobank.getId()));
 
         return setPermission();
     }

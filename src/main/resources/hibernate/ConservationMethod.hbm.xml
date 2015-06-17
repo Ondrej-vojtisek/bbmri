@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Masaryk University
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cz.bbmri.entity.ConservationMethod" table="conservation_method" lazy="true">
+		<meta attribute="class-description">
+			Represents factors affecting storage of samples. For instance medium in which is sample stored: RNA later, parafine, ...
+		</meta>
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="sequence">
+				<param name="sequence">conservation_method_seq</param>
+			</generator>
+		</id>
+		<property name="name" column="name" type="text" not-null="false" lazy="false">
+			<meta attribute="field-description">
+				Nullable because in parser only key is set
+			</meta>
+		</property>
+		<property name="key" column="`key`" type="text" not-null="true" lazy="false"/>
+		<set name="storageMethodology" table="storage_methodology_conservation_method" lazy="extra" cascade="save-update,lock" inverse="true">
+			<key column="conservation_method_id" not-null="true"/>
+			<many-to-many column="storage_methodology_id" class="cz.bbmri.entity.StorageMethodology">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

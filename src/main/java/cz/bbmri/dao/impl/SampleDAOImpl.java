@@ -73,8 +73,6 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
 
         getCurrentSession().refresh(sample.getMaterialType());
 
-        System.err.println("MATERIAL TYPE: " + sample.getMaterialType());
-
         notNull(sampleDB);
 
         InstanceImportResult instanceImportResult = new InstanceImportResult(Sample.class.toString());
@@ -294,7 +292,7 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
 
         Criteria criteria = getCurrentSession().createCriteria(Sample.class, "sample");
         criteria.createAlias("sample.patient", "patient");
-   //     criteria.createAlias("sample.diagnosis", "diagnosis");
+        criteria.createAlias("sample.diagnosis", "diagnosis");
    //     criteria.createAlias("quantity", "quantity");
 
         if (biobank != null) {
@@ -313,13 +311,9 @@ public class SampleDAOImpl extends GenericDAOImpl<Sample> implements SampleDAO {
             criteria.add(Restrictions.eq("sample.materialType", materialType));
         }
 
-//        if(diagnosisKey != null){
-//            criteria.add(Restrictions.eq("diagnosis.key", diagnosisKey));
-//        }
-
-//        if(available != null){
-//            criteria.add(Restrictions.ge("quantity." + Quantity.PROP_AVAILABLE, available));
-//        }
+        if(diagnosisKey != null){
+            criteria.add(Restrictions.eq("diagnosis.key", diagnosisKey));
+        }
 
         List<Sample> samples = criteria.setMaxResults(MAX_SEARCH_RESULTS).list();
 

@@ -136,8 +136,8 @@
         <init-param>
             <description>supported languages</description>
             <param-name>LocalePicker.Locales</param-name>
-            <!--<param-value>cs:utf-8, en:utf-8</param-value>-->
-            <param-value>en:utf-8</param-value>
+            <param-value>cs:utf-8, en:utf-8</param-value>
+            <!--<param-value>en:utf-8</param-value>-->
         </init-param>
 
         <init-param>

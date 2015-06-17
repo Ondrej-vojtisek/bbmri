@@ -322,7 +322,7 @@ public class PatientDataParserV2 extends AbstractPatientParser {
         //        TNM
         Tnm tnm = new Tnm();
 
-        if (tnmImp != null) {
+        if (tnmImp != null && !tnmImp.isEmpty()) {
             tnm.setClassification(tnmImp);
             sample.setTnm(tnm);
         }
@@ -330,7 +330,7 @@ public class PatientDataParserV2 extends AbstractPatientParser {
         //        pTNM
         Ptnm ptnm = new Ptnm();
 
-        if (ptnmImp != null) {
+        if (ptnmImp != null && !ptnmImp.isEmpty()) {
             ptnm.setClassification(ptnmImp);
             sample.setPtnm(ptnm);
         }
@@ -338,7 +338,7 @@ public class PatientDataParserV2 extends AbstractPatientParser {
         //        Morphology
         Morphology morphology = new Morphology();
 
-        if (morphologyImp != null) {
+        if (morphologyImp != null && !morphologyImp.isEmpty()) {
             morphology.setClassification(morphologyImp);
         } else if (gradingImp != null) {
             morphology.setGrading(Short.parseShort(gradingImp));

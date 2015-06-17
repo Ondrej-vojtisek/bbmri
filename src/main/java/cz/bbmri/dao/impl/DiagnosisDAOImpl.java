@@ -6,10 +6,7 @@ import cz.bbmri.dao.DiagnosisDAO;
 import cz.bbmri.entity.Archive;
 import cz.bbmri.entity.Diagnosis;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +27,7 @@ public class DiagnosisDAOImpl extends GenericDAOImpl<Diagnosis> implements Diagn
         Criteria criteria = getCurrentSession().createCriteria(Diagnosis.class);
 
         ProjectionList projList = Projections.projectionList();
+        criteria.addOrder(Order.asc("key"));
         projList.add(Projections.property("key"));
         criteria.setProjection(Projections.distinct(projList));
 
@@ -41,4 +39,6 @@ public class DiagnosisDAOImpl extends GenericDAOImpl<Diagnosis> implements Diagn
 
         return diagnosisList;
     }
+
+
 }

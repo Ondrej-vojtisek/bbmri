@@ -339,13 +339,9 @@ abstract class AbstractParser {
 
         Quantity quantity = new Quantity();
 
-        System.err.println("QuantityA: " + quantity);
-
         quantity.setAvailable(Short.parseShort(availableSamplesNoImp));
         quantity.setTotal(Short.parseShort(samplesNoImp));
         quantity.setOriginal(Short.parseShort(samplesNoImp));
-
-        System.err.println("QuantityB: " + quantity);
 
         return quantity;
     }

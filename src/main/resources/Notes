@@ -1,16 +1,8 @@
 TODO:
 
-    Jun 03, 2015 4:08:25 PM net.sourceforge.stripes.util.Log error
-    SEVERE: Error evaluating expression for property security of class ReservationActionBean. Expression: ${biobankExecutor}
-
-
-- dodelat export zadanych vzorku (zobrazit informace k projektu, zobrazit requesty)
-- export seznam žádaných vzorků
 - Notifikace
-- Archiv
-- Radit getAll
+- Archiv - je potreba? Coz takhle upravit notifikace tak aby nahradili archiv ?
 - Poznámky - nápověda, vysvětlující informace
-- Opravená lokalizace - včetně dat
 - formát zobrazení telefoních čísel
 - napojení na číselníky - TNM, morfologie, diagnóza
 - ukládat v DB todo-list
@@ -18,7 +10,7 @@ TODO:
 - kontrola autorizace u sample detailu at muze detail zobrazit ten kdo ma platny request/rezervaci
 - encrypt URL params
 - každý může zobrazit kontaktní detaily uživatele
-- optimalizace logování - minimum nutného - nelogovat DB hlášky apod
+- optimalizace logování - minimum nutného
 - komentáře
 - řazení tabulek
 - vylepšení grafiky - ikonky v tabulkách místo textu
@@ -26,8 +18,8 @@ TODO:
 - vyhledavani v DB podle věku pacienta - googlit klíčové slovo @Formula a hibernate
 - možnost zadat informace k infrastruktuře
 - možnost k samplu zadat pozici, zobrazit pozici
-
-
+- řazení
+- na dashboard hodit panely ke správě relevantních věcí - moje projekty, moje biobanky, moje žádosti, moje ...
 
 
 Parser MOU:

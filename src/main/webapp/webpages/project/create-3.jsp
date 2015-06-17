@@ -36,7 +36,7 @@
                     </stripes:label>
                     <div class="controls">
                         <div class="input-append date" id="dp" data-date="${actionBean.today}"
-                             data-date-format="mm-dd-yyyy">
+                             data-date-format="${actionBean.datePatternJs}">
                             <stripes:text name="project.approvalDate" readonly="true" value=""/>
                             <span class="add-on"><i class="icon-calendar"></i></span>
                         </div>

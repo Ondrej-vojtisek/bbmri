@@ -147,6 +147,13 @@ public class AttachmentActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(BiobankActionBean.getAttachmentsBreadcrumb(false, biobank));
         getBreadcrumbs().add(AttachmentActionBean.getAddBiobankAttachmentBreadcrumb(true, biobank));
 
+        // notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.AttachmentActionBean.fileUploaded",
+                biobank.getAcronym());
+
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                NotificationType.BIOBANK_DETAIL, locMsg, new Long(biobank.getId()));
+
         return new ForwardResolution(View.Attachment.ADD_BIOBANK_ATTACHMENT);
 
     }
@@ -166,6 +173,14 @@ public class AttachmentActionBean extends AuthorizationActionBean {
         getBreadcrumbs().add(ProjectActionBean.getDetailBreadcrumb(false, project));
         getBreadcrumbs().add(ProjectActionBean.getAttachmentsBreadcrumb(false, project));
         getBreadcrumbs().add(AttachmentActionBean.getAddProjectAttachmentBreadcrumb(true, project));
+
+        // notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.AttachmentActionBean.fileUploadedProject",
+                project.getName());
+
+        // send notification to all other project workers
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
+                NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
 
         return new ForwardResolution(View.Attachment.ADD_PROJECT_ATTACHMENT);
 
@@ -200,6 +215,13 @@ public class AttachmentActionBean extends AuthorizationActionBean {
         if (attachment.getProject() != null) {
             Long projectId = attachment.getProject().getId();
             deleteProjectAttachment();
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.AttachmentActionBean.attachmentDeleted",
+                    attachment.getFileName(), projectId);
+
+            notificationDAO.create(attachment.getProject().getOtherProjectUser(getLoggedUser()),
+                    NotificationType.PROJECT_ATTACHMENT, locMsg, projectId);
+
             attachmentDAO.remove(attachment);
             return new RedirectResolution(ProjectActionBean.class, "attachments").addParameter("id", projectId);
         }
@@ -207,6 +229,13 @@ public class AttachmentActionBean extends AuthorizationActionBean {
         if (attachment.getBiobank() != null) {
             Integer biobankId = attachment.getBiobank().getId();
             deleteBiobankAttachment();
+
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.AttachmentActionBean.attachmentDeleted",
+                    attachment.getFileName(), biobankId);
+
+            notificationDAO.create(attachment.getBiobank().getOtherBiobankUser(getLoggedUser()),
+                    NotificationType.BIOBANK_ATTACHMENT, locMsg, new Long(biobankId));
+
             attachmentDAO.remove(attachment);
             return new RedirectResolution(BiobankActionBean.class, "attachments").addParameter("id", biobankId);
         }

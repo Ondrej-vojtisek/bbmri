@@ -57,7 +57,7 @@
         <core:set target="${questionActionBean}" property="authBiobankId"
                   value="${question.biobank.id}"/>
 
-        <stripes:form beanclass="cz.bbmri.action.QuestionActionBean" class="form-horizontal">
+        <stripes:form beanclass="cz.bbmri.action.QuestionActionBean">
             <div class="form-actions">
                 <stripes:hidden name="id" value="${question.id}"/>
 
@@ -83,7 +83,8 @@
                     </security:allowed>
 
                     <security:allowed bean="requestActionBean" event="printRequests">
-                        <stripes:link event="printRequests" beanclass="cz.bbmri.action.RequestActionBean" target="_blank"
+                        <stripes:link event="printRequests" beanclass="cz.bbmri.action.RequestActionBean"
+                                      target="_blank"
                                       class="btn btn-info btnMargin">
                             <format:message key="cz.bbmri.entity.Request.export"/>
                             <stripes:param name="questionId" value="${question.id}"/>
@@ -129,6 +130,18 @@
     </stripes:layout-component>
 
     <stripes:layout-component name="script">
+
+        <%--URLs to called actionBeans. URL can be defined directly in javaScript but this is less vulnerable to errors--%>
+        <%--due to change in actionBean. Second - if url specified directly (e.g. samplesearch) than it is not working --%>
+        <%--on live server because there it should be /auth/samplesearch--%>
+
+        <stripes:url var="sample_search_url" beanclass="cz.bbmri.action.SampleSearchActionBean"/>
+        <stripes:url var="request_url" beanclass="cz.bbmri.action.RequestActionBean"/>
+        <script type="text/javascript">
+            var SAMPLE_SEARCH_URL = '${sample_search_url}';
+            var REQUEST_URL = '${request_url}';
+
+        </script>
 
         <script type="text/javascript" src="${context}/libs/my/sample_search.js"></script>
 

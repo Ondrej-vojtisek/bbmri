@@ -17,6 +17,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * TODO describe class
@@ -129,7 +130,7 @@ public class ProjectCreateActionBean extends ComponentActionBean {
     @HandlesEvent("confirm")
     public Resolution confirm() {
 
-        if(!project.getClinicalTrial()){
+        if (!project.getClinicalTrial()) {
             project.setEudraCtNumber(null);
         }
 
@@ -149,8 +150,10 @@ public class ProjectCreateActionBean extends ComponentActionBean {
         return new RedirectResolution(ProjectActionBean.class, "myProjects");
     }
 
-    public String getToday(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    public String getToday() {
+        String datePattern = getDatePattern();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
+
         return dateFormat.format(new Date());
     }
 

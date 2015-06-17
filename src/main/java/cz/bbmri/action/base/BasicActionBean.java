@@ -99,7 +99,7 @@ public abstract class BasicActionBean implements ActionBean {
             user = new User();
             user.setCreated(new Date());
 
-            if(shibboleth.isAuthorized()){
+            if (shibboleth.isAuthorized()) {
                 user.getRole().add(Role.AUTHORIZED);
             }
 
@@ -164,6 +164,30 @@ public abstract class BasicActionBean implements ActionBean {
                 new LocalizableMessage("cz.bbmri.action.base.BasicActionBean.success"));
     }
 
+    // Pattern for use in java script - datepicker component
+    public String getDatePatternJs() {
+        Locale locale = getContext().getLocale();
+        if (locale.getLanguage().equals(Settings.LOCALE_CZ.getLanguage())) {
+            // CZECH date format pattern
+            return Settings.CZ_DATE_PATTERN_JS;
+        } else {
+            // OTHER - English - date format pattern
+            return Settings.EN_DATE_PATTERN_JS;
+        }
+    }
+
+    // Date pattern used to generate current date for java script
+    public String getDatePattern() {
+        Locale locale = getContext().getLocale();
+        if (locale.getLanguage().equals(Settings.LOCALE_CZ.getLanguage())) {
+            // CZECH date format pattern
+            return Settings.CZ_DATE_PATTERN;
+        } else {
+            // OTHER - English - date format pattern
+            return Settings.EN_DATE_PATTERN;
+        }
+    }
+
     public String getLastUrl() {
 
         HttpServletRequest req = getContext().getRequest();
@@ -221,9 +245,9 @@ public abstract class BasicActionBean implements ActionBean {
     }
 
     public Component getComponent() {
-         // Retrieve the instance
-         return Component.INSTANCE;
-     }
+        // Retrieve the instance
+        return Component.INSTANCE;
+    }
 
 
 }

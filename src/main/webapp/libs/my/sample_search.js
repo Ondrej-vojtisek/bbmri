@@ -1,9 +1,3 @@
-// MUST match URL binding in SampleSearchActionBean
-var SAMPLE_SEARCH_URL = "/samplesearch";
-
-// MUST match URL binding in RequestActionBean
-var REQUEST_URL = "/request";
-
 
 // submit button to add sample to reservation
 // after is neccessary to update list os requested samples and list of search results

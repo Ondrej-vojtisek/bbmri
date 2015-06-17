@@ -46,10 +46,9 @@ public class NotificationType implements Serializable {
 
     /* Biobank notifications */
 
-    public static final NotificationType BIOBANK_DETAIL = new NotificationType(5, BiobankActionBean.class.getName(), "detail", "id");
-    public static final NotificationType BIOBANK_ADMINISTRATOR = new NotificationType(6, BiobankActionBean.class.getName(), "attachments", "id");
-    public static final NotificationType BIOBANK_DELETE = new NotificationType(7, BiobankActionBean.class.getName(), "administrators", "id");
-    public static final NotificationType BIOBANK_ATTACHMENT = new NotificationType(8, BiobankActionBean.class.getName(), null, null);
+    public static final NotificationType BIOBANK_DETAIL = new NotificationType(11, BiobankActionBean.class.getName(), "detail", "id");
+    public static final NotificationType BIOBANK_ADMINISTRATOR = new NotificationType(12, BiobankActionBean.class.getName(), "attachments", "id");
+    public static final NotificationType BIOBANK_ATTACHMENT = new NotificationType(13, BiobankActionBean.class.getName(), null, null);
 
 
     public static final String PROP_ID = "id";
@@ -104,5 +103,21 @@ public class NotificationType implements Serializable {
 
     public void setParameter(String parameter) {
         this.parameter = parameter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NotificationType that = (NotificationType) o;
+
+        return id == that.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

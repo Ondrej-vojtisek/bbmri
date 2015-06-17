@@ -3,14 +3,8 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.ProjectDAO;
-import cz.bbmri.dao.ProjectUserDAO;
-import cz.bbmri.dao.PermissionDAO;
-import cz.bbmri.dao.UserDAO;
-import cz.bbmri.entity.Project;
-import cz.bbmri.entity.ProjectUser;
-import cz.bbmri.entity.Permission;
-import cz.bbmri.entity.User;
+import cz.bbmri.dao.*;
+import cz.bbmri.entity.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.LocalizableError;
@@ -33,6 +27,9 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private PermissionDAO permissionDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
 
     private Long userId;
 
@@ -105,13 +102,19 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
         // refresh
         user = userDAO.get(userId);
 
-        if(project.getIsConfirmed()){
+        if (project.getIsConfirmed()) {
             user.denominateProjectTeamMemberConfirmed();
         }
 
         user.denominateProjectTeamMember();
 
         userDAO.save(user);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.facade.impl.ProjectFacadeImpl.adminDeleted",
+                user.getWholeName(), project.getName());
+
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
 
         return new RedirectResolution(ProjectActionBean.class, "projectuser").addParameter("id", project.getId());
     }
@@ -145,6 +148,12 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
         projectUser.setPermission(permission);
 
         projectUserDAO.save(projectUser);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectUserActionBean.permissionChanged",
+                project.getName(), user.getWholeName(), permission);
+
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
 
         return new RedirectResolution(ProjectActionBean.class, "projectuser").addParameter("id", project.getId());
     }
@@ -211,6 +220,12 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
         }
 
         userDAO.save(user);
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectUserActionBean.assignedAdministrator",
+                project.getName(), user.getWholeName(), permission);
+
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
+                NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
 
         return setPermission();
     }

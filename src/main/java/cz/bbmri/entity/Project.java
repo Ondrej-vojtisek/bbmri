@@ -2,9 +2,7 @@ package cz.bbmri.entity;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Research Project uploaded into system
@@ -30,7 +28,7 @@ public class Project implements Serializable {
     public static final String PROP_QUESTION = "question";
     public static final String PROP_ATTACHMENT = "attachment";
     public static final String PROP_CLINICAL_TRIAL = "clinicalTrial";
-   	public static final String PROP_EUDRA_CT_NUMBER = "eudraCtNumber";
+    public static final String PROP_EUDRA_CT_NUMBER = "eudraCtNumber";
 
     public final static String PROJECT_FOLDER = File.separator + "project_files";
     private final static String PROJECT_FOLDER_PATH = PROJECT_FOLDER + File.separator;
@@ -179,6 +177,25 @@ public class Project implements Serializable {
             }
         }
         return false;
+    }
+
+    /**
+     * Return all users associated with project except the given one. It enables to send notification as broadcast
+     *
+     * @param user - initiator of event will be excluded from recipients
+     * @return list of users associated with project except one
+     */
+    public List<User> getOtherProjectUser(User user) {
+
+        List<User> users = new ArrayList<User>();
+
+        for (ProjectUser pu : projectUser) {
+            if (!pu.getUser().equals(user)) {
+                users.add(pu.getUser());
+            }
+        }
+
+        return users;
     }
 
     public boolean getIsNew() {

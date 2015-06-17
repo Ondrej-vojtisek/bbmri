@@ -29,7 +29,7 @@
             </security:allowed>
 
             <security:notAllowed bean="userActionBean">
-               ${logged}
+                ${logged}
             </security:notAllowed>
         </p>
 
@@ -53,14 +53,12 @@
 
                 <%-- -------------------------------------------------------------------- --%>
 
-                <%--<li <core:if test="${actionBean.context.locale eq 'cs'}"> class="active" </core:if>>--%>
-                <%--<stripes:link href="${actionBean.lastUrl}">--%>
-                <%--<stripes:param name="locale" value="cs"/>--%>
-                <%--<format:message key="navbar.czech"/>--%>
-                <%--</stripes:link>--%>
-                <%--</li>--%>
-
-                <%-- -------------------------------------------------------------------- --%>
+            <li <core:if test="${actionBean.context.locale eq 'cs'}"> class="active" </core:if>>
+                <stripes:link href="${actionBean.lastUrl}">
+                    <stripes:param name="locale" value="cs"/>
+                    <format:message key="navbar.czech"/>
+                </stripes:link>
+            </li>
 
         </ul>
     </ul>
@@ -68,7 +66,7 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <p class="navbar-text pull-right">
-        <b><format:message key="version"/>:</b> <i>2.0 (2. 6. 2015)</i>
+        <b><format:message key="version"/>:</b> <i>2.0 (8. 6. 2015)</i>
     </p>
 
     <%-- -------------------------------------------------------------------- --%>

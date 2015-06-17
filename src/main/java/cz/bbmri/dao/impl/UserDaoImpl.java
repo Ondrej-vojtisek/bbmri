@@ -3,10 +3,13 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.UserDAO;
 import cz.bbmri.entity.Contact;
+import cz.bbmri.entity.MaterialType;
 import cz.bbmri.entity.Shibboleth;
 import cz.bbmri.entity.User;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,19 +83,13 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
     }
 
     public List<User> findUsers(String criteria, int requiredResults) {
-        System.err.println("Search Criteria: " + criteria);
-
         Set<User> results = new HashSet<User>();
 
         List<User> tempResult;
 
-
-
         tempResult = getCurrentSession().createCriteria(User.class)
                 .createAlias("shibboleth", "shibboleth")
                 .add(Restrictions.ilike("shibboleth." + Shibboleth.PROP_NAME, criteria)).setMaxResults(MAX_SEARCH_RESULTS).list();
-
-        System.err.println("RESULT1: " + tempResult);
 
         if (tempResult != null) {
             results.addAll(tempResult);
@@ -102,8 +99,6 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
                 .createAlias("shibboleth", "shibboleth")
                 .add(Restrictions.ilike("shibboleth." + Shibboleth.PROP_SURNAME, criteria)).setMaxResults(MAX_SEARCH_RESULTS).list();
 
-        System.err.println("RESULT2: " + tempResult);
-
         if (tempResult != null) {
             results.addAll(tempResult);
         }
@@ -112,6 +107,15 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
 
         return new ArrayList<User>(results);
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> all() {
+        Criteria criteria = getCurrentSession().createCriteria(User.class);
+        criteria.createAlias("contact", "contact");
+        criteria.addOrder(Order.asc("contact.lastName"));
+        return criteria.list();
     }
 
 }

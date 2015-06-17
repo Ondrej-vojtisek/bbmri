@@ -3,7 +3,9 @@ package cz.bbmri.entity;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,7 +38,7 @@ public class Biobank implements Serializable {
     public static final String PROP_NAME = "name";
     public static final String PROP_DESCRIPTION = "description";
     public static final String PROP_COUNTRY = "country";
-	public static final String PROP_NAME_ENGLISH = "nameEnglish";
+    public static final String PROP_NAME_ENGLISH = "nameEnglish";
     public static final String PROP_BIOBANK_USER = "biobankUser";
     public static final String PROP_CONTACT = "contact";
     public static final String PROP_PATIENT = "patient";
@@ -48,15 +50,15 @@ public class Biobank implements Serializable {
     public static final String PROP_QUESTION = "question";
     public static final String PROP_BIOBANK_MATERIAL_TYPE = "biobankMaterialType";
     public static final String PROP_ACRONYM_EN = "acronymEn";
-   	public static final String PROP_JURIDICAL_PERSON = "juridicalPerson";
-   	public static final String PROP_JURIDICAL_PERSON_EN = "juridicalPersonEn";
+    public static final String PROP_JURIDICAL_PERSON = "juridicalPerson";
+    public static final String PROP_JURIDICAL_PERSON_EN = "juridicalPersonEn";
 
     private int id;
     private String institutionalId;
     private String acronym;
     private String name;
     private String description;
-	private String nameEnglish;
+    private String nameEnglish;
     private String acronymEn;
     private String juridicalPerson;
     private String juridicalPersonEn;
@@ -256,12 +258,32 @@ public class Biobank implements Serializable {
         return getBiobankFolderPath() + File.separator + Biobank.CALIBRATION_DATA_FOLDER;
     }
 
-    public int getPatientCount(){
-        if(patient != null){
+    public int getPatientCount() {
+        if (patient != null) {
             return patient.size();
         }
 
         return 0;
+    }
+
+
+    /**
+     * Return all users associated with biobank except the given one. It enables to send notification as broadcast
+     *
+     * @param user - initiator of event will be excluded from recipients
+     * @return list of users associated with biobank except one
+     */
+    public List<User> getOtherBiobankUser(User user) {
+
+        List<User> users = new ArrayList<User>();
+
+        for(BiobankUser bu : biobankUser){
+            if(!bu.getUser().equals(user)){
+               users.add(bu.getUser());
+            }
+        }
+
+        return users;
     }
 
     @Override

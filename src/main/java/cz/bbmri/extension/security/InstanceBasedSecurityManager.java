@@ -84,7 +84,7 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
 //            logger.debug("hasRole == null || hasRole || roleExpression == null");
         }
 
-//        logger.debug("Done checking role " + role + ": access is " + (hasRole ? "allowed" : "denied") + '.');
+        logger.debug("Done checking role " + role + ": access is " + (hasRole ? "allowed" : "denied") + '.');
         return hasRole;
     }
 

@@ -28,6 +28,16 @@
 </core:if>
 
 
+<%-- generalized object of question/withdraw --%>
+<core:if test="${isQuestion}">
+    <core:set var="requisition" value="${question}"/>
+</core:if>
+
+<core:if test="${not isQuestion}">
+    <core:set var="requisition" value="${withdraw}"/>
+</core:if>
+
+
 <div id="page-wrap">
 
     <textarea id="header"><core:if test="${isQuestion}"><format:message
@@ -64,30 +74,33 @@
             <table id="meta">
                 <tbody>
                 <tr>
-                    <td class="meta-head"><format:message key="id"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="id"/></th>
+                    <td>${question.project.id}</td>
                 </tr>
                 <tr>
-                    <td class="meta-head"><format:message key="cz.bbmri.entity.Project.name"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Project.name"/></th>
+                    <td>${question.project.name}</td>
                 </tr>
                 <tr>
-                    <td class="meta-head"><format:message key="cz.bbmri.entity.Project.approvedBy"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Project.fundingOrganization"/></th>
+                    <td>${question.project.fundingOrganization}</td>
                 </tr>
                 <tr>
-                    <td class="meta-head"><format:message key="cz.bbmri.entity.Project.fundingOrganization"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Project.principalInvestigator"/></th>
+                    <td>${question.project.principalInvestigator}</td>
                 </tr>
                 <tr>
-                    <td class="meta-head"><format:message key="cz.bbmri.entity.Project.principalInvestigator"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Project.approvalDate"/></th>
+                    <td><format:formatDate value="${question.project.approvalDate}" type="both"/></td>
                 </tr>
                 <tr>
-                    <td class="meta-head"><format:message key="cz.bbmri.entity.Project.approvalDate"/></td>
-                    <td><textarea>000123</textarea></td>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Question.createdMore"/></th>
+                    <td><format:formatDate value="${question.created}" type="both"/></td>
                 </tr>
-
+                <tr>
+                    <th class="meta-head"><format:message key="cz.bbmri.entity.Question.specification"/></th>
+                    <td>${question.specification}</td>
+                </tr>
 
                 </tbody>
             </table>
@@ -96,16 +109,22 @@
     </div>
 
     <table id="items">
+        <thead>
+        <tr>
+            <th><format:message key="cz.bbmri.entity.Patient.patient"/></th>
+            <th><format:message key="cz.bbmri.entity.Sample.sample"/></th>
+            <th><format:message key="cz.bbmri.entity.Request.number"/></th>
+        </tr>
+        </thead>
 
         <tbody>
-        <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Unit Cost</th>
-            <th>Quantity</th>
-            <th>Price</th>
-        </tr>
-
+        <core:forEach var="item" items="${requisition.request}">
+            <tr>
+                <td>${item.sample.patient.institutionalId}</td>
+                <td>${item.sample.institutionalId}</td>
+                <td>${item.number}</td>
+            </tr>
+        </core:forEach>
         </tbody>
     </table>
 
