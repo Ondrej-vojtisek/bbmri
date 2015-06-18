@@ -282,7 +282,6 @@ public class Biobank implements Serializable {
                users.add(bu.getUser());
             }
         }
-
         return users;
     }
 

@@ -152,7 +152,7 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
         biobankUserDAO.save(biobankUser);
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.BiobankUserActionBean.permissionChanged",
-                biobank.getAcronym(), user.getWholeName(), permission);
+                biobank.getAcronym(), user.getWholeName(), permission.getName());
 
         notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
                 NotificationType.BIOBANK_ADMINISTRATOR, locMsg, new Long(biobank.getId()));
@@ -223,7 +223,7 @@ public class BiobankUserActionBean extends AuthorizationActionBean {
 
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.BiobankUserActionBean.adminAssigned",
-                biobank.getAcronym(), user.getWholeName(), permission);
+                biobank.getAcronym(), user.getWholeName(), permission.getName());
 
         notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
                 NotificationType.BIOBANK_ADMINISTRATOR, locMsg, new Long(biobank.getId()));

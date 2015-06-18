@@ -27,13 +27,13 @@
 
             <core:forEach items="${actionBean.pagination.myPageList}" var="item">
 
-                <stripes:layout-render name="${actionBean.componentManager.tableRow}" record="${item}"/>
+                <stripes:layout-render name="${component.row.notification}" item="${item}"/>
 
             </core:forEach>
 
             <core:if test="${not empty actionBean.pagination.myPageList}">
 
-                <stripes:layout-render name="/webpages/component/detail/sortableTable/pagination.jsp"
+                <stripes:layout-render name="${component.pager}"
                                  pagination="${actionBean.pagination}"/>
 
             </core:if>

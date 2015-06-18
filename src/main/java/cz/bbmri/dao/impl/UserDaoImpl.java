@@ -113,8 +113,8 @@ public class UserDAOImpl extends GenericDAOImpl<User> implements UserDAO {
     @Transactional(readOnly = true)
     public List<User> all() {
         Criteria criteria = getCurrentSession().createCriteria(User.class);
-        criteria.createAlias("contact", "contact");
-        criteria.addOrder(Order.asc("contact.lastName"));
+        criteria.createAlias("shibboleth", "shibboleth");
+        criteria.addOrder(Order.asc("shibboleth.surname"));
         return criteria.list();
     }
 

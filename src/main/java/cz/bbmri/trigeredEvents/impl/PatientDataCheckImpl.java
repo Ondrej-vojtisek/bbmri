@@ -41,6 +41,7 @@ public class PatientDataCheckImpl extends Basic implements PatientDataCheck {
     private ConservationMethodDAO conservationMethodDAO;
 
     @Scheduled(cron = "0 0 8 * * *") // each day 8:00
+//    @Scheduled(cron = "0 40 10 * * *") // each day 10:40
 //    @Scheduled(cron = "0 */5 * * * *") // each 5 minutes
 //    @Scheduled(cron = "* * * * * *") // each minute
     public void scheduledPatientDataCheck() {

@@ -71,7 +71,6 @@
                     <value>classpath:hibernate/Monitoring.hbm.xml</value>
                     <value>classpath:hibernate/Morphology.hbm.xml</value>
                     <value>classpath:hibernate/Notification.hbm.xml</value>
-                    <value>classpath:hibernate/NotificationType.hbm.xml</value>
                     <value>classpath:hibernate/Patient.hbm.xml</value>
                     <value>classpath:hibernate/Permission.hbm.xml</value>
                     <value>classpath:hibernate/Position.hbm.xml</value>

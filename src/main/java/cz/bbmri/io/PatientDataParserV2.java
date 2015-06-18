@@ -340,7 +340,7 @@ public class PatientDataParserV2 extends AbstractPatientParser {
 
         if (morphologyImp != null && !morphologyImp.isEmpty()) {
             morphology.setClassification(morphologyImp);
-        } else if (gradingImp != null) {
+        } else if (gradingImp != null && !gradingImp.isEmpty()) {
             morphology.setGrading(Short.parseShort(gradingImp));
         }
         sample.setMorphology(morphology);

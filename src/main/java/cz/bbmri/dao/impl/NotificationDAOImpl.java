@@ -4,6 +4,7 @@ import cz.bbmri.dao.AbstractDAO;
 import cz.bbmri.dao.NotificationDAO;
 import cz.bbmri.entity.Notification;
 import cz.bbmri.entity.NotificationType;
+import cz.bbmri.entity.Settings;
 import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import org.hibernate.criterion.Criterion;
@@ -33,10 +34,11 @@ public class NotificationDAOImpl extends GenericDAOImpl<Notification> implements
     public List<Notification> getUnread(User user) {
 
         Criterion criterion = Restrictions.eq(Notification.PROP_READ, false);
+        Criterion criterionUser = Restrictions.eq(Notification.PROP_USER, user);
 
         // Retrieve a list of existing users matching the criterion above the list retrieval
         List<Notification> list = getCurrentSession().createCriteria(Notification.class)
-                .add(criterion).list();
+                .add(criterion).add(criterionUser).list();
 
 
         return list;
@@ -60,7 +62,14 @@ public class NotificationDAOImpl extends GenericDAOImpl<Notification> implements
 
       public boolean create(User user, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
           notNull(user);
-          notNull(user.getSettings());
+
+          // Fix for situation when the user is created by SQL without settings
+          // In situation when user is approaching from eduId, this won't occur
+          if(user.getSettings() == null){
+              Settings setting = new Settings();
+              setting.setUser(user);
+              getCurrentSession().saveOrUpdate(setting);
+          }
           notNull(notificationType);
           notNull(localizableMessage);
           notNull(objectId);

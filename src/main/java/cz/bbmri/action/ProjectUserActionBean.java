@@ -150,7 +150,7 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
         projectUserDAO.save(projectUser);
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectUserActionBean.permissionChanged",
-                project.getName(), user.getWholeName(), permission);
+                project.getName(), user.getWholeName(), permission.getName());
 
         notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
@@ -222,7 +222,7 @@ public class ProjectUserActionBean extends AuthorizationActionBean {
         userDAO.save(user);
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectUserActionBean.assignedAdministrator",
-                project.getName(), user.getWholeName(), permission);
+                project.getName(), user.getWholeName(), permission.getName());
 
         notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_ADMINISTRATOR, locMsg, project.getId());
