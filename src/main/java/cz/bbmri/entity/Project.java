@@ -185,9 +185,9 @@ public class Project implements Serializable {
      * @param user - initiator of event will be excluded from recipients
      * @return list of users associated with project except one
      */
-    public List<User> getOtherProjectUser(User user) {
+    public Set<User> getOtherProjectUser(User user) {
 
-        List<User> users = new ArrayList<User>();
+        Set<User> users = new HashSet<User>();
 
         for (ProjectUser pu : projectUser) {
             if (!pu.getUser().equals(user)) {

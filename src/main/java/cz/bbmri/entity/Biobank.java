@@ -273,9 +273,9 @@ public class Biobank implements Serializable {
      * @param user - initiator of event will be excluded from recipients
      * @return list of users associated with biobank except one
      */
-    public List<User> getOtherBiobankUser(User user) {
+    public Set<User> getOtherBiobankUser(User user) {
 
-        List<User> users = new ArrayList<User>();
+        Set<User> users = new HashSet<User>();
 
         for(BiobankUser bu : biobankUser){
             if(!bu.getUser().equals(user)){

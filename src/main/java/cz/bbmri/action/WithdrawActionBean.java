@@ -6,6 +6,7 @@ import cz.bbmri.action.map.View;
 import cz.bbmri.dao.BiobankDAO;
 import cz.bbmri.dao.WithdrawDAO;
 import cz.bbmri.entity.Biobank;
+import cz.bbmri.entity.NotificationType;
 import cz.bbmri.entity.Patient;
 import cz.bbmri.entity.Withdraw;
 import cz.bbmri.entity.webEntities.Breadcrumb;
@@ -107,13 +108,13 @@ public class WithdrawActionBean extends AbstractRequisitionActionBean {
     @RolesAllowed({"biobank_operator if ${biobankExecutor}"})
     public Resolution detail() {
 
-        if(getWithdraw() == null){
+        if (getWithdraw() == null) {
             return new ForwardResolution(View.Withdraw.NOTFOUND);
         }
 
         Biobank biobank = getWithdraw().getBiobank();
 
-        if(biobank == null){
+        if (biobank == null) {
             return new ForwardResolution(View.Biobank.NOTFOUND);
         }
 

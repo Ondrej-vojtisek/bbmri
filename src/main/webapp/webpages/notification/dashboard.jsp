@@ -1,22 +1,17 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@include file="/WEB-INF/jsp/common/taglibs.jsp" %>
 
-<format:message key="cz.bbmri.entity.Notification.notifications" var="title"/>
+
 
 <stripes:layout-render name="${component.layout.content}"
-                       title="${title}" primarymenu="home">
+                       primarymenu="home">
 
     <stripes:layout-component name="body">
 
-        <%--<div class="alert alert-info" role="alert">--%>
-            <%--<h2>Novinky</h2>--%>
-            <%--<h3>Známé chyby:</h3>--%>
-            <%--<ul>--%>
-                <%--<li>V importu z MOÚ je špatný počet alikvotů - chyba je na straně nemocničního systému.</li>--%>
-            <%--</ul>--%>
+        <%--<h2><format:message key="cz.bbmri.action.DashboardActionBean.welcome"/></h2>--%>
 
-        <%--</div>--%>
 
+        <h2><format:message key="cz.bbmri.entity.Notification.notifications"/></h2>
         <stripes:form beanclass="cz.bbmri.action.DashboardActionBean">
 
             <core:if test="${empty actionBean.pagination.myPageList}">

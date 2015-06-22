@@ -14,6 +14,8 @@
 
 <stripes:layout-definition>
 
+    <%--<a class="brand" href="#">BBMRI_CZ</a>--%>
+
     <%-- -------------------------------------------------------------------- --%>
 
     <li <core:if test="${primarymenu == 'home'}"> class="active" </core:if>">

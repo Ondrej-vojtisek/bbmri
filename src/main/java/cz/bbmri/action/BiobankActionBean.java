@@ -3,10 +3,7 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.BiobankDAO;
-import cz.bbmri.dao.ContactDAO;
-import cz.bbmri.dao.CountryDAO;
-import cz.bbmri.dao.SampleDAO;
+import cz.bbmri.dao.*;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
 import cz.bbmri.entity.webEntities.MyPagedListHolder;
@@ -37,6 +34,9 @@ public class BiobankActionBean extends AuthorizationActionBean {
 
     @SpringBean
     private SampleDAO sampleDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
 
     private Integer id;
 
@@ -424,6 +424,12 @@ public class BiobankActionBean extends AuthorizationActionBean {
 
         biobankDAO.save(biobank);
         contactDAO.save(contact);
+
+        LocalizableMessage localizableMessage = new LocalizableMessage("cz.bbmri.action.BiobankActionBean.biobankUpdated", biobank.getAcronym());
+
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                NotificationType.BIOBANK_DETAIL, localizableMessage, new Long(biobank.getId()));
+
         return new RedirectResolution(BiobankActionBean.class, "detail").addParameter("id", biobank.getId());
     }
 

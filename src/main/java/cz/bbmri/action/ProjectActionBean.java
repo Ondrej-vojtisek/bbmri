@@ -153,11 +153,6 @@ public class ProjectActionBean extends AuthorizationActionBean {
 
         getBreadcrumbs().add(ProjectActionBean.getMyBreadcrumb(true));
 
-//        pagination.initiate(getPage(), getOrderParam(), isDesc());
-//        if (getOrderParam() == null) {
-//            // default
-//            getPagination().setOrderParam("created");
-//        }
         pagination.initiate(getPage(), getOrderParam(), isDesc());
         pagination.setSource(projectDAO.getByUser(getLoggedUser()));
         pagination.setEvent("myProjects");
@@ -317,7 +312,7 @@ public class ProjectActionBean extends AuthorizationActionBean {
         }
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectActionBean.changedState",
-                project.getName(), ProjectState.CONFIRMED);
+                project.getName(), ProjectState.FINISHED);
 
         notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_DETAIL, locMsg, project.getId());
@@ -350,7 +345,7 @@ public class ProjectActionBean extends AuthorizationActionBean {
         }
 
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectActionBean.changedState",
-                project.getName(), ProjectState.CONFIRMED);
+                project.getName(), ProjectState.CANCELED);
 
         notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_DETAIL, locMsg, project.getId());

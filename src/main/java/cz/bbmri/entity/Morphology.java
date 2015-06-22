@@ -81,7 +81,7 @@ public class Morphology implements Serializable {
             return "Grading " + grading;
         }
 
-        return "Unknown";
+        return "";
     }
 
     @Override

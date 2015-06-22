@@ -3,9 +3,7 @@ package cz.bbmri.action;
 import cz.bbmri.action.base.AuthorizationActionBean;
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.BiobankDAO;
-import cz.bbmri.dao.ProjectDAO;
-import cz.bbmri.dao.QuestionDAO;
+import cz.bbmri.dao.*;
 import cz.bbmri.dao.QuestionDAO;
 import cz.bbmri.entity.*;
 import cz.bbmri.entity.webEntities.Breadcrumb;
@@ -39,6 +37,9 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
 
     @SpringBean
     private BiobankDAO biobankDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
 
     private Long id;
 
@@ -195,7 +196,17 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
 
             newQuestion.setBiobank(biobank);
 
-            questionDAO.save(newQuestion);
+            newQuestion = questionDAO.save(newQuestion);
+
+            // Notification for biobank users
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.created",
+                    project.getName(), biobank.getAcronym());
+
+            notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                    NotificationType.QUESTION_DETAIL, locMsg, newQuestion.getId());
+
+            notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
+                    NotificationType.QUESTION_DETAIL, locMsg, newQuestion.getId());
         }
 
         return new RedirectResolution(ProjectActionBean.class, "questions").addParameter("id", project.getId());
@@ -213,7 +224,14 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
         question.setQuestionState(QuestionState.APPROVED);
         question.setLastModification(new Date());
 
-        questionDAO.save(question);
+        question = questionDAO.save(question);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.stateChanged",
+                question.getId(), QuestionState.APPROVED);
+
+        notificationDAO.create(question.getProject().getOtherProjectUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
 
         return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }
@@ -230,7 +248,15 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
         question.setQuestionState(QuestionState.DENIED);
         question.setLastModification(new Date());
 
-        questionDAO.save(question);
+        question = questionDAO.save(question);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.stateChanged",
+                question.getId(), QuestionState.DENIED);
+
+        notificationDAO.create(question.getProject().getOtherProjectUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
+
 
         return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }
@@ -247,7 +273,14 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
         question.setQuestionState(QuestionState.CLOSED);
         question.setLastModification(new Date());
 
-        questionDAO.save(question);
+        question = questionDAO.save(question);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.stateChanged",
+                question.getId(), QuestionState.CLOSED);
+
+        notificationDAO.create(question.getProject().getOtherProjectUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
 
         return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }
@@ -264,7 +297,19 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
         question.setQuestionState(QuestionState.AGREED);
         question.setLastModification(new Date());
 
-        questionDAO.save(question);
+        question = questionDAO.save(question);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.stateChanged",
+                question.getId(), QuestionState.AGREED);
+
+        // Project user
+        notificationDAO.create(question.getProject().getOtherProjectUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
+
+        // biobank user
+        notificationDAO.create(question.getBiobank().getOtherBiobankUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
 
         return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }
@@ -281,7 +326,19 @@ public class QuestionActionBean extends AbstractRequisitionActionBean {
         question.setQuestionState(QuestionState.DELIVERED);
         question.setLastModification(new Date());
 
-        questionDAO.save(question);
+        question = questionDAO.save(question);
+
+         // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.QuestionActionBean.stateChanged",
+                question.getId(), QuestionState.DELIVERED);
+
+        // Project user
+        notificationDAO.create(question.getProject().getOtherProjectUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
+
+        // biobank user
+        notificationDAO.create(question.getBiobank().getOtherBiobankUser(getLoggedUser()),
+                NotificationType.QUESTION_DETAIL, locMsg, question.getId());
 
         return new RedirectResolution(QuestionActionBean.class, "detail").addParameter("id", question.getId());
     }

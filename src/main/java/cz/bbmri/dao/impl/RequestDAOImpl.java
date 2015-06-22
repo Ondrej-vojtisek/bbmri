@@ -82,25 +82,15 @@ public class RequestDAOImpl extends GenericDAOImpl<Request> implements RequestDA
                 request.getWithdraw(),
                 request.getQuestion());
 
-        System.err.println("Request1: " + request);
-
         // Request for same sample already exists - better to update existing than create new one
         if (requestDB != null) {
-
-            System.err.println("RequestDB not null");
-
-            System.err.println("RequestDB1: " + requestDB);
 
             int number = requestDB.getNumber() + request.getNumber();
             requestDB.setNumber((short) number);
             getCurrentSession().saveOrUpdate(requestDB);
 
-            System.err.println("RequestDB2: " + requestDB);
-
             return requestDB;
         }
-
-        System.err.println("Request2: " + request);
 
         getCurrentSession().saveOrUpdate(request);
         return request;

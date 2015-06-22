@@ -2,19 +2,14 @@ package cz.bbmri.dao.impl;
 
 import cz.bbmri.dao.AbstractDAO;
 import cz.bbmri.dao.NotificationDAO;
-import cz.bbmri.entity.Notification;
-import cz.bbmri.entity.NotificationType;
-import cz.bbmri.entity.Settings;
-import cz.bbmri.entity.User;
+import cz.bbmri.entity.*;
 import net.sourceforge.stripes.action.LocalizableMessage;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * TODO describe class
@@ -45,54 +40,64 @@ public class NotificationDAOImpl extends GenericDAOImpl<Notification> implements
 
     }
 
-    public boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId){
-          notNull(users);
-          notNull(notificationType);
+    public boolean create(Set<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
+        notNull(users);
+        notNull(notificationType);
 
-          boolean result = true;
-          for (User user : users) {
+        boolean result = true;
 
-              if (!create(user, notificationType, localizableMessage, objectId)) {
-                  result = false;
-              }
-          }
-          return result;
-      }
+        // TEMPORARY for testing
+        // Send each notification also to developer
+        Set<User> recipients = new HashSet<User>(users);
+        // Get current instance of Developer from database
+        Role developer = (Role) getCurrentSession().get(Role.class, Role.DEVELOPER.getId());
+        for (User user : developer.getUser()) {
+            recipients.add(user);
+        }
+
+        for (User user : recipients) {
+
+            if (!create(user, notificationType, localizableMessage, objectId)) {
+                result = false;
+            }
+        }
+        return result;
+    }
 
 
-      public boolean create(User user, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
-          notNull(user);
+    public boolean create(User user, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId) {
+        notNull(user);
 
-          // Fix for situation when the user is created by SQL without settings
-          // In situation when user is approaching from eduId, this won't occur
-          if(user.getSettings() == null){
-              Settings setting = new Settings();
-              setting.setUser(user);
-              getCurrentSession().saveOrUpdate(setting);
-          }
-          notNull(notificationType);
-          notNull(localizableMessage);
-          notNull(objectId);
+        // Fix for situation when the user is created by SQL without settings
+        // In situation when user is approaching from eduId, this won't occur
+        if (user.getSettings() == null) {
+            Settings setting = new Settings();
+            setting.setUser(user);
+            getCurrentSession().saveOrUpdate(setting);
+        }
+        notNull(notificationType);
+        notNull(localizableMessage);
+        notNull(objectId);
 
-          Notification notification = new Notification();
-          notification.setCreated(new Date());
-          notification.setNotificationType(notificationType);
-          notification.setRead(false);
-          notification.setUser(user);
-          notification.setObjectId(objectId);
+        Notification notification = new Notification();
+        notification.setCreated(new Date());
+        notification.setNotificationType(notificationType);
+        notification.setRead(false);
+        notification.setUser(user);
+        notification.setObjectId(objectId);
 
-          Locale locale;
+        Locale locale;
 
-          if (user.getSettings().getLocale() == null) {
-              logger.debug("UserSettings Locale is null");
-              return false;
-          }
+        if (user.getSettings().getLocale() == null) {
+            logger.debug("UserSettings Locale is null");
+            return false;
+        }
 
-          locale = user.getSettings().getLocaleSettings();
-          notification.setMessage(localizableMessage.getMessage(locale));
-          save(notification);
-          return true;
-      }
+        locale = user.getSettings().getLocaleSettings();
+        notification.setMessage(localizableMessage.getMessage(locale));
+        save(notification);
+        return true;
+    }
 
 
 }

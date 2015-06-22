@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="${context}/css/datepicker.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/contentPage.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/graph.css"/>
+        <link rel="shortcut icon" href="${context}/favicon.ico" type="image/x-icon"/>
         <title>BBMRI_CZ</title>
         <stripes:layout-component name="head"/>
     </head>

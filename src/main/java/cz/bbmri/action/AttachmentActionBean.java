@@ -254,7 +254,7 @@ public class AttachmentActionBean extends AuthorizationActionBean {
         LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.service.impl.AttachmentServiceImpl.attachmentDeleted",
                 attachment.getFileName(), project.getName());
 
-        notificationDAO.create(ProjectUserDAOImpl.getOtherProjectUsers(project, getLoggedUser()),
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_ATTACHMENT, locMsg, project.getId());
 
         // Archive message
@@ -274,7 +274,7 @@ public class AttachmentActionBean extends AuthorizationActionBean {
                 attachment.getFileName(), biobank.getAcronym());
 
 
-        notificationDAO.create(BiobankUserDAOImpl.getOtherBiobankUsers(biobank, getLoggedUser()),
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
                 NotificationType.BIOBANK_ATTACHMENT, locMsg, (long) biobank.getId());
 
         // Archive message
@@ -335,11 +335,8 @@ public class AttachmentActionBean extends AuthorizationActionBean {
                 biobank.getAcronym());
 
         // send notification to all other project workers
-        notificationDAO.create(BiobankUserDAOImpl.getOtherBiobankUsers(biobank, getLoggedUser()),
+        notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
                 NotificationType.BIOBANK_DETAIL, locMsg, (long) biobank.getId());
-
-        // Archive message
-//        archive("New file was uploaded to biobank: " + biobankDB.getAbbreviation(), loggedUserId);
 
         return new RedirectResolution(BiobankActionBean.class, "attachments").addParameter("id", biobankId);
     }
@@ -419,13 +416,10 @@ public class AttachmentActionBean extends AuthorizationActionBean {
                 project.getName());
 
         // send notification to all other project workers
-        notificationDAO.create(ProjectUserDAOImpl.getOtherProjectUsers(project, getLoggedUser()),
+        notificationDAO.create(project.getOtherProjectUser(getLoggedUser()),
                 NotificationType.PROJECT_DETAIL, locMsg, project.getId());
 
-        // Archive message
-        //        archive("New file was uploaded to biobank: " + biobankDB.getAbbreviation(), loggedUserId);
-
-        return new RedirectResolution(ProjectActionBean.class, "attachments").addParameter("id", projectId);
+         return new RedirectResolution(ProjectActionBean.class, "attachments").addParameter("id", projectId);
     }
 
 

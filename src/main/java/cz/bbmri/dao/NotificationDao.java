@@ -6,6 +6,7 @@ import cz.bbmri.entity.User;
 import net.sourceforge.stripes.action.LocalizableMessage;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * TODO describe class
@@ -24,7 +25,7 @@ public interface NotificationDAO extends AbstractDAO<Notification, Long> {
          * @param objectId           - identifier of object which is a subject of notification
          * @return true/false for success of fail
          */
-        boolean create(List<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
+        boolean create(Set<User> users, NotificationType notificationType, LocalizableMessage localizableMessage, Long objectId);
 
         /**
          * Send notification message to one single user. Message will be localized by locale setting of the user

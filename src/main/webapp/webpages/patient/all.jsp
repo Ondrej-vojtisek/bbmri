@@ -22,13 +22,13 @@
                     <td class="action">
                                   <span class="pull-right">
                                           <div class="tableAction">
-                                              <security:allowed bean="patientActionBean" event="detail">
+                                              <%--<security:allowed bean="patientActionBean" event="detail">--%>
                                                   <stripes:link beanclass="cz.bbmri.action.PatientActionBean" event="detail"
                                                           class="btn btn-info btnMargin">
                                                       <stripes:param name="id" value="${item.id}"/>
                                                       <format:message key="detail"/>
                                                   </stripes:link>
-                                              </security:allowed>
+                                              <%--</security:allowed>--%>
                                           </div>
                                   </span>
                     </td>

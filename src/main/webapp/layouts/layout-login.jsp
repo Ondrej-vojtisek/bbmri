@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="${context}/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="${context}/css/login.css"/>
+        <link rel="shortcut icon" href="${context}/favicon.ico" type="image/x-icon"/>
         <title>BBMRI CZ</title>
         <stripes:layout-component name="hlavicka"/>
     </head>

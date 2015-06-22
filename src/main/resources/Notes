@@ -1,7 +1,5 @@
 TODO:
 
-- Notifikace
-- lokalizace tlačítek - ChangePermission u Biobanky
 - Archiv - je potreba? Coz takhle upravit notifikace tak aby nahradili archiv ?
 - Poznámky - nápověda, vysvětlující informace
 - formát zobrazení telefoních čísel
@@ -21,6 +19,7 @@ TODO:
 - možnost k samplu zadat pozici, zobrazit pozici
 - řazení
 - na dashboard hodit panely ke správě relevantních věcí - moje projekty, moje biobanky, moje žádosti, moje ...
+- Java script pro editaci entit  - User, project, Biobank ... vyzkoušet
 
 
 Parser MOU:

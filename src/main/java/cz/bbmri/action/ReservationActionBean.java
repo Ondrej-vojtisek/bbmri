@@ -14,10 +14,7 @@ import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidateNestedProperties;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * TODO describe class
@@ -45,6 +42,9 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
 
     @SpringBean
     private RequestDAO requestDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
 
     private Long id;
 
@@ -139,7 +139,7 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
         this.projectId = projectId;
     }
 
-    public List<Project> getProjects(){
+    public List<Project> getProjects() {
         return projectDAO.getByUser(getLoggedUser());
     }
 
@@ -227,7 +227,14 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
 
             newReservation.setValidation(cal.getTime());
 
-            reservationDAO.save(newReservation);
+            newReservation = reservationDAO.save(newReservation);
+
+            // Notification for biobank users
+            LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ReservationActionBean.created",
+                    newReservation.getUser().getWholeName(), biobank.getAcronym());
+
+            notificationDAO.create(biobank.getOtherBiobankUser(getLoggedUser()),
+                    NotificationType.RESERVATION_DETAIL, locMsg, newReservation.getId());
         }
 
         return new RedirectResolution(ReservationActionBean.class, "myReservations");
@@ -245,7 +252,14 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
         reservation.setReservationState(ReservationState.APPROVED);
         reservation.setLastModification(new Date());
 
-        reservationDAO.save(reservation);
+        reservation = reservationDAO.save(reservation);
+
+        // Notification for biobank users
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ReservationActionBean.changeState",
+                reservation.getId(), ReservationState.APPROVED);
+
+        notificationDAO.create(reservation.getUser(),
+                NotificationType.RESERVATION_DETAIL, locMsg, reservation.getId());
 
         return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
     }
@@ -262,7 +276,14 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
         reservation.setReservationState(ReservationState.DENIED);
         reservation.setLastModification(new Date());
 
-        reservationDAO.save(reservation);
+        reservation = reservationDAO.save(reservation);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ReservationActionBean.changeState",
+                reservation.getId(), ReservationState.DENIED);
+
+        notificationDAO.create(reservation.getUser(),
+                NotificationType.RESERVATION_DETAIL, locMsg, reservation.getId());
 
         return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
     }
@@ -287,7 +308,14 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
         // Add period for which is reservation valid
         cal.add(Calendar.MONTH, globalSettingDAO.getReservationValidity());
 
-        reservationDAO.save(reservation);
+        reservation = reservationDAO.save(reservation);
+
+        // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ReservationActionBean.changeState",
+                reservation.getId(), ReservationState.CONFIRMED);
+
+        notificationDAO.create(reservation.getUser(),
+                NotificationType.RESERVATION_DETAIL, locMsg, reservation.getId());
 
         return new RedirectResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
     }
@@ -303,26 +331,33 @@ public class ReservationActionBean extends AbstractRequisitionActionBean {
 
         Project project = projectDAO.get(projectId);
 
-        if(project == null){
+        if (project == null) {
             return new ForwardResolution(View.Project.NOTFOUND);
         }
 
-        if(!project.getIsConfirmed()){
+        if (!project.getIsConfirmed()) {
             getContext().getValidationErrors().addGlobalError(new LocalizableError("cz.bbmri.action.ReservationActionBean.notConfirmed"));
-           return new ForwardResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
+            return new ForwardResolution(ReservationActionBean.class, "detail").addParameter("id", reservation.getId());
         }
 
         Question question = new Question();
         question.setProject(project);
         question.setQuestionState(QuestionState.APPROVED);
         question.setBiobank(reservation.getBiobank());
-        questionDAO.save(question);
+        question = questionDAO.save(question);
 
-        for(Request request : reservation.getRequest()){
+        for (Request request : reservation.getRequest()) {
             request.setReservation(null);
             request.setQuestion(question);
             requestDAO.update(request);
         }
+
+         // Notification
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ReservationActionBean.assignToProject",
+                reservation.getId(), reservation.getUser(), project.getName());
+
+        notificationDAO.create(reservation.getUser(),
+               NotificationType.QUESTION_DETAIL, locMsg, question.getId());
 
         reservationDAO.remove(reservation);
 

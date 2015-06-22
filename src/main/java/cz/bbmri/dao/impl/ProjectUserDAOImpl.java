@@ -26,22 +26,22 @@ import java.util.Set;
 @Transactional
 public class ProjectUserDAOImpl extends GenericDAOImpl<ProjectUser> implements ProjectUserDAO {
 
-    public static List<User> getOtherProjectUsers(Project project, User user) {
-        notNull(project);
-        notNull(user);
-
-        Set<ProjectUser> projectUsers = project.getProjectUser();
-
-        List<User> users = new ArrayList<User>();
-
-        for (ProjectUser projectUser : projectUsers) {
-            if (!projectUser.getUser().equals(user)) {
-                users.add(projectUser.getUser());
-            }
-        }
-
-        return users;
-    }
+//    public static List<User> getOtherProjectUsers(Project project, User user) {
+//        notNull(project);
+//        notNull(user);
+//
+//        Set<ProjectUser> projectUsers = project.getProjectUser();
+//
+//        List<User> users = new ArrayList<User>();
+//
+//        for (ProjectUser projectUser : projectUsers) {
+//            if (!projectUser.getUser().equals(user)) {
+//                users.add(projectUser.getUser());
+//            }
+//        }
+//
+//        return users;
+//    }
 
     public void remove(ProjectUser projectUser) {
         getCurrentSession().delete(projectUser);

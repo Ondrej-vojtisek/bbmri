@@ -2,10 +2,7 @@ package cz.bbmri.action;
 
 import cz.bbmri.action.base.ComponentActionBean;
 import cz.bbmri.action.map.View;
-import cz.bbmri.dao.AttachmentDAO;
-import cz.bbmri.dao.ProjectDAO;
-import cz.bbmri.dao.ProjectUserDAO;
-import cz.bbmri.dao.UserDAO;
+import cz.bbmri.dao.*;
 import cz.bbmri.entity.*;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
@@ -42,6 +39,12 @@ public class ProjectCreateActionBean extends ComponentActionBean {
 
     @SpringBean
     private UserDAO userDAO;
+
+    @SpringBean
+    private NotificationDAO notificationDAO;
+
+    @SpringBean
+    private RoleDAO roleDAO;
 
     @ValidateNestedProperties(value = {
             @Validate(on = {"third"},
@@ -146,6 +149,14 @@ public class ProjectCreateActionBean extends ComponentActionBean {
         User user = getLoggedUser();
         user.nominateProjectTeamMember();
         userDAO.save(user);
+
+        Role administrator = roleDAO.get(Role.ADMIN.getId());
+
+        LocalizableMessage locMsg = new LocalizableMessage("cz.bbmri.action.ProjectCreateActionBean.created",
+                project.getName(), getLoggedUser());
+
+        notificationDAO.create(administrator.getUser(),
+                NotificationType.PROJECT_DETAIL, locMsg, project.getId());
 
         return new RedirectResolution(ProjectActionBean.class, "myProjects");
     }

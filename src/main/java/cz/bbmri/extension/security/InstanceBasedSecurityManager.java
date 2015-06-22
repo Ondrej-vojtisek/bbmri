@@ -80,8 +80,6 @@ public class InstanceBasedSecurityManager extends J2EESecurityManager {
 
             Object value = evaluateRoleExpression(bean, roleExpression);
             hasRole = value == null ? null : Boolean.TRUE.equals(value);
-        }else{
-//            logger.debug("hasRole == null || hasRole || roleExpression == null");
         }
 
         logger.debug("Done checking role " + role + ": access is " + (hasRole ? "allowed" : "denied") + '.');

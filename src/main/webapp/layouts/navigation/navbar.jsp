@@ -33,9 +33,10 @@
             </security:notAllowed>
         </p>
 
+        <%-- -------------------------------------------------------------------- --%>
+
     </core:if>
     <%-- -------------------------------------------------------------------- --%>
-
     <ul class="navbar-text pull-right dropdown" style="margin-right: 30px;">
         <a href="#" class="navbar-text dropdown-toggle" data-toggle="dropdown">
                 ${actionBean.context.locale}
@@ -66,9 +67,29 @@
     <%-- -------------------------------------------------------------------- --%>
 
     <p class="navbar-text pull-right">
-        <b><format:message key="version"/>:</b> <i>2.0 (17. 6. 2015)</i>
-    </p>
+    <b><format:message key="version"/>:</b> <i>2.0 (22. 6. 2015)</i>
+
 
     <%-- -------------------------------------------------------------------- --%>
+    <core:if test="${not empty actionBean.context.myId}">
+
+        <p class="navbar-text pull-right" style="margin-right: 20px;">
+            <core:if test="${actionBean.loggedUser.administrator}">
+                <stripes:link beanclass="cz.bbmri.action.RoleActionBean"
+                              event="detail">
+                    <stripes:param name="id" value="${actionBean.loggedUser.id}"/>
+                    <span class="label label-info"><format:message key="cz.bbmri.entity.Role.admin"/></span>
+                </stripes:link>
+
+            </core:if>
+            <core:if test="${actionBean.loggedUser.developer}">
+                <stripes:link beanclass="cz.bbmri.action.RoleActionBean"
+                              event="detail">
+                    <stripes:param name="id" value="${actionBean.loggedUser.id}"/>
+                    <span class="label label-success"><format:message key="cz.bbmri.entity.Role.developer"/></span>
+                </stripes:link>
+            </core:if>
+        </p>
+    </core:if>
 
 </stripes:layout-definition>

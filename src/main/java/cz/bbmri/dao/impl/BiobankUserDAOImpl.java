@@ -26,23 +26,6 @@ import java.util.Set;
 @Transactional
 public class BiobankUserDAOImpl extends GenericDAOImpl<BiobankUser> implements BiobankUserDAO {
 
-    public static List<User> getOtherBiobankUsers(Biobank biobank, User user) {
-        notNull(biobank);
-        notNull(user);
-
-        Set<BiobankUser> biobankUsers = biobank.getBiobankUser();
-
-        List<User> users = new ArrayList<User>();
-
-        for (BiobankUser biobankUser : biobankUsers) {
-            if (!biobankUser.getUser().equals(user)) {
-                users.add(biobankUser.getUser());
-            }
-        }
-
-        return users;
-    }
-
     public BiobankUser get(Biobank biobank, User user) {
         Criterion criterionBiobank = Restrictions.eq(BiobankUser.PROP_BIOBANK, biobank);
         Criterion criterionUser = Restrictions.eq(BiobankUser.PROP_USER, user);
